@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Application of AI, Case Study · Robert Babiarz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+.cs{--c-bg:#fffcf5;--c-bg2:#faf5e8;--c-soft:#fbf9f4;--c-card:#f3f1ea;--c-surface:#ffffff;--c-line:#edeae1;--c-line2:#c9c4b5;--c-ink:#0a0a0a;--c-ink2:#2a2722;--c-body:#56524a;--c-muted:#6e6a60;--c-muted2:#9a9486;--c-accent:#0d5350;--c-b1:rgba(10,8,4,0.07);--c-b2:rgba(10,8,4,0.08);--c-b3:rgba(10,8,4,0.1);--c-b4:rgba(10,8,4,0.14);--c-b5:rgba(10,8,4,0.25);--c-navbg:rgba(255,252,245,0.85);}
+.cs.dark{--c-bg:#0b0f14;--c-bg2:#11161c;--c-soft:#10151b;--c-card:#161c23;--c-surface:#141b24;--c-line:#242c34;--c-line2:#303942;--c-ink:#f3f1ea;--c-ink2:#e7e3da;--c-body:#bdb7aa;--c-muted:#948e82;--c-muted2:#726c60;--c-accent:#5fc2a8;--c-b1:rgba(255,255,255,0.06);--c-b2:rgba(255,255,255,0.085);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(0,0,0,0.55);--c-navbg:rgba(11,15,20,0.82);color-scheme:dark;}
+::selection{background:#0d5350;color:#fff}
+.ai-scroll::-webkit-scrollbar{width:7px;height:7px}
+.ai-scroll::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.18);border-radius:10px}
+.ai-scroll::-webkit-scrollbar-track{background:transparent}
+@keyframes ai-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ai-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes ai-pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+@media (max-width:600px){
+  nav{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:400 !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet>a{padding:14px 14px !important}
+  .cs-switch[open] summary::after{content:'';position:fixed;inset:0;background:rgba(10,8,4,0.42);z-index:390;animation:cs-fade .36s ease}
+}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+.cs section[id]{scroll-margin-top:84px}
+.cs-toc a .cs-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.cs-toc:hover a .cs-toc-label{opacity:1;transform:none}
+.cs-toc a[data-active] .cs-toc-label{opacity:1;color:#0d5350}
+.cs-toc a[data-active] .cs-toc-dot{background:#0d5350;width:22px}
+@media (max-width:1180px){ .cs-toc{display:none !important} }
+@media (max-width:880px){
+  .cs nav > div{padding-left:18px !important;padding-right:18px !important}
+  .cs section{padding-left:18px !important;padding-right:18px !important;padding-top:60px !important;padding-bottom:60px !important}
+  .cs [style*="grid-template-columns"]{grid-template-columns:1fr !important}
+  .cs [style*="repeat(6, 1fr)"],.cs [style*="repeat(5, 1fr)"],.cs [style*="repeat(4, 1fr)"],.cs [style*="repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  .cs-hero-media{margin-top:8px !important}
+}
+@media (max-width:520px){
+  .cs h1{font-size:40px !important;letter-spacing:-1.5px !important}
+  .cs h2{font-size:27px !important}
+  .cs [style*="repeat(6, 1fr)"],.cs [style*="repeat(4, 1fr)"],.cs [style*="repeat(2, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+}
+.cs-burger{display:none;width:40px;height:40px;border:1px solid rgba(10,8,4,0.14);border-radius:9px;background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.cs-burger span{display:block;width:18px;height:2px;background:#0d5350;border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .cs-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .cs-burger span:nth-child(2){opacity:0}
+.menu-open .cs-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#cs-menu{position:fixed;inset:0;z-index:95;background:#fffcf5;display:flex;flex-direction:column;padding:84px 24px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #cs-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#cs-menu .csm-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6f6b61;margin-bottom:6px}
+#cs-menu .csm-sec{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:22px;font-weight:600;letter-spacing:-0.02em;color:#0a0a0a;text-decoration:none;padding:12px 2px;border-bottom:1px solid rgba(10,8,4,0.08);opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,color .15s}
+.menu-open #cs-menu .csm-sec{opacity:1;transform:none}
+#cs-menu .csm-sec .csm-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;color:#6f6b61}
+#cs-menu .csm-switch{display:block;text-decoration:none;padding:13px 14px;border:1px solid rgba(10,8,4,0.12);border-radius:11px;margin-top:10px;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .15s}
+.menu-open #cs-menu .csm-switch{opacity:1;transform:none}
+.cs-stagger>*{transition-delay:0s}
+.menu-open .cs-stagger>:nth-child(1){transition-delay:.05s}
+.menu-open .cs-stagger>:nth-child(2){transition-delay:.09s}
+.menu-open .cs-stagger>:nth-child(3){transition-delay:.13s}
+.menu-open .cs-stagger>:nth-child(4){transition-delay:.17s}
+.menu-open .cs-stagger>:nth-child(5){transition-delay:.21s}
+.menu-open .cs-stagger>:nth-child(6){transition-delay:.25s}
+.menu-open .cs-stagger>:nth-child(7){transition-delay:.29s}
+.menu-open .cs-stagger>:nth-child(8){transition-delay:.33s}
+.menu-open .cs-stagger>:nth-child(9){transition-delay:.37s}
+.menu-open .cs-stagger>:nth-child(n+10){transition-delay:.41s}
+@media (max-width:880px){ .cs-burger{display:flex} }
+@media (min-width:881px){ #cs-menu{display:none !important} }
+/* square corners on all screenshot frames (any frame wrapping an <img>) */
+.cs div:has(> img){border-radius:0 !important}
+</style>
+<script src="text-motion.js"></script>
+<script src="page-transition.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div class="cs {{ rootClass }} {{ menuClass }}" style="background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:clip;">
+
+  <!-- ════════ NAV ════════ -->
+  <nav style="position:sticky;top:0;z-index:100;background:var(--c-navbg);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1);">
+    <div style="padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="Homepage Interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color 0.15s;" style-hover="color:var(--c-ink)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background 0.2s,border-color 0.2s;" style-hover="background:var(--c-card)"><sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></sc-if><sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></sc-if></button>
+        <details class="cs-switch" style="position:relative;">
+          <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:#0d5350;">Enterprise AI</span>
+            <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5" style="transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
+            <a href="Enterprise AI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:#eaf6f1;"><div style="font-size:14px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+            <a href="Smart Lighting.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="Partitioning.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+            <a href="DALI-2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="Core Insights.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="AEGIS DI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+            <a href="Goals-Driven Fintech.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+            <a href="CTOC Case Study v2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
+            <a href="Homepage Interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)">← All work</a>
+          </div>
+        </details>
+        <button class="cs-burger" onClick="{{ toggleMenu }}" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="cs-menu">
+    <div class="csm-lbl">Sections</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-sec" href="#s-overview" onClick="{{ closeMenu }}"><span>Overview</span><span class="csm-n">01</span></a>
+      <a class="csm-sec" href="#s-users" onClick="{{ closeMenu }}"><span>The Users</span><span class="csm-n">02</span></a>
+      <a class="csm-sec" href="#s-search" onClick="{{ closeMenu }}"><span>Conversational AI</span><span class="csm-n">03</span></a>
+      <a class="csm-sec" href="#s-explain" onClick="{{ closeMenu }}"><span>Explainability</span><span class="csm-n">04</span></a>
+      <a class="csm-sec" href="#s-predict" onClick="{{ closeMenu }}"><span>Predictive Maintenance</span><span class="csm-n">05</span></a>
+      <a class="csm-sec" href="#s-optimize" onClick="{{ closeMenu }}"><span>Self-Learning</span><span class="csm-n">06</span></a>
+      <a class="csm-sec" href="#s-field" onClick="{{ closeMenu }}"><span>AI in the Field</span><span class="csm-n">07</span></a>
+      <a class="csm-sec" href="#s-outcomes" onClick="{{ closeMenu }}"><span>Outcomes</span><span class="csm-n">08</span></a>
+    </div>
+    <div class="csm-lbl" style="margin-top:26px;">Switch case study</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-switch" href="Smart Lighting.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+      <a class="csm-switch" href="Partitioning.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+      <a class="csm-switch" href="DALI-2.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+      <a class="csm-switch" href="Core Insights.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+      <a class="csm-switch" href="AEGIS DI.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+      <a class="csm-switch" href="Goals-Driven Fintech.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+      <a class="csm-switch" href="CTOC Case Study v2.dc.html"><div style="font-size:15px;font-weight:600;color:var(--c-accent);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+      <a class="csm-switch" href="Homepage Interactive.dc.html"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">← All work</div></a>
+    </div>
+  </div>
+
+  <!-- ════════ SECTION SIDE-NAV ════════ -->
+  <nav class="cs-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
+    <a href="#s-overview" data-toc="s-overview" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Overview</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-users" data-toc="s-users" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Users</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-search" data-toc="s-search" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Conversational</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-explain" data-toc="s-explain" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Explainability</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-predict" data-toc="s-predict" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Predictive</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-optimize" data-toc="s-optimize" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Optimization</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-field" data-toc="s-field" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">In the field</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-outcomes" data-toc="s-outcomes" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Outcomes</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+  </nav>
+
+  <!-- ════════ HERO ════════ -->
+  <section style="position:relative;overflow:hidden;padding:78px 40px 70px;background:var(--c-bg);">
+    <div style="position:absolute;top:-140px;right:-100px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(94,67,196,0.12),transparent 68%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-80px;left:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(95,194,168,0.10),transparent 70%);pointer-events:none;"></div>
+    <div style="max-width:1240px;margin:0 auto;position:relative;">
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:24px;animation:ai-up 0.7s ease both;">
+        <span style="width:30px;height:1.5px;background:#0d5350;"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#0d5350;">ENTERPRISE AI · IOT PLATFORM</span>
+      </div>
+      <h1 style="font-family:'Inter',sans-serif;font-size:clamp(42px,5.4vw,78px);font-weight:500;line-height:0.98;letter-spacing:-2.4px;color:var(--c-ink);max-width:1080px;animation:ai-up 0.8s ease 0.05s both;">INFUSING INTELLIGENCE<br/><span style="font-style:italic;font-weight:300;color:#0d5350;">into the Enterprise</span></h1>
+      <p style="font-size:clamp(17px,1.7vw,21px);color:var(--c-body);line-height:1.6;max-width:660px;margin-top:26px;animation:ai-up 0.8s ease 0.12s both;">Embedding conversational and predictive AI into CORE, Cooper Lighting's cloud platform for managing connected lighting across enterprise buildings. Turning a wall of cryptic alarms into plain-language answers, and reactive maintenance into foresight.</p>
+      <div style="display:grid;grid-template-columns:repeat(5,auto);gap:16px 44px;margin-top:40px;animation:ai-up 0.8s ease 0.2s both;width:max-content;max-width:100%;">
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Lead / Principal XD</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Platform</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">CORE · Web Cloud</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Scope</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">AI strategy → delivery</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Domain</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Connected Lighting</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Years</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">2022–2023</div></div>
+      </div>
+      <div class="cs-hero-media" style="margin-top:52px;position:relative;animation:ai-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.2s both;">
+        <div style="border-radius:15px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 50px 100px -45px rgba(13,83,80,0.5);background:var(--c-surface);">
+          <div style="height:40px;background:#0e1a17;display:flex;align-items:center;gap:8px;padding:0 16px;">
+            <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#febc2e;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#28c840;"></span>
+            <div style="margin-left:14px;flex:1;max-width:340px;height:23px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 12px;gap:8px;">
+              <span style="width:9px;height:9px;border-radius:2px;background:#5fc2a8;"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9b93ad;">core.cooperlighting.com</span>
+            </div>
+          </div>
+          <img src="assets/ai/dashboard-home.jpg" alt="CORE dashboard home with AI search and alarm overview" style="width:100%;display:block;"/>
+        </div>
+        <div style="position:absolute;bottom:18px;left:18px;display:flex;align-items:center;gap:8px;background:rgba(14,26,23,0.86);backdrop-filter:blur(6px);border:1px solid rgba(95,194,168,0.35);border-radius:9px;padding:7px 13px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#5fc2a8;animation:ai-pulse 1.8s ease-in-out infinite;"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.06em;color:#cfc6e8;">CORE, Cooper Operations &amp; Reliability Engine</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 1 · OVERVIEW ════════ -->
+  <section id="s-overview" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">01 · Overview</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);max-width:1000px;margin-bottom:30px;" data-reveal="1">FROM A WALL OF ALARMS TO <span style="font-style:italic;font-weight:300;color:#0d5350;">a Conversation</span></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1000px;margin-bottom:54px;" data-reveal="1">
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">CORE manages thousands of connected lighting devices across enterprise buildings, controllers, sensors, wall stations, relay packs. At scale, the platform generated a relentless stream of alarms and status codes that only specialists could decode, and maintenance stayed stubbornly reactive: teams found out a device had failed only after it went dark.</p>
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">My mandate was to define how AI should live inside an established enterprise product, not as a bolted-on chatbot, but woven through the daily workflow. Three pillars emerged: <strong style="color:#16161a;">conversational</strong> access to the system, <strong style="color:#16161a;">explainability</strong> for every alarm, and <strong style="color:#16161a;">prediction</strong> ahead of failure.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:16px;padding:30px 32px;" data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:16px;">MY ROLE</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">AI experience strategy for the CORE platform</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Conversational &amp; search interaction model</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Explainability &amp; remediation content framework</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Predictive-maintenance &amp; optimization flows</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Cross-functional alignment with Data Science &amp; Eng</span></div>
+          </div>
+        </div>
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:16px;padding:30px 32px;" data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:16px;">THE PROBLEM, IN NUMBERS</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Devices on a single large site</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">400+</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Distinct alarm / fault codes</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">14+</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Daily alarms at peak</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">300</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:14.5px;color:var(--c-body);">Decoded without a specialist</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#c0392b;">Few</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#0e1a17;border-radius:16px;overflow:hidden;" data-reveal="1">
+        <div style="padding:38px 30px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 01</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Conversational</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Ask the building anything in plain language, alarms, devices, history, and get a direct answer.</div></div>
+        <div style="padding:38px 30px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 02</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Explainable</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Every cryptic code becomes a plain-language cause and a numbered remediation workflow.</div></div>
+        <div style="padding:38px 30px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 03</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Predictive</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Surface devices nearing end-of-life and let the system self-optimize before anything fails.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · USERS ════════ -->
+  <section id="s-users" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">02 · The Users</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">BUILT FOR THE PEOPLE <span style="font-style:italic;font-weight:300;color:#0d5350;">Holding the Pager</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:46px;" data-reveal="1">AI only earns its place if it helps the person on the floor at 2am. We anchored every decision to three operators, each with different expertise, urgency, and tolerance for jargon.</p>
+      <div style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:18px;" data-reveal="1">
+          <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:22px 24px;border-left:3px solid #0d5350;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:700;color:#16161a;">Facility Manager</div><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.06em;">PRIMARY</span></div>
+            <p style="font-size:14.5px;color:var(--c-body);line-height:1.62;">Owns building uptime, not lighting protocols. Needs the day's risk at a glance and a clear next action, never a fault code to Google.</p>
+          </div>
+          <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:22px 24px;border-left:3px solid #5fc2a8;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:700;color:#16161a;">Field Technician</div><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.06em;">ON-SITE</span></div>
+            <p style="font-size:14.5px;color:var(--c-body);line-height:1.62;">On a ladder with a tablet and gloves. Needs the exact device, the exact step, and the part number, fast, hands-busy, no scrolling.</p>
+          </div>
+          <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:22px 24px;border-left:3px solid #c9b8f5;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:700;color:#16161a;">CLS Sales Agent</div><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.06em;">SPECIFIER</span></div>
+            <p style="font-size:14.5px;color:var(--c-body);line-height:1.62;">Specs fixtures for customers and wants AI to recommend the right product for a brief, precision vs. price, without leaving the tool.</p>
+          </div>
+        </div>
+        <div data-reveal="1" style="position:relative;">
+          <div style="border-radius:18px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 36px 80px -40px rgba(13,83,80,0.5);">
+            <img src="assets/ai/field-tech.jpg" alt="Field technician using a handheld in an electrical room" style="width:100%;display:block;"/>
+          </div>
+          <div style="position:absolute;bottom:16px;left:16px;right:16px;background:rgba(14,26,23,0.82);backdrop-filter:blur(6px);border-radius:11px;padding:13px 16px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5fc2a8;letter-spacing:0.1em;margin-bottom:4px;">CONTEXT OF USE</div>
+            <div style="font-size:13.5px;color:#e3f1ec;line-height:1.5;">The tool is read on a handheld, in a mechanical room, between other tasks, the design target was zero interpretation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 3 · CONVERSATIONAL ════════ -->
+  <section id="s-search" style="padding:90px 40px;background:#07120f;color:#e3f1ec;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">03 · Conversational AI</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">ONE BAR TO <span style="font-style:italic;font-weight:300;color:#5fc2a8;">Ask the Building Anything</span></h2>
+      <p style="font-size:16.5px;color:#9fcabd;line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">A single "Ask AI &amp; Search" bar sits at the top of every CORE screen. Below it, a row of one-tap intents, Today's Alarms, Critical Alarms, Deficient Devices, Longest Time Offline, turns the most common questions into instant queries. The same answer can be read three ways: as a floor plan, a building roll-up, or a table.</p>
+      <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:40px;align-items:start;">
+        <div data-reveal="1">
+          <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
+            <button onClick="{{ setFloor }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:9px 15px;border-radius:8px;border:1px solid {{ floorBorder }};background:{{ floorBg }};color:{{ floorFg }};transition:all .18s;">FLOOR PLAN</button>
+            <button onClick="{{ setBld }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:9px 15px;border-radius:8px;border:1px solid {{ bldBorder }};background:{{ bldBg }};color:{{ bldFg }};transition:all .18s;">BY BUILDING</button>
+            <button onClick="{{ setTable }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:9px 15px;border-radius:8px;border:1px solid {{ tableBorder }};background:{{ tableBg }};color:{{ tableFg }};transition:all .18s;">TABLE</button>
+          </div>
+          <div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:#fff;margin-bottom:8px;">{{ viewTitle }}</div>
+          <p style="font-size:14.5px;color:#9fcabd;line-height:1.66;margin-bottom:24px;">{{ viewBody }}</p>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;gap:13px;align-items:flex-start;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;margin-top:2px;">↳</span><div><div style="font-size:14px;font-weight:600;color:#e3f1ec;">Same answer, three lenses</div><div style="font-size:13px;color:#6fae9b;line-height:1.5;">Spatial, hierarchical, or tabular, the operator picks how to think, not the data.</div></div></div>
+            <div style="display:flex;gap:13px;align-items:flex-start;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;margin-top:2px;">↳</span><div><div style="font-size:14px;font-weight:600;color:#e3f1ec;">Intents, not syntax</div><div style="font-size:13px;color:#6fae9b;line-height:1.5;">The query chips encode the questions teams already ask every morning.</div></div></div>
+            <div style="display:flex;gap:13px;align-items:flex-start;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;margin-top:2px;">↳</span><div><div style="font-size:14px;font-weight:600;color:#e3f1ec;">Drill straight to the device</div><div style="font-size:13px;color:#6fae9b;line-height:1.5;">Every result is a live object, one tap to its history and remediation.</div></div></div>
+          </div>
+        </div>
+        <div data-reveal="1">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.22);box-shadow:0 40px 90px -45px rgba(0,0,0,0.7);background:var(--c-surface);">
+            <img src="{{ alarmImg }}" alt="CORE alarm view" style="width:100%;display:block;"/>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7e739e;letter-spacing:0.05em;margin-top:14px;text-align:center;">{{ viewCaption }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · EXPLAINABILITY ════════ -->
+  <section id="s-explain" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">04 · Explainability</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">EVERY ALARM CODE, <span style="font-style:italic;font-weight:300;color:#0d5350;">Translated to a Plan</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:14px;" data-reveal="1">The "Explain Alarms" feature is the heart of the work: pick any fault code and AI returns what it means in plain language plus a numbered remediation workflow, the same answer a senior specialist would give, available to anyone.</p>
+      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9b8fc0;letter-spacing:0.04em;margin-bottom:30px;" data-reveal="1">↓ TAP AN ALARM TYPE TO GENERATE ITS REMEDIATION</p>
+      <div style="display:grid;grid-template-columns:1fr;gap:0;">
+        <div data-reveal="1" style="background:#0e1a17;border-radius:18px;overflow:hidden;border:1px solid var(--c-b3);">
+          <div style="padding:22px 26px 18px;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
+              <span style="width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,#5fc2a8,#0d5350);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--c-surface)" stroke-width="2.5"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"/></svg></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.08em;">EXPLAIN ALARMS</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button onClick="{{ exBattery }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ exBatteryBd }};background:{{ exBatteryBg }};color:{{ exBatteryFg }};transition:all .16s;">Battery Low</button>
+              <button onClick="{{ exVoltage }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ exVoltageBd }};background:{{ exVoltageBg }};color:{{ exVoltageFg }};transition:all .16s;">Over Voltage Detected</button>
+              <button onClick="{{ exIp }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ exIpBd }};background:{{ exIpBg }};color:{{ exIpFg }};transition:all .16s;">Controller IP Mismatch</button>
+              <button onClick="{{ exTimeout }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ exTimeoutBd }};background:{{ exTimeoutBg }};color:{{ exTimeoutFg }};transition:all .16s;">Communication Timeout</button>
+              <button onClick="{{ exFault }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ exFaultBd }};background:{{ exFaultBg }};color:{{ exFaultFg }};transition:all .16s;">Critical Fault</button>
+              <button onClick="{{ exUnreach }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ exUnreachBd }};background:{{ exUnreachBg }};color:{{ exUnreachFg }};transition:all .16s;">Device Unreachable</button>
+            </div>
+          </div>
+          <div style="padding:28px 26px 30px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7e739e;letter-spacing:0.06em;">{{ exTime }}, EXPLAIN ALARMS</span>
+            </div>
+            <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.4px;margin-bottom:18px;">{{ exTitle }}</div>
+            <div style="background:#07120f;border:1px solid rgba(95,194,168,0.18);border-radius:13px;padding:22px 24px;">
+              <p style="font-size:15px;color:#9fd6c8;line-height:1.66;margin-bottom:18px;">{{ exPlain }}</p>
+              <div style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:0.05em;color:#5fc2a8;margin-bottom:12px;">RECOMMENDED ACTION</div>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;gap:13px;align-items:flex-start;"><span style="flex:none;width:22px;height:22px;border-radius:6px;background:rgba(95,194,168,0.16);color:#5fc2a8;font-family:'JetBrains Mono',monospace;font-size:12px;display:flex;align-items:center;justify-content:center;">1</span><span style="font-size:14px;color:#dcefe7;line-height:1.55;">{{ exStep1 }}</span></div>
+                <div style="display:flex;gap:13px;align-items:flex-start;"><span style="flex:none;width:22px;height:22px;border-radius:6px;background:rgba(95,194,168,0.16);color:#5fc2a8;font-family:'JetBrains Mono',monospace;font-size:12px;display:flex;align-items:center;justify-content:center;">2</span><span style="font-size:14px;color:#dcefe7;line-height:1.55;">{{ exStep2 }}</span></div>
+                <div style="display:flex;gap:13px;align-items:flex-start;"><span style="flex:none;width:22px;height:22px;border-radius:6px;background:rgba(95,194,168,0.16);color:#5fc2a8;font-family:'JetBrains Mono',monospace;font-size:12px;display:flex;align-items:center;justify-content:center;">3</span><span style="font-size:14px;color:#dcefe7;line-height:1.55;">{{ exStep3 }}</span></div>
+                <div style="display:flex;gap:13px;align-items:flex-start;"><span style="flex:none;width:22px;height:22px;border-radius:6px;background:rgba(95,194,168,0.16);color:#5fc2a8;font-family:'JetBrains Mono',monospace;font-size:12px;display:flex;align-items:center;justify-content:center;">4</span><span style="font-size:14px;color:#dcefe7;line-height:1.55;">{{ exStep4 }}</span></div>
+              </div>
+              <div style="margin-top:20px;display:flex;justify-content:flex-end;">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#07120f;background:#5fc2a8;padding:8px 16px;border-radius:7px;letter-spacing:0.04em;">SEE ITEM →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:14px;color:var(--c-muted);line-height:1.6;max-width:760px;margin-top:18px;font-style:italic;" data-reveal="1">Recreated from the shipped CORE "Explain Alarms" panel, live in this case study so you can step through each fault type.</p>
+    </div>
+  </section>
+
+  <!-- ════════ 5 · PREDICTIVE ════════ -->
+  <section id="s-predict" style="padding:90px 40px;background:var(--c-bg2);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">05 · Predictive Maintenance</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">FIX IT BEFORE <span style="font-style:italic;font-weight:300;color:#0d5350;">It Goes Dark</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">Predictive Maintenance flips the model from reactive to proactive. Each device card shows firmware status, install age, and an AI-estimated lifespan, "2 months remaining", with a one-tap recommendation. The companion "Longest Time Offline" view ranks devices by silence, so the worst actors surface first.</p>
+      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 30px 70px -38px rgba(13,83,80,0.4);margin-bottom:22px;" data-reveal="1">
+        <img src="assets/ai/predictive-maintenance.jpg" alt="Predictive Maintenance device cards with lifespan and recommendation" style="width:100%;display:block;"/>
+      </div>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:22px;align-items:stretch;">
+        <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 30px 70px -38px rgba(13,83,80,0.4);" data-reveal="1">
+          <img src="assets/ai/offline-chart.jpg" alt="Longest time offline by device chart" style="width:100%;display:block;"/>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;" data-reveal="1">
+          <div style="background:#0e1a17;border-radius:14px;padding:24px 26px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:'Inter',sans-serif;font-size:42px;font-weight:600;color:#5fc2a8;letter-spacing:-1px;">2 mo</div>
+            <div style="font-size:13.5px;color:#9fd6c8;margin-top:8px;line-height:1.5;">Typical lead time AI surfaces before a device reaches end-of-life</div>
+          </div>
+          <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:24px 26px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:'Inter',sans-serif;font-size:42px;font-weight:600;color:#0d5350;letter-spacing:-1px;">1-tap</div>
+            <div style="font-size:13.5px;color:var(--c-body);margin-top:8px;line-height:1.5;">From a flagged device to a concrete recommendation and part</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 6 · OPTIMIZATION ════════ -->
+  <section id="s-optimize" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">06 · Self-Learning Optimization</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">SET THE INTENT, <span style="font-style:italic;font-weight:300;color:#0d5350;">Let It Tune Itself</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:36px;" data-reveal="1">Rather than configuring hundreds of schedules by hand, a manager turns on Cooper Intelligence and picks a single goal. The system then tunes occupancy response, dimming, and schedules across the site to match, and keeps learning from how the building is actually used.</p>
+      <div style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:40px;align-items:center;">
+        <div data-reveal="1">
+          <div style="display:flex;gap:10px;margin-bottom:24px;">
+            <button onClick="{{ setEnergy }}" style="cursor:pointer;flex:1;text-align:left;padding:18px 20px;border-radius:14px;border:1.5px solid {{ enBorder }};background:{{ enBg }};transition:all .2s;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ enIcon }}" stroke-width="2.2" style="margin-bottom:10px;"><path d="M13 2L4.5 13.5H11l-1 8.5L19.5 10.5H13L13 2z"/></svg>
+              <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:{{ enText }};">Energy Optimized</div>
+            </button>
+            <button onClick="{{ setComfort }}" style="cursor:pointer;flex:1;text-align:left;padding:18px 20px;border-radius:14px;border:1.5px solid {{ coBorder }};background:{{ coBg }};transition:all .2s;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ coIcon }}" stroke-width="2.2" style="margin-bottom:10px;"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2"/><path d="M16 3.5a3 3 0 0 1 0 6M21 21v-2a5 5 0 0 0-3-4.5"/></svg>
+              <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:{{ coText }};">User Comfort</div>
+            </button>
+          </div>
+          <div style="background:#0e1a17;border-radius:16px;padding:26px 28px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">{{ optTag }}</div>
+            <div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;color:#fff;letter-spacing:-0.4px;margin-bottom:12px;">{{ optTitle }}</div>
+            <p style="font-size:14.5px;color:#9fd6c8;line-height:1.66;margin-bottom:20px;">{{ optBody }}</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:14px 16px;"><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;color:#5fc2a8;letter-spacing:-0.5px;">{{ optStat1 }}</div><div style="font-size:11.5px;color:#6fae9b;margin-top:4px;line-height:1.4;">{{ optStat1Lbl }}</div></div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:14px 16px;"><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;color:#5fc2a8;letter-spacing:-0.5px;">{{ optStat2 }}</div><div style="font-size:11.5px;color:#6fae9b;margin-top:4px;line-height:1.4;">{{ optStat2Lbl }}</div></div>
+            </div>
+          </div>
+        </div>
+        <div data-reveal="1">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 30px 70px -38px rgba(13,83,80,0.4);">
+            <img src="assets/ai/optimize-system.jpg" alt="Optimize System screen with Use Cooper Intelligence toggle and templates" style="width:100%;display:block;"/>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#9b8fc0;letter-spacing:0.05em;margin-top:14px;text-align:center;">OPTIMIZE SYSTEM · CHOOSE A TEMPLATE TO LET AI AUTOMATE CONFIGURATION</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 7 · IN THE FIELD ════════ -->
+  <section id="s-field" style="padding:90px 40px;background:#07120f;color:#e3f1ec;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">07 · AI in the Field</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">FROM A BRIEF TO <span style="font-style:italic;font-weight:300;color:#5fc2a8;">the Right Fixture</span></h2>
+      <p style="font-size:16.5px;color:#9fcabd;line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">The same intelligence reaches sales and specification. A conversational "Fixture Recommendation" assistant turns a plain brief, "precise lighting for a grocery parking lot", into specific products, then connects to a searchable library of 5,000 IES files and an Area Wizard that auto-places fixtures on a real site map.</p>
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.2);box-shadow:0 40px 90px -45px rgba(0,0,0,0.7);margin-bottom:24px;" data-reveal="1">
+        <img src="assets/ai/fixture-ai-chat.jpg" alt="Select Fixture with conversational AI recommendation panel" style="width:100%;display:block;"/>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div data-reveal="1">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:0 30px 70px -40px rgba(0,0,0,0.7);margin-bottom:14px;">
+            <img src="assets/ai/ies-grid.jpg" alt="Searchable IES file library" style="width:100%;display:block;"/>
+          </div>
+          <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Searchable IES Library</div>
+          <p style="font-size:14px;color:#6fae9b;line-height:1.6;">5,000 photometric files, filtered by CCT, lumens, wattage and optics, multi-select and export in a click instead of digging through PDFs.</p>
+        </div>
+        <div data-reveal="1">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:0 30px 70px -40px rgba(0,0,0,0.7);margin-bottom:14px;">
+            <img src="assets/ai/smart-layout.jpg" alt="Smart Layout Area Wizard auto-placing fixtures on a site map" style="width:100%;display:block;"/>
+          </div>
+          <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Smart Layout · Area Wizard</div>
+          <p style="font-size:14px;color:#6fae9b;line-height:1.6;">Draw a boundary, set requirements, and AI auto-selects optics and places up to 20 fixtures to hit the target light level and uniformity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 8 · OUTCOMES ════════ -->
+  <section id="s-outcomes" style="padding:96px 40px 110px;background:var(--c-bg2);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">08 · Outcomes &amp; Reflection</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:44px;" data-reveal="1">WHAT INTELLIGENCE <span style="font-style:italic;font-weight:300;color:#0d5350;">Actually Bought</span></h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#0e1a17;border-radius:18px;overflow:hidden;margin-bottom:54px;">
+        <div style="padding:46px 34px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c1 }}%</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Less time spent decoding and triaging alarms</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">MEAN-TIME-TO-UNDERSTAND</div></div>
+        <div style="padding:46px 34px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c2 }}+</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Alarm codes turned into plain-language remediations</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">EXPLAINABILITY COVERAGE</div></div>
+        <div style="padding:46px 34px;text-align:center;"><div style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c3 }}</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Fixtures auto-placed per area by the Smart Layout wizard</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">DESIGN AUTOMATION</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1040px;margin-bottom:50px;">
+        <div data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:14px;">WHAT WORKED</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7;">Anchoring AI to existing pain, the alarm wall, gave it an obvious job from day one. Framing the assistant as <em>explanation plus a next step</em>, not open chat, kept trust high: every answer was specific, sourced from a real device, and actionable.</p>
+        </div>
+        <div data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:14px;">WHAT I'D PUSH FURTHER</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7;">Confidence and provenance deserve to be first-class, showing <em>why</em> the AI predicted a failure, not just that it did. And the optimization loop should expose what it learned over time, so managers can trust the system to keep tuning without watching it.</p>
+        </div>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-left:3px solid #0d5350;border-radius:0 14px 14px 0;padding:30px 34px;max-width:1040px;" data-reveal="1">
+        <p style="font-family:'Inter',sans-serif;font-style:italic;font-weight:300;font-size:clamp(19px,2.1vw,26px);color:#16302a;line-height:1.5;letter-spacing:-0.3px;">"The goal was never to add AI to a dashboard. It was to make a 400-device building answer a question, and tell you what to do next, the way the best technician on the team would."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer style="padding:42px 40px;background:var(--c-bg);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Next case study</div>
+        <a href="Smart Lighting.dc.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:#0d5350">Smart Lighting App <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'),
+    menu: false,
+    alarm: 'floor',
+    explain: 'battery',
+    opt: 'energy',
+    c1: 0, c2: 0, c3: 0, countersDone: false
+  };
+  _raf = {}; _obs = [];
+
+  componentDidMount() { setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.initScrollProgress(); }, 120); }
+  initScrollProgress() {
+    if (document.getElementById('scroll-prog-bar')) return;
+    const ac = '#0d5350', ac2 = '#5fc2a8';
+    const bar = document.createElement('div'); bar.id = 'scroll-prog-bar';
+    bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');transition:width 0.08s linear;pointer-events:none;';
+    const pill = document.createElement('div'); pill.id = 'scroll-prog-pill';
+    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
+    document.body.appendChild(bar); document.body.appendChild(pill);
+    const num = document.getElementById('scroll-prog-num');
+    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; pill.style.opacity = st > 60 ? '1' : '0'; };
+    update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
+  }
+  componentWillUnmount() { Object.values(this._raf).forEach(cancelAnimationFrame); this._obs.forEach(o => o.disconnect()); }
+
+  toggleMenu() { this.setState(s => ({ menu: !s.menu })); }
+  closeMenu() { this.setState({ menu: false }); }
+
+  initReveal() {
+    if (!window.IntersectionObserver) return;
+    const o = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { e.target.style.animation = 'ai-up 0.7s cubic-bezier(0.22,0.61,0.36,1) both'; o.unobserve(e.target); } }); }, { threshold: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach(el => { el.style.opacity = '0'; o.observe(el); });
+    this._obs.push(o);
+  }
+  initToc() {
+    if (!window.IntersectionObserver) return;
+    const links = [...document.querySelectorAll('.cs-toc a[data-toc]')];
+    if (!links.length) return;
+    const byId = {}; links.forEach(l => { byId[l.getAttribute('data-toc')] = l; });
+    const o = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.removeAttribute('data-active')); if (byId[e.target.id]) byId[e.target.id].setAttribute('data-active', ''); } });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    document.querySelectorAll('section[id^="s-"]').forEach(s => o.observe(s));
+    this._obs.push(o);
+  }
+  initCounters() {
+    if (!window.IntersectionObserver) return;
+    const el = document.getElementById('s-outcomes');
+    if (!el) return;
+    const o = new IntersectionObserver((es) => { if (es[0].isIntersecting && !this.state.countersDone) { this.setState({ countersDone: true }); this.runCounters(); o.disconnect(); } }, { threshold: 0.18 });
+    o.observe(el); this._obs.push(o);
+  }
+  runCounters() {
+    const tg = [60, 14, 20], dur = 1700, t0 = Date.now();
+    const tick = () => {
+      const p = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      this.setState({ c1: Math.round(tg[0] * e), c2: Math.round(tg[1] * e), c3: Math.round(tg[2] * e) });
+      if (p < 1) this._raf.c = requestAnimationFrame(tick);
+    };
+    this._raf.c = requestAnimationFrame(tick);
+  }
+
+  alarmData() {
+    return {
+      floor: { img: 'assets/ai/alarms-floorplan.jpg', title: 'Floor Plan', caption: "TODAY'S ALARMS · FLOOR PLAN VIEW", body: 'Alarms drop as colored pins onto the live floor plan, so an operator sees exactly where the trouble is. Tapping a pin opens the device with description and troubleshooting tips in place.' },
+      bld: { img: 'assets/ai/alarms-buildings.jpg', title: 'By Building', caption: "TODAY'S ALARMS · BUILDING ROLL-UP", body: 'A portfolio view rolls alarms up by building and floor, so a manager overseeing many sites can spot the worst-affected location before drilling in.' },
+      table: { img: 'assets/ai/alarms-table.jpg', title: 'Table', caption: "TODAY'S ALARMS · TABLE VIEW", body: 'The dense table is for triage at volume, sortable by time, source, type and floor, with paging through hundreds of events for the operator who wants the raw list.' },
+    };
+  }
+
+  explainData() {
+    return {
+      battery: { time: '2:20 PM, 15 Nov', title: 'Battery Low', plain: 'A Battery Low alarm indicates the battery level of a device has dropped below a set threshold, signalling it needs to be replaced soon to keep the device online.', steps: ['Identify the device reporting the low-battery alarm.', 'Obtain a new, equivalent battery matching the device specification.', 'Replace it and verify the device is operating and the alarm has cleared.', 'If the alarm persists, contact the Cooper Lighting Help Desk.'] },
+      voltage: { time: '2:21 PM, 15 Nov', title: 'Over Voltage Detected', plain: 'An Over Voltage alarm means the device is receiving more voltage than its rated input, which can shorten component life or cause an immediate shutdown.', steps: ['Check the upstream circuit and confirm supply voltage against the device rating.', 'Inspect wiring and connections for faults or a mis-wired driver.', 'Engage a qualified electrician to correct the supply if it is out of range.', 'Re-power the device and confirm the over-voltage condition has cleared.'] },
+      ip: { time: '2:22 PM, 15 Nov', title: 'Controller IP Address Mismatch', plain: 'This alarm fires when a controller\u2019s reported IP no longer matches what CORE expects \u2014 usually after a network change or DHCP reassignment.', steps: ['Confirm the controller\u2019s current IP on the network.', 'Compare it to the address registered in CORE.', 'Update the controller record or reserve a static lease for it.', 'Re-sync and verify the controller reconnects to centralization.'] },
+      timeout: { time: '2:23 PM, 15 Nov', title: 'Communication Timeout', plain: 'A Communication Timeout means CORE stopped receiving expected responses from a device within the allowed window \u2014 it may be offline, congested, or out of range.', steps: ['Verify the device has power and its network link is up.', 'Check mesh signal strength and nearby repeater health.', 'Power-cycle the device and watch for it to rejoin.', 'If timeouts repeat, inspect the controller and gateway path.'] },
+      fault: { time: '2:24 PM, 15 Nov', title: 'Critical Fault', plain: 'A Critical Fault is a high-severity condition that needs immediate attention \u2014 the device has reported an internal failure that may take it fully offline.', steps: ['Locate the device and capture the full fault detail from CORE.', 'Safely isolate power if the fault indicates a hardware hazard.', 'Apply the recommended firmware or hardware remedy for the fault.', 'Escalate to Cooper Lighting Technical Support if it does not clear.'] },
+      unreach: { time: '2:25 PM, 15 Nov', title: 'Device Unreachable', plain: 'A Device Unreachable alarm means CORE can no longer reach the device on the network at all \u2014 distinct from a timeout, the path itself appears to be down.', steps: ['Confirm power and physical connection at the device.', 'Test the network segment and the parent controller.', 'Restore the link or re-pair the device to the mesh.', 'Verify it reports back online and clears the alarm.'] },
+    };
+  }
+
+  optData() {
+    return {
+      energy: { tag: 'TEMPLATE · ENERGY OPTIMIZED', title: 'Tune every watt out of the building', body: 'AI biases occupancy timeouts shorter, dims aggressively in low-traffic zones, and trims schedules to the building\u2019s real usage \u2014 prioritizing consumption over presence.', s1: '\u2193 Watts', s1l: 'Shorter timeouts, deeper dimming in quiet zones', s2: 'Auto', s2l: 'Schedules trimmed to observed occupancy' },
+      comfort: { tag: 'TEMPLATE · USER COMFORT', title: 'Keep spaces bright and responsive', body: 'AI favours generous occupancy windows, higher light levels, and instant response so spaces always feel welcoming \u2014 prioritizing the experience of people in the building over savings.', s1: '\u2191 Levels', s1l: 'Higher set-points, longer occupancy windows', s2: 'Instant', s2l: 'Fast response, minimal perceived lag' },
+    };
+  }
+
+  renderVals() {
+    const S = this.state;
+    const ACC = '#5fc2a8', DIM_BG = 'transparent', DIM_FG = '#6fae9b', DIM_BD = 'rgba(95,194,168,0.3)';
+
+    // alarm view tabs (dark section)
+    const ad = this.alarmData();
+    const av = ad[S.alarm];
+    const atab = (k) => S.alarm === k ? { bg: ACC, fg: '#07120f', bd: ACC } : { bg: DIM_BG, fg: DIM_FG, bd: DIM_BD };
+
+    // explain pills
+    const ed = this.explainData();
+    const ex = ed[S.explain];
+    const epill = (k) => S.explain === k ? { bg: ACC, fg: '#07120f', bd: ACC } : { bg: 'rgba(255,255,255,0.04)', fg: '#9fcabd', bd: 'rgba(95,194,168,0.25)' };
+
+    // optimize toggle
+    const od = this.optData();
+    const op = od[S.opt];
+    const enSel = S.opt === 'energy', coSel = S.opt === 'comfort';
+
+    return {
+      menuClass: S.menu ? 'menu-open' : '',
+      rootClass: S.dark ? 'dark' : '', isDark: S.dark, isLight: !S.dark,
+      toggleDark: () => { const d = !this.state.dark; try { localStorage.setItem('rba-int-dark', d ? 'true' : 'false'); } catch (e) {} this.setState({ dark: d }); }, toggleMenu: () => this.toggleMenu(), closeMenu: () => this.closeMenu(),
+
+      // alarm views
+      setFloor: () => this.setState({ alarm: 'floor' }), setBld: () => this.setState({ alarm: 'bld' }), setTable: () => this.setState({ alarm: 'table' }),
+      alarmImg: av.img, viewTitle: av.title, viewBody: av.body, viewCaption: av.caption,
+      floorBg: atab('floor').bg, floorFg: atab('floor').fg, floorBorder: atab('floor').bd,
+      bldBg: atab('bld').bg, bldFg: atab('bld').fg, bldBorder: atab('bld').bd,
+      tableBg: atab('table').bg, tableFg: atab('table').fg, tableBorder: atab('table').bd,
+
+      // explain
+      exBattery: () => this.setState({ explain: 'battery' }), exVoltage: () => this.setState({ explain: 'voltage' }),
+      exIp: () => this.setState({ explain: 'ip' }), exTimeout: () => this.setState({ explain: 'timeout' }),
+      exFault: () => this.setState({ explain: 'fault' }), exUnreach: () => this.setState({ explain: 'unreach' }),
+      exTime: ex.time, exTitle: ex.title, exPlain: ex.plain,
+      exStep1: ex.steps[0], exStep2: ex.steps[1], exStep3: ex.steps[2], exStep4: ex.steps[3],
+      exBatteryBg: epill('battery').bg, exBatteryFg: epill('battery').fg, exBatteryBd: epill('battery').bd,
+      exVoltageBg: epill('voltage').bg, exVoltageFg: epill('voltage').fg, exVoltageBd: epill('voltage').bd,
+      exIpBg: epill('ip').bg, exIpFg: epill('ip').fg, exIpBd: epill('ip').bd,
+      exTimeoutBg: epill('timeout').bg, exTimeoutFg: epill('timeout').fg, exTimeoutBd: epill('timeout').bd,
+      exFaultBg: epill('fault').bg, exFaultFg: epill('fault').fg, exFaultBd: epill('fault').bd,
+      exUnreachBg: epill('unreach').bg, exUnreachFg: epill('unreach').fg, exUnreachBd: epill('unreach').bd,
+
+      // optimize
+      setEnergy: () => this.setState({ opt: 'energy' }), setComfort: () => this.setState({ opt: 'comfort' }),
+      optTag: op.tag, optTitle: op.title, optBody: op.body,
+      optStat1: op.s1, optStat1Lbl: op.s1l, optStat2: op.s2, optStat2Lbl: op.s2l,
+      enBorder: enSel ? '#0d5350' : 'rgba(10,8,4,0.14)', enBg: enSel ? '#eaf6f1' : '#fff', enIcon: enSel ? '#0d5350' : '#6e6a60', enText: enSel ? '#3a2a85' : '#56524a',
+      coBorder: coSel ? '#0d5350' : 'rgba(10,8,4,0.14)', coBg: coSel ? '#eaf6f1' : '#fff', coIcon: coSel ? '#0d5350' : '#6e6a60', coText: coSel ? '#3a2a85' : '#56524a',
+
+      c1: S.c1, c2: S.c2, c3: S.c3,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AEGIS Decision Intelligence, Case Study · Robert Babiarz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+.cs{--c-bg:#fffcf5;--c-bg2:#faf5e8;--c-soft:#fbf9f4;--c-card:#f3f1ea;--c-surface:#ffffff;--c-line:#edeae1;--c-line2:#c9c4b5;--c-ink:#0a0a0a;--c-ink2:#2a2722;--c-body:#56524a;--c-muted:#6e6a60;--c-muted2:#9a9486;--c-accent:#0d5350;--c-accent2:#4ca88f;--c-b1:rgba(10,8,4,0.07);--c-b2:rgba(10,8,4,0.08);--c-b3:rgba(10,8,4,0.1);--c-b4:rgba(10,8,4,0.14);--c-b5:rgba(10,8,4,0.25);--c-navbg:rgba(255,252,245,0.85);}
+.cs.dark{--c-bg:#0b0f14;--c-bg2:#11161c;--c-soft:#10151b;--c-card:#161c23;--c-surface:#141b24;--c-line:#242c34;--c-line2:#303942;--c-ink:#f3f1ea;--c-ink2:#e7e3da;--c-body:#bdb7aa;--c-muted:#948e82;--c-muted2:#726c60;--c-accent:#5fc2a8;--c-accent2:#6fd0b8;--c-b1:rgba(255,255,255,0.06);--c-b2:rgba(255,255,255,0.085);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(0,0,0,0.55);--c-navbg:rgba(11,15,20,0.82);color-scheme:dark;}
+::selection{background:#0d5350;color:#fff}
+@keyframes ai-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ag-pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+@media (max-width:600px){
+  nav{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:400 !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet>a{padding:14px 14px !important}
+  .cs-switch[open] summary::after{content:'';position:fixed;inset:0;background:rgba(10,8,4,0.42);z-index:390;animation:cs-fade .36s ease}
+}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+.cs section[id]{scroll-margin-top:84px}
+.cs-toc a .cs-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.cs-toc:hover a .cs-toc-label{opacity:1;transform:none}
+.cs-toc a[data-active] .cs-toc-label{opacity:1;color:#0d5350}
+.cs-toc a[data-active] .cs-toc-dot{background:#0d5350;width:22px}
+@media (max-width:1180px){ .cs-toc{display:none !important} }
+@media (max-width:880px){
+  .cs nav > div{padding-left:18px !important;padding-right:18px !important}
+  .cs section{padding-left:18px !important;padding-right:18px !important;padding-top:60px !important;padding-bottom:60px !important}
+  .cs [style*="grid-template-columns"]{grid-template-columns:1fr !important}
+  .cs [style*="repeat(5, 1fr)"],.cs [style*="repeat(4, 1fr)"],.cs [style*="repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  .cs-hero-media{margin-top:8px !important}
+  .cs-proto{height:560px !important}
+}
+@media (max-width:520px){
+  .cs h1{font-size:40px !important;letter-spacing:-1.5px !important}
+  .cs h2{font-size:27px !important}
+  .cs [style*="repeat(3, 1fr)"],.cs [style*="repeat(2, 1fr)"]{grid-template-columns:1fr !important}
+}
+.cs-burger{display:none;width:40px;height:40px;border:1px solid rgba(10,8,4,0.14);border-radius:9px;background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.cs-burger span{display:block;width:18px;height:2px;background:#0d5350;border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .cs-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .cs-burger span:nth-child(2){opacity:0}
+.menu-open .cs-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#cs-menu{position:fixed;inset:0;z-index:95;background:#fffcf5;display:flex;flex-direction:column;padding:84px 24px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #cs-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#cs-menu .csm-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6f6b61;margin-bottom:6px}
+#cs-menu .csm-sec{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:22px;font-weight:600;letter-spacing:-0.02em;color:#0a0a0a;text-decoration:none;padding:12px 2px;border-bottom:1px solid rgba(10,8,4,0.08);opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,color .15s}
+.menu-open #cs-menu .csm-sec{opacity:1;transform:none}
+#cs-menu .csm-sec .csm-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;color:#6f6b61}
+#cs-menu .csm-switch{display:block;text-decoration:none;padding:13px 14px;border:1px solid rgba(10,8,4,0.12);border-radius:11px;margin-top:10px;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .15s}
+.menu-open #cs-menu .csm-switch{opacity:1;transform:none}
+.cs-stagger>*{transition-delay:0s}
+.role-stack img[data-role]{opacity:0;transition:opacity .35s ease}
+.role-stack.role-margaux img[data-role="margaux"]{opacity:1}
+.role-stack.role-devon img[data-role="devon"]{opacity:1}
+.role-stack.role-marcus img[data-role="marcus"]{opacity:1}
+.menu-open .cs-stagger>:nth-child(1){transition-delay:.05s}
+.menu-open .cs-stagger>:nth-child(2){transition-delay:.09s}
+.menu-open .cs-stagger>:nth-child(3){transition-delay:.13s}
+.menu-open .cs-stagger>:nth-child(4){transition-delay:.17s}
+.menu-open .cs-stagger>:nth-child(5){transition-delay:.21s}
+.menu-open .cs-stagger>:nth-child(6){transition-delay:.25s}
+.menu-open .cs-stagger>:nth-child(7){transition-delay:.29s}
+.menu-open .cs-stagger>:nth-child(8){transition-delay:.33s}
+.menu-open .cs-stagger>:nth-child(n+9){transition-delay:.37s}
+@media (max-width:880px){ .cs-burger{display:flex} }
+@media (min-width:881px){ #cs-menu{display:none !important} }
+</style>
+<script src="text-motion.js"></script>
+<script src="page-transition.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div class="cs {{ rootClass }} {{ menuClass }}" style="background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:clip;">
+
+  <!-- ════════ NAV ════════ -->
+  <nav style="position:sticky;top:0;z-index:100;background:var(--c-navbg);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1);">
+    <div style="padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="Homepage Interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color 0.15s;" style-hover="color:var(--c-ink)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background 0.2s,border-color 0.2s;" style-hover="background:var(--c-card)"><sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></sc-if><sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></sc-if></button>
+        <details class="cs-switch" style="position:relative;">
+          <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent);">AEGIS DI</span>
+            <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5" style="transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
+            <a href="AEGIS DI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:#e8f0ee;"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+            <a href="Enterprise AI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Application of AI</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+            <a href="Smart Lighting.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="Partitioning.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+            <a href="DALI-2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="Core Insights.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="Goals-Driven Fintech.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+            <a href="CTOC Case Study v2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
+            <a href="Homepage Interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)">← All work</a>
+          </div>
+        </details>
+        <button class="cs-burger" onClick="{{ toggleMenu }}" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="cs-menu">
+    <div class="csm-lbl">Sections</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-sec" href="#s-overview" onClick="{{ closeMenu }}"><span>Overview</span><span class="csm-n">01</span></a>
+      <a class="csm-sec" href="#s-operators" onClick="{{ closeMenu }}"><span>The Operators</span><span class="csm-n">02</span></a>
+      <a class="csm-sec" href="#s-fusion" onClick="{{ closeMenu }}"><span>Fusion &amp; Reasoning</span><span class="csm-n">03</span></a>
+      <a class="csm-sec" href="#s-assessment" onClick="{{ closeMenu }}"><span>The Assessment</span><span class="csm-n">04</span></a>
+      <a class="csm-sec" href="#s-edge" onClick="{{ closeMenu }}"><span>Disconnected Edge</span><span class="csm-n">05</span></a>
+      <a class="csm-sec" href="#s-release" onClick="{{ closeMenu }}"><span>Releasability</span><span class="csm-n">06</span></a>
+      <a class="csm-sec" href="#s-geo" onClick="{{ closeMenu }}"><span>Geospatial, GIMS</span><span class="csm-n">07</span></a>
+      <a class="csm-sec" href="#s-system" onClick="{{ closeMenu }}"><span>System &amp; Live Demo</span><span class="csm-n">08</span></a>
+      <a class="csm-sec" href="#s-outcomes" onClick="{{ closeMenu }}"><span>Outcomes</span><span class="csm-n">09</span></a>
+    </div>
+    <div class="csm-lbl" style="margin-top:26px;">Switch case study</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-switch" href="Enterprise AI.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Application of AI</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+      <a class="csm-switch" href="Core Insights.dc.html"><div style="font-size:15px;font-weight:600;color:var(--c-accent);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+      <a class="csm-switch" href="Goals-Driven Fintech.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+      <a class="csm-switch" href="CTOC Case Study v2.dc.html"><div style="font-size:15px;font-weight:600;color:var(--c-accent);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+      <a class="csm-switch" href="Homepage Interactive.dc.html"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">← All work</div></a>
+    </div>
+  </div>
+
+  <!-- ════════ SECTION SIDE-NAV ════════ -->
+  <nav class="cs-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
+    <a href="#s-overview" data-toc="s-overview" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Overview</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-operators" data-toc="s-operators" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Operators</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-fusion" data-toc="s-fusion" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Reasoning</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-assessment" data-toc="s-assessment" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Assessment</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-edge" data-toc="s-edge" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">The Edge</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-release" data-toc="s-release" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Releasability</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-geo" data-toc="s-geo" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Geospatial</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-system" data-toc="s-system" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Live Demo</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-outcomes" data-toc="s-outcomes" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Outcomes</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+  </nav>
+
+  <!-- ════════ HERO ════════ -->
+  <section style="position:relative;overflow:hidden;padding:78px 40px 70px;background:var(--c-bg);">
+    <div style="position:absolute;top:-140px;right:-100px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(13,83,80,0.12),transparent 68%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-80px;left:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(76,168,143,0.10),transparent 70%);pointer-events:none;"></div>
+    <div style="max-width:1240px;margin:0 auto;position:relative;">
+      <div data-hero-anim="1" style="display:none;align-items:center;gap:11px;margin-bottom:24px;animation:ai-up 0.7s ease both;flex-wrap:wrap;">
+        <span style="width:30px;height:1.5px;background:var(--c-accent);"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:var(--c-accent);">DEFENCE · DECISION INTELLIGENCE</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#fff;background:#c0392b;padding:3px 9px;border-radius:4px;">CONCEPT · ALL DATA FICTIONAL</span>
+      </div>
+      <h1 style="font-family:'Inter',sans-serif;font-size:clamp(42px,5.4vw,78px);font-weight:500;line-height:0.98;letter-spacing:-2.4px;color:var(--c-ink);max-width:1080px;animation:ai-up 0.8s ease 0.05s both;" data-hero-anim="1">AEGIS DECISION INTELLIGENCE<br/><span style="font-style:italic;font-weight:300;color:var(--c-accent);">a watch floor that thinks at the speed of the threat</span></h1>
+      <p style="font-size:clamp(17px,1.7vw,21px);color:var(--c-body);line-height:1.6;max-width:720px;margin-top:26px;animation:ai-up 0.8s ease 0.12s both;" data-hero-anim="1">Six intelligence disciplines, SIGINT, GEOINT, OSINT, HUMINT, FININT and partner feeds, fused into one decision surface for a national-security watch floor. The work turned an overwhelming firehose of signals into something a person can reason with: fast, auditable, and resilient when the network drops.</p>
+      <div data-hero-anim="1" style="display:grid;grid-template-columns:repeat(5,auto);gap:16px 44px;margin-top:40px;animation:ai-up 0.8s ease 0.2s both;width:max-content;max-width:100%;">
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Lead Product Designer</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Surface</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">8 role-based workspaces</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Users</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Analyst · Supervisor · Director</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Domain</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Multi-INT fusion</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Scope</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Strategy → system → prototype</div></div>
+      </div>
+      <div class="cs-hero-media" data-hero-anim="1" style="margin-top:52px;position:relative;animation:ai-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.2s both;">
+        <div style="overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 50px 100px -45px rgba(8,30,26,0.55);background:#0a1410;">
+          <div style="height:40px;background:#0a1410;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <span style="width:11px;height:11px;border-radius:50%;background:#e0524d;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#d4a036;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:var(--c-accent2);"></span>
+            <div style="margin-left:14px;flex:1;display:flex;justify-content:center;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#e0524d;letter-spacing:0.14em;">SECRET // SI // REL FVEY</span>
+            </div>
+          </div>
+          <img src="assets/aegis/cop.png" alt="AEGIS DI Common Operating Picture, tactical map with fused indicators, a 72-hour timeline scrubber and a live reasoning trace" style="width:100%;display:block;"/>
+        </div>
+        <div style="position:absolute;bottom:18px;left:18px;display:flex;align-items:center;gap:8px;background:rgba(10,20,16,0.86);backdrop-filter:blur(6px);border:1px solid rgba(76,168,143,0.4);border-radius:9px;padding:7px 13px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--c-accent2);animation:ag-pulse 1.8s ease-in-out infinite;"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.06em;color:#9fe0cf;">COMMON OPERATING PICTURE, 6 live indicators · 3 areas of operation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 1 · OVERVIEW ════════ -->
+  <section id="s-overview" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">01 · Overview</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);max-width:1000px;margin-bottom:30px;" data-reveal="1">INTELLIGENCE ISN'T SCARCE. <span style="font-style:italic;font-weight:300;color:var(--c-accent);">Attention Is.</span></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1000px;margin-bottom:54px;" data-reveal="1">
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">A watch-floor analyst doesn't lack data, they're drowning in it. Signals arrive faster than any team can read, each with its own caveats, contradictions and clocks. The hard part was never collecting the signal. It was deciding what matters, defending why, and being able to show your work, under time pressure, often on a degraded link.</p>
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">My mandate was to design how decision intelligence should live on the floor, not a smarter black box, but a surface where AI <strong style="color:var(--c-ink);">compresses the reading, never the decision</strong>. Three principles held the system together: a <strong style="color:var(--c-ink);">fused</strong> picture, <strong style="color:var(--c-ink);">auditable</strong> reasoning, and work that stays <strong style="color:var(--c-ink);">resilient and releasable</strong>.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:16px;padding:30px 32px;" data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:16px;">MY ROLE</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--c-accent);margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Decision-intelligence experience strategy &amp; IA</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--c-accent);margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Multi-INT fusion &amp; triage interaction model</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--c-accent);margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">AI reasoning, confidence &amp; dissent framework</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--c-accent);margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Role-based workspaces for three operators</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--c-accent);margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">DDIL resilience &amp; releasability workflows · clickable build</span></div>
+          </div>
+        </div>
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:16px;padding:30px 32px;" data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:16px;">THE PROBLEM, IN NUMBERS</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Intelligence disciplines fused per indicator</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-ink);">6</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Target signal-to-triage decision</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-ink);">&lt; 7 min</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Caveats &amp; classifications in play</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-ink);">Many</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:14.5px;color:var(--c-body);">Judgements that may go to inquiry</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#c0392b;">All</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#0a1410;border-radius:16px;overflow:hidden;" data-reveal="1">
+        <div style="padding:38px 30px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6fae9b;letter-spacing:0.08em;margin-bottom:12px;">PRINCIPLE 01</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Fused</div><div style="font-size:14px;color:#bfd6ce;margin-top:10px;line-height:1.55;">One picture from six disciplines, every indicator carries its sources, caveats and clocks with it.</div></div>
+        <div style="padding:38px 30px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6fae9b;letter-spacing:0.08em;margin-bottom:12px;">PRINCIPLE 02</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Auditable</div><div style="font-size:14px;color:#bfd6ce;margin-top:10px;line-height:1.55;">Every AI proposal is a claim with receipts, confidence, citations, and the evidence that argues against it.</div></div>
+        <div style="padding:38px 30px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6fae9b;letter-spacing:0.08em;margin-bottom:12px;">PRINCIPLE 03</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Resilient</div><div style="font-size:14px;color:#bfd6ce;margin-top:10px;line-height:1.55;">It keeps working off-link and shares cleanly with allies, without ever losing the thread of who decided what.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · OPERATORS (interactive role toggle) ════════ -->
+  <section id="s-operators" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">02 · The Operators</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">ONE SYSTEM, <span style="font-style:italic;font-weight:300;color:var(--c-accent);">Three Operators</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:14px;" data-reveal="1">The same source of truth re-projects into each role's mental model. An analyst lives inside a single assessment; a supervisor thinks in queues and coverage; a director needs the one-paragraph "so what." Rather than three apps, AEGIS changes the home screen, the verbs, and the density per role.</p>
+      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.04em;margin-bottom:30px;" data-reveal="1">↓ SWITCH OPERATOR TO RE-PROJECT THE SAME FLOOR</p>
+      <div style="display:grid;grid-template-columns:0.82fr 1.18fr;gap:40px;align-items:start;" data-reveal="1">
+        <div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+            <button onClick="{{ setMargaux }}" style="cursor:pointer;text-align:left;padding:16px 18px;border:1.5px solid {{ mgBd }};background:{{ mgBg }};transition:all .18s;border-radius:13px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:{{ mgText }};">Margaux, Strategic Analyst</span><span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--c-muted);letter-spacing:0.06em;">PRIMARY</span></div>
+            </button>
+            <button onClick="{{ setDevon }}" style="cursor:pointer;text-align:left;padding:16px 18px;border:1.5px solid {{ dvBd }};background:{{ dvBg }};transition:all .18s;border-radius:13px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:{{ dvText }};">Devon, Watch Supervisor</span><span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--c-muted);letter-spacing:0.06em;">FLOOR</span></div>
+            </button>
+            <button onClick="{{ setMarcus }}" style="cursor:pointer;text-align:left;padding:16px 18px;border:1.5px solid {{ mcBd }};background:{{ mcBg }};transition:all .18s;border-radius:13px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:{{ mcText }};">Marcus, Director, Mission Ops</span><span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--c-muted);letter-spacing:0.06em;">BRIEF</span></div>
+            </button>
+          </div>
+          <div style="background:#0a1410;border-radius:16px;padding:24px 26px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6fae9b;letter-spacing:0.08em;margin-bottom:10px;">{{ roleTag }}</div>
+            <div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:#fff;letter-spacing:-0.4px;margin-bottom:12px;">{{ roleTitle }}</div>
+            <p style="font-size:14.5px;color:#bfd6ce;line-height:1.66;">{{ roleBody }}</p>
+          </div>
+        </div>
+        <div>
+          <div class="role-stack {{ roleClass }}" style="position:relative;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 36px 80px -42px rgba(8,30,26,0.5);background:#0a1410;">
+            <img src="assets/aegis/assessment.png" alt="Analyst workspace, assessment, key judgements and confidence" data-role="margaux" style="width:100%;display:block;"/>
+            <img src="assets/aegis/watchfloor.png" alt="Supervisor workspace, drag-to-reassign coverage board" data-role="devon" style="width:100%;display:block;position:absolute;inset:0;"/>
+            <img src="assets/aegis/ask.png" alt="Director workspace, Ask AEGIS, grounded and cited" data-role="marcus" style="width:100%;display:block;position:absolute;inset:0;"/>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--c-muted);letter-spacing:0.05em;margin-top:14px;text-align:center;">{{ roleCaption }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 3 · FUSION & REASONING (dark, interactive) ════════ -->
+  <section id="s-fusion" style="padding:90px 40px;background:#0a120f;color:#e6f0ec;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">03 · Fusion &amp; Reasoning</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">THE AI BRINGS RECEIPTS, <span style="font-style:italic;font-weight:300;color:var(--c-accent2);">Not Verdicts</span></h2>
+      <p style="font-size:16.5px;color:#a9c4bb;line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">A fused indicator card shows exactly how a match was made, the source fragments, the model version, a confidence score, sitting beside the contradicting evidence the model found and flagged against itself. The analyst never has to trust a number; they read the trace, follow any claim to its raw artefact, and decide.</p>
+      <div style="display:grid;grid-template-columns:1.08fr 0.92fr;gap:40px;align-items:start;">
+        <div data-reveal="1">
+          <div style="overflow:hidden;border:1px solid rgba(76,168,143,0.22);box-shadow:0 40px 90px -45px rgba(0,0,0,0.7);background:#0a1410;">
+            <img src="assets/aegis/triage.png" alt="Fused indicator triage card with SIGINT and OSINT sources and an AI reasoning trace" style="width:100%;display:block;"/>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#6f8a82;letter-spacing:0.05em;margin-top:14px;text-align:center;">INDICATIONS &amp; WARNING, FUSED INDICATOR + REASONING TRACE</div>
+        </div>
+        <div data-reveal="1">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;">
+            <button onClick="{{ setIrbis }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ irBd }};background:{{ irBg }};color:{{ irFg }};transition:all .16s;">EX-IRBIS-04</button>
+            <button onClick="{{ setLandfall }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ lfBd }};background:{{ lfBg }};color:{{ lfFg }};transition:all .16s;">LANDFALL CONS.</button>
+            <button onClick="{{ setPetrel }}" style="cursor:pointer;font-size:12.5px;padding:8px 14px;border-radius:999px;border:1px solid {{ peBd }};background:{{ peBg }};color:{{ peFg }};transition:all .16s;">PETREL-3</button>
+          </div>
+          <div style="background:#0d1814;border:1px solid rgba(76,168,143,0.2);border-radius:14px;padding:24px 26px;min-height:472px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;">
+              <span style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:#fff;letter-spacing:-0.3px;">{{ rzName }}</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0a1410;background:var(--c-accent2);padding:5px 11px;border-radius:6px;letter-spacing:0.04em;">{{ rzConf }}% MATCH</span>
+            </div>
+            <div style="height:5px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;margin-bottom:20px;"><div style="height:100%;width:{{ rzConf }}%;background:linear-gradient(90deg,var(--c-accent),var(--c-accent2));"></div></div>
+            <div style="font-family:'Inter',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.06em;color:var(--c-accent2);margin-bottom:8px;">RATIONALE</div>
+            <p style="font-size:14px;color:#cfe0da;line-height:1.62;margin-bottom:18px;">{{ rzRationale }}</p>
+            <div style="font-family:'Inter',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.06em;color:#e0a04d;margin-bottom:8px;">CONTRADICTING EVIDENCE</div>
+            <p style="font-size:14px;color:#cfe0da;line-height:1.62;margin-bottom:18px;">{{ rzContra }}</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#6f8a82;letter-spacing:0.04em;">MODEL · aegis-er-2.3.1</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--c-accent2);letter-spacing:0.04em;">3 CLICKS TO RAW ARTEFACT →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:14px;color:#6f8a82;line-height:1.6;max-width:760px;margin-top:20px;font-style:italic;" data-reveal="1">Recreated from the shipped triage card, switch indicators to see how confidence, rationale and counter-evidence move together.</p>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · THE ASSESSMENT ════════ -->
+  <section id="s-assessment" style="padding:90px 40px;background:var(--c-bg2);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">04 · The Assessment</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">CONFIDENCE AND DISSENT, <span style="font-style:italic;font-weight:300;color:var(--c-accent);">Made First-Class</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">An assessment leads with the bottom line, then carries every key judgement with its confidence level, its citations, and, crucially, any recorded dissent. Tradecraft standards (ICD 203) aren't decoration here: a peer reviewer's disagreement travels with the judgement it challenges, and the editor surfaces AI assists that strengthen or weaken each call.</p>
+      <div style="overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 30px 70px -38px rgba(8,30,26,0.4);margin-bottom:22px;" data-reveal="1">
+        <img src="assets/aegis/assessment.png" alt="Assessment reader with bottom-line-up-front and key judgements carrying confidence, citations and a visible dissent" style="width:100%;display:block;"/>
+      </div>
+      <div style="display:grid;grid-template-columns:1.25fr 0.75fr;gap:22px;align-items:stretch;">
+        <div style="overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 30px 70px -38px rgba(8,30,26,0.4);" data-reveal="1">
+          <img src="assets/aegis/assessment-editor.png" alt="Assessment editor with AI assists proposing evidence and tradecraft notes" style="width:100%;display:block;"/>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;" data-reveal="1">
+          <div style="background:#0a1410;border-radius:14px;padding:22px 24px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:600;color:var(--c-accent2);letter-spacing:-1px;">ICD 203</div>
+            <div style="font-size:13.5px;color:#bfd6ce;margin-top:8px;line-height:1.5;">Analytic standards baked into the structure, confidence language, sourcing and dissent are required fields, not afterthoughts.</div>
+          </div>
+          <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:22px 24px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:600;color:var(--c-accent);letter-spacing:-1px;">1 click</div>
+            <div style="font-size:13.5px;color:var(--c-body);margin-top:8px;line-height:1.5;">From any citation in a judgement to the source's full excerpt, caveat and access log.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 5 · DISCONNECTED EDGE (dark) ════════ -->
+  <section id="s-edge" style="padding:90px 40px;background:#0a120f;color:#e6f0ec;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">05 · The Disconnected Edge</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">THE LINK WILL DROP. <span style="font-style:italic;font-weight:300;color:var(--c-accent2);">The Work Can't.</span></h2>
+      <p style="font-size:16.5px;color:#a9c4bb;line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">Forward teams operate DDIL, disconnected, degraded, intermittent, limited. AEGIS treats a 256 kbps satellite link, or no link at all, as a normal state. Entity resolution and drafting run on-device; everything queues and reconciles when the link returns. The hardest moment, a merge conflict where two people edited the same field while apart, is staged as an explicit human decision, side by side, never silently overwritten.</p>
+      <div style="overflow:hidden;border:1px solid rgba(76,168,143,0.2);box-shadow:0 40px 90px -45px rgba(0,0,0,0.7);margin-bottom:24px;" data-reveal="1">
+        <img src="assets/aegis/ddil.png" alt="Forward node sync state with a reconcile pipeline and a merge conflict staged for human decision" style="width:100%;display:block;"/>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <div style="background:#0d1814;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 24px;" data-reveal="1"><div style="font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:var(--c-accent2);letter-spacing:-0.8px;">3d 22h</div><div style="font-size:13.5px;color:#a9c4bb;margin-top:8px;line-height:1.5;">A forward node stayed fully operational, disconnected, then reconciled cleanly.</div></div>
+        <div style="background:#0d1814;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 24px;" data-reveal="1"><div style="font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:var(--c-accent2);letter-spacing:-0.8px;">0</div><div style="font-size:13.5px;color:#a9c4bb;margin-top:8px;line-height:1.5;">Silent overwrites, conflicts always escalate to a person with provenance for each version.</div></div>
+        <div style="background:#0d1814;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 24px;" data-reveal="1"><div style="font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:var(--c-accent2);letter-spacing:-0.8px;">On-device</div><div style="font-size:13.5px;color:#a9c4bb;margin-top:8px;line-height:1.5;">Entity resolution and drafting keep running with no connection at all.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 6 · RELEASABILITY ════════ -->
+  <section id="s-release" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">06 · Releasability</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">SHARING WITH ALLIES IS A WORKFLOW, <span style="font-style:italic;font-weight:300;color:var(--c-accent);">Not a Copy-Paste</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">Sending an assessment to Five Eyes partners used to mean a nervous manual scrub. AEGIS proposes redactions inline on the document, substitute a collection method, redact an analyst's name, keep a disclosure-rounded figure, each with a reason and a one-tap accept or override, co-signed before release. And it protects the irreducible core: a recorded dissent can't be quietly dropped, because removing it would invalidate the assessment.</p>
+      <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:40px;align-items:center;">
+        <div style="overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 30px 70px -38px rgba(8,30,26,0.4);" data-reveal="1">
+          <img src="assets/aegis/release.png" alt="Releasability screen with inline AI-proposed redactions, each with a reason and accept or override controls" style="width:100%;display:block;"/>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;" data-reveal="1">
+          <div style="display:flex;gap:13px;align-items:flex-start;"><span style="flex:none;width:24px;height:24px;border-radius:7px;background:#e8f0ee;color:var(--c-accent);font-family:'JetBrains Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center;">↳</span><div><div style="font-size:15px;font-weight:600;color:var(--c-ink);">Proposed, never automatic</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.55;">Substitute, redact or keep, each justified, each a human decision on the document itself.</div></div></div>
+          <div style="display:flex;gap:13px;align-items:flex-start;"><span style="flex:none;width:24px;height:24px;border-radius:7px;background:#e8f0ee;color:var(--c-accent);font-family:'JetBrains Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center;">↳</span><div><div style="font-size:15px;font-weight:600;color:var(--c-ink);">Co-signed before release</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.55;">Nothing leaves the building on one person's authority.</div></div></div>
+          <div style="display:flex;gap:13px;align-items:flex-start;"><span style="flex:none;width:24px;height:24px;border-radius:7px;background:#fbe9e7;color:#c0392b;font-family:'JetBrains Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center;">!</span><div><div style="font-size:15px;font-weight:600;color:var(--c-ink);">Integrity over secrecy</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.55;">Tradecraft-protected elements, like a dissent, can't be stripped to make a product easier to share.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 7 · GEOSPATIAL INTELLIGENCE (GIMS) ════════ -->
+  <section id="s-geo" data-screen-label="07 · Geospatial Intelligence" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">07 · Geospatial Intelligence, GIMS</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">THE MAP STOPS BEING A LAYER, <span style="font-style:italic;font-weight:300;color:var(--c-accent);">It Becomes the Floor</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:30px;" data-reveal="1">The Geospatial Intelligence Map System turns the fused picture spatial. Every indicator, asset and sensor lives on one Common Operating Picture; operators draw geofences that watch for movement, replay the last 72 hours on a scrubbable timeline, and read an AI threat score on every track. The hard parts of a defence map, zones that <strong style="color:var(--c-ink);">trigger alerts</strong>, a temporal engine you can <strong style="color:var(--c-ink);">rewind</strong>, and a surface that keeps working <strong style="color:var(--c-ink);">air-gapped</strong> are the design, not the decoration.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:34px;" data-reveal="1">
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:22px 24px;">
+          <div style="font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:var(--c-accent);letter-spacing:-1px;">6 zone types</div>
+          <div style="font-size:13.5px;color:var(--c-body);margin-top:8px;line-height:1.55;">Alert, exclusion, threat, surveillance, mission and engagement, drawn as a polygon, circle or rectangle straight onto the map.</div>
+        </div>
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:22px 24px;">
+          <div style="font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:var(--c-accent);letter-spacing:-1px;">8 trigger rules</div>
+          <div style="font-size:13.5px;color:var(--c-body);margin-top:8px;line-height:1.55;">Enter, exit, dwell time, speed, loitering, route deviation, each fires a classified, prioritised alert to the watch floor.</div>
+        </div>
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:22px 24px;">
+          <div style="font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:var(--c-accent);letter-spacing:-1px;">8 fused layers</div>
+          <div style="font-size:13.5px;color:var(--c-body);margin-top:8px;line-height:1.55;">Satellite, terrain, maritime AIS, aviation ADS-B, military tracks, intel overlays, sensor feeds and weather, toggled per role.</div>
+        </div>
+      </div>
+
+      <div data-reveal="1" style="overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 50px 100px -45px rgba(8,30,26,0.55);background:#0a1410;border-radius:2px;">
+        <div style="height:40px;background:#0a1410;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="width:11px;height:11px;border-radius:50%;background:#e0524d;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#d4a036;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:var(--c-accent2);"></span>
+          <span style="margin-left:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#6f8a82;letter-spacing:0.05em;">AEGIS GIMS, Common Operating Picture · v1.0-RC2</span>
+          <a href="AEGIS GIMS.html" target="_blank" style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent2);text-decoration:none;letter-spacing:0.04em;">OPEN FULLSCREEN ↗</a>
+        </div>
+        <iframe src="AEGIS GIMS.html" title="AEGIS GIMS interactive map" loading="lazy" style="width:100%;height:720px;border:0;display:block;background:#0a120f;"></iframe>
+      </div>
+      <p style="font-size:14px;color:var(--c-muted);line-height:1.6;max-width:840px;margin-top:18px;font-style:italic;" data-reveal="1">Live build. Pick a <strong style="color:var(--c-ink);font-style:normal;">draw tool</strong> and sketch a geofence onto the map, toggle <strong style="color:var(--c-ink);font-style:normal;">layers</strong>, then press <strong style="color:var(--c-ink);font-style:normal;">Play</strong> on the timeline, tracks move through the last 72 hours and alerts fire the moment an unknown or hostile contact crosses a zone with active rules.</p>
+    </div>
+  </section>
+
+  <!-- ════════ 8 · SYSTEM & LIVE DEMO (dark, interactive + iframe) ════════ -->
+  <section id="s-system" style="padding:90px 40px;background:#0a120f;color:#e6f0ec;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">08 · System &amp; Live Demo</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">DON'T TAKE MY WORD FOR IT, <span style="font-style:italic;font-weight:300;color:var(--c-accent2);">Fly the Watch Floor</span></h2>
+      <p style="font-size:16.5px;color:#a9c4bb;line-height:1.72;max-width:880px;margin-bottom:30px;" data-reveal="1">The full clickable build is embedded below, eight workspaces in the sidebar, a scrubbable timeline, live reasoning traces. The chrome itself is part of the design: classification follows the work everywhere, a day/night swap covers office and low-light operations, and a density switch flexes from a calm reading layout to a high-information surge view.</p>
+
+      <div data-reveal="1" style="margin-bottom:18px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6f8a82;letter-spacing:0.06em;margin-bottom:12px;">CLASSIFICATION-AWARE CHROME · TAP A LEVEL</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+          <button onClick="{{ clU }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:8px 14px;border-radius:8px;border:1px solid {{ uBd }};background:{{ uBg }};color:{{ uFg }};transition:all .16s;">UNCLASS</button>
+          <button onClick="{{ clP }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:8px 14px;border-radius:8px;border:1px solid {{ pBd }};background:{{ pBg }};color:{{ pFg }};transition:all .16s;">PROT-B</button>
+          <button onClick="{{ clS }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:8px 14px;border-radius:8px;border:1px solid {{ sBd }};background:{{ sBg }};color:{{ sFg }};transition:all .16s;">SECRET</button>
+          <button onClick="{{ clT }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:8px 14px;border-radius:8px;border:1px solid {{ tBd }};background:{{ tBg }};color:{{ tFg }};transition:all .16s;">TOP SECRET</button>
+        </div>
+        <div style="height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:{{ banBg }};transition:background .2s;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.18em;color:#fff;font-weight:500;">{{ banText }}</span>
+        </div>
+      </div>
+
+      <div data-reveal="1" style="overflow:hidden;border:1px solid rgba(76,168,143,0.22);box-shadow:0 50px 100px -45px rgba(0,0,0,0.75);background:#0a1410;">
+        <div style="height:40px;background:#0a1410;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="width:11px;height:11px;border-radius:50%;background:#e0524d;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#d4a036;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:var(--c-accent2);"></span>
+          <span style="margin-left:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#6f8a82;letter-spacing:0.05em;">AEGIS DI, interactive build · v1.0-RC2</span>
+          <a href="AEGIS DI v2.html" target="_blank" style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent2);text-decoration:none;letter-spacing:0.04em;">OPEN FULLSCREEN ↗</a>
+        </div>
+        <div id="cs-proto-wrap" style="position:relative;width:100%;overflow:hidden;background:#0a1410;">
+          <iframe class="cs-proto" src="AEGIS DI v2.html" title="AEGIS DI interactive prototype" loading="lazy" style="width:1280px;height:812px;border:0;display:block;background:#0a1410;transform-origin:top left;"></iframe>
+        </div>
+      </div>
+      <p style="font-size:14px;color:#6f8a82;line-height:1.6;max-width:760px;margin-top:18px;font-style:italic;" data-reveal="1">Open the <strong style="color:#a9c4bb;">Tweaks</strong> panel inside the build to switch operator role, drop the network to off-link, flip day/night, or change the classification banner.</p>
+    </div>
+  </section>
+
+  <!-- ════════ 8 · OUTCOMES ════════ -->
+  <section id="s-outcomes" style="padding:96px 40px 110px;background:var(--c-bg2);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">09 · Outcomes &amp; Reflection</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:44px;" data-reveal="1">COMPLEXITY DIDN'T GO AWAY. <span style="font-style:italic;font-weight:300;color:var(--c-accent);">It Stopped Landing on the Analyst.</span></h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);background:#0a1410;border-radius:18px;overflow:hidden;margin-bottom:54px;">
+        <div style="padding:42px 26px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:54px;font-weight:600;color:var(--c-accent2);letter-spacing:-2px;">{{ c1 }}</div><div style="font-size:13.5px;color:#bfd6ce;margin-top:10px;line-height:1.5;">Role-based workspaces on one source of truth</div></div>
+        <div style="padding:42px 26px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:54px;font-weight:600;color:var(--c-accent2);letter-spacing:-2px;">{{ c2 }}</div><div style="font-size:13.5px;color:#bfd6ce;margin-top:10px;line-height:1.5;">Clicks from any AI claim to its raw artefact</div></div>
+        <div style="padding:42px 26px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:54px;font-weight:600;color:var(--c-accent2);letter-spacing:-2px;">{{ c3 }}</div><div style="font-size:13.5px;color:#bfd6ce;margin-top:10px;line-height:1.5;">Silent overwrites, conflicts always reach a human</div></div>
+        <div style="padding:42px 26px;text-align:center;"><div style="font-family:'Inter',sans-serif;font-size:54px;font-weight:600;color:var(--c-accent2);letter-spacing:-2px;">{{ c4 }}%</div><div style="font-size:13.5px;color:#bfd6ce;margin-top:10px;line-height:1.5;">Of judgements carry citations, confidence &amp; dissent</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1040px;margin-bottom:50px;">
+        <div data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:14px;">WHAT WORKED</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7;">Anchoring AI to the analyst's real burden, the firehose, gave it an obvious job. Framing every model output as <em>a claim with receipts</em> rather than an answer kept trust high: confidence is a starting point for judgement, and the evidence against a call is always in view.</p>
+        </div>
+        <div data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:14px;">WHAT I'D PUSH FURTHER</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7;">Provenance deserves to go deeper, a visible chain from raw collection to judgement to released product. And the reconcile model from the edge could become the spine of the whole system, so every workspace behaves correctly whether the floor is connected or dark.</p>
+        </div>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-left:3px solid var(--c-accent);border-radius:0 14px 14px 0;padding:30px 34px;max-width:1040px;" data-reveal="1">
+        <p style="font-family:'Inter',sans-serif;font-style:italic;font-weight:300;font-size:clamp(19px,2.1vw,26px);color:var(--c-ink);line-height:1.5;letter-spacing:-0.3px;" data-comment-anchor="60b18edc:406">"The win was never a smarter model. It was a surface where a person can move fast and still defend every call they made."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer style="padding:42px 40px;background:var(--c-bg);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Next case study</div>
+        <a href="Enterprise AI.dc.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-accent)">Application of AI <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+    </div>
+  </footer>
+
+</div>
+
+  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#7a756a;padding:0 10px 0 12px;">Version</span>
+    <a href="AEGIS DI.dc.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#ffffff;background:#0d5350;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Standard</a>
+    <a href="AEGIS Showcase.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#534f48;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Showcase</a>
+  </div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'),
+    menu: false,
+    role: 'margaux',
+    rz: 'irbis',
+    cls: 'secret',
+    c1: 0, c2: 0, c3: 0, c4: 0, countersDone: false
+  };
+  _raf = {}; _obs = [];
+
+  initProtoScale() {
+    const wrap = document.getElementById('cs-proto-wrap');
+    const frame = wrap && wrap.querySelector('.cs-proto');
+    if (!wrap || !frame) return;
+    const DESIGN_W = 1280, DESIGN_H = 812;
+    const fit = () => {
+      const s = wrap.clientWidth / DESIGN_W;
+      frame.style.transform = 'scale(' + s + ')';
+      wrap.style.height = (DESIGN_H * s) + 'px';
+    };
+    fit();
+    if (window.ResizeObserver) { const ro = new ResizeObserver(fit); ro.observe(wrap); this._obs.push(ro); }
+    else { window.addEventListener('resize', fit); }
+  }
+
+  initScrollProgress() {
+    if (document.getElementById('scroll-prog-bar')) return;
+    const ac = '#0d5350', ac2 = '#4ca88f';
+    const bar = document.createElement('div'); bar.id = 'scroll-prog-bar';
+    bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');transition:width 0.08s linear;pointer-events:none;';
+    const pill = document.createElement('div'); pill.id = 'scroll-prog-pill';
+    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
+    document.body.appendChild(bar); document.body.appendChild(pill);
+    const num = document.getElementById('scroll-prog-num');
+    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; pill.style.opacity = st > 60 ? '1' : '0'; };
+    update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
+  }
+
+  componentDidMount() {
+    setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.initProtoScale(); this.initScrollProgress(); }, 120);
+    // Safety net: never let entrance-animated content stay invisible if the CSS
+    // animation timeline fails to start (non-compositing / capture contexts).
+    setTimeout(() => {
+      const vh = window.innerHeight || 800;
+      document.querySelectorAll('[data-hero-anim]').forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) { el.style.animation = 'none'; el.style.opacity = '1'; el.style.transform = 'none'; }
+      });
+      document.querySelectorAll('[data-reveal]').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.95 && parseFloat(getComputedStyle(el).opacity) < 0.05) { el.style.animation = 'none'; el.style.opacity = '1'; el.style.transform = 'none'; }
+      });
+    }, 1500);
+  }
+  componentWillUnmount() { Object.values(this._raf).forEach(cancelAnimationFrame); this._obs.forEach(o => o.disconnect()); }
+
+  toggleMenu() { this.setState(s => ({ menu: !s.menu })); }
+  closeMenu() { this.setState({ menu: false }); }
+
+  initReveal() {
+    if (!window.IntersectionObserver) return;
+    const o = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.animation = 'ai-up 0.7s cubic-bezier(0.22,0.61,0.36,1) both'; o.unobserve(e.target); } }); }, { threshold: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach(el => { el.style.opacity = '0'; o.observe(el); });
+    this._obs.push(o);
+  }
+  initToc() {
+    if (!window.IntersectionObserver) return;
+    const links = [...document.querySelectorAll('.cs-toc a[data-toc]')];
+    if (!links.length) return;
+    const byId = {}; links.forEach(l => { byId[l.getAttribute('data-toc')] = l; });
+    const o = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.removeAttribute('data-active')); if (byId[e.target.id]) byId[e.target.id].setAttribute('data-active', ''); } });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    document.querySelectorAll('section[id^="s-"]').forEach(s => o.observe(s));
+    this._obs.push(o);
+  }
+  initCounters() {
+    if (!window.IntersectionObserver) return;
+    const el = document.getElementById('s-outcomes');
+    if (!el) return;
+    const o = new IntersectionObserver((es) => { if (es[0].isIntersecting && !this.state.countersDone) { this.setState({ countersDone: true }); this.runCounters(); o.disconnect(); } }, { threshold: 0.18 });
+    o.observe(el); this._obs.push(o);
+  }
+  runCounters() {
+    const tg = [8, 3, 0, 100], dur = 1700, t0 = Date.now();
+    const tick = () => {
+      const p = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      this.setState({ c1: Math.round(tg[0] * e), c2: Math.round(tg[1] * e), c3: Math.round(tg[2] * e), c4: Math.round(tg[3] * e) });
+      if (p < 1) this._raf.c = requestAnimationFrame(tick);
+    };
+    this._raf.c = requestAnimationFrame(tick);
+  }
+
+  roleData() {
+    return {
+      margaux: { tag: 'HOME · ASSESSMENT', title: 'Lives inside a single assessment', body: 'The strategic analyst opens straight into the work in progress, bottom line, key judgements, sourcing and dissent. Verbs are about building and defending a judgement.', img: 'assets/aegis/assessment.png', caption: 'ANALYST, ASSESSMENT, KEY JUDGEMENTS & CONFIDENCE' },
+      devon: { tag: 'HOME · WATCH FLOOR COVERAGE', title: 'Thinks in queues, coverage and load', body: 'The supervisor lands on the coverage board: who is on roll, queue depth per priority, and duplication alerts. Analysts drag between priorities, every reassignment is rationale-logged.', img: 'assets/aegis/watchfloor.png', caption: 'SUPERVISOR, DRAG-TO-REASSIGN COVERAGE BOARD' },
+      marcus: { tag: 'HOME · BRIEFING ROOM', title: 'Needs the one-paragraph "so what"', body: 'The director gets a plain-language brief and can ask the system directly, grounded in the retrievable corpus, with citations mandatory. No syntax, no jargon, just the answer and its basis.', img: 'assets/aegis/ask.png', caption: 'DIRECTOR, ASK AEGIS, GROUNDED & CITED' },
+    };
+  }
+
+  rzData() {
+    return {
+      irbis: { name: 'EX-IRBIS-04', conf: 78, rationale: 'Cross-correlation of a SIGINT voice-print fragment (SIG/R/0826-114, \u0192-bin 04-A) and a timestamp-adjacent OSINT social post (OSI/TWX/9912-A) places a probable match against a collector previously assessed active in AO-NORTH.', contra: 'Geo-tagged image metadata places the device 11.3 km north of the last known transit corridor, within historical cohort variance, but flagged against the match.' },
+      landfall: { name: 'ORG-LANDFALL-CONS', conf: 91, rationale: 'Three transactions \u2265 CAD $250k routed via a known typology (T-04); the beneficial-ownership chain matches HUMINT liaison reporting (HUM/LIA/0211) and the corporate registry.', contra: 'No contradicting evidence above threshold. Ownership chain has one unresolved final hop, held open pending confirmation.' },
+      petrel: { name: 'CAMPAIGN-PETREL-3', conf: 84, rationale: 'Synchronised posting across 14 anchor accounts (\u0394 < 6 min) with reuse of a known PETREL-3 template phrase pattern indicates central direction, not organic spread.', contra: 'Two of the 14 anchor accounts show prior independent activity inconsistent with central direction; the cluster method carries an ~8% false-positive rate \u2014 logged as analyst dissent.' },
+    };
+  }
+
+  clsData() {
+    return {
+      unclass: { text: 'UNCLASSIFIED', bg: '#2e7d32' },
+      protb: { text: 'PROTECTED B // CAN ONLY', bg: '#1565c0' },
+      secret: { text: 'SECRET // SI // REL FVEY', bg: '#c0392b' },
+      ts: { text: 'TOP SECRET // SI // ORCON', bg: '#b8860b' },
+    };
+  }
+
+  renderVals() {
+    const S = this.state;
+    const ACC = '#4ca88f';
+
+    const rd = this.roleData(); const rv = rd[S.role];
+    const roleBtn = (k) => S.role === k
+      ? { bg: '#e8f0ee', bd: '#0d5350', text: '#0d5350' }
+      : { bg: '#fff', bd: 'rgba(10,8,4,0.14)', text: '#56524a' };
+    const mg = roleBtn('margaux'), dv = roleBtn('devon'), mc = roleBtn('marcus');
+
+    const zd = this.rzData(); const zv = zd[S.rz];
+    const rzPill = (k) => S.rz === k
+      ? { bg: ACC, fg: '#0a1410', bd: ACC }
+      : { bg: 'rgba(255,255,255,0.04)', fg: '#a9c4bb', bd: 'rgba(76,168,143,0.25)' };
+    const ir = rzPill('irbis'), lf = rzPill('landfall'), pe = rzPill('petrel');
+
+    const cd = this.clsData(); const cv = cd[S.cls];
+    const clBtn = (k) => S.cls === k
+      ? { bg: ACC, fg: '#0a1410', bd: ACC }
+      : { bg: 'rgba(255,255,255,0.04)', fg: '#a9c4bb', bd: 'rgba(76,168,143,0.25)' };
+    const u = clBtn('unclass'), p = clBtn('protb'), s = clBtn('secret'), t = clBtn('ts');
+
+    return {
+      menuClass: S.menu ? 'menu-open' : '',
+      rootClass: S.dark ? 'dark' : '', isDark: S.dark, isLight: !S.dark,
+      toggleDark: () => { const d = !this.state.dark; try { localStorage.setItem('rba-int-dark', d ? 'true' : 'false'); } catch (e) {} this.setState({ dark: d }); }, toggleMenu: () => this.toggleMenu(), closeMenu: () => this.closeMenu(),
+
+      // role toggle
+      setMargaux: () => this.setState({ role: 'margaux' }), setDevon: () => this.setState({ role: 'devon' }), setMarcus: () => this.setState({ role: 'marcus' }),
+      roleTag: rv.tag, roleTitle: rv.title, roleBody: rv.body, roleImg: rv.img, roleCaption: rv.caption,
+      roleClass: 'role-' + S.role,
+      mgBg: mg.bg, mgBd: mg.bd, mgText: mg.text,
+      dvBg: dv.bg, dvBd: dv.bd, dvText: dv.text,
+      mcBg: mc.bg, mcBd: mc.bd, mcText: mc.text,
+
+      // reasoning toggle
+      setIrbis: () => this.setState({ rz: 'irbis' }), setLandfall: () => this.setState({ rz: 'landfall' }), setPetrel: () => this.setState({ rz: 'petrel' }),
+      rzName: zv.name, rzConf: zv.conf, rzRationale: zv.rationale, rzContra: zv.contra,
+      irBg: ir.bg, irFg: ir.fg, irBd: ir.bd,
+      lfBg: lf.bg, lfFg: lf.fg, lfBd: lf.bd,
+      peBg: pe.bg, peFg: pe.fg, peBd: pe.bd,
+
+      // classification toggle
+      clU: () => this.setState({ cls: 'unclass' }), clP: () => this.setState({ cls: 'protb' }), clS: () => this.setState({ cls: 'secret' }), clT: () => this.setState({ cls: 'ts' }),
+      banText: cv.text, banBg: cv.bg,
+      uBg: u.bg, uFg: u.fg, uBd: u.bd,
+      pBg: p.bg, pFg: p.fg, pBd: p.bd,
+      sBg: s.bg, sFg: s.fg, sBd: s.bd,
+      tBg: t.bg, tFg: t.fg, tBd: t.bd,
+
+      c1: S.c1, c2: S.c2, c3: S.c3, c4: S.c4,
+    };
+  }
+}
+</script>
+</body>
+</html>

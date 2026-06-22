@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WaveLinx DALI-2, Case Study · Robert Babiarz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+.cs{--c-bg:#fffcf5;--c-bg2:#faf5e8;--c-soft:#fbf9f4;--c-card:#f3f1ea;--c-surface:#ffffff;--c-line:#edeae1;--c-line2:#c9c4b5;--c-ink:#0a0a0a;--c-ink2:#2a2722;--c-body:#56524a;--c-muted:#6e6a60;--c-muted2:#9a9486;--c-accent:#0d5350;--c-b1:rgba(10,8,4,0.07);--c-b2:rgba(10,8,4,0.08);--c-b3:rgba(10,8,4,0.1);--c-b4:rgba(10,8,4,0.14);--c-b5:rgba(10,8,4,0.25);--c-navbg:rgba(255,252,245,0.85);}
+.cs.dark{--c-bg:#0b0f14;--c-bg2:#11161c;--c-soft:#10151b;--c-card:#161c23;--c-surface:#141b24;--c-line:#242c34;--c-line2:#303942;--c-ink:#f3f1ea;--c-ink2:#e7e3da;--c-body:#bdb7aa;--c-muted:#948e82;--c-muted2:#726c60;--c-accent:#6fd0b8;--c-b1:rgba(255,255,255,0.06);--c-b2:rgba(255,255,255,0.085);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(0,0,0,0.55);--c-navbg:rgba(11,15,20,0.82);color-scheme:dark;}
+::selection{background:#0d5350;color:#fffcf5}
+.dali-scroll::-webkit-scrollbar{width:7px;height:7px}
+.dali-scroll::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.18);border-radius:10px}
+.dali-scroll::-webkit-scrollbar-track{background:transparent}
+@keyframes dl-blink{0%,100%{opacity:1}50%{opacity:0.18}}
+@keyframes dl-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes dl-spin{to{transform:rotate(360deg)}}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+@media (max-width:600px){
+  nav{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:400 !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet>a{padding:14px 14px !important}
+  .cs-switch[open] summary::after{content:'';position:fixed;inset:0;background:rgba(10,8,4,0.42);z-index:390;animation:cs-fade .36s ease}
+}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+.cs section[id]{scroll-margin-top:84px}
+.cs-toc a .cs-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.cs-toc:hover a .cs-toc-label{opacity:1;transform:none}
+.cs-toc a[data-active] .cs-toc-label{opacity:1;color:#0d5350}
+.cs-toc a[data-active] .cs-toc-dot{background:#0d5350;width:22px}
+@media (max-width:1180px){ .cs-toc{display:none !important} }
+@media (max-width:880px){
+  .cs nav > div{padding-left:18px !important;padding-right:18px !important}
+  .cs section{padding-left:18px !important;padding-right:18px !important;padding-top:60px !important;padding-bottom:60px !important}
+  .cs [style*="grid-template-columns"]{grid-template-columns:1fr !important}
+  .cs [style*="repeat(6, 1fr)"],.cs [style*="repeat(5, 1fr)"],.cs [style*="repeat(4, 1fr)"],.cs [style*="repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  .cs-hero-media{display:none !important}
+}
+@media (max-width:520px){
+  .cs h1{font-size:34px !important;letter-spacing:-1px !important}
+  .cs h2{font-size:26px !important}
+  .cs-pill{display:none !important}
+  .cs [style*="repeat(6, 1fr)"],.cs [style*="repeat(4, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+}
+.cs-burger{display:none;width:40px;height:40px;border:1px solid rgba(10,8,4,0.14);border-radius:9px;background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.cs-burger span{display:block;width:18px;height:2px;background:#0d5350;border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .cs-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .cs-burger span:nth-child(2){opacity:0}
+.menu-open .cs-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#cs-menu{position:fixed;inset:0;z-index:95;background:#fffcf5;display:flex;flex-direction:column;padding:84px 24px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #cs-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#cs-menu .csm-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6f6b61;margin-bottom:6px}
+#cs-menu .csm-sec{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:22px;font-weight:600;letter-spacing:-0.02em;color:#0a0a0a;text-decoration:none;padding:12px 2px;border-bottom:1px solid rgba(10,8,4,0.08);opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,color .15s}
+.menu-open #cs-menu .csm-sec{opacity:1;transform:none}
+#cs-menu .csm-sec .csm-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;color:#6f6b61}
+#cs-menu .csm-switch{display:block;text-decoration:none;padding:13px 14px;border:1px solid rgba(10,8,4,0.12);border-radius:11px;margin-top:10px;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .15s}
+.menu-open #cs-menu .csm-switch{opacity:1;transform:none}
+.cs-stagger>*{transition-delay:0s}
+.menu-open .cs-stagger>:nth-child(1){transition-delay:.05s}
+.menu-open .cs-stagger>:nth-child(2){transition-delay:.09s}
+.menu-open .cs-stagger>:nth-child(3){transition-delay:.13s}
+.menu-open .cs-stagger>:nth-child(4){transition-delay:.17s}
+.menu-open .cs-stagger>:nth-child(5){transition-delay:.21s}
+.menu-open .cs-stagger>:nth-child(6){transition-delay:.25s}
+.menu-open .cs-stagger>:nth-child(7){transition-delay:.29s}
+.menu-open .cs-stagger>:nth-child(8){transition-delay:.33s}
+.menu-open .cs-stagger>:nth-child(9){transition-delay:.37s}
+.menu-open .cs-stagger>:nth-child(n+10){transition-delay:.41s}
+@media (max-width:880px){ .cs-burger{display:flex} }
+@media (min-width:881px){ #cs-menu{display:none !important} }
+</style>
+<script src="text-motion.js"></script>
+<script src="page-transition.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div class="cs {{ rootClass }} {{ menuClass }}" style="background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:clip;">
+
+  <!-- ════════ NAV ════════ -->
+  <nav style="position:sticky;top:0;z-index:100;background:var(--c-navbg);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1);">
+    <div style="padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="Homepage Interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color 0.15s;" style-hover="color:var(--c-ink)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background 0.2s,border-color 0.2s;" style-hover="background:var(--c-card)"><sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></sc-if><sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></sc-if></button>
+        <details class="cs-switch" style="position:relative;">
+          <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent);">DALI-2</span>
+            <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5" style="transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
+            <a href="DALI-2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-bg2);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="Core Insights.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="Partitioning.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+            <a href="Smart Lighting.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="Enterprise AI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+            <a href="AEGIS DI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+            <a href="Goals-Driven Fintech.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+            <a href="CTOC Case Study v2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
+            <a href="Homepage Interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)">← All work</a>
+          </div>
+        </details>
+        <button class="cs-burger" onClick="{{ toggleMenu }}" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="cs-menu">
+    <div class="csm-lbl">Sections</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-sec" href="#s-scale" onClick="{{ closeMenu }}"><span>Scale</span><span class="csm-n">01</span></a>
+      <a class="csm-sec" href="#s-problem" onClick="{{ closeMenu }}"><span>The Problem</span><span class="csm-n">02</span></a>
+      <a class="csm-sec" href="#s-role" onClick="{{ closeMenu }}"><span>Role &amp; Scope</span><span class="csm-n">03</span></a>
+      <a class="csm-sec" href="#s-research" onClick="{{ closeMenu }}"><span>Research</span><span class="csm-n">04</span></a>
+      <a class="csm-sec" href="#s-pivot" onClick="{{ closeMenu }}"><span>The Pivot</span><span class="csm-n">05</span></a>
+      <a class="csm-sec" href="#s-flow" onClick="{{ closeMenu }}"><span>Commissioning</span><span class="csm-n">06</span></a>
+      <a class="csm-sec" href="#s-area" onClick="{{ closeMenu }}"><span>Area</span><span class="csm-n">07</span></a>
+      <a class="csm-sec" href="#s-floor" onClick="{{ closeMenu }}"><span>Floor Plan</span><span class="csm-n">08</span></a>
+      <a class="csm-sec" href="#s-craft" onClick="{{ closeMenu }}"><span>Craft</span><span class="csm-n">09</span></a>
+      <a class="csm-sec" href="#s-iteration" onClick="{{ closeMenu }}"><span>Iteration</span><span class="csm-n">10</span></a>
+      <a class="csm-sec" href="#s-outcomes" onClick="{{ closeMenu }}"><span>Outcomes</span><span class="csm-n">11</span></a>
+    </div>
+    <div class="csm-lbl" style="margin-top:26px;">Switch case study</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-switch" href="Core Insights.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+      <a class="csm-switch" href="Partitioning.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+      <a class="csm-switch" href="Smart Lighting.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+      <a class="csm-switch" href="Enterprise AI.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+      <a class="csm-switch" href="AEGIS DI.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+      <a class="csm-switch" href="Goals-Driven Fintech.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+      <a class="csm-switch" href="CTOC Case Study v2.dc.html"><div style="font-size:15px;font-weight:600;color:var(--c-accent);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+      <a class="csm-switch" href="Homepage Interactive.dc.html"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">← All work</div></a>
+    </div>
+  </div>
+
+  <!-- ════════ SECTION SIDE-NAV ════════ -->
+  <nav class="cs-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
+    <a href="#s-scale" data-toc="s-scale" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Scale</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-problem" data-toc="s-problem" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Problem</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-role" data-toc="s-role" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Role</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-research" data-toc="s-research" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Research</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-pivot" data-toc="s-pivot" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Pivot</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-flow" data-toc="s-flow" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Commission</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-managehub" data-toc="s-managehub" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Manage</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-area" data-toc="s-area" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Area</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-floor" data-toc="s-floor" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Floor plan</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-craft" data-toc="s-craft" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Craft</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-iteration" data-toc="s-iteration" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Iteration</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-outcomes" data-toc="s-outcomes" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Outcomes</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+  </nav>
+
+  <!-- ════════ 1 · HERO ════════ -->
+  <section style="position:relative;overflow:hidden;padding:80px 40px 92px;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 80% 16%,rgba(13,83,80,0.06) 0%,transparent 62%);pointer-events:none;"></div>
+    <div style="max-width:1240px;margin:0 auto;position:relative;display:grid;grid-template-columns:1.04fr 0.96fr;gap:54px;align-items:center;">
+      <div style="animation:dl-up 0.8s cubic-bezier(0.22,0.61,0.36,1) both;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.12em;text-transform:uppercase;">Cooper Lighting · Signify</span>
+          <div style="width:18px;height:1px;background:rgba(10,8,4,0.2);"></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);letter-spacing:0.12em;text-transform:uppercase;">Peter Gilgan Mississauga Hospital</span>
+        </div>
+        <h1 style="font-family:'Inter',sans-serif;font-size:clamp(38px,4.3vw,62px);font-weight:500;line-height:1.08;letter-spacing:-1.9px;color:var(--c-ink);margin-bottom:22px;text-wrap:balance;padding-bottom:0.06em;">Designing a product that didn't exist, for a protocol that <em style="font-style:italic;font-weight:300;color:var(--c-accent);">couldn't change.</em></h1>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.62;max-width:496px;margin-bottom:34px;">WaveLinx DALI-2, an industry-first commissioning experience for a protocol-constrained commercial IoT product, taken from zero to shipped across hardware, firmware, and field reality at once. First deployment: the largest DALI-2 install in North America.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px;">
+          <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid rgba(13,83,80,0.25);color:var(--c-accent);">Enterprise IoT</span>
+          <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid rgba(13,83,80,0.25);color:var(--c-accent);">Healthcare</span>
+          <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid rgba(232,99,42,0.3);color:#c2530f;">Industry First</span>
+          <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid rgba(58,157,93,0.32);color:#2c7d49;">First Release Shipped</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--c-b3);padding-top:24px;max-width:600px;">
+          <div style="padding-right:26px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Role</div>
+            <div style="font-size:14px;color:var(--c-ink2);font-weight:500;">Lead Product Designer</div>
+          </div>
+          <div style="width:1px;background:var(--c-b3);margin-right:26px;"></div>
+          <div style="padding-right:26px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Scope</div>
+            <div style="font-size:14px;color:var(--c-ink2);font-weight:500;">Research → Delivery</div>
+          </div>
+          <div style="width:1px;background:var(--c-b3);margin-right:26px;"></div>
+          <div style="padding-right:26px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Team</div>
+            <div style="font-size:14px;color:var(--c-ink2);font-weight:500;">15 cross-functional</div>
+          </div>
+          <div style="width:1px;background:var(--c-b3);margin-right:26px;"></div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Platform</div>
+            <div style="font-size:14px;color:var(--c-accent);font-weight:600;">Mobile · Web</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- hero collage -->
+      <div class="cs-hero-media" style="position:relative;height:478px;animation:dl-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.12s both;">
+        <div style="position:absolute;top:18px;right:0;width:540px;max-width:106%;border-radius:11px 11px 0 0;overflow:hidden;background:var(--c-surface);box-shadow:0 40px 80px -28px rgba(20,30,40,0.4),0 8px 24px -12px rgba(20,30,40,0.2);border:1px solid var(--c-b2);transform:perspective(1600px) rotateY(-8deg) rotateX(2deg);">
+          <div style="height:32px;background:var(--c-line);display:flex;align-items:center;padding:0 14px;gap:7px;border-bottom:1px solid var(--c-b1);">
+            <div style="width:9px;height:9px;border-radius:50%;background:#e06c5e;"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#e0b94e;"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#5bbd7a;"></div>
+            <div style="margin-left:14px;flex:1;height:17px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">wavelinx.app/operate · Floor 1, East</span></div>
+          </div>
+          <div style="height:320px;overflow:hidden;background:var(--c-surface);"><img src="assets/dali/desktop-operate.jpg" alt="WaveLinx Operate floor plan" style="width:100%;display:block;"/></div>
+        </div>
+        <div style="position:absolute;bottom:0;left:-6px;width:158px;border-radius:0;background:#12161d;padding:7px;box-shadow:0 30px 60px -18px rgba(20,30,40,0.5);border:1px solid rgba(255,255,255,0.05);animation:dl-float 6s ease-in-out infinite;">
+          <div style="border-radius:0;overflow:hidden;background:var(--c-surface);height:300px;position:relative;">
+            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:54px;height:15px;background:#12161d;border-radius:0 0 9px 9px;z-index:2;"></div>
+            <img src="assets/dali/mobile-area.jpg" alt="WaveLinx mobile area control" style="width:100%;display:block;"/>
+          </div>
+        </div>
+        <div style="position:absolute;top:-4px;left:30px;background:#0b1016;border:1px solid rgba(95,194,168,0.3);border-radius:11px;padding:11px 15px;box-shadow:0 18px 40px -16px rgba(11,16,22,0.7);">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#5fc2a8;animation:dl-blink 1.6s infinite;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;">PER FLOOR</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:#e8edf5;line-height:1;">10,000+</div>
+          <div style="font-size:10px;color:#5a6b82;margin-top:3px;">DALI devices</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- key outcome callout -->
+    <div style="max-width:1240px;margin:54px auto 0;position:relative;animation:dl-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.3s both;">
+      <div style="background:var(--c-card);border:1px solid rgba(13,83,80,0.12);border-radius:12px;padding:26px 30px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Key Outcome</div>
+        <p style="font-size:17px;color:var(--c-ink2);line-height:1.6;max-width:1000px;">Extended WaveLinx's commissioning and device-management workflows to support DALI-2 at enterprise scale for one of the most complex hospital lighting deployments in North America. The non-blocking V2 architecture let contractors configure areas <strong style="color:var(--c-accent);">while device import ran in parallel</strong> turning a protocol-imposed wait into invisible background work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · SCALE STATS (dark) ════════ -->
+  <section id="s-scale" style="padding:64px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:28px;" data-reveal="1">The scale I was designing for</div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;" data-reveal="1">
+        <div style="background:#0b1016;padding:30px 18px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(26px,2.6vw,38px);font-weight:500;color:#fff;line-height:1;">10,000+</div><div style="font-size:12px;color:#5a6b82;margin-top:10px;line-height:1.4;">Devices per<br/>hospital floor</div></div>
+        <div style="background:#0b1016;padding:30px 18px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(26px,2.6vw,38px);font-weight:500;color:#fff;line-height:1;">24</div><div style="font-size:12px;color:#5a6b82;margin-top:10px;line-height:1.4;">Buses<br/>per floor</div></div>
+        <div style="background:#0b1016;padding:30px 18px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(26px,2.6vw,38px);font-weight:500;color:#fff;line-height:1;">6</div><div style="font-size:12px;color:#5a6b82;margin-top:10px;line-height:1.4;">DALI hubs<br/>per panel</div></div>
+        <div style="background:#0b1016;padding:30px 18px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(26px,2.6vw,38px);font-weight:500;color:#fff;line-height:1;">128</div><div style="font-size:12px;color:#5a6b82;margin-top:10px;line-height:1.4;">Fixtures<br/>per bus</div></div>
+        <div style="background:#0b1016;padding:30px 18px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(26px,2.6vw,38px);font-weight:500;color:#fff;line-height:1;">1,000<span style="font-size:0.5em;color:#5fc2a8;"> ft</span></div><div style="font-size:12px;color:#5a6b82;margin-top:10px;line-height:1.4;">Max bus<br/>length</div></div>
+        <div style="background:#0b1016;padding:30px 18px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(26px,2.6vw,38px);font-weight:500;color:#fff;line-height:1;">250</div><div style="font-size:12px;color:#5a6b82;margin-top:10px;line-height:1.4;">Devices per hub<br/>(per scan)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 3 · THE PROBLEM ════════ -->
+  <section id="s-problem" style="padding:92px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <figure data-reveal="1" style="margin:0 0 56px;">
+        <div style="border-radius:16px;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 30px 70px -36px rgba(20,30,40,0.4);">
+          <img src="assets/dali/hospital.jpg" alt="Peter Gilgan Mississauga Hospital, architectural rendering" style="width:100%;display:block;"/>
+        </div>
+        <figcaption style="margin-top:14px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);letter-spacing:0.06em;">
+          <span style="color:var(--c-accent);text-transform:uppercase;">First deployment</span>
+          <span>Peter Gilgan Mississauga Hospital, the largest DALI-2 installation in North America.</span>
+        </figcaption>
+      </figure>
+      <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:68px;align-items:start;">
+        <div data-reveal="1">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;">01 · The Problem</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:var(--c-ink);margin-bottom:22px;">The core problem<br/>was time.</h2>
+          <p style="font-size:18px;color:var(--c-body);line-height:1.7;margin-bottom:16px;">Cooper Lighting was retiring two legacy platforms, Fifth Light and iLight. WaveLinx DALI was their DALI-2-certified replacement. There was no product to iterate on, and the DALI-2 protocol's timing rules are physical, they cannot be engineered away.</p>
+          <p style="font-size:18px;color:var(--c-body);line-height:1.7;">In V1, adding a hub locked the entire UI behind a blocking loader, <em style="color:var(--c-accent);font-style:italic;">"Processing… Adding DALI Hub and Devices to WAC"</em> that started at 10 minutes and grew to <strong style="color:var(--c-ink);">27.5 minutes per hub</strong> to absorb 250 devices. Multiply across 10 hubs per controller, and contractors sat idle for hours.</p>
+        </div>
+        <div data-reveal="1" style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(232,99,42,0.1);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d8551f" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">A blocking import, by design</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Discovery triggered a full scan of all four buses. No navigation, no area creation, no parallel work, and no progress visibility, until it finished.</p></div>
+          </div>
+          <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(107,63,160,0.1);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b3fa0" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">Built for 30–50 devices</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Every screen, device trees, area lists, the Operate floor plan, assumed a handful of wireless devices. DALI-2 brought thousands.</p></div>
+          </div>
+          <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(13,83,80,0.09);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
+            <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">Make-or-break, not polish</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Channel partners and facilities teams were judging whether WaveLinx DALI could credibly replace their tools. A blocking experience at hospital scale was not acceptable.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · ROLE & SCOPE ════════ -->
+  <section id="s-role" style="padding:88px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:760px;margin-bottom:40px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">02 · My Role &amp; Scope</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">UX owner, end to end.</h2>
+        <p style="font-size:17px;color:var(--c-body);line-height:1.66;">I led UX strategy and design from discovery through handoff, the primary design voice for the entire WaveLinx DALI commissioning system, working directly with Engineering, Architecture, Product, Firmware, and Development, and presenting milestones to groups of 25+ stakeholders for alignment.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start;" data-reveal="1">
+        <div style="background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:16px;padding:28px 30px;">
+          <div style="font-size:15px;font-weight:600;color:var(--c-ink);margin-bottom:16px;">What I owned</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;">
+            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Hub discovery, Lobby, Manage Hub, Area &amp; floor-plan UX</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">V1 and V2 flow architecture</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Custom iconography (Illustrator → SVG/Fontello)</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Press-ready DALI-2 hub hardware label</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">CLS Design System contributions in Figma</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Cross-functional reviews &amp; launch follow-up</span></div>
+          </div>
+          <div style="margin-top:22px;padding-top:20px;border-top:1px solid var(--c-b2);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Direct team</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;">
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-body);padding:5px 11px;background:var(--c-bg);border:1px solid var(--c-b3);border-radius:100px;">Eng Managers ×2</span>
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-body);padding:5px 11px;background:var(--c-bg);border:1px solid var(--c-b3);border-radius:100px;">Product Owners ×2</span>
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-body);padding:5px 11px;background:var(--c-bg);border:1px solid var(--c-b3);border-radius:100px;">PMs ×2</span>
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-body);padding:5px 11px;background:var(--c-bg);border:1px solid var(--c-b3);border-radius:100px;">Architecture ×1</span>
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-body);padding:5px 11px;background:var(--c-bg);border:1px solid var(--c-b3);border-radius:100px;">Developers ×5</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#0b1016;border-radius:16px;padding:28px 30px;color:#e8edf5;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;">The key constraint</div>
+          <p style="font-size:17px;color:#cdd6e4;line-height:1.62;margin-bottom:16px;">The DALI bus scan is slow by protocol design. Addressing 128 devices per bus and fetching their parameters takes real time.</p>
+          <p style="font-size:15px;color:#8a9ab5;line-height:1.6;">This was never a solvable engineering problem, the protocol ceiling is physical. The UX had to absorb the constraint and design <strong style="color:#5fc2a8;">around</strong> it, not through it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 5 · RESEARCH ════════ -->
+  <section id="s-research" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:780px;margin-bottom:40px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">03 · Research</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">Five rooms, one mental model.</h2>
+        <p style="font-size:17px;color:var(--c-body);line-height:1.66;">Research ran in parallel with design while hardware and firmware were still being built. I used the engineering team as a primary source, supplemented by field context from channel partners and a teardown of three competing DALI commissioning tools. Structured discovery ran across five stakeholder groups before any design started.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:32px;" data-reveal="1">
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:13px;padding:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);margin-bottom:10px;">01</div><div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Engineering &amp; Firmware</div><p style="font-size:12.5px;color:var(--c-muted);line-height:1.5;">Bus bandwidth limits, hub-discovery latency, and the max safe polling frequency during live commissioning.</p></div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:13px;padding:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);margin-bottom:10px;">02</div><div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Developers</div><p style="font-size:12.5px;color:var(--c-muted);line-height:1.5;">Loading 3,000+ devices into the existing device tree would time out and degrade the whole app.</p></div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:13px;padding:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);margin-bottom:10px;">03</div><div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Architecture &amp; PM</div><p style="font-size:12.5px;color:var(--c-muted);line-height:1.5;">Hospital deployment context, commissioning sequence, and wired-only regulatory requirements.</p></div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:13px;padding:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);margin-bottom:10px;">04</div><div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Field Commissioning</div><p style="font-size:12.5px;color:var(--c-muted);line-height:1.5;">Technicians cross-reference floor plans with MAC lists, work bus-by-bus, and need instant device ID under time pressure.</p></div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:13px;padding:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);margin-bottom:10px;">05</div><div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Hospital Facilities</div><p style="font-size:12.5px;color:var(--c-muted);line-height:1.5;">Adding devices during construction expansions, rebooting hubs without disrupting live floors, fast fault ID.</p></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" data-reveal="1">
+        <div style="background:var(--c-card);border-radius:12px;padding:24px 28px;">
+          <div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:10px;">Key research insight</div>
+          <p style="font-size:15px;color:#3a3833;line-height:1.6;">The existing architecture assumed 30–50 devices per controller. <strong style="color:var(--c-accent);">Every</strong> piece of UI was built at that scale. DALI-2 didn't add a feature, it forced a re-examination of how the entire application handled volume.</p>
+        </div>
+        <div style="background:#1b2330;border-radius:12px;padding:24px 28px;color:#e8edf5;display:flex;flex-direction:column;justify-content:center;">
+          <p style="font-family:'Inter',sans-serif;font-size:19px;font-weight:300;font-style:italic;color:#d7efe7;line-height:1.5;letter-spacing:-0.3px;">"I've been doing DALI for 12 years. I know what order things need to happen. But your app doesn't, so I have to fight it."</p>
+          <div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.05em;">Master electrician · field research participant</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 6 · THE PIVOT (interactive toggle) ════════ -->
+  <section id="s-pivot" style="padding:90px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="margin-bottom:30px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">04 · The Pivot</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(26px,3.2vw,42px);font-weight:500;letter-spacing:-1.2px;line-height:1.08;color:#fff;">From "wait for it"<br/>to "work through it."</h2>
+          <div style="display:flex;gap:4px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:11px;padding:4px;">
+            <button onClick="{{ showV1 }}" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;background:{{ v1Bg }};color:{{ v1Fg }};transition:all 0.2s;">V1 · Abandoned</button>
+            <button onClick="{{ showV2 }}" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;background:{{ v2Bg }};color:{{ v2Fg }};transition:all 0.2s;">V2 · Shipped</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:stretch;" data-reveal="1">
+        <!-- mock UI -->
+        <div style="position:relative;background:#0e151e;border:1px solid {{ pivotBorder }};border-radius:16px;padding:20px;overflow:hidden;transition:border-color 0.3s;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.08em;text-transform:uppercase;">Add DALI Hub to WAC</div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;background:{{ stateTagBg }};color:{{ stateTagFg }};">{{ stateTag }}</span>
+          </div>
+          <!-- faux app body -->
+          <div style="position:relative;height:300px;border-radius:10px;background:#0b1016;border:1px solid rgba(255,255,255,0.05);overflow:hidden;">
+            <!-- area config rows (dimmed in V1) -->
+            <div style="padding:16px;opacity:{{ bodyOpacity }};filter:{{ bodyFilter }};transition:all 0.4s;">
+              <div style="font-size:12px;color:#8a9ab5;margin-bottom:12px;font-family:'JetBrains Mono',monospace;">Areas · Floor 1, East</div>
+              <sc-for list="{{ fauxRows }}" as="row" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 13px;margin-bottom:7px;background:#0e151e;border:1px solid rgba(255,255,255,0.05);border-radius:8px;">
+                  <span style="font-size:13px;color:#cdd6e4;">{{ row.name }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5a6b82;">{{ row.meta }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <!-- V1 blocking modal -->
+            <sc-if value="{{ isV1 }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;inset:0;background:rgba(11,16,22,0.72);display:flex;align-items:center;justify-content:center;">
+                <div style="background:var(--c-surface);border-radius:12px;padding:26px 30px;max-width:300px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+                  <div style="width:34px;height:34px;border:3px solid #e4e7ec;border-top-color:var(--c-accent);border-radius:50%;margin:0 auto 16px;animation:dl-spin 0.9s linear infinite;"></div>
+                  <div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:7px;">Processing… this may take a while</div>
+                  <p style="font-size:12px;color:var(--c-muted);line-height:1.5;">Adding DALI Hub and Devices to WAC. Please do not navigate away.</p>
+                  <div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#c2530f;">⏱ 10–27.5 min · UI locked</div>
+                </div>
+              </div>
+            </sc-if>
+            <!-- V2 non-blocking banner -->
+            <sc-if value="{{ isV2 }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;left:12px;right:12px;bottom:12px;background:#13231c;border:1px solid rgba(58,157,93,0.35);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+                <div style="width:26px;height:26px;border:2.5px solid rgba(58,157,93,0.25);border-top-color:#3a9d5d;border-radius:50%;animation:dl-spin 0.9s linear infinite;flex-shrink:0;"></div>
+                <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#7fe0a3;">Importing devices in background</div><div style="font-size:11px;color:#6f8a78;margin-top:2px;">Keep configuring, we'll update as buses come in.</div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a9d5d;">62%</span>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <!-- explanation -->
+        <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px 30px;display:flex;flex-direction:column;">
+          <div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:#fff;margin-bottom:14px;">{{ pivotTitle }}</div>
+          <p style="font-size:15px;color:#8a9ab5;line-height:1.62;margin-bottom:22px;">{{ pivotBody }}</p>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <sc-for list="{{ pivotPoints }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;gap:11px;align-items:flex-start;">
+                <div style="width:6px;height:6px;border-radius:50%;background:{{ p.dot }};flex-shrink:0;margin-top:7px;"></div>
+                <span style="font-size:14px;color:#cdd6e4;line-height:1.5;">{{ p.text }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:auto;padding-top:22px;">
+            <div style="background:#0b1016;border-radius:10px;padding:16px 18px;border:1px solid rgba(95,194,168,0.18);">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5fc2a8;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">The reframe, in one line</div>
+              <p style="font-size:14px;color:#d7efe7;line-height:1.55;font-style:italic;">"We stopped designing for when the scan finishes, and started designing for what users can do while it's still running."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- real V1 artifact -->
+      <div style="margin-top:16px;display:grid;grid-template-columns:1.45fr 1fr;gap:20px;align-items:center;" data-reveal="1">
+        <div style="position:relative;border-radius:0;overflow:hidden;border:1px solid rgba(216,70,58,0.35);background:var(--c-surface);box-shadow:0 26px 60px -32px rgba(0,0,0,0.75);">
+          <img src="assets/dali/shots/d-v1processing.jpg" alt="Real V1 blocking modal" style="width:100%;display:block;"/>
+          <div style="position:absolute;top:35%;left:35%;width:30%;height:28%;border:2px solid #d8463a;border-radius:8px;background:rgba(216,70,58,0.08);z-index:2;"></div>
+          <div style="position:absolute;top:35%;left:35%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:#d8463a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;box-shadow:0 3px 10px rgba(11,16,22,0.5);border:2px solid var(--c-bg);z-index:3;">1</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#ef9a8e;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">The real V1 artifact</div>
+          <h3 style="font-family:'Inter',sans-serif;font-size:21px;font-weight:500;letter-spacing:-0.5px;color:#fff;margin-bottom:12px;">One modal, the whole app behind it.</h3>
+          <p style="font-size:14.5px;color:#8a9ab5;line-height:1.6;margin-bottom:14px;">The actual V1 screen, <em style="color:#cdd6e4;">"Processing… Adding DALI Hub and Devices to WAC."</em> It sat on top of a frozen interface for 10–27.5 minutes per hub. V2 deleted this blocking state entirely.</p>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:20px;height:20px;border-radius:50%;background:#d8463a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;flex-shrink:0;">1</div><span style="font-size:13px;color:#aab6c9;line-height:1.5;">Blocking modal, no navigation, no progress, no parallel work.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 7 · COMMISSIONING STEPPER (interactive) ════════ -->
+  <section id="s-flow" style="padding:80px 40px;background:#0e151e;color:#e8edf5;border-top:1px solid rgba(255,255,255,0.05);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="margin-bottom:30px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">05 · The Commissioning Flow</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(26px,3.2vw,42px);font-weight:500;letter-spacing:-1.2px;line-height:1.08;color:#fff;">Discovery, not data entry.</h2>
+          <p style="font-size:15px;color:#8a9ab5;max-width:380px;line-height:1.55;"><strong style="color:#cdd6e4;font-weight:600;">Step through it.</strong> Hub-first import takes a raw hub from the network to a named, addressable system, with a persistent device counter the whole way.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;" data-reveal="1">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+          <button onClick="{{ st.go }}" style="flex:1;min-width:150px;display:flex;align-items:center;gap:11px;padding:13px 15px;border-radius:11px;border:1px solid {{ st.border }};background:{{ st.bg }};cursor:pointer;text-align:left;transition:all 0.2s;">
+            <div style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;background:{{ st.numBg }};color:{{ st.numFg }};">{{ st.num }}</div>
+            <div><div style="font-size:13px;font-weight:600;color:{{ st.titleColor }};line-height:1.2;">{{ st.title }}</div></div>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1.35fr;gap:16px;align-items:stretch;" data-reveal="1">
+        <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.1em;text-transform:uppercase;">Discovered DALI Hubs</div>
+            <div style="display:flex;align-items:center;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:#5fc2a8;animation:dl-blink 2s infinite;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;">SCAN</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <sc-for list="{{ hubs }}" as="h" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:9px;background:{{ h.bg }};border:1px solid {{ h.border }};transition:all 0.2s;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="{{ h.icon }}" stroke-width="1.7" style="flex-shrink:0;"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+                <div style="flex:1;min-width:0;"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{ h.name }};line-height:1.2;">{{ h.id }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;margin-top:2px;">{{ h.ip }}</div></div>
+                <sc-if value="{{ h.imported }}" hint-placeholder-val="{{ false }}"><div style="width:18px;height:18px;border-radius:50%;background:#3a9d5d;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--c-surface)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></sc-if>
+                <sc-if value="{{ h.selDot }}" hint-placeholder-val="{{ false }}"><div style="width:7px;height:7px;border-radius:50%;background:#5fc2a8;flex-shrink:0;"></div></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:26px;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">{{ stepTag }}</div>
+              <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:500;letter-spacing:-0.5px;color:#fff;">{{ stepTitle }}</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;padding-left:16px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">Remaining in WAC</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:500;color:#7dd3c0;line-height:1;">{{ wacCount }}</div>
+            </div>
+          </div>
+          <p style="font-size:15px;color:#8a9ab5;line-height:1.6;margin-bottom:20px;max-width:440px;">{{ stepBody }}</p>
+
+          <div style="margin-bottom:20px;">
+            <div style="height:6px;border-radius:100px;background:#0e151e;overflow:hidden;border:1px solid rgba(255,255,255,0.05);">
+              <div style="height:100%;width:{{ progressW }};background:linear-gradient(90deg,var(--c-accent),#5fc2a8);border-radius:100px;transition:width 0.6s cubic-bezier(0.22,0.61,0.36,1);"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;">{{ progressLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd3c0;">{{ progressPct }}</span></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;">
+            <sc-for list="{{ buses }}" as="b" hint-placeholder-count="4">
+              <div style="background:#0e151e;border:1px solid {{ b.border }};border-radius:10px;padding:13px 12px;transition:all 0.3s;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px;">Bus {{ b.n }}</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:{{ b.color }};line-height:1;">{{ b.count }}</div>
+                <div style="font-size:10px;color:#5a6b82;margin-top:4px;">{{ b.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:18px;">
+            <button onClick="{{ prevStep }}" style="padding:11px 18px;border-radius:9px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:#8a9ab5;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;" style-hover="border-color:rgba(255,255,255,0.25);color:#e8edf5">Back</button>
+            <button onClick="{{ nextStep }}" style="flex:1;padding:11px 18px;border-radius:9px;border:none;background:var(--c-accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;" style-hover="filter:brightness(1.12)">{{ nextLabel }} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- shipped mobile flow gallery -->
+      <div style="margin-top:40px;" data-reveal="1">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.12em;text-transform:uppercase;">Shipped to the field, the real screens</div>
+          <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px 16px;">
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.75);background:var(--c-surface);">
+              <div style="position:relative;"><img src="assets/dali/shots/d-discover.jpg" alt="Discovered DALI hubs" style="width:100%;display:block;"/><div style="position:absolute;top:34%;left:20%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">1</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Step 1 · Discover</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Every hub on the network, name, MAC, IP, found automatically.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.75);background:var(--c-surface);">
+              <div style="position:relative;"><img src="assets/dali/shots/d-editbus.jpg" alt="Edit DALI bus names" style="width:100%;display:block;"/><div style="position:absolute;top:42%;left:72%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">2</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Step 2 · Name</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Rename hub and buses inline, tied to floor and location.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.75);background:var(--c-surface);">
+              <div style="position:relative;"><img src="assets/dali/shots/d-success.jpg" alt="Successfully added to WAC" style="width:100%;display:block;"/><div style="position:absolute;top:55%;left:72%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">3</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Step 3 · Added to WAC</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Confirmation with the remaining-device count, on to the next hub.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.75);background:var(--c-surface);">
+              <div style="position:relative;"><img src="assets/dali/shots/d-managehub.jpg" alt="Manage hub bus breakdown" style="width:100%;display:block;"/><div style="position:absolute;top:42%;left:74%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">4</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Manage Hub</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Live per-bus counts: Drivers 64, Wall Stations 23, Sensors 13, CCIs 2.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.75);background:var(--c-surface);">
+              <div style="position:relative;"><img src="assets/dali/shots/d-find.jpg" alt="Find devices confirmation" style="width:100%;display:block;"/><div style="position:absolute;top:46%;left:42%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">5</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Find Devices</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">A confirm dialog guards a live hub before any rescan runs.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.75);background:var(--c-surface);">
+              <div style="position:relative;"><img src="assets/dali/shots/d-processing.jpg" alt="Processing adding devices" style="width:100%;display:block;"/><div style="position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">6</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Add Devices</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">A processing modal sets a 5–8 min expectation, then a toast confirms.</div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ NEW · DALI HUB MANAGEMENT ════════ -->
+  <section id="s-managehub" style="padding:92px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:820px;margin-bottom:42px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">06 · DALI Hub Management</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">The full lifecycle, after launch.</h2>
+        <p style="font-size:17px;color:var(--c-body);line-height:1.66;">Commissioning is only the beginning. Hospitals expand, floors get reconfigured, and devices get added to existing buses over time. The Manage Hub screen supports the entire lifecycle of a DALI-2 install, letting technicians monitor hub health, rescan for new devices, and take corrective action without disrupting a live facility.</p>
+      </div>
+
+      <!-- Manage Hub -->
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center;margin-bottom:30px;" data-reveal="1">
+        <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 20px 50px -28px rgba(20,30,40,0.32);background:var(--c-surface);">
+          <div style="height:26px;background:var(--c-line);display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b1);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+          <img src="assets/dali/shots/d-managehub.jpg" alt="Manage hub, bus inventory breakdown" style="width:100%;display:block;"/>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Manage Hub</div>
+          <h3 style="font-family:'Inter',sans-serif;font-size:21px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink);margin-bottom:12px;">Inventory, broken down by bus.</h3>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.62;">The left panel lists every bus under the hub with live device counts. Selecting a bus breaks inventory down by category, Drivers (64), Wall Stations (23), Sensors (13), CCIs (2). A persistent <strong style="color:var(--c-accent);">Remaining Devices in WAC</strong> counter keeps installation-wide context in view.</p>
+        </div>
+      </div>
+
+      <!-- Find Devices -->
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:center;margin-bottom:30px;" data-reveal="1">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Find Devices</div>
+          <h3 style="font-family:'Inter',sans-serif;font-size:21px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink);margin-bottom:12px;">A guarded rescan on a live system.</h3>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.62;margin-bottom:12px;">When devices are added to the physical install post-commissioning, the technician triggers Find Devices from the top bar. Because the scan temporarily impacts hub operations, a confirmation dialog protects against accidental triggering on a live system.</p>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.62;">Buses with newly discovered devices are flagged with a <strong style="color:var(--c-accent);">green indicator</strong> and a new-vs-existing count, so technicians know which buses need attention without scanning each one manually.</p>
+        </div>
+        <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 20px 50px -28px rgba(20,30,40,0.32);background:var(--c-surface);">
+          <div style="height:26px;background:var(--c-line);display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b1);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+          <img src="assets/dali/shots/d-find.jpg" alt="Find devices, confirmation dialog before rescan" style="width:100%;display:block;"/>
+        </div>
+      </div>
+
+      <!-- Add Devices -->
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center;margin-bottom:38px;" data-reveal="1">
+        <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 20px 50px -28px rgba(20,30,40,0.32);background:var(--c-surface);">
+          <div style="height:26px;background:var(--c-line);display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b1);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+          <img src="assets/dali/shots/d-adddevice.jpg" alt="Add devices, controller actions" style="width:100%;display:block;"/>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Add Devices</div>
+          <h3 style="font-family:'Inter',sans-serif;font-size:21px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink);margin-bottom:12px;">New and existing, kept separate.</h3>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.62;">The detail panel separates <strong style="color:var(--c-accent);">New Devices</strong> from <strong style="color:var(--c-accent);">Existing Devices</strong>, organized by type. A single ADD DEVICES (n) action imports all of them. A processing modal sets expectations with a 5–8 minute estimate, and a toast confirms the result: "18 NEW Devices added to Bus 1."</p>
+        </div>
+      </div>
+
+      <!-- UX Design Decision -->
+      <div data-reveal="1" style="background:var(--c-card);border:1px solid rgba(13,83,80,0.12);border-left:3px solid var(--c-accent);border-radius:12px;padding:26px 30px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">UX design decision</div>
+        <p style="font-size:16px;color:#3a3833;line-height:1.65;">Separating new from existing devices before committing any change was a deliberate safeguard at hospital scale, blindly importing an unexpected count could cause real downstream commissioning problems. The green bus indicators give at-a-glance triage so technicians can prioritise which buses to address first, and the processing modal's time estimate was added in direct response to commissioning teams who needed to plan around the 5–8 minute rescan window on a live hub.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 8 · AREA COMMISSIONING (filter-before-load) ════════ -->
+  <section id="s-area" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+        <div data-reveal="1">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">07 · Area Commissioning</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">Filter before load.</h2>
+          <p style="font-size:17px;color:var(--c-body);line-height:1.66;margin-bottom:16px;">A hospital floor with six-plus hubs could dump thousands of devices into the Unassigned list, flooding the screen and crippling load times. So I inverted the default: instead of "show everything," the technician picks a scope first.</p>
+          <p style="font-size:17px;color:var(--c-body);line-height:1.66;">A <strong style="color:var(--c-accent);">"Select to Start"</strong> empty state with System (DALI or PRO/CAT) → Hub → Bus dropdowns narrows the list to a single bus's 128 devices before anything renders. It reframes the work as bus-by-bus, exactly how DALI-2 is physically wired.</p>
+        </div>
+        <div data-reveal="1" style="background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:16px;padding:26px;">
+          <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 18px 44px -26px rgba(20,30,40,0.3);background:var(--c-surface);">
+            <div style="height:26px;background:var(--c-line);display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b1);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+            <div style="position:relative;">
+              <img src="assets/dali/shots/d-areafilter.jpg" alt="Filter-before-load device list" style="width:100%;display:block;"/>
+              <div style="position:absolute;top:33%;left:58%;width:39%;height:24%;border:2px solid var(--c-accent);border-radius:7px;background:rgba(13,83,80,0.08);z-index:2;"></div>
+              <div style="position:absolute;top:33%;left:58%;transform:translate(-50%,-50%);width:23px;height:23px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.4);border:2px solid var(--c-bg);z-index:3;">1</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px;align-items:flex-start;">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;flex-shrink:0;margin-top:1px;">1</div>
+            <span style="font-size:13px;color:var(--c-body);line-height:1.5;">The System → Hub → Bus selectors scope the Unassigned list to a single bus's 128 devices before anything renders.</span>
+          </div>
+          <div style="margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);line-height:1.5;text-align:center;">Scoped to 128 devices per bus, not the full 10,000.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 9 · OPERATE FLOOR-PLAN (interactive: cluster ↔ device) ════════ -->
+  <section id="s-floor" style="padding:80px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="margin-bottom:26px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">08 · Floor Plan View</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(26px,3.2vw,42px);font-weight:500;letter-spacing:-1.2px;line-height:1.08;color:#fff;">Scales 50 → 3,000<br/>with no model change.</h2>
+          <p style="font-size:15px;color:#8a9ab5;max-width:400px;line-height:1.55;">I replaced the fixed device tree with a Building → Floor → Area → Zone → Device dropdown bar, and clustered the map. <strong style="color:#cdd6e4;font-weight:600;">Zoom in</strong> to break clusters into devices; toggle type or health.</p>
+        </div>
+      </div>
+
+      <!-- dropdown nav bar (decorative, real pattern) -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" data-reveal="1">
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#cdd6e4;">McLaughlin Rd <span style="color:#4a5a72;">▾</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#cdd6e4;">Floor 1, East <span style="color:#4a5a72;">▾</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5a6b82;">Area <span style="color:#4a5a72;">▾</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5a6b82;">Zone <span style="color:#4a5a72;">▾</span></div>
+      </div>
+
+      <!-- controls -->
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;" data-reveal="1">
+        <div style="display:flex;gap:3px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:3px;">
+          <button onClick="{{ zoomCluster }}" style="padding:8px 16px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:{{ clusterBg }};color:{{ clusterFg }};transition:all 0.2s;">Clustered</button>
+          <button onClick="{{ zoomDevice }}" style="padding:8px 16px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:{{ deviceBg }};color:{{ deviceFg }};transition:all 0.2s;">Device level</button>
+        </div>
+        <sc-if value="{{ atDeviceLevel }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;flex:1;">
+            <div style="display:flex;gap:3px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:3px;">
+              <button onClick="{{ modeDevice }}" style="padding:8px 14px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:{{ devModeBg }};color:{{ devModeFg }};transition:all 0.2s;">Type</button>
+              <button onClick="{{ modeStatus }}" style="padding:8px 14px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;background:{{ statModeBg }};color:{{ statModeFg }};transition:all 0.2s;">Health</button>
+            </div>
+            <div style="flex:1;min-width:10px;"></div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;">
+              <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="5">
+                <button onClick="{{ lg.toggle }}" title="{{ lg.label }}" style="display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:100px;border:1px solid {{ lg.border }};background:{{ lg.chipBg }};cursor:{{ lg.cursor }};transition:all 0.2s;opacity:{{ lg.opacity }};">
+                  <div style="width:9px;height:9px;border-radius:50%;background:{{ lg.color }};flex-shrink:0;"></div>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#cdd6e4;letter-spacing:0.02em;white-space:nowrap;">{{ lg.label }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5fc2a8;">{{ lg.count }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- floor plan -->
+      <div style="position:relative;background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px;" data-reveal="1">
+        <div style="position:relative;width:100%;height:440px;background:linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px);background-size:34px 34px;border-radius:10px;overflow:hidden;">
+          <div style="position:absolute;left:5%;top:8%;width:90%;height:84%;border:1.5px solid rgba(95,194,168,0.22);border-radius:6px;"></div>
+          <div style="position:absolute;left:30%;top:36%;width:40%;height:28%;border:1.5px solid rgba(95,194,168,0.28);border-radius:60px;background:rgba(95,194,168,0.04);"></div>
+          <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a4759;letter-spacing:0.1em;">CONFERENCE 1</div>
+          <!-- device dots -->
+          <sc-for list="{{ dots }}" as="d" hint-placeholder-count="48">
+            <div title="{{ d.title }}" style="position:absolute;left:{{ d.x }};top:{{ d.y }};width:13px;height:13px;border-radius:50%;background:{{ d.color }};transform:translate(-50%,-50%) scale({{ d.scale }});opacity:{{ d.opacity }};transition:all 0.4s cubic-bezier(0.22,0.61,0.36,1);"></div>
+          </sc-for>
+          <!-- cluster bubbles -->
+          <sc-for list="{{ clusters }}" as="c" hint-placeholder-count="9">
+            <div style="position:absolute;left:{{ c.x }};top:{{ c.y }};width:{{ c.size }};height:{{ c.size }};border-radius:50%;background:rgba(95,194,168,0.13);border:1px solid rgba(95,194,168,0.3);transform:translate(-50%,-50%) scale({{ c.scale }});opacity:{{ c.opacity }};transition:all 0.4s cubic-bezier(0.22,0.61,0.36,1);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:#cdd6e4;">{{ c.n }}</div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:10px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;">McLaughlin Rd › Floor 1, East › Conference 1</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd3c0;">{{ floorStat }}</span>
+        </div>
+      </div>
+
+      <!-- real operate screens -->
+      <div style="margin-top:34px;" data-reveal="1">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.12em;text-transform:uppercase;">The same map, every surface</div>
+          <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start;">
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:var(--c-surface);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);">
+              <div style="height:24px;background:var(--c-line);display:flex;align-items:center;padding:0 10px;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+              <div style="position:relative;">
+                <img src="assets/dali/desktop-operate.jpg" alt="Operate area status floor plan" style="width:100%;display:block;"/>
+                <div style="position:absolute;top:24%;left:37%;transform:translate(-50%,-50%);width:21px;height:21px;border-radius:50%;background:#566173;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.4);border:2px solid var(--c-surface);z-index:3;">1</div>
+                <div style="position:absolute;top:43%;left:16%;transform:translate(-50%,-50%);width:21px;height:21px;border-radius:50%;background:#e0a92e;color:#0b1016;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.4);border:2px solid var(--c-surface);z-index:3;">2</div>
+                <div style="position:absolute;top:53%;left:46%;transform:translate(-50%,-50%);width:21px;height:21px;border-radius:50%;background:#3a9d5d;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.4);border:2px solid var(--c-surface);z-index:3;">3</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;">
+              <span style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a9ab5;"><span style="width:14px;height:14px;border-radius:50%;background:#566173;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:8px;">1</span> Collab 1 · off</span>
+              <span style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a9ab5;"><span style="width:14px;height:14px;border-radius:50%;background:#e0a92e;color:#0b1016;display:inline-flex;align-items:center;justify-content:center;font-size:8px;">2</span> Collab 2 · override</span>
+              <span style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a9ab5;"><span style="width:14px;height:14px;border-radius:50%;background:#3a9d5d;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:8px;">3</span> Collab 3 · on</span>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;">Web · floor-wide health status, rooms color-coded by state.</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:var(--c-surface);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);">
+              <div style="height:24px;background:var(--c-line);display:flex;align-items:center;padding:0 10px;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+              <div style="position:relative;"><img src="assets/dali/shots/d-clusters.jpg" alt="Clustered floor plan" style="width:100%;display:block;"/><div style="position:absolute;top:42%;left:20%;transform:translate(-50%,-50%);width:21px;height:21px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">4</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Clustered</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Device counts per area, readable at floor zoom.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:11px 11px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:var(--c-surface);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);">
+              <div style="height:24px;background:var(--c-line);display:flex;align-items:center;padding:0 10px;gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+              <div style="position:relative;"><img src="assets/dali/shots/d-devicedots.jpg" alt="Device-level floor plan" style="width:100%;display:block;"/><div style="position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:21px;height:21px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.6);border:2px solid var(--c-bg);z-index:3;">5</div></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Device level</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Zoom in: individual devices, color-coded by type.</div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 10 · ICONOGRAPHY ════════ -->
+  <section id="s-craft" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:760px;margin-bottom:38px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">09 · Craft, A Visual Language</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">The two-wire bus,<br/>in every icon.</h2>
+        <p style="font-size:17px;color:var(--c-body);line-height:1.66;">I custom-designed the device icon set in Adobe Illustrator, embedding the DALI 2-wire bus, the defining physical trait of every DALI device, as a shared motif. Users recognize "this is a DALI device" as a category, then read the type at a glance. Exported as SVG, validated for rendering via Fontello.</p>
+      </div>
+      <div data-reveal="1" style="background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:16px;padding:34px;">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px 12px;">
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/fixture-dimmable.svg" alt="Fixture Dimmable" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Fixture · Dimmable</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/dt8.svg" alt="Light Fixture DT8" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Light Fixture · DT8</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/dt6-single.svg" alt="DT6 Single Channel" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">DT6 · Single Channel</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/dt6-dual.svg" alt="DT6 Dual Channel" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">DT6 · Dual Channel</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/cct.svg" alt="Light Fixture CCT" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Light Fixture · CCT</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/dali-hub.svg" alt="DALI Hub" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">DALI Hub</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/dali-hub-bus.svg" alt="DALI Hub Bus" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">DALI Hub Bus</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/dual-tech-sensor.svg" alt="Dual Tech Sensor" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Dual-Tech Sensor</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/pir-sensor.svg" alt="PIR Sensor" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">PIR Sensor</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/wall-station.svg" alt="Wall Station" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Wall Station</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/cci.svg" alt="Contact Closure Input" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Contact Closure</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/rsp-dac-cct.svg" alt="RSP DAC CCT" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">RSP DAC · CCT</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/rsp-dac-dimmable.svg" alt="RSP DAC Dimmable" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">RSP DAC · Dimmable</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/relay.svg" alt="Relay On/Off" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Relay · On/Off</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 10px;border-radius:12px;background:var(--c-bg);border:1px solid var(--c-b1);"><img src="assets/dali/icons/find-devices.svg" alt="Find Devices" style="width:34px;height:34px;display:block;"/><span style="font-size:11.5px;color:var(--c-body);line-height:1.3;">Find Devices</span></div>
+        </div>
+        <div style="margin-top:24px;padding-top:22px;border-top:1px solid var(--c-b2);">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--c-ink);margin-bottom:4px;">Press-ready hardware label</div>
+              <div style="font-size:13px;color:var(--c-muted);line-height:1.5;max-width:620px;">I also designed the WDH-D2-LV hub label, die-cut, spec-complete, with test-mode instructions, created in Illustrator and shipped on the hardware.</div>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-accent);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;">Illustrator · press-ready PDF</span>
+          </div>
+          <div style="border-radius:0;overflow:hidden;border:1px solid rgba(10,8,4,0.12);background:var(--c-surface);box-shadow:0 10px 30px -18px rgba(20,30,40,0.25);"><img src="assets/dali/label.jpg" alt="WaveLinx DALI-2 hub hardware label" style="width:100%;display:block;"/></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 11 · REFLECTION TABLE ════════ -->
+  <section id="s-iteration" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:760px;margin-bottom:36px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">10 · Iterating in Ambiguity</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">A moving floor, decided in lockstep.</h2>
+        <p style="font-size:17px;color:var(--c-body);line-height:1.66;">Hardware prototypes arrived on a rolling basis and third-party device availability was uncertain throughout. Weekly cross-functional reviews kept design in lockstep with engineering. Each challenge below maps to a concrete design response.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--c-b3);border-radius:14px;overflow:hidden;background:var(--c-bg);">
+        <div style="display:grid;grid-template-columns:0.8fr 1.2fr 1.2fr;background:#0b1016;">
+          <div style="padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.08em;text-transform:uppercase;">Phase</div>
+          <div style="padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.08em;text-transform:uppercase;">Challenge</div>
+          <div style="padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.08em;text-transform:uppercase;">Design response</div>
+        </div>
+        <sc-for list="{{ reflections }}" as="r" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:0.8fr 1.2fr 1.2fr;border-top:1px solid var(--c-b1);">
+            <div style="padding:20px;font-size:14px;font-weight:600;color:var(--c-ink);">{{ r.phase }}</div>
+            <div style="padding:20px;font-size:13.5px;color:var(--c-muted);line-height:1.55;">{{ r.challenge }}</div>
+            <div style="padding:20px;font-size:13.5px;color:var(--c-ink2);line-height:1.55;">{{ r.response }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 12 · OUTCOMES + HARDWARE (dark) ════════ -->
+  <section id="s-outcomes" style="padding:96px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:52px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">11 · Outcomes</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:#fff;">Zero to one, shipped<br/>and QA-clean.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;margin-bottom:14px;">
+        <div style="background:#0b1016;padding:50px 28px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,5vw,64px);font-weight:500;color:#fff;line-height:1;">{{ c1 }}<span style="color:#5fc2a8;">+</span></div><div style="font-size:14px;color:#5a6b82;margin-top:14px;line-height:1.45;">Devices at full<br/>hospital scale</div></div>
+        <div style="background:#0b1016;padding:50px 28px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,5vw,64px);font-weight:500;color:#fff;line-height:1;">{{ c2 }}<span style="color:#5fc2a8;">/12</span></div><div style="font-size:14px;color:#5a6b82;margin-top:14px;line-height:1.45;">QA regression<br/>scenarios passed</div></div>
+        <div style="background:#0b1016;padding:50px 28px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,5vw,64px);font-weight:500;color:#fff;line-height:1;">{{ c3 }}<span style="color:#5fc2a8;">s</span></div><div style="font-size:14px;color:#5a6b82;margin-top:14px;line-height:1.45;">0→100% light transition,<br/>all device types (CTQ)</div></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:40px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a9ab5;padding:8px 16px;background:#0e151e;border:1px solid rgba(255,255,255,0.06);border-radius:100px;">0 → 1 net-new product category</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a9ab5;padding:8px 16px;background:#0e151e;border:1px solid rgba(255,255,255,0.06);border-radius:100px;">Largest DALI-2 install in North America</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a9ab5;padding:8px 16px;background:#0e151e;border:1px solid rgba(255,255,255,0.06);border-radius:100px;">200+ device types validated across 4 buses</span>
+      </div>
+
+      <!-- what shipped -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;max-width:980px;margin:0 auto 60px;">
+        <div style="display:flex;gap:11px;align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3c0" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14.5px;color:#aab6c9;line-height:1.5;">Hub-first, non-blocking commissioning across the mobile app</span></div>
+        <div style="display:flex;gap:11px;align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3c0" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14.5px;color:#aab6c9;line-height:1.5;">Custom DALI-2 icon system with a shared two-wire motif</span></div>
+        <div style="display:flex;gap:11px;align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3c0" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14.5px;color:#aab6c9;line-height:1.5;">DT8 dual-channel (CCT / white-tunable) driver support with auto-addressing</span></div>
+        <div style="display:flex;gap:11px;align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3c0" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14.5px;color:#aab6c9;line-height:1.5;">Identify at hub, bus, and device level for physical-to-logical verification</span></div>
+        <div style="display:flex;gap:11px;align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3c0" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14.5px;color:#aab6c9;line-height:1.5;">Filter-before-load area commissioning, scoped to a single 128-device bus</span></div>
+        <div style="display:flex;gap:11px;align-items:flex-start;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3c0" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14.5px;color:#aab6c9;line-height:1.5;">Mixed-protocol zones: DALI, CAT wired, and WaveLinx wireless together</span></div>
+      </div>
+
+      <!-- hardware family -->
+      <div style="margin-bottom:60px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;text-align:center;">The hardware it speaks to</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+          <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;display:flex;align-items:center;gap:18px;">
+            <div style="width:78px;height:78px;border-radius:11px;overflow:hidden;background:var(--c-surface);flex-shrink:0;"><img src="assets/dali/hw-sensor.jpg" alt="DALI-2 occupancy sensor" style="width:100%;height:100%;object-fit:cover;"/></div>
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">Sense</div><div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:4px;">Dual-tech &amp; PIR sensors</div><div style="font-size:12px;color:#5a6b82;line-height:1.45;">Occupancy &amp; daylight, per zone</div></div>
+          </div>
+          <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;display:flex;align-items:center;gap:18px;">
+            <div style="width:78px;height:78px;border-radius:11px;overflow:hidden;background:var(--c-surface);flex-shrink:0;"><img src="assets/dali/hw-panels.jpg" alt="DALI-2 driver panels" style="width:100%;height:100%;object-fit:cover;"/></div>
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">Power</div><div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:4px;">Driver &amp; relay panels</div><div style="font-size:12px;color:#5a6b82;line-height:1.45;">Up to 128 fixtures per bus</div></div>
+          </div>
+          <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;display:flex;align-items:center;gap:18px;">
+            <div style="width:78px;height:78px;border-radius:11px;overflow:hidden;background:var(--c-surface);flex-shrink:0;"><img src="assets/dali/hw-wallstation.jpg" alt="DALI-2 scene wallstation" style="width:100%;height:100%;object-fit:cover;"/></div>
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">Control</div><div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:4px;">Scene wallstation</div><div style="font-size:12px;color:#5a6b82;line-height:1.45;">Recall scenes, raise &amp; lower</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- closing reflection -->
+      <div style="max-width:820px;margin:0 auto;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;">Why this work needed my background</div>
+        <p style="font-family:'Inter',sans-serif;font-size:clamp(19px,2vw,25px);font-weight:300;color:#d7efe7;line-height:1.5;letter-spacing:-0.3px;margin-bottom:20px;">The V1→V2 pivot meant recognizing that a 10-minute blocking import wasn't a loading-state problem, it was an architectural mismatch between the commissioning mental model and the protocol's real timing. The engineering answer was a longer timeout. <strong style="font-weight:500;color:#fff;">The UX answer was to make the entire wait invisible by designing around it.</strong></p>
+        <p style="font-size:16px;color:#8a9ab5;line-height:1.66;">Hardware bandwidth limits, device naming, the dual-channel abstraction, the floor-plan hierarchy, none of these were decisions made in isolation. Each required navigating engineering constraints, product commitments, QA dependencies, and hardware availability at once. My experience across connected lighting, enterprise SaaS, and hardware-adjacent environments gave me the credibility and domain fluency to lead these calls rather than react to them.</p>
+        <div style="margin-top:28px;padding:22px 26px;background:#0e151e;border:1px solid rgba(255,255,255,0.06);border-radius:12px;">
+          <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:7px;">Design-system leverage</div>
+          <p style="font-size:14px;color:#8a9ab5;line-height:1.6;">The patterns from DALI, non-blocking scan, the two-banner progress model, filter-before-load, dropdown navigation, device-vs-endpoint display logic, are now the reference architecture for future IoT subsystems in WaveLinx, documented in the CLS Design System for reuse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer style="padding:42px 40px;background:var(--c-bg);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Another case study</div>
+        <a href="Core Insights.dc.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-accent)">WaveLinx CORE Insights <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'), step: 0, mode: 'device', zoom: 'cluster', hidden: {}, pivot: 'v1', menu: false, c1: 0, c2: 0, c3: 0, countersDone: false };
+  _raf = {}; _obs = [];
+
+  componentDidMount() {
+    this._dots = this.buildDots();
+    setTimeout(() => { this.initReveal(); this.initCounters(); this.initToc(); }, 120);
+    this.initScrollProgress();
+  }
+  initScrollProgress() {
+    if (document.getElementById('scroll-prog-bar')) return;
+    const ac = '#0d5350', ac2 = '#4a6fd0';
+    const bar = document.createElement('div'); bar.id = 'scroll-prog-bar';
+    bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');transition:width 0.08s linear;pointer-events:none;';
+    const pill = document.createElement('div'); pill.id = 'scroll-prog-pill';
+    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
+    document.body.appendChild(bar); document.body.appendChild(pill);
+    const num = document.getElementById('scroll-prog-num');
+    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; pill.style.opacity = st > 60 ? '1' : '0'; };
+    update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
+  }
+
+  initToc() {
+    if (!window.IntersectionObserver) return;
+    const links = [...document.querySelectorAll('.cs-toc a[data-toc]')];
+    if (!links.length) return;
+    const byId = {}; links.forEach(l => { byId[l.getAttribute('data-toc')] = l; });
+    const o = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.removeAttribute('data-active')); if (byId[e.target.id]) byId[e.target.id].setAttribute('data-active', ''); } });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    document.querySelectorAll('section[id^="s-"]').forEach(s => o.observe(s));
+    this._obs.push(o);
+  }
+  componentWillUnmount() {
+    Object.values(this._raf).forEach(cancelAnimationFrame);
+    this._obs.forEach(o => o.disconnect());
+  }
+
+  stepData() {
+    return [
+      { tag: 'Step 1 · Discover', title: 'Scan the network', body: 'From the Device screen the technician runs a network scan. Every DALI hub surfaces automatically, by name, MAC, and IP, ready to import. No IP hunting, no DIP switches.', wac: 1024, prog: 0.10, plabel: 'Network scan complete', buses: ['—','—','—','—'], busNote: 'awaiting import' },
+      { tag: 'Step 2 · Add to WAC', title: 'Import the hub', body: 'Selecting a hub reveals a two-step stepper showing all four buses with live device counts. ADD TO WAC pairs the hub and kicks off a background bus scan, the UI never blocks.', wac: 624, prog: 0.44, plabel: 'Pairing hub · scanning in background', buses: ['100','100','100','100'], busNote: 'imported' },
+      { tag: 'Step 3 · Name', title: 'Name hub & buses', body: 'Step 2 of the stepper prompts a consistent naming convention tied to floor and location. Inline edit and delete keep it clean; FINISH returns to the hub list.', wac: 624, prog: 0.62, plabel: 'FLR2_DALIHUB_1 · Bus 1–4', buses: ['100','100','100','100'], busNote: 'named' },
+      { tag: 'Step 4 · Find', title: 'Rescan for new devices', body: 'Post-commissioning, Find Devices rescans all buses. New devices are flagged per bus with a green indicator and a new-vs-existing count, guarded by a confirmation dialog on a live hub.', wac: 504, prog: 0.82, plabel: '50 new devices found', buses: ['+18','0','+20','+12'], busNote: 'new found' },
+      { tag: 'Done · Operate', title: 'A live, addressable system', body: 'A processing modal sets a 5–8 min expectation; a toast confirms the import. Every device is named, addressed, and mapped, ready to operate from any surface.', wac: 0, prog: 1, plabel: 'Commissioning complete', buses: ['118','100','120','112'], busNote: 'live' },
+    ];
+  }
+
+  catMeta() {
+    return {
+      ceiling: { label: 'Ceiling sensor', color: '#17a89a' },
+      integrated: { label: 'Integrated sensor', color: '#e8632a' },
+      relay: { label: 'Relay switchpack', color: '#7b4fb0' },
+      wall: { label: 'Wallstation', color: '#2f73d8' },
+      ctrl: { label: 'Controller', color: '#b06fd8' },
+    };
+  }
+  buildDots() {
+    const dots = [];
+    const cols = 11, rows = 6;
+    const x0 = 9, x1 = 91, y0 = 14, y1 = 86;
+    let i = 0;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const xp = x0 + (x1 - x0) * (c / (cols - 1));
+        const yp = y0 + (y1 - y0) * (r / (rows - 1));
+        if (r >= 2 && r <= 3 && c >= 4 && c <= 6) continue;
+        let cat = 'ceiling';
+        if (r === rows - 1) { cat = (c === 5) ? 'wall' : (c === 7) ? 'ctrl' : (c % 3 === 0) ? 'relay' : 'ceiling'; }
+        else if (c === 0 || c === cols - 1 || (r === 0 && c % 3 === 1)) cat = 'integrated';
+        else if ((i % 7) === 0) cat = 'integrated';
+        let status = 'on';
+        const m = i % 11;
+        if (m === 3) status = 'override';
+        else if (m === 7) status = 'alarm';
+        else if (m === 9) status = 'off';
+        dots.push({ x: xp.toFixed(1) + '%', y: yp.toFixed(1) + '%', cat, status });
+        i++;
+      }
+    }
+    return dots;
+  }
+  statusColor(s) { return { on: '#3a9d5d', override: '#e0a92e', alarm: '#d8463a', off: '#566173' }[s]; }
+
+  clusterData() {
+    return [
+      { x: '15%', y: '30%', n: 75 }, { x: '15%', y: '64%', n: 75 }, { x: '34%', y: '24%', n: 75 },
+      { x: '40%', y: '46%', n: 70 }, { x: '40%', y: '68%', n: 30 }, { x: '58%', y: '46%', n: 30 },
+      { x: '58%', y: '68%', n: 30 }, { x: '74%', y: '30%', n: 70 }, { x: '82%', y: '52%', n: 50 },
+      { x: '40%', y: '86%', n: 25 }, { x: '58%', y: '86%', n: 25 }, { x: '76%', y: '82%', n: 50 },
+    ];
+  }
+
+  reflectionData() {
+    return [
+      { phase: 'V1 → V2 pivot', challenge: 'A UX review exposed the 10-minute blocking import as structurally unacceptable at scale.', response: 'Reframed from "scan then configure" to "add hub and configure while the scan runs in background." Final timeout 27.5 min, non-blocking.' },
+      { phase: 'Manage Hub 3-step', challenge: 'The initial Manage Hub flow was an undifferentiated list; field and engineering flagged it as unclear.', response: 'Defined a 3-step flow: rescan & find, show types & identify, add devices, with confirmation and cancel at each step.' },
+      { phase: 'Device volume / floor plan', challenge: 'The existing floor-plan hierarchy would have crippled load times at DALI-2 scale.', response: 'System-wide UX stress-test; introduced dropdown navigation, clustering, and filter-before-load to handle 3,000+ devices.' },
+      { phase: 'DT8 dual-channel zones', challenge: 'A single DT8 driver presents as one device but needs two zone types, Dimmable and White Tunable.', response: 'Defined an auto-select rule and multi-zone pattern mirroring the 2-channel PRO Node model.' },
+      { phase: 'Naming & icons', challenge: 'DT6, DT8, DAC, Field Relay and CCI in the same lists needed consistent naming and taxonomy before QA could test.', response: 'Custom two-wire icon system and a full naming convention; DALI-1 and DALI-2 DT6 confirmed to render identically.' },
+    ];
+  }
+
+  initReveal() {
+    if (!window.IntersectionObserver) return;
+    const o = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { e.target.style.animation = 'dl-up 0.7s cubic-bezier(0.22,0.61,0.36,1) both'; o.unobserve(e.target); } }); }, { threshold: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach(el => { el.style.opacity = '0'; o.observe(el); });
+    this._obs.push(o);
+  }
+  initCounters() {
+    if (!window.IntersectionObserver) return;
+    const el = document.getElementById('s-outcomes');
+    if (!el) return;
+    const o = new IntersectionObserver((es) => { if (es[0].isIntersecting && !this.state.countersDone) { this.setState({ countersDone: true }); this.runCounters(); o.disconnect(); } }, { threshold: 0.25 });
+    o.observe(el); this._obs.push(o);
+  }
+  runCounters() {
+    const tg = [10000, 12, 2.5], dur = 1900, t0 = Date.now();
+    const tick = () => {
+      const p = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      this.setState({ c1: Math.round(tg[0] * e), c2: Math.round(tg[1] * e), c3: (tg[2] * e).toFixed(1) });
+      if (p < 1) this._raf.c = requestAnimationFrame(tick);
+    };
+    this._raf.c = requestAnimationFrame(tick);
+  }
+
+  fmt(n) { return n.toLocaleString(); }
+
+  renderVals() {
+    const S = this.state;
+    const steps = this.stepData();
+    const step = steps[S.step];
+
+    const pillTitles = ['Discover', 'Add to WAC', 'Name', 'Find devices', 'Operate'];
+    const stepPills = pillTitles.map((t, i) => {
+      const active = i === S.step, done = i < S.step;
+      return {
+        num: done ? '✓' : String(i + 1), title: t,
+        go: () => this.setState({ step: i }),
+        bg: active ? 'rgba(13,83,80,0.22)' : '#0b1016',
+        border: active ? 'rgba(95,194,168,0.55)' : 'rgba(255,255,255,0.07)',
+        numBg: active ? '#5fc2a8' : done ? 'rgba(95,194,168,0.2)' : 'rgba(255,255,255,0.06)',
+        numFg: active ? '#0b1016' : done ? '#5fc2a8' : '#5a6b82',
+        titleColor: active ? '#fff' : done ? '#cdd6e4' : '#6b7a90',
+      };
+    });
+
+    const hubIds = ['DALI-HUB_1', 'DALI-HUB2', 'DALI-HUB3', 'DALI-HUB4', 'DALI-HUB5', 'DALI-HUB6'];
+    const ips = ['192.168.100.75', '192.168.100.76', '192.168.100.77', '192.168.100.78', '192.168.100.9', '192.168.100.100'];
+    const hubs = hubIds.map((id, i) => {
+      const sel = i === 0;
+      const imported = sel && S.step >= 1;
+      return {
+        id, ip: ips[i],
+        bg: sel ? 'rgba(13,83,80,0.18)' : '#0e151e',
+        border: sel ? 'rgba(95,194,168,0.5)' : 'rgba(255,255,255,0.05)',
+        icon: sel ? '#5fc2a8' : '#4a5a72',
+        name: sel ? '#fff' : '#8a9ab5',
+        imported, selDot: sel && !imported,
+      };
+    });
+
+    const buses = step.buses.map((cnt, i) => {
+      const isNew = cnt.toString().indexOf('+') === 0;
+      return { n: i + 1, count: cnt, color: isNew ? '#7dd3c0' : (cnt === '—' ? '#4a5a72' : '#e8edf5'), border: isNew ? 'rgba(125,211,192,0.4)' : 'rgba(255,255,255,0.06)', note: step.busNote };
+    });
+
+    // operate
+    const meta = this.catMeta();
+    const cats = ['ceiling', 'integrated', 'relay', 'wall', 'ctrl'];
+    const counts = { ceiling: 0, integrated: 0, relay: 0, wall: 0, ctrl: 0 };
+    (this._dots || []).forEach(d => { counts[d.cat]++; });
+    const atDevice = S.zoom === 'device';
+    let visible = 0;
+    const dots = (this._dots || []).map(d => {
+      const hide = !atDevice || !!S.hidden[d.cat];
+      if (atDevice && !hide) visible++;
+      const color = S.mode === 'status' ? this.statusColor(d.status) : meta[d.cat].color;
+      const t = S.mode === 'status' ? ('Status: ' + d.status) : meta[d.cat].label;
+      return { x: d.x, y: d.y, color, title: t, opacity: hide ? '0' : '1', scale: hide ? '0' : '1' };
+    });
+    const clusters = this.clusterData().map(c => ({
+      x: c.x, y: c.y, n: c.n, size: (34 + c.n * 0.45).toFixed(0) + 'px',
+      opacity: atDevice ? '0' : '1', scale: atDevice ? '0.3' : '1',
+    }));
+
+    let legend;
+    if (S.mode === 'status') {
+      const stCounts = { on: 0, override: 0, alarm: 0, off: 0 };
+      (this._dots || []).forEach(d => { if (!S.hidden[d.cat]) stCounts[d.status]++; });
+      const items = [['on', 'On'], ['override', 'Override'], ['alarm', 'Alarm'], ['off', 'Off']];
+      legend = items.map(([k, lbl]) => ({ label: lbl, color: this.statusColor(k), count: stCounts[k], toggle: () => {}, cursor: 'default', opacity: '1', border: 'rgba(255,255,255,0.08)', chipBg: '#0b1016' }));
+    } else {
+      legend = cats.map(c => {
+        const hidden = !!S.hidden[c];
+        return {
+          label: meta[c].label, color: meta[c].color, count: counts[c],
+          toggle: () => this.setState(st => ({ hidden: Object.assign({}, st.hidden, { [c]: !st.hidden[c] }) })),
+          cursor: 'pointer', opacity: hidden ? '0.4' : '1',
+          border: hidden ? 'rgba(255,255,255,0.06)' : 'rgba(95,194,168,0.3)',
+          chipBg: hidden ? '#0b1016' : 'rgba(13,83,80,0.14)',
+        };
+      });
+    }
+
+    const onT = { bg: '#0d5350', fg: '#fff' }, offT = { bg: 'transparent', fg: '#8a9ab5' };
+
+    // pivot
+    const isV1 = S.pivot === 'v1';
+    const fauxRows = [
+      { name: 'Collab 1', meta: '3 zones' }, { name: 'Conference Room', meta: '1 zone' },
+      { name: 'Open Office', meta: '6 zones' }, { name: 'Lobby', meta: '2 zones' },
+    ];
+    const pivot = isV1
+      ? { title: 'V1, abandoned', body: 'Discovery scanned hubs AND devices at once. Adding a hub locked the UI behind a blocking loader: no navigation, no area creation, nothing, for 10 to 27.5 minutes per hub.',
+          points: [{ dot: '#d8463a', text: 'UI fully blocked during import' }, { dot: '#d8463a', text: 'No progress visibility, no fallback' }, { dot: '#d8463a', text: 'Contractors idle for hours at scale' }] }
+      : { title: 'V2, shipped', body: 'Discover only DALI hubs. ADD TO WAC pairs the hub and runs the bus scan in the background. The UI never blocks, technicians configure areas while devices import.',
+          points: [{ dot: '#3a9d5d', text: 'Non-blocking: keep working during import' }, { dot: '#3a9d5d', text: 'Two-banner progress model, always visible' }, { dot: '#3a9d5d', text: 'Hub-first model matches MQTT pairing' }] };
+
+    return {
+      menuClass: S.menu ? 'menu-open' : '',
+      rootClass: S.dark ? 'dark' : '', isDark: S.dark, isLight: !S.dark,
+      toggleDark: () => { const d = !this.state.dark; try { localStorage.setItem('rba-int-dark', d ? 'true' : 'false'); } catch (e) {} this.setState({ dark: d }); },
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      steps: stepPills, hubs,
+      stepTag: step.tag, stepTitle: step.title, stepBody: step.body,
+      wacCount: this.fmt(step.wac),
+      progressW: (step.prog * 100).toFixed(0) + '%', progressPct: (step.prog * 100).toFixed(0) + '%', progressLabel: step.plabel,
+      buses,
+      prevStep: () => this.setState(st => ({ step: Math.max(0, st.step - 1) })),
+      nextStep: () => this.setState(st => ({ step: st.step >= steps.length - 1 ? 0 : st.step + 1 })),
+      nextLabel: S.step >= steps.length - 1 ? 'Restart' : 'Next step',
+
+      // operate
+      dots, clusters,
+      atDeviceLevel: atDevice,
+      floorStat: atDevice ? (visible + ' devices · live') : (this.clusterData().length + ' clusters · zoom to expand'),
+      zoomCluster: () => this.setState({ zoom: 'cluster' }), zoomDevice: () => this.setState({ zoom: 'device' }),
+      clusterBg: !atDevice ? onT.bg : offT.bg, clusterFg: !atDevice ? onT.fg : offT.fg,
+      deviceBg: atDevice ? onT.bg : offT.bg, deviceFg: atDevice ? onT.fg : offT.fg,
+      legend,
+      modeDevice: () => this.setState({ mode: 'device' }), modeStatus: () => this.setState({ mode: 'status' }),
+      devModeBg: S.mode === 'device' ? onT.bg : offT.bg, devModeFg: S.mode === 'device' ? onT.fg : offT.fg,
+      statModeBg: S.mode === 'status' ? onT.bg : offT.bg, statModeFg: S.mode === 'status' ? onT.fg : offT.fg,
+
+      // pivot
+      showV1: () => this.setState({ pivot: 'v1' }), showV2: () => this.setState({ pivot: 'v2' }),
+      v1Bg: isV1 ? '#0d5350' : 'transparent', v1Fg: isV1 ? '#fff' : '#8a9ab5',
+      v2Bg: !isV1 ? '#0d5350' : 'transparent', v2Fg: !isV1 ? '#fff' : '#8a9ab5',
+      isV1, isV2: !isV1,
+      pivotBorder: isV1 ? 'rgba(216,70,58,0.3)' : 'rgba(58,157,93,0.3)',
+      stateTag: isV1 ? 'UI LOCKED' : 'UI RESPONSIVE',
+      stateTagBg: isV1 ? 'rgba(216,70,58,0.16)' : 'rgba(58,157,93,0.16)',
+      stateTagFg: isV1 ? '#ef9a8e' : '#7fe0a3',
+      bodyOpacity: isV1 ? '0.4' : '1', bodyFilter: isV1 ? 'grayscale(0.5)' : 'none',
+      fauxRows,
+      pivotTitle: pivot.title, pivotBody: pivot.body, pivotPoints: pivot.points,
+
+      // reflection
+      reflections: this.reflectionData(),
+
+      c1: this.fmt(S.c1), c2: S.c2, c3: S.c3,
+    };
+  }
+}
+</script>
+</body>
+</html>

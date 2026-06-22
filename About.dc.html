@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About, Robert Babiarz, Product Designer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#070b12;--bg2:#0c121e;--bg3:#121a28;
+  --fg:#e9eef7;--fg2:#8593a8;--fg3:#97a3b8;
+  --line:rgba(255,255,255,0.08);--line2:rgba(255,255,255,0.15);
+  --ac:#4ca88f;--ac2:#7dd3c0;--grid:rgba(76,168,143,0.038);
+}
+.light{
+  --bg:#fffcf5;--bg2:#f7f2e6;--bg3:#ebe6d6;
+  --fg:#0a0a0a;--fg2:#595959;--fg3:#5e5e5e;
+  --line:rgba(0,0,0,0.09);--line2:rgba(0,0,0,0.16);
+  --ac:#0d5350;--ac2:#4ca88f;--grid:rgba(13,83,80,0.0425);
+}
+@keyframes ab-rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ab-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+[data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+[data-reveal].in{opacity:1;transform:none}
+.int-burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.int-burger span{display:block;width:19px;height:2px;background:var(--fg);border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .int-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .int-burger span:nth-child(2){opacity:0}
+.menu-open .int-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#int-menu{position:fixed;inset:0;z-index:95;background:var(--bg);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:96px 28px 40px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #int-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#int-menu .im-link{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:clamp(30px,9vw,44px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);text-decoration:none;padding:18px 4px;border-bottom:1px solid var(--line);opacity:0;transform:translateY(20px);transition:opacity .45s ease,transform .45s ease,color .15s}
+.menu-open #int-menu .im-link{opacity:1;transform:none}
+.menu-open #int-menu .im-link:nth-child(1){transition-delay:.07s}
+.menu-open #int-menu .im-link:nth-child(2){transition-delay:.13s}
+.menu-open #int-menu .im-link:nth-child(3){transition-delay:.19s}
+.menu-open #int-menu .im-link:nth-child(4){transition-delay:.25s}
+#int-menu .im-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:400;color:var(--fg3);letter-spacing:0.04em}
+#int-menu .im-foot{margin-top:34px;opacity:0;transform:translateY(20px);transition:opacity .45s ease .32s,transform .45s ease .32s;display:flex;flex-direction:column;gap:6px}
+.menu-open #int-menu .im-foot{opacity:1;transform:none}
+.nav-cm{position:relative;}
+.nav-cm::before{content:'';position:absolute;inset:-7px -6px;pointer-events:none;opacity:0;transition:opacity .18s ease;background:linear-gradient(var(--fg),var(--fg)) left top/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) left top/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) right top/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) right top/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) left bottom/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) left bottom/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) right bottom/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) right bottom/1px 6px no-repeat;}
+.nav-cm:hover::before{opacity:0.6}
+.nav-cm:active{opacity:0.5}
+.rb-box{color:var(--fg);transition:transform .6s cubic-bezier(.65,0,.35,1),background .4s ease,border-color .4s ease,color .4s ease;}
+a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(--fg);color:#000}
+.light a:hover .rb-box{color:#fff}
+.mail-choose summary::-webkit-details-marker{display:none}
+.mail-choose summary::marker{content:''}
+.scp-ghost:hover{background:var(--ac) !important;color:#fff !important;border-color:var(--ac) !important}
+@media (max-width:860px){
+  .int-burger{display:flex}
+  #ab-nav > div > div:nth-child(2){display:none !important}
+  #ab-nav > div{padding:0 18px !important;height:60px !important}
+  #ab-hero{grid-template-columns:1fr !important;gap:44px !important;padding:120px 20px 60px !important}
+  #ab-portrait{position:static !important;max-width:360px}
+  #ab-exp{padding:0 20px 90px !important}
+  #ab-foot{padding:28px 20px !important}
+}
+@media (min-width:861px){ #int-menu{display:none !important} }
+</style>
+<script src="page-transition.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div id="ab-root" class="{{ rootClass }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'DM Sans',sans-serif;position:relative;overflow-x:hidden;transition:background 0.5s,color 0.5s;">
+
+  <!-- scroll progress -->
+  <div style="position:fixed;top:0;left:0;right:0;height:3px;z-index:120;pointer-events:none;"><div id="ab-prog" style="height:100%;width:0%;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width 0.1s linear;"></div></div>
+
+  <!-- faint grid -->
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;"></div>
+
+  <div style="position:relative;z-index:1;">
+
+  <!-- ═══ NAV ═══ -->
+  <nav id="ab-nav" style="position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background 0.3s,border-color 0.3s,backdrop-filter 0.3s;">
+    <div style="padding:0 44px;height:72px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="Homepage Interactive.dc.html#top" data-cursor="hover" style="text-decoration:none;display:flex;align-items:center;gap:12px;perspective:600px;">
+        <div class="rb-box" style="width:34px;height:34px;border:1px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:inherit;letter-spacing:-0.5px;">RB</span>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--fg);letter-spacing:0.04em;text-transform:uppercase;line-height:1.15;">Robert Babiarz</div>
+          <div style="font-size:9.5px;color:var(--fg2);font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;line-height:1.3;text-transform:uppercase;">Product Designer</div>
+        </div>
+      </a>
+      <div style="display:flex;align-items:center;gap:34px;">
+        <a href="Work.dc.html" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Work</a>
+        <a href="Homepage Interactive.dc.html#metrics" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Impact</a>
+        <a href="About.dc.html" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--ac);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">About</a>
+        <a href="Homepage Interactive.dc.html#contact" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Contact</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleDark }}" data-cursor="hover" style="width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:all 0.2s;" style-hover="border-color:var(--line2)">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </sc-if>
+        </button>
+        <button class="int-burger" onClick="{{ toggleMenu }}" data-cursor="hover" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="int-menu">
+    <a class="im-link" href="Work.dc.html" onClick="{{ closeMenu }}"><span>Work</span><span class="im-num">01</span></a>
+    <a class="im-link" href="Homepage Interactive.dc.html#metrics" onClick="{{ closeMenu }}"><span>Impact</span><span class="im-num">02</span></a>
+    <a class="im-link" href="About.dc.html" onClick="{{ closeMenu }}"><span>About</span><span class="im-num">03</span></a>
+    <a class="im-link" href="Homepage Interactive.dc.html#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="im-num">04</span></a>
+    <div class="im-foot">
+      <a href="mailto:rbabiarz@gmail.com" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ac2);text-decoration:none;letter-spacing:0.04em;">rbabiarz@gmail.com</a>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.04em;">416-315-4761</span>
+    </div>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="ab-hero" style="display:grid;grid-template-columns:0.85fr 1fr;gap:80px;align-items:start;max-width:1320px;margin:0 auto;padding:150px 44px 70px;">
+
+    <!-- portrait -->
+    <div id="ab-portrait" data-reveal style="position:sticky;top:120px;">
+      <div style="position:relative;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--ac2) 22%,transparent),transparent 65%),var(--bg2);">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:34px 34px;pointer-events:none;"></div>
+        <img src="assets/portrait-stylized.png" alt="Robert Babiarz" style="position:relative;display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.28));"/>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(to top,var(--bg2),transparent);pointer-events:none;"></div>
+        <div style="position:absolute;left:20px;bottom:18px;display:flex;align-items:center;gap:9px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--ac2);box-shadow:0 0 10px var(--ac2);"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg);letter-spacing:0.1em;text-transform:uppercase;">Toronto · Available</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;">
+        <div style="border:1px solid var(--line);border-radius:12px;padding:14px 12px;background:var(--bg2);text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:var(--fg);letter-spacing:-0.02em;">26</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-top:3px;">Years</div>
+        </div>
+        <div style="border:1px solid var(--line);border-radius:12px;padding:14px 12px;background:var(--bg2);text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:var(--fg);letter-spacing:-0.02em;">3</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-top:3px;">Patents</div>
+        </div>
+        <div style="border:1px solid var(--line);border-radius:12px;padding:14px 12px;background:var(--bg2);text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:var(--fg);letter-spacing:-0.02em;">50+</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--fg3);letter-spacing:0.06em;text-transform:uppercase;margin-top:3px;">Shipped</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bio -->
+    <div data-reveal style="padding-top:8px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:24px;">[ About ], Robert Babiarz</div>
+      <h1 style="font-family:'Inter',sans-serif;font-size:clamp(34px,4.4vw,60px);font-weight:600;letter-spacing:-0.035em;line-height:1.04;color:var(--fg);margin-bottom:30px;">I make complex<br/>systems feel<br/>effortless.</h1>
+      <p style="font-size:17.5px;color:var(--fg2);line-height:1.72;margin-bottom:20px;max-width:560px;">For 26 years I've designed interfaces for systems where operator error carries real-world cost, networked cyber-physical IoT, IEC 62443-certified industrial platforms, and real-time regulated transaction systems.</p>
+      <p style="font-size:17.5px;color:var(--fg2);line-height:1.72;margin-bottom:20px;max-width:560px;">I ship novel interaction models fast, co-develop with operators in the field, and have earned design a founding voice inside engineering-first organizations. The primitives I work in, anomaly dashboards, confirmation-gated destructive actions, role-scoped access, provable audit trails, carry across any domain where decisions have consequences.</p>
+      <p style="font-size:17.5px;color:var(--fg2);line-height:1.72;max-width:560px;">Builder by instinct. BFA, York University. Based in the Greater Toronto Area, and eligible to obtain security clearance.</p>
+
+      <div style="display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;">
+        <details class="mail-choose" onToggle="{{ mailToggle }}" style="position:relative;">
+          <summary data-cursor="hover" style="list-style:none;display:inline-flex;align-items:center;gap:12px;background:var(--ac);color:#fff;padding:15px 24px;border-radius:11px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity 0.2s;" style-hover="opacity:0.88">Email me <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></summary>
+          <div style="position:absolute;bottom:calc(100% + 8px);left:0;min-width:200px;z-index:20;display:flex;flex-direction:column;gap:8px;border:1px solid var(--line2);background:var(--bg2);border-radius:11px;padding:8px;">
+            <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Gmail</a>
+            <a href="https://outlook.office.com/mail/deeplink/compose?to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Outlook</a>
+            <a href="mailto:rbabiarz@gmail.com" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Default mail app</a>
+          </div>
+        </details>
+        <a href="https://linkedin.com/in/robert-babiarz" class="scp-ghost" data-cursor="hover" style="display:inline-flex;align-items:center;border:1px solid var(--line2);color:var(--fg);padding:15px 22px;border-radius:11px;font-size:14px;font-weight:500;text-decoration:none;transition:background 0.2s,color 0.2s,border-color 0.2s;">LinkedIn ↗</a>
+        <a href="Robert_Babiarz_Resume.pdf" target="_blank" rel="noopener" class="scp-ghost" data-cursor="hover" style="display:inline-flex;align-items:center;border:1px solid var(--line2);color:var(--fg);padding:15px 22px;border-radius:11px;font-size:14px;font-weight:500;text-decoration:none;transition:background 0.2s,color 0.2s,border-color 0.2s;">Résumé ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="ab-exp" style="max-width:1320px;margin:0 auto;padding:0 44px 120px;">
+    <div data-reveal style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:26px;">[ Experience ]</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- Spotstudios -->
+      <div data-reveal style="border:1px solid var(--line);border-radius:16px;padding:34px;background:var(--bg2);">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px;flex-wrap:wrap;">
+          <div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:600;color:var(--fg);">Spotstudios Inc. <span style="color:var(--fg2);font-weight:400;font-size:15px;">(UX consultancy)</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);white-space:nowrap;">2007, Present</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.04em;margin-bottom:16px;">Founder &amp; Principal UX Consultant</div>
+        <div style="font-size:15px;color:var(--fg2);line-height:1.68;max-width:760px;">Independent UX consultancy delivering product design, research, and design-system work for clients across enterprise SaaS, IoT, and regulated platforms. Operating continuously since 2007 alongside in-house roles.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;">
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">Independent consultancy</span>
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">Since 2007</span>
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">Product · Research · Systems</span>
+        </div>
+      </div>
+
+      <!-- Cooper -->
+      <div data-reveal style="border:1px solid var(--line);border-radius:16px;padding:34px;background:var(--bg2);">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px;flex-wrap:wrap;">
+          <div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:600;color:var(--fg);">Cooper Lighting Solutions <span style="color:var(--fg2);font-weight:400;font-size:15px;">(a Signify company)</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);white-space:nowrap;">2020, 2026</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.04em;margin-bottom:16px;">Senior UX → Principal UX → Lead UX Designer</div>
+        <div style="font-size:15px;color:var(--fg2);line-height:1.68;max-width:760px;">Sole senior UX practitioner for WaveLinx, an IEC 62443-certified cyber-physical sensing and control platform across enterprise, healthcare, and critical-infrastructure sites. Founded the CLS Design System and scaled it across six concurrent product lines.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;">
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">Light ARchitect · $6M+</span>
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">34% sales lift · 2025</span>
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">CLS Design System</span>
+        </div>
+      </div>
+
+      <!-- Parlay -->
+      <div data-reveal style="border:1px solid var(--line);border-radius:16px;padding:34px;background:var(--bg2);">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px;flex-wrap:wrap;">
+          <div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:600;color:var(--fg);">Parlay Games Inc.</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);white-space:nowrap;">2000, 2020</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.04em;margin-bottom:16px;">Senior Designer → Lead Designer → Lead &amp; Design Manager</div>
+        <div style="font-size:15px;color:var(--fg2);line-height:1.68;max-width:760px;">Owned design for a real-time transaction platform processing $2B/yr with 2.8M concurrent users across 70+ operators and 9 regulated jurisdictions, KYC/AML, responsible-gaming, and full audit-trail mandates. 50+ shipped products across four technology generations.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;">
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">2.8M concurrent</span>
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">9 jurisdictions</span>
+          <span style="font-size:11.5px;color:var(--fg2);padding:6px 13px;border:1px solid var(--line);border-radius:100px;">50+ products</span>
+        </div>
+      </div>
+
+      <!-- recognition -->
+      <div data-reveal style="border:1px solid var(--line);border-radius:16px;padding:26px 34px;background:var(--bg2);display:flex;align-items:center;gap:16px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ac2)" stroke-width="1.6" style="flex-shrink:0;"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 22l5-3 5 3-1.21-8.11"/></svg>
+        <div style="font-size:14px;color:var(--fg2);line-height:1.55;">TED Magazine <span style="color:var(--fg);">"Best of the Best"</span> 2024 · Exceeds-Expectations ratings 2023 &amp; 2024 · <span style="color:var(--fg);">Above &amp; Beyond</span> innovation award · <span style="color:var(--fg);">Co-created 3+1 patents</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer id="ab-foot" style="border-top:1px solid var(--line);padding:28px 44px;">
+    <div style="max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.04em;">© 2026 ROBERT BABIARZ · SR. PRODUCT DESIGNER</span>
+      <div style="display:flex;align-items:center;gap:22px;">
+        <a href="Work.dc.html" data-cursor="hover" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);text-decoration:none;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Work</a>
+        <a href="Homepage Interactive.dc.html#contact" data-cursor="hover" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);text-decoration:none;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Contact</a>
+        <a href="Homepage Interactive.dc.html#top" data-cursor="hover" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);text-decoration:none;letter-spacing:0.04em;">↑ Home</a>
+      </div>
+    </div>
+  </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dark: (typeof localStorage === 'undefined' || localStorage.getItem('rba-int-dark') !== 'false'), menu: false };
+  _obs = [];
+
+  on(t, e, fn, o) { if (!t) return; t.addEventListener(e, fn, o); (this._ev = this._ev || []).push([t, e, fn, o]); }
+
+  componentDidMount() {
+    setTimeout(() => { this.initReveal(); this.initNav(); this.initProgress(); }, 100);
+  }
+  componentWillUnmount() {
+    (this._ev || []).forEach(([t, e, fn, o]) => t.removeEventListener(e, fn, o));
+    this._obs.forEach(o => o.disconnect());
+    clearTimeout(this._revealSafety);
+  }
+
+  initReveal() {
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    if (!window.IntersectionObserver) { els.forEach(e => e.classList.add('in')); return; }
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach((e, i) => { e.style.transitionDelay = (i % 3 * 0.07) + 's'; io.observe(e); });
+    this._obs.push(io);
+    // reveal anything already in/near the viewport on load (observer may not fire for above-the-fold)
+    requestAnimationFrame(() => {
+      const vh = window.innerHeight || 800;
+      els.forEach(e => { if (e.getBoundingClientRect().top < vh * 0.96) { e.classList.add('in'); io.unobserve(e); } });
+    });
+    // safety: ensure nothing stays hidden
+    this._revealSafety = setTimeout(() => els.forEach(e => e.classList.add('in')), 1400);
+  }
+
+  initNav() {
+    const nav = document.getElementById('ab-nav');
+    if (!nav) return;
+    const apply = () => {
+      const y = window.scrollY || 0;
+      if (y > 20) {
+        nav.style.background = 'color-mix(in srgb, var(--bg) 82%, transparent)';
+        nav.style.borderBottomColor = 'var(--line)';
+        nav.style.backdropFilter = 'blur(14px)';
+        nav.style.webkitBackdropFilter = 'blur(14px)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.borderBottomColor = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.webkitBackdropFilter = 'none';
+      }
+    };
+    apply();
+    this.on(window, 'scroll', apply, { passive: true });
+  }
+
+  initProgress() {
+    const bar = document.getElementById('ab-prog');
+    if (!bar) return;
+    const apply = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = h > 0 ? Math.min(1, (window.scrollY || 0) / h) : 0;
+      bar.style.width = (p * 100).toFixed(2) + '%';
+    };
+    apply();
+    this.on(window, 'scroll', apply, { passive: true });
+    this.on(window, 'resize', apply);
+  }
+
+  renderVals() {
+    const dark = this.state.dark;
+    return {
+      rootClass: (dark ? '' : 'light') + (this.state.menu ? ' menu-open' : ''),
+      isDark: dark, isLight: !dark,
+      toggleDark: () => { const d = !this.state.dark; try { localStorage.setItem('rba-int-dark', d ? 'true' : 'false'); } catch (e) {} this.setState({ dark: d }); },
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      mailToggle: (e) => {
+        const d = e.currentTarget;
+        if (this._mailT) { clearTimeout(this._mailT); this._mailT = null; }
+        if (d.open) { this._mailT = setTimeout(() => { d.removeAttribute('open'); }, 10000); }
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

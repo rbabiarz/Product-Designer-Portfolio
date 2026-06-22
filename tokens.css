@@ -1,0 +1,261 @@
+/*
+ * Robert Babiarz Design System
+ * Enhanced with Untitled UI comprehensive tokens
+ * WCAG 2.1 AA Compliant
+ */
+
+:root {
+  /* ========================================
+     COLORS - Brand & Accent (WCAG AA)
+     ======================================== */
+  
+  --color-primary: #0a0a0a;
+  --color-primary-blue: #1570ef;
+  
+  /* Brand Color Cards */
+  --color-brand-pink: #d63b75;
+  --color-brand-teal: #0d5350;
+  --color-brand-lavender: #8b6fd9;
+  --color-brand-peach: #ff9d66;
+  --color-brand-ochre: #d4a036;
+  --color-brand-mint: #4ca88f;
+  --color-brand-coral: #e64d3c;
+  
+  /* Gray Scale (from Untitled UI) */
+  --color-gray-900: #101828;
+  --color-gray-800: #1d2939;
+  --color-gray-700: #344054;
+  --color-gray-600: #475467;
+  --color-gray-500: #667085;
+  --color-gray-400: #98a2b3;
+  --color-gray-300: #d0d5dd;
+  --color-gray-200: #e4e7ec;
+  --color-gray-100: #f2f4f7;
+  --color-gray-50: #f9fafb;
+  
+  /* ========================================
+     COLORS - Surface
+     ======================================== */
+  
+  --color-canvas: #fffcf5;
+  --color-surface-soft: #faf5e8;
+  --color-surface-card: #f5f0e0;
+  --color-surface-strong: #ebe6d6;
+  --color-surface-dark: #1a2825;
+  --color-surface-dark-elevated: #243532;
+  --color-hairline: #d4d4d4;
+  
+  /* ========================================
+     COLORS - Text (WCAG AA compliant)
+     ======================================== */
+  
+  --color-ink: #0a0a0a;
+  --color-body-strong: #1a1a1a;
+  --color-body: #2a2a2a;
+  --color-muted: #595959;
+  --color-muted-soft: #737373;
+  --color-on-primary: #ffffff;
+  --color-on-dark: #ffffff;
+  
+  /* Text colors for brand cards */
+  --color-on-pink: #ffffff;
+  --color-on-teal: #ffffff;
+  --color-on-lavender: #ffffff;
+  --color-on-peach: #0a0a0a;
+  --color-on-ochre: #0a0a0a;
+  --color-on-mint: #ffffff;
+  
+  /* ========================================
+     COLORS - Semantic
+     ======================================== */
+  
+  --color-success: #16a34a;
+  --color-success-bg: #d1fae5;
+  --color-success-text: #065f46;
+  
+  --color-warning: #d97706;
+  --color-warning-bg: #fef3c7;
+  --color-warning-text: #92400e;
+  
+  --color-error: #dc2626;
+  --color-error-bg: #fee2e2;
+  --color-error-text: #991b1b;
+  
+  --color-info: #3b82f6;
+  --color-info-bg: #dbeafe;
+  --color-info-text: #1e40af;
+  
+  /* ========================================
+     TYPOGRAPHY - Font Families
+     ======================================== */
+  
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  
+  /* ========================================
+     TYPOGRAPHY - Display Scales
+     ======================================== */
+  
+  /* Display XL - 72px */
+  --type-display-xl-size: 72px;
+  --type-display-xl-weight: 500;
+  --type-display-xl-height: 1.25;
+  --type-display-xl-spacing: -1.44px;
+  
+  /* Display LG - 60px */
+  --type-display-lg-size: 60px;
+  --type-display-lg-weight: 500;
+  --type-display-lg-height: 1.2;
+  --type-display-lg-spacing: -1.2px;
+  
+  /* Display MD - 48px */
+  --type-display-md-size: 48px;
+  --type-display-md-weight: 500;
+  --type-display-md-height: 1.25;
+  --type-display-md-spacing: -0.96px;
+  
+  /* Display SM - 36px */
+  --type-display-sm-size: 36px;
+  --type-display-sm-weight: 500;
+  --type-display-sm-height: 1.22;
+  --type-display-sm-spacing: -0.72px;
+  
+  /* Display XS - 30px */
+  --type-display-xs-size: 30px;
+  --type-display-xs-weight: 500;
+  --type-display-xs-height: 1.27;
+  --type-display-xs-spacing: 0;
+  
+  /* ========================================
+     TYPOGRAPHY - Text Scales
+     ======================================== */
+  
+  /* Text XL - 24px */
+  --type-text-xl-size: 24px;
+  --type-text-xl-weight: 400;
+  --type-text-xl-height: 1.33;
+  --type-text-xl-spacing: 0;
+  
+  /* Text LG - 20px */
+  --type-text-lg-size: 20px;
+  --type-text-lg-weight: 400;
+  --type-text-lg-height: 1.5;
+  --type-text-lg-spacing: 0;
+  
+  /* Text MD - 18px */
+  --type-text-md-size: 18px;
+  --type-text-md-weight: 400;
+  --type-text-md-height: 1.56;
+  --type-text-md-spacing: 0;
+  
+  /* Text SM - 16px (Body default) */
+  --type-text-sm-size: 16px;
+  --type-text-sm-weight: 400;
+  --type-text-sm-height: 1.5;
+  --type-text-sm-spacing: 0;
+  
+  /* Text XS - 14px */
+  --type-text-xs-size: 14px;
+  --type-text-xs-weight: 400;
+  --type-text-xs-height: 1.43;
+  --type-text-xs-spacing: 0;
+  
+  /* Text XXS - 12px */
+  --type-text-xxs-size: 12px;
+  --type-text-xxs-weight: 400;
+  --type-text-xxs-height: 1.5;
+  --type-text-xxs-spacing: 0;
+  
+  /* ========================================
+     SPACING (from Untitled UI)
+     ======================================== */
+  
+  --spacing-none: 0;
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 48px;
+  --spacing-5xl: 64px;
+  --spacing-6xl: 96px;
+  --spacing-7xl: 128px;
+  --spacing-section: 96px;
+  
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  
+  --rounded-none: 0;
+  --rounded-xxs: 2px;
+  --rounded-xs: 4px;
+  --rounded-sm: 6px;
+  --rounded-md: 8px;
+  --rounded-lg: 12px;
+  --rounded-xl: 16px;
+  --rounded-2xl: 20px;
+  --rounded-3xl: 24px;
+  --rounded-4xl: 28px;
+  --rounded-pill: 9999px;
+  --rounded-full: 50%;
+  
+  /* ========================================
+     ELEVATION & SHADOWS
+     ======================================== */
+  
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06);
+  --shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
+  --shadow-xl: 0 20px 24px -4px rgba(16, 24, 40, 0.08), 0 8px 8px -4px rgba(16, 24, 40, 0.03);
+  --shadow-2xl: 0 24px 48px -12px rgba(16, 24, 40, 0.18);
+  --shadow-3xl: 0 32px 64px -12px rgba(16, 24, 40, 0.14);
+  
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+  
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* Legacy tokens maintained for backwards compatibility */
+:root {
+  --type-display-xl-size: var(--type-display-xl-size);
+  --type-display-lg-size: var(--type-display-lg-size);
+  --type-display-md-size: var(--type-display-md-size);
+  --type-display-sm-size: var(--type-display-sm-size);
+  
+  --type-body-md-size: var(--type-text-sm-size);
+  --type-body-sm-size: var(--type-text-xs-size);
+  --type-caption-size: var(--type-text-xxs-size);
+  
+  --type-title-lg-size: var(--type-text-xl-size);
+  --type-title-md-size: var(--type-text-md-size);
+  --type-title-sm-size: var(--type-text-sm-size);
+}
+
+/* ========================================
+   RESPONSIVE TYPE - Mobile
+   ======================================== */
+
+@media (max-width: 767px) {
+  :root {
+    --type-display-xl-size: 36px;
+    --type-display-xl-spacing: -0.72px;
+    
+    --type-display-lg-size: 32px;
+    --type-display-lg-spacing: -0.64px;
+    
+    --type-display-md-size: 28px;
+    --type-display-md-spacing: -0.56px;
+    
+    --type-display-sm-size: 24px;
+    --type-display-sm-spacing: -0.48px;
+  }
+}

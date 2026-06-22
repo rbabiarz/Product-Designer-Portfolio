@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robert Babiarz, Senior Product Designer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#070b12;--bg2:#0c121e;--bg3:#121a28;
+  --fg:#e9eef7;--fg2:#8593a8;--fg3:#97a3b8;
+  --line:rgba(255,255,255,0.08);--line2:rgba(255,255,255,0.15);
+  --ac:#4ca88f;--ac2:#7dd3c0;--grid:rgba(76,168,143,0.045);
+}
+.light{
+  --bg:#fffcf5;--bg2:#f7f2e6;--bg3:#ebe6d6;
+  --fg:#0a0a0a;--fg2:#595959;--fg3:#5e5e5e;
+  --line:rgba(0,0,0,0.09);--line2:rgba(0,0,0,0.16);
+  --ac:#0d5350;--ac2:#4ca88f;--grid:rgba(13,83,80,0.05);
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
+@keyframes rise{from{opacity:0;transform:translateY(120%)}to{opacity:1;transform:translateY(0)}}
+@keyframes hl-swipe{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes clarity-focus{0%{filter:blur(18px);opacity:0.25;letter-spacing:0.05em}12%{filter:blur(0);opacity:1;letter-spacing:0}88%{filter:blur(0);opacity:1;letter-spacing:0}100%{filter:blur(18px);opacity:0.25;letter-spacing:0.05em}}
+.hero-clarity{display:inline-block;animation:clarity-focus 8s ease-in-out infinite;will-change:filter,opacity}
+@keyframes cityWin{0%,100%{opacity:var(--w0,0.3)}50%{opacity:var(--w1,1)}}
+@keyframes cityBeacon{0%,100%{opacity:0.2;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.4)}}
+@keyframes cityFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes laPulse{0%,100%{box-shadow:0 0 0 0 rgba(54,224,255,0.5)}50%{box-shadow:0 0 0 5px rgba(54,224,255,0)}}
+@keyframes laBeam{0%,100%{opacity:0.5}50%{opacity:1}}
+@keyframes laScan{0%{transform:translateY(-100%);opacity:0}10%{opacity:0.9}90%{opacity:0.9}100%{transform:translateY(1100%);opacity:0}}
+#la-heat>div{opacity:0;transition:opacity .5s ease}
+#la-heat.la-on>div{opacity:1}
+/* Light Architect scene, light by default, dark only in dark mode */
+#lightarch{
+  --la-bg:#fbf7ee;--la-fill:#e9e5d7;
+  --la-grad:linear-gradient(125deg,#e2e6d6 0%,#e9e5d6 40%,#ebe7d9 70%,#e0e5d2 100%);
+  --la-road:#cbc3af;--la-road2:#c1b9a4;--la-bldg:#cec7b3;
+  --la-stall:repeating-linear-gradient(90deg,#d9d3c3 0 11px,#c5bda9 11px 12px);
+  --la-roof1:#cdbaa3;--la-roof2:#c9b89f;--la-roof3:#c5b39b;--la-roof4:#cab9a1;
+  --la-tree:radial-gradient(circle at 40% 40%,#9db38a,transparent 70%),radial-gradient(circle at 70% 70%,#90a87e,transparent 70%);
+  --la-tree2:radial-gradient(circle at 50% 50%,#a1b78d,transparent 72%);
+  --la-glass:rgba(255,252,245,0.9);--la-glass2:rgba(255,252,245,0.92);
+  --la-bd:rgba(0,0,0,0.14);--la-bd-soft:rgba(0,0,0,0.08);--la-bd-soft2:rgba(0,0,0,0.1);
+  --la-text:#3a3a3a;--la-text-strong:#1a1a1a;--la-dim:#6b6b6b;
+  --la-cell:#f2ede1;--la-cell-grid:rgba(0,0,0,0.08);
+  --la-title:#141414;--la-body:#4a4a4a;
+  --la-shadow:rgba(0,0,0,0.16);--la-shadow2:rgba(0,0,0,0.12);--la-scale:rgba(0,0,0,0.42);
+  --la-vig:rgba(251,247,238,0.55);--la-vig2:#fbf7ee;
+  --la-accent:#0d5350;--la-stat-tag-bg:#fffcf5;--la-stat-tag-bd:rgba(0,0,0,0.18);--la-stat-tag-tx:#3a3a3a;
+  --la-btn-bg:#0d5350;--la-btn-tx:#fdfaf3;--la-soft-bg:rgba(0,0,0,0.05);
+  --la-amber-bg:rgba(176,106,31,0.12);--la-amber-tx:#a85f17;--la-amber-bd:rgba(176,106,31,0.28);
+  --la-cyan:#0a86a3;--la-cyan-glow:rgba(10,134,163,0.26);
+}
+#int-root:not(.light) #lightarch{
+  --la-bg:#060a10;--la-fill:#0c1118;
+  --la-grad:linear-gradient(125deg,#101a14 0%,#0e151c 40%,#11161d 70%,#0f1a14 100%);
+  --la-road:#222a34;--la-road2:#1e252e;--la-bldg:#2a3340;
+  --la-stall:repeating-linear-gradient(90deg,#171d25 0 11px,#222a34 11px 12px);
+  --la-roof1:#241a16;--la-roof2:#27201a;--la-roof3:#221a18;--la-roof4:#1f1a17;
+  --la-tree:radial-gradient(circle at 40% 40%,#16271a,transparent 70%),radial-gradient(circle at 70% 70%,#12231a,transparent 70%);
+  --la-tree2:radial-gradient(circle at 50% 50%,#14241a,transparent 72%);
+  --la-glass:rgba(12,18,28,0.85);--la-glass2:rgba(12,18,28,0.82);
+  --la-bd:rgba(255,255,255,0.12);--la-bd-soft:rgba(255,255,255,0.08);--la-bd-soft2:rgba(255,255,255,0.1);
+  --la-text:#cfe0e8;--la-text-strong:#e9eef7;--la-dim:#8593a8;
+  --la-cell:#0c121e;--la-cell-grid:rgba(255,255,255,0.07);
+  --la-title:#f3f7fc;--la-body:#aeb9c9;
+  --la-shadow:rgba(0,0,0,0.5);--la-shadow2:rgba(0,0,0,0.4);--la-scale:rgba(255,255,255,0.55);
+  --la-vig:rgba(6,10,16,0.72);--la-vig2:#060a10;
+  --la-accent:#7dd3c0;--la-stat-tag-bg:#0a0f16;--la-stat-tag-bd:rgba(255,255,255,0.16);--la-stat-tag-tx:#cfe0e8;
+  --la-btn-bg:#4ca88f;--la-btn-tx:#04140f;--la-soft-bg:rgba(255,255,255,0.07);
+  --la-amber-bg:rgba(255,178,108,0.14);--la-amber-tx:#ffb26c;--la-amber-bd:rgba(255,178,108,0.22);
+  --la-cyan:#36e0ff;--la-cyan-glow:rgba(54,224,255,0.28);
+}
+.hl-mark{display:inline;color:var(--ac);font-weight:300;font-style:italic;padding:0 0.06em;background-image:linear-gradient(rgba(250,204,21,0.6),rgba(250,204,21,0.6));background-repeat:no-repeat;background-position:left 58%;background-size:0% 64%;transition:background-size 0.8s cubic-bezier(.5,.1,.2,1);}
+@keyframes fade-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scrolldot{0%{transform:translateY(0);opacity:0}30%{opacity:1}80%{opacity:1}100%{transform:translateY(20px);opacity:0}}
+#int-root section[id]{scroll-margin-top:92px}
+.hp-toc a .hp-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.hp-toc:hover a .hp-toc-label{opacity:1;transform:none}
+.hp-toc a[data-active] .hp-toc-label{opacity:1;color:var(--ac)}
+.hp-toc a[data-active] .hp-toc-dot{background:var(--ac);width:22px}
+@media (max-width:1180px){ .hp-toc{display:none !important} }
+.line-mask{display:block;overflow:hidden;padding:0.07em 0 0.18em;margin-bottom:-0.21em}
+.line-mask>span{display:block}
+.hero-hl{position:relative;z-index:0;white-space:nowrap}
+.hero-hl::before{content:'';position:absolute;left:-0.06em;right:-0.06em;top:0.08em;bottom:0.04em;background:rgba(250,204,21,0.92);border-radius:0.1em 0.16em 0.12em 0.1em;z-index:-1;transform:scaleX(0) rotate(-0.6deg);transform-origin:left center;animation:hero-hl-draw 0.52s cubic-bezier(0.62,0,0.34,1) 1.35s both}
+@keyframes hero-hl-draw{to{transform:scaleX(1) rotate(-0.6deg)}}
+.rb-box{color:var(--fg);transition:transform .6s cubic-bezier(.65,0,.35,1),background .4s ease,border-color .4s ease,color .4s ease;}
+a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(--fg);color:#000}
+.light a:hover .rb-box{color:#fff}
+.nav-cm{position:relative;}
+.nav-cm::before{content:'';position:absolute;inset:-7px -6px;pointer-events:none;opacity:0;background:linear-gradient(var(--fg),var(--fg)) left top/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) left top/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) right top/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) right top/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) left bottom/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) left bottom/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) right bottom/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) right bottom/1px 6px no-repeat;}
+.nav-cm:hover::before{opacity:0.6}
+.nav-cm:hover{color:var(--fg)!important}
+.nav-cm:active{opacity:0.5}
+.mail-choose summary::-webkit-details-marker{display:none}
+.mail-choose summary::marker{content:''}
+.scp-ghost:hover{background:var(--ac) !important;color:#fff !important;border-color:var(--ac) !important}
+@media (max-width:860px){
+  #int-nav > div{padding:0 18px !important;height:60px !important}
+  #int-nav > div > div:nth-child(2){display:none !important}
+  #int-root section{padding-left:20px !important;padding-right:20px !important}
+  #top{padding:96px 20px 52px !important;min-height:auto !important}
+  #work, #about, #metrics{padding-top:76px !important;padding-bottom:76px !important}
+  #int-root [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important;gap:40px !important}
+  #int-root [style*="grid-template-columns: repeat(3, 1fr)"]{grid-template-columns:1fr 1fr !important}
+  #int-root [style*="position:sticky"]{position:static !important}
+  .proj-row{grid-template-columns:34px 1fr 20px !important;gap:14px !important;padding:22px 4px !important}
+  .pr-meta{display:none !important}
+  #reveal{display:none !important}
+  #contact{padding-bottom:72px !important}
+  #contact > div{padding:44px 24px !important;border-radius:18px !important}
+  /* iso building section: stack text → building → telemetry */
+  #iso{display:flex !important;flex-direction:column !important;padding-left:0 !important;padding-right:0 !important}
+  #iso-copy{position:static !important;order:1 !important;display:block !important;padding:88px 0 8px !important}
+  #iso-copy > div{padding:0 20px !important}
+  #iso-stage{order:2 !important;height:56vh !important;min-height:380px !important;perspective:1100px !important}
+  #iso-float{left:50% !important}
+  #iso-hud{display:none !important}
+  #iso-metrics{order:3 !important;margin-top:0 !important;padding:0 20px 76px !important}
+  #iso-metrics-grid{grid-template-columns:1fr 1fr !important}
+  #tst-grid{grid-template-columns:1fr !important}
+  /* light architect geospatial section */
+  #la-scroll{height:auto !important}
+  #la-sticky{height:78vh !important;min-height:520px !important;max-height:720px !important}
+  #la-stage{transform:none !important;margin:0 !important}
+  #la-copy{top:auto !important;bottom:5.5% !important;left:5% !important;right:5% !important;max-width:none !important}
+  #la-panel{top:3.5% !important;left:3.5% !important;right:3.5% !important;width:auto !important;max-width:none !important}
+  #la-search,#la-quick{display:none !important}
+}
+@media (max-width:520px){
+  #int-root [style*="grid-template-columns: repeat(3, 1fr)"]{grid-template-columns:1fr !important}
+  #hero-head{font-size:clamp(34px,9vw,52px) !important}
+  #iso-metrics-grid{grid-template-columns:1fr !important}
+}
+@media (min-width:861px) and (max-width:1080px){
+  #tst-grid{grid-template-columns:repeat(2,1fr) !important}
+}
+.int-burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.int-burger span{display:block;width:19px;height:2px;background:var(--fg);border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .int-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .int-burger span:nth-child(2){opacity:0}
+.menu-open .int-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#int-menu{position:fixed;inset:0;z-index:95;background:var(--bg);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:96px 28px 40px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #int-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#int-menu .im-link{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:clamp(30px,9vw,44px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);text-decoration:none;padding:18px 4px;border-bottom:1px solid var(--line);opacity:0;transform:translateY(20px);transition:opacity .45s ease,transform .45s ease,color .15s}
+.menu-open #int-menu .im-link{opacity:1;transform:none}
+.menu-open #int-menu .im-link:nth-child(1){transition-delay:.07s}
+.menu-open #int-menu .im-link:nth-child(2){transition-delay:.13s}
+.menu-open #int-menu .im-link:nth-child(3){transition-delay:.19s}
+.menu-open #int-menu .im-link:nth-child(4){transition-delay:.25s}
+#int-menu .im-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:400;color:var(--fg3);letter-spacing:0.04em;}
+#int-menu .im-foot{margin-top:34px;opacity:0;transform:translateY(20px);transition:opacity .45s ease .32s,transform .45s ease .32s;display:flex;flex-direction:column;gap:6px}
+.menu-open #int-menu .im-foot{opacity:1;transform:none}
+@media (max-width:860px){ .int-burger{display:flex} }
+@media (min-width:861px){ #int-menu{display:none !important} }
+</style>
+<script src="text-motion.js"></script>
+<script src="page-transition.js"></script>
+<script src="home-variants.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div id="int-root" class="{{ rootClass }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'DM Sans',sans-serif;position:relative;overflow-x:hidden;transition:background 0.5s,color 0.5s;">
+
+  <!-- ░░ CONTOUR BACKGROUND (follows cursor · brightens on hover) ░░ -->
+  <canvas id="hero-cvs" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.95;"></canvas>
+
+  <div style="position:relative;z-index:1;">
+
+  <!-- ░░ FLOATING PROJECT REVEAL ░░ -->
+  <div id="reveal" style="position:fixed;top:0;left:0;width:340px;height:232px;pointer-events:none;z-index:60;opacity:0;transform:translate(-50%,-50%) scale(0.9);transition:opacity 0.35s cubic-bezier(.2,.8,.2,1),transform 0.35s cubic-bezier(.2,.8,.2,1);will-change:transform;">
+    <div style="position:relative;width:100%;height:100%;border-radius:10px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 30px 70px rgba(0,0,0,0.5);background:var(--bg3);">
+      <img id="reveal-img" alt="" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;">
+      <div style="position:absolute;left:12px;bottom:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;color:#fff;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,0.7);" id="reveal-tag">CASE STUDY</div>
+    </div>
+  </div>
+
+  <!-- ═══ NAV ═══ -->
+  <nav id="int-nav" style="position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background 0.3s,border-color 0.3s,backdrop-filter 0.3s;">
+    <div style="padding:0 44px;height:72px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="#top" data-cursor="hover" style="text-decoration:none;display:flex;align-items:center;gap:12px;perspective:600px;">
+        <div class="rb-box" style="width:34px;height:34px;border:1px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:inherit;letter-spacing:-0.5px;">RB</span>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--fg);letter-spacing:0.04em;text-transform:uppercase;line-height:1.15;">Robert Babiarz</div>
+          <div style="font-size:9.5px;color:var(--fg2);font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;line-height:1.3;text-transform:uppercase;">Product Designer</div>
+        </div>
+      </a>
+      <div style="display:flex;align-items:center;gap:34px;">
+        <a href="Work.dc.html" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Work</a>
+        <a href="#metrics" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Impact</a>
+        <a href="About.dc.html" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">About</a>
+        <a href="#contact" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Contact</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <details class="int-switch" style="position:relative;">
+          <summary data-cursor="hover" style="list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:9px 13px;border:1px solid var(--line2);border-radius:8px;background:transparent;color:var(--fg);transition:border-color 0.2s;" style-hover="border-color:var(--fg3)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;color:var(--fg2);">VIEW:</span><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;font-weight:500;">{{ currentName }}</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div style="position:absolute;top:calc(100% + 9px);right:0;min-width:252px;background:var(--bg2);border:1px solid var(--line2);border-radius:12px;box-shadow:0 20px 54px rgba(0,0,0,0.3);padding:7px;z-index:300;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg3);padding:7px 11px 9px;">Homepage design</div>
+            <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
+              <a href="{{ v.file }}" data-home-variant="{{ v.id }}" data-cursor="hover" style="display:block;padding:11px 13px;border-radius:8px;text-decoration:none;background:{{ v.rowBg }};transition:background 0.16s;" style-hover="background:var(--bg3)">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;letter-spacing:0.02em;color:{{ v.titleColor }};">{{ v.mark }}{{ v.label }}</div>
+                <div style="font-size:11.5px;color:var(--fg2);margin-top:3px;">{{ v.tagline }}</div>
+              </a>
+            </sc-for>
+          </div>
+        </details>
+        <button onClick="{{ toggleDark }}" data-cursor="hover" style="width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:all 0.2s;" style-hover="border-color:var(--line2)">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </sc-if>
+        </button>
+        <button class="int-burger" onClick="{{ toggleMenu }}" data-cursor="hover" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ SECTION SIDE-NAV ═══ -->
+  <nav class="hp-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:11px;align-items:flex-end;">
+    <a href="#top" data-toc="top" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="hp-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg2);white-space:nowrap;">Hero</span><span class="hp-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--fg3);display:block;transition:all .22s;"></span></a>
+    <a href="#iso" data-toc="iso" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="hp-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg2);white-space:nowrap;">Light, Made Intelligent</span><span class="hp-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--fg3);display:block;transition:all .22s;"></span></a>
+    <a href="#work" data-toc="work" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="hp-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg2);white-space:nowrap;">Selected Work</span><span class="hp-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--fg3);display:block;transition:all .22s;"></span></a>
+    <a href="#metrics" data-toc="metrics" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="hp-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg2);white-space:nowrap;">Measured Impact</span><span class="hp-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--fg3);display:block;transition:all .22s;"></span></a>
+    <a href="#lightarch" data-toc="lightarch" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="hp-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg2);white-space:nowrap;">Light Architect</span><span class="hp-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--fg3);display:block;transition:all .22s;"></span></a>
+    <a href="#testimonials" data-toc="testimonials" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="hp-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg2);white-space:nowrap;">What People Say</span><span class="hp-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--fg3);display:block;transition:all .22s;"></span></a>
+    <a href="#contact" data-toc="contact" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="hp-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg2);white-space:nowrap;">Let's Build</span><span class="hp-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--fg3);display:block;transition:all .22s;"></span></a>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="int-menu">
+    <a class="im-link" href="Work.dc.html" onClick="{{ closeMenu }}"><span>Work</span><span class="im-num">01</span></a>
+    <a class="im-link" href="#metrics" onClick="{{ closeMenu }}"><span>Impact</span><span class="im-num">02</span></a>
+    <a class="im-link" href="About.dc.html" onClick="{{ closeMenu }}"><span>About</span><span class="im-num">03</span></a>
+    <a class="im-link" href="#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="im-num">04</span></a>
+    <div class="im-foot">
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:22px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg3);">Homepage design</span>
+        <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
+          <a href="{{ v.file }}" data-home-variant="{{ v.id }}" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border:1px solid var(--line2);border-radius:10px;text-decoration:none;background:{{ v.rowBg }};"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:0.03em;color:{{ v.titleColor }};">{{ v.mark }}{{ v.label }}</span><span style="font-size:11px;color:var(--fg2);">{{ v.tagline }}</span></a>
+        </sc-for>
+      </div>
+      <a href="mailto:rbabiarz@gmail.com" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ac2);text-decoration:none;letter-spacing:0.04em;">rbabiarz@gmail.com</a>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;">GREATER TORONTO AREA · OPEN TO ROLES</span>
+    </div>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="top" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:120px 44px 60px;">  <div id="hp-grid" style="position:absolute;top:-12%;left:0;right:0;height:124%;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;will-change:transform;"></div>
+
+    <div id="hp-glow" style="position:absolute;top:calc(50% - 340px);right:-5%;width:680px;height:680px;background:radial-gradient(circle,rgba(76,168,143,0.10) 0%,transparent 65%);pointer-events:none;will-change:transform;"></div>
+
+    <!-- ░ 3-LAYER PARALLAX · BACKGROUND (distant lit skyline) ░ -->
+    <div id="hp-bg" style="position:absolute;top:-8%;left:0;right:0;height:116%;z-index:0;pointer-events:none;overflow:hidden;will-change:transform;"></div>
+    <!-- ░ MID-GROUND (luminaire network mesh) ░ -->
+    <canvas id="hp-mesh" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;will-change:transform;opacity:0.92;"></canvas>
+
+    <div style="max-width:1480px;margin:0 auto;width:100%;position:relative;z-index:2;">
+      <h1 id="hero-head" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(40px,7.4vw,118px);line-height:0.98;letter-spacing:-0.04em;color:var(--fg);max-width:1280px;will-change:transform;">
+        <span class="line-mask"><span style="animation:rise 0.9s cubic-bezier(.2,.8,.2,1) 0.05s both;">Designing <span class="hero-clarity">clarity</span></span></span>
+        <span class="line-mask"><span style="animation:rise 0.9s cubic-bezier(.2,.8,.2,1) 0.16s both;">&amp; control for complex</span></span>
+        <span class="line-mask"><span style="animation:rise 0.9s cubic-bezier(.2,.8,.2,1) 0.27s both;">systems where error</span></span>
+        <span class="line-mask"><span style="animation:rise 0.9s cubic-bezier(.2,.8,.2,1) 0.38s both;"><span class="hero-hl" style="font-weight:400;font-style:italic;padding:0 0.12em;color:#1a1505;">isn't an option.</span></span></span>
+      </h1>
+
+      <div data-hero-anim="1" style="display:flex;align-items:flex-end;justify-content:space-between;gap:48px;flex-wrap:wrap;margin-top:46px;animation:fade-up 0.8s ease 0.5s both;">
+        <p style="font-size:18px;color:var(--fg2);line-height:1.6;max-width:560px;">Shipping high-consequence UX across networked cyber-physical IoT, regulated real-money platforms, and AR field tooling, Enterprise SaaS, B2B, earning design a founding voice inside engineering-first teams. 3 issued patents, 1 pending.</p>
+      </div>
+    </div>
+
+    <!-- security clearance ribbon -->
+    <div data-hero-anim="1" style="max-width:1480px;margin:64px auto 0;width:100%;position:relative;z-index:2;animation:fade-up 0.8s ease 0.65s both;">
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);">
+        <div style="display:flex;align-items:center;gap:9px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.08em;">Canadian Citizen</span>
+        </div>
+        <div style="flex:1;min-width:40px;"></div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;">
+          <span id="hero-clock">--:--:--</span><span>EST</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ░ FOREGROUND (near, out-of-focus light orbs, race past) ░ -->
+    <div id="hp-fg" style="position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;will-change:transform;"></div>
+
+    <!-- bottom-center scroll cue -->
+    <div data-hero-anim="1" style="position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.14em;pointer-events:none;animation:fade-up 0.8s ease 0.8s both;">
+      <span>SCROLL TO EXPLORE</span>
+      <span style="display:inline-block;width:14px;height:22px;border:1px solid var(--fg3);border-radius:8px;position:relative;"><span style="position:absolute;left:50%;top:5px;width:2px;height:4px;background:var(--ac);border-radius:2px;transform:translateX(-50%);animation:scrolldot 1.6s infinite;"></span></span>
+    </div>
+  </section>
+
+  <!-- ═══ MARQUEE ═══ -->
+  <div style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--bg2);">
+    <div style="display:inline-flex;align-items:center;animation:marquee 34s linear infinite;will-change:transform;">
+      <span style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.02em;color:var(--fg3);display:inline-flex;align-items:center;">
+        UX Strategy <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Situational Awareness <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Information Architecture <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Interaction Design <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Design Systems <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Regulated-Domain UX <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Operator Research <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> AR Field Tooling <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span>&nbsp;
+      </span>
+      <span style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.02em;color:var(--fg3);display:inline-flex;align-items:center;" aria-hidden="true">
+        UX Strategy <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Situational Awareness <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Information Architecture <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Interaction Design <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Design Systems <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Regulated-Domain UX <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Operator Research <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> AR Field Tooling <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span>&nbsp;
+      </span>
+    </div>
+  </div>
+
+  <!-- ═══ LIGHTING IoT, INTERACTIVE ISOMETRIC BUILDING ═══ -->
+  <section id="iso" data-screen-label="Lighting IoT showcase" style="position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;">
+    <div id="iso-stage" style="position:relative;height:min(78vh,720px);min-height:520px;width:100%;perspective:1500px;perspective-origin:50% 46%;cursor:crosshair;">
+
+      <!-- ambient glows -->
+      <div data-pllx="0.035" style="position:absolute;top:5%;right:12%;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(125,211,192,0.18),transparent 64%);filter:blur(8px);pointer-events:none;"></div>
+      <div data-pllx="0.05" style="position:absolute;bottom:6%;left:7%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,178,108,0.10),transparent 66%);filter:blur(10px);pointer-events:none;mix-blend-mode:screen;"></div>
+
+      <!-- receding iso floor grid -->
+      <div id="iso-floor" data-pllx="0.045" style="position:absolute;left:50%;bottom:13%;width:1600px;height:820px;margin-left:-800px;transform:rotateX(74deg);transform-origin:center;background-image:linear-gradient(rgba(125,211,192,0.22) 1px,transparent 1px),linear-gradient(90deg,rgba(125,211,192,0.18) 1px,transparent 1px);background-size:58px 58px;-webkit-mask-image:radial-gradient(58% 60% at 50% 42%,#000,transparent 80%);mask-image:radial-gradient(58% 60% at 50% 42%,#000,transparent 80%);pointer-events:none;"></div>
+
+      <!-- floating dust -->
+      <div id="iso-dust" data-pllx="0.02" style="position:absolute;inset:0;pointer-events:none;"></div>
+
+      <!-- the floating building -->
+      <div id="iso-float" style="position:absolute;left:55%;top:51%;animation:cityFloat 8s ease-in-out infinite;pointer-events:none;">
+        <div id="iso-rig" style="position:relative;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateX(-24deg) rotateY(-32deg);will-change:transform;"></div>
+      </div>
+
+      <!-- floating HUD labels -->
+      <div id="iso-hud" data-pllx="-0.03" style="position:absolute;inset:0;pointer-events:none;z-index:7;font-family:'JetBrains Mono',monospace;">
+        <div style="position:absolute;top:20%;left:60%;display:flex;align-items:center;gap:9px;animation:cityFloat 9s ease-in-out infinite;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#7dd3c0;box-shadow:0 0 8px 2px rgba(125,211,192,0.7);"></span>
+          <span style="width:36px;height:1px;background:linear-gradient(90deg,rgba(125,211,192,0.65),transparent);"></span>
+          <div style="background:rgba(4,18,22,0.62);backdrop-filter:blur(6px);border:1px solid rgba(125,211,192,0.28);border-radius:7px;padding:6px 11px;font-size:10.5px;letter-spacing:0.09em;color:#c9e8e0;white-space:nowrap;">FLOOR 07 · OCC <span style="color:#9be6d3;">73%</span></div>
+        </div>
+        <div style="position:absolute;top:45%;left:69%;display:flex;align-items:center;gap:9px;animation:cityFloat 11s ease-in-out 0.6s infinite;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#5fe39a;box-shadow:0 0 8px 2px rgba(95,227,154,0.7);animation:cityWin 1.6s ease-in-out infinite;"></span>
+          <span style="width:30px;height:1px;background:linear-gradient(90deg,rgba(95,227,154,0.6),transparent);"></span>
+          <div style="background:rgba(4,18,22,0.62);backdrop-filter:blur(6px);border:1px solid rgba(125,211,192,0.26);border-radius:7px;padding:6px 11px;font-size:10.5px;letter-spacing:0.09em;color:#c9e8e0;white-space:nowrap;">DALI-2 ZONE · <span style="color:#7ef0ab;">ACTIVE</span></div>
+        </div>
+        <div style="position:absolute;top:64%;left:63%;display:flex;align-items:center;gap:9px;animation:cityFloat 10s ease-in-out 1.1s infinite;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#ffc176;box-shadow:0 0 8px 2px rgba(255,193,118,0.6);"></span>
+          <span style="width:30px;height:1px;background:linear-gradient(90deg,rgba(255,193,118,0.55),transparent);"></span>
+          <div style="background:rgba(4,18,22,0.62);backdrop-filter:blur(6px);border:1px solid rgba(125,211,192,0.22);border-radius:7px;padding:6px 11px;font-size:10.5px;letter-spacing:0.09em;color:#c9e8e0;white-space:nowrap;">WaveLinx CORE · NODE <span style="color:#9be6d3;">0x2F</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- overlay copy -->
+    <div id="iso-copy" style="position:absolute;inset:0;z-index:5;display:flex;align-items:flex-start;pointer-events:none;">
+      <div style="position:relative;max-width:1480px;margin:0 auto;width:100%;padding:7% 44px 0;">
+        <div style="max-width:560px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">[ 02 ], Light, Made Intelligent</div>
+          <h2 style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(32px,5vw,64px);line-height:1.02;letter-spacing:-0.035em;color:var(--fg);margin-bottom:20px;">Light, made intelligent<br/>at building scale.</h2>
+          <p style="font-size:17px;line-height:1.6;color:var(--fg2);max-width:500px;">Turning luminaires, sensors, and DALI-2 control into systems that commission in hours and adapt in real time. <span style="color:var(--ac);">Click &amp; drag to rotate</span> the tower 360°, hover to bring its floors online.</p>
+          <div style="margin-top:28px;display:inline-flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.05em;color:#cfe6e0;background:rgba(4,16,22,0.6);backdrop-filter:blur(8px);border:1px solid rgba(125,211,192,0.28);border-radius:999px;padding:9px 16px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#9be6d3;box-shadow:0 0 9px 2px rgba(125,211,192,0.85);animation:cityWin 1.8s ease-in-out infinite;"></span>
+            <span><span id="city-count" data-count="12480" style="color:#9be6d3;font-weight:500;">0</span> luminaires online</span>
+            <span style="opacity:0.4;">·</span>
+            <span>DALI-2 adaptive zones active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- metric cards under the building -->
+    <div id="iso-metrics" style="position:relative;z-index:6;max-width:1180px;margin:0 auto;padding:0 44px 90px;margin-top:-87px;">
+      <div data-reveal="true" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ac);margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#9be6d3;box-shadow:0 0 9px 2px rgba(125,211,192,0.8);animation:cityWin 1.8s ease-in-out infinite;"></span>
+        Live building telemetry
+      </div>
+      <div id="iso-metrics-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(125,211,192,0.14);border:1px solid rgba(125,211,192,0.18);border-radius:16px;overflow:hidden;">
+        <div data-reveal="true" style="background:rgba(6,20,24,0.72);backdrop-filter:blur(8px);padding:32px 26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.13em;text-transform:uppercase;color:#7fa39c;margin-bottom:16px;">Average Occupancy</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(38px,4.4vw,58px);font-weight:500;color:#fff;line-height:1;letter-spacing:-0.01em;"><span data-count="55">0</span><span style="color:#9be6d3;font-size:0.62em;">%</span></div>
+          <div style="font-size:12.5px;color:#7fa39c;margin-top:14px;line-height:1.45;">19% previous week</div>
+        </div>
+        <div data-reveal="true" style="background:rgba(6,20,24,0.72);backdrop-filter:blur(8px);padding:32px 26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.13em;text-transform:uppercase;color:#7fa39c;margin-bottom:16px;">Empty Spaces</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(38px,4.4vw,58px);font-weight:500;color:#fff;line-height:1;letter-spacing:-0.01em;"><span data-count="100">0</span><span style="color:#9be6d3;font-size:0.42em;font-weight:500;margin-left:6px;">33.33%</span></div>
+          <div style="font-size:12.5px;color:#7fa39c;margin-top:14px;line-height:1.45;">300 total areas</div>
+        </div>
+        <div data-reveal="true" style="background:rgba(6,20,24,0.72);backdrop-filter:blur(8px);padding:32px 26px;">
+          <div style="display:flex;align-items:flex-end;gap:30px;">
+            <div>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="1.7" style="margin-bottom:12px;display:block;"><path d="M3 21V8l6-4 6 4v13"/><path d="M15 21V11l6 4v6"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.6vw,46px);font-weight:500;color:#fff;line-height:1;letter-spacing:-0.01em;"><span data-count="20">0</span></div>
+            </div>
+            <div>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="1.7" style="margin-bottom:12px;display:block;"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.6vw,46px);font-weight:500;color:#fff;line-height:1;letter-spacing:-0.01em;"><span data-count="100">0</span></div>
+            </div>
+          </div>
+          <div style="font-size:12.5px;color:#7fa39c;margin-top:16px;line-height:1.45;"><span data-count="1020256">0</span> ft²</div>
+        </div>
+        <div data-reveal="true" style="background:rgba(6,20,24,0.72);backdrop-filter:blur(8px);padding:32px 26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.13em;text-transform:uppercase;color:#7fa39c;margin-bottom:16px;">Occupancy Sensors</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(38px,4.4vw,58px);font-weight:500;color:#fff;line-height:1;letter-spacing:-0.01em;"><span data-count="40000">0</span></div>
+          <div style="font-size:12.5px;color:#7fa39c;margin-top:14px;line-height:1.45;">Deployed portfolio-wide</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WORK INDEX ═══ -->
+  <section id="work" style="padding:120px 44px;">
+    <div style="max-width:1480px;margin:0 auto;">
+      <div data-reveal="true" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:18px;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:14px;">[ 03 ], Selected Work</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,58px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--fg);">Systems where<br/>the stakes are real.</h2>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;max-width:240px;text-align:right;">Hover over a project to preview</div>
+      </div>
+
+      <div id="proj-list" style="border-top:1px solid var(--line);">
+
+        <a class="proj-row" data-preview="previews/p-insights.png" data-tag="Live Case Study" href="Core Insights.dc.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">01</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">WaveLinx CORE Insights</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Operational Building Intelligence · IoT<br/><span style="color:var(--ac);">Cooper Lighting · Signify</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+        <a class="proj-row" data-preview="previews/p-dali.png" data-tag="Industry First" href="DALI-2.dc.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">02</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">WaveLinx DALI-2</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Commissioning · Healthcare<br/><span style="color:var(--ac);">North America's largest install</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+        <a class="proj-row" data-preview="previews/p-ai.png" data-tag="AI · Decision Support" href="Enterprise AI.dc.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">03</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">Application of AI</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Enterprise AI · Predictive Maintenance<br/><span style="color:var(--ac);">Light Architect · $6M+ shipped product</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+        <a class="proj-row" data-preview="previews/p-partitioning.png" data-tag="Industry First" href="Partitioning.dc.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">04</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">Dynamic Space Partitioning</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Adaptive Spatial · Sensor-driven<br/><span style="color:var(--ac);">Real-time autonomous zones</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+        <a class="proj-row" data-preview="previews/p-smartlighting.png" data-tag="Consumer IoT" href="Smart Lighting.dc.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">05</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">Smart Lighting App</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Consumer IoT · Mobile<br/><span style="color:var(--ac);">iOS &amp; Android</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+        <a class="proj-row" data-preview="previews/p-fintech.png" data-tag="Fintech · AI" href="Goals-Driven Fintech.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">06</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">Goals-Driven Fintech</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Clickable Build · Open Banking<br/><span style="color:var(--ac);">PRD · Claude · Cursor · GitHub</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+        <a class="proj-row" data-preview="previews/p-aegis.png" data-tag="Decision Intelligence" href="AEGIS DI.dc.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">07</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">AEGIS Decision Intelligence</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Multi-INT Fusion · Resilient AI<br/><span style="color:var(--ac);">Defence Tech · clickable build</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+        <a class="proj-row" data-preview="previews/p-ctoc.png" data-tag="Cyber Operations" href="CTOC Case Study v2.dc.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">08</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">CTOC Dashboard System</span>
+          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Enterprise Cyber · 13 Dashboards<br/><span style="color:var(--ac);">Operations Center · hi-fi prototype</span></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ METRICS ═══ -->
+  <section id="metrics" style="padding:110px 44px;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1480px;margin:0 auto;">
+      <div data-reveal="true" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:48px;">[ 04 ], Measured Impact</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);">
+        <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="34">0</span>%</div>
+          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Increase in Connect Lighting sales</div>
+        </div>
+        <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--ac);line-height:1;"><span data-count="89">0</span>%</div>
+          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Fewer clicks to root cause on the CORE Insights console</div>
+        </div>
+        <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="175">0</span>%</div>
+          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Lift in deep-feature navigation engagement</div>
+        </div>
+        <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="90">0</span>%</div>
+          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Faster report generation for facility operators</div>
+        </div>
+        <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--ac);line-height:1;">$<span data-count="2">0</span>B</div>
+          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Annual transaction throughput designed for across 9 jurisdictions</div>
+        </div>
+        <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="3">0</span><span style="font-size:0.4em;color:var(--fg2);font-weight:500;margin-left:6px;">+1 pending</span></div>
+          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Issued patents for first-to-market interaction models</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LIGHT ARCHITECT, GEOSPATIAL PARALLAX ═══ -->
+  <section id="lightarch" data-screen-label="Light Architect geospatial planner" style="position:relative;background:var(--bg);border-top:1px solid var(--line);">
+    <div id="la-scroll" style="position:relative;height:100vh;">
+      <div id="la-sticky" style="position:relative;height:100vh;overflow:hidden;background:var(--la-bg);">
+        <div id="la-stage" style="position:absolute;inset:0;">
+
+          <!-- LAYER 0 · aerial ground -->
+          <div class="la-layer" data-la="0.24" id="la-ground" style="position:absolute;inset:-16%;z-index:1;">
+            <div style="position:absolute;inset:0;background:var(--la-fill);"></div>
+            <div style="position:absolute;left:50%;top:50%;width:170%;height:170%;margin:-85% 0 0 -85%;transform:rotate(-25deg);">
+              <!-- greenery + asphalt base -->
+              <div style="position:absolute;inset:0;background:var(--la-grad);"></div>
+              <!-- roads -->
+              <div style="position:absolute;left:0;right:0;top:32%;height:5.5%;background:var(--la-road);box-shadow:0 0 0 1px rgba(255,255,255,0.03);"></div>
+              <div style="position:absolute;top:0;bottom:0;left:24%;width:4.5%;background:var(--la-road);"></div>
+              <div style="position:absolute;left:0;right:0;bottom:13%;height:4%;background:var(--la-road2);transform:rotate(2deg);"></div>
+              <!-- school footprint -->
+              <div style="position:absolute;left:7%;top:40%;width:21%;height:30%;background:var(--la-bldg);border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05);"></div>
+              <!-- parking lot stalls -->
+              <div style="position:absolute;left:7%;top:72%;width:24%;height:14%;background:var(--la-stall);border-radius:2px;opacity:0.85;"></div>
+              <!-- neighbour rooftops -->
+              <div style="position:absolute;right:8%;top:18%;width:9%;height:8%;background:var(--la-roof1);border-radius:2px;"></div>
+              <div style="position:absolute;right:20%;top:14%;width:8%;height:7%;background:var(--la-roof2);border-radius:2px;"></div>
+              <div style="position:absolute;right:6%;top:62%;width:11%;height:13%;background:var(--la-roof3);border-radius:3px;"></div>
+              <div style="position:absolute;right:19%;top:68%;width:9%;height:11%;background:var(--la-roof4);border-radius:3px;"></div>
+              <!-- tree clusters -->
+              <div style="position:absolute;right:2%;top:30%;width:7%;height:22%;background:var(--la-tree);"></div>
+              <div style="position:absolute;left:2%;top:14%;width:9%;height:16%;background:var(--la-tree2);"></div>
+            </div>
+          </div>
+
+          <!-- LAYER 1 · tilted photometric plate -->
+          <div class="la-layer" data-la="0.52" id="la-plate-wrap" style="position:absolute;left:53%;top:49%;width:min(1000px,82vw);height:min(640px,54vw);margin-left:calc(min(1000px,82vw) / -2);margin-top:calc(min(640px,54vw) / -2);z-index:3;">
+            <div id="la-plate" style="position:absolute;inset:0;transform:rotate(-25deg);">
+              <div id="la-heat" style="position:absolute;inset:0;display:grid;gap:0;border-radius:1px;overflow:hidden;"></div>
+              <div id="la-fixtures" style="position:absolute;inset:0;pointer-events:none;"></div>
+              <!-- stat-area boundary -->
+              <div style="position:absolute;inset:0;border:1.5px solid var(--la-cyan);box-shadow:0 0 22px var(--la-cyan-glow);pointer-events:none;"></div>
+              <div style="position:absolute;left:-4px;top:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite;"></div>
+              <div style="position:absolute;right:-4px;top:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite .6s;"></div>
+              <div style="position:absolute;left:-4px;bottom:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite 1.2s;"></div>
+              <div style="position:absolute;right:-4px;bottom:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite 1.8s;"></div>
+              <!-- stat label -->
+              <div style="position:absolute;left:50%;bottom:-13px;transform:translateX(-50%) rotate(25deg);background:var(--la-stat-tag-bg);border:1px solid var(--la-stat-tag-bd);padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--la-stat-tag-tx);white-space:nowrap;">Stat Area 1</div>
+              <!-- calc scan -->
+              <div style="position:absolute;left:0;right:0;top:0;height:30%;background:linear-gradient(transparent,var(--la-cyan-glow));animation:laScan 6s ease-in-out infinite 1.2s;pointer-events:none;"></div>
+            </div>
+          </div>
+
+          <!-- LAYER 2 · photometric summary panel (top-right) -->
+          <div class="la-layer" data-la="-0.4" id="la-panel" style="position:absolute;top:13%;right:5%;width:340px;max-width:42vw;z-index:6;background:var(--la-glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--la-bd);border-radius:12px;box-shadow:0 26px 60px var(--la-shadow);overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--la-bd-soft);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--la-accent)"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.13em;color:var(--la-text-strong);font-weight:500;">PHOTOMETRIC SUMMARY</span>
+              <span style="margin-left:auto;color:var(--la-dim);">▾</span>
+            </div>
+            <div style="display:flex;gap:7px;padding:13px 16px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-btn-bg);color:var(--la-btn-tx);padding:7px 11px;border-radius:6px;font-weight:600;">RE-CALC</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);">GET PDF</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-amber-bg);color:var(--la-amber-tx);padding:7px 11px;border-radius:6px;border:1px solid var(--la-amber-bd);">WHERE TO BUY</span>
+            </div>
+            <div style="padding:4px 16px 16px;">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--la-cell-grid);border:1px solid var(--la-cell-grid);border-radius:6px;overflow:hidden;">
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span data-count="3.91" data-decimals="2">0</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span data-count="6.78" data-decimals="2">0</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span data-count="1.3" data-decimals="1">0</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">A/MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-accent);margin-top:3px;"><span data-count="3.01" data-decimals="2">0</span></div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.05em;color:var(--la-dim);">
+                <span style="width:6px;height:6px;border-radius:50%;background:var(--la-accent);animation:blink 2s ease-in-out infinite;"></span>
+                <span>ILLUMINANCE (FC) · LLF 0.912</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- search field (top-left) -->
+          <div class="la-layer" data-la="-0.26" id="la-search" style="position:absolute;bottom:8%;left:5%;z-index:7;display:flex;align-items:center;gap:9px;">
+            <div style="display:flex;align-items:center;gap:9px;background:var(--la-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--la-bd);border-radius:10px;padding:9px 14px;box-shadow:0 14px 36px var(--la-shadow2);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--la-accent)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--la-text);">3775 Swiftdale Dr, Mississauga</span>
+            </div>
+            <div style="display:flex;flex-direction:column;border:1px solid var(--la-bd);border-radius:9px;overflow:hidden;background:var(--la-glass);">
+              <span style="padding:5px 11px;color:var(--la-text);font-size:15px;line-height:1;border-bottom:1px solid var(--la-bd-soft2);">+</span>
+              <span style="padding:5px 11px;color:var(--la-text);font-size:15px;line-height:1;">−</span>
+            </div>
+          </div>
+
+          <!-- quick-select + scale (bottom-right) -->
+          <div class="la-layer" data-la="-0.55" id="la-quick" style="position:absolute;bottom:8%;right:5%;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+            <div style="display:flex;align-items:center;gap:9px;background:var(--la-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--la-bd);border-radius:10px;padding:10px 14px;box-shadow:0 14px 36px var(--la-shadow2);">
+              <span style="width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px rgba(61,220,132,0.6);"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--la-text);">16 × GALN Galleon II</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--la-dim);">
+              <span style="display:inline-block;width:46px;height:0;border-top:2px solid var(--la-scale);position:relative;"><span style="position:absolute;left:0;top:-4px;width:1px;height:8px;background:var(--la-scale);"></span><span style="position:absolute;right:0;top:-4px;width:1px;height:8px;background:var(--la-scale);"></span></span>
+              <span>5 m</span>
+            </div>
+          </div>
+
+          <!-- vignette to blend into page -->
+          <div style="position:absolute;inset:0;background:radial-gradient(125% 95% at 50% 42%,transparent 46%,var(--la-vig) 86%,var(--la-vig2) 100%);pointer-events:none;z-index:4;"></div>
+
+          <!-- copy HUD (bottom-left) -->
+          <div class="la-layer" id="la-copy" style="position:absolute;top:7%;left:5%;max-width:430px;z-index:8;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--la-accent);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">[ 05 ], Light Architect</div>
+            <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,50px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--la-title);margin-bottom:18px;white-space:nowrap;">Designing the tools<br/>that design light.</h2>
+            <p style="font-size:16px;line-height:1.62;color:var(--la-body);max-width:400px;">A browser-based photometric planner: drop fixtures on any address, and watch illuminance render live across the site, footcandle grids, stat areas, and spec-ready PDFs, all from satellite imagery.</p>
+            <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" data-cursor="hover" style="margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--la-btn-tx);background:var(--la-btn-bg);border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--la-shadow)">Explore Light Architect <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section id="testimonials" style="padding:110px 44px;background:var(--bg);position:relative;overflow:hidden;">
+    <!-- subtle defence-intelligence engineering blueprint backdrop -->
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;color:var(--fg);opacity:0.0605;z-index:0;">
+      <svg width="100%" height="100%" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="1" style="font-family:'JetBrains Mono',monospace;">
+        <!-- faint drawing-sheet grid -->
+        <g stroke-width="0.5" opacity="0.5">
+          <path d="M0 150 H1600 M0 300 H1600 M0 450 H1600 M0 600 H1600 M0 750 H1600"/>
+          <path d="M200 0 V900 M400 0 V900 M600 0 V900 M800 0 V900 M1000 0 V900 M1200 0 V900 M1400 0 V900"/>
+        </g>
+        <!-- ============ PLAN VIEW · AERIAL RECON PLATFORM ============ -->
+        <g transform="translate(250 230)">
+          <!-- fuselage -->
+          <path d="M0 0 C40 -16 120 -22 230 -22 C300 -22 340 -12 360 0 C340 12 300 22 230 22 C120 22 40 16 0 0 Z"/>
+          <!-- sensor nose dome -->
+          <path d="M0 0 C-22 -14 -22 14 0 0 Z"/>
+          <circle cx="-8" cy="0" r="5" stroke-width="0.8"/>
+          <!-- high-aspect wings -->
+          <path d="M150 -16 L120 -250 L150 -250 L200 -16 Z"/>
+          <path d="M150 16 L120 250 L150 250 L200 16 Z"/>
+          <!-- V-tail -->
+          <path d="M340 -10 L420 -70 L432 -64 L360 -2 Z"/>
+          <path d="M340 10 L420 70 L432 64 L360 2 Z"/>
+          <!-- centreline -->
+          <path d="M-30 0 H470" stroke-width="0.5" stroke-dasharray="14 6 3 6"/>
+          <!-- wingspan dimension -->
+          <path d="M120 -270 H135 M120 270 H135" stroke-width="0.6"/>
+          <path d="M127 -270 V270" stroke-width="0.6"/>
+          <path d="M122 -262 L127 -270 L132 -262 M122 262 L127 270 L132 262" stroke-width="0.6"/>
+          <text x="137" y="4" font-size="13" fill="currentColor" stroke="none">39.9 m</text>
+        </g>
+        <text x="190" y="150" font-size="15" letter-spacing="3" fill="currentColor" stroke="none">FIG. 04, AERIAL RECON PLATFORM · PLAN</text>
+        <!-- ============ ELEVATION ============ -->
+        <g transform="translate(250 560)">
+          <path d="M0 0 C-26 -2 -30 -22 0 -20 C120 -26 320 -24 400 -10 C420 -8 430 0 430 0 C400 6 200 10 80 8 C30 7 -10 6 0 0 Z"/>
+          <circle cx="-12" cy="-10" r="7" stroke-width="0.8"/>
+          <path d="M300 -8 L350 -64 L360 -60 L320 -6 Z"/>
+          <path d="M150 8 L150 40 M150 40 H120 M150 40 H180" stroke-width="0.7"/>
+          <path d="M-30 60 H470" stroke-width="0.5" stroke-dasharray="14 6 3 6"/>
+          <text x="-30" y="-50" font-size="13" letter-spacing="2" fill="currentColor" stroke="none">ELEV.</text>
+        </g>
+        <!-- ============ RECON SATELLITE ============ -->
+        <g transform="translate(1150 250)">
+          <rect x="-34" y="-44" width="68" height="88" rx="4"/>
+          <path d="M-34 -22 H34 M-34 0 H34 M-34 22 H34" stroke-width="0.5"/>
+          <!-- solar arrays -->
+          <rect x="-200" y="-30" width="150" height="60"/>
+          <rect x="50" y="-30" width="150" height="60"/>
+          <path d="M-200 -10 H-50 M-200 10 H-50 M-175 -30 V30 M-125 -30 V30 M-75 -30 V30" stroke-width="0.5"/>
+          <path d="M50 -10 H200 M50 10 H200 M75 -30 V30 M125 -30 V30 M175 -30 V30" stroke-width="0.5"/>
+          <!-- downlink dish -->
+          <ellipse cx="0" cy="86" rx="40" ry="16"/>
+          <path d="M0 44 L0 70 M-16 78 L0 86 L16 78" stroke-width="0.7"/>
+          <!-- signal cone -->
+          <path d="M0 86 L-130 230 M0 86 L130 230" stroke-width="0.5" stroke-dasharray="6 6"/>
+          <path d="M-90 188 A150 150 0 0 0 90 188" stroke-width="0.5" stroke-dasharray="6 6"/>
+        </g>
+        <text x="1010" y="150" font-size="15" letter-spacing="3" fill="currentColor" stroke="none">FIG. 07, SIGINT RELAY · ORBITAL</text>
+        <!-- ============ PARABOLIC RADAR ============ -->
+        <g transform="translate(1230 660)">
+          <path d="M0 0 A120 120 0 0 1 -10 -150" stroke-width="1.1"/>
+          <path d="M0 0 A150 150 0 0 1 30 -160" stroke-width="0.6"/>
+          <path d="M-10 -150 L30 -160" stroke-width="0.6"/>
+          <path d="M0 0 L12 -78 M-4 -70 L24 -82" stroke-width="0.7"/>
+          <circle cx="16" cy="-78" r="5" stroke-width="0.7"/>
+          <!-- pedestal -->
+          <path d="M-26 0 L-14 60 L14 60 L26 0 Z"/>
+          <path d="M-30 60 H30 M-44 78 H44" stroke-width="0.8"/>
+          <!-- sweep arcs -->
+          <path d="M16 -78 m-60 0 A60 60 0 0 1 16 -138" stroke-width="0.5" stroke-dasharray="5 7"/>
+          <path d="M16 -78 m-95 0 A95 95 0 0 1 16 -173" stroke-width="0.5" stroke-dasharray="5 7"/>
+        </g>
+        <!-- targeting reticle -->
+        <g transform="translate(820 470)" stroke-width="0.7">
+          <circle r="54"/>
+          <circle r="30" stroke-width="0.5"/>
+          <path d="M-74 0 H-22 M22 0 H74 M0 -74 V-22 M0 22 V74"/>
+          <path d="M-8 0 H8 M0 -8 V8" stroke-width="0.5"/>
+        </g>
+        <!-- coordinate / annotation ticks -->
+        <text x="60" y="840" font-size="12" letter-spacing="2" fill="currentColor" stroke="none">LAT 51.5074 N   LON 00.1278 W   ALT 18,300 m</text>
+        <text x="1180" y="840" font-size="12" letter-spacing="2" fill="currentColor" stroke="none">SCALE 1:50   SHEET 3 OF 9   REV. C</text>
+      </svg>
+    </div>
+    <div style="max-width:1480px;margin:0 auto;position:relative;z-index:1;">
+      <div data-reveal="true" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:14px;">[ 06 ], What People Say</div>
+      <h2 data-reveal="true" style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,58px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--fg);margin-bottom:18px;">What People Say</h2>
+      <p data-reveal="true" style="font-size:17px;color:var(--fg2);line-height:1.6;max-width:540px;margin-bottom:52px;">Feedback from colleagues I've had the pleasure of working with.</p>
+      <div id="tst-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;">
+
+        <div data-reveal="true" style="break-inside:avoid;display:inline-block;width:100%;vertical-align:top;margin-bottom:24px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:34px 32px;">
+          <div style="margin-bottom:22px;color:#f4c430;font-size:16px;letter-spacing:3px;">★★★★★</div>
+          <p style="font-size:15.5px;line-height:1.62;color:var(--fg2);margin-bottom:26px;">I had the pleasure of working directly with Robert on multiple initiatives, and he is an exceptional UI/UX designer who truly understands both design and the technical realities behind it. He has a strong grasp of design thinking and consistently transforms abstract ideas into intuitive, working prototypes. Robert invests time in clearly understanding requirements before proposing solutions, ensuring the final experience is both user-friendly and technically feasible. He has a sharp eye for usability, clarity, and interaction detail. His ability to bridge product vision, user needs, and engineering constraints makes collaboration seamless. Any team would benefit from his creativity, structure, and user-first mindset.</p>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:46px;height:46px;border-radius:50%;background:#1f9d55;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;flex:none;letter-spacing:0.02em;">GD</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15.5px;color:var(--fg);">Gunjan Dave</div>
+              <div style="font-size:13.5px;color:var(--fg3);margin-top:2px;">Engineering Manager</div>
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal="true" style="break-inside:avoid;display:inline-block;width:100%;vertical-align:top;margin-bottom:24px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:34px 32px;">
+          <div style="margin-bottom:22px;color:#f4c430;font-size:16px;letter-spacing:3px;">★★★★★</div>
+          <p style="font-size:15.5px;line-height:1.62;color:var(--fg2);margin-bottom:18px;">I had the pleasure of working with Robert at Parlay Gaming, where he excelled as a Lead Designer. Robert is an incredibly talented and detail-oriented designer with a keen eye for creating visually stunning and user-focused designs. His ability to turn complex ideas into intuitive and engaging interfaces consistently elevated the quality of our products.</p>
+          <p style="font-size:15.5px;line-height:1.62;color:var(--fg2);margin-bottom:26px;">Robert's collaborative approach and dedication to excellence made him a joy to work with and a key contributor to our team's success. He was always open to feedback and worked tirelessly to ensure that every design element aligned with the project's vision. I highly recommend Robert to any organization looking for a skilled and innovative design leader.</p>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:46px;height:46px;border-radius:50%;background:#e8551f;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;flex:none;letter-spacing:0.02em;">GE</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15.5px;color:var(--fg);">Gavyn Elrick</div>
+              <div style="font-size:13.5px;color:var(--fg3);margin-top:2px;">Senior Full Stack Engineer</div>
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal="true" style="break-inside:avoid;display:inline-block;width:100%;vertical-align:top;margin-bottom:24px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:34px 32px;">
+          <div style="margin-bottom:22px;color:#f4c430;font-size:16px;letter-spacing:3px;">★★★★★</div>
+          <p style="font-size:15.5px;line-height:1.62;color:var(--fg2);margin-bottom:26px;">I want to recognize our small but powerful UX/UI team for the strong synergy we've built across multiple projects. Our design discussions are always constructive, supportive, and focused on delivering great user experiences. A special thanks to our lead designer Robert Babiarz for his constant support, valuable insights, and mentoring whenever we need it. Grateful to be part of such a collaborative and inspiring team.</p>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:46px;height:46px;border-radius:50%;background:#9b51e0;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;flex:none;letter-spacing:0.02em;">CP</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15.5px;color:var(--fg);">Chetan Patil</div>
+              <div style="font-size:13.5px;color:var(--fg3);margin-top:2px;">UX Designer</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact" style="padding:80px 44px 130px;border-top:1px solid var(--line);">
+    <div data-reveal="true" style="max-width:1480px;margin:0 auto;border:1px solid var(--line);border-radius:22px;padding:80px 64px;background:var(--bg2);position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:48px;flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:22px;">[ 07 ], Let's build</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(32px,5vw,68px);font-weight:600;letter-spacing:-0.035em;line-height:1.02;color:var(--fg);margin-bottom:20px;">Designing for the<br/>moment it matters.</h2>
+          <p style="font-size:17px;color:var(--fg2);line-height:1.6;max-width:440px;">Building complex, high-stakes systems where the experience has to be right? Let's talk.</p>
+        </div>
+        <div style="flex-shrink:0;min-width:300px;">
+          <details class="mail-choose" onToggle="{{ mailToggle }}" style="margin-bottom:10px;position:relative;">
+            <summary data-cursor="hover" style="list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--ac);color:#fff;padding:18px 26px;border-radius:11px;font-size:16px;font-weight:600;cursor:pointer;transition:opacity 0.2s;" style-hover="opacity:0.88">Email me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></summary>
+            <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;border:1px solid var(--line2);background:var(--bg2);border-radius:11px;padding:8px;">
+              <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Gmail</a>
+              <a href="https://outlook.office.com/mail/deeplink/compose?to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Outlook</a>
+              <a href="mailto:rbabiarz@gmail.com" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Default mail app</a>
+            </div>
+          </details>
+          <div style="display:flex;gap:10px;">
+            <a href="https://linkedin.com/in/robert-babiarz" class="scp-ghost" data-cursor="hover" style="flex:1;border:1px solid var(--line2);color:var(--fg);padding:14px;border-radius:10px;font-size:13px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s,color 0.2s,border-color 0.2s;">LinkedIn ↗</a>
+            <a href="Robert_Babiarz_Resume.pdf" target="_blank" rel="noopener" class="scp-ghost" data-cursor="hover" style="flex:1;border:1px solid var(--line2);color:var(--fg);padding:14px;border-radius:10px;font-size:13px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s,color 0.2s,border-color 0.2s;">Résumé ↓</a>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.05em;margin-top:16px;text-align:center;">416-315-4761 · robertbabiarz.com</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer style="padding:30px 44px;border-top:1px solid var(--line);">
+    <div style="max-width:1480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.04em;">© 2026 ROBERT BABIARZ · SR. PRODUCT DESIGNER</span>
+      <div style="display:flex;align-items:center;gap:22px;">
+        <a href="Work.dc.html" data-cursor="hover" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);text-decoration:none;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">WORK</a>
+        <a href="About.dc.html" data-cursor="hover" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);text-decoration:none;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">ABOUT</a>
+        <a href="#top" data-cursor="hover" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);text-decoration:none;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--ac2)">TOP ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dark: (typeof localStorage === 'undefined' || localStorage.getItem('rba-int-dark') !== 'false'), menu: false };
+  _raf = null; _heroRaf = null; _clock = null; _obs = []; _listeners = [];
+
+  initToc() {
+    if (!window.IntersectionObserver) return;
+    const links = [...document.querySelectorAll('.hp-toc a[data-toc]')];
+    if (!links.length) return;
+    const byId = {}; links.forEach(l => { byId[l.getAttribute('data-toc')] = l; });
+    const o = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.removeAttribute('data-active')); if (byId[e.target.id]) byId[e.target.id].setAttribute('data-active', ''); } });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    Object.keys(byId).forEach(id => { const el = document.getElementById(id); if (el) o.observe(el); });
+    this._obs.push(o);
+  }
+
+  initScrollProgress() {
+    if (document.getElementById('scroll-prog-bar')) return;
+    const ac = '#0d5350', ac2 = '#4ca88f';
+    const bar = document.createElement('div');
+    bar.id = 'scroll-prog-bar';
+    bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');box-shadow:0 0 10px rgba(76,168,143,0.5);transition:width 0.08s linear;pointer-events:none;';
+    const pill = document.createElement('div');
+    pill.id = 'scroll-prog-pill';
+    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(10,20,16,0.82);backdrop-filter:blur(8px);border:1px solid rgba(76,168,143,0.4);border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
+    document.body.appendChild(bar);
+    document.body.appendChild(pill);
+    const num = pill.querySelector('#scroll-prog-num');
+    const update = () => {
+      const st = window.scrollY || document.documentElement.scrollTop || 0;
+      const h = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+      const p = Math.max(0, Math.min(1, st / h));
+      bar.style.width = (p * 100) + '%';
+      num.textContent = Math.round(p * 100) + '%';
+      // hide near the very bottom so the pill never covers the footer's links
+      const foot = document.querySelector('footer');
+      const footIn = foot && foot.getBoundingClientRect().top < window.innerHeight - 12;
+      pill.style.opacity = (st > 60 && !footIn) ? '1' : '0';
+    };
+    update();
+    this.on(window, 'scroll', update, { passive: true });
+    this.on(window, 'resize', update);
+  }
+
+  scrollToHash() {
+    const id = (location.hash || '').replace('#', '');
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const nav = document.getElementById('int-nav');
+    const offset = (nav ? nav.getBoundingClientRect().height : 72) + 12;
+    const doScroll = () => {
+      const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    };
+    // run after layout settles (images/fonts), twice for safety
+    requestAnimationFrame(doScroll);
+    setTimeout(doScroll, 350);
+  }
+
+  componentDidMount() {
+    this._hvReady = () => this.forceUpdate();
+    window.addEventListener('home-variants-ready', this._hvReady);
+    setTimeout(() => this.forceUpdate(), 320); // populate switcher once registry loads
+    setTimeout(() => {
+      this.initReveal();
+      this.initHeroCanvas();
+      this.buildHeroParallax();
+      this.initHeroParallax();
+      this.initScrollReveal();
+      this.buildLightArchitect();
+      this.initLightArchitect();
+      this.initCounters();
+      this.initNavScroll();
+      this.initClock();
+      this.initIso();
+      this.initToc();
+      this.scrollToHash();
+    }, 120);
+    this.initScrollProgress();
+    // Safety net: never let entrance-animated hero content stay invisible if the
+    // CSS animation timeline fails to start (e.g. non-compositing context).
+    setTimeout(() => {
+      document.querySelectorAll('#hero-head span span, [data-hero-anim]').forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          el.style.animation = 'none';
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }
+      });
+    }, 1600);
+  }
+
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._heroRaf) cancelAnimationFrame(this._heroRaf);
+    if (this._netRaf) cancelAnimationFrame(this._netRaf);
+    if (this._isoRaf) cancelAnimationFrame(this._isoRaf);
+    if (this._hpRaf) cancelAnimationFrame(this._hpRaf);
+    if (this._laRaf) cancelAnimationFrame(this._laRaf);
+    if (this._tmRaf) cancelAnimationFrame(this._tmRaf);
+    if (this._tmSafety) clearInterval(this._tmSafety);
+    if (this._clock) clearInterval(this._clock);
+    this._obs.forEach(o => o.disconnect());
+    this._listeners.forEach(([t, e, f]) => t.removeEventListener(e, f));
+    ['scroll-prog-bar', 'scroll-prog-pill'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); });
+  }
+
+  on(target, ev, fn, opts) { target.addEventListener(ev, fn, opts); this._listeners.push([target, ev, fn]); }
+
+  initClock() {
+    const el = document.getElementById('hero-clock');
+    if (!el) return;
+    const tick = () => {
+      try {
+        const t = new Date().toLocaleTimeString('en-CA', { hour12: false, timeZone: 'America/Toronto' });
+        el.textContent = t;
+      } catch (e) { el.textContent = new Date().toTimeString().slice(0, 8); }
+    };
+    tick();
+    this._clock = setInterval(tick, 1000);
+  }
+
+  initReveal() {
+    const reveal = document.getElementById('reveal');
+    const img = document.getElementById('reveal-img');
+    const tag = document.getElementById('reveal-tag');
+    if (!reveal || !img) return;
+    let active = false;
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    const rows = document.querySelectorAll('.proj-row');
+    const move = (e) => { tx = e.clientX; ty = e.clientY; };
+    rows.forEach(row => {
+      this.on(row, 'mouseenter', () => {
+        const src = row.getAttribute('data-preview');
+        if (src) img.setAttribute('src', src);
+        if (tag) tag.textContent = row.getAttribute('data-tag') || 'Case Study';
+        active = true;
+        reveal.style.opacity = '1';
+        // row emphasis
+        const num = row.querySelector('.pr-num');
+        const title = row.querySelector('.pr-title');
+        const arrow = row.querySelector('.pr-arrow');
+        row.style.paddingLeft = '24px';
+        if (num) num.style.color = 'var(--ac)';
+        if (title) { title.style.transform = 'translateX(14px)'; title.style.color = 'var(--ac)'; }
+        if (arrow) { arrow.style.transform = 'translate(6px,-6px)'; arrow.style.color = 'var(--ac)'; }
+      });
+      this.on(row, 'mouseleave', () => {
+        active = false;
+        reveal.style.opacity = '0';
+        const num = row.querySelector('.pr-num');
+        const title = row.querySelector('.pr-title');
+        const arrow = row.querySelector('.pr-arrow');
+        row.style.paddingLeft = '8px';
+        if (num) num.style.color = 'var(--fg3)';
+        if (title) { title.style.transform = 'translateX(0)'; title.style.color = 'var(--fg)'; }
+        if (arrow) { arrow.style.transform = 'translate(0,0)'; arrow.style.color = 'var(--fg3)'; }
+      });
+    });
+    this.on(window, 'mousemove', move);
+    const loop = () => {
+      cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
+      const dx = Math.max(-12, Math.min(12, (tx - cx) * 0.6));
+      reveal.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%) scale(${active ? 1 : 0.9}) rotate(${dx * 0.4}deg)`;
+      this._heroRaf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+
+  // Topographic contour field. Lines warp around the cursor (a soft "peak" in the
+  // scalar field follows the pointer) and brighten within a radius of it.
+  initHeroCanvas() {
+    const canvas = document.getElementById('hero-cvs');
+    if (!canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const ctx = canvas.getContext('2d');
+    let W = 0, H = 0;
+    const resize = () => { W = canvas.offsetWidth; H = canvas.offsetHeight; canvas.width = W * dpr; canvas.height = H * dpr; };
+    resize();
+    this.on(window, 'resize', resize);
+
+    // cursor in canvas-local coords (offscreen until first move)
+    let mx = -99999, my = -99999, overWork = false;
+    const workEl = document.getElementById('work');
+    this.on(window, 'mousemove', (e) => { const r = canvas.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; if (workEl) { const wr = workEl.getBoundingClientRect(); overWork = e.clientY >= wr.top && e.clientY <= wr.bottom; } });
+    this.on(document, 'mouseleave', () => { mx = -99999; my = -99999; overWork = false; });
+
+    const cell = 32, levels = 11;
+    const revealSigma = 175, bumpSigma = 145, bumpAmp = 2.7;
+    const baseA = 0.06, peakA = 0.58;
+    const rCut = revealSigma * 2.6, r2cut = rCut * rCut;
+    const twoRevealSq = 2 * revealSigma * revealSigma;
+    const twoBumpSq = 2 * bumpSigma * bumpSigma;
+
+    const field = (px, py, t) => {
+      const nx = px / 230, ny = py / 230;
+      let v = Math.sin(nx * 2.1 + t * 0.15)
+            + Math.sin(ny * 1.8 - t * 0.11)
+            + Math.sin((nx + ny) * 1.45 + t * 0.19)
+            + 0.7 * Math.sin(Math.hypot(nx - 1.0, ny - 0.6) * 2.5 - t * 0.13);
+      if (mx > -9000) { const dx = px - mx, dy = py - my; v += bumpAmp * Math.exp(-(dx * dx + dy * dy) / twoBumpSq); }
+      return v;
+    };
+
+    const draw = (now) => {
+     try {
+      const t = (now || 0) * 0.001;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineWidth = 1;
+      const dark = this.state.dark;
+      const rgb = dark ? '125,211,192' : '13,83,80';
+      const cols = Math.ceil(W / cell), rows = Math.ceil(H / cell);
+      const g = [];
+      for (let j = 0; j <= rows; j++) { const row = []; for (let i = 0; i <= cols; i++) row.push(field(i * cell, j * cell, t)); g.push(row); }
+      const lo = -3.6, hi = 3.6 + bumpAmp;
+      const hasM = mx > -9000;
+      for (let l = 0; l < levels; l++) {
+        const thr = lo + (hi - lo) * (l / (levels - 1));
+        ctx.beginPath();
+        const bright = [];
+        for (let j = 0; j < rows; j++) {
+          for (let i = 0; i < cols; i++) {
+            const x0 = i * cell, y0 = j * cell, x1 = x0 + cell, y1 = y0 + cell;
+            const a = g[j][i], b = g[j][i + 1], c = g[j + 1][i + 1], d = g[j + 1][i];
+            let idx = 0;
+            if (a > thr) idx |= 8; if (b > thr) idx |= 4; if (c > thr) idx |= 2; if (d > thr) idx |= 1;
+            if (idx === 0 || idx === 15) continue;
+            const T = [x0 + (thr - a) / (b - a) * cell, y0];
+            const R = [x1, y0 + (thr - b) / (c - b) * cell];
+            const B = [x0 + (thr - d) / (c - d) * cell, y1];
+            const L = [x0, y0 + (thr - a) / (d - a) * cell];
+            let segs;
+            switch (idx) {
+              case 1: case 14: segs = [L, B]; break;
+              case 2: case 13: segs = [B, R]; break;
+              case 3: case 12: segs = [L, R]; break;
+              case 4: case 11: segs = [T, R]; break;
+              case 6: case 9: segs = [T, B]; break;
+              case 7: case 8: segs = [L, T]; break;
+              case 5: segs = [L, T, B, R]; break;
+              case 10: segs = [L, B, T, R]; break;
+              default: segs = [];
+            }
+            for (let s = 0; s < segs.length; s += 2) {
+              const p1 = segs[s], p2 = segs[s + 1];
+              if (hasM) {
+                const cxm = (p1[0] + p2[0]) / 2 - mx, cym = (p1[1] + p2[1]) / 2 - my;
+                const dd = cxm * cxm + cym * cym;
+                if (dd < r2cut) { const gw = Math.exp(-dd / twoRevealSq); const alpha = overWork ? baseA * (1 - 0.3 * gw) : baseA + (peakA - baseA) * gw; bright.push([p1, p2, alpha]); continue; }
+              }
+              ctx.moveTo(p1[0], p1[1]); ctx.lineTo(p2[0], p2[1]);
+            }
+          }
+        }
+        ctx.strokeStyle = 'rgba(' + rgb + ',' + baseA + ')';
+        ctx.stroke();
+        for (let k = 0; k < bright.length; k++) {
+          const s = bright[k];
+          ctx.strokeStyle = 'rgba(' + rgb + ',' + s[2] + ')';
+          ctx.beginPath(); ctx.moveTo(s[0][0], s[0][1]); ctx.lineTo(s[1][0], s[1][1]); ctx.stroke();
+        }
+      }
+     } catch (e) { /* skip a transient bad frame, keep the field alive */ }
+      this._netRaf = requestAnimationFrame(draw);
+    };
+    this._netRaf = requestAnimationFrame(draw);
+  }
+
+  initScrollReveal() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const nodes = [...document.querySelectorAll('[data-reveal]')];
+    if (!nodes.length) return;
+
+    // each item flies in from a direction, then settles dead level
+    const dirs = [[-1,0],[1,0],[0,1],[0,-1],[-1,1],[1,1],[-1,-1],[1,-1]];
+    const items = nodes.map((el, idx) => {
+      const h = el.matches('h1,h2,h3') ? el : el.querySelector('h1,h2,h3');
+      const fs = h ? parseFloat(getComputedStyle(h).fontSize) || 0 : 0;
+      const hero = fs >= 34;                       // section-title scale
+      const d = dirs[(idx * 3 + (hero ? 1 : 0)) % dirs.length];
+      const dist = hero ? 90 : 54;
+      return { el, hero, seen: false, appear: 0, dx: d[0] * dist, dy: d[1] * dist, rot: d[0] * (hero ? 3 : 1.6) };
+    });
+
+    if (reduce) { items.forEach(i => { i.el.style.opacity = '1'; }); return; }
+
+    items.forEach(i => { i.el.style.opacity = '0'; i.el.style.willChange = 'transform,opacity'; });
+
+    // entrance gate
+    if (window.IntersectionObserver) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { const it = items.find(x => x.el === e.target); if (it) { it.seen = true; if (this._kickReveal) this._kickReveal(); } obs.unobserve(e.target); } });
+      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+      items.forEach(i => obs.observe(i.el));
+      this._obs.push(obs);
+    } else { items.forEach(i => i.seen = true); }
+
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+    const loop = () => {
+      items.forEach(i => {
+        if (i.seen && i.appear < 1) i.appear = Math.min(1, i.appear + 0.05);
+        const a = ease(i.appear);
+        const inv = 1 - a;
+        if (inv < 0.002) {
+          // settled: dead level, drop the transform entirely
+          i.el.style.opacity = '1';
+          i.el.style.transform = 'none';
+          i.el.style.willChange = 'auto';
+        } else {
+          const tx = i.dx * inv, ty = i.dy * inv, rot = i.rot * inv;
+          i.el.style.opacity = a.toFixed(3);
+          i.el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
+        }
+      });
+      // stop the loop once everything has landed
+      if (items.every(i => i.appear >= 1)) { this._tmRaf = null; return; }
+      this._tmRaf = requestAnimationFrame(loop);
+    };
+    this._tmRaf = requestAnimationFrame(loop);
+    const kick = () => { if (this._tmRaf == null) this._tmRaf = requestAnimationFrame(loop); };
+    this._kickReveal = kick;
+
+    // fail-safe: never leave anything hidden once it's reached the viewport
+    const safety = setInterval(() => {
+      let pending = 0;
+      items.forEach(i => { if (!i.seen) { pending++; if (i.el.getBoundingClientRect().top < (window.innerHeight || 800) * 0.96) { i.seen = true; kick(); } } });
+      if (!pending) clearInterval(safety);
+    }, 400);
+    this._tmSafety = safety;
+  }
+
+  // recolor the photometric grid for the active theme: a vivid illuminance
+  // ramp on the dark night ground, a deep low-luminance ramp on the cream
+  // ground so the readings read dark in light mode
+  tintHeat() {
+    const heat = document.getElementById('la-heat');
+    if (!heat || !this._laV) return;
+    const dark = this.state.dark;
+    const stops = dark
+      ? [[22,46,128],[31,108,209],[31,163,116],[150,170,40],[214,128,30],[206,58,42]]
+      : [[16,26,72],[20,64,128],[18,104,82],[92,100,28],[126,72,18],[122,30,24]];
+    const ramp = (v) => {
+      v = Math.max(0, Math.min(1, v));
+      const s = v * (stops.length - 1), i = Math.floor(s), f = s - i;
+      const a = stops[i], b = stops[Math.min(stops.length - 1, i + 1)];
+      return a.map((c, k) => Math.round(c + (b[k] - c) * f)).join(',');
+    };
+    const kids = heat.children;
+    for (let i = 0; i < kids.length; i++) {
+      const v = this._laV[i] || 0;
+      const al = dark ? (0.5 + 0.42 * v) : (0.84 + 0.14 * v);
+      kids[i].style.background = 'rgba(' + ramp(v) + ',' + al.toFixed(2) + ')';
+    }
+  }
+
+  buildLightArchitect() {
+    const heat = document.getElementById('la-heat');
+    if (!heat) return;
+    const COLS = 24, ROWS = 16;
+    heat.style.gridTemplateColumns = 'repeat(' + COLS + ',1fr)';
+    heat.style.gridTemplateRows = 'repeat(' + ROWS + ',1fr)';
+    // luminaire grid (4 cols x 4 rows) in normalized plate space
+    const fx = [];
+    const cx4 = [0.16, 0.39, 0.61, 0.84], cy4 = [0.17, 0.39, 0.61, 0.83];
+    cx4.forEach(x => cy4.forEach(y => fx.push({ x, y })));
+    // illuminance ramp: deep-blue → blue → green → yellow → orange → red
+    const stops = [[22,46,128],[31,108,209],[31,163,116],[150,170,40],[214,128,30],[206,58,42]];
+    const ramp = (v) => {
+      v = Math.max(0, Math.min(1, v));
+      const s = v * (stops.length - 1), i = Math.floor(s), f = s - i;
+      const a = stops[i], b = stops[Math.min(stops.length - 1, i + 1)];
+      return a.map((c, k) => Math.round(c + (b[k] - c) * f)).join(',');
+    };
+    // compute illuminance field
+    const E = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
+      let e = 0;
+      fx.forEach(f => { const dx = px - f.x, dy = (py - f.y) * 0.92; e += 1 / (0.014 + (dx * dx + dy * dy) * 8.5); });
+      const edge = Math.min(px, 1 - px, py, 1 - py);
+      e *= (0.32 + 1.15 * Math.min(1, edge * 3.1));
+      E.push(e);
+    }
+    const max = Math.max.apply(null, E), min = Math.min.apply(null, E);
+    let html = '';
+    this._laV = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const v = (E[r * COLS + c] - min) / (max - min || 1);
+      const fc = (1.1 + v * 5.7).toFixed(1);
+      const delay = (((c + r) / (COLS + ROWS)) * 850).toFixed(0);
+      this._laV.push(v);
+      html += '<div style="display:flex;align-items:center;justify-content:center;font-family:\'JetBrains Mono\',monospace;font-size:9px;color:rgba(255,255,255,0.92);text-shadow:0 1px 2px rgba(0,0,0,0.55);transition-delay:' + delay + 'ms;">' + fc + '</div>';
+    }
+    heat.innerHTML = html;
+    this.tintHeat();
+    // fixtures + aim crosses
+    const fl = document.getElementById('la-fixtures');
+    if (fl) {
+      let f = '';
+      fx.forEach((p, i) => {
+        const hot = (i % 4 === 1 || i % 4 === 2) && (Math.floor(i / 4) === 1 || Math.floor(i / 4) === 2);
+        const rot = ((i * 47) % 60) - 30;
+        f += '<div style="position:absolute;left:' + (p.x * 100).toFixed(1) + '%;top:' + (p.y * 100).toFixed(1) + '%;transform:translate(-50%,-50%) rotate(' + rot + 'deg);width:20px;height:7px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);"></div>';
+        if (hot) {
+          f += '<div style="position:absolute;left:' + (p.x * 100).toFixed(1) + '%;top:' + (p.y * 100).toFixed(1) + '%;transform:translate(-50%,-50%);width:30px;height:30px;pointer-events:none;"><span style="position:absolute;left:50%;top:0;width:2px;height:100%;margin-left:-1px;background:#9be84a;box-shadow:0 0 6px rgba(155,232,74,0.6);"></span><span style="position:absolute;top:50%;left:0;height:2px;width:100%;margin-top:-1px;background:#9be84a;box-shadow:0 0 6px rgba(155,232,74,0.6);"></span></div>';
+        }
+      });
+      fl.innerHTML = f;
+    }
+    // staggered "calculation" reveal when scrolled into view
+    if (window.IntersectionObserver) {
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const obs = new IntersectionObserver((ents) => {
+        ents.forEach(e => {
+          if (e.isIntersecting) {
+            if (reduce) [...heat.children].forEach(ch => { ch.style.transitionDelay = '0ms'; });
+            heat.classList.add('la-on');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.18 });
+      obs.observe(document.getElementById('lightarch'));
+      this._obs.push(obs);
+    } else {
+      heat.classList.add('la-on');
+    }
+  }
+
+  initLightArchitect() {
+    const stage = document.getElementById('la-sticky');
+    if (!stage) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const stat = window.matchMedia && window.matchMedia('(max-width:860px)').matches;
+    if (reduce || stat) return; // static layout on mobile / reduced-motion
+    const layers = [...stage.querySelectorAll('[data-la]')].map(el => ({
+      el, f: parseFloat(el.getAttribute('data-la')) || 0,
+      base: el.style.transform || ''
+    }));
+    const AMP = 150;
+    let target = 0, cur = 0;
+    const compute = () => {
+      const r = stage.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const center = r.top + r.height / 2;
+      // p: ~+0.5 when section sits below centre (entering), ~-0.5 when above (leaving), 0 centred
+      target = Math.max(-0.7, Math.min(0.7, (vh / 2 - center) / vh));
+    };
+    const loop = () => {
+      cur += (target - cur) * 0.14;
+      layers.forEach(({ el, f, base }) => {
+        el.style.transform = base + ' translate3d(0,' + (cur * f * AMP).toFixed(1) + 'px,0)';
+      });
+      if (Math.abs(target - cur) > 0.0004) { this._laRaf = requestAnimationFrame(loop); }
+      else { this._laRaf = null; }
+    };
+    const kick = () => { if (!this._laRaf) this._laRaf = requestAnimationFrame(loop); };
+    const onScroll = () => { compute(); kick(); };
+    compute(); cur = target; loop();
+    // capture-phase listener also catches scrolls on the inner overflow container
+    this.on(window, 'scroll', onScroll, true);
+    this.on(window, 'resize', () => { compute(); kick(); });
+  }
+
+  initCounters() {
+    if (!window.IntersectionObserver) return;
+    const animate = (el) => {
+      const to = parseFloat(el.getAttribute('data-count'));
+      const dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      const dur = 1500, start = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = to * eased;
+        el.textContent = dec > 0 ? val.toFixed(dec) : Math.round(val).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('[data-count]').forEach(el => obs.observe(el));
+    this._obs.push(obs);
+  }
+
+  buildIso() {
+    const rig = document.getElementById('iso-rig');
+    if (!rig || rig.dataset.built) return;
+    rig.dataset.built = '1';
+    let seed = 0x51ed3; const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+    const ri = (a, b) => a + Math.floor(rnd() * (b - a + 1));
+    const COOL = ['#d6eef2','#aad6de','#7fb6c2','#c3e3e8','#93c4ce'];
+    const WARM = ['#ffe2b2','#ffd193','#ffeac8','#f4c886'];
+    const cells = []; this._isoCells = cells; let gridSeq = 0;
+    const EDGE = 'rgba(125,211,192,0.30)';
+    const OY = 170;
+
+    const face = (fw, fh, bg, extra) => {
+      const f = document.createElement('div');
+      f.style.cssText = 'position:absolute;left:50%;top:50%;width:' + fw + 'px;height:' + fh + 'px;margin-left:' + (-fw/2) + 'px;margin-top:' + (-fh/2) + 'px;background:' + bg + ';box-shadow:inset 0 0 0 1px ' + EDGE + ';overflow:hidden;' + (extra || '');
+      return f;
+    };
+
+    // curtain-wall grid; non-animated panes pushed to cells[] for cursor lighting
+    const grid = (parent, gw, gh, opt) => {
+      const colW = opt.colW || 13, rowH = opt.rowH || 11, pad = opt.pad != null ? opt.pad : 5;
+      const cgap = opt.cgap != null ? opt.cgap : 3, rgap = opt.rgap != null ? opt.rgap : 2;
+      const palette = opt.palette || COOL, lit = opt.lit != null ? opt.lit : 0.14;
+      const cols = Math.max(2, Math.floor((gw - pad*2) / colW));
+      const rows = Math.max(2, Math.floor((gh - pad*2) / rowH));
+      const gid = gridSeq++;
+      const g = document.createElement('div');
+      g.style.cssText = 'position:absolute;inset:' + pad + 'px;display:grid;grid-template-columns:repeat(' + cols + ',1fr);grid-template-rows:repeat(' + rows + ',1fr);column-gap:' + cgap + 'px;row-gap:' + rgap + 'px;';
+      for (let i = 0; i < cols*rows; i++) {
+        const cell = document.createElement('div');
+        const color = palette[ri(0, palette.length-1)];
+        const prelit = rnd() < lit;
+        const base = prelit ? (0.42 + rnd()*0.42) : (0.05 + rnd()*0.07);
+        cell.style.cssText = 'border-radius:0.5px;background:' + color + ';opacity:' + base.toFixed(2) + ';will-change:opacity;';
+        if (prelit && rnd() < 0.45) {
+          cell.style.animation = 'cityWin ' + (2.6 + rnd()*3).toFixed(2) + 's ease-in-out ' + (rnd()*4).toFixed(2) + 's infinite';
+          cell.style.setProperty('--w0', base.toFixed(2));
+          cell.style.setProperty('--w1', '1');
+        } else {
+          cells.push({ el: cell, color: color, base: base, cur: base, cx: 0, cy: 0, floor: gid + ':' + Math.floor(i / cols) });
+        }
+        g.appendChild(cell);
+      }
+      parent.appendChild(g);
+    };
+
+    const addBox = (cx, cy, cz, bw, bh, bd, o) => {
+      o = o || {};
+      const box = document.createElement('div');
+      box.style.cssText = 'position:absolute;left:0;top:0;transform-style:preserve-3d;transform:translate3d(' + cx + 'px,' + (cy + OY) + 'px,' + cz + 'px);';
+      const front = face(bw, bh, o.front || 'linear-gradient(180deg,#0e3a40,#06222a)');
+      front.style.transform = 'translateZ(' + (bd/2) + 'px)';
+      const right = face(bd, bh, o.side || 'linear-gradient(180deg,#0a2b32,#04161c)');
+      right.style.transform = 'rotateY(90deg) translateZ(' + (bw/2) + 'px)';
+      const top = face(bw, bd, o.top || 'linear-gradient(135deg,#1f6b64,#15514c)');
+      top.style.transform = 'rotateX(90deg) translateZ(' + (bh/2) + 'px)';
+      const back = face(bw, bh, o.front || 'linear-gradient(180deg,#0e3a40,#06222a)');
+      back.style.transform = 'rotateY(180deg) translateZ(' + (bd/2) + 'px)';
+      const left = face(bd, bh, o.side || 'linear-gradient(180deg,#0a2b32,#04161c)');
+      left.style.transform = 'rotateY(-90deg) translateZ(' + (bw/2) + 'px)';
+      const bottom = face(bw, bd, 'linear-gradient(135deg,#06181c,#020a0d)');
+      bottom.style.transform = 'rotateX(-90deg) translateZ(' + (bh/2) + 'px)';
+      box.appendChild(bottom); box.appendChild(back); box.appendChild(left);
+      box.appendChild(top); box.appendChild(right); box.appendChild(front);
+      if (o.grid) { grid(front, bw, bh, o.grid); grid(right, bd, bh, o.grid); grid(back, bw, bh, o.grid); grid(left, bd, bh, o.grid); }
+      rig.appendChild(box);
+      return box;
+    };
+
+    // ── STEPPED PODIUM (three terraces stepping back, ribbon glazing) ──
+    addBox(-6,   0,   0,   324, 30, 252, { top:'linear-gradient(135deg,#15524e,#0d3a37)', front:'#0c3034', side:'#082327', grid:{ colW:19, rowH:13, palette:COOL, lit:0.10 } });
+    addBox(-14, -29, -24, 268, 28, 204, { top:'linear-gradient(135deg,#17605a,#0f4744)', front:'#0d3438', side:'#082529', grid:{ colW:19, rowH:13, palette:COOL, lit:0.10 } });
+    addBox(-22, -56, -44, 208, 26, 158, { top:'linear-gradient(135deg,#1a6960,#114d49)', front:'#0e3a3e', side:'#09282d', grid:{ colW:19, rowH:13, palette:COOL, lit:0.12 } });
+    const podTop = -69;
+
+    // glassy entrance pavilion at the front edge
+    addBox(58, -33, 80, 138, 36, 66, { front:'linear-gradient(180deg,#114146,#0a2a30)', side:'#082329', top:'linear-gradient(135deg,#1f6b64,#15514c)', grid:{ colW:15, rowH:12, palette:COOL, lit:0.16 } });
+
+    // ── MAIN TOWER: tall slender cool-glass curtain wall ──
+    const tH = 246;
+    addBox(-34, podTop - tH/2, -50, 122, tH, 104, {
+      front:'linear-gradient(118deg,#214f55 0%,#0c3036 50%,#1c4a50 76%,#0d343a 100%)',
+      side:'linear-gradient(180deg,#0a2c33,#05181e)',
+      top:'linear-gradient(135deg,#c6e9e4,#8ccbc3)',
+      grid:{ colW:11, rowH:10, cgap:3, rgap:2, palette:COOL, lit:0.19 } });
+    const tTop = podTop - tH;
+
+    // ── SECONDARY TOWER: shorter warm cream-glass mass ──
+    const s2H = 178;
+    addBox(60, -43 - s2H/2, -16, 92, s2H, 86, {
+      front:'linear-gradient(180deg,#352d1e,#201a10)',
+      side:'linear-gradient(180deg,#241d11,#140f08)',
+      top:'linear-gradient(135deg,#ffe3b4,#e7c184)',
+      grid:{ colW:12, rowH:11, cgap:3, rgap:2, palette:WARM, lit:0.20 } });
+
+    // ── CROWN + ROOFTOP ──
+    addBox(-34, tTop - 14, -50, 98, 28, 88, { front:'#0c3034', side:'#082329', top:'linear-gradient(135deg,#9fe9d8,#7dd3c0)' });
+    const crownTop = tTop - 28;
+    // comms mast
+    addBox(-66, crownTop - 32, -50, 7, 64, 7, { front:'#0e3f3a', side:'#0a302c', top:'#9fe9d8' });
+    // aviation beacon at mast top
+    const beac = document.createElement('div');
+    beac.style.cssText = 'position:absolute;left:0;top:0;transform:translate3d(-66px,' + ((crownTop - 64) + OY) + 'px,-50px);width:9px;height:9px;margin-left:-4.5px;margin-top:-4.5px;border-radius:50%;background:#ff6a5a;box-shadow:0 0 12px 4px rgba(255,106,90,0.85);animation:cityWin 1.3s ease-in-out infinite;--w0:0.35;--w1:1;';
+    rig.appendChild(beac);
+    // H helipad pad on crown roof
+    const padBox = document.createElement('div');
+    padBox.style.cssText = 'position:absolute;left:0;top:0;transform-style:preserve-3d;transform:translate3d(-18px,' + (crownTop + OY) + 'px,-44px);';
+    const plate = face(60, 60, 'linear-gradient(135deg,#0c2e30,#06191d)');
+    plate.style.transform = 'rotateX(90deg)';
+    plate.style.boxShadow = 'inset 0 0 0 2px rgba(125,211,192,0.45)';
+    plate.innerHTML = '<div style="position:absolute;inset:9px;border-radius:50%;border:2px solid rgba(125,211,192,0.36);"></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-weight:800;font-size:30px;color:#cdeee6;letter-spacing:-1px;">H</div>';
+    padBox.appendChild(plate);
+    rig.appendChild(padBox);
+
+    // ── FLOOR INFO HUD (front + back copies; pinned upper-left, rotates with rig) ──
+    const HUD_HTML =
+      '<div style="position:relative;background:rgba(5,18,22,0.84);backdrop-filter:blur(9px);border:1px solid rgba(125,211,192,0.34);border-radius:11px;padding:13px 15px;box-shadow:0 14px 36px rgba(0,0,0,0.5);">'
+      + '<div style="position:absolute;right:-46px;top:26px;width:46px;height:1px;background:linear-gradient(90deg,rgba(125,211,192,0.7),transparent);"></div>'
+      + '<div style="position:absolute;right:-49px;top:23px;width:6px;height:6px;border-radius:50%;background:#9be6d3;box-shadow:0 0 8px 2px rgba(125,211,192,0.8);"></div>'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">'
+      +   '<span data-h="floor" style="font-size:15px;font-weight:700;color:#bdf0e4;letter-spacing:0.02em;">FLOOR 14</span>'
+      +   '<span style="display:inline-flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:0.08em;color:#9be6d3;"><span style="width:6px;height:6px;border-radius:50%;background:#9be6d3;box-shadow:0 0 8px 2px rgba(125,211,192,0.9);animation:cityWin 1.6s ease-in-out infinite;--w0:0.4;--w1:1;"></span>ONLINE</span>'
+      + '</div>'
+      + '<div data-h="zone" style="font-size:11px;color:#e6f6f1;letter-spacing:0.05em;margin-bottom:12px;text-transform:uppercase;">ICU · West Wing</div>'
+      + '<div style="display:flex;flex-direction:column;gap:7px;font-size:10px;letter-spacing:0.04em;">'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">IoT</span><span data-h="proto" style="color:#cfeee6;">DALI-2 Mesh</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">DEVICES</span><span data-h="dev" style="color:#cfeee6;">42</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">SCENE</span><span data-h="scene" style="color:#cfeee6;text-align:right;">Circadian, Day</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">OCCUPANCY</span><span data-h="occ" style="color:#cfeee6;">78%</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">ASSETS TRACKED</span><span data-h="assets" style="color:#9be6d3;">27</span></div>'
+      + '</div>'
+      + '<div style="margin-top:11px;padding-top:9px;border-top:1px solid rgba(125,211,192,0.18);display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:0.05em;color:#86b8af;line-height:1.3;">'
+      +   '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>'
+      +   'REAL-TIME HOSPITAL ASSET TRACKING'
+      + '</div>'
+      + '</div>';
+    const mkHud = (tf) => {
+      const h = document.createElement('div');
+      h.style.cssText = 'position:absolute;left:0;top:0;transform:' + tf + ';transform-style:preserve-3d;backface-visibility:hidden;pointer-events:none;opacity:0;transition:opacity 0.25s ease;width:212px;font-family:\'JetBrains Mono\',monospace;';
+      h.innerHTML = HUD_HTML;
+      rig.appendChild(h);
+      return h;
+    };
+    this._isoHuds = [
+      mkHud('translate3d(-298px,-186px,72px)'),
+      mkHud('translate3d(-298px,-186px,-172px) rotateY(180deg)')
+    ];
+
+    // floating dust
+    const dust = document.getElementById('iso-dust');
+    if (dust) {
+      for (let i = 0; i < 38; i++) {
+        const sz = (rnd()*2+0.8).toFixed(1);
+        const sp = document.createElement('div');
+        sp.style.cssText = 'position:absolute;left:' + (rnd()*100).toFixed(1) + '%;top:' + (rnd()*88).toFixed(1) + '%;width:' + sz + 'px;height:' + sz + 'px;border-radius:50%;background:rgba(159,233,216,' + (0.16 + rnd()*0.4).toFixed(2) + ');--w0:0.1;--w1:0.8;animation:cityWin ' + (2.4+rnd()*4).toFixed(2) + 's ease-in-out ' + (rnd()*5).toFixed(2) + 's infinite;';
+        dust.appendChild(sp);
+      }
+    }
+  }
+
+  initIso() {
+    const stage = document.getElementById('iso-stage');
+    if (!stage) return;
+    this.buildIso();
+    const rig = document.getElementById('iso-rig');
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const apply = (px, py) => { if (rig) rig.style.transform = 'translate(-50%,-50%) rotateX(' + px.toFixed(2) + 'deg) rotateY(' + py.toFixed(2) + 'deg)'; };
+
+    // committed orientation (persists after a drag) + eased display values
+    let yaw = -32, pitch = -24, curYaw = -32, curPitch = -24;
+    const tiltX = 10, tiltY = 15;           // idle hover-tilt amplitude
+    let mx = -99999, my = -99999, inside = false;
+    let dragging = false, sx = 0, sy = 0, sYaw = 0, sPitch = 0, moved = false;
+    let demoOn = false, demoUntil = 0, demoFloor = null;
+
+    if (reduce) { apply(pitch, yaw); return; }
+    stage.style.cursor = 'grab';
+
+    this.on(stage, 'mousemove', (e) => { mx = e.clientX; my = e.clientY; inside = true; demoOn = false; });
+    this.on(stage, 'mouseleave', () => { if (!dragging) { inside = false; mx = -99999; my = -99999; } });
+
+    const begin = (x, y) => { dragging = true; moved = false; sx = x; sy = y; sYaw = yaw; sPitch = pitch; stage.style.cursor = 'grabbing'; };
+    const drag = (x, y) => { if (!dragging) return; if (Math.abs(x - sx) + Math.abs(y - sy) > 3) moved = true; yaw = sYaw + (x - sx) * 0.55; pitch = Math.max(-84, Math.min(20, sPitch - (y - sy) * 0.42)); };
+    const finish = () => { if (dragging) { dragging = false; stage.style.cursor = 'grab'; } };
+
+    this.on(stage, 'mousedown', (e) => { demoOn = false; begin(e.clientX, e.clientY); e.preventDefault(); });
+    this.on(window, 'mousemove', (e) => { drag(e.clientX, e.clientY); });
+    this.on(window, 'mouseup', finish);
+    this.on(stage, 'touchstart', (e) => { demoOn = false; const t = e.touches[0]; if (t) { begin(t.clientX, t.clientY); mx = t.clientX; my = t.clientY; inside = true; } }, { passive: true });
+    this.on(window, 'touchmove', (e) => { const t = e.touches[0]; if (t && dragging) { drag(t.clientX, t.clientY); if (e.cancelable) e.preventDefault(); } }, { passive: false });
+    this.on(window, 'touchend', () => { finish(); inside = false; });
+
+    // keyboard alternative to dragging (WCAG 2.1.1 + 2.5.7): focus the
+    // stage and rotate with the arrow keys; Home resets the orientation.
+    stage.setAttribute('tabindex', '0');
+    stage.setAttribute('role', 'application');
+    stage.setAttribute('aria-label', 'Interactive 3D building. Use the arrow keys to rotate it; press Home to reset.');
+    this.on(stage, 'keydown', (e) => {
+      demoOn = false;
+      let handled = true;
+      if (e.key === 'ArrowLeft') yaw -= 8;
+      else if (e.key === 'ArrowRight') yaw += 8;
+      else if (e.key === 'ArrowUp') pitch = Math.max(-84, Math.min(20, pitch - 6));
+      else if (e.key === 'ArrowDown') pitch = Math.max(-84, Math.min(20, pitch + 6));
+      else if (e.key === 'Home') { yaw = -32; pitch = -24; }
+      else handled = false;
+      if (handled) e.preventDefault();
+    });
+
+    const pllx = [...stage.querySelectorAll('[data-pllx]')].map(el => ({ el, f: parseFloat(el.getAttribute('data-pllx')) || 0 }));
+    const cells = this._isoCells || [];
+    const R = 95;
+    const huds = this._isoHuds || [];
+    const HQ = huds.map(h => ({ el:h, f:h.querySelector('[data-h=floor]'), z:h.querySelector('[data-h=zone]'), p:h.querySelector('[data-h=proto]'), d:h.querySelector('[data-h=dev]'), s:h.querySelector('[data-h=scene]'), o:h.querySelector('[data-h=occ]'), a:h.querySelector('[data-h=assets]') }));
+    const ZONES = ['ICU · West Wing','Emergency Dept','Imaging / MRI','Surgical Suite','Recovery Ward','Oncology Unit','Pathology Lab','Cardiology','Maternity Ward','Pharmacy · Sterile'];
+    const SCENES = ['Circadian, Day','Circadian, Evening','Code Blue Override','Theatre Bright','Recovery Calm','Corridor Wayfinding','After-Hours Eco','Daylight Harvest'];
+    const PROTO = ['DALI-2 Mesh','BLE + DALI-2','PoE Lighting','DALI-2 Broadcast'];
+    const fhash = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+    // floor number derived from the selected floor's actual height (cached so it stays put)
+    const floorCache = {};
+    const floorNumber = (fid) => {
+      if (floorCache[fid] != null) return floorCache[fid];
+      let ymin = 1e9, ymax = -1e9, sum = 0, n = 0;
+      for (const c of cells) { if (c.cy < ymin) ymin = c.cy; if (c.cy > ymax) ymax = c.cy; if (c.floor === fid) { sum += c.cy; n++; } }
+      let v;
+      if (!n || ymax <= ymin) { v = 2 + (fhash(fid) % 30); }
+      else { const t = (ymax - sum / n) / (ymax - ymin); v = Math.max(1, Math.min(34, Math.round(1 + t * 33))); }
+      floorCache[fid] = v; return v;
+    };
+    const setHudOpacity = (v) => { for (const h of huds) h.style.opacity = v; };
+    const fillHud = (fid) => {
+      if (!HQ.length) return;
+      const h = fhash(fid), fn = String(floorNumber(fid)).padStart(2, '0');
+      for (const q of HQ) {
+        q.f.textContent = 'FLOOR ' + fn;
+        q.z.textContent = ZONES[h % ZONES.length];
+        q.p.textContent = PROTO[(h >>> 3) % PROTO.length];
+        q.d.textContent = String(16 + (h % 53));
+        q.s.textContent = SCENES[(h >>> 5) % SCENES.length];
+        q.o.textContent = (35 + (h % 60)) + '%';
+        q.a.textContent = String(6 + ((h >>> 7) % 40));
+      }
+    };
+    let lastFloor = null;
+    const refresh = () => { for (const c of cells) { const b = c.el.getBoundingClientRect(); c.cx = b.left + b.width/2; c.cy = b.top + b.height/2; c.hw = b.width/2; c.hh = b.height/2; } };
+    refresh();
+    this.on(window, 'resize', refresh);
+    let frame = 0;
+    const loop = () => {
+      const r = stage.getBoundingClientRect();
+      const nx = inside ? ((mx - r.left) / r.width - 0.5) * 2 : 0;
+      const ny = inside ? ((my - r.top) / r.height - 0.5) * 2 : 0;
+      // autonomous scroll-driven spin: maps the section's travel through the
+      // viewport to extra yaw, rotates as you scroll, unwinds as you scroll back
+      const vh = window.innerHeight || 800;
+      const center = r.top + r.height / 2;
+      const prog = Math.max(-1, Math.min(1, (vh / 2 - center) / (vh / 2 + r.height / 2)));
+      const scrollDeg = prog * 78;
+      let tYaw, tPitch, k;
+      if (dragging) { tYaw = yaw + scrollDeg; tPitch = pitch; k = 0.4; }
+      else { tYaw = yaw + scrollDeg + nx * tiltY; tPitch = pitch - ny * tiltX; k = 0.09; }
+      curYaw += (tYaw - curYaw) * k; curPitch += (tPitch - curPitch) * k;
+      apply(curPitch, curYaw);
+      pllx.forEach(({ el, f }) => { el.style.transform = 'translate3d(' + (-nx * f * 55).toFixed(1) + 'px,' + (-ny * f * 38).toFixed(1) + 'px,0)'; });
+      if ((frame % 5) === 0) refresh();
+      frame++;
+      const demoActive = demoOn && !inside && !dragging && performance.now() < demoUntil;
+      if (inside || demoActive) {
+        // which floor is the cursor over? find the room square under it,
+        // then light up that entire floor (every pane in the same face-row)
+        // (during the first-reveal demo, spotlight the demo floor instead)
+        let hotFloor = null, best = 1e9;
+        if (inside) {
+          for (const c of cells) {
+            const dx = Math.abs(c.cx - mx), dy = Math.abs(c.cy - my);
+            if (dx <= c.hw + 2.5 && dy <= c.hh + 2.5) { const d = dx + dy; if (d < best) { best = d; hotFloor = c.floor; } }
+          }
+        } else { hotFloor = demoFloor; }
+        if (huds.length) {
+          if (hotFloor !== null) { if (hotFloor !== lastFloor) { fillHud(hotFloor); lastFloor = hotFloor; } setHudOpacity('1'); }
+          else setHudOpacity('0');
+        }
+        for (const c of cells) {
+          const hit = hotFloor !== null && c.floor === hotFloor;
+          const target = hit ? 1 : c.base;
+          c.cur += (target - c.cur) * (hit ? 0.5 : 0.12);
+          c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
+          c.el.style.boxShadow = c.cur > 0.18 ? '0 0 ' + (1 + c.cur * 9).toFixed(1) + 'px ' + c.color : 'none';
+        }
+      } else {
+        if (huds.length) setHudOpacity('0');
+        lastFloor = null;
+        for (const c of cells) {
+          c.cur += (c.base - c.cur) * 0.07;
+          c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
+          if (c.cur <= 0.18) c.el.style.boxShadow = 'none';
+        }
+      }
+      this._isoRaf = requestAnimationFrame(loop);
+    };
+    loop();
+
+    // First-reveal demo: when the building first scrolls into view, spotlight
+    // one floor for ~3s so the user discovers they can hover to inspect floors.
+    const fcount = new Map();
+    for (const c of cells) fcount.set(c.floor, (fcount.get(c.floor) || 0) + 1);
+    let bestc = 0;
+    for (const [k, v] of fcount) { if (v > bestc) { bestc = v; demoFloor = k; } }
+    if (demoFloor !== null && 'IntersectionObserver' in window) {
+      let started = false;
+      const io = new IntersectionObserver((ents) => {
+        for (const e of ents) {
+          if (e.isIntersecting && !started && !inside && !dragging) {
+            started = true;
+            demoOn = true; demoUntil = performance.now() + 3000;
+            if (huds.length) { fillHud(demoFloor); lastFloor = demoFloor; }
+            io.disconnect();
+          }
+        }
+      }, { threshold: 0.45 });
+      io.observe(stage);
+    }
+  }
+
+  buildHeroParallax() {
+    let seed = 0x1a73; const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+    // ── BACKGROUND: dusk glow + distant lit skyline strip ──
+    const bg = document.getElementById('hp-bg');
+    if (bg && !bg.dataset.built) {
+      bg.dataset.built = '1';
+      const glow = document.createElement('div');
+      glow.style.cssText = 'position:absolute;left:0;right:0;bottom:6%;height:54%;background:radial-gradient(120% 100% at 72% 100%,rgba(125,211,192,0.10),transparent 62%),radial-gradient(95% 90% at 26% 100%,rgba(255,178,108,0.06),transparent 62%);';
+      bg.appendChild(glow);
+
+      // ── analytics / data-viz motif: layered area charts + trend line + scatter ──
+      // translucent accent fills read cleanly on both the cream (light) and dark grounds
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const W = 1200, H = 360;
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      svg.setAttribute('preserveAspectRatio', 'none');
+      svg.style.cssText = 'position:absolute;left:-2%;right:-2%;bottom:5%;width:104%;height:46%;opacity:0.344;';
+
+      const defs = document.createElementNS(svgNS, 'defs');
+      const mkGrad = (id, c1, o1, o2) => {
+        const g = document.createElementNS(svgNS, 'linearGradient');
+        g.setAttribute('id', id); g.setAttribute('x1', '0'); g.setAttribute('y1', '0'); g.setAttribute('x2', '0'); g.setAttribute('y2', '1');
+        const s1 = document.createElementNS(svgNS, 'stop'); s1.setAttribute('offset', '0'); s1.setAttribute('stop-color', c1); s1.setAttribute('stop-opacity', o1);
+        const s2 = document.createElementNS(svgNS, 'stop'); s2.setAttribute('offset', '1'); s2.setAttribute('stop-color', c1); s2.setAttribute('stop-opacity', o2);
+        g.appendChild(s1); g.appendChild(s2); return g;
+      };
+      defs.appendChild(mkGrad('hpA', '#4ca88f', '0.20', '0.01'));
+      defs.appendChild(mkGrad('hpB', '#7dd3c0', '0.14', '0.005'));
+      defs.appendChild(mkGrad('hpC', '#f5b942', '0.12', '0.004'));
+      svg.appendChild(defs);
+
+      // faint baseline gridlines
+      for (let g = 1; g <= 4; g++) {
+        const ln = document.createElementNS(svgNS, 'line');
+        const y = (H / 5) * g;
+        ln.setAttribute('x1', '0'); ln.setAttribute('x2', W); ln.setAttribute('y1', y); ln.setAttribute('y2', y);
+        ln.setAttribute('stroke', '#4ca88f'); ln.setAttribute('stroke-opacity', '0.07'); ln.setAttribute('stroke-width', '1');
+        svg.appendChild(ln);
+      }
+
+      // smooth area generator (Catmull-Rom → cubic)
+      const N = 13;
+      const series = (amp, base, jitter, sd) => {
+        let s = sd; const r = () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; };
+        const pts = [];
+        for (let i = 0; i <= N; i++) pts.push([ (W / N) * i, H - base - amp * (0.35 + r() * 0.65) - Math.sin(i * jitter) * amp * 0.18 ]);
+        let d = 'M' + pts[0][0] + ',' + pts[0][1];
+        for (let i = 0; i < pts.length - 1; i++) {
+          const p0 = pts[i ? i - 1 : 0], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+          const c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+          const c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+          d += ' C' + c1x.toFixed(1) + ',' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ',' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
+        }
+        return { line: d, area: d + ' L' + W + ',' + H + ' L0,' + H + ' Z', pts };
+      };
+
+      const layers = [
+        { s: series(150, 30, 0.7, 0x2b1f), fill: 'url(#hpC)', stroke: '#f5b942', sw: 1.4, so: 0.32 },
+        { s: series(190, 24, 1.1, 0x71a3), fill: 'url(#hpB)', stroke: '#7dd3c0', sw: 1.6, so: 0.4 },
+        { s: series(240, 18, 0.9, 0x1a73), fill: 'url(#hpA)', stroke: '#4ca88f', sw: 2.2, so: 0.7 }
+      ];
+      layers.forEach((L) => {
+        const ar = document.createElementNS(svgNS, 'path');
+        ar.setAttribute('d', L.s.area); ar.setAttribute('fill', L.fill); svg.appendChild(ar);
+        const li = document.createElementNS(svgNS, 'path');
+        li.setAttribute('d', L.s.line); li.setAttribute('fill', 'none'); li.setAttribute('stroke', L.stroke);
+        li.setAttribute('stroke-width', L.sw); li.setAttribute('stroke-opacity', L.so);
+        li.setAttribute('stroke-linecap', 'round'); li.setAttribute('stroke-linejoin', 'round'); svg.appendChild(li);
+      });
+
+      // node dots on the lead (teal) line
+      layers[2].s.pts.forEach((p, i) => {
+        if (i % 2) return;
+        const c = document.createElementNS(svgNS, 'circle');
+        c.setAttribute('cx', p[0]); c.setAttribute('cy', p[1]); c.setAttribute('r', '3');
+        c.setAttribute('fill', '#4ca88f'); c.setAttribute('fill-opacity', '0.85');
+        svg.appendChild(c);
+      });
+
+      // sparse scatter
+      let ss = 0x5c2d; const sr = () => { ss = (ss * 1664525 + 1013904223) % 4294967296; return ss / 4294967296; };
+      for (let i = 0; i < 26; i++) {
+        const c = document.createElementNS(svgNS, 'circle');
+        c.setAttribute('cx', (sr() * W).toFixed(0)); c.setAttribute('cy', (40 + sr() * (H - 60)).toFixed(0));
+        c.setAttribute('r', (1 + sr() * 1.8).toFixed(1));
+        c.setAttribute('fill', sr() < 0.4 ? '#f5b942' : '#4ca88f'); c.setAttribute('fill-opacity', (0.18 + sr() * 0.4).toFixed(2));
+        svg.appendChild(c);
+      }
+      bg.appendChild(svg);
+    }
+    // ── FOREGROUND: blurred light orbs (kept clear of centre) ──
+    const fg = document.getElementById('hp-fg');
+    if (fg && !fg.dataset.built) {
+      fg.dataset.built = '1';
+      const orbs = [
+        'left:-5%;bottom:-8%;width:360px;height:360px;background:radial-gradient(circle,rgba(255,178,108,0.24),transparent 64%);',
+        'right:-4%;bottom:0%;width:320px;height:320px;background:radial-gradient(circle,rgba(125,211,192,0.20),transparent 66%);',
+        'left:22%;bottom:-12%;width:240px;height:240px;background:radial-gradient(circle,rgba(255,208,138,0.15),transparent 66%);',
+        'right:28%;top:-10%;width:280px;height:280px;background:radial-gradient(circle,rgba(125,211,192,0.11),transparent 68%);'
+      ];
+      orbs.forEach((o, i) => { const d = document.createElement('div'); d.style.cssText = 'position:absolute;border-radius:50%;filter:blur(28px);mix-blend-mode:screen;' + o + 'animation:cityFloat ' + (8 + i * 1.7).toFixed(1) + 's ease-in-out ' + (i * 0.5).toFixed(1) + 's infinite;'; fg.appendChild(d); });
+    }
+    // ── MID-GROUND mesh nodes ──
+    let s2 = 0x77f1; const r2 = () => { s2 = (s2 * 1664525 + 1013904223) % 4294967296; return s2 / 4294967296; };
+    const nodes = [];
+    for (let i = 0; i < 30; i++) {
+      nodes.push({ x: r2(), y: 0.16 + r2() * 0.76, vx: (r2() - 0.5) * 0.013, vy: (r2() - 0.5) * 0.013, ph: r2() * 6.28, off: r2() * 6.28, r: 1.6 + r2() * 2.2, warm: r2() < 0.42, depth: 0.5 + r2() });
+    }
+    this._mesh = { nodes: nodes, pulses: [], acc: 0 };
+  }
+
+  drawMesh(ctx, W, H, dt, mx, my) {
+    const M = this._mesh; if (!M) return;
+    ctx.clearRect(0, 0, W, H);
+    const nodes = M.nodes;
+    for (const nd of nodes) {
+      if (dt > 0) {
+        nd.x += nd.vx * dt; nd.y += nd.vy * dt;
+        if (nd.x < 0 || nd.x > 1) nd.vx *= -1;
+        if (nd.y < 0.12 || nd.y > 0.94) nd.vy *= -1;
+        nd.x = Math.max(0, Math.min(1, nd.x)); nd.y = Math.max(0.12, Math.min(0.94, nd.y));
+        nd.ph += dt;
+      }
+    }
+    const P = (nd) => ({ x: nd.x * W + mx * 20 * nd.depth, y: nd.y * H + my * 20 * nd.depth });
+    const maxd = Math.min(W, H) * 0.32;
+    ctx.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i++) {
+      const a = P(nodes[i]);
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = P(nodes[j]);
+        const dx = a.x - b.x, dy = a.y - b.y; const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < maxd) { const al = (1 - d / maxd) * 0.42; ctx.strokeStyle = 'rgba(125,211,192,' + al.toFixed(3) + ')'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+    }
+    // travelling data pulses
+    if (dt > 0) {
+      M.acc += dt;
+      if (M.acc > 0.45 && M.pulses.length < 7) { M.acc = 0; const a = Math.floor(Math.random() * nodes.length); let b = Math.floor(Math.random() * nodes.length); if (b === a) b = (b + 1) % nodes.length; M.pulses.push({ a: a, b: b, t: 0, sp: 0.5 + Math.random() * 0.7 }); }
+      for (let i = M.pulses.length - 1; i >= 0; i--) { M.pulses[i].t += M.pulses[i].sp * dt; if (M.pulses[i].t >= 1) M.pulses.splice(i, 1); }
+    }
+    for (const pl of M.pulses) {
+      const a = P(nodes[pl.a]), b = P(nodes[pl.b]);
+      const x = a.x + (b.x - a.x) * pl.t, y = a.y + (b.y - a.y) * pl.t;
+      const fade = Math.sin(pl.t * Math.PI);
+      ctx.beginPath(); ctx.fillStyle = 'rgba(190,245,225,' + (0.85 * fade).toFixed(2) + ')'; ctx.arc(x, y, 2.4, 0, 6.2832); ctx.fill();
+      ctx.beginPath(); ctx.fillStyle = 'rgba(125,211,192,' + (0.22 * fade).toFixed(2) + ')'; ctx.arc(x, y, 7, 0, 6.2832); ctx.fill();
+    }
+    // luminaire nodes
+    for (const nd of nodes) {
+      const p = P(nd);
+      const tw = 0.55 + 0.45 * Math.sin(nd.ph * 1.6 + nd.off);
+      const col = nd.warm ? '255,208,138' : '159,233,216';
+      const r = nd.r * (0.82 + 0.3 * tw);
+      ctx.beginPath(); ctx.fillStyle = 'rgba(' + col + ',' + (0.16 * tw).toFixed(2) + ')'; ctx.arc(p.x, p.y, r * 4.2, 0, 6.2832); ctx.fill();
+      ctx.beginPath(); ctx.fillStyle = 'rgba(' + col + ',' + (0.55 + 0.4 * tw).toFixed(2) + ')'; ctx.arc(p.x, p.y, r, 0, 6.2832); ctx.fill();
+    }
+  }
+
+  initHeroParallax() {
+    const top = document.getElementById('top');
+    if (!top) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cvs = document.getElementById('hp-mesh');
+    const ctx = cvs ? cvs.getContext('2d') : null;
+    let W = 0, H = 0; const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const size = () => { if (!cvs) return; const r = cvs.getBoundingClientRect(); W = r.width; H = r.height; cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    size(); this.on(window, 'resize', size);
+    let px = 0.5, py = 0.5, tpx = 0.5, tpy = 0.5;
+    this.on(top, 'mousemove', (e) => { const r = top.getBoundingClientRect(); tpx = (e.clientX - r.left) / r.width; tpy = (e.clientY - r.top) / r.height; });
+    this.on(top, 'mouseleave', () => { tpx = 0.5; tpy = 0.5; });
+    const layers = [
+      { el: document.getElementById('hp-grid'), s: 0.08, m: 8 },
+      { el: document.getElementById('hp-glow'), s: 0.16, m: 14 },
+      { el: document.getElementById('hp-bg'),   s: 0.12, m: 6 },
+      { el: document.getElementById('hp-mesh'), s: 0.30, m: 18 },
+      { el: document.getElementById('hero-head'), s: 0.20, m: 0 },
+      { el: document.getElementById('hp-fg'),   s: 0.52, m: 32 }
+    ];
+    if (reduce) { if (ctx) this.drawMesh(ctx, W, H, 0, 0, 0); return; }
+    let last = performance.now();
+    const loop = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      px += (tpx - px) * 0.06; py += (tpy - py) * 0.06;
+      const sy = window.scrollY || window.pageYOffset || 0;
+      const inHero = sy < window.innerHeight * 1.3;
+      const mx = px - 0.5, my = py - 0.5;
+      layers.forEach((L) => { if (!L.el) return; L.el.style.transform = 'translate3d(' + (-mx * L.m).toFixed(1) + 'px,' + (-sy * L.s - my * L.m).toFixed(1) + 'px,0)'; });
+      if (ctx && inHero) this.drawMesh(ctx, W, H, dt, mx, my);
+      this._hpRaf = requestAnimationFrame(loop);
+    };
+    this._hpRaf = requestAnimationFrame(loop);
+  }
+
+  initNavScroll() {
+    const nav = document.getElementById('int-nav');
+    if (!nav) return;
+    const h = () => {
+      if (window.scrollY > 40) {
+        nav.style.background = 'color-mix(in srgb, var(--bg) 82%, transparent)';
+        nav.style.backdropFilter = 'blur(16px)';
+        nav.style.borderBottomColor = 'var(--line)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.borderBottomColor = 'transparent';
+      }
+    };
+    this.on(window, 'scroll', h, { passive: true });
+    h();
+  }
+
+  renderVals() {
+    const dark = this.state.dark;
+    const curId = 'interactive';
+    const list = (typeof window !== 'undefined' && window.HOME_VARIANTS) ? window.HOME_VARIANTS
+      : [{ id: 'interactive', label: 'Interactive', file: 'Homepage Interactive.dc.html', tagline: 'The primary portfolio site' },
+         { id: 'dossier', label: 'Dossier', file: 'Homepage Dossier.dc.html', tagline: 'Classified case-file layout' }];
+    const variants = list.map(v => ({
+      id: v.id, label: v.label, file: v.file, tagline: v.tagline,
+      mark: v.id === curId ? '\u25B8 ' : '',
+      rowBg: v.id === curId ? 'var(--bg3)' : 'transparent',
+      titleColor: v.id === curId ? 'var(--ac)' : 'var(--fg)',
+    }));
+    const currentName = ((list.find(v => v.id === curId) || list[0]).label || 'Interactive').toUpperCase();
+    return {
+      rootClass: (dark ? '' : 'light') + (this.state.menu ? ' menu-open' : ''),
+      isDark: dark, isLight: !dark,
+      variants, currentName,
+      toggleDark: () => { const nd = !dark; try { localStorage.setItem('rba-int-dark', String(nd)); } catch (e) {} this.setState({ dark: nd }, () => this.tintHeat()); },
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      mailToggle: (e) => {
+        const d = e.currentTarget;
+        if (this._mailT) { clearTimeout(this._mailT); this._mailT = null; }
+        if (d.open) { this._mailT = setTimeout(() => { d.removeAttribute('open'); }, 10000); }
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

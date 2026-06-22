@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selected Work, Robert Babiarz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070b12;--bg2:#0c121e;--bg3:#121a28;
+  --fg:#e9eef7;--fg2:#8593a8;--fg3:#97a3b8;
+  --line:rgba(255,255,255,0.08);--line2:rgba(255,255,255,0.15);
+  --ac:#4ca88f;--ac2:#7dd3c0;--grid:rgba(76,168,143,0.06);
+}
+.light{
+  --bg:#fffcf5;--bg2:#f7f2e6;--bg3:#ebe6d6;
+  --fg:#0a0a0a;--fg2:#595959;--fg3:#5e5e5e;
+  --line:rgba(0,0,0,0.09);--line2:rgba(0,0,0,0.16);
+  --ac:#0d5350;--ac2:#4ca88f;--grid:rgba(13,83,80,0.05);
+}
+@keyframes wk-rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.wcard{position:absolute;left:50%;top:50%;width:clamp(280px,42vw,560px);aspect-ratio:3/2;margin-left:calc(clamp(280px,42vw,560px)/-2);margin-top:calc(clamp(280px,42vw,560px)*0.333/-1);border-radius:14px;overflow:hidden;border:1px solid var(--line2);background:var(--bg3);box-shadow:0 40px 90px rgba(0,0,0,0.5);cursor:pointer;transition:transform 0.62s cubic-bezier(.2,.85,.25,1),opacity 0.62s ease,filter 0.62s ease;will-change:transform,opacity;backface-visibility:hidden;}
+.wcard img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;pointer-events:none;}
+.wcard .wc-badge{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#fff;background:rgba(4,12,20,0.62);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.16);border-radius:999px;padding:5px 11px;}
+.wcard .wc-num{position:absolute;bottom:10px;right:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,0.7);}
+.wcard .wc-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,10,18,0) 40%,rgba(4,10,18,0.45));opacity:0;transition:opacity 0.5s;}
+.wcard[data-state="side"] .wc-veil{opacity:1;}
+.wdetail{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;opacity:0;transition:opacity 0.45s ease;pointer-events:none;}
+.wdetail.on{opacity:1;pointer-events:auto;}
+.wk-chip{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;}
+.wk-arrow{width:54px;height:54px;border-radius:50%;border:1px solid var(--line2);background:color-mix(in srgb,var(--bg2) 70%,transparent);backdrop-filter:blur(8px);color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.25s,border-color 0.2s,background 0.2s;flex-shrink:0;}
+.wk-arrow:hover{transform:scale(1.08);border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,var(--bg2));}
+.wk-arrow:active{transform:scale(0.94);}
+.wk-dot{width:8px;height:8px;border-radius:50%;background:var(--fg3);border:none;cursor:pointer;padding:0;transition:all 0.3s cubic-bezier(.2,.8,.2,1);}
+.wk-dot.on{width:30px;border-radius:5px;background:var(--ac);}
+.int-burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.int-burger span{display:block;width:19px;height:2px;background:var(--fg);border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .int-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .int-burger span:nth-child(2){opacity:0}
+.menu-open .int-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#wk-menu{position:fixed;inset:0;z-index:95;background:var(--bg);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:96px 28px 40px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #wk-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#wk-menu .im-link{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:clamp(30px,9vw,44px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);text-decoration:none;padding:18px 4px;border-bottom:1px solid var(--line)}
+#wk-menu .im-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:400;color:var(--fg3);letter-spacing:0.04em;}
+#wk-nav .rb-box{color:var(--fg);transition:transform .6s cubic-bezier(.65,0,.35,1),background .4s ease,border-color .4s ease,color .4s ease;}
+.nav-cm{position:relative;}
+.nav-cm::before{content:'';position:absolute;inset:-7px -6px;pointer-events:none;opacity:0;transition:opacity .18s ease;background:linear-gradient(var(--fg),var(--fg)) left top/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) left top/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) right top/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) right top/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) left bottom/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) left bottom/1px 6px no-repeat,linear-gradient(var(--fg),var(--fg)) right bottom/6px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) right bottom/1px 6px no-repeat;}
+.nav-cm:hover::before{opacity:0.6}
+.nav-cm:active{opacity:0.5}
+#wk-nav a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(--fg);color:#000}
+.light #wk-nav a:hover .rb-box{color:#fff}
+@media (max-width:860px){
+  #wk-nav > div{padding:0 18px !important;height:60px !important}
+  #wk-nav .wk-navlinks{display:none !important}
+  .int-burger{display:flex}
+  .wk-stage{height:300px !important}
+  .wk-detailwrap{min-height:230px !important}
+  .wk-arrow{width:46px;height:46px}
+}
+@media (min-width:861px){ #wk-menu{display:none !important} }
+@media (max-width:560px){
+  .wk-title{font-size:32px !important}
+  .wcard .wc-badge{display:none}
+}
+/* ── mode toggle ── */
+.wk-modetoggle{display:inline-flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--line2);border-radius:999px;background:color-mix(in srgb,var(--bg2) 65%,transparent);backdrop-filter:blur(8px);}
+.wk-modebtn{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg2);background:transparent;border:none;border-radius:999px;padding:9px 15px;cursor:pointer;transition:color .2s,background .25s;white-space:nowrap;}
+.wk-modebtn svg{width:14px;height:14px;flex-shrink:0;}
+.wk-modebtn.on{background:var(--ac);color:var(--bg);}
+.wk-modebtn:not(.on):hover{color:var(--fg);}
+/* ── index mode (editorial type wall) ── */
+.wk-idx-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:28px;padding:clamp(12px,2.3vh,28px) 6px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;}
+.wk-idx-num{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color .3s;}
+.wk-idx-title{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,5.2vw,66px);letter-spacing:-0.035em;line-height:0.95;color:transparent;-webkit-text-stroke:1.2px var(--fg3);transition:color .35s,-webkit-text-stroke-color .35s,transform .45s cubic-bezier(.2,.85,.25,1);}
+.wk-idx-meta{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--fg2);text-align:right;white-space:nowrap;transition:color .3s;}
+.wk-idx-arrow{font-family:'JetBrains Mono',monospace;color:var(--fg3);font-size:20px;line-height:1;transition:transform .35s,color .3s;}
+.wk-idx-row:hover .wk-idx-title{color:var(--fg);-webkit-text-stroke-color:var(--fg);transform:translateX(20px);}
+.wk-idx-row:hover .wk-idx-num{color:var(--ac);}
+.wk-idx-row:hover .wk-idx-meta{color:var(--ac);}
+.wk-idx-row:hover .wk-idx-arrow{color:var(--ac);transform:translate(5px,-5px);}
+@supports not ((-webkit-text-stroke:1px black)){ .wk-idx-title{color:var(--fg3);} .wk-idx-row:hover .wk-idx-title{color:var(--fg);} }
+@media (max-width:860px){ .wk-idx-meta{display:none} .wk-idx-row{gap:16px} #wk-idx-reveal{display:none !important} }
+</style>
+<script src="page-transition.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div id="wk-root" class="{{ rootClass }}" style="min-height:100vh;height:100vh;overflow:hidden;background:var(--bg);color:var(--fg);font-family:'DM Sans',sans-serif;position:relative;transition:background 0.5s,color 0.5s;display:flex;flex-direction:column;">
+
+  <!-- grid backdrop -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;mask-image:radial-gradient(120% 90% at 50% 30%,#000 30%,transparent 100%);-webkit-mask-image:radial-gradient(120% 90% at 50% 30%,#000 30%,transparent 100%);"></div>
+
+  <!-- ═══ NAV ═══ -->
+  <nav id="wk-nav" style="position:fixed;top:0;left:0;right:0;z-index:100;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);">
+    <div style="padding:0 44px;height:72px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="Homepage Interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;perspective:600px;">
+        <div class="rb-box" style="width:34px;height:34px;border:1px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:inherit;letter-spacing:-0.5px;">RB</span>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--fg);letter-spacing:0.04em;text-transform:uppercase;line-height:1.15;">Robert Babiarz</div>
+          <div style="font-size:9.5px;color:var(--fg2);font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;line-height:1.3;text-transform:uppercase;">Product Designer</div>
+        </div>
+      </a>
+      <div class="wk-navlinks" style="display:flex;align-items:center;gap:34px;">
+        <a href="Work.dc.html" style="font-size:13px;font-weight:500;color:var(--fg);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;cursor:default;pointer-events:none;">Work</a>
+        <a href="Homepage Interactive.dc.html#metrics" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Impact</a>
+        <a href="About.dc.html" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">About</a>
+        <a href="Homepage Interactive.dc.html#contact" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Contact</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleDark }}" aria-label="Theme" style="width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:all 0.2s;" style-hover="border-color:var(--line2)">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </sc-if>
+        </button>
+        <button class="int-burger" onClick="{{ toggleMenu }}" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU ░░ -->
+  <div id="wk-menu">
+    <a class="im-link" href="Work.dc.html" onClick="{{ closeMenu }}"><span>Work</span><span class="im-num">01</span></a>
+    <a class="im-link" href="Homepage Interactive.dc.html#metrics" onClick="{{ closeMenu }}"><span>Impact</span><span class="im-num">02</span></a>
+    <a class="im-link" href="About.dc.html" onClick="{{ closeMenu }}"><span>About</span><span class="im-num">03</span></a>
+    <a class="im-link" href="Homepage Interactive.dc.html#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="im-num">04</span></a>
+  </div>
+
+  <!-- ═══ HEADER STRIP ═══ -->
+  <div style="position:relative;z-index:2;padding:80px 44px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;animation:wk-rise 0.7s cubic-bezier(.2,.8,.2,1) both;">
+    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ac);">Selected Work</span>
+      <h1 style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(24px,2.8vw,36px);letter-spacing:-0.03em;line-height:1;color:var(--fg);margin:0;">Browse the case studies</h1>
+    </div>
+    <div class="wk-modetoggle" role="tablist" aria-label="Carousel style">
+      <button class="wk-modebtn on" data-mode="flow" role="tab" aria-label="Coverflow view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="8" y="5" width="8" height="14" rx="1.5"/><path d="M5 8v8M19 8v8" stroke-linecap="round"/></svg>Coverflow</button>
+      <button class="wk-modebtn" data-mode="fan" role="tab" aria-label="Fan view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(16 12 18)"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(-16 12 18)"/></svg>Fan</button>
+      <button class="wk-modebtn" data-mode="index" role="tab" aria-label="Index view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h10M4 12h16M4 18h12" stroke-linecap="round"/></svg>Index</button>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--fg2);letter-spacing:0.04em;text-align:right;line-height:1.7;">
+      <div>Drag · scroll · arrow keys</div>
+      <div style="color:var(--fg3);">Click a side card to focus it</div>
+    </div>
+  </div>
+
+  <!-- ═══ COVERFLOW STAGE ═══ -->
+  <div class="wk-stage" id="wk-stage" style="position:relative;z-index:1;flex:0 0 auto;min-height:0;height:clamp(340px,50vh,500px);perspective:1700px;perspective-origin:50% 46%;touch-action:pan-y;cursor:grab;margin-top:8px;">
+
+    <a class="wcard" data-i="0" href="Core Insights.dc.html">
+      <img src="previews/p-insights.png" alt="WaveLinx CORE Insights"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">Live Case Study</div>
+      <div class="wc-num">01</div>
+    </a>
+    <a class="wcard" data-i="1" href="DALI-2.dc.html">
+      <img src="previews/p-dali.png" alt="WaveLinx DALI-2"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">Industry First</div>
+      <div class="wc-num">02</div>
+    </a>
+    <a class="wcard" data-i="2" href="Enterprise AI.dc.html">
+      <img src="previews/p-ai.png" alt="Application of AI"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">AI · Decision Support</div>
+      <div class="wc-num">03</div>
+    </a>
+    <a class="wcard" data-i="3" href="Partitioning.dc.html">
+      <img src="previews/p-partitioning.png" alt="Dynamic Space Partitioning"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">Industry First</div>
+      <div class="wc-num">04</div>
+    </a>
+    <a class="wcard" data-i="4" href="Smart Lighting.dc.html">
+      <img src="previews/p-smartlighting.png" alt="Smart Lighting App"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">Consumer IoT</div>
+      <div class="wc-num">05</div>
+    </a>
+    <a class="wcard" data-i="5" href="Goals-Driven Fintech.html">
+      <img src="previews/p-fintech.png" alt="Goals-Driven Fintech"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">Fintech · AI</div>
+      <div class="wc-num">06</div>
+    </a>
+    <a class="wcard" data-i="6" href="AEGIS DI.dc.html">
+      <img src="assets/aegis/cop.png" alt="AEGIS Decision Intelligence"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">Decision Intelligence</div>
+      <div class="wc-num">07</div>
+    </a>
+    <a class="wcard" data-i="7" href="CTOC Case Study v2.dc.html">
+      <img src="assets/ctoc/img/fusion.png" alt="CTOC Dashboard System"/>
+      <div class="wc-veil"></div>
+      <div class="wc-badge">Cyber Operations</div>
+      <div class="wc-num">08</div>
+    </a>
+
+  </div>
+
+  <!-- ═══ DETAIL + CONTROLS ═══ -->
+  <div id="wk-carousel-ui" style="position:relative;z-index:3;padding:0 44px 30px;">
+
+    <!-- controls -->
+    <div style="max-width:760px;margin:0 auto 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+      <button class="wk-arrow" onClick="{{ prev }}" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+        <a id="wk-cta" href="Core Insights.dc.html" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:var(--bg);background:var(--ac);text-decoration:none;padding:12px 22px;border-radius:999px;white-space:nowrap;transition:transform 0.2s;" style-hover="transform:translateY(-2px)">View case study <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div id="wk-dots" style="display:flex;align-items:center;gap:9px;">
+          <button class="wk-dot on" data-d="0" aria-label="Go to 1"></button>
+          <button class="wk-dot" data-d="1" aria-label="Go to 2"></button>
+          <button class="wk-dot" data-d="2" aria-label="Go to 3"></button>
+          <button class="wk-dot" data-d="3" aria-label="Go to 4"></button>
+          <button class="wk-dot" data-d="4" aria-label="Go to 5"></button>
+          <button class="wk-dot" data-d="5" aria-label="Go to 6"></button>
+          <button class="wk-dot" data-d="6" aria-label="Go to 7"></button>
+          <button class="wk-dot" data-d="7" aria-label="Go to 8"></button>
+        </div>
+      </div>
+      <button class="wk-arrow" onClick="{{ next }}" aria-label="Next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+
+    <div class="wk-detailwrap" style="position:relative;max-width:760px;margin:0 auto;min-height:188px;">
+
+      <div class="wdetail" data-i="0">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Operational Intelligence</span><span class="wk-chip">IoT</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">WaveLinx CORE Insights</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">A building-analytics platform that turns raw occupancy and energy telemetry into decisions facility teams act on in seconds.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Cooper Lighting · Signify</div>
+      </div>
+
+      <div class="wdetail" data-i="1">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Commissioning</span><span class="wk-chip">Healthcare</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">WaveLinx DALI-2</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">A commissioning workflow that powered North America's largest DALI-2 install, collapsing days of setup into hours.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">North America's largest install</div>
+      </div>
+
+      <div class="wdetail" data-i="2">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Enterprise AI</span><span class="wk-chip">Light ARchitect</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">Application of AI</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">Embedding AI decision-support into a $6M+ shipping product, making complex design choices feel effortless.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">$6M+ shipping product</div>
+      </div>
+
+      <div class="wdetail" data-i="3">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Adaptive Spatial</span><span class="wk-chip">Sensor-driven</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">Dynamic Space Partitioning</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">Sensor-driven zones that reshape a space in real time, letting one room behave like many without manual setup.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Real-time autonomous zones</div>
+      </div>
+
+      <div class="wdetail" data-i="4">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Consumer IoT</span><span class="wk-chip">Mobile</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">Smart Lighting App</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">A consumer mobile app that makes whole-home lighting feel personal, immediate, and genuinely simple to control.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">iOS &amp; Android</div>
+      </div>
+
+      <div class="wdetail" data-i="5">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Fintech</span><span class="wk-chip">Open Banking</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">Goals-Driven Fintech</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">A self-directed finance concept that reframes money around the life you're building, with a fully interactive prototype.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Concept · clickable build</div>
+      </div>
+
+      <div class="wdetail" data-i="6">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Multi-INT Fusion</span><span class="wk-chip">Resilient AI</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">AEGIS Decision Intelligence</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">A resilient decision-intelligence concept fusing multiple data streams into one calm, trustworthy operating picture.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Concept · clickable build</div>
+      </div>
+
+      <div class="wdetail" data-i="7">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Cyber Operations</span><span class="wk-chip">13 Dashboards</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">CTOC Dashboard System</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">An enterprise cyber-operations command center, 13 interlocking dashboards that fuse fragmented threat signals into one coherent, trustworthy operating picture.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Enterprise Cyber · Concept</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ═══ INDEX (editorial type wall) ═══ -->
+  <div id="wk-index" style="display:none;position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
+    <div style="max-width:1200px;margin:0 auto;border-top:1px solid var(--line);">
+      <a class="wk-idx-row" data-i="0" data-img="previews/p-insights.png" href="Core Insights.dc.html"><span class="wk-idx-num">01</span><span class="wk-idx-title">WaveLinx CORE Insights</span><span class="wk-idx-meta">Operational Intelligence · IoT</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="1" data-img="previews/p-dali.png" href="DALI-2.dc.html"><span class="wk-idx-num">02</span><span class="wk-idx-title">WaveLinx DALI-2</span><span class="wk-idx-meta">Commissioning · Healthcare</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="2" data-img="previews/p-ai.png" href="Enterprise AI.dc.html"><span class="wk-idx-num">03</span><span class="wk-idx-title">Application of AI</span><span class="wk-idx-meta">Enterprise AI · Decision Support</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="3" data-img="previews/p-partitioning.png" href="Partitioning.dc.html"><span class="wk-idx-num">04</span><span class="wk-idx-title">Dynamic Space Partitioning</span><span class="wk-idx-meta">Adaptive Spatial · Sensor-driven</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="4" data-img="previews/p-smartlighting.png" href="Smart Lighting.dc.html"><span class="wk-idx-num">05</span><span class="wk-idx-title">Smart Lighting App</span><span class="wk-idx-meta">Consumer IoT · Mobile</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="5" data-img="previews/p-fintech.png" href="Goals-Driven Fintech.html"><span class="wk-idx-num">06</span><span class="wk-idx-title">Goals-Driven Fintech</span><span class="wk-idx-meta">Fintech · Open Banking</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="6" data-img="assets/aegis/cop.png" href="AEGIS DI.dc.html"><span class="wk-idx-num">07</span><span class="wk-idx-title">AEGIS Decision Intelligence</span><span class="wk-idx-meta">Multi-INT Fusion · Resilient AI</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="7" data-img="assets/ctoc/img/fusion.png" href="CTOC Case Study v2.dc.html"><span class="wk-idx-num">08</span><span class="wk-idx-title">CTOC Dashboard System</span><span class="wk-idx-meta">Enterprise Cyber · 13 Dashboards</span><span class="wk-idx-arrow">↗</span></a>
+    </div>
+    <div id="wk-idx-reveal" style="position:fixed;top:0;left:0;width:340px;height:226px;border-radius:12px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 30px 70px rgba(0,0,0,0.5);pointer-events:none;opacity:0;z-index:60;transition:opacity .3s ease;will-change:transform;background:var(--bg3);"><img alt="" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"/></div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dark: (typeof localStorage === 'undefined' || localStorage.getItem('rba-int-dark') !== 'false'), menuOpen: false };
+  _ev = [];
+  active = 0;
+  count = 8;
+  mode = 'flow';
+
+  on(t, e, fn, o) { t.addEventListener(e, fn, o); this._ev.push([t, e, fn, o]); }
+
+  componentDidMount() {
+    this.applyTheme();
+    setTimeout(() => { this.bind(); this.layout(true); }, 60);
+  }
+  componentWillUnmount() {
+    (this._ev || []).forEach(([t, e, fn, o]) => t.removeEventListener(e, fn, o));
+    cancelAnimationFrame(this._raf);
+  }
+
+  applyTheme() {
+    if (typeof document === 'undefined') return;
+    const r = document.getElementById('wk-root');
+    if (r) r.classList.toggle('light', !this.state.dark);
+  }
+
+  cards() { return [...document.querySelectorAll('.wcard')]; }
+
+  layout(immediate) {
+    const cards = this.cards();
+    if (!cards.length) return;
+    const fan = this.mode === 'fan';
+    const w = window.innerWidth || 1200;
+    const cardW = Math.max(280, Math.min(560, w * 0.42));
+    const spacing = w < 860 ? cardW * 0.52 : cardW * 0.6;
+    const step = w < 860 ? 12 : 15;
+    cards.forEach((c, i) => {
+      const off = i - this.active;
+      const abs = Math.abs(off);
+      const sign = off < 0 ? -1 : 1;
+      let tf, op, vis, fl;
+      if (fan) {
+        const ang = off * step;
+        const scale = abs === 0 ? 0.98 : Math.max(0.6, 0.98 - abs * 0.08);
+        vis = abs > 3.5;
+        c.style.transformOrigin = '50% 270%';
+        tf = 'rotate(' + ang + 'deg) scale(' + scale + ')';
+        op = vis ? 0 : (abs === 0 ? 1 : Math.max(0.26, 1 - abs * 0.22));
+        fl = abs === 0 ? 'none' : 'saturate(0.82) brightness(0.78)';
+      } else {
+        const x = off * spacing;
+        const ry = abs === 0 ? 0 : -sign * Math.min(abs, 1.4) * 34;
+        const scale = Math.max(0.6, 1 - abs * 0.16);
+        const z = -abs * 160;
+        vis = abs > 2.5;
+        c.style.transformOrigin = '';
+        tf = 'translateX(' + x + 'px) translateZ(' + z + 'px) rotateY(' + ry + 'deg) scale(' + scale + ')';
+        op = vis ? 0 : (abs === 0 ? 1 : (abs <= 1 ? 0.78 : 0.4));
+        fl = abs === 0 ? 'none' : 'saturate(0.82) brightness(0.82)';
+      }
+      if (immediate) c.style.transition = 'none';
+      c.style.transform = tf;
+      c.style.opacity = String(op);
+      c.style.zIndex = String(100 - Math.round(abs * 10));
+      c.style.pointerEvents = vis ? 'none' : 'auto';
+      c.style.filter = fl;
+      c.setAttribute('data-state', abs === 0 ? 'active' : 'side');
+      if (immediate) { void c.offsetWidth; c.style.transition = ''; }
+    });
+    this.updateMeta();
+  }
+
+  updateMeta() {
+    document.querySelectorAll('.wdetail').forEach((d) => {
+      d.classList.toggle('on', Number(d.getAttribute('data-i')) === this.active);
+    });
+    document.querySelectorAll('.wk-dot').forEach((d) => {
+      d.classList.toggle('on', Number(d.getAttribute('data-d')) === this.active);
+    });
+    const cta = document.getElementById('wk-cta');
+    const links = ['Core Insights.dc.html','DALI-2.dc.html','Enterprise AI.dc.html','Partitioning.dc.html','Smart Lighting.dc.html','Goals-Driven Fintech.html','AEGIS DI.dc.html','CTOC Case Study v2.dc.html'];
+    if (cta && links[this.active]) cta.setAttribute('href', links[this.active]);
+  }
+
+  setMode(m) {
+    if (this.mode === m) return;
+    this.mode = m;
+    document.querySelectorAll('.wk-modebtn').forEach((b) => b.classList.toggle('on', b.getAttribute('data-mode') === m));
+    const stage = document.getElementById('wk-stage');
+    const ui = document.getElementById('wk-carousel-ui');
+    const idx = document.getElementById('wk-index');
+    const isIndex = m === 'index';
+    if (stage) stage.style.display = isIndex ? 'none' : '';
+    if (ui) ui.style.display = isIndex ? 'none' : '';
+    if (idx) idx.style.display = isIndex ? 'block' : 'none';
+    if (!isIndex) this.layout(true);
+  }
+
+  go(i) {
+    this.active = Math.max(0, Math.min(this.count - 1, i));
+    this.layout(false);
+  }
+
+  bind() {
+    const stage = document.getElementById('wk-stage');
+    if (!stage) return;
+
+    // click side cards to focus (suppress navigation unless already active)
+    this.cards().forEach((c) => {
+      this.on(c, 'click', (e) => {
+        const i = Number(c.getAttribute('data-i'));
+        if (i !== this.active) { e.preventDefault(); this.go(i); }
+      });
+    });
+
+    // dots
+    document.querySelectorAll('.wk-dot').forEach((d) => {
+      this.on(d, 'click', () => this.go(Number(d.getAttribute('data-d'))));
+    });
+
+    // keyboard
+    this.on(window, 'keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); this.go(this.active + 1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); this.go(this.active - 1); }
+    });
+
+    // wheel (horizontal or vertical), debounced
+    let wheelLock = false;
+    this.on(stage, 'wheel', (e) => {
+      const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(d) < 8) return;
+      e.preventDefault();
+      if (wheelLock) return;
+      wheelLock = true;
+      this.go(this.active + (d > 0 ? 1 : -1));
+      setTimeout(() => { wheelLock = false; }, 420);
+    }, { passive: false });
+
+    // drag / swipe
+    let down = false, startX = 0, moved = 0;
+    this.on(stage, 'pointerdown', (e) => { down = true; startX = e.clientX; moved = 0; stage.style.cursor = 'grabbing'; });
+    this.on(window, 'pointermove', (e) => { if (!down) return; moved = e.clientX - startX; });
+    this.on(window, 'pointerup', () => {
+      if (!down) return;
+      down = false; stage.style.cursor = 'grab';
+      if (Math.abs(moved) > 60) this.go(this.active + (moved < 0 ? 1 : -1));
+    });
+
+    // mode toggle buttons
+    document.querySelectorAll('.wk-modebtn').forEach((b) => {
+      this.on(b, 'click', () => this.setMode(b.getAttribute('data-mode')));
+    });
+
+    // index mode: cursor-following preview reveal
+    const idx = document.getElementById('wk-index');
+    const reveal = document.getElementById('wk-idx-reveal');
+    const rimg = reveal ? reveal.querySelector('img') : null;
+    if (idx && reveal && rimg) {
+      idx.querySelectorAll('.wk-idx-row').forEach((row) => {
+        this.on(row, 'pointerenter', () => {
+          const src = row.getAttribute('data-img');
+          if (src && rimg.getAttribute('src') !== src) rimg.setAttribute('src', src);
+          reveal.style.opacity = '1';
+        });
+        this.on(row, 'pointerleave', () => { reveal.style.opacity = '0'; });
+      });
+      this.on(idx, 'pointermove', (e) => {
+        const x = Math.min(e.clientX + 26, window.innerWidth - 354);
+        const y = Math.min(Math.max(e.clientY - 113, 12), window.innerHeight - 238);
+        reveal.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      });
+    }
+
+    this.on(window, 'resize', () => this.layout(true));
+  }
+
+  renderVals() {
+    const dark = this.state.dark;
+    return {
+      rootClass: (dark ? '' : 'light') + (this.state.menuOpen ? ' menu-open' : ''),
+      isDark: dark,
+      isLight: !dark,
+      toggleDark: () => { const nd = !this.state.dark; try { localStorage.setItem('rba-int-dark', String(nd)); } catch (e) {} this.setState({ dark: nd }); setTimeout(() => this.applyTheme(), 0); },
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      prev: () => this.go(this.active - 1),
+      next: () => this.go(this.active + 1),
+    };
+  }
+}
+</script>
+</body>
+</html>

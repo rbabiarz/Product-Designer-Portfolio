@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WaveLinx CORE Insights, Case Study · Robert Babiarz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+.ci{--c-bg:#fffcf5;--c-bg2:#faf5e8;--c-soft:#fbf9f4;--c-card:#f3f1ea;--c-surface:#ffffff;--c-line:#edeae1;--c-line2:#c9c4b5;--c-ink:#0a0a0a;--c-ink2:#2a2722;--c-body:#56524a;--c-muted:#6e6a60;--c-muted2:#9a9486;--c-teal:#0d5350;--c-teal2:#4ca88f;--c-teal3:#7dd3c0;--c-b1:rgba(10,8,4,0.07);--c-b2:rgba(10,8,4,0.08);--c-b3:rgba(10,8,4,0.1);--c-b4:rgba(10,8,4,0.14);--c-b5:rgba(10,8,4,0.25);--c-navbg:rgba(255,252,245,0.85);}
+.ci.dark{--c-bg:#0b0f14;--c-bg2:#11161c;--c-soft:#10151b;--c-card:#161c23;--c-surface:#141b24;--c-line:#242c34;--c-line2:#303942;--c-ink:#f3f1ea;--c-ink2:#e7e3da;--c-body:#bdb7aa;--c-muted:#948e82;--c-muted2:#726c60;--c-teal:#5fc2a8;--c-teal2:#6fd0b8;--c-teal3:#8fe0cd;--c-b1:rgba(255,255,255,0.06);--c-b2:rgba(255,255,255,0.085);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(0,0,0,0.55);--c-navbg:rgba(11,15,20,0.82);color-scheme:dark;}
+::selection{background:#0d5350;color:#fffcf5}
+.ci-frame-scroll::-webkit-scrollbar{width:7px;height:7px}
+.ci-frame-scroll::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.18);border-radius:10px}
+.ci-frame-scroll::-webkit-scrollbar-track{background:transparent}
+@keyframes ci-blink{0%,100%{opacity:1}50%{opacity:0.18}}
+@keyframes ci-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ci-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes ci-pulse{0%{opacity:0.55}50%{opacity:1}100%{opacity:0.55}}
+@keyframes ci-marker{from{transform:scaleX(0) rotate(-1deg)}to{transform:scaleX(1) rotate(-1deg)}}
+.ci-hl{position:relative;display:inline-block;}
+.ci-hl > em{position:relative;z-index:1;}
+.ci-hl::before{content:"";position:absolute;left:-0.1em;right:-0.12em;bottom:0.04em;height:0.5em;z-index:0;pointer-events:none;background:linear-gradient(100deg,rgba(76,168,143,0) 1.5%,rgba(76,168,143,0.34) 5%,rgba(76,168,143,0.52) 48%,rgba(76,168,143,0.46) 93%,rgba(76,168,143,0) 99%);border-radius:42% 58% 55% 45% / 64% 40% 60% 36%;transform-origin:left center;transform:scaleX(0) rotate(-1deg);animation:ci-marker 0.62s cubic-bezier(.55,.08,.32,1) 0.95s forwards;}
+@media (max-width:880px){
+  .ci nav > div{padding:0 18px !important}
+  .ci section{padding-left:18px !important;padding-right:18px !important}
+  .ci [style*="grid-template-columns: 1.02fr 0.98fr"],
+  .ci [style*="grid-template-columns: 0.92fr 1.08fr"],
+  .ci [style*="grid-template-columns: 1.5fr 1fr"],
+  .ci [style*="grid-template-columns: 1.55fr 1fr"]{grid-template-columns:1fr !important;gap:30px !important}
+  #s-model [style*="repeat(5, 1fr)"],#s-decisions [style*="repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  #s-usecases [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important;gap:16px !important}
+  .ci-hero-media{display:none !important}
+  .ci-hero-media-m{display:flex !important}
+  .ci section[style*="padding:84px"]{padding-top:60px !important;padding-bottom:64px !important}
+  .ci section[style*="padding:96px"],
+  .ci section[style*="padding:100px"],
+  .ci section[style*="padding:80px"]{padding-top:64px !important;padding-bottom:64px !important}
+}
+@media (max-width:560px){
+  #ci-results [style*="grid-template-columns: repeat(3, 1fr)"]{grid-template-columns:1fr !important}
+  #s-model [style*="repeat(5, 1fr)"],#s-decisions [style*="repeat(3, 1fr)"]{grid-template-columns:1fr !important}
+}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+@media (max-width:600px){
+  nav{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:400 !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet>a{padding:14px 14px !important}
+  .cs-switch[open] summary::after{content:'';position:fixed;inset:0;background:rgba(10,8,4,0.42);z-index:390;animation:cs-fade .36s ease}
+}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+.ci section[id]{scroll-margin-top:78px}
+.cs-toc a .cs-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.cs-toc:hover a .cs-toc-label{opacity:1;transform:none}
+.cs-toc a[data-active] .cs-toc-label{opacity:1;color:#0d5350}
+.cs-toc a[data-active] .cs-toc-dot{background:#0d5350;width:22px}
+@media (max-width:1180px){ .cs-toc{display:none !important} }
+.ci-hero-media-m{display:none}
+.ci-burger{display:none;width:40px;height:40px;border:1px solid rgba(10,8,4,0.14);border-radius:9px;background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.ci-burger span{display:block;width:18px;height:2px;background:#0d5350;border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .ci-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .ci-burger span:nth-child(2){opacity:0}
+.menu-open .ci-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#ci-menu{position:fixed;inset:0;z-index:95;background:#fffcf5;display:flex;flex-direction:column;padding:84px 24px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #ci-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#ci-menu .cim-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6f6b61;margin-bottom:6px}
+#ci-menu .cim-sec{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:26px;font-weight:500;letter-spacing:-0.5px;color:#0a0a0a;text-decoration:none;padding:15px 2px;border-bottom:1px solid rgba(10,8,4,0.08);opacity:0;transform:translateY(18px);transition:opacity .42s ease,transform .42s ease}
+.menu-open #ci-menu .cim-sec{opacity:1;transform:none}
+#ci-menu .cim-sec .cim-n{font-family:'JetBrains Mono',monospace;font-size:12px;color:#6f6b61}
+#ci-menu .cim-switch{display:block;text-decoration:none;padding:13px 14px;border:1px solid rgba(10,8,4,0.12);border-radius:11px;margin-top:10px;opacity:0;transform:translateY(18px);transition:opacity .42s ease,transform .42s ease}
+.menu-open #ci-menu .cim-switch{opacity:1;transform:none}
+.ci-stagger>:nth-child(1){transition-delay:.06s}
+.ci-stagger>:nth-child(2){transition-delay:.11s}
+.ci-stagger>:nth-child(3){transition-delay:.16s}
+.ci-stagger>:nth-child(4){transition-delay:.21s}
+.ci-stagger>:nth-child(5){transition-delay:.26s}
+.ci-stagger>:nth-child(n+6){transition-delay:.31s}
+@media (max-width:600px){ .ci-pill{display:none !important} }
+@media (max-width:880px){ .ci-burger{display:flex} }
+@media (min-width:881px){ #ci-menu{display:none !important} }
+</style>
+<script src="text-motion.js"></script>
+<script src="page-transition.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div class="ci {{ rootClass }} {{ menuClass }}" style="background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:clip;">
+
+  <!-- ════════ NAV ════════ -->
+  <nav style="position:sticky;top:0;z-index:100;background:var(--c-navbg);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1);">
+    <div style="padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="Homepage Interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color 0.15s;" style-hover="color:var(--c-ink)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background 0.2s,border-color 0.2s;" style-hover="background:var(--c-card)">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></sc-if>
+        </button>
+        <details class="cs-switch" style="position:relative;">
+          <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-teal);">CORE Insights</span>
+            <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5" style="transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
+            <a href="Core Insights.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-card);"><div style="font-size:14px;font-weight:600;color:var(--c-teal);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="DALI-2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="Partitioning.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+            <a href="Smart Lighting.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="Enterprise AI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+            <a href="AEGIS DI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-teal);">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+            <a href="Goals-Driven Fintech.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+            <a href="CTOC Case Study v2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
+            <a href="Homepage Interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)">← All work</a>
+          </div>
+        </details>
+        <button class="ci-burger" onClick="{{ toggleMenu }}" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="ci-menu">
+    <div class="cim-lbl">Sections</div>
+    <div class="ci-stagger" style="display:flex;flex-direction:column;">
+      <a class="cim-sec" href="#s-challenge" onClick="{{ closeMenu }}"><span>The Challenge</span><span class="cim-n">01</span></a>
+      <a class="cim-sec" href="#s-model" onClick="{{ closeMenu }}"><span>Mental Model</span><span class="cim-n">02</span></a>
+      <a class="cim-sec" href="#s-console" onClick="{{ closeMenu }}"><span>Live Console</span><span class="cim-n">03</span></a>
+      <a class="cim-sec" href="#s-decisions" onClick="{{ closeMenu }}"><span>Six Decisions</span><span class="cim-n">04</span></a>
+      <a class="cim-sec" href="#s-tiers" onClick="{{ closeMenu }}"><span>One Platform</span><span class="cim-n">05</span></a>
+      <a class="cim-sec" href="#s-shift" onClick="{{ closeMenu }}"><span>The Shift</span><span class="cim-n">06</span></a>
+      <a class="cim-sec" href="#s-usecases" onClick="{{ closeMenu }}"><span>In the Field</span><span class="cim-n">07</span></a>
+      <a class="cim-sec" href="#ci-results" onClick="{{ closeMenu }}"><span>Outcomes</span><span class="cim-n">08</span></a>
+    </div>
+    <div class="cim-lbl" style="margin-top:26px;">Switch case study</div>
+    <div class="ci-stagger" style="display:flex;flex-direction:column;">
+      <a class="cim-switch" href="DALI-2.dc.html" style="background:var(--c-bg2);"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+      <a class="cim-switch" href="Partitioning.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+      <a class="cim-switch" href="Smart Lighting.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+      <a class="cim-switch" href="Enterprise AI.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+      <a class="cim-switch" href="AEGIS DI.dc.html"><div style="font-size:15px;font-weight:600;color:var(--c-teal);">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+      <a class="cim-switch" href="Goals-Driven Fintech.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+      <a class="cim-switch" href="CTOC Case Study v2.dc.html"><div style="font-size:15px;font-weight:600;color:var(--c-teal);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+      <a class="cim-switch" href="Homepage Interactive.dc.html"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">← All work</div></a>
+    </div>
+  </div>
+
+  <!-- ════════ SECTION SIDE-NAV ════════ -->
+  <nav class="cs-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
+    <a href="#s-overview" data-toc="s-overview" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Overview</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-context" data-toc="s-context" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Context</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-challenge" data-toc="s-challenge" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Challenge</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-research" data-toc="s-research" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Research</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-model" data-toc="s-model" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Mental model</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-console" data-toc="s-console" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Live console</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-decisions" data-toc="s-decisions" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Decisions</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-tiers" data-toc="s-tiers" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Three tiers</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-shift" data-toc="s-shift" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Architecture</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-usecases" data-toc="s-usecases" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">In the field</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#ci-results" data-toc="ci-results" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Results</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+  </nav>
+
+  <!-- ════════ 1 · HERO ════════ -->
+  <section style="position:relative;overflow:hidden;padding:84px 40px 96px;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 78% 18%,rgba(13,83,80,0.06) 0%,transparent 62%);pointer-events:none;"></div>
+    <div style="max-width:1240px;margin:0 auto;position:relative;display:grid;grid-template-columns:1.02fr 0.98fr;gap:56px;align-items:center;">
+      <div style="animation:ci-up 0.8s cubic-bezier(0.22,0.61,0.36,1) both;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;">Cooper Lighting · Signify</span>
+          <div style="width:22px;height:1px;background:rgba(10,8,4,0.2);"></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);letter-spacing:0.14em;text-transform:uppercase;">2022, 2023</span>
+        </div>
+        <h1 style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.6vw,68px);font-weight:500;line-height:1.04;letter-spacing:-2.2px;color:var(--c-ink);margin-bottom:24px;">A live mesh of devices,<br/>made <span class="ci-hl"><em style="font-style:italic;font-weight:300;color:var(--c-teal);">legible.</em></span></h1>
+        <p style="font-size:19px;color:var(--c-body);line-height:1.62;max-width:480px;margin-bottom:38px;">WaveLinx CORE Insights turns raw lighting &amp; sensor telemetry into operational intelligence, one platform serving the portfolio analyst, the facilities manager, and the technician on the floor.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:22px 36px;border-top:1px solid var(--c-b3);padding-top:26px;max-width:560px;">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Role</div>
+            <div style="font-size:15px;color:var(--c-ink2);font-weight:500;">Lead Product Designer</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Platform</div>
+            <div style="font-size:15px;color:var(--c-ink2);font-weight:500;">Web · iOS · Android</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Outcome</div>
+            <div style="font-size:15px;color:var(--c-teal);font-weight:600;">↓23% energy · 90% faster reports</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- device collage -->
+      <div class="ci-hero-media" style="position:relative;height:480px;animation:ci-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.12s both;">
+        <!-- desktop browser -->
+        <div style="position:absolute;top:14px;right:0;width:560px;max-width:108%;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:0 40px 80px -28px rgba(20,30,40,0.4),0 8px 24px -12px rgba(20,30,40,0.2);border:1px solid var(--c-b2);transform:perspective(1600px) rotateY(-8deg) rotateX(2deg);">
+          <div style="height:34px;background:var(--c-line);display:flex;align-items:center;padding:0 14px;gap:7px;border-bottom:1px solid var(--c-b1);">
+            <div style="width:10px;height:10px;border-radius:50%;background:#e06c5e;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#e0b94e;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#5bbd7a;"></div>
+            <div style="margin-left:14px;flex:1;height:18px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">insights.cooperlighting.com/floor-5</span>
+            </div>
+          </div>
+          <div class="ci-frame-scroll" style="height:328px;overflow-y:auto;background:var(--c-surface);">
+            <img src="assets/ci/overview.jpg" alt="CORE Insights desktop dashboard" style="width:100%;display:block;"/>
+          </div>
+        </div>
+        <!-- phone -->
+        <div style="position:absolute;bottom:0;left:-6px;width:158px;border-radius:24px;background:#12161d;padding:7px;box-shadow:0 30px 60px -18px rgba(20,30,40,0.5);border:1px solid rgba(255,255,255,0.05);animation:ci-float 6s ease-in-out infinite;">
+          <div style="border-radius:18px;overflow:hidden;background:var(--c-surface);height:300px;position:relative;">
+            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:54px;height:15px;background:#12161d;border-radius:0 0 9px 9px;z-index:2;"></div>
+            <img src="assets/ci/mobile.jpg" alt="CORE Insights mobile" style="width:100%;display:block;"/>
+          </div>
+        </div>
+        <!-- floating live chip -->
+        <div style="position:absolute;top:-6px;left:36px;background:#0b1016;border:1px solid rgba(76,168,143,0.3);border-radius:11px;padding:11px 15px;box-shadow:0 18px 40px -16px rgba(11,16,22,0.7);">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);animation:ci-blink 1.6s infinite;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.1em;">LIVE</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:#e8edf5;line-height:1;">342</div>
+          <div style="font-size:10px;color:#5a6b82;margin-top:3px;">active sensors</div>
+        </div>
+      </div>
+
+      <!-- responsive media (mobile / tablet) -->
+      <div class="ci-hero-media-m" style="align-items:flex-end;gap:16px;animation:ci-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.12s both;">
+        <div style="flex:1;min-width:0;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:0 30px 60px -28px rgba(20,30,40,0.32),0 6px 18px -10px rgba(20,30,40,0.16);border:1px solid var(--c-b2);">
+          <div style="height:32px;background:var(--c-line);display:flex;align-items:center;padding:0 13px;gap:6px;border-bottom:1px solid var(--c-b1);">
+            <div style="width:9px;height:9px;border-radius:50%;background:#e06c5e;"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#e0b94e;"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#5bbd7a;"></div>
+          </div>
+          <div class="ci-frame-scroll" style="height:300px;overflow-y:auto;background:var(--c-surface);"><img src="assets/ci/overview.jpg" alt="CORE Insights desktop dashboard" style="width:100%;display:block;"/></div>
+        </div>
+        <div style="flex:0 0 130px;width:130px;border-radius:22px;background:#12161d;padding:6px;box-shadow:0 20px 40px -18px rgba(20,30,40,0.42);border:1px solid rgba(255,255,255,0.05);">
+          <div style="border-radius:16px;overflow:hidden;background:var(--c-surface);height:246px;position:relative;">
+            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:44px;height:13px;background:#12161d;border-radius:0 0 8px 8px;z-index:2;"></div>
+            <img src="assets/ci/mobile.jpg" alt="CORE Insights mobile" style="width:100%;display:block;"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 01 · PROJECT OVERVIEW ════════ -->
+  <section id="s-overview" style="padding:96px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:840px;margin-bottom:44px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">01 · Project Overview</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">Turning lighting data into space intelligence.</h2>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.7;margin-bottom:16px;">CORE Insights is a space-utilization analytics application built on the WaveLinx CORE connected-lighting platform. It transforms data from occupancy sensors embedded in commercial LED luminaires into intelligence about how building spaces are actually being used.</p>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.7;">As Experience Design Lead I owned the end-to-end UX from initial concept through 12 release cycles, the dashboard, the reporting suite, the floor-map visualization, and the on-premises to cloud migration path. This case study focuses on the navigation and data-comprehension challenge that was keeping facilities managers from extracting value from the platform.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--c-b3);border:1px solid var(--c-b3);border-radius:16px;overflow:hidden;margin-bottom:40px;" data-reveal="1">
+        <div style="background:#0b1016;padding:44px 24px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,4.6vw,60px);font-weight:500;color:#fff;line-height:1;">5</div><div style="font-size:13.5px;color:#5a6b82;margin-top:13px;line-height:1.45;">Hierarchy levels<br/>(Client → Space)</div></div>
+        <div style="background:#0b1016;padding:44px 24px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,4.6vw,60px);font-weight:500;color:#fff;line-height:1;">21<span style="color:var(--c-teal2);">+</span></div><div style="font-size:13.5px;color:#5a6b82;margin-top:13px;line-height:1.45;">Occupancy sensors<br/>per floor (avg)</div></div>
+        <div style="background:#0b1016;padding:44px 24px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,4.6vw,60px);font-weight:500;color:#fff;line-height:1;">∞</div><div style="font-size:13.5px;color:#5a6b82;margin-top:13px;line-height:1.45;">Unlimited spaces<br/>per license</div></div>
+      </div>
+
+      <div data-reveal="1" style="border:1px solid var(--c-b2);border-radius:14px;overflow:hidden;">
+        <sc-for list="{{ specRows }}" as="row" hint-placeholder-count="7">
+          <div style="display:grid;grid-template-columns:0.34fr 0.66fr;border-top:1px solid var(--c-b1);background:{{ row.bg }};">
+            <div style="padding:16px 22px;font-size:14px;font-weight:600;color:var(--c-ink);">{{ row.label }}</div>
+            <div style="padding:16px 22px;font-size:14px;color:var(--c-body);line-height:1.5;">{{ row.value }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 02 · BUSINESS CONTEXT ════════ -->
+  <section id="s-context" style="padding:96px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:840px;margin-bottom:36px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">02 · Business Context</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">Turning an installed base into a data platform.</h2>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.7;margin-bottom:16px;">Commercial real estate was undergoing a fundamental shift in how space was valued. Post-pandemic hybrid work made historical occupancy assumptions unreliable, and facilities teams were being asked to justify space allocation with data they didn't have. Cooper Lighting was sitting on a unique asset: millions of occupancy sensors already installed in commercial buildings as part of code-compliant lighting controls. The data was being collected, it just wasn't surfaced in a way that was useful to the people making space decisions.</p>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.7;">CORE Insights was Cooper's answer. The business case was simple: turn the lighting network into a space-intelligence platform, creating a new revenue stream from an installed base that was already generating the data. Every WaveLinx installation became a potential Insights upsell, no additional hardware required.</p>
+      </div>
+
+      <div data-reveal="1" style="background:var(--c-card);border-left:3px solid var(--c-teal);border-radius:12px;padding:24px 28px;margin-bottom:40px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">The competitive advantage</div>
+        <p style="font-size:16px;color:#2a2826;line-height:1.65;">Dedicated workspace-analytics vendors like VergeSense, Density, and SpaceIQ were gaining traction selling standalone sensor deployments. Cooper's sensors were already in the ceiling. The challenge was making the analytics layer as compelling as the purpose-built competitors, with an interface facilities managers would actually use day-to-day.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--c-b3);border:1px solid var(--c-b3);border-radius:16px;overflow:hidden;" data-reveal="1">
+        <div style="background:#0b1016;padding:40px 20px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.4vw,46px);font-weight:500;color:#fff;line-height:1;">$0</div><div style="font-size:13px;color:#5a6b82;margin-top:12px;line-height:1.45;">Added hardware cost<br/>to customers</div></div>
+        <div style="background:#0b1016;padding:40px 20px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.4vw,46px);font-weight:500;color:#fff;line-height:1;">4<span style="color:var(--c-teal2);">+</span></div><div style="font-size:13px;color:#5a6b82;margin-top:12px;line-height:1.45;">Buildings managed from<br/>a single dashboard</div></div>
+        <div style="background:#0b1016;padding:40px 20px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.4vw,46px);font-weight:500;color:#fff;line-height:1;">310<span style="color:var(--c-teal2);">K</span></div><div style="font-size:13px;color:#5a6b82;margin-top:12px;line-height:1.45;">Square feet tracked in<br/>reference deployment</div></div>
+        <div style="background:#0b1016;padding:40px 20px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.4vw,46px);font-weight:500;color:#fff;line-height:1;">2</div><div style="font-size:13px;color:#5a6b82;margin-top:12px;line-height:1.45;">Deployment models<br/>(on-prem + cloud)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · CHALLENGE ════════ -->
+  <section id="s-challenge" style="padding:96px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:72px;align-items:start;">
+        <div data-reveal="1">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;">03 · The Challenge</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:var(--c-ink);margin-bottom:24px;">40,000+ networked devices.<br/>No way to act on any of it.</h2>
+          <p style="font-size:18px;color:var(--c-body);line-height:1.7;margin-bottom:18px;">Sensors streamed occupancy, energy, and environmental data around the clock. But for the facilities teams who ran these buildings, the signal was buried in monthly PDFs and spreadsheets.</p>
+          <p style="font-size:18px;color:var(--c-body);line-height:1.7;">My job: design the operator's window into that live mesh, and give three very different users exactly the view they needed, without drowning any of them.</p>
+        </div>
+        <div data-reveal="1" style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(230,77,60,0.1);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e64d3c" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+            <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">Every building was a silo</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">No way to compare occupancy, energy, or alerts across a portfolio. Each site lived in its own report.</p></div>
+          </div>
+          <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(212,160,54,0.12);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c08a1e" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">Three users, one interface</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">PRO analysts wanted portfolio analytics. Site managers wanted floor control. Technicians wanted it on a phone.</p></div>
+          </div>
+          <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(13,83,80,0.1);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/></svg></div>
+            <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">No shared taxonomy</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Fixtures, zones, and spaces had no semantic model, so nothing could roll up or drill down cleanly.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- cropped screenshots: the raw surface -->
+      <div style="display:flex;flex-direction:column;gap:24px;margin-top:40px;" data-reveal="1">
+        <div>
+          <div class="ci-frame-scroll" style="border-radius:0;overflow-y:auto;border:1px solid var(--c-b2);box-shadow:var(--shadow-lg);background:#0e151e;height:520px;"><img src="assets/ci/desktop-portfolio.jpg" alt="Dense portfolio dashboard, raw surface" style="width:100%;display:block;" loading="lazy"/></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:9px;">Portfolio view · every metric at once</div>
+        </div>
+        <div>
+          <div style="border-radius:0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:var(--shadow-lg);background:#0e151e;height:230px;"><img src="assets/ci/conference.jpg" alt="Room dashboard, dense data tables" style="width:100%;display:block;" loading="lazy"/></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:9px;">Room view · tables, charts, and status stacked</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 04 · RESEARCH APPROACH ════════ -->
+  <section id="s-research" style="padding:96px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:820px;margin-bottom:42px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">04 · Research Approach</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">The gap between the system model and the user model.</h2>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.7;">The platform modeled every building as a strict device hierarchy. Facilities teams didn't think in device trees, they thought in questions. I ran interviews across five stakeholder groups to map the full spectrum of data-consumption needs, then measured the cost of the most common tasks.</p>
+      </div>
+
+      <div style="margin-bottom:48px;" data-reveal="1">
+        <div style="font-size:18px;font-weight:600;color:var(--c-ink);margin-bottom:16px;">Stakeholder interviews</div>
+        <div style="border:1px solid var(--c-b2);border-radius:14px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:0.3fr 0.7fr;background:#0b1016;">
+            <div style="padding:14px 22px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Stakeholder group</div>
+            <div style="padding:14px 22px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Key insight</div>
+          </div>
+          <sc-for list="{{ stakeholders }}" as="row" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:0.3fr 0.7fr;border-top:1px solid var(--c-b1);background:{{ row.bg }};">
+              <div style="padding:16px 22px;font-size:14px;font-weight:600;color:var(--c-ink);">{{ row.group }}</div>
+              <div style="padding:16px 22px;font-size:14px;color:var(--c-body);line-height:1.55;">{{ row.insight }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div data-reveal="1">
+        <div style="font-size:18px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Task analysis</div>
+        <p style="font-size:15px;color:var(--c-muted);line-height:1.6;margin-bottom:16px;">I mapped the five most common tasks and measured clicks, context switches, and navigation resets.</p>
+        <div style="border:1px solid var(--c-b2);border-radius:14px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:1fr 0.3fr 0.3fr;background:#0b1016;">
+            <div style="padding:14px 22px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Task</div>
+            <div style="padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Clicks</div>
+            <div style="padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Pain level</div>
+          </div>
+          <sc-for list="{{ tasks }}" as="row" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:1fr 0.3fr 0.3fr;border-top:1px solid var(--c-b1);background:{{ row.bg }};">
+              <div style="padding:15px 22px;font-size:14px;color:var(--c-ink2);">{{ row.task }}</div>
+              <div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-body);">{{ row.clicks }}</div>
+              <div style="padding:15px 14px;font-size:13.5px;font-weight:600;color:{{ row.painColor }};">{{ row.pain }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 02 · MENTAL MODEL ════════ -->
+  <section id="s-model" style="padding:96px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:780px;margin-bottom:42px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">05 · Mental Model</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">The system knew everything.<br/>Users only knew where they stood.</h2>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.7;">The platform modeled every building as a strict device hierarchy. Facilities teams didn't think in device trees, they thought in <em style="color:var(--c-teal);font-style:italic;">places</em>. I mapped that system model onto a spatial one, so each level reveals just enough, and the visualization itself changes to match the question being asked.</p>
+      </div>
+
+      <!-- five-level rail -->
+      <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:12px;margin-bottom:24px;" data-reveal="1">
+        <div style="background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:14px;padding:22px 18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;margin-bottom:12px;">LEVEL 01</div>
+          <div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:6px;">Organization</div>
+          <p style="font-size:13px;color:var(--c-muted);line-height:1.5;margin-bottom:14px;">Compare every site at a glance.</p>
+          <svg viewBox="0 0 80 30" width="100%" height="26"><rect x="2" y="12" width="11" height="18" fill="var(--c-teal)"/><rect x="18" y="6" width="11" height="24" fill="var(--c-teal)"/><rect x="34" y="16" width="11" height="14" fill="var(--c-teal)"/><rect x="50" y="3" width="11" height="27" fill="var(--c-teal)"/><rect x="66" y="14" width="11" height="16" fill="var(--c-teal)"/></svg>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.06em;margin-top:8px;">BAR · COMPARISON</div>
+        </div>
+        <div style="background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:14px;padding:22px 18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;margin-bottom:12px;">LEVEL 02</div>
+          <div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:6px;">Location</div>
+          <p style="font-size:13px;color:var(--c-muted);line-height:1.5;margin-bottom:14px;">Rank campuses within a region.</p>
+          <svg viewBox="0 0 80 30" width="100%" height="26"><rect x="2" y="8" width="11" height="22" fill="var(--c-teal2)"/><rect x="18" y="14" width="11" height="16" fill="var(--c-teal2)"/><rect x="34" y="4" width="11" height="26" fill="var(--c-teal2)"/><rect x="50" y="18" width="11" height="12" fill="var(--c-teal2)"/><rect x="66" y="10" width="11" height="20" fill="var(--c-teal2)"/></svg>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.06em;margin-top:8px;">BAR · COMPARISON</div>
+        </div>
+        <div style="background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:14px;padding:22px 18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;margin-bottom:12px;">LEVEL 03</div>
+          <div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:6px;">Building</div>
+          <p style="font-size:13px;color:var(--c-muted);line-height:1.5;margin-bottom:14px;">Break a site into its floors.</p>
+          <svg viewBox="0 0 80 30" width="100%" height="26"><rect x="2" y="2" width="34" height="26" fill="none" stroke="var(--c-teal)" stroke-width="1.5"/><rect x="42" y="2" width="36" height="12" fill="rgba(13,83,80,0.25)"/><rect x="42" y="16" width="36" height="12" fill="rgba(13,83,80,0.5)"/></svg>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.06em;margin-top:8px;">STACK · ROLLUP</div>
+        </div>
+        <div style="background:#0b1016;border:1px solid rgba(13,83,80,0.4);border-radius:14px;padding:22px 18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-teal2);letter-spacing:0.1em;margin-bottom:12px;">LEVEL 04</div>
+          <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:6px;">Floor</div>
+          <p style="font-size:13px;color:#8a9ab5;line-height:1.5;margin-bottom:14px;">Orient in physical space.</p>
+          <svg viewBox="0 0 80 30" width="100%" height="26"><rect x="2" y="2" width="14" height="12" fill="var(--c-teal2)"/><rect x="18" y="2" width="14" height="12" fill="var(--c-teal2)"/><rect x="34" y="2" width="14" height="12" fill="#d4a036"/><rect x="50" y="2" width="14" height="12" fill="#e64d3c"/><rect x="66" y="2" width="12" height="12" fill="#566173"/><rect x="2" y="16" width="14" height="12" fill="var(--c-teal2)"/><rect x="18" y="16" width="14" height="12" fill="var(--c-teal2)"/><rect x="34" y="16" width="14" height="12" fill="#e64d3c"/><rect x="50" y="16" width="14" height="12" fill="#d4a036"/><rect x="66" y="16" width="12" height="12" fill="var(--c-teal2)"/></svg>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.06em;margin-top:8px;">HEAT MAP · SPATIAL</div>
+        </div>
+        <div style="background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:14px;padding:22px 18px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;margin-bottom:12px;">LEVEL 05</div>
+          <div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:6px;">Room</div>
+          <p style="font-size:13px;color:var(--c-muted);line-height:1.5;margin-bottom:14px;">Track one space over time.</p>
+          <svg viewBox="0 0 80 30" width="100%" height="26"><polyline points="2,22 16,12 30,18 44,6 58,16 74,9" fill="none" stroke="var(--c-teal)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.06em;margin-top:8px;">LINE · TRENDS</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px;" data-reveal="1">
+        <span style="font-size:13px;color:var(--c-body);padding:9px 15px;background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:100px;"><strong style="color:var(--c-ink);">High level</strong> → bar charts for comparison</span>
+        <span style="font-size:13px;color:var(--c-body);padding:9px 15px;background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:100px;"><strong style="color:var(--c-ink);">Floor level</strong> → heat map for spatial orientation</span>
+        <span style="font-size:13px;color:var(--c-body);padding:9px 15px;background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:100px;"><strong style="color:var(--c-ink);">Room level</strong> → line charts for trends over time</span>
+      </div>
+
+      <!-- the model, made real -->
+      <div style="margin-top:46px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;">The model, in the product</div>
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;">
+          <div>
+            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
+              <div style="height:26px;background:#ece8e0;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b2);"><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span></div>
+              <div class="ci-frame-scroll" style="height:440px;overflow-y:auto;"><img src="assets/ci/overview.jpg" alt="Floor-level heat map, Occupancy PRO" style="width:100%;display:block;" loading="lazy"/></div>
+            </div>
+            <div style="padding:0 2px;margin-top:8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Floor level · heat map</div><p style="font-size:13px;color:var(--c-muted);line-height:1.55;">Spatial orientation, color encodes utilization across the plan.</p></div>
+          </div>
+          <div>
+            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
+              <div style="height:26px;background:#ece8e0;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b2);"><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span></div>
+              <div class="ci-frame-scroll" style="height:440px;overflow-y:auto;"><img src="assets/ci/conference.jpg" alt="Room-level dashboard, Conference Rooms" style="width:100%;display:block;" loading="lazy"/></div>
+            </div>
+            <div style="padding:0 2px;margin-top:8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Room level · trends</div><p style="font-size:13px;color:var(--c-muted);line-height:1.55;">One space over time, live status, area graph, and capacity.</p></div>
+          </div>
+          <div>
+            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
+              <div style="height:26px;background:#ece8e0;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b2);"><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span></div>
+              <div class="ci-frame-scroll" style="height:440px;overflow-y:auto;"><img src="assets/ci/hot-desking.jpg" alt="Hot desking floor view" style="width:100%;display:block;" loading="lazy"/></div>
+            </div>
+            <div style="padding:0 2px;margin-top:8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Desk level · availability</div><p style="font-size:13px;color:var(--c-muted);line-height:1.55;">Individual desks, who's where, and what's free right now.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 3 · LIVE CONSOLE (floor plan + live chart) ════════ -->
+  <section id="s-console" style="padding:80px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="margin-bottom:30px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">06 · The Solution, Live Console</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(26px,3.2vw,42px);font-weight:500;letter-spacing:-1.2px;line-height:1.08;color:#fff;">The floor, as a living map.</h2>
+          <p style="font-size:15px;color:#8a9ab5;max-width:360px;line-height:1.55;">A spatial model replaced the spreadsheet. <strong style="color:#cdd6e4;font-weight:600;">Click any space</strong> to inspect live occupancy, status, and trend.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:stretch;" data-reveal="1">
+        <!-- floor plan -->
+        <div style="position:relative;background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:22px;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#e8edf5;">Tower A · Floor 5</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;margin-top:2px;">12 spaces · {{ sensorTotal }} sensors online</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(76,168,143,0.08);border:1px solid rgba(76,168,143,0.2);border-radius:100px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-teal2);animation:ci-blink 2s infinite;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.08em;">LIVE</span></div>
+          </div>
+          <div style="position:relative;width:100%;height:430px;background:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);background-size:32px 32px;border-radius:10px;">
+            <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="12">
+              <div onClick="{{ r.onClick }}" title="{{ r.name }}" style="position:absolute;left:{{ r.x }};top:{{ r.y }};width:{{ r.w }};height:{{ r.h }};background:{{ r.fill }};border:1px solid {{ r.border }};border-radius:7px;cursor:pointer;padding:7px 9px;display:flex;flex-direction:column;justify-content:space-between;transition:filter 0.15s,transform 0.15s;box-shadow:{{ r.ring }};transform:{{ r.lift }};overflow:hidden;" style-hover="filter:brightness(1.32)">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.04em;text-transform:uppercase;color:{{ r.label }};line-height:1.2;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">{{ r.name }}</div>
+                <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:4px;">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;color:{{ r.value }};line-height:1;">{{ r.occLabel }}</span>
+                  <div style="width:6px;height:6px;border-radius:50%;background:{{ r.dot }};flex-shrink:0;margin-bottom:2px;"></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(122,138,160,0.45);"></div><span style="font-size:10px;color:#5a6b82;font-family:'JetBrains Mono',monospace;">Vacant</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(76,168,143,0.7);"></div><span style="font-size:10px;color:#5a6b82;font-family:'JetBrains Mono',monospace;">Light</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(54,179,168,0.75);"></div><span style="font-size:10px;color:#5a6b82;font-family:'JetBrains Mono',monospace;">Moderate</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(212,160,54,0.8);"></div><span style="font-size:10px;color:#5a6b82;font-family:'JetBrains Mono',monospace;">Busy</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:9px;height:9px;border-radius:2px;background:rgba(230,77,60,0.8);"></div><span style="font-size:10px;color:#5a6b82;font-family:'JetBrains Mono',monospace;">At capacity</span></div>
+          </div>
+        </div>
+
+        <!-- detail / summary panel -->
+        <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px;display:flex;flex-direction:column;">
+          <sc-if value="{{ hasRoom }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;height:100%;">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;">
+                <div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">{{ selType }}</div>
+                  <div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:#fff;">{{ selName }}</div>
+                </div>
+                <button onClick="{{ deselect }}" style="width:28px;height:28px;border-radius:7px;border:1px solid rgba(255,255,255,0.1);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#5a6b82;flex-shrink:0;" style-hover="background:rgba(255,255,255,0.06)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+              </div>
+              <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:18px 20px;margin-bottom:12px;display:flex;align-items:flex-end;justify-content:space-between;">
+                <div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">Occupancy</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:42px;font-weight:500;color:{{ selValue }};line-height:0.9;">{{ selOcc }}</div>
+                </div>
+                <span style="font-size:11px;padding:5px 11px;border-radius:100px;background:{{ selStatusBg }};color:{{ selStatusFg }};font-weight:600;">{{ selStatus }}</span>
+              </div>
+              <!-- sparkline -->
+              <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:14px 16px;margin-bottom:12px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Last 12 hrs</div>
+                <svg viewBox="0 0 220 52" width="100%" height="46" preserveAspectRatio="none" style="overflow:visible;">
+                  <path d="{{ sparkArea }}" fill="{{ selSparkFill }}"></path>
+                  <path d="{{ sparkLine }}" fill="none" stroke="{{ selValue }}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.04);border-radius:9px;padding:12px 14px;"><div style="font-size:10px;color:#4a5a72;margin-bottom:4px;">Capacity</div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#e8edf5;">{{ selCap }}</div></div>
+                <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.04);border-radius:9px;padding:12px 14px;"><div style="font-size:10px;color:#4a5a72;margin-bottom:4px;">Sensors</div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#e8edf5;">{{ selSensors }}</div></div>
+                <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.04);border-radius:9px;padding:12px 14px;"><div style="font-size:10px;color:#4a5a72;margin-bottom:4px;">Temp</div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#e8edf5;">{{ selTemp }}</div></div>
+                <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.04);border-radius:9px;padding:12px 14px;"><div style="font-size:10px;color:#4a5a72;margin-bottom:4px;">Updated</div><div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--c-teal2);">live</div></div>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noRoom }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;height:100%;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.1em;text-transform:uppercase;">Floor occupancy · live feed</div>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:44px;font-weight:500;color:#fff;line-height:0.9;">{{ liveNow }}<span style="font-size:24px;color:var(--c-teal2);">%</span></div>
+                <div style="font-size:12px;color:var(--c-teal2);font-family:'JetBrains Mono',monospace;">▲ peak {{ livePeak }}%</div>
+              </div>
+              <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:14px;margin-bottom:14px;">
+                <svg viewBox="0 0 380 130" width="100%" height="120" preserveAspectRatio="none" style="overflow:visible;animation:ci-pulse 2.5s ease-in-out infinite;">
+                  <defs><linearGradient id="ciLive" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--c-teal2)" stop-opacity="0.3"></stop><stop offset="100%" stop-color="var(--c-teal2)" stop-opacity="0"></stop></linearGradient></defs>
+                  <line x1="0" y1="40" x2="380" y2="40" stroke="rgba(255,255,255,0.04)" stroke-width="1"></line>
+                  <line x1="0" y1="80" x2="380" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"></line>
+                  <path d="{{ liveArea }}" fill="url(#ciLive)"></path>
+                  <path d="{{ liveLine }}" fill="none" stroke="var(--c-teal2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#0b1016;border:1px solid rgba(255,255,255,0.04);border-radius:9px;"><span style="font-size:13px;color:#8a9ab5;">Avg occupancy</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#e8edf5;">{{ liveAvg }}%</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#0b1016;border:1px solid rgba(255,255,255,0.04);border-radius:9px;"><span style="font-size:13px;color:#8a9ab5;">Active alerts</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#d4a036;">2</span></div>
+                <div style="text-align:center;font-size:12px;color:#4a5a72;padding-top:6px;">Select a space on the map to drill in →</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 04 · SIX DECISIONS ════════ -->
+  <section id="s-decisions" style="padding:96px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:760px;margin-bottom:40px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">07 · Design Decisions</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);">Six decisions that<br/>reshaped the experience.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:14px;" data-reveal="1">
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;padding:26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-teal);margin-bottom:12px;">01</div>
+          <div style="font-size:17px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Progressive disclosure</div>
+          <p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Org → Location → Building → Floor → Room. Each level reveals just enough detail, keeping cognitive load manageable at the top.</p>
+        </div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;padding:26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-teal);margin-bottom:12px;">02</div>
+          <div style="font-size:17px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Visualization adapts to context</div>
+          <p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Bar charts to compare, a heat map to orient in space, line charts to read trends. The chart matches the question.</p>
+        </div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;padding:26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-teal);margin-bottom:12px;">03</div>
+          <div style="font-size:17px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Environment, in context</div>
+          <p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Temperature and humidity layered onto the floor plan on hover, answering "what's happening in that room right now?" without leaving the view.</p>
+        </div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;padding:26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-teal);margin-bottom:12px;">04</div>
+          <div style="font-size:17px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Real-time vs. historical</div>
+          <p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Historical asks "how much was it used?" Real-time asks the simpler "is this room free <em style="font-style:italic;">right now</em>?" Each view is shaped to its question.</p>
+        </div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;padding:26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-teal);margin-bottom:12px;">05</div>
+          <div style="font-size:17px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">Spatial-first at the floor</div>
+          <p style="font-size:14px;color:var(--c-muted);line-height:1.6;">At floor level a heat map replaces the bar chart, spatial context becomes more valuable than comparative data.</p>
+        </div>
+        <div style="background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;padding:26px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-teal);margin-bottom:12px;">06</div>
+          <div style="font-size:17px;font-weight:600;color:var(--c-ink);margin-bottom:8px;">One-click answers</div>
+          <p style="font-size:14px;color:var(--c-muted);line-height:1.6;">KPI cards surface "which spaces are empty" and "most popular space" up front, answers that used to take seven clicks now take one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · TIER SWITCHER ════════ -->
+  <section id="s-tiers" style="padding:96px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="margin-bottom:36px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">08 · One Platform, Three Operators</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:18px;">
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);">The same data, shaped<br/>to each role's job.</h2>
+          <div style="display:flex;gap:4px;background:var(--c-card);border:1px solid var(--c-b2);border-radius:11px;padding:4px;">
+            <button onClick="{{ tabPro }}" style="padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;background:{{ proBg }};color:{{ proFg }};transition:all 0.2s;">PRO · Portfolio</button>
+            <button onClick="{{ tabSme }}" style="padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;background:{{ smeBg }};color:{{ smeFg }};transition:all 0.2s;">Site · Floor</button>
+            <button onClick="{{ tabMob }}" style="padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;background:{{ mobBg }};color:{{ mobFg }};transition:all 0.2s;">Technician · Mobile</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:center;background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:20px;padding:40px;">
+        <!-- device frame -->
+        <div style="display:flex;justify-content:center;align-items:center;min-height:440px;">
+          <!-- desktop tiers -->
+          <sc-if value="{{ tierIsDesktop }}" hint-placeholder-val="{{ true }}">
+            <div style="width:100%;max-width:620px;border-radius:12px;overflow:hidden;background:var(--c-surface);box-shadow:0 30px 64px -28px rgba(20,30,40,0.32),0 6px 18px -10px rgba(20,30,40,0.16);border:1px solid var(--c-b2);">
+              <div style="height:36px;background:var(--c-line);display:flex;align-items:center;padding:0 14px;gap:7px;border-bottom:1px solid var(--c-b1);">
+                <div style="width:10px;height:10px;border-radius:50%;background:#e06c5e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#e0b94e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#5bbd7a;"></div>
+                <div style="margin-left:14px;flex:1;height:19px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">{{ tierUrl }}</span></div>
+              </div>
+              <div class="ci-frame-scroll" style="height:432px;overflow-y:auto;background:var(--c-surface);">
+                <img src="{{ tierImg }}" alt="CORE Insights dashboard" style="width:100%;display:block;"/>
+              </div>
+            </div>
+          </sc-if>
+          <!-- mobile tier -->
+          <sc-if value="{{ tierIsMobile }}" hint-placeholder-val="{{ false }}">
+            <div style="width:262px;border-radius:34px;background:#12161d;padding:9px;box-shadow:0 30px 64px -24px rgba(20,30,40,0.4);border:1px solid rgba(255,255,255,0.06);">
+              <div style="border-radius:26px;overflow:hidden;background:var(--c-surface);height:480px;position:relative;">
+                <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:88px;height:22px;background:#12161d;border-radius:0 0 14px 14px;z-index:3;"></div>
+                <div class="ci-frame-scroll" style="height:100%;overflow-y:auto;"><img src="assets/ci/mobile.jpg" alt="CORE Insights mobile" style="width:100%;display:block;"/></div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- rationale -->
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;background:rgba(13,83,80,0.08);border:1px solid rgba(13,83,80,0.16);border-radius:100px;margin-bottom:18px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal);"></div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-teal);letter-spacing:0.08em;text-transform:uppercase;">{{ tierTag }}</span>
+          </div>
+          <h3 style="font-family:'Inter',sans-serif;font-size:26px;font-weight:500;letter-spacing:-0.7px;line-height:1.12;color:var(--c-ink);margin-bottom:14px;">{{ tierTitle }}</h3>
+          <p style="font-size:16px;color:var(--c-body);line-height:1.66;margin-bottom:26px;">{{ tierBody }}</p>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <sc-for list="{{ tierPoints }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;gap:11px;align-items:flex-start;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg>
+                <span style="font-size:15px;color:var(--c-ink2);line-height:1.5;">{{ p }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 09 · INFORMATION ARCHITECTURE ════════ -->
+  <section id="s-shift" style="padding:96px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:840px;margin-bottom:42px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">09 · Information Architecture</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:var(--c-ink);margin-bottom:18px;">Five levels, each with purpose-built data.</h2>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.7;">Rather than force one layout onto every scale, each level of the hierarchy surfaces the indicators, visualizations, and reports that fit the decision being made there, from a portfolio bar chart down to a single room's trend line.</p>
+      </div>
+      <div data-reveal="1" style="border:1px solid var(--c-b2);border-radius:14px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:0.62fr 1.3fr 1.3fr 1.1fr;background:#0b1016;">
+          <div style="padding:14px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Level</div>
+          <div style="padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Key indicators</div>
+          <div style="padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Visualizations</div>
+          <div style="padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd0c4;letter-spacing:0.08em;text-transform:uppercase;">Reports</div>
+        </div>
+        <sc-for list="{{ iaLevels }}" as="row" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:0.62fr 1.3fr 1.3fr 1.1fr;border-top:1px solid var(--c-b1);background:{{ row.bg }};">
+            <div style="padding:16px 20px;font-size:14px;font-weight:600;color:var(--c-ink);">{{ row.level }}</div>
+            <div style="padding:16px 16px;font-size:13.5px;color:var(--c-body);line-height:1.5;">{{ row.indicators }}</div>
+            <div style="padding:16px 16px;font-size:13.5px;color:var(--c-body);line-height:1.5;">{{ row.viz }}</div>
+            <div style="padding:16px 16px;font-size:13.5px;color:var(--c-body);line-height:1.5;">{{ row.reports }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 07 · IN THE FIELD ════════ -->
+  <section id="s-usecases" style="padding:96px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="max-width:780px;margin-bottom:40px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">10 · In the Field</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:#fff;">Built for how the<br/>floor actually works.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" data-reveal="1">
+        <!-- hot desking -->
+        <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px;">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;">
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(76,168,143,0.12);display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal2)" stroke-width="1.8"><rect x="3" y="10" width="18" height="5" rx="1"/><path d="M5 15v4M19 15v4M7 10V7h10v3"/></svg></div>
+            <div style="font-size:18px;font-weight:600;color:#fff;">Hot Desking</div>
+          </div>
+          <p style="font-size:15px;color:#8a9ab5;line-height:1.62;margin-bottom:18px;">One screen, two users at once: an employee finding a free desk <em style="font-style:italic;color:#cdd6e4;">right now</em>, and a facilities manager reading utilization patterns to optimize the floor.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);flex-shrink:0;margin-top:7px;"></div><span style="font-size:14px;color:#aab6c9;line-height:1.5;">Furniture-level dots, occupied vs. free at a glance</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);flex-shrink:0;margin-top:7px;"></div><span style="font-size:14px;color:#aab6c9;line-height:1.5;">Spatial clusters help people navigate, "free desks top-right"</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);flex-shrink:0;margin-top:7px;"></div><span style="font-size:14px;color:#aab6c9;line-height:1.5;">A busiest-time heat map for planning when to come in</span></div>
+          </div>
+          <!-- mini busiest-time heat strip -->
+          <div style="margin-top:20px;display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">
+            <div style="height:14px;border-radius:2px;background:rgba(76,168,143,0.25);"></div><div style="height:14px;border-radius:2px;background:rgba(76,168,143,0.55);"></div><div style="height:14px;border-radius:2px;background:rgba(54,179,168,0.8);"></div><div style="height:14px;border-radius:2px;background:rgba(212,160,54,0.85);"></div><div style="height:14px;border-radius:2px;background:rgba(230,77,60,0.85);"></div><div style="height:14px;border-radius:2px;background:rgba(76,168,143,0.4);"></div><div style="height:14px;border-radius:2px;background:rgba(76,168,143,0.2);"></div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.08em;margin-top:7px;">MON, SUN · TYPICAL OCCUPANCY</div>
+        </div>
+        <!-- conference room -->
+        <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px;">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;">
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(76,168,143,0.12);display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal2)" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14M3 10h5M3 14h5"/></svg></div>
+            <div style="font-size:18px;font-weight:600;color:#fff;">Conference Rooms</div>
+          </div>
+          <p style="font-size:15px;color:#8a9ab5;line-height:1.62;margin-bottom:18px;">Managers watch utilization live, review it over time, and manage future bookings, with the most- and least-used rooms ranked so under-booked space is obvious.</p>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Space popularity · top 5</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a72;width:14px;">1</span><span style="font-size:13px;color:#cdd6e4;flex:1;">Conference Room 1</span><div style="width:90px;height:6px;border-radius:4px;background:#0b1016;overflow:hidden;"><div style="width:99%;height:100%;background:var(--c-teal2);"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal3);width:32px;text-align:right;">99%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a72;width:14px;">2</span><span style="font-size:13px;color:#cdd6e4;flex:1;">Conference Room 2</span><div style="width:90px;height:6px;border-radius:4px;background:#0b1016;overflow:hidden;"><div style="width:95%;height:100%;background:var(--c-teal2);"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal3);width:32px;text-align:right;">95%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a72;width:14px;">3</span><span style="font-size:13px;color:#cdd6e4;flex:1;">Conference Room 3</span><div style="width:90px;height:6px;border-radius:4px;background:#0b1016;overflow:hidden;"><div style="width:87%;height:100%;background:var(--c-teal2);"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal3);width:32px;text-align:right;">87%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a72;width:14px;">4</span><span style="font-size:13px;color:#cdd6e4;flex:1;">Conference Room 4</span><div style="width:90px;height:6px;border-radius:4px;background:#0b1016;overflow:hidden;"><div style="width:68%;height:100%;background:#d4a036;"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#e0bd6e;width:32px;text-align:right;">68%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a72;width:14px;">5</span><span style="font-size:13px;color:#cdd6e4;flex:1;">Conference Room 5</span><div style="width:90px;height:6px;border-radius:4px;background:#0b1016;overflow:hidden;"><div style="width:67%;height:100%;background:#d4a036;"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#e0bd6e;width:32px;text-align:right;">67%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- real screens gallery -->
+      <div style="margin-top:48px;" data-reveal="1">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.12em;text-transform:uppercase;">Shipped to the field, the real screens</div>
+          <div style="flex:1;height:1px;background:rgba(255,255,255,0.1);"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
+              <div style="height:26px;background:#161d27;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+              <div style="height:300px;overflow:hidden;"><img src="assets/ci/hot-desking.jpg" alt="Hot Desking dashboard, per-desk availability" style="width:100%;display:block;"/></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Hot Desking</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Per-desk vacancy on the floor plan, with a busiest-time heatmap for planning arrivals.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
+              <div style="height:26px;background:#161d27;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+              <div class="ci-frame-scroll" style="height:300px;overflow-y:auto;"><img src="assets/ci/conference.jpg" alt="Conference Room dashboard, live room status" style="width:100%;display:block;"/></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Conference Room</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Live room status, people, capacity, temperature and humidity, read in spatial context.</div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
+              <div style="height:26px;background:#161d27;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
+              <div style="height:300px;overflow:hidden;"><img src="assets/ci/overview.jpg" alt="Occupancy PRO dashboard, floor heatmap and utilization" style="width:100%;display:block;"/></div>
+            </div>
+            <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Occupancy PRO</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">The analyst view, floor heatmap, utilization and capacity rolled up on one screen.</div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 6 · RESULTS ════════ -->
+  <section id="ci-results" style="padding:100px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:60px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">11 · Outcomes</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:#fff;">From reactive to proactive,<br/>measured in the field.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;margin-bottom:36px;">
+        <div style="background:#0b1016;padding:52px 28px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(48px,5vw,72px);font-weight:500;color:#fff;line-height:1;">{{ c1 }}<span style="color:var(--c-teal2);">%</span></div><div style="font-size:14px;color:#5a6b82;margin-top:14px;line-height:1.45;">Fewer clicks to<br/>root cause</div></div>
+        <div style="background:#0b1016;padding:52px 28px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(48px,5vw,72px);font-weight:500;color:#fff;line-height:1;">{{ c2 }}<span style="color:var(--c-teal2);">%</span></div><div style="font-size:14px;color:#5a6b82;margin-top:14px;line-height:1.45;">Faster report<br/>generation</div></div>
+        <div style="background:#0b1016;padding:52px 28px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(48px,5vw,72px);font-weight:500;color:#fff;line-height:1;">{{ c3 }}<span style="color:var(--c-teal2);">%</span></div><div style="font-size:14px;color:#5a6b82;margin-top:14px;line-height:1.45;">Average energy<br/>reduction</div></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:56px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a9ab5;padding:8px 16px;background:#0e151e;border:1px solid rgba(255,255,255,0.06);border-radius:100px;">40,000+ fixtures modelled</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a9ab5;padding:8px 16px;background:#0e151e;border:1px solid rgba(255,255,255,0.06);border-radius:100px;">3 user tiers · 1 system</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a9ab5;padding:8px 16px;background:#0e151e;border:1px solid rgba(255,255,255,0.06);border-radius:100px;">Web · iOS · Android</span>
+      </div>
+      <div style="max-width:920px;margin:0 auto 40px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;text-align:center;">Usability · before → after</div>
+        <div style="border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 0.7fr;background:#0e151e;">
+            <div style="padding:13px 18px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a96dc;letter-spacing:0.08em;text-transform:uppercase;">Metric</div>
+            <div style="padding:13px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a96dc;letter-spacing:0.08em;text-transform:uppercase;">Before</div>
+            <div style="padding:13px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a96dc;letter-spacing:0.08em;text-transform:uppercase;">After</div>
+            <div style="padding:13px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a96dc;letter-spacing:0.08em;text-transform:uppercase;text-align:right;">Impact</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 0.7fr;border-top:1px solid rgba(255,255,255,0.06);"><div style="padding:15px 18px;font-size:14px;color:#cdd6e4;">Clicks to answer "Which spaces are empty?"</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8a9ab5;">7–9 clicks</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#e8edf5;">1 click</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--c-teal3);text-align:right;">−87%</div></div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 0.7fr;border-top:1px solid rgba(255,255,255,0.06);"><div style="padding:15px 18px;font-size:14px;color:#cdd6e4;">Users drilling past the top-level view</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8a9ab5;">~20%</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#e8edf5;">~55%</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--c-teal3);text-align:right;">+175%</div></div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 0.7fr;border-top:1px solid rgba(255,255,255,0.06);"><div style="padding:15px 18px;font-size:14px;color:#cdd6e4;">Time to generate an executive PDF report</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8a9ab5;">5–7 min</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#e8edf5;">&lt;30 sec</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--c-teal3);text-align:right;">−93%</div></div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 0.7fr;border-top:1px solid rgba(255,255,255,0.06);"><div style="padding:15px 18px;font-size:14px;color:#cdd6e4;">Navigation reset rate (back to top)</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8a9ab5;">~65%</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#e8edf5;">~25%</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--c-teal3);text-align:right;">−62%</div></div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 0.7fr;border-top:1px solid rgba(255,255,255,0.06);"><div style="padding:15px 18px;font-size:14px;color:#cdd6e4;">Floor map → space detail</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8a9ab5;">4–6 clicks</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#e8edf5;">1 tap</div><div style="padding:15px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--c-teal3);text-align:right;">−80%</div></div>
+        </div>
+      </div>
+
+      <div style="max-width:680px;margin:0 auto;text-align:center;" data-reveal="1">
+        <p style="font-family:'Inter',sans-serif;font-size:clamp(20px,2.2vw,28px);font-weight:300;font-style:italic;color:#cdd6e4;line-height:1.5;letter-spacing:-0.4px;">"CORE Insights changed how our facilities teams operate. They went from monthly reports to a live picture they can act on in seconds."</p>
+        <div style="margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a5a72;letter-spacing:0.06em;">VP of Product · Cooper Lighting Solutions</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer style="padding:42px 40px;background:var(--c-bg);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Next case study</div>
+        <a href="DALI-2.dc.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-teal)">DALI-2 Lighting System <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { selected: null, tier: 'pro', sliderX: 50, dragging: false, shift: 'after', menu: false, live: [], c1: 0, c2: 0, c3: 0, countersDone: false, dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true') };
+  _raf = {}; _iv = {}; _obs = [];
+
+  componentDidMount() {
+    // seed live occupancy feed
+    const arr = [];
+    let v = 58;
+    for (let i = 0; i < 30; i++) { v += (Math.random() - 0.48) * 9; v = Math.max(28, Math.min(94, v)); arr.push(v); }
+    this.setState({ live: arr });
+    this._iv.live = setInterval(() => this.tickLive(), 2400);
+    setTimeout(() => { this.initReveal(); this.initCounters(); this.initToc(); }, 120);
+    this.initScrollProgress();
+  }
+  initScrollProgress() {
+    if (document.getElementById('scroll-prog-bar')) return;
+    const ac = '#0d5350', ac2 = '#2aa198';
+    const bar = document.createElement('div'); bar.id = 'scroll-prog-bar';
+    bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');transition:width 0.08s linear;pointer-events:none;';
+    const pill = document.createElement('div'); pill.id = 'scroll-prog-pill';
+    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
+    document.body.appendChild(bar); document.body.appendChild(pill);
+    const num = document.getElementById('scroll-prog-num');
+    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; pill.style.opacity = st > 60 ? '1' : '0'; };
+    update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
+  }
+  componentWillUnmount() {
+    Object.values(this._iv).forEach(clearInterval);
+    Object.values(this._raf).forEach(cancelAnimationFrame);
+    this._obs.forEach(o => o.disconnect());
+  }
+
+  tickLive() {
+    const a = this.state.live.slice();
+    let v = (a.length ? a[a.length - 1] : 58) + (Math.random() - 0.46) * 11;
+    v = Math.max(28, Math.min(94, v));
+    a.push(v); a.shift();
+    this.setState({ live: a });
+  }
+
+  baseRooms() {
+    return [
+      { id: 'open', name: 'Open Office', type: 'Workspace · Desks', occ: 72, cap: 120, sensors: 9, temp: '21.4°C', x: '3%', y: '6%', w: '33%', h: '42%' },
+      { id: 'cfa', name: 'Conference A', type: 'Conference', occ: 88, cap: 14, sensors: 3, temp: '22.5°C', x: '38%', y: '6%', w: '17%', h: '19%' },
+      { id: 'cfb', name: 'Conference B', type: 'Conference', occ: 32, cap: 10, sensors: 3, temp: '21.0°C', x: '38%', y: '27%', w: '17%', h: '21%' },
+      { id: 'exec', name: 'Executive Suite', type: 'Office', occ: 40, cap: 20, sensors: 7, temp: '22.1°C', x: '57%', y: '6%', w: '40%', h: '20%' },
+      { id: 'col1', name: 'Collaboration 1', type: 'Collaboration', occ: 95, cap: 8, sensors: 4, temp: '23.0°C', x: '57%', y: '28%', w: '18.5%', h: '20%' },
+      { id: 'col2', name: 'Collaboration 2', type: 'Collaboration', occ: 58, cap: 8, sensors: 4, temp: '21.8°C', x: '78.5%', y: '28%', w: '18.5%', h: '20%' },
+      { id: 'lobby', name: 'Lobby & Reception', type: 'Lobby', occ: 92, cap: 60, sensors: 4, temp: '20.2°C', x: '3%', y: '51%', w: '21%', h: '43%' },
+      { id: 'desk', name: 'Hot Desk Pod', type: 'Workspace · Hot desk', occ: 55, cap: 40, sensors: 9, temp: '21.6°C', x: '26%', y: '51%', w: '29%', h: '24%' },
+      { id: 'cafe', name: 'Café Lounge', type: 'Amenity', occ: 78, cap: 50, sensors: 5, temp: '22.3°C', x: '26%', y: '77%', w: '29%', h: '17%' },
+      { id: 'well', name: 'Wellness Room', type: 'Amenity', occ: 0, cap: 6, sensors: 2, temp: '20.0°C', x: '57%', y: '51%', w: '18.5%', h: '20%' },
+      { id: 'srv', name: 'Server Room', type: 'Infrastructure', occ: 0, cap: 0, sensors: 6, temp: '18.5°C', infra: true, x: '78.5%', y: '51%', w: '18.5%', h: '20%' },
+      { id: 'hall', name: 'Town Hall', type: 'Theatre', occ: 30, cap: 100, sensors: 8, temp: '21.2°C', x: '57%', y: '73%', w: '40%', h: '21%' },
+    ];
+  }
+
+  occStyle(occ, infra) {
+    if (infra) return { fill: 'rgba(122,138,160,0.14)', border: 'rgba(122,138,160,0.4)', dot: '#7a8aa0', label: '#6b7a90', value: '#9aa8bd' };
+    if (occ === 0) return { fill: 'rgba(122,138,160,0.12)', border: 'rgba(122,138,160,0.35)', dot: '#7a8aa0', label: '#5a6b82', value: '#8a9ab5' };
+    if (occ <= 40) return { fill: 'rgba(76,168,143,0.16)', border: 'rgba(76,168,143,0.55)', dot: '#4ca88f', label: '#7dd3c0', value: '#9fe0d2' };
+    if (occ <= 70) return { fill: 'rgba(54,179,168,0.18)', border: 'rgba(54,179,168,0.6)', dot: '#36b3a8', label: '#7ad6cc', value: '#a4e3db' };
+    if (occ <= 90) return { fill: 'rgba(212,160,54,0.18)', border: 'rgba(212,160,54,0.62)', dot: '#d4a036', label: '#e0bd6e', value: '#edcf86' };
+    return { fill: 'rgba(230,77,60,0.18)', border: 'rgba(230,77,60,0.62)', dot: '#e64d3c', label: '#ef9a8e', value: '#f4b3a9' };
+  }
+  statusOf(occ, infra) {
+    if (infra) return { t: 'Secured', bg: 'rgba(122,138,160,0.16)', fg: '#aab6c9' };
+    if (occ === 0) return { t: 'Vacant', bg: 'rgba(122,138,160,0.16)', fg: '#aab6c9' };
+    if (occ <= 40) return { t: 'Light', bg: 'rgba(76,168,143,0.16)', fg: '#7dd3c0' };
+    if (occ <= 70) return { t: 'Moderate', bg: 'rgba(54,179,168,0.16)', fg: '#7ad6cc' };
+    if (occ <= 90) return { t: 'Busy', bg: 'rgba(212,160,54,0.16)', fg: '#e0bd6e' };
+    return { t: 'At capacity', bg: 'rgba(230,77,60,0.16)', fg: '#ef9a8e' };
+  }
+
+  spark(occ) {
+    const seq = [-14, -4, 7, -2, 12, 3, -7, 9, 1, 14, -3, 0];
+    const pts = seq.map((d, i) => { const v = Math.max(4, Math.min(100, occ + d + (i % 2 ? 2 : -2))); const x = (i / (seq.length - 1)) * 220; const y = 52 - (v / 100) * 44 - 4; return { x, y }; });
+    const line = pts.map((p, i) => (i ? 'L' : 'M') + p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ');
+    return { line, area: line + ' L220,52 L0,52 Z' };
+  }
+
+  initReveal() {
+    if (!window.IntersectionObserver) return;
+    const o = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { e.target.style.animation = 'ci-up 0.7s cubic-bezier(0.22,0.61,0.36,1) both'; o.unobserve(e.target); } }); }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(el => { el.style.opacity = '0'; o.observe(el); });
+    this._obs.push(o);
+  }
+  initToc() {
+    if (!window.IntersectionObserver) return;
+    const links = [...document.querySelectorAll('.cs-toc a[data-toc]')];
+    if (!links.length) return;
+    const byId = {}; links.forEach(l => { byId[l.getAttribute('data-toc')] = l; });
+    const o = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.removeAttribute('data-active')); if (byId[e.target.id]) byId[e.target.id].setAttribute('data-active', ''); } });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    Object.keys(byId).forEach(id => { const el = document.getElementById(id); if (el) o.observe(el); });
+    this._obs.push(o);
+  }
+  initCounters() {
+    if (!window.IntersectionObserver) return;
+    const el = document.getElementById('ci-results');
+    if (!el) return;
+    const o = new IntersectionObserver((es) => { if (es[0].isIntersecting && !this.state.countersDone) { this.setState({ countersDone: true }); this.runCounters(); o.disconnect(); } }, { threshold: 0.3 });
+    o.observe(el); this._obs.push(o);
+  }
+  runCounters() {
+    const tg = [89, 90, 23], dur = 1900, t0 = Date.now();
+    const tick = () => {
+      const p = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      this.setState({ c1: Math.round(tg[0] * e), c2: Math.round(tg[1] * e), c3: Math.round(tg[2] * e) });
+      if (p < 1) this._raf.c = requestAnimationFrame(tick);
+    };
+    this._raf.c = requestAnimationFrame(tick);
+  }
+
+  baDown(e) { e.preventDefault(); this.setState({ dragging: true }); }
+  baTouchStart(e) { this.setState({ dragging: true }); }
+  baUp() { if (this.state.dragging) this.setState({ dragging: false }); }
+  baMove(e) { if (!this.state.dragging) return; const w = document.getElementById('ci-ba'); if (!w) return; const r = w.getBoundingClientRect(); this.setState({ sliderX: Math.max(6, Math.min(94, ((e.clientX - r.left) / r.width) * 100)) }); }
+  baTouchMove(e) { if (!this.state.dragging) return; const w = document.getElementById('ci-ba'); if (!w) return; const r = w.getBoundingClientRect(); this.setState({ sliderX: Math.max(6, Math.min(94, ((e.touches[0].clientX - r.left) / r.width) * 100)) }); }
+
+  renderVals() {
+    const S = this.state;
+    const rooms = this.baseRooms().map(r => {
+      const st = this.occStyle(r.occ, r.infra);
+      const isSel = S.selected === r.id;
+      return {
+        ...r, fill: st.fill, border: st.border, dot: st.dot, label: st.label, value: st.value,
+        occLabel: r.infra ? 'SECURE' : (r.occ === 0 ? 'VACANT' : r.occ + '%'),
+        ring: isSel ? '0 0 0 2px #4ca88f, 0 0 22px rgba(76,168,143,0.35)' : 'none',
+        lift: isSel ? 'scale(1.015)' : 'scale(1)',
+        onClick: () => this.setState({ selected: isSel ? null : r.id }),
+      };
+    });
+    const sel = this.baseRooms().find(r => r.id === S.selected);
+    const selSt = sel ? this.occStyle(sel.occ, sel.infra) : null;
+    const selStatus = sel ? this.statusOf(sel.occ, sel.infra) : null;
+    const sp = sel ? this.spark(sel.infra ? 30 : sel.occ) : { line: '', area: '' };
+
+    // live chart
+    const live = S.live.length ? S.live : Array(30).fill(58);
+    const vW = 380, vH = 130;
+    const lp = live.map((v, i) => { const x = (i / (live.length - 1)) * vW; const y = vH - (v / 100) * (vH - 16) - 6; return { x, y }; });
+    const liveLine = lp.map((p, i) => (i ? 'L' : 'M') + p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ');
+    const liveArea = liveLine + ' L' + vW + ',' + vH + ' L0,' + vH + ' Z';
+    const liveNow = Math.round(live[live.length - 1]);
+    const livePeak = Math.round(Math.max.apply(null, live));
+    const liveAvg = Math.round(live.reduce((a, b) => a + b, 0) / live.length);
+
+    // tiers
+    const tier = S.tier;
+    const onA = { bg: '#0d5350', fg: '#fff' }, off = { bg: 'transparent', fg: '#6b6658' };
+    const tt = n => tier === n ? onA : off;
+    const tierData = {
+      pro: { tag: 'Company PRO · Analyst', url: 'insights.cooperlighting.com/portfolio', img: 'assets/ci/desktop-portfolio.jpg',
+        title: 'See the whole portfolio at a glance.', body: 'PRO users manage dozens of buildings. The dashboard leads with cross-site rollups, utilization, capacity, and busiest-time heatmaps, so an analyst spots the outlier site in seconds.',
+        points: ['Floor-plan availability with live vacant / occupied state', 'Sortable utilization tables that drill from org → building → floor', 'Weekly heatmaps to plan space and staffing'] },
+      sme: { tag: 'Site Manager · Floor', url: 'insights.cooperlighting.com/floor-5', img: 'assets/ci/desktop-floor.jpg',
+        title: 'Run a single floor in real time.', body: 'Site managers live at floor level. The same data narrows to one space: an interactive floor plan with per-room temperature and humidity, paired with a 7-day utilization graph.',
+        points: ['Click a room on the plan for live environmental readings', 'Layered area graph compares rooms over time', 'Capacity vs. occupancy surfaced at a glance'] },
+      mobile: { tag: 'Technician · On-site', url: '', img: 'assets/ci/mobile.jpg',
+        title: 'The essentials, in your hand.', body: 'On the floor, a technician needs answers, not a spreadsheet. The mobile app distills it to average vs. peak occupancy, popular spaces, and a breadcrumb that mirrors the desktop hierarchy.',
+        points: ['Average and peak occupancy up top, with 7-day delta', 'Most / least popular spaces ranked instantly', 'Same hierarchy as desktop, no relearning'] },
+    };
+    const td = tierData[tier];
+
+    return {
+      menuClass: S.menu ? 'menu-open' : '',
+      rootClass: S.dark ? 'dark' : '',
+      specRows: [
+        { label: 'Platform', value: 'WaveLinx CORE, on-premises Smart Spaces platform with cloud extension (WaveLinx Cloud)', bg: 'var(--c-bg2)' },
+        { label: 'Application', value: 'CORE Insights, occupancy analytics dashboard and reporting suite', bg: 'transparent' },
+        { label: 'Users', value: 'Facilities managers, real estate planners, building operations teams, executive stakeholders', bg: 'var(--c-bg2)' },
+        { label: 'Deployment', value: 'On-premises (CORE Pro gateway) and Cloud', bg: 'transparent' },
+        { label: 'Data source', value: 'Occupancy sensors in WaveLinx luminaires and ceiling sensors, coordinated by WaveLinx Area Controllers (WAC)', bg: 'var(--c-bg2)' },
+        { label: 'Licensing', value: 'One-time license purchase; unlimited spaces per installation', bg: 'transparent' },
+        { label: 'Disciplines', value: 'UX Research, Information Architecture, Interaction Design, Data Visualization, Usability Testing', bg: 'var(--c-bg2)' },
+      ],
+      stakeholders: [
+        { group: 'Facilities Managers', insight: 'Need quick answers to operational questions ("Which conference rooms on Floor 3 are underused?"); rarely drill past floor level.', bg: 'transparent' },
+        { group: 'Real Estate Planners', insight: 'Need portfolio-level trending for lease and space planning; consume data in bulk exports and executive reports.', bg: 'var(--c-bg2)' },
+        { group: 'Building Ops / IT', insight: 'Need sensor-health confirmation and data-confidence indicators; the primary concern is system reliability.', bg: 'transparent' },
+        { group: 'C-Suite / Executives', insight: "Need headline metrics and cost-per-square-foot justification; won't use the tool directly, they consume PDF exports.", bg: 'var(--c-bg2)' },
+        { group: 'Lighting Installers', insight: 'Need to verify sensor placement and coverage during commissioning; Insights is a validation tool, not a daily-use one.', bg: 'transparent' },
+      ],
+      tasks: [
+        { task: 'Check average occupancy for a specific floor', clicks: '4–6', pain: 'Moderate', painColor: 'var(--c-muted)', bg: 'transparent' },
+        { task: 'Compare occupancy across two floors', clicks: '10–14', pain: 'High', painColor: '#c0392b', bg: 'var(--c-bg2)' },
+        { task: 'Find underutilized conference rooms', clicks: '7–9', pain: 'High', painColor: '#c0392b', bg: 'transparent' },
+        { task: 'Generate a PDF report for a building', clicks: '5–7', pain: 'Moderate', painColor: 'var(--c-muted)', bg: 'var(--c-bg2)' },
+        { task: 'Filter by department across floors', clicks: '8–12', pain: 'High', painColor: '#c0392b', bg: 'transparent' },
+      ],
+      iaLevels: [
+        { level: 'Client', indicators: 'Avg Occupancy, Empty Spaces, Buildings / Floors count, Sensors', viz: 'Client Occupancy bar chart (per building)', reports: 'Space Occupancy (Overview + Trending)', bg: 'transparent' },
+        { level: 'Building', indicators: 'Avg Occupancy, Empty Spaces, Floors count, Sensors', viz: 'Building Occupancy bar chart (per floor)', reports: 'Space Occupancy + Space Summary', bg: 'var(--c-bg)' },
+        { level: 'Floor', indicators: 'Avg Occupancy, Empty Spaces, Most Occupied, Sensors', viz: 'Occupancy Floor Map + Space Occupancy chart', reports: 'Occupancy + Summary + Popularity (Most / Least)', bg: 'transparent' },
+        { level: 'Area Category', indicators: 'Avg Occupancy, Sensors count', viz: 'Filtered Floor Map + Occupancy chart', reports: 'Space Occupancy for the category', bg: 'var(--c-bg)' },
+        { level: 'Area / Space', indicators: 'Avg Occupancy, Sensor count', viz: 'Focused Floor Map + Trending chart', reports: 'Individual space detail', bg: 'transparent' },
+      ],
+      isDark: S.dark, isLight: !S.dark,
+      toggleDark: () => { const d = !this.state.dark; try { localStorage.setItem('rba-int-dark', d ? 'true' : 'false'); } catch (e) {} this.setState({ dark: d }); },
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      rooms, sensorTotal: 342,
+      hasRoom: !!sel, noRoom: !sel,
+      selName: sel ? sel.name : '', selType: sel ? sel.type : '',
+      selOcc: sel ? (sel.infra ? 'SECURE' : sel.occ + '%') : '', selValue: selSt ? selSt.value : '#4ca88f',
+      selCap: sel ? (sel.cap || '—') : '', selSensors: sel ? sel.sensors : '', selTemp: sel ? sel.temp : '',
+      selStatus: selStatus ? selStatus.t : '', selStatusBg: selStatus ? selStatus.bg : '', selStatusFg: selStatus ? selStatus.fg : '',
+      selSparkFill: selSt ? selSt.fill : 'rgba(76,168,143,0.16)',
+      sparkLine: sp.line, sparkArea: sp.area,
+      deselect: () => this.setState({ selected: null }),
+      liveLine, liveArea, liveNow, livePeak, liveAvg,
+      tabPro: () => this.setState({ tier: 'pro' }), tabSme: () => this.setState({ tier: 'sme' }), tabMob: () => this.setState({ tier: 'mobile' }),
+      proBg: tt('pro').bg, proFg: tt('pro').fg, smeBg: tt('sme').bg, smeFg: tt('sme').fg, mobBg: tt('mobile').bg, mobFg: tt('mobile').fg,
+      tierIsDesktop: tier !== 'mobile', tierIsMobile: tier === 'mobile',
+      tierUrl: td.url, tierImg: td.img, tierTag: td.tag, tierTitle: td.title, tierBody: td.body, tierPoints: td.points,
+      baDown: e => this.baDown(e), baTouchStart: e => this.baTouchStart(e), baMove: e => this.baMove(e), baTouchMove: e => this.baTouchMove(e), baUp: () => this.baUp(),
+      isBefore: S.shift === 'before', isAfter: S.shift === 'after',
+      tabBefore: () => this.setState({ shift: 'before' }), tabAfter: () => this.setState({ shift: 'after' }),
+      beforeBg: S.shift === 'before' ? '#0d5350' : 'transparent', beforeFg: S.shift === 'before' ? '#fff' : '#6b6658',
+      afterBg: S.shift === 'after' ? '#0d5350' : 'transparent', afterFg: S.shift === 'after' ? '#fff' : '#6b6658',
+      sheetRows: [
+        { b: 'Tower A', o: '68%', k: '14.2k', s: 'OK' },
+        { b: 'Commerce Ctr', o: '45%', k: '9.8k', s: 'OK' },
+        { b: 'Lakefront', o: '82%', k: '18.1k', s: '?' },
+        { b: 'North Campus', o: '—', k: '—', s: 'stale' },
+        { b: 'Harbour Sq', o: '51%', k: '11.4k', s: 'OK' },
+      ],
+      c1: S.c1, c2: S.c2, c3: S.c3,
+    };
+  }
+}
+</script>
+</body>
+</html>

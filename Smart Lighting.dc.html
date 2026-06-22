@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Lighting App, Case Study · Robert Babiarz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+.cs{--c-bg:#fffcf5;--c-bg2:#faf5e8;--c-soft:#fbf9f4;--c-card:#f3f1ea;--c-surface:#ffffff;--c-line:#edeae1;--c-line2:#c9c4b5;--c-ink:#0a0a0a;--c-ink2:#2a2722;--c-body:#56524a;--c-muted:#6e6a60;--c-muted2:#9a9486;--c-accent:#0d5350;--c-b1:rgba(10,8,4,0.07);--c-b2:rgba(10,8,4,0.08);--c-b3:rgba(10,8,4,0.1);--c-b4:rgba(10,8,4,0.14);--c-b5:rgba(10,8,4,0.25);--c-navbg:rgba(255,252,245,0.85);}
+.cs.dark{--c-bg:#0b0f14;--c-bg2:#11161c;--c-soft:#10151b;--c-card:#161c23;--c-surface:#141b24;--c-line:#242c34;--c-line2:#303942;--c-ink:#f3f1ea;--c-ink2:#e7e3da;--c-body:#bdb7aa;--c-muted:#948e82;--c-muted2:#726c60;--c-accent:#5fc2a8;--c-b1:rgba(255,255,255,0.06);--c-b2:rgba(255,255,255,0.085);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(0,0,0,0.55);--c-navbg:rgba(11,15,20,0.82);color-scheme:dark;}
+::selection{background:#0d5350;color:#fff}
+.sl-scroll::-webkit-scrollbar{width:7px;height:7px}
+.sl-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.18);border-radius:10px}
+.sl-scroll::-webkit-scrollbar-track{background:transparent}
+@keyframes sl-blink{0%,100%{opacity:1}50%{opacity:0.18}}
+@keyframes sl-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes sl-glow{0%,100%{box-shadow:0 0 0 0 rgba(240,176,64,0.5)}50%{box-shadow:0 0 0 7px rgba(240,176,64,0)}}
+.sl-swap{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s ease}
+.sl-swap.sl-on{opacity:1}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+@media (max-width:600px){
+  nav{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:400 !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet>a{padding:14px 14px !important}
+  .cs-switch[open] summary::after{content:'';position:fixed;inset:0;background:rgba(10,8,4,0.42);z-index:390;animation:cs-fade .36s ease}
+}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+.cs section[id]{scroll-margin-top:84px}
+.cs-toc a .cs-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.cs-toc:hover a .cs-toc-label{opacity:1;transform:none}
+.cs-toc a[data-active] .cs-toc-label{opacity:1;color:#0d5350}
+.cs-toc a[data-active] .cs-toc-dot{background:#0d5350;width:22px}
+@media (max-width:1180px){ .cs-toc{display:none !important} }
+@media (max-width:880px){
+  .cs nav > div{padding-left:18px !important;padding-right:18px !important}
+  .cs section{padding-left:18px !important;padding-right:18px !important;padding-top:60px !important;padding-bottom:60px !important}
+  .cs [style*="grid-template-columns"]{grid-template-columns:1fr !important}
+  .cs [style*="repeat(6, 1fr)"],.cs [style*="repeat(5, 1fr)"],.cs [style*="repeat(4, 1fr)"],.cs [style*="repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  .cs-hero-media{display:none !important}
+}
+@media (max-width:520px){
+  .cs h1{font-size:38px !important;letter-spacing:-1.5px !important}
+  .cs h2{font-size:26px !important}
+  .cs-pill{display:none !important}
+  .cs [style*="repeat(6, 1fr)"],.cs [style*="repeat(4, 1fr)"],.cs [style*="repeat(2, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+}
+@media (max-width:760px){
+  /* phone mockups: shrink so the screenshot + the controls beneath it
+     both fit comfortably in a stacked mobile column */
+  .cs [style*="border-radius:30px"]{width:208px !important;margin:0 auto !important}
+  /* data tables: tighter cells + a smaller min-width so less side-scroll */
+  .sl-scroll table{min-width:520px !important;font-size:12px !important}
+  .sl-scroll th,.sl-scroll td{padding:9px 10px !important}
+  /* visible affordance that the table scrolls sideways */
+  .sl-scroll{position:relative;-webkit-overflow-scrolling:touch}
+}
+.cs-burger{display:none;width:40px;height:40px;border:1px solid rgba(10,8,4,0.14);border-radius:9px;background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.cs-burger span{display:block;width:18px;height:2px;background:#0d5350;border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .cs-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .cs-burger span:nth-child(2){opacity:0}
+.menu-open .cs-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#cs-menu{position:fixed;inset:0;z-index:95;background:#fffcf5;display:flex;flex-direction:column;padding:84px 24px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #cs-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#cs-menu .csm-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6f6b61;margin-bottom:6px}
+#cs-menu .csm-sec{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:22px;font-weight:600;letter-spacing:-0.02em;color:#0a0a0a;text-decoration:none;padding:12px 2px;border-bottom:1px solid rgba(10,8,4,0.08);opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,color .15s}
+.menu-open #cs-menu .csm-sec{opacity:1;transform:none}
+#cs-menu .csm-sec .csm-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;color:#6f6b61}
+#cs-menu .csm-switch{display:block;text-decoration:none;padding:13px 14px;border:1px solid rgba(10,8,4,0.12);border-radius:11px;margin-top:10px;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .15s}
+.menu-open #cs-menu .csm-switch{opacity:1;transform:none}
+.cs-stagger>*{transition-delay:0s}
+.menu-open .cs-stagger>:nth-child(1){transition-delay:.05s}
+.menu-open .cs-stagger>:nth-child(2){transition-delay:.09s}
+.menu-open .cs-stagger>:nth-child(3){transition-delay:.13s}
+.menu-open .cs-stagger>:nth-child(4){transition-delay:.17s}
+.menu-open .cs-stagger>:nth-child(5){transition-delay:.21s}
+.menu-open .cs-stagger>:nth-child(6){transition-delay:.25s}
+.menu-open .cs-stagger>:nth-child(7){transition-delay:.29s}
+.menu-open .cs-stagger>:nth-child(8){transition-delay:.33s}
+.menu-open .cs-stagger>:nth-child(9){transition-delay:.37s}
+.menu-open .cs-stagger>:nth-child(n+10){transition-delay:.41s}
+@media (max-width:880px){ .cs-burger{display:flex} }
+@media (min-width:881px){ #cs-menu{display:none !important} }
+</style>
+<script src="text-motion.js"></script>
+<script src="page-transition.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div class="cs {{ rootClass }} {{ menuClass }}" style="background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:clip;">
+
+  <!-- ════════ NAV ════════ -->
+  <nav style="position:sticky;top:0;z-index:100;background:var(--c-navbg);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1);">
+    <div style="padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="Homepage Interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color 0.15s;" style-hover="color:var(--c-ink)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background 0.2s,border-color 0.2s;" style-hover="background:var(--c-card)"><sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></sc-if><sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></sc-if></button>
+        <details class="cs-switch" style="position:relative;">
+          <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:#0d5350;">Smart Lighting</span>
+            <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5" style="transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
+            <a href="Smart Lighting.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:#e7f1f0;"><div style="font-size:14px;font-weight:600;color:#0d5350;">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="Partitioning.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+            <a href="DALI-2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="Core Insights.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="Enterprise AI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+            <a href="AEGIS DI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+            <a href="Goals-Driven Fintech.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+            <a href="CTOC Case Study v2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
+            <a href="Homepage Interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)">← All work</a>
+          </div>
+        </details>
+        <button class="cs-burger" onClick="{{ toggleMenu }}" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="cs-menu">
+    <div class="csm-lbl">Sections</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-sec" href="#s-overview" onClick="{{ closeMenu }}"><span>Project Overview</span><span class="csm-n">01</span></a>
+      <a class="csm-sec" href="#s-research" onClick="{{ closeMenu }}"><span>Research</span><span class="csm-n">02</span></a>
+      <a class="csm-sec" href="#s-design" onClick="{{ closeMenu }}"><span>Design Language</span><span class="csm-n">03</span></a>
+      <a class="csm-sec" href="#s-control" onClick="{{ closeMenu }}"><span>Daily Control</span><span class="csm-n">04</span></a>
+      <a class="csm-sec" href="#s-network" onClick="{{ closeMenu }}"><span>Network Topology</span><span class="csm-n">05</span></a>
+      <a class="csm-sec" href="#s-commission" onClick="{{ closeMenu }}"><span>Commissioning</span><span class="csm-n">06</span></a>
+      <a class="csm-sec" href="#s-scale" onClick="{{ closeMenu }}"><span>Scale &amp; Scheduling</span><span class="csm-n">07</span></a>
+      <a class="csm-sec" href="#s-outcomes" onClick="{{ closeMenu }}"><span>Outcomes</span><span class="csm-n">08</span></a>
+    </div>
+    <div class="csm-lbl" style="margin-top:26px;">Switch case study</div>
+    <div class="cs-stagger" style="display:flex;flex-direction:column;">
+      <a class="csm-switch" href="Partitioning.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operable walls · adaptive zones</div></a>
+      <a class="csm-switch" href="DALI-2.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+      <a class="csm-switch" href="Core Insights.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+      <a class="csm-switch" href="Enterprise AI.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
+      <a class="csm-switch" href="AEGIS DI.dc.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
+      <a class="csm-switch" href="Goals-Driven Fintech.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+      <a class="csm-switch" href="CTOC Case Study v2.dc.html"><div style="font-size:15px;font-weight:600;color:var(--c-accent);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+      <a class="csm-switch" href="Homepage Interactive.dc.html"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">← All work</div></a>
+    </div>
+  </div>
+
+  <!-- ════════ SECTION SIDE-NAV ════════ -->
+  <nav class="cs-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
+    <a href="#s-overview" data-toc="s-overview" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Overview</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-research" data-toc="s-research" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Research</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-design" data-toc="s-design" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Design</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-control" data-toc="s-control" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Daily control</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-network" data-toc="s-network" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Network</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-commission" data-toc="s-commission" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Commission</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-scale" data-toc="s-scale" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Scale</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-outcomes" data-toc="s-outcomes" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Outcomes</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+  </nav>
+
+  <!-- ════════ 1 · HERO ════════ -->
+  <section style="position:relative;overflow:hidden;padding:78px 40px 88px;background:var(--c-bg);">
+    <div style="position:absolute;top:-120px;right:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(13,83,80,0.10),transparent 68%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-60px;left:-40px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(240,176,64,0.08),transparent 70%);pointer-events:none;"></div>
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;position:relative;">
+      <div>
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:24px;animation:sl-up 0.7s ease both;">
+          <span style="width:30px;height:1.5px;background:#0d5350;"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#0d5350;">CONSUMER IOT</span>
+        </div>
+        <h1 style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.8vw,68px);font-weight:500;line-height:1.0;letter-spacing:-2.2px;color:var(--c-ink);animation:sl-up 0.8s ease 0.05s both;">SMART LIGHTING<br/><span style="font-style:italic;font-weight:300;color:#0d5350;">Mobile App</span></h1>
+        <p style="font-size:clamp(17px,1.6vw,20px);color:var(--c-body);line-height:1.6;max-width:480px;margin-top:26px;animation:sl-up 0.8s ease 0.12s both;">Bringing professional-grade connected lighting to the consumer market, enterprise depth, translated into a near-zero-friction daily experience.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,auto);gap:16px 40px;margin-top:38px;animation:sl-up 0.8s ease 0.2s both;width:max-content;max-width:100%;">
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Lead / Principal XD</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Platform</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">iOS / Android</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Scope</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Research → Delivery</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Team</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">15 cross-functional</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Years</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">2020–2021</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Tool</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Adobe XD</div></div>
+        </div>
+      </div>
+      <div class="cs-hero-media" style="display:flex;justify-content:center;animation:sl-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.15s both;">
+        <div style="position:relative;width:300px;animation:sl-float 6s ease-in-out infinite;">
+          <div style="position:absolute;inset:-3% -8% -3% -8%;background:radial-gradient(circle at 50% 40%,rgba(13,83,80,0.16),transparent 70%);"></div>
+          <div style="position:relative;border-radius:40px;background:#16161a;padding:9px;box-shadow:0 40px 80px -30px rgba(20,30,40,0.6);border:1px solid rgba(255,255,255,0.08);">
+            <div style="position:relative;border-radius:32px;overflow:hidden;background:#2a2d42;">
+              <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:96px;height:22px;background:#16161a;border-radius:0 0 16px 16px;z-index:6;"></div>
+              <img src="assets/sl/accordion-expanded.jpg" alt="Light Control daily screen" style="width:100%;display:block;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 2 · PROJECT OVERVIEW ════════ -->
+  <section id="s-overview" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">01 · Project Overview</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);max-width:1000px;margin-bottom:30px;" data-reveal="1">FROM ENTERPRISE BACKBONE TO <span style="font-style:italic;font-weight:300;color:#0d5350;">Consumer Living Room</span></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1000px;margin-bottom:54px;" data-reveal="1">
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">The strategic opportunity: adapt enterprise-grade technical depth for the consumer smart-home market and compete directly with established platforms. The challenge was twofold, the existing B2B UX assumed expertise and optimized for configuration depth over daily usability, while the consumer space was crowded with frictionless, polished experiences.</p>
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">We couldn't simply port an enterprise app; the product philosophy needed a complete rethink. My mandate: lead end-to-end UX from market research and competitive analysis through IA, interaction design, and large-group stakeholder presentations with a cross-functional team of 15+.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:16px;padding:30px 32px;" data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:16px;">MY ROLE</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">End-to-end UX ownership, research through delivery</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Consumer market research &amp; competitive analysis</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Information architecture &amp; interaction design</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Design-system definition &amp; visual language</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#0d5350;margin-top:2px;">●</span><span style="font-size:14.5px;color:var(--c-body);">Stakeholder presentations (25+ attendees per milestone)</span></div>
+          </div>
+        </div>
+        <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:16px;padding:30px 32px;" data-reveal="1">
+          <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:16px;">DIRECT TEAM</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Engineering Manager / Director</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">4</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Engineering Product Owner</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">2</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Product Manager</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">2</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:9px;"><span style="font-size:14.5px;color:var(--c-body);">Solution Architecture</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">2</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:14.5px;color:var(--c-body);">Software Developers</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#16161a;">3</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#16161a;border-radius:16px;overflow:hidden;" data-reveal="1">
+        <div style="padding:38px 30px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:46px;font-weight:600;color:#4ca88f;letter-spacing:-1px;">10–20×</div><div style="font-size:14px;color:#cdd6e4;margin-top:8px;line-height:1.5;">Average daily opens of a lighting control app</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6b7a8c;letter-spacing:0.08em;margin-top:12px;">BENCHMARK · SMART HOME</div></div>
+        <div style="padding:38px 30px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:46px;font-weight:600;color:#4ca88f;letter-spacing:-1px;">$48B</div><div style="font-size:14px;color:#cdd6e4;margin-top:8px;line-height:1.5;">Global smart-home lighting market by 2027</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6b7a8c;letter-spacing:0.08em;margin-top:12px;">MARKET SIZING</div></div>
+        <div style="padding:38px 30px;text-align:center;"><div style="font-family:'Inter',sans-serif;font-size:46px;font-weight:600;color:#4ca88f;letter-spacing:-1px;">3</div><div style="font-size:14px;color:#cdd6e4;margin-top:8px;line-height:1.5;">Platforms benchmarked in depth (Lutron, Hue, Google)</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6b7a8c;letter-spacing:0.08em;margin-top:12px;">COMPETITIVE SCOPE</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 3 · RESEARCH ════════ -->
+  <section id="s-research" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">02 · Research &amp; Discovery</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">UNDERSTANDING THE <span style="font-style:italic;font-weight:300;color:#0d5350;">Consumer Mindset</span></h2>
+      <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:46px;" data-reveal="1">Enterprise users tolerate friction. Consumer users abandon it. Before designing a single screen, the team needed to understand what the smart-home customer actually valued and where the current market left needs unmet. Research ran in parallel with competitive analysis to move quickly without losing depth.</p>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);background:#16161a;border-radius:16px;overflow:hidden;margin-bottom:34px;" data-reveal="1">
+        <div style="padding:28px 22px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;letter-spacing:0.08em;margin-bottom:10px;">PHASE 01</div><div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#4ca88f;margin-bottom:10px;">Ecosystem Audit</div><div style="font-size:13px;color:#aab6c9;line-height:1.5;">Mapped Lutron, Hue, Google Home &amp; Alexa across setup, daily use, advanced config</div></div>
+        <div style="padding:28px 22px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;letter-spacing:0.08em;margin-bottom:10px;">PHASE 02</div><div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#4ca88f;margin-bottom:10px;">Mental Model</div><div style="font-size:13px;color:#aab6c9;line-height:1.5;">Consumers think in rooms &amp; moods, not devices &amp; topology</div></div>
+        <div style="padding:28px 22px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;letter-spacing:0.08em;margin-bottom:10px;">PHASE 03</div><div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#4ca88f;margin-bottom:10px;">B2B Gap Analysis</div><div style="font-size:13px;color:#aab6c9;line-height:1.5;">Which enterprise features were assets vs. needed reinvention for non-technical users</div></div>
+        <div style="padding:28px 22px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;letter-spacing:0.08em;margin-bottom:10px;">PHASE 04</div><div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#4ca88f;margin-bottom:10px;">Stakeholder Align</div><div style="font-size:13px;color:#aab6c9;line-height:1.5;">25+ person milestone presentations to align Eng, PM &amp; Exec on direction</div></div>
+        <div style="padding:28px 22px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;letter-spacing:0.08em;margin-bottom:10px;">PHASE 05</div><div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#4ca88f;margin-bottom:10px;">Design Principles</div><div style="font-size:13px;color:#aab6c9;line-height:1.5;">Three anchors: Instant Feedback · Progressive Disclosure · Non-Technical Language</div></div>
+      </div>
+      <div style="background:#e7f1f0;border-left:3px solid #0d5350;border-radius:0 12px 12px 0;padding:26px 30px;margin-bottom:54px;" data-reveal="1">
+        <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(18px,2vw,23px);color:#0a3d3a;line-height:1.5;">"Consumer lighting users interact with their app 10–20 times per day. Every extra tap is not an inconvenience, it's attrition. The daily control experience had to reach near-zero friction, even if that meant hiding 80% of the system's capability behind progressive disclosure."</p>
+      </div>
+      <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:6px;" data-reveal="1">COMPETITIVE LANDSCAPE ANALYSIS</div>
+      <p style="font-size:15px;color:var(--c-body);line-height:1.65;max-width:880px;margin-bottom:24px;" data-reveal="1">A structured analysis across five primary competitors revealed a clear white space: <strong style="color:#16161a;">no platform combined professional-grade mesh reliability with consumer-grade simplicity.</strong> This product could own the premium intersection.</p>
+      <div style="overflow-x:auto;border:1px solid var(--c-b3);border-radius:14px;" data-reveal="1" class="sl-scroll">
+        <table style="width:100%;border-collapse:collapse;min-width:720px;font-size:13.5px;">
+          <thead><tr style="background:#f3efe3;">
+            <th style="text-align:left;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--c-muted);text-transform:uppercase;font-weight:500;">Platform</th>
+            <th style="text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--c-muted);text-transform:uppercase;font-weight:500;">Setup</th>
+            <th style="text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--c-muted);text-transform:uppercase;font-weight:500;">Mesh</th>
+            <th style="text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--c-muted);text-transform:uppercase;font-weight:500;">Circadian</th>
+            <th style="text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--c-muted);text-transform:uppercase;font-weight:500;">Multi-Home</th>
+            <th style="text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--c-muted);text-transform:uppercase;font-weight:500;">Pro Role</th>
+            <th style="text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--c-muted);text-transform:uppercase;font-weight:500;">Price</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--c-b1);"><td style="padding:14px 18px;font-weight:600;color:#16161a;">Lutron Caséta</td><td style="padding:14px;color:var(--c-body);">◐ Moderate</td><td style="padding:14px;color:#2e7d4f;">✓ Excellent</td><td style="padding:14px;color:var(--c-body);">◐ Basic</td><td style="padding:14px;color:#c0392b;">✗</td><td style="padding:14px;color:#2e7d4f;">✓</td><td style="padding:14px;color:var(--c-body);">Premium</td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:#fcfaf3;"><td style="padding:14px 18px;font-weight:600;color:#16161a;">Philips Hue</td><td style="padding:14px;color:#2e7d4f;">✓ Excellent</td><td style="padding:14px;color:var(--c-body);">◐ Good</td><td style="padding:14px;color:#2e7d4f;">✓ Good</td><td style="padding:14px;color:#c0392b;">✗</td><td style="padding:14px;color:#c0392b;">✗</td><td style="padding:14px;color:var(--c-body);">Mid–High</td></tr>
+            <tr style="border-top:1px solid var(--c-b1);"><td style="padding:14px 18px;font-weight:600;color:#16161a;">Google Home</td><td style="padding:14px;color:#2e7d4f;">✓ Excellent</td><td style="padding:14px;color:#c0392b;">✗ Unreliable</td><td style="padding:14px;color:var(--c-body);">◐ Basic</td><td style="padding:14px;color:var(--c-body);">◐ Limited</td><td style="padding:14px;color:#c0392b;">✗</td><td style="padding:14px;color:var(--c-body);">Low</td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:#fcfaf3;"><td style="padding:14px 18px;font-weight:600;color:#16161a;">Amazon Alexa</td><td style="padding:14px;color:#2e7d4f;">✓ Good</td><td style="padding:14px;color:#c0392b;">✗ Variable</td><td style="padding:14px;color:var(--c-body);">◐ Basic</td><td style="padding:14px;color:var(--c-body);">◐ Limited</td><td style="padding:14px;color:#c0392b;">✗</td><td style="padding:14px;color:var(--c-body);">Low</td></tr>
+            <tr style="border-top:1px solid var(--c-b1);"><td style="padding:14px 18px;font-weight:600;color:#16161a;">Control4</td><td style="padding:14px;color:#c0392b;">✗ Complex</td><td style="padding:14px;color:#2e7d4f;">✓ Excellent</td><td style="padding:14px;color:#2e7d4f;">✓ Advanced</td><td style="padding:14px;color:#2e7d4f;">✓</td><td style="padding:14px;color:#2e7d4f;">✓</td><td style="padding:14px;color:var(--c-body);">Very High</td></tr>
+            <tr style="border-top:2px solid #0d5350;background:#e7f1f0;"><td style="padding:16px 18px;font-weight:700;color:#0d5350;">This Work <span style="font-family:'JetBrains Mono',monospace;font-size:9px;display:block;color:#5fa5b5;font-weight:400;">SMART LIGHTING</span></td><td style="padding:16px 14px;color:#0a3d3a;font-weight:600;">✓ Designed for</td><td style="padding:16px 14px;color:#0a3d3a;font-weight:600;">✓ Auto Mesh</td><td style="padding:16px 14px;color:#0a3d3a;font-weight:600;">✓ Full</td><td style="padding:16px 14px;color:#0a3d3a;font-weight:600;">✓ Multi-Home</td><td style="padding:16px 14px;color:#0a3d3a;font-weight:600;">✓ PRO Role</td><td style="padding:16px 14px;color:#0a3d3a;font-weight:600;">Premium</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · DESIGN LANGUAGE ════════ -->
+  <section id="s-design" style="padding:90px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ca88f;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">03 · Design Language</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">A VISUAL SYSTEM BUILT FOR <span style="font-style:italic;font-weight:300;color:#4ca88f;">Low-Light Use</span></h2>
+      <p style="font-size:16.5px;color:#aab6c9;line-height:1.72;max-width:880px;margin-bottom:48px;" data-reveal="1">The color system wasn't aesthetic-first, it was functionally driven. Lighting apps are used at night, in dim rooms, often on the way to bed. Every decision was evaluated against low-light legibility, touch-target contrast, and the need to communicate system state at a glance without reading.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:46px;" data-reveal="1">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#fff;margin-bottom:14px;">TWO-TONE BACKGROUND STRATEGY</div>
+          <p style="font-size:14.5px;color:#aab6c9;line-height:1.66;margin-bottom:14px;">Dark purple (#3D415E) for all control and action screens; light grey for all settings and configuration. Users always knew whether they were in daily-use mode or configuration mode, without reading a single label.</p>
+          <p style="font-size:14.5px;color:#aab6c9;line-height:1.66;">A dark-first theme reduces eye strain after sunset and makes the warm amber glow of active lights pop as a meaningful status signal. Active lights appear as warm amber dots; inactive lights are grey, readable in peripheral vision, no label required.</p>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#fff;margin-bottom:14px;">NAVIGATION ARCHITECTURE</div>
+          <p style="font-size:14.5px;color:#aab6c9;line-height:1.66;margin-bottom:18px;">A persistent bottom nav, Light Control, Scenes, Activities, Areas, visible at all times. No back stacks, no hamburger menus. Smart-home apps are used one-handed, in low light, mid-task; navigation had to be positionally predictable and always-visible.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:18px;"><div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:600;color:#4ca88f;">4</div><div style="font-size:13px;color:#aab6c9;margin-top:4px;line-height:1.45;">Persistent nav items, no back stack</div></div>
+            <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:18px;"><div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:600;color:#4ca88f;">1</div><div style="font-size:13px;color:#aab6c9;margin-top:4px;line-height:1.45;">Tap to reach any area's full zone control</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;" data-reveal="1">
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);"><div style="height:64px;background:#1C1B1F;"></div><div style="padding:10px 12px;background:#121a26;"><div style="font-size:12px;font-weight:600;color:#fff;">Text Dark</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6fae9b;">#1C1B1F</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);"><div style="height:64px;background:#0d5350;"></div><div style="padding:10px 12px;background:#121a26;"><div style="font-size:12px;font-weight:600;color:#fff;">CTA / Links</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6fae9b;">#0d5350</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);"><div style="height:64px;background:#3D415E;"></div><div style="padding:10px 12px;background:#121a26;"><div style="font-size:12px;font-weight:600;color:#fff;">Control BG</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6fae9b;">#3D415E</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);"><div style="height:64px;background:#B03060;"></div><div style="padding:10px 12px;background:#121a26;"><div style="font-size:12px;font-weight:600;color:#fff;">Header</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6fae9b;">#B03060</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);"><div style="height:64px;background:#F0B040;"></div><div style="padding:10px 12px;background:#121a26;"><div style="font-size:12px;font-weight:600;color:#fff;">Active State</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6fae9b;">#F0B040</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);"><div style="height:64px;background:#48F877;"></div><div style="padding:10px 12px;background:#121a26;"><div style="font-size:12px;font-weight:600;color:#fff;">Found Devices</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6fae9b;">#48F877</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 5 · DAILY CONTROL (INTERACTIVE) ════════ -->
+  <section id="s-control" style="padding:84px 40px;background:#0e151e;color:#e8edf5;border-top:1px solid rgba(255,255,255,0.05);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ca88f;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">04 · The Daily Control Screen</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:16px;max-width:840px;" data-reveal="1">Opened 10–20× a day. Built for speed and muscle memory.</h2>
+      <p style="font-size:16px;color:#aab6c9;line-height:1.7;max-width:820px;margin-bottom:44px;" data-reveal="1">Everything needed should be reachable in one tap; everything configuration-related hidden until explicitly sought. <strong style="color:#fff;">Try it</strong> tap a room to expand its zones, tap any power button to toggle.</p>
+      <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:44px;align-items:center;" data-reveal="1">
+        <!-- LIVE ACCORDION -->
+        <div style="display:flex;justify-content:center;">
+          <div style="width:330px;border-radius:34px;background:#16161a;padding:9px;box-shadow:0 36px 70px -28px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
+            <div style="border-radius:27px;overflow:hidden;background:#2a2d42;">
+              <div style="background:#2a2d42;padding:18px 18px 12px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7dd3c0;">≡</span><span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0.02em;">SWITCH HOME</span><span style="color:#9aa0bf;font-size:9px;">▾</span></div>
+                <div style="border:1px solid rgba(255,255,255,0.25);border-radius:7px;padding:5px 10px;font-size:10px;font-weight:600;color:#fff;position:relative;">DEVICES<span style="position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#e2483b;"></span></div>
+              </div>
+              <div style="padding:4px 14px 2px;"><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Areas</div></div>
+              <div style="padding:8px 12px 14px;display:flex;flex-direction:column;gap:8px;max-height:430px;overflow-y:auto;" class="sl-scroll">
+                <sc-for list="{{ areas }}" as="a" hint-placeholder-count="5">
+                  <div>
+                    <div style="background:{{ a.rowBg }};border:1px solid {{ a.rowBorder }};border-radius:13px;display:flex;align-items:center;justify-content:space-between;padding:11px 13px;transition:background .2s;">
+                      <div onClick="{{ a.toggleExpand }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;flex:1;min-width:0;">
+                        <span style="color:#9aa0bf;font-size:11px;transform:{{ a.chevRot }};transition:transform .25s;display:inline-block;">▸</span>
+                        <span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="{{ a.iconColor }}" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.5.5 1 1.2 1 2V16h6v-.5c0-.8.5-1.5 1-2A6 6 0 0 0 12 3Z"/></svg></span>
+                        <div style="min-width:0;"><div style="font-size:13.5px;font-weight:700;color:{{ a.nameColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.name }}</div><div style="font-size:10.5px;color:{{ a.subColor }};margin-top:1px;">{{ a.meta }}</div></div>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:11px;flex:none;">
+                        <span style="width:15px;height:15px;border-radius:50%;background:{{ a.dotColor }};display:block;box-shadow:{{ a.dotGlow }};"></span>
+                        <button onClick="{{ a.toggleOn }}" style="width:30px;height:30px;border-radius:50%;border:1.5px solid {{ a.powerBorder }};background:{{ a.powerBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ a.powerColor }}" stroke-width="2.2"><path d="M12 4v8M7.5 7a7 7 0 1 0 9 0"/></svg></button>
+                      </div>
+                    </div>
+                    <sc-if value="{{ a.expanded }}" hint-placeholder-val="{{ false }}">
+                      <div style="background:var(--c-surface);border-radius:13px;margin-top:7px;padding:12px 12px 6px;">
+                        <div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:#16161a;letter-spacing:-0.4px;padding:0 2px 8px;">Zones</div>
+                        <div style="display:flex;flex-direction:column;gap:7px;padding-bottom:6px;">
+                          <sc-for list="{{ a.zoneRows }}" as="z" hint-placeholder-count="3">
+                            <div style="background:{{ z.bg }};border-radius:11px;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;">
+                              <div style="display:flex;align-items:center;gap:9px;min-width:0;">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ z.iconColor }}" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.5.5 1 1.2 1 2V16h6v-.5c0-.8.5-1.5 1-2A6 6 0 0 0 12 3Z"/></svg>
+                                <div style="min-width:0;"><div style="font-size:13px;font-weight:600;color:{{ z.nameColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ z.name }}</div><div style="font-size:10px;color:{{ z.subColor }};">{{ z.meta }}</div></div>
+                              </div>
+                              <div style="display:flex;align-items:center;gap:10px;flex:none;">
+                                <span style="width:14px;height:14px;border-radius:50%;background:{{ z.dotColor }};display:block;box-shadow:{{ z.dotGlow }};"></span>
+                                <button onClick="{{ z.toggleOn }}" style="width:28px;height:28px;border-radius:50%;border:1.5px solid {{ z.powerBorder }};background:{{ z.powerBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ z.powerColor }}" stroke-width="2.2"><path d="M12 4v8M7.5 7a7 7 0 1 0 9 0"/></svg></button>
+                              </div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;background:#16161a;padding:9px 6px;border-top:1px solid rgba(255,255,255,0.06);">
+                <div style="flex:1;text-align:center;"><div style="color:#7dd3c0;font-size:14px;">◐</div><div style="font-size:8px;color:#7dd3c0;letter-spacing:0.04em;margin-top:2px;">CONTROL</div></div>
+                <div style="flex:1;text-align:center;"><div style="color:#6b7588;font-size:13px;">▦</div><div style="font-size:8px;color:#6b7588;margin-top:2px;">SCENES</div></div>
+                <div style="flex:1;text-align:center;"><div style="color:#6b7588;font-size:13px;">◷</div><div style="font-size:8px;color:#6b7588;margin-top:2px;">ACTIVITIES</div></div>
+                <div style="flex:1;text-align:center;"><div style="color:#6b7588;font-size:13px;">▥</div><div style="font-size:8px;color:#6b7588;margin-top:2px;">AREAS</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- DECISIONS + PICKER -->
+        <div>
+          <div style="display:flex;gap:30px;margin-bottom:26px;">
+            <div><div style="font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#4ca88f;letter-spacing:-1px;">1</div><div style="font-size:13.5px;color:#aab6c9;line-height:1.45;margin-top:2px;">Tap to expand any area and see all zones</div></div>
+            <div><div style="font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#4ca88f;letter-spacing:-1px;">2×</div><div style="font-size:13.5px;color:#aab6c9;line-height:1.45;margin-top:2px;">Control surface, on/off toggle at every level</div></div>
+          </div>
+          <div style="background:#16212e;border-left:3px solid #0d5350;border-radius:0 12px 12px 0;padding:20px 22px;margin-bottom:16px;">
+            <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:7px;letter-spacing:0.02em;">DECISION · ACCORDION VS. DRILL-DOWN</div>
+            <p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Early prototypes used a drill-down pattern (tap area → new screen). User testing showed disorientation, people lost track of what other areas were doing. The accordion keeps the whole home visible at all times, making state comparison trivial and eliminating back-navigation entirely.</p>
+          </div>
+          <div style="background:#16212e;border-left:3px solid #F0B040;border-radius:0 12px 12px 0;padding:20px 22px;">
+            <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:7px;letter-spacing:0.02em;">DECISION · ON/OFF AT EVERY LEVEL</div>
+            <p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The most frequent action, turning a room off, must never require opening a detail screen. Both area-level and zone-level rows carry an on/off toggle and dim indicator. This doubled the control surface but reduced the task to a single tap for ~90% of daily interactions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLOR PICKER TABS -->
+      <div style="margin-top:64px;" data-reveal="1">
+        <h3 style="font-family:'Inter',sans-serif;font-size:clamp(22px,2.4vw,30px);font-weight:600;letter-spacing:-0.6px;color:#fff;margin-bottom:8px;">Three color pathways for three user types</h3>
+        <p style="font-size:15px;color:#aab6c9;line-height:1.65;max-width:760px;margin-bottom:26px;">A full RGB picker for tinkerers, a curated swatch grid for the impatient, and white-temperature (1800K–6000K) for purists. Tap to switch the path.</p>
+        <div style="display:flex;gap:6px;background:#16212e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:5px;width:max-content;max-width:100%;margin-bottom:26px;flex-wrap:wrap;">
+          <button onClick="{{ pickColor }}" style="padding:10px 22px;border:none;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;background:{{ tabColorBg }};color:{{ tabColorFg }};transition:all .2s;">Color</button>
+          <button onClick="{{ pickWhite }}" style="padding:10px 22px;border:none;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;background:{{ tabWhiteBg }};color:{{ tabWhiteFg }};transition:all .2s;">White</button>
+          <button onClick="{{ pickPresets }}" style="padding:10px 22px;border:none;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;background:{{ tabPresetsBg }};color:{{ tabPresetsFg }};transition:all .2s;">Presets</button>
+          <button onClick="{{ pickKelvin }}" style="padding:10px 22px;border:none;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;background:{{ tabKelvinBg }};color:{{ tabKelvinFg }};transition:all .2s;">Kelvin</button>
+        </div>
+        <div style="display:grid;grid-template-columns:330px 1fr;gap:36px;align-items:center;">
+          <div style="display:flex;justify-content:center;">
+            <div style="width:300px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 30px 60px -26px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
+              <div style="position:relative;border-radius:24px;overflow:hidden;background:#2a2d42;">
+                <img src="assets/sl/picker-color.jpg" alt="Color picker" style="width:100%;display:block;"/>
+                <img src="assets/sl/picker-whitegrad.jpg" class="sl-swap {{ pickWhiteCls }}" alt="White picker"/>
+                <img src="assets/sl/picker-presets.jpg" class="sl-swap {{ pickPresetsCls }}" alt="Presets"/>
+                <img src="assets/sl/picker-kelvin.jpg" class="sl-swap {{ pickKelvinCls }}" alt="Kelvin picker"/>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7dd3c0;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">{{ pickTag }}</div>
+            <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;margin-bottom:12px;">{{ pickTitle }}</div>
+            <p style="font-size:15px;color:#aab6c9;line-height:1.66;max-width:480px;">{{ pickBody }}</p>
+            <div style="display:flex;gap:18px;margin-top:24px;flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6fae9b;">FADE</span><span style="font-size:13px;font-weight:600;color:#fff;">⚡ Instant</span></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6fae9b;">DELAY</span><span style="font-size:13px;font-weight:600;color:#fff;">1 second</span></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6fae9b;">BRIGHTNESS</span><span style="font-size:13px;font-weight:600;color:#F0B040;">55%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 6 · NETWORK TOPOLOGY (INTERACTIVE) ════════ -->
+  <section id="s-network" style="padding:90px 40px;background:var(--c-bg);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">05 · Making Network Topology Human</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:16px;max-width:880px;" data-reveal="1">How do you hand BLE mesh configuration to someone who's never heard of BLE?</h2>
+      <p style="font-size:16px;color:var(--c-body);line-height:1.7;max-width:840px;margin-bottom:18px;" data-reveal="1"><strong style="color:#16161a;">Core insight: users don't need to understand the technology if they can read the map.</strong> Node colors required zero explanation, black = active repeater, white = stable relay, red = reliability problem. But the real question was how much decision-making to ask of a homeowner. We proposed four models. <strong style="color:#16161a;">Click through them.</strong></p>
+      <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;margin-top:36px;" data-reveal="1">
+        <div style="display:flex;justify-content:center;">
+          <div style="width:312px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 34px 66px -26px rgba(20,30,40,0.4);border:1px solid rgba(0,0,0,0.1);">
+            <div style="position:relative;border-radius:24px;overflow:hidden;background:var(--c-surface);">
+              <img src="assets/sl/mesh-nodemap.jpg" alt="Mesh node map" style="width:100%;display:block;"/>
+              <img src="assets/sl/mesh-manual1.jpg" class="sl-swap {{ mesh1Cls }}" alt="Mesh clusters"/>
+              <img src="assets/sl/mesh-manual2.jpg" class="sl-swap {{ mesh2Cls }}" alt="Mesh virtual groups"/>
+              <img src="assets/sl/mesh-autoselect.jpg" class="sl-swap {{ mesh3Cls }}" alt="Mesh auto select"/>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;">
+            <button onClick="{{ mesh0 }}" style="padding:9px 15px;border-radius:9px;border:1px solid {{ m0Border }};cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:{{ m0Bg }};color:{{ m0Fg }};transition:all .2s;">P1 · Node Map</button>
+            <button onClick="{{ mesh1 }}" style="padding:9px 15px;border-radius:9px;border:1px solid {{ m1Border }};cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:{{ m1Bg }};color:{{ m1Fg }};transition:all .2s;">P2 · Clusters</button>
+            <button onClick="{{ mesh2 }}" style="padding:9px 15px;border-radius:9px;border:1px solid {{ m2Border }};cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:{{ m2Bg }};color:{{ m2Fg }};transition:all .2s;">P3 · Virtual Groups</button>
+            <button onClick="{{ mesh3 }}" style="padding:9px 15px;border-radius:9px;border:1px solid {{ m3Border }};cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:{{ m3Bg }};color:{{ m3Fg }};transition:all .2s;">P4 · Auto Select</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);letter-spacing:0.06em;">{{ meshLabel }}</span>
+            <span style="padding:4px 11px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.06em;background:{{ meshResultBg }};color:{{ meshResultFg }};">{{ meshResult }}</span>
+          </div>
+          <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#16161a;letter-spacing:-0.5px;margin-bottom:10px;">{{ meshTitle }}</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.66;max-width:480px;margin-bottom:16px;">{{ meshBody }}</p>
+          <div style="display:flex;gap:24px;flex-wrap:wrap;">
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px;">User decision load</div><div style="font-size:14px;font-weight:600;color:#16161a;">{{ meshLoad }}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- proposal table -->
+      <div style="margin-top:56px;overflow-x:auto;border-radius:14px;border:1px solid var(--c-b3);" class="sl-scroll" data-reveal="1">
+        <table style="width:100%;border-collapse:collapse;min-width:680px;font-size:14px;">
+          <thead><tr style="background:#16161a;">
+            <th style="text-align:left;padding:16px 20px;color:#fff;font-weight:600;font-size:13px;">Proposal</th>
+            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px;">Approach</th>
+            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px;">Decision Load</th>
+            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px;">Result</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--c-b1);background:var(--c-surface);"><td style="padding:16px 20px;font-weight:600;color:#c0392b;">P1 · Node Map</td><td style="padding:16px;color:var(--c-body);">Live mesh viz, drag-to-repeater</td><td style="padding:16px;color:var(--c-body);">High, manual node selection</td><td style="padding:16px;"><span style="color:#c0392b;font-weight:700;">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px;">Too intimidating</span></td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:#fcfaf3;"><td style="padding:16px 20px;font-weight:600;color:#c0392b;">P2 · Clusters</td><td style="padding:16px;color:var(--c-body);">Proximity-based device grouping</td><td style="padding:16px;color:var(--c-body);">Medium, group-level decisions</td><td style="padding:16px;"><span style="color:#c0392b;font-weight:700;">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px;">Still exposed topology</span></td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:var(--c-surface);"><td style="padding:16px 20px;font-weight:600;color:#c0392b;">P3 · Virtual Groups</td><td style="padding:16px;color:var(--c-body);">User-defined criteria groups</td><td style="padding:16px;color:var(--c-body);">Medium, still per-device</td><td style="padding:16px;"><span style="color:#c0392b;font-weight:700;">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px;">Increased commissioning time</span></td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:#eafaf0;"><td style="padding:16px 20px;font-weight:700;color:#2e7d4f;">P4 · Auto Select</td><td style="padding:16px;color:#1f5e3a;">System chooses optimal repeaters</td><td style="padding:16px;color:#1f5e3a;">Zero, one confirm tap</td><td style="padding:16px;"><span style="color:#2e7d4f;font-weight:700;">SHIPPED ✓</span> <span style="color:#1f5e3a;font-size:12.5px;">Engineering validated</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- floor plan example -->
+      <div style="margin-top:54px;" data-reveal="1">
+        <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:6px;">DEVICE DISTRIBUTION AT SCALE</div>
+        <p style="font-size:15px;color:var(--c-body);line-height:1.65;max-width:840px;margin-bottom:22px;">The same logical map scales from a 32-device condo to a 247-device estate, the system creates groups and subnets, then assigns repeaters automatically. Example: <strong style="color:#16161a;">247 devices, 66 repeaters, 22 subnets created.</strong></p>
+        <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 18px 44px -28px rgba(20,30,40,0.3);background:var(--c-surface);padding:18px;">
+          <img src="assets/sl/floorplans.jpg" alt="Device distribution across floor plans" style="width:100%;display:block;"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 7 · COMMISSIONING (INTERACTIVE) ════════ -->
+  <section id="s-commission" style="padding:84px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ca88f;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">06 · Commission Before Installation</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:16px;max-width:880px;" data-reveal="1">Configure the home before a single fixture is mounted.</h2>
+      <p style="font-size:16px;color:#aab6c9;line-height:1.7;max-width:840px;margin-bottom:40px;" data-reveal="1">NFC tags let users scan a device still in its box, assign it to a room, and name it, building a complete logical map of the home before the electrician installs anything. <strong style="color:#fff;">Step through the QR / NFC flow.</strong></p>
+      <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;" data-reveal="1">
+        <div style="display:flex;justify-content:center;">
+          <div style="width:300px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 34px 66px -26px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
+            <div style="position:relative;border-radius:24px;overflow:hidden;background:var(--c-surface);">
+              <img src="assets/sl/qr-hand.jpg" alt="QR scan" style="width:100%;display:block;"/>
+              <img src="assets/sl/qr-found.jpg" class="sl-swap {{ com1Cls }}" alt="Device found"/>
+              <img src="assets/sl/qr-added.jpg" class="sl-swap {{ com2Cls }}" alt="Device added"/>
+            </div>
+          </div>
+        </div>
+        <div>
+          <!-- stepper -->
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:26px;">
+            <sc-for list="{{ comSteps }}" as="c" hint-placeholder-count="3">
+              <div onClick="{{ c.go }}" style="display:flex;align-items:center;gap:14px;background:{{ c.bg }};border:1px solid {{ c.border }};border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .2s;">
+                <span style="width:30px;height:30px;border-radius:50%;background:{{ c.numBg }};color:{{ c.numFg }};display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;flex:none;">{{ c.num }}</span>
+                <div><div style="font-size:14.5px;font-weight:600;color:{{ c.titleColor }};">{{ c.title }}</div><div style="font-size:12.5px;color:#8a9ab5;margin-top:1px;">{{ c.sub }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button onClick="{{ comPrev }}" style="padding:11px 20px;border-radius:10px;border:1px solid rgba(255,255,255,0.18);background:transparent;color:#cdd6e4;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;">Back</button>
+            <button onClick="{{ comNext }}" style="padding:11px 22px;border-radius:10px;border:none;background:#0d5350;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;">{{ comNextLabel }}</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:46px;" data-reveal="1">
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 28px;display:flex;gap:22px;align-items:center;">
+          <div style="font-family:'Inter',sans-serif;font-size:42px;font-weight:600;color:#4ca88f;letter-spacing:-1px;flex:none;">3</div>
+          <div style="font-size:14px;color:#aab6c9;line-height:1.5;">Steps to commission any device, Scan → Confirm → Done <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;margin-top:6px;">VS. MULTI-STEP MANUAL ENTRY</span></div>
+        </div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 28px;display:flex;gap:22px;align-items:center;">
+          <div style="font-family:'Inter',sans-serif;font-size:42px;font-weight:600;color:#4ca88f;letter-spacing:-1px;flex:none;">Pre-</div>
+          <div style="font-size:14px;color:#aab6c9;line-height:1.5;">Install commissioning, novel in the consumer lighting space <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;margin-top:6px;">COMPETITIVE DIFFERENTIATOR</span></div>
+        </div>
+      </div>
+      <div style="background:#16212e;border-left:3px solid #F0B040;border-radius:0 12px 12px 0;padding:22px 26px;margin-top:22px;" data-reveal="1">
+        <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:7px;letter-spacing:0.02em;">DECISION · DEVICE NAMING INSIDE COMMISSIONING</div>
+        <p style="font-size:14px;color:#aab6c9;line-height:1.62;max-width:900px;">Naming was embedded in setup, not deferred to settings, because post-setup renaming rates were extremely low in comparable products. If users didn't name during commissioning, they never would, leaving them with "IRiS Color Bulb 1" forever. Forcing the moment increased permanent naming adoption significantly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 8 · SCALE & SCHEDULING ════════ -->
+  <section id="s-scale" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">07 · Property Managers, Power Users &amp; Scheduling</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:16px;max-width:880px;" data-reveal="1">Multi-home control and a circadian engine that knows when the sun sets.</h2>
+      <p style="font-size:16px;color:var(--c-body);line-height:1.7;max-width:840px;margin-bottom:42px;" data-reveal="1">A differentiating capability unavailable in basic consumer competitors: multiple properties from a single account, three role types, and scheduling driven by real sunrise/sunset data, all transferred directly from B2B deployments.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-bottom:56px;" data-reveal="1">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:18px;">THREE USER ROLES</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:13px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;"><span style="width:30px;height:30px;border-radius:50%;background:#16161a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;flex:none;">01</span><div><div style="font-size:15px;font-weight:700;color:#16161a;">Home Owner, full admin</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.5;margin-top:3px;">Complete access to devices, users, schedules, and system configuration.</div></div></div>
+            <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:13px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;"><span style="width:30px;height:30px;border-radius:50%;background:#16161a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;flex:none;">02</span><div><div style="font-size:15px;font-weight:700;color:#16161a;">User, control only</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.5;margin-top:3px;">Family &amp; guests can control lights and run scenes, but change no configuration.</div></div></div>
+            <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:13px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;"><span style="width:30px;height:30px;border-radius:50%;background:#0d5350;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;flex:none;">03</span><div><div style="font-size:15px;font-weight:700;color:#16161a;">PRO, temporary installer</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.5;margin-top:3px;">Electrician or commissioning agent; account auto-deactivates when work is complete. The key B2B→B2C transfer insight.</div></div></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/manage-homes.jpg" alt="Manage Homes" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Manage Homes</div></div>
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/manage-users.jpg" alt="Manage Users" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Manage Users</div></div>
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/add-home.jpg" alt="Add Home" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Add Home · size templates</div></div>
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/join-home.jpg" alt="Join a Home" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Join a Home · invite code</div></div>
+        </div>
+      </div>
+
+      <!-- circadian -->
+      <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center;" data-reveal="1">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:12px;">SCHEDULING THAT KNOWS WHEN THE SUN SETS</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.66;margin-bottom:22px;">Activities differentiated the app most sharply from basic competitors. Rather than simple on/off timers, the system ran a <strong style="color:#16161a;">full circadian rhythm engine</strong> automatically adjusting color temperature and brightness based on time of day and the user's real GPS sunrise/sunset data.</p>
+          <div style="display:flex;gap:30px;margin-bottom:22px;flex-wrap:wrap;">
+            <div><div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:600;color:#0d5350;letter-spacing:-1px;">2</div><div style="font-size:13px;color:var(--c-body);line-height:1.45;">Circadian modes, GPS Automatic + Manual phase builder</div></div>
+            <div><div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:600;color:#0d5350;letter-spacing:-1px;">5</div><div style="font-size:13px;color:var(--c-body);line-height:1.45;">Life phases, Wake, Day, Relax, Dinner, Sleep</div></div>
+          </div>
+          <div style="background:var(--c-surface);border-left:3px solid #0d5350;border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:14px;">
+            <div style="font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;color:#16161a;margin-bottom:6px;letter-spacing:0.02em;">DECISION · OFFSET CONTROLS FOR SUNRISE/SUNSET</div>
+            <p style="font-size:13.5px;color:var(--c-body);line-height:1.58;">Users wanted lights on before the sun fully rose. The offset control (−30 min, −15 min) solved this in user-language terms without exposing absolute times that would need seasonal adjustment.</p>
+          </div>
+          <div style="background:var(--c-surface);border-left:3px solid #F0B040;border-radius:0 12px 12px 0;padding:18px 22px;">
+            <div style="font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;color:#16161a;margin-bottom:6px;letter-spacing:0.02em;">DECISION · COLOR SWATCHES AS PHASE IDENTIFIERS</div>
+            <p style="font-size:13.5px;color:var(--c-body);line-height:1.58;">Phases were anchored by warm color swatches, not Kelvin values. "Relax" at 17:30 was set by picking a warm amber swatch, emotional language replacing technical specification, lowering the bar for adoption.</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);grid-column:1/2;"><img src="assets/sl/circadian-auto.jpg" alt="Circadian automatic" style="width:100%;display:block;"/></div>
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);grid-column:2/3;"><img src="assets/sl/circadian-phases.jpg" alt="Circadian manual phases" style="width:100%;display:block;"/></div>
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);grid-column:1/3;"><img src="assets/sl/circadian-manual.jpg" alt="Circadian manual offsets" style="width:100%;display:block;"/></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 9 · OUTCOMES ════════ -->
+  <section id="s-outcomes" style="padding:96px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ca88f;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">08 · Outcomes &amp; Measured Impact</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:14px;" data-reveal="1">TRANSLATING B2B DEPTH INTO <span style="font-style:italic;font-weight:300;color:#4ca88f;">Consumer Confidence</span></h2>
+      <p style="font-size:16px;color:#aab6c9;line-height:1.7;max-width:840px;margin-bottom:48px;" data-reveal="1">The project produced a consumer product capable of competing directly against established apps, while preserving the technical depth that made the enterprise platform valuable.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:24px;" data-reveal="1">
+        <div style="padding:40px 30px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);background:#101826;"><div style="font-family:'Inter',sans-serif;font-size:50px;font-weight:600;color:#4ca88f;letter-spacing:-1.5px;">4→1</div><div style="font-size:14px;color:#aab6c9;margin-top:10px;line-height:1.5;">Mesh proposals reduced to a single zero-decision Auto Select, complexity eliminated, not simplified</div></div>
+        <div style="padding:40px 30px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);background:#101826;"><div style="font-family:'Inter',sans-serif;font-size:50px;font-weight:600;color:#4ca88f;letter-spacing:-1.5px;">~{{ c1 }}%</div><div style="font-size:14px;color:#aab6c9;margin-top:10px;line-height:1.5;">Daily lighting tasks reachable in a single tap, up from 3+ taps in the initial prototype</div></div>
+        <div style="padding:40px 30px;text-align:center;background:#101826;"><div style="font-family:'Inter',sans-serif;font-size:50px;font-weight:600;color:#4ca88f;letter-spacing:-1.5px;">0</div><div style="font-size:14px;color:#aab6c9;margin-top:10px;line-height:1.5;">Manual mesh configuration decisions required by the end user in the final model</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:64px;" data-reveal="1">
+        <div style="padding:40px 30px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);background:#101826;"><div style="font-family:'Inter',sans-serif;font-size:50px;font-weight:600;color:#4ca88f;letter-spacing:-1.5px;">{{ c2 }}+</div><div style="font-size:14px;color:#aab6c9;margin-top:10px;line-height:1.5;">Maximum device scale per property, surpassing every primary consumer competitor</div></div>
+        <div style="padding:40px 30px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);background:#101826;"><div style="font-family:'Inter',sans-serif;font-size:50px;font-weight:600;color:#4ca88f;letter-spacing:-1.5px;">3</div><div style="font-size:14px;color:#aab6c9;margin-top:10px;line-height:1.5;">User roles covering the full spectrum from daily resident to professional installer</div></div>
+        <div style="padding:40px 30px;text-align:center;background:#101826;"><div style="font-family:'Inter',sans-serif;font-size:50px;font-weight:600;color:#4ca88f;letter-spacing:-1.5px;">{{ c3 }}+</div><div style="font-size:14px;color:#aab6c9;margin-top:10px;line-height:1.5;">Stakeholder milestone presentations aligning Eng, Product &amp; Executive leadership</div></div>
+      </div>
+
+      <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#fff;margin-bottom:18px;" data-reveal="1">DESIGN DELIVERABLES</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px;" data-reveal="1">
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 26px;"><div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#4ca88f;margin-bottom:10px;line-height:1.15;">Consumer IA</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.55;">Areas / Zones / Devices / Accessories hierarchy maps to how users think about their homes, zero technical terminology at the top level.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 26px;"><div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#4ca88f;margin-bottom:10px;line-height:1.15;">BLE Topology Abstraction</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.55;">Mesh, subnet config and repeater management rendered fully invisible to consumers, while remaining accessible to PRO installers.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 26px;"><div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#4ca88f;margin-bottom:10px;line-height:1.15;">Circadian Differentiation</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.55;">A GPS-based circadian engine with emotional-language scheduling positioned the app well above basic on/off-timer competitors.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 26px;"><div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#4ca88f;margin-bottom:10px;line-height:1.15;">NFC Pre-Install</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.55;">Pre-installation commissioning via NFC/QR enabled a configure-then-install workflow novel in the consumer lighting space.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 26px;"><div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#4ca88f;margin-bottom:10px;line-height:1.15;">Design System Foundation</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.55;">Two-tone color strategy, motion semantics and a component library established a coherent system for future platform scaling.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px 26px;"><div style="font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#4ca88f;margin-bottom:10px;line-height:1.15;">Multi-Home Market Segment</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.55;">Property-manager and vacation-home capability, unaddressed by any primary competitor, opened a premium segment beyond the single residence.</p></div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;" data-reveal="1">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6fae9b;letter-spacing:0.14em;text-transform:uppercase;">Reflection · What this project taught me</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" data-reveal="1">
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 01</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Engineering confidence unlocks better UX</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The Auto Select model only became possible once engineering confirmed system confidence in choosing optimal nodes. The best UX decision, remove the decision entirely, required trusting engineering data. Cross-functional candor produced the outcome, not design alone.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 02</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">B2B → B2C is translation, not simplification</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The same underlying capabilities, subnet management, role-based access, multi-site control, needed expression in consumer language and mental models. The PRO role and multi-home features came directly from B2B and became differentiators in B2C.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 03</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Daily-use screens deserve 80% of design effort</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Light Control, opened 10–20× per day, received the most iteration, testing and engineering negotiation. The accordion, dual-level controls and status indicators all came from multiple feedback rounds. Daily ritual screens matter far more than configuration screens.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 04</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Emotional language beats technical specs</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Scheduling landed better named Wake-Up, Relax, Dinner, Sleep than labeled by Kelvin. The circadian engine was technically sophisticated; the UI had to make it feel like curating a mood, not programming a system. Emotional interface on a technical substrate is the core craft of consumer IoT.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer style="padding:42px 40px;background:var(--c-bg);border-top:1px solid var(--c-b1);">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Another case study</div>
+        <a href="Partitioning.dc.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:#0d5350">Dynamic Space Partitioning <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+    </div>
+  </footer>
+
+</div>
+
+  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#7a756a;padding:0 10px 0 12px;">Version</span>
+    <a href="Smart Lighting.dc.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#ffffff;background:#0d5350;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Standard</a>
+    <a href="Smart Lighting Showcase.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#534f48;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Showcase</a>
+  </div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'),
+    menu: false,
+    openArea: 'kitchen',
+    areaOn: { bath: true, kitchen: true, linen: true, living: true, master: true },
+    zoneOn: {},
+    pick: 'color',
+    mesh: 0,
+    com: 0,
+    c1: 0, c2: 0, c3: 0, countersDone: false
+  };
+  _raf = {}; _obs = [];
+
+  componentDidMount() { setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.initScrollProgress(); }, 120); }
+  initScrollProgress() {
+    if (document.getElementById('scroll-prog-bar')) return;
+    const ac = '#0d5350', ac2 = '#45b3cf';
+    const bar = document.createElement('div'); bar.id = 'scroll-prog-bar';
+    bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');transition:width 0.08s linear;pointer-events:none;';
+    const pill = document.createElement('div'); pill.id = 'scroll-prog-pill';
+    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
+    document.body.appendChild(bar); document.body.appendChild(pill);
+    const num = document.getElementById('scroll-prog-num');
+    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; pill.style.opacity = st > 60 ? '1' : '0'; };
+    update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
+  }
+  componentWillUnmount() { Object.values(this._raf).forEach(cancelAnimationFrame); this._obs.forEach(o => o.disconnect()); }
+
+  toggleMenu() { this.setState(s => ({ menu: !s.menu })); }
+  closeMenu() { this.setState({ menu: false }); }
+
+  initReveal() {
+    if (!window.IntersectionObserver) return;
+    const o = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { e.target.style.animation = 'sl-up 0.7s cubic-bezier(0.22,0.61,0.36,1) both'; o.unobserve(e.target); } }); }, { threshold: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach(el => { el.style.opacity = '0'; o.observe(el); });
+    this._obs.push(o);
+  }
+  initToc() {
+    if (!window.IntersectionObserver) return;
+    const links = [...document.querySelectorAll('.cs-toc a[data-toc]')];
+    if (!links.length) return;
+    const byId = {}; links.forEach(l => { byId[l.getAttribute('data-toc')] = l; });
+    const o = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.removeAttribute('data-active')); if (byId[e.target.id]) byId[e.target.id].setAttribute('data-active', ''); } });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    document.querySelectorAll('section[id^="s-"]').forEach(s => o.observe(s));
+    this._obs.push(o);
+  }
+  initCounters() {
+    if (!window.IntersectionObserver) return;
+    const el = document.getElementById('s-outcomes');
+    if (!el) return;
+    const o = new IntersectionObserver((es) => { if (es[0].isIntersecting && !this.state.countersDone) { this.setState({ countersDone: true }); this.runCounters(); o.disconnect(); } }, { threshold: 0.18 });
+    o.observe(el); this._obs.push(o);
+  }
+  runCounters() {
+    const tg = [70, 500, 25], dur = 1700, t0 = Date.now();
+    const tick = () => {
+      const p = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      this.setState({ c1: Math.round(tg[0] * e), c2: Math.round(tg[1] * e), c3: Math.round(tg[2] * e) });
+      if (p < 1) this._raf.c = requestAnimationFrame(tick);
+    };
+    this._raf.c = requestAnimationFrame(tick);
+  }
+
+  areaDefs() {
+    return [
+      { key: 'bath', name: 'Bathroom', zones: 2, dim: 55, zoneNames: ['Vanity', 'Shower'] },
+      { key: 'kitchen', name: 'Kitchen', zones: 4, dim: 55, zoneNames: ['Ceiling Lights', 'Island', 'Stove', 'Table'] },
+      { key: 'linen', name: 'Linen Closet', zones: 1, dim: 55, zoneNames: ['Closet'] },
+      { key: 'living', name: 'Living Room', zones: 3, dim: 55, zoneNames: ['Ceiling', 'Lamps', 'Accent'] },
+      { key: 'master', name: 'Master Bedroom', zones: 5, dim: 55, zoneNames: ['Ceiling', 'Bed Left', 'Bed Right', 'Closet', 'Accent'] },
+    ];
+  }
+
+  pickData() {
+    return {
+      color: { img: 'assets/sl/picker-color.jpg', tag: 'Color · full RGB', title: 'For the tinkerer', body: 'A full-spectrum picker with a draggable bulb handle and saved custom swatches, total control for users who want an exact hue.' },
+      white: { img: 'assets/sl/picker-whitegrad.jpg', tag: 'White · warm↔cool', title: 'For the everyday', body: 'A single warm-to-cool gradient with quick presets. Most users live here, they want "warmer" or "cooler", not a number.' },
+      presets: { img: 'assets/sl/picker-presets.jpg', tag: 'Presets · swatch grid', title: 'For the impatient', body: 'A curated grid of ready-made colors. One tap, done, no dragging, no precision required.' },
+      kelvin: { img: 'assets/sl/picker-kelvin.jpg', tag: 'White · Kelvin', title: 'For the purist', body: 'Exact color temperature from 1800K to 6000K for users who think in Kelvin and want repeatable, specified white light.' },
+    };
+  }
+
+  meshData() {
+    return [
+      { img: 'assets/sl/mesh-nodemap.jpg', label: 'P1 · NODE MAP', result: 'DROPPED', rb: 'rgba(192,57,43,0.16)', rf: '#e0796c', title: 'Live mesh, drag-to-repeater', body: 'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers.', load: 'High, manual node selection' },
+      { img: 'assets/sl/mesh-manual1.jpg', label: 'P2 · CLUSTERS', result: 'DROPPED', rb: 'rgba(192,57,43,0.16)', rf: '#e0796c', title: 'Proximity-based clusters', body: 'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load: 'Medium, group-level decisions' },
+      { img: 'assets/sl/mesh-manual2.jpg', label: 'P3 · VIRTUAL GROUPS', result: 'DROPPED', rb: 'rgba(192,57,43,0.16)', rf: '#e0796c', title: 'User-defined virtual groups', body: 'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load: 'Medium, still per-device' },
+      { img: 'assets/sl/mesh-autoselect.jpg', label: 'P4 · AUTO SELECT', result: 'SHIPPED ✓', rb: 'rgba(46,125,79,0.18)', rf: '#2e7d4f', title: 'The system decides', body: 'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load: 'Zero, one confirm tap' },
+    ];
+  }
+
+  comData() {
+    return [
+      { img: 'assets/sl/qr-hand.jpg', title: 'Scan with QR / NFC', sub: 'Tap a device still in its box' },
+      { img: 'assets/sl/qr-found.jpg', title: 'Device Found', sub: 'Model + firmware confirmed, name & assign' },
+      { img: 'assets/sl/qr-added.jpg', title: 'Device Added', sub: 'Mapped to a room, add another or save' },
+    ];
+  }
+
+  renderVals() {
+    const S = this.state;
+    const amber = '#F0B040', grey = '#5a5f78';
+
+    // accordion
+    const areas = this.areaDefs().map(a => {
+      const on = S.areaOn[a.key] !== false;
+      const expanded = S.openArea === a.key;
+      return {
+        name: a.name, meta: a.zones + (a.zones === 1 ? ' Zone · Dim ' : ' Zones · Dim ') + a.dim + '%',
+        expanded,
+        rowBg: expanded ? '#fff' : '#23263b', rowBorder: expanded ? '#fff' : 'rgba(255,255,255,0.05)',
+        chevRot: expanded ? 'rotate(90deg)' : 'none',
+        iconColor: expanded ? '#3D415E' : '#c7cbe0',
+        nameColor: expanded ? '#16161a' : '#fff', subColor: expanded ? '#8a8fa6' : '#9aa0bf',
+        dotColor: on ? amber : grey, dotGlow: on ? '0 0 8px rgba(240,176,64,0.55)' : 'none',
+        powerBg: on ? 'rgba(240,176,64,0.14)' : 'transparent', powerBorder: on ? amber : '#5a5f78', powerColor: on ? amber : '#9aa0bf',
+        toggleExpand: () => this.setState(st => ({ openArea: st.openArea === a.key ? null : a.key })),
+        toggleOn: () => this.setState(st => ({ areaOn: Object.assign({}, st.areaOn, { [a.key]: st.areaOn[a.key] === false ? true : false }) })),
+        zoneRows: a.zoneNames.map((zn, zi) => {
+          const zk = a.key + ':' + zi;
+          const zon = S.zoneOn[zk] !== undefined ? S.zoneOn[zk] : on;
+          return {
+            name: zn, meta: 'Dim 70%',
+            bg: '#f3f1ea',
+            iconColor: '#3D415E', nameColor: '#16161a', subColor: '#8a8fa6',
+            dotColor: zon ? amber : '#c2c2cc', dotGlow: zon ? '0 0 7px rgba(240,176,64,0.5)' : 'none',
+            powerBg: zon ? 'rgba(240,176,64,0.16)' : 'transparent', powerBorder: zon ? amber : '#c2c2cc', powerColor: zon ? '#b07e1f' : '#a0a0ad',
+            toggleOn: () => this.setState(st => ({ zoneOn: Object.assign({}, st.zoneOn, { [zk]: !(st.zoneOn[zk] !== undefined ? st.zoneOn[zk] : (st.areaOn[a.key] !== false)) }) })),
+          };
+        }),
+      };
+    });
+
+    // picker tabs
+    const pd = this.pickData();
+    const pk = pd[S.pick];
+    const ptab = (k) => S.pick === k ? { bg: '#0d5350', fg: '#fff' } : { bg: 'transparent', fg: '#9fb6c0' };
+
+    // mesh
+    const md = this.meshData();
+    const mc = md[S.mesh];
+    const mtab = (i) => S.mesh === i ? (i === 3 ? { bg: '#2e7d4f', fg: '#fff', bd: '#2e7d4f' } : { bg: '#c0392b', fg: '#fff', bd: '#c0392b' }) : { bg: 'transparent', fg: '#56524a', bd: 'rgba(10,8,4,0.16)' };
+
+    // commissioning
+    const cd = this.comData();
+    const comSteps = cd.map((c, i) => {
+      const active = i === S.com, done = i < S.com;
+      return { num: done ? '✓' : String(i + 1), title: c.title, sub: c.sub, go: () => this.setState({ com: i }),
+        bg: active ? 'rgba(13,83,80,0.16)' : '#121a26', border: active ? 'rgba(76,168,143,0.5)' : 'rgba(255,255,255,0.07)',
+        numBg: active ? '#0d5350' : done ? 'rgba(76,168,143,0.22)' : 'rgba(255,255,255,0.06)', numFg: active ? '#fff' : done ? '#4ca88f' : '#5a6b82',
+        titleColor: active ? '#fff' : done ? '#cdd6e4' : '#8a9ab5' };
+    });
+
+    return {
+      menuClass: S.menu ? 'menu-open' : '',
+      rootClass: S.dark ? 'dark' : '', isDark: S.dark, isLight: !S.dark,
+      toggleDark: () => { const d = !this.state.dark; try { localStorage.setItem('rba-int-dark', d ? 'true' : 'false'); } catch (e) {} this.setState({ dark: d }); }, toggleMenu: () => this.toggleMenu(), closeMenu: () => this.closeMenu(),
+
+      areas,
+
+      pickTag: pk.tag, pickTitle: pk.title, pickBody: pk.body,
+      pickWhiteCls: S.pick === 'white' ? 'sl-on' : '', pickPresetsCls: S.pick === 'presets' ? 'sl-on' : '', pickKelvinCls: S.pick === 'kelvin' ? 'sl-on' : '',
+      mesh1Cls: S.mesh === 1 ? 'sl-on' : '', mesh2Cls: S.mesh === 2 ? 'sl-on' : '', mesh3Cls: S.mesh === 3 ? 'sl-on' : '',
+      com1Cls: S.com === 1 ? 'sl-on' : '', com2Cls: S.com === 2 ? 'sl-on' : '',
+      pickColor: () => this.setState({ pick: 'color' }), pickWhite: () => this.setState({ pick: 'white' }), pickPresets: () => this.setState({ pick: 'presets' }), pickKelvin: () => this.setState({ pick: 'kelvin' }),
+      tabColorBg: ptab('color').bg, tabColorFg: ptab('color').fg, tabWhiteBg: ptab('white').bg, tabWhiteFg: ptab('white').fg,
+      tabPresetsBg: ptab('presets').bg, tabPresetsFg: ptab('presets').fg, tabKelvinBg: ptab('kelvin').bg, tabKelvinFg: ptab('kelvin').fg,
+
+      meshLabel: mc.label, meshResult: mc.result, meshResultBg: mc.rb, meshResultFg: mc.rf, meshTitle: mc.title, meshBody: mc.body, meshLoad: mc.load,
+      mesh0: () => this.setState({ mesh: 0 }), mesh1: () => this.setState({ mesh: 1 }), mesh2: () => this.setState({ mesh: 2 }), mesh3: () => this.setState({ mesh: 3 }),
+      m0Bg: mtab(0).bg, m0Fg: mtab(0).fg, m0Border: mtab(0).bd, m1Bg: mtab(1).bg, m1Fg: mtab(1).fg, m1Border: mtab(1).bd,
+      m2Bg: mtab(2).bg, m2Fg: mtab(2).fg, m2Border: mtab(2).bd, m3Bg: mtab(3).bg, m3Fg: mtab(3).fg, m3Border: mtab(3).bd,
+
+      comSteps,
+      comPrev: () => this.setState(st => ({ com: Math.max(0, st.com - 1) })),
+      comNext: () => this.setState(st => ({ com: st.com >= cd.length - 1 ? 0 : st.com + 1 })),
+      comNextLabel: S.com >= cd.length - 1 ? 'Restart' : 'Next',
+
+      c1: S.c1, c2: S.c2, c3: S.c3,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# OS / Finder cruft
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+.thumbnail
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node (not used today, but keeps accidental installs out of the repo)
+node_modules/
+npm-debug.log*

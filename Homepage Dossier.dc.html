@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robert Babiarz, Product Designer · Dossier</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+::selection{background:#0a0a0a;color:#f4ead2}
+@keyframes dossier-blink{0%,100%{opacity:1}50%{opacity:0.2}}
+@keyframes dossier-up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.dsr section[id]{scroll-margin-top:78px}
+.dsr-redact{position:relative;background:#0a0a0a;color:transparent;border-radius:1px;cursor:pointer;transition:background 0.25s,color 0.25s;user-select:none;padding:0 4px;}
+.dsr-redact:hover{background:transparent;color:#0a0a0a;}
+.dsr-file:hover .dsr-fnum{background:#b23a2e;color:#f4ead2;}
+.dsr-file:hover .dsr-ftitle{color:#b23a2e;}
+.dsr-file:hover .dsr-farrow{transform:translate(3px,-3px);color:#b23a2e;}
+.dsr-toc a .dsr-toc-label{opacity:0;transform:translateX(8px);transition:all .2s}
+.dsr-toc:hover a .dsr-toc-label{opacity:1;transform:none}
+.dsr-toc a[data-active] .dsr-toc-label{opacity:1;color:#0a0a0a;font-weight:700}
+.dsr-toc a[data-active] .dsr-toc-tick{background:#b23a2e;width:26px}
+.rb-box{color:#0a0a0a;transition:transform .6s cubic-bezier(.65,0,.35,1),background .4s ease,color .4s ease}
+.rb-box:hover{transform:rotateY(360deg);background:#0a0a0a;color:#fff;cursor:pointer}
+@media (max-width:1180px){ .dsr-toc{display:none !important} }
+@media (max-width:880px){
+  .dsr-nav-inner{padding:0 18px !important}
+  .dsr section{padding-left:18px !important;padding-right:18px !important}
+  .dsr-grid2{grid-template-columns:1fr !important;gap:36px !important}
+  .dsr-stamp-float{display:none !important}
+  .dsr-file{grid-template-columns:46px 1fr 26px !important;gap:14px !important}
+  .dsr-fmeta{display:none !important}
+}
+@media (max-width:520px){
+  .dsr h1{font-size:38px !important}
+  .dsr-statgrid{grid-template-columns:1fr 1fr !important}
+}
+.dsr-burger{display:none;width:40px;height:40px;border:1.5px solid #0a0a0a;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.dsr-burger span{display:block;width:18px;height:2px;background:#0a0a0a;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.menu-open .dsr-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .dsr-burger span:nth-child(2){opacity:0}
+.menu-open .dsr-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#dsr-menu{position:fixed;inset:0;z-index:96;background:#f4ead2;display:flex;flex-direction:column;padding:84px 24px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .34s ease,transform .34s ease,visibility .34s;pointer-events:none}
+.menu-open #dsr-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#dsr-menu .dm-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6b5d42;margin-bottom:8px;padding-bottom:8px;border-bottom:1.5px solid #0a0a0a}
+#dsr-menu .dm-sec{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:25px;font-weight:600;letter-spacing:-0.02em;color:#0a0a0a;text-decoration:none;padding:15px 2px;border-bottom:1px solid rgba(10,8,4,0.18);opacity:0;transform:translateY(18px);transition:opacity .42s ease,transform .42s ease,color .15s}
+.menu-open #dsr-menu .dm-sec{opacity:1;transform:none}
+#dsr-menu .dm-sec:hover{color:#b23a2e}
+#dsr-menu .dm-n{font-family:'JetBrains Mono',monospace;font-size:12px;color:#6b5d42}
+#dsr-menu .dm-switch{display:flex;align-items:center;justify-content:space-between;text-decoration:none;padding:14px;border:1.5px solid #0a0a0a;background:#0a0a0a;color:#f4ead2;margin-top:14px;opacity:0;transform:translateY(18px);transition:opacity .42s ease,transform .42s ease}
+.menu-open #dsr-menu .dm-switch{opacity:1;transform:none}
+.dsr-stagger>:nth-child(1){transition-delay:.06s}
+.dsr-stagger>:nth-child(2){transition-delay:.11s}
+.dsr-stagger>:nth-child(3){transition-delay:.16s}
+.dsr-stagger>:nth-child(4){transition-delay:.21s}
+.dsr-stagger>:nth-child(5){transition-delay:.26s}
+.dsr-stagger>:nth-child(6){transition-delay:.31s}
+.dsr-stagger>:nth-child(7){transition-delay:.36s}
+.dsr-switch summary::-webkit-details-marker,.dsr-mail summary::-webkit-details-marker{display:none}
+@media (max-width:760px){ .dsr-navlinks{display:none !important} .dsr-burger{display:flex} }
+@media (min-width:761px){ #dsr-menu{display:none !important} }
+.dsr-nav-inner a:hover .rb-box{transform:rotateY(360deg);background:#0a0a0a;color:#fff}
+/* ── ported interactive scenes: 3D building + Light Architect ── */
+@keyframes cityWin{0%,100%{opacity:var(--w0,0.3)}50%{opacity:var(--w1,1)}}
+@keyframes cityFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes laPulse{0%,100%{box-shadow:0 0 0 0 rgba(10,134,163,0.5)}50%{box-shadow:0 0 0 5px rgba(10,134,163,0)}}
+@keyframes laScan{0%{transform:translateY(-100%);opacity:0}10%{opacity:0.9}90%{opacity:0.9}100%{transform:translateY(1100%);opacity:0}}
+#la-heat>div{opacity:0;transition:opacity .5s ease}
+#la-heat.la-on>div{opacity:1}
+.la-layer{will-change:transform}
+#la-sticky{
+  --la-bg:#fbf7ee;--la-fill:#e9e5d7;
+  --la-grad:linear-gradient(125deg,#e2e6d6 0%,#e9e5d6 40%,#ebe7d9 70%,#e0e5d2 100%);
+  --la-road:#cbc3af;--la-road2:#c1b9a4;--la-bldg:#cec7b3;
+  --la-stall:repeating-linear-gradient(90deg,#d9d3c3 0 11px,#c5bda9 11px 12px);
+  --la-roof1:#cdbaa3;--la-roof2:#c9b89f;--la-roof3:#c5b39b;--la-roof4:#cab9a1;
+  --la-tree:radial-gradient(circle at 40% 40%,#9db38a,transparent 70%),radial-gradient(circle at 70% 70%,#90a87e,transparent 70%);
+  --la-tree2:radial-gradient(circle at 50% 50%,#a1b78d,transparent 72%);
+  --la-cyan:#0a86a3;--la-cyan-glow:rgba(10,134,163,0.26);
+  --la-stat-tag-bg:#fffcf5;--la-stat-tag-bd:rgba(0,0,0,0.18);--la-stat-tag-tx:#3a3a3a;
+  --la-vig:rgba(244,234,210,0.6);--la-vig2:#f4ead2;
+}
+@media (max-width:760px){ #iso-hud{display:none !important} }
+</style>
+<script src="page-transition.js"></script>
+<script src="home-variants.js"></script>
+<script src="a11y.js"></script>
+</helmet>
+
+<div class="dsr {{ menuClass }}" style="background:#f4ead2;color:#0a0a0a;font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;position:relative;">
+
+  <!-- paper texture -->
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.5;background-image:radial-gradient(circle at 20% 30%,rgba(120,90,40,0.05) 0,transparent 40%),radial-gradient(circle at 80% 70%,rgba(120,90,40,0.05) 0,transparent 40%);"></div>
+
+  <!-- ═══ NAV ═══ -->
+  <nav style="position:sticky;top:0;z-index:100;background:rgba(244,234,210,0.9);backdrop-filter:blur(12px);border-bottom:1.5px solid #0a0a0a;">
+    <div class="dsr-nav-inner" style="padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="#subject" style="display:flex;align-items:center;gap:13px;perspective:600px;text-decoration:none;color:inherit;">
+        <div class="rb-box" style="width:34px;height:34px;border:1.5px solid #0a0a0a;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;">RB</div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.1em;line-height:1.1;">BABIARZ, ROBERT</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b5d42;letter-spacing:0.14em;">SUBJECT FILE · RB-2026</div>
+        </div>
+      </a>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <div class="dsr-navlinks" style="display:flex;align-items:center;gap:20px;">
+          <a href="#intel" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">INTELLIGENCE</a>
+          <a href="#files" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">CASE FILES</a>
+          <a href="#metrics" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">FINDINGS</a>
+          <a href="About.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">ABOUT</a>
+          <a href="#contact" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">CONTACT</a>
+        </div>
+        <details class="dsr-switch" style="position:relative;">
+          <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;padding:7px 12px;border:1.5px solid #0a0a0a;background:#0a0a0a;color:#f4ead2;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;">VIEW: {{ currentName }}</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div style="position:absolute;top:calc(100% + 7px);right:0;min-width:248px;background:#f4ead2;border:1.5px solid #0a0a0a;box-shadow:6px 6px 0 rgba(10,8,4,0.18);padding:6px;z-index:300;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6b5d42;padding:7px 11px 9px;">Homepage Design</div>
+            <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
+              <a href="{{ v.file }}" data-home-variant="{{ v.id }}" style="display:block;padding:10px 12px;text-decoration:none;border-top:1px solid rgba(10,8,4,0.12);background:{{ v.rowBg }};" style-hover="background:#e7d9b8"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:{{ v.titleColor }};">{{ v.mark }}{{ v.labelUpper }}</div><div style="font-size:11px;color:#6b5d42;margin-top:2px;">{{ v.tagline }}</div></a>
+            </sc-for>
+          </div>
+        </details>
+        <button class="dsr-burger" onClick="{{ toggleMenu }}" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ MOBILE MENU OVERLAY ░░ -->
+  <div id="dsr-menu">
+    <div class="dm-lbl">File Index</div>
+    <div class="dsr-stagger" style="display:flex;flex-direction:column;">
+      <a class="dm-sec" href="#subject" onClick="{{ closeMenu }}"><span>Subject</span><span class="dm-n">00</span></a>
+      <a class="dm-sec" href="#intel" onClick="{{ closeMenu }}"><span>Light Intelligence</span><span class="dm-n">01</span></a>
+      <a class="dm-sec" href="#files" onClick="{{ closeMenu }}"><span>Case Files</span><span class="dm-n">02</span></a>
+      <a class="dm-sec" href="#metrics" onClick="{{ closeMenu }}"><span>Findings</span><span class="dm-n">03</span></a>
+      <a class="dm-sec" href="#architect" onClick="{{ closeMenu }}"><span>Light Architect</span><span class="dm-n">04</span></a>
+      <a class="dm-sec" href="#references" onClick="{{ closeMenu }}"><span>References</span><span class="dm-n">05</span></a>
+      <a class="dm-sec" href="#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="dm-n">06</span></a>
+      <a class="dm-sec" href="About.dc.html"><span>About</span><span class="dm-n" style="font-size:15px;">↗</span></a>
+    </div>
+    <div class="dm-lbl" style="margin-top:26px;">Homepage Design</div>
+    <div class="dsr-stagger" style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+      <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
+        <a class="dm-switch" href="{{ v.file }}" data-home-variant="{{ v.id }}" style="background:{{ v.rowBg }};color:#0a0a0a;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;color:{{ v.titleColor }};">{{ v.mark }}VIEW: {{ v.labelUpper }}</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION SIDE-NAV ═══ -->
+  <nav class="dsr-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:13px;align-items:flex-end;">
+    <a href="#subject" data-toc="subject" style="display:flex;align-items:center;gap:11px;text-decoration:none;justify-content:flex-end;"><span class="dsr-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6b5d42;white-space:nowrap;">SUBJECT</span><span class="dsr-toc-tick" style="width:12px;height:2px;background:rgba(10,8,4,0.3);display:block;transition:all .2s;"></span></a>
+    <a href="#intel" data-toc="intel" style="display:flex;align-items:center;gap:11px;text-decoration:none;justify-content:flex-end;"><span class="dsr-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6b5d42;white-space:nowrap;">INTELLIGENCE</span><span class="dsr-toc-tick" style="width:12px;height:2px;background:rgba(10,8,4,0.3);display:block;transition:all .2s;"></span></a>
+    <a href="#files" data-toc="files" style="display:flex;align-items:center;gap:11px;text-decoration:none;justify-content:flex-end;"><span class="dsr-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6b5d42;white-space:nowrap;">CASE FILES</span><span class="dsr-toc-tick" style="width:12px;height:2px;background:rgba(10,8,4,0.3);display:block;transition:all .2s;"></span></a>
+    <a href="#metrics" data-toc="metrics" style="display:flex;align-items:center;gap:11px;text-decoration:none;justify-content:flex-end;"><span class="dsr-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6b5d42;white-space:nowrap;">FINDINGS</span><span class="dsr-toc-tick" style="width:12px;height:2px;background:rgba(10,8,4,0.3);display:block;transition:all .2s;"></span></a>
+    <a href="#architect" data-toc="architect" style="display:flex;align-items:center;gap:11px;text-decoration:none;justify-content:flex-end;"><span class="dsr-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6b5d42;white-space:nowrap;">ARCHITECT</span><span class="dsr-toc-tick" style="width:12px;height:2px;background:rgba(10,8,4,0.3);display:block;transition:all .2s;"></span></a>
+    <a href="#references" data-toc="references" style="display:flex;align-items:center;gap:11px;text-decoration:none;justify-content:flex-end;"><span class="dsr-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6b5d42;white-space:nowrap;">REFERENCES</span><span class="dsr-toc-tick" style="width:12px;height:2px;background:rgba(10,8,4,0.3);display:block;transition:all .2s;"></span></a>
+    <a href="#contact" data-toc="contact" style="display:flex;align-items:center;gap:11px;text-decoration:none;justify-content:flex-end;"><span class="dsr-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6b5d42;white-space:nowrap;">CONTACT</span><span class="dsr-toc-tick" style="width:12px;height:2px;background:rgba(10,8,4,0.3);display:block;transition:all .2s;"></span></a>
+  </nav>
+
+  <!-- ═══ HERO / SUBJECT ═══ -->
+  <section id="subject" style="position:relative;z-index:1;padding:64px 40px 80px;">
+    <div style="max-width:1340px;margin:0 auto;">
+      <!-- file header bar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-bottom:1.5px solid #0a0a0a;padding-bottom:14px;margin-bottom:46px;animation:dossier-up 0.6s ease both;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.12em;background:#b23a2e;color:#f4ead2;padding:4px 10px;">CONFIDENTIAL</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.1em;">FILE NO. RB-2026-PD · 7 CASE FILES ENCLOSED</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#1c6b39;animation:dossier-blink 2s infinite;"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#1c6b39;letter-spacing:0.1em;">STATUS: OPEN TO ASSIGNMENT</span>
+        </div>
+      </div>
+
+      <div class="dsr-grid2" style="display:grid;grid-template-columns:1.55fr 1fr;gap:64px;align-items:start;">
+        <div style="animation:dossier-up 0.7s ease 0.05s both;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6b5d42;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:22px;">Subject Profile, Designation</div>
+          <h1 style="font-family:'Inter',sans-serif;font-size:clamp(40px,5.4vw,76px);font-weight:600;line-height:1.02;letter-spacing:-0.035em;margin-bottom:26px;">I make complex<br/>systems feel<br/><span style="color:#b23a2e;">effortless.</span></h1>
+          <p style="font-size:18px;color:#3a3120;line-height:1.65;max-width:560px;margin-bottom:30px;">26 years shipping high-consequence UX across networked cyber-physical IoT, regulated real-money platforms, and AR field tooling, Enterprise SaaS, B2B, earning design a founding voice inside engineering-first teams. 3 issued patents, 1 pending.</p>
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+            <a href="#files" style="background:#0a0a0a;color:#f4ead2;padding:15px 28px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:background 0.2s;" style-hover="background:#b23a2e">OPEN CASE FILES <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="#contact" style="border:1.5px solid #0a0a0a;color:#0a0a0a;padding:15px 28px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-decoration:none;transition:background 0.2s;" style-hover="background:#e7d9b8">REQUEST CONTACT</a>
+          </div>
+        </div>
+
+        <!-- subject ID card -->
+        <div class="dsr-stamp-float" style="border:1.5px solid #0a0a0a;background:#fbf5e6;box-shadow:7px 7px 0 rgba(10,8,4,0.16);padding:26px;animation:dossier-up 0.8s ease 0.12s both;">
+          <div style="display:flex;gap:18px;margin-bottom:20px;">
+            <div style="width:84px;height:104px;flex-shrink:0;border:1.5px solid #0a0a0a;background:repeating-linear-gradient(45deg,#e7d9b8,#e7d9b8 6px,#ddcca6 6px,#ddcca6 12px);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b5d42;letter-spacing:0.1em;text-align:center;">PHOTO<br/>ON FILE</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b5d42;letter-spacing:0.1em;margin-bottom:3px;">NAME</div>
+              <div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;line-height:1.1;margin-bottom:11px;">Robert Babiarz</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b5d42;letter-spacing:0.1em;margin-bottom:3px;">TITLE</div>
+              <div style="font-size:13px;font-weight:500;line-height:1.25;">Senior Product Designer</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(10,8,4,0.18);">
+            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(10,8,4,0.12);"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">LOCATION</span><span style="font-size:12px;font-weight:500;">Greater Toronto Area</span></div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(10,8,4,0.12);"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">EXPERIENCE</span><span style="font-size:12px;font-weight:500;">26 years</span></div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(10,8,4,0.12);"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">PATENTS</span><span style="font-size:12px;font-weight:500;">3 issued · 1 pending</span></div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">CLEARANCE</span><span style="font-size:12px;font-weight:500;color:#1c6b39;">Eligible</span></div>
+          </div>
+          <div style="margin-top:18px;border:1.5px solid #b23a2e;color:#b23a2e;transform:rotate(-3deg);text-align:center;padding:6px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:0.18em;">VERIFIED</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LIGHT BUILDING INTELLIGENCE ═══ -->
+  <section id="intel" style="position:relative;z-index:1;padding:18px 40px 90px;">
+    <div style="max-width:1340px;margin:0 auto;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px;" data-reveal="1">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b23a2e;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:10px;">Section 01, Light Building Intelligence</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:600;letter-spacing:-0.03em;line-height:1.05;">Light, made intelligent<br/>at building scale.</h2>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.08em;">[ LIVE FEED ]</span>
+      </div>
+      <p style="font-size:16px;color:#3a3120;line-height:1.68;max-width:640px;margin-bottom:30px;" data-reveal="1">Turning luminaires, sensors, and DALI-2 control into systems that commission in hours and adapt in real time, across enterprise, healthcare, and critical-infrastructure sites.</p>
+
+      <div data-reveal="1" style="border:1.5px solid #0a0a0a;background:#0a0a0a;color:#f4ead2;box-shadow:8px 8px 0 rgba(10,8,4,0.16);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:16px 22px;border-bottom:1px solid rgba(244,234,210,0.18);">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#e08b3a;">EXHIBIT A · WAVELINX CORE, LIVE BUILDING TELEMETRY</span>
+          <span style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#7fb88f;"><span style="width:7px;height:7px;border-radius:50%;background:#3ddc84;animation:dossier-blink 1.8s infinite;"></span>STREAMING</span>
+        </div>
+        <div id="iso-stage" style="position:relative;height:clamp(360px,50vh,500px);overflow:hidden;perspective:1500px;perspective-origin:50% 46%;cursor:grab;border-bottom:1px solid rgba(244,234,210,0.18);">
+          <div data-pllx="0.035" style="position:absolute;top:5%;right:12%;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(125,211,192,0.18),transparent 64%);filter:blur(8px);pointer-events:none;"></div>
+          <div data-pllx="0.05" style="position:absolute;bottom:6%;left:7%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,178,108,0.10),transparent 66%);filter:blur(10px);pointer-events:none;mix-blend-mode:screen;"></div>
+          <div id="iso-floor" data-pllx="0.045" style="position:absolute;left:50%;bottom:11%;width:1600px;height:820px;margin-left:-800px;transform:rotateX(74deg);transform-origin:center;background-image:linear-gradient(rgba(125,211,192,0.22) 1px,transparent 1px),linear-gradient(90deg,rgba(125,211,192,0.18) 1px,transparent 1px);background-size:58px 58px;-webkit-mask-image:radial-gradient(58% 60% at 50% 42%,#000,transparent 80%);mask-image:radial-gradient(58% 60% at 50% 42%,#000,transparent 80%);pointer-events:none;"></div>
+          <div id="iso-dust" data-pllx="0.02" style="position:absolute;inset:0;pointer-events:none;"></div>
+          <div id="iso-float" style="position:absolute;left:50%;top:53%;animation:cityFloat 8s ease-in-out infinite;pointer-events:none;">
+            <div id="iso-rig" style="position:relative;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0.82) rotateX(-24deg) rotateY(-32deg);will-change:transform;"></div>
+          </div>
+          <div id="iso-hud" data-pllx="-0.03" style="position:absolute;inset:0;pointer-events:none;z-index:7;font-family:'JetBrains Mono',monospace;">
+            <div style="position:absolute;top:18%;left:60%;display:flex;align-items:center;gap:9px;animation:cityFloat 9s ease-in-out infinite;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#7dd3c0;box-shadow:0 0 8px 2px rgba(125,211,192,0.7);"></span>
+              <span style="width:36px;height:1px;background:linear-gradient(90deg,rgba(125,211,192,0.65),transparent);"></span>
+              <div style="background:rgba(4,18,22,0.62);backdrop-filter:blur(6px);border:1px solid rgba(125,211,192,0.28);border-radius:7px;padding:6px 11px;font-size:10.5px;letter-spacing:0.09em;color:#c9e8e0;white-space:nowrap;">FLOOR 07 · OCC <span style="color:#9be6d3;">73%</span></div>
+            </div>
+            <div style="position:absolute;top:46%;left:69%;display:flex;align-items:center;gap:9px;animation:cityFloat 11s ease-in-out 0.6s infinite;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#5fe39a;box-shadow:0 0 8px 2px rgba(95,227,154,0.7);animation:cityWin 1.6s ease-in-out infinite;"></span>
+              <span style="width:30px;height:1px;background:linear-gradient(90deg,rgba(95,227,154,0.6),transparent);"></span>
+              <div style="background:rgba(4,18,22,0.62);backdrop-filter:blur(6px);border:1px solid rgba(125,211,192,0.26);border-radius:7px;padding:6px 11px;font-size:10.5px;letter-spacing:0.09em;color:#c9e8e0;white-space:nowrap;">DALI-2 ZONE · <span style="color:#7ef0ab;">ACTIVE</span></div>
+            </div>
+            <div style="position:absolute;top:66%;left:62%;display:flex;align-items:center;gap:9px;animation:cityFloat 10s ease-in-out 1.1s infinite;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#ffc176;box-shadow:0 0 8px 2px rgba(255,193,118,0.6);"></span>
+              <span style="width:30px;height:1px;background:linear-gradient(90deg,rgba(255,193,118,0.55),transparent);"></span>
+              <div style="background:rgba(4,18,22,0.62);backdrop-filter:blur(6px);border:1px solid rgba(125,211,192,0.22);border-radius:7px;padding:6px 11px;font-size:10.5px;letter-spacing:0.09em;color:#c9e8e0;white-space:nowrap;">WaveLinx CORE · NODE <span style="color:#9be6d3;">0x2F</span></div>
+            </div>
+          </div>
+          <div style="position:absolute;left:20px;bottom:14px;z-index:8;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;color:#7fb88f;pointer-events:none;">DRAG TO ROTATE · LIVE DIGITAL TWIN</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:rgba(244,234,210,0.16);">
+          <div style="background:#0a0a0a;padding:26px 22px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#a89c80;margin-bottom:14px;">AVERAGE OCCUPANCY</div><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.6vw,46px);font-weight:500;line-height:1;">55<span style="color:#e08b3a;font-size:0.58em;">%</span></div><div style="font-size:12px;color:#a89c80;margin-top:12px;">19% previous week</div></div>
+          <div style="background:#0a0a0a;padding:26px 22px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#a89c80;margin-bottom:14px;">EMPTY SPACES</div><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.6vw,46px);font-weight:500;line-height:1;">33.33<span style="color:#e08b3a;font-size:0.58em;">%</span></div><div style="font-size:12px;color:#a89c80;margin-top:12px;">300 total areas</div></div>
+          <div style="background:#0a0a0a;padding:26px 22px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#a89c80;margin-bottom:14px;">MONITORED AREA</div><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(28px,3vw,40px);font-weight:500;line-height:1;">1,020,256</div><div style="font-size:12px;color:#a89c80;margin-top:12px;">ft² portfolio-wide</div></div>
+          <div style="background:#0a0a0a;padding:26px 22px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:#a89c80;margin-bottom:14px;">OCCUPANCY SENSORS</div><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.6vw,46px);font-weight:500;line-height:1;">40,000</div><div style="font-size:12px;color:#a89c80;margin-top:12px;">Deployed portfolio-wide</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:15px 22px;border-top:1px solid rgba(244,234,210,0.18);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#a89c80;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px rgba(61,220,132,0.7);"></span>
+          <span style="color:#f4ead2;">12,480</span>&nbsp;luminaires online <span style="opacity:0.5;">·</span> DALI-2 adaptive zones active
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CASE FILES ═══ -->
+  <section id="files" style="position:relative;z-index:1;padding:30px 40px 90px;">
+    <div style="max-width:1340px;margin:0 auto;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:34px;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b23a2e;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:10px;">Section 02, Enclosed Case Files</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:600;letter-spacing:-0.03em;line-height:1.05;">Selected work, declassified.</h2>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.08em;">[ 07 LIVE FILES ]</span>
+      </div>
+
+      <div style="border-top:1.5px solid #0a0a0a;">
+        <sc-for list="{{ files }}" as="f" hint-placeholder-count="7">
+          <a class="dsr-file" href="{{ f.href }}" style="display:grid;grid-template-columns:62px 1fr auto 26px;align-items:center;gap:24px;padding:26px 6px;border-bottom:1px solid rgba(10,8,4,0.22);text-decoration:none;color:#0a0a0a;">
+            <span class="dsr-fnum" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;border:1.5px solid #0a0a0a;padding:6px 0;text-align:center;transition:all 0.25s;">{{ f.num }}</span>
+            <span style="min-width:0;">
+              <span class="dsr-ftitle" style="display:block;font-family:'Inter',sans-serif;font-size:clamp(22px,2.9vw,36px);font-weight:600;letter-spacing:-0.02em;line-height:1.1;transition:color 0.25s;">{{ f.title }}</span>
+              <span style="display:inline-flex;align-items:center;gap:8px;margin-top:7px;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.08em;padding:3px 8px;background:{{ f.tagBg }};color:{{ f.tagFg }};">{{ f.tag }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;">{{ f.status }}</span></span>
+            </span>
+            <span class="dsr-fmeta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;letter-spacing:0.04em;text-transform:uppercase;text-align:right;line-height:1.5;">{{ f.cat }}<br/><span style="color:#b23a2e;">{{ f.highlight }}</span></span>
+            <span class="dsr-farrow" style="justify-self:end;color:#6b5d42;transition:transform 0.25s,color 0.25s;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINDINGS / METRICS ═══ -->
+  <section id="metrics" style="position:relative;z-index:1;padding:80px 40px;background:#0a0a0a;color:#f4ead2;">
+    <div style="max-width:1340px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#e08b3a;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:34px;" data-reveal="1">Section 03, Summary of Findings</div>
+      <div class="dsr-statgrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,234,210,0.16);border:1px solid rgba(244,234,210,0.16);" data-reveal="1">
+        <div style="background:#0a0a0a;padding:40px 26px;"><div style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.4vw,62px);font-weight:600;letter-spacing:-0.03em;line-height:1;">{{ m1 }}<span style="color:#e08b3a;">%</span></div><div style="font-size:13px;color:#a89c80;margin-top:13px;line-height:1.5;">Increase in Connect Lighting sales</div></div>
+        <div style="background:#0a0a0a;padding:40px 26px;"><div style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.4vw,62px);font-weight:600;letter-spacing:-0.03em;line-height:1;color:#e08b3a;">{{ m2 }}<span>%</span></div><div style="font-size:13px;color:#a89c80;margin-top:13px;line-height:1.5;">Fewer clicks to root cause on the CORE Insights console</div></div>
+        <div style="background:#0a0a0a;padding:40px 26px;"><div style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.4vw,62px);font-weight:600;letter-spacing:-0.03em;line-height:1;">{{ m3 }}<span style="color:#e08b3a;">%</span></div><div style="font-size:13px;color:#a89c80;margin-top:13px;line-height:1.5;">Lift in deep-feature navigation engagement</div></div>
+        <div style="background:#0a0a0a;padding:40px 26px;"><div style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.4vw,62px);font-weight:600;letter-spacing:-0.03em;line-height:1;">{{ m4 }}<span style="color:#e08b3a;">%</span></div><div style="font-size:13px;color:#a89c80;margin-top:13px;line-height:1.5;">Faster report generation for facility operators</div></div>
+        <div style="background:#0a0a0a;padding:40px 26px;"><div style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.4vw,62px);font-weight:600;letter-spacing:-0.03em;line-height:1;color:#e08b3a;">$<span>{{ m5 }}</span>B</div><div style="font-size:13px;color:#a89c80;margin-top:13px;line-height:1.5;">Annual transaction throughput designed for across 9 jurisdictions</div></div>
+        <div style="background:#0a0a0a;padding:40px 26px;"><div style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.4vw,62px);font-weight:600;letter-spacing:-0.03em;line-height:1;color:#e08b3a;">{{ m6 }}<span style="font-size:0.34em;color:#a89c80;font-weight:500;margin-left:5px;">+1 pending</span></div><div style="font-size:13px;color:#a89c80;margin-top:13px;line-height:1.5;">Issued patents for first-to-market interaction models</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LIGHT ARCHITECT ═══ -->
+  <section id="architect" style="position:relative;z-index:1;padding:96px 40px;">
+    <div style="max-width:1340px;margin:0 auto;">
+      <div data-reveal="1" style="max-width:760px;margin-bottom:42px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b23a2e;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:22px;">Section 04, Field Tool: Light Architect</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:600;letter-spacing:-0.03em;line-height:1.06;margin-bottom:20px;">Designing the tools that design light.</h2>
+        <p style="font-size:16px;color:#3a3120;line-height:1.68;margin-bottom:26px;max-width:620px;">A browser-based photometric planner: drop fixtures on any address, and watch illuminance render live across the site, footcandle grids, stat areas, and spec-ready PDFs, all from satellite imagery.</p>
+        <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0a0a0a;color:#f4ead2;padding:14px 24px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-decoration:none;transition:background 0.2s;" style-hover="background:#b23a2e">EXPLORE LIGHT ARCHITECT <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+      </div>
+      <div style="position:relative;border:1.5px solid #0a0a0a;overflow:hidden;box-shadow:8px 8px 0 rgba(10,8,4,0.16);min-height:480px;">
+        <div id="la-scroll" style="position:absolute;inset:0;z-index:0;pointer-events:none;">
+      <div id="la-sticky" style="position:absolute;inset:0;overflow:hidden;background:var(--la-bg);">
+        <div id="la-stage" style="position:absolute;inset:0;">
+          <div class="la-layer" data-la="0.24" id="la-ground" style="position:absolute;inset:-16%;z-index:1;">
+            <div style="position:absolute;inset:0;background:var(--la-fill);"></div>
+            <div style="position:absolute;left:50%;top:50%;width:170%;height:170%;margin:-85% 0 0 -85%;transform:rotate(-25deg);">
+              <div style="position:absolute;inset:0;background:var(--la-grad);"></div>
+              <div style="position:absolute;left:0;right:0;top:32%;height:5.5%;background:var(--la-road);box-shadow:0 0 0 1px rgba(255,255,255,0.03);"></div>
+              <div style="position:absolute;top:0;bottom:0;left:24%;width:4.5%;background:var(--la-road);"></div>
+              <div style="position:absolute;left:0;right:0;bottom:13%;height:4%;background:var(--la-road2);transform:rotate(2deg);"></div>
+              <div style="position:absolute;left:7%;top:40%;width:21%;height:30%;background:var(--la-bldg);border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05);"></div>
+              <div style="position:absolute;left:7%;top:72%;width:24%;height:14%;background:var(--la-stall);border-radius:2px;opacity:0.85;"></div>
+              <div style="position:absolute;right:8%;top:18%;width:9%;height:8%;background:var(--la-roof1);border-radius:2px;"></div>
+              <div style="position:absolute;right:20%;top:14%;width:8%;height:7%;background:var(--la-roof2);border-radius:2px;"></div>
+              <div style="position:absolute;right:6%;top:62%;width:11%;height:13%;background:var(--la-roof3);border-radius:3px;"></div>
+              <div style="position:absolute;right:19%;top:68%;width:9%;height:11%;background:var(--la-roof4);border-radius:3px;"></div>
+              <div style="position:absolute;right:2%;top:30%;width:7%;height:22%;background:var(--la-tree);"></div>
+              <div style="position:absolute;left:2%;top:14%;width:9%;height:16%;background:var(--la-tree2);"></div>
+            </div>
+          </div>
+          <div class="la-layer" data-la="0.52" id="la-plate-wrap" style="position:absolute;left:56%;top:50%;width:min(860px,72vw);height:min(560px,48vw);margin-left:calc(min(860px,72vw) / -2);margin-top:calc(min(560px,48vw) / -2);z-index:3;">
+            <div id="la-plate" style="position:absolute;inset:0;transform:rotate(-25deg);">
+              <div id="la-heat" style="position:absolute;inset:0;display:grid;gap:0;border-radius:1px;overflow:hidden;"></div>
+              <div id="la-fixtures" style="position:absolute;inset:0;pointer-events:none;"></div>
+              <div style="position:absolute;inset:0;border:1.5px solid var(--la-cyan);box-shadow:0 0 22px var(--la-cyan-glow);pointer-events:none;"></div>
+              <div style="position:absolute;left:-4px;top:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite;"></div>
+              <div style="position:absolute;right:-4px;top:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite .6s;"></div>
+              <div style="position:absolute;left:-4px;bottom:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite 1.2s;"></div>
+              <div style="position:absolute;right:-4px;bottom:-4px;width:8px;height:8px;background:var(--la-cyan);border-radius:1px;animation:laPulse 2.6s ease-out infinite 1.8s;"></div>
+              <div style="position:absolute;left:50%;bottom:-13px;transform:translateX(-50%) rotate(25deg);background:var(--la-stat-tag-bg);border:1px solid var(--la-stat-tag-bd);padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--la-stat-tag-tx);white-space:nowrap;">Stat Area 1</div>
+              <div style="position:absolute;left:0;right:0;top:0;height:30%;background:linear-gradient(transparent,var(--la-cyan-glow));animation:laScan 6s ease-in-out infinite 1.2s;pointer-events:none;"></div>
+            </div>
+          </div>
+          <div style="position:absolute;inset:0;background:radial-gradient(125% 95% at 50% 42%,transparent 40%,var(--la-vig) 82%,var(--la-vig2) 100%);pointer-events:none;z-index:4;"></div>
+        </div>
+      </div>
+    </div>
+        <div style="position:relative;z-index:2;padding:44px 40px;display:flex;justify-content:flex-end;">
+          <div data-reveal="1" style="width:100%;max-width:480px;border:1.5px solid #0a0a0a;background:#fbf5e6;box-shadow:7px 7px 0 rgba(10,8,4,0.16);">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:15px 20px;border-bottom:1.5px solid #0a0a0a;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#0a0a0a;font-weight:700;">EXHIBIT B · PHOTOMETRIC SUMMARY</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#6b5d42;">3775 SWIFTDALE DR · MISSISSAUGA</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:1px;background:rgba(10,8,4,0.18);">
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;">3.91</div></div>
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;">6.78</div></div>
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;">1.3</div></div>
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">A/MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;color:#b23a2e;">3.01</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:14px 20px;border-top:1px solid rgba(10,8,4,0.18);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em;color:#6b5d42;">
+            <span style="width:6px;height:6px;border-radius:50%;background:#1c6b39;"></span> ILLUMINANCE (FC) · LLF 0.912
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;padding:0 20px 18px;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a3120;padding:5px 10px;border:1px solid rgba(10,8,4,0.3);">16 × GALN Galleon II</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a3120;padding:5px 10px;border:1px solid rgba(10,8,4,0.3);">Stat Area 1</span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ REFERENCES / TESTIMONIALS ═══ -->
+  <section id="references" style="position:relative;z-index:1;padding:96px 40px;border-top:1.5px solid #0a0a0a;">
+    <div style="max-width:1340px;margin:0 auto;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:34px;" data-reveal="1">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b23a2e;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:10px;">Section 05, References on File</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:600;letter-spacing:-0.03em;line-height:1.05;">Statements from the record.</h2>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.08em;">[ 03 ON FILE ]</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:start;">
+
+        <div data-reveal="1" style="border:1.5px solid #0a0a0a;background:#fbf5e6;padding:28px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.1em;color:#1c6b39;border:1px solid #1c6b39;padding:3px 8px;">VERIFIED · 01</span>
+            <span style="color:#e08b3a;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p style="font-size:14px;color:#3a3120;line-height:1.62;margin-bottom:22px;">An exceptional UI/UX designer who truly understands both design and the technical realities behind it. He consistently transforms abstract ideas into intuitive, working prototypes, and invests time in clearly understanding requirements before proposing solutions. His ability to bridge product vision, user needs, and engineering constraints makes collaboration seamless. Any team would benefit from his creativity, structure, and user-first mindset.</p>
+          <div style="display:flex;align-items:center;gap:13px;border-top:1px solid rgba(10,8,4,0.18);padding-top:16px;">
+            <div style="width:42px;height:42px;border:1.5px solid #0a0a0a;background:#e7d9b8;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;flex:none;">GD</div>
+            <div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;">Gunjan Dave</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;margin-top:2px;">Engineering Manager</div></div>
+          </div>
+        </div>
+
+        <div data-reveal="1" style="border:1.5px solid #0a0a0a;background:#fbf5e6;padding:28px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.1em;color:#1c6b39;border:1px solid #1c6b39;padding:3px 8px;">VERIFIED · 02</span>
+            <span style="color:#e08b3a;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p style="font-size:14px;color:#3a3120;line-height:1.62;margin-bottom:14px;">An incredibly talented and detail-oriented designer with a keen eye for creating visually stunning and user-focused designs. His ability to turn complex ideas into intuitive and engaging interfaces consistently elevated the quality of our products.</p>
+          <p style="font-size:14px;color:#3a3120;line-height:1.62;margin-bottom:22px;">His collaborative approach and dedication to excellence made him a joy to work with and a key contributor to our team's success. I highly recommend Robert to any organization looking for a skilled and innovative design leader.</p>
+          <div style="display:flex;align-items:center;gap:13px;border-top:1px solid rgba(10,8,4,0.18);padding-top:16px;">
+            <div style="width:42px;height:42px;border:1.5px solid #0a0a0a;background:#e7d9b8;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;flex:none;">GE</div>
+            <div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;">Gavyn Elrick</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;margin-top:2px;">Senior Full Stack Engineer · Parlay Gaming</div></div>
+          </div>
+        </div>
+
+        <div data-reveal="1" style="border:1.5px solid #0a0a0a;background:#fbf5e6;padding:28px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.1em;color:#1c6b39;border:1px solid #1c6b39;padding:3px 8px;">VERIFIED · 03</span>
+            <span style="color:#e08b3a;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p style="font-size:14px;color:#3a3120;line-height:1.62;margin-bottom:22px;">A special thanks to our lead designer Robert Babiarz for his constant support, valuable insights, and mentoring whenever we need it. Our design discussions are always constructive, supportive, and focused on delivering great user experiences. Grateful to be part of such a collaborative and inspiring team.</p>
+          <div style="display:flex;align-items:center;gap:13px;border-top:1px solid rgba(10,8,4,0.18);padding-top:16px;">
+            <div style="width:42px;height:42px;border:1.5px solid #0a0a0a;background:#e7d9b8;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;flex:none;">CP</div>
+            <div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;">Chetan Patil</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;margin-top:2px;">UX Designer</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact" style="position:relative;z-index:1;padding:30px 40px 110px;">
+    <div data-reveal="1" style="max-width:1340px;margin:0 auto;border:1.5px solid #0a0a0a;background:#fbf5e6;box-shadow:8px 8px 0 rgba(10,8,4,0.16);padding:70px 56px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:22px;right:-46px;transform:rotate(34deg);background:#b23a2e;color:#f4ead2;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.16em;padding:6px 60px;">DECLASSIFY</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:48px;flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b23a2e;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:20px;">Section 06, Request Contact</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(32px,4.6vw,62px);font-weight:600;letter-spacing:-0.035em;line-height:1.02;margin-bottom:18px;">Designing for the<br/>moment it matters.</h2>
+          <p style="font-size:17px;color:#3a3120;line-height:1.6;max-width:430px;">Building complex, high-stakes systems where the experience has to be right? Open the file.</p>
+        </div>
+        <div style="flex-shrink:0;min-width:300px;">
+          <details class="dsr-mail" onToggle="{{ mailToggle }}" style="position:relative;margin-bottom:10px;">
+            <summary style="list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;background:#0a0a0a;color:#f4ead2;padding:18px 24px;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;letter-spacing:0.06em;cursor:pointer;transition:background 0.2s;" style-hover="background:#b23a2e">OPEN CHANNEL <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></summary>
+            <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;border:1.5px solid #0a0a0a;background:#f4ead2;padding:8px;">
+              <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=rbabiarz@gmail.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none;color:#0a0a0a;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.04em;transition:background 0.18s;" style-hover="background:#e7d9b8"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b23a2e" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>GMAIL</a>
+              <a href="https://outlook.office.com/mail/deeplink/compose?to=rbabiarz@gmail.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none;color:#0a0a0a;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.04em;transition:background 0.18s;" style-hover="background:#e7d9b8"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b23a2e" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>OUTLOOK</a>
+              <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none;color:#6b5d42;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.04em;transition:background 0.18s;" style-hover="background:#e7d9b8"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>DEFAULT MAIL APP</a>
+            </div>
+          </details>
+          <div style="display:flex;gap:10px;">
+            <a href="https://linkedin.com/in/robert-babiarz" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">LinkedIn ↗</a>
+            <a href="Robert_Babiarz_Resume.pdf" target="_blank" rel="noopener" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">Résumé ↓</a>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.05em;margin-top:14px;text-align:center;">416-315-4761 · robertbabiarz.com</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer style="position:relative;z-index:1;padding:26px 40px;border-top:1.5px solid #0a0a0a;">
+    <div style="max-width:1340px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.04em;">© 2026 BABIARZ, ROBERT · FILE RB-2026-PD · END OF DOCUMENT</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.04em;">GREATER TORONTO AREA · SR. PRODUCT DESIGNER</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1340,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { m1: 0, m2: 0, m3: 0, m4: 0, m5: 0, m6: 0, done: false, menu: false };
+  _raf = {}; _obs = [];
+
+  componentDidMount() {
+    this._hvReady = () => this.forceUpdate();
+    window.addEventListener('home-variants-ready', this._hvReady);
+    setTimeout(() => this.forceUpdate(), 320);
+    setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.buildIso(); this.initIso(); this.buildLightArchitect(); }, 100);
+  }
+  componentWillUnmount() {
+    Object.values(this._raf).forEach(cancelAnimationFrame);
+    [this._isoRaf, this._laRaf].forEach(r => r && cancelAnimationFrame(r));
+    this._obs.forEach(o => o.disconnect());
+    (this._listeners || []).forEach(([el, ev, fn, opts]) => { try { el.removeEventListener(ev, fn, opts); } catch (e) {} });
+    if (this._hvReady) window.removeEventListener('home-variants-ready', this._hvReady);
+  }
+  on(el, ev, fn, opts) { if (!el) return; el.addEventListener(ev, fn, opts); (this._listeners = this._listeners || []).push([el, ev, fn, opts]); }
+
+  initReveal() {
+    if (!window.IntersectionObserver) return;
+    const o = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { e.target.style.animation = 'dossier-up 0.6s ease both'; o.unobserve(e.target); } }); }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(el => { el.style.opacity = '0'; o.observe(el); });
+    this._obs.push(o);
+  }
+  initToc() {
+    if (!window.IntersectionObserver) return;
+    const links = [...document.querySelectorAll('.dsr-toc a[data-toc]')];
+    if (!links.length) return;
+    const byId = {}; links.forEach(l => { byId[l.getAttribute('data-toc')] = l; });
+    const o = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.removeAttribute('data-active')); if (byId[e.target.id]) byId[e.target.id].setAttribute('data-active', ''); } });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    ['subject', 'intel', 'files', 'metrics', 'architect', 'references', 'contact'].forEach(id => { const el = document.getElementById(id); if (el) o.observe(el); });
+    this._obs.push(o);
+  }
+  initCounters() {
+    if (!window.IntersectionObserver) return;
+    const el = document.getElementById('metrics');
+    if (!el) return;
+    const o = new IntersectionObserver((es) => { if (es[0].isIntersecting && !this.state.done) { this.setState({ done: true }); this.run(); o.disconnect(); } }, { threshold: 0.3 });
+    o.observe(el); this._obs.push(o);
+  }
+  run() {
+    const tg = [34, 89, 175, 90, 2, 3], dur = 1700, t0 = Date.now();
+    const tick = () => {
+      const p = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      this.setState({ m1: Math.round(tg[0] * e), m2: Math.round(tg[1] * e), m3: Math.round(tg[2] * e), m4: Math.round(tg[3] * e), m5: Math.round(tg[4] * e), m6: Math.round(tg[5] * e) });
+      if (p < 1) this._raf.c = requestAnimationFrame(tick);
+    };
+    this._raf.c = requestAnimationFrame(tick);
+  }
+
+  tintHeat() {
+    const heat = document.getElementById('la-heat');
+    if (!heat || !this._laV) return;
+    const dark = this.state.dark;
+    const stops = dark
+      ? [[22,46,128],[31,108,209],[31,163,116],[150,170,40],[214,128,30],[206,58,42]]
+      : [[16,26,72],[20,64,128],[18,104,82],[92,100,28],[126,72,18],[122,30,24]];
+    const ramp = (v) => {
+      v = Math.max(0, Math.min(1, v));
+      const s = v * (stops.length - 1), i = Math.floor(s), f = s - i;
+      const a = stops[i], b = stops[Math.min(stops.length - 1, i + 1)];
+      return a.map((c, k) => Math.round(c + (b[k] - c) * f)).join(',');
+    };
+    const kids = heat.children;
+    for (let i = 0; i < kids.length; i++) {
+      const v = this._laV[i] || 0;
+      const al = dark ? (0.5 + 0.42 * v) : (0.84 + 0.14 * v);
+      kids[i].style.background = 'rgba(' + ramp(v) + ',' + al.toFixed(2) + ')';
+    }
+  }
+
+  buildLightArchitect() {
+    const heat = document.getElementById('la-heat');
+    if (!heat) return;
+    const COLS = 24, ROWS = 16;
+    heat.style.gridTemplateColumns = 'repeat(' + COLS + ',1fr)';
+    heat.style.gridTemplateRows = 'repeat(' + ROWS + ',1fr)';
+    const fx = [];
+    const cx4 = [0.16, 0.39, 0.61, 0.84], cy4 = [0.17, 0.39, 0.61, 0.83];
+    cx4.forEach(x => cy4.forEach(y => fx.push({ x, y })));
+    const E = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
+      let e = 0;
+      fx.forEach(f => { const dx = px - f.x, dy = (py - f.y) * 0.92; e += 1 / (0.014 + (dx * dx + dy * dy) * 8.5); });
+      const edge = Math.min(px, 1 - px, py, 1 - py);
+      e *= (0.32 + 1.15 * Math.min(1, edge * 3.1));
+      E.push(e);
+    }
+    const max = Math.max.apply(null, E), min = Math.min.apply(null, E);
+    let html = '';
+    this._laV = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const v = (E[r * COLS + c] - min) / (max - min || 1);
+      const fc = (1.1 + v * 5.7).toFixed(1);
+      const delay = (((c + r) / (COLS + ROWS)) * 850).toFixed(0);
+      this._laV.push(v);
+      html += '<div style="display:flex;align-items:center;justify-content:center;font-family:\'JetBrains Mono\',monospace;font-size:9px;color:rgba(255,255,255,0.92);text-shadow:0 1px 2px rgba(0,0,0,0.55);transition-delay:' + delay + 'ms;">' + fc + '</div>';
+    }
+    heat.innerHTML = html;
+    this.tintHeat();
+    const fl = document.getElementById('la-fixtures');
+    if (fl) {
+      let f = '';
+      fx.forEach((p, i) => {
+        const hot = (i % 4 === 1 || i % 4 === 2) && (Math.floor(i / 4) === 1 || Math.floor(i / 4) === 2);
+        const rot = ((i * 47) % 60) - 30;
+        f += '<div style="position:absolute;left:' + (p.x * 100).toFixed(1) + '%;top:' + (p.y * 100).toFixed(1) + '%;transform:translate(-50%,-50%) rotate(' + rot + 'deg);width:20px;height:7px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);"></div>';
+        if (hot) {
+          f += '<div style="position:absolute;left:' + (p.x * 100).toFixed(1) + '%;top:' + (p.y * 100).toFixed(1) + '%;transform:translate(-50%,-50%);width:30px;height:30px;pointer-events:none;"><span style="position:absolute;left:50%;top:0;width:2px;height:100%;margin-left:-1px;background:#9be84a;box-shadow:0 0 6px rgba(155,232,74,0.6);"></span><span style="position:absolute;top:50%;left:0;height:2px;width:100%;margin-top:-1px;background:#9be84a;box-shadow:0 0 6px rgba(155,232,74,0.6);"></span></div>';
+        }
+      });
+      fl.innerHTML = f;
+    }
+    if (window.IntersectionObserver) {
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const obs = new IntersectionObserver((ents) => {
+        ents.forEach(e => {
+          if (e.isIntersecting) {
+            if (reduce) [...heat.children].forEach(ch => { ch.style.transitionDelay = '0ms'; });
+            heat.classList.add('la-on');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.18 });
+      const tgt = document.getElementById('architect');
+      if (tgt) obs.observe(tgt);
+      this._obs.push(obs);
+    } else {
+      heat.classList.add('la-on');
+    }
+  }
+
+  initLightArchitect() {
+    const stage = document.getElementById('la-sticky');
+    if (!stage) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const stat = window.matchMedia && window.matchMedia('(max-width:860px)').matches;
+    if (reduce || stat) return;
+    const layers = [...stage.querySelectorAll('[data-la]')].map(el => ({
+      el, f: parseFloat(el.getAttribute('data-la')) || 0,
+      base: el.style.transform || ''
+    }));
+    const AMP = 150;
+    let target = 0, cur = 0;
+    const compute = () => {
+      const r = stage.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const center = r.top + r.height / 2;
+      target = Math.max(-0.7, Math.min(0.7, (vh / 2 - center) / vh));
+    };
+    const loop = () => {
+      cur += (target - cur) * 0.14;
+      layers.forEach(({ el, f, base }) => {
+        el.style.transform = base + ' translate3d(0,' + (cur * f * AMP).toFixed(1) + 'px,0)';
+      });
+      if (Math.abs(target - cur) > 0.0004) { this._laRaf = requestAnimationFrame(loop); }
+      else { this._laRaf = null; }
+    };
+    const kick = () => { if (!this._laRaf) this._laRaf = requestAnimationFrame(loop); };
+    const onScroll = () => { compute(); kick(); };
+    compute(); cur = target; loop();
+    this.on(window, 'scroll', onScroll, true);
+    this.on(window, 'resize', () => { compute(); kick(); });
+  }
+
+  buildIso() {
+    const rig = document.getElementById('iso-rig');
+    if (!rig || rig.dataset.built) return;
+    rig.dataset.built = '1';
+    let seed = 0x51ed3; const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+    const ri = (a, b) => a + Math.floor(rnd() * (b - a + 1));
+    const COOL = ['#d6eef2','#aad6de','#7fb6c2','#c3e3e8','#93c4ce'];
+    const WARM = ['#ffe2b2','#ffd193','#ffeac8','#f4c886'];
+    const cells = []; this._isoCells = cells; let gridSeq = 0;
+    const EDGE = 'rgba(125,211,192,0.30)';
+    const OY = 170;
+    const face = (fw, fh, bg, extra) => {
+      const f = document.createElement('div');
+      f.style.cssText = 'position:absolute;left:50%;top:50%;width:' + fw + 'px;height:' + fh + 'px;margin-left:' + (-fw/2) + 'px;margin-top:' + (-fh/2) + 'px;background:' + bg + ';box-shadow:inset 0 0 0 1px ' + EDGE + ';overflow:hidden;' + (extra || '');
+      return f;
+    };
+    const grid = (parent, gw, gh, opt) => {
+      const colW = opt.colW || 13, rowH = opt.rowH || 11, pad = opt.pad != null ? opt.pad : 5;
+      const cgap = opt.cgap != null ? opt.cgap : 3, rgap = opt.rgap != null ? opt.rgap : 2;
+      const palette = opt.palette || COOL, lit = opt.lit != null ? opt.lit : 0.14;
+      const cols = Math.max(2, Math.floor((gw - pad*2) / colW));
+      const rows = Math.max(2, Math.floor((gh - pad*2) / rowH));
+      const gid = gridSeq++;
+      const g = document.createElement('div');
+      g.style.cssText = 'position:absolute;inset:' + pad + 'px;display:grid;grid-template-columns:repeat(' + cols + ',1fr);grid-template-rows:repeat(' + rows + ',1fr);column-gap:' + cgap + 'px;row-gap:' + rgap + 'px;';
+      for (let i = 0; i < cols*rows; i++) {
+        const cell = document.createElement('div');
+        const color = palette[ri(0, palette.length-1)];
+        const prelit = rnd() < lit;
+        const base = prelit ? (0.42 + rnd()*0.42) : (0.05 + rnd()*0.07);
+        cell.style.cssText = 'border-radius:0.5px;background:' + color + ';opacity:' + base.toFixed(2) + ';will-change:opacity;';
+        if (prelit && rnd() < 0.45) {
+          cell.style.animation = 'cityWin ' + (2.6 + rnd()*3).toFixed(2) + 's ease-in-out ' + (rnd()*4).toFixed(2) + 's infinite';
+          cell.style.setProperty('--w0', base.toFixed(2));
+          cell.style.setProperty('--w1', '1');
+        } else {
+          cells.push({ el: cell, color: color, base: base, cur: base, cx: 0, cy: 0, floor: gid + ':' + Math.floor(i / cols) });
+        }
+        g.appendChild(cell);
+      }
+      parent.appendChild(g);
+    };
+    const addBox = (cx, cy, cz, bw, bh, bd, o) => {
+      o = o || {};
+      const box = document.createElement('div');
+      box.style.cssText = 'position:absolute;left:0;top:0;transform-style:preserve-3d;transform:translate3d(' + cx + 'px,' + (cy + OY) + 'px,' + cz + 'px);';
+      const front = face(bw, bh, o.front || 'linear-gradient(180deg,#0e3a40,#06222a)');
+      front.style.transform = 'translateZ(' + (bd/2) + 'px)';
+      const right = face(bd, bh, o.side || 'linear-gradient(180deg,#0a2b32,#04161c)');
+      right.style.transform = 'rotateY(90deg) translateZ(' + (bw/2) + 'px)';
+      const top = face(bw, bd, o.top || 'linear-gradient(135deg,#1f6b64,#15514c)');
+      top.style.transform = 'rotateX(90deg) translateZ(' + (bh/2) + 'px)';
+      const back = face(bw, bh, o.front || 'linear-gradient(180deg,#0e3a40,#06222a)');
+      back.style.transform = 'rotateY(180deg) translateZ(' + (bd/2) + 'px)';
+      const left = face(bd, bh, o.side || 'linear-gradient(180deg,#0a2b32,#04161c)');
+      left.style.transform = 'rotateY(-90deg) translateZ(' + (bw/2) + 'px)';
+      const bottom = face(bw, bd, 'linear-gradient(135deg,#06181c,#020a0d)');
+      bottom.style.transform = 'rotateX(-90deg) translateZ(' + (bh/2) + 'px)';
+      box.appendChild(bottom); box.appendChild(back); box.appendChild(left);
+      box.appendChild(top); box.appendChild(right); box.appendChild(front);
+      if (o.grid) { grid(front, bw, bh, o.grid); grid(right, bd, bh, o.grid); grid(back, bw, bh, o.grid); grid(left, bd, bh, o.grid); }
+      rig.appendChild(box);
+      return box;
+    };
+    addBox(-6,   0,   0,   324, 30, 252, { top:'linear-gradient(135deg,#15524e,#0d3a37)', front:'#0c3034', side:'#082327', grid:{ colW:19, rowH:13, palette:COOL, lit:0.10 } });
+    addBox(-14, -29, -24, 268, 28, 204, { top:'linear-gradient(135deg,#17605a,#0f4744)', front:'#0d3438', side:'#082529', grid:{ colW:19, rowH:13, palette:COOL, lit:0.10 } });
+    addBox(-22, -56, -44, 208, 26, 158, { top:'linear-gradient(135deg,#1a6960,#114d49)', front:'#0e3a3e', side:'#09282d', grid:{ colW:19, rowH:13, palette:COOL, lit:0.12 } });
+    const podTop = -69;
+    addBox(58, -33, 80, 138, 36, 66, { front:'linear-gradient(180deg,#114146,#0a2a30)', side:'#082329', top:'linear-gradient(135deg,#1f6b64,#15514c)', grid:{ colW:15, rowH:12, palette:COOL, lit:0.16 } });
+    const tH = 246;
+    addBox(-34, podTop - tH/2, -50, 122, tH, 104, {
+      front:'linear-gradient(118deg,#214f55 0%,#0c3036 50%,#1c4a50 76%,#0d343a 100%)',
+      side:'linear-gradient(180deg,#0a2c33,#05181e)',
+      top:'linear-gradient(135deg,#c6e9e4,#8ccbc3)',
+      grid:{ colW:11, rowH:10, cgap:3, rgap:2, palette:COOL, lit:0.19 } });
+    const tTop = podTop - tH;
+    const s2H = 178;
+    addBox(60, -43 - s2H/2, -16, 92, s2H, 86, {
+      front:'linear-gradient(180deg,#352d1e,#201a10)',
+      side:'linear-gradient(180deg,#241d11,#140f08)',
+      top:'linear-gradient(135deg,#ffe3b4,#e7c184)',
+      grid:{ colW:12, rowH:11, cgap:3, rgap:2, palette:WARM, lit:0.20 } });
+    addBox(-34, tTop - 14, -50, 98, 28, 88, { front:'#0c3034', side:'#082329', top:'linear-gradient(135deg,#9fe9d8,#7dd3c0)' });
+    const crownTop = tTop - 28;
+    addBox(-66, crownTop - 32, -50, 7, 64, 7, { front:'#0e3f3a', side:'#0a302c', top:'#9fe9d8' });
+    const beac = document.createElement('div');
+    beac.style.cssText = 'position:absolute;left:0;top:0;transform:translate3d(-66px,' + ((crownTop - 64) + OY) + 'px,-50px);width:9px;height:9px;margin-left:-4.5px;margin-top:-4.5px;border-radius:50%;background:#ff6a5a;box-shadow:0 0 12px 4px rgba(255,106,90,0.85);animation:cityWin 1.3s ease-in-out infinite;--w0:0.35;--w1:1;';
+    rig.appendChild(beac);
+    const padBox = document.createElement('div');
+    padBox.style.cssText = 'position:absolute;left:0;top:0;transform-style:preserve-3d;transform:translate3d(-18px,' + (crownTop + OY) + 'px,-44px);';
+    const plate = face(60, 60, 'linear-gradient(135deg,#0c2e30,#06191d)');
+    plate.style.transform = 'rotateX(90deg)';
+    plate.style.boxShadow = 'inset 0 0 0 2px rgba(125,211,192,0.45)';
+    plate.innerHTML = '<div style="position:absolute;inset:9px;border-radius:50%;border:2px solid rgba(125,211,192,0.36);"></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-weight:800;font-size:30px;color:#cdeee6;letter-spacing:-1px;">H</div>';
+    padBox.appendChild(plate);
+    rig.appendChild(padBox);
+    const HUD_HTML =
+      '<div style="position:relative;background:rgba(5,18,22,0.84);backdrop-filter:blur(9px);border:1px solid rgba(125,211,192,0.34);border-radius:11px;padding:13px 15px;box-shadow:0 14px 36px rgba(0,0,0,0.5);">'
+      + '<div style="position:absolute;right:-46px;top:26px;width:46px;height:1px;background:linear-gradient(90deg,rgba(125,211,192,0.7),transparent);"></div>'
+      + '<div style="position:absolute;right:-49px;top:23px;width:6px;height:6px;border-radius:50%;background:#9be6d3;box-shadow:0 0 8px 2px rgba(125,211,192,0.8);"></div>'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">'
+      +   '<span data-h="floor" style="font-size:15px;font-weight:700;color:#bdf0e4;letter-spacing:0.02em;">FLOOR 14</span>'
+      +   '<span style="display:inline-flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:0.08em;color:#9be6d3;"><span style="width:6px;height:6px;border-radius:50%;background:#9be6d3;box-shadow:0 0 8px 2px rgba(125,211,192,0.9);animation:cityWin 1.6s ease-in-out infinite;--w0:0.4;--w1:1;"></span>ONLINE</span>'
+      + '</div>'
+      + '<div data-h="zone" style="font-size:11px;color:#e6f6f1;letter-spacing:0.05em;margin-bottom:12px;text-transform:uppercase;">ICU · West Wing</div>'
+      + '<div style="display:flex;flex-direction:column;gap:7px;font-size:10px;letter-spacing:0.04em;">'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">IoT</span><span data-h="proto" style="color:#cfeee6;">DALI-2 Mesh</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">DEVICES</span><span data-h="dev" style="color:#cfeee6;">42</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">SCENE</span><span data-h="scene" style="color:#cfeee6;text-align:right;">Circadian, Day</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">OCCUPANCY</span><span data-h="occ" style="color:#cfeee6;">78%</span></div>'
+      +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">ASSETS TRACKED</span><span data-h="assets" style="color:#9be6d3;">27</span></div>'
+      + '</div>'
+      + '<div style="margin-top:11px;padding-top:9px;border-top:1px solid rgba(125,211,192,0.18);display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:0.05em;color:#86b8af;line-height:1.3;">'
+      +   '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>'
+      +   'REAL-TIME HOSPITAL ASSET TRACKING'
+      + '</div>'
+      + '</div>';
+    const mkHud = (tf) => {
+      const h = document.createElement('div');
+      h.style.cssText = 'position:absolute;left:0;top:0;transform:' + tf + ';transform-style:preserve-3d;backface-visibility:hidden;pointer-events:none;opacity:0;transition:opacity 0.25s ease;width:212px;font-family:\'JetBrains Mono\',monospace;';
+      h.innerHTML = HUD_HTML;
+      rig.appendChild(h);
+      return h;
+    };
+    this._isoHuds = [
+      mkHud('translate3d(-298px,-186px,72px)'),
+      mkHud('translate3d(-298px,-186px,-172px) rotateY(180deg)')
+    ];
+    const dust = document.getElementById('iso-dust');
+    if (dust) {
+      for (let i = 0; i < 38; i++) {
+        const sz = (rnd()*2+0.8).toFixed(1);
+        const sp = document.createElement('div');
+        sp.style.cssText = 'position:absolute;left:' + (rnd()*100).toFixed(1) + '%;top:' + (rnd()*88).toFixed(1) + '%;width:' + sz + 'px;height:' + sz + 'px;border-radius:50%;background:rgba(159,233,216,' + (0.16 + rnd()*0.4).toFixed(2) + ');--w0:0.1;--w1:0.8;animation:cityWin ' + (2.4+rnd()*4).toFixed(2) + 's ease-in-out ' + (rnd()*5).toFixed(2) + 's infinite;';
+        dust.appendChild(sp);
+      }
+    }
+  }
+
+  initIso() {
+    const stage = document.getElementById('iso-stage');
+    if (!stage) return;
+    this.buildIso();
+    const rig = document.getElementById('iso-rig');
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const apply = (px, py) => { if (rig) rig.style.transform = 'translate(-50%,-50%) scale(0.82) rotateX(' + px.toFixed(2) + 'deg) rotateY(' + py.toFixed(2) + 'deg)'; };
+    let yaw = -32, pitch = -24, curYaw = -32, curPitch = -24;
+    const tiltX = 10, tiltY = 15;
+    let mx = -99999, my = -99999, inside = false;
+    let dragging = false, sx = 0, sy = 0, sYaw = 0, sPitch = 0, moved = false;
+    if (reduce) { apply(pitch, yaw); return; }
+    stage.style.cursor = 'grab';
+    this.on(stage, 'mousemove', (e) => { mx = e.clientX; my = e.clientY; inside = true; });
+    this.on(stage, 'mouseleave', () => { if (!dragging) { inside = false; mx = -99999; my = -99999; } });
+    const begin = (x, y) => { dragging = true; moved = false; sx = x; sy = y; sYaw = yaw; sPitch = pitch; stage.style.cursor = 'grabbing'; };
+    const drag = (x, y) => { if (!dragging) return; if (Math.abs(x - sx) + Math.abs(y - sy) > 3) moved = true; yaw = sYaw + (x - sx) * 0.55; pitch = Math.max(-84, Math.min(20, sPitch - (y - sy) * 0.42)); };
+    const finish = () => { if (dragging) { dragging = false; stage.style.cursor = 'grab'; } };
+    this.on(stage, 'mousedown', (e) => { begin(e.clientX, e.clientY); e.preventDefault(); });
+    this.on(window, 'mousemove', (e) => { drag(e.clientX, e.clientY); });
+    this.on(window, 'mouseup', finish);
+    this.on(stage, 'touchstart', (e) => { const t = e.touches[0]; if (t) { begin(t.clientX, t.clientY); mx = t.clientX; my = t.clientY; inside = true; } }, { passive: true });
+    this.on(window, 'touchmove', (e) => { const t = e.touches[0]; if (t && dragging) { drag(t.clientX, t.clientY); if (e.cancelable) e.preventDefault(); } }, { passive: false });
+    this.on(window, 'touchend', () => { finish(); inside = false; });
+    stage.setAttribute('tabindex', '0');
+    stage.setAttribute('role', 'application');
+    stage.setAttribute('aria-label', 'Interactive 3D building. Use the arrow keys to rotate it; press Home to reset.');
+    this.on(stage, 'keydown', (e) => {
+      let handled = true;
+      if (e.key === 'ArrowLeft') yaw -= 8;
+      else if (e.key === 'ArrowRight') yaw += 8;
+      else if (e.key === 'ArrowUp') pitch = Math.max(-84, Math.min(20, pitch - 6));
+      else if (e.key === 'ArrowDown') pitch = Math.max(-84, Math.min(20, pitch + 6));
+      else if (e.key === 'Home') { yaw = -32; pitch = -24; }
+      else handled = false;
+      if (handled) e.preventDefault();
+    });
+    const pllx = [...stage.querySelectorAll('[data-pllx]')].map(el => ({ el, f: parseFloat(el.getAttribute('data-pllx')) || 0 }));
+    const cells = this._isoCells || [];
+    const huds = this._isoHuds || [];
+    const HQ = huds.map(h => ({ el:h, f:h.querySelector('[data-h=floor]'), z:h.querySelector('[data-h=zone]'), p:h.querySelector('[data-h=proto]'), d:h.querySelector('[data-h=dev]'), s:h.querySelector('[data-h=scene]'), o:h.querySelector('[data-h=occ]'), a:h.querySelector('[data-h=assets]') }));
+    const ZONES = ['ICU · West Wing','Emergency Dept','Imaging / MRI','Surgical Suite','Recovery Ward','Oncology Unit','Pathology Lab','Cardiology','Maternity Ward','Pharmacy · Sterile'];
+    const SCENES = ['Circadian, Day','Circadian, Evening','Code Blue Override','Theatre Bright','Recovery Calm','Corridor Wayfinding','After-Hours Eco','Daylight Harvest'];
+    const PROTO = ['DALI-2 Mesh','BLE + DALI-2','PoE Lighting','DALI-2 Broadcast'];
+    const fhash = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+    const floorCache = {};
+    const floorNumber = (fid) => {
+      if (floorCache[fid] != null) return floorCache[fid];
+      let ymin = 1e9, ymax = -1e9, sum = 0, n = 0;
+      for (const c of cells) { if (c.cy < ymin) ymin = c.cy; if (c.cy > ymax) ymax = c.cy; if (c.floor === fid) { sum += c.cy; n++; } }
+      let v;
+      if (!n || ymax <= ymin) { v = 2 + (fhash(fid) % 30); }
+      else { const t = (ymax - sum / n) / (ymax - ymin); v = Math.max(1, Math.min(34, Math.round(1 + t * 33))); }
+      floorCache[fid] = v; return v;
+    };
+    const setHudOpacity = (v) => { for (const h of huds) h.style.opacity = v; };
+    const fillHud = (fid) => {
+      if (!HQ.length) return;
+      const h = fhash(fid), fn = String(floorNumber(fid)).padStart(2, '0');
+      for (const q of HQ) {
+        q.f.textContent = 'FLOOR ' + fn;
+        q.z.textContent = ZONES[h % ZONES.length];
+        q.p.textContent = PROTO[(h >>> 3) % PROTO.length];
+        q.d.textContent = String(16 + (h % 53));
+        q.s.textContent = SCENES[(h >>> 5) % SCENES.length];
+        q.o.textContent = (35 + (h % 60)) + '%';
+        q.a.textContent = String(6 + ((h >>> 7) % 40));
+      }
+    };
+    let lastFloor = null;
+    const refresh = () => { for (const c of cells) { const b = c.el.getBoundingClientRect(); c.cx = b.left + b.width/2; c.cy = b.top + b.height/2; c.hw = b.width/2; c.hh = b.height/2; } };
+    refresh();
+    this.on(window, 'resize', refresh);
+    let frame = 0;
+    const loop = () => {
+      const r = stage.getBoundingClientRect();
+      const nx = inside ? ((mx - r.left) / r.width - 0.5) * 2 : 0;
+      const ny = inside ? ((my - r.top) / r.height - 0.5) * 2 : 0;
+      const vh = window.innerHeight || 800;
+      const center = r.top + r.height / 2;
+      const prog = Math.max(-1, Math.min(1, (vh / 2 - center) / (vh / 2 + r.height / 2)));
+      const scrollDeg = 0; // no scroll-driven parallax on the dossier
+      let tYaw, tPitch, k;
+      if (dragging) { tYaw = yaw + scrollDeg; tPitch = pitch; k = 0.4; }
+      else { tYaw = yaw + scrollDeg + nx * tiltY; tPitch = pitch - ny * tiltX; k = 0.09; }
+      curYaw += (tYaw - curYaw) * k; curPitch += (tPitch - curPitch) * k;
+      apply(curPitch, curYaw);
+      pllx.forEach(({ el, f }) => { el.style.transform = 'translate3d(' + (-nx * f * 55).toFixed(1) + 'px,' + (-ny * f * 38).toFixed(1) + 'px,0)'; });
+      if ((frame % 5) === 0) refresh();
+      frame++;
+      if (inside) {
+        let hotFloor = null, best = 1e9;
+        for (const c of cells) {
+          const dx = Math.abs(c.cx - mx), dy = Math.abs(c.cy - my);
+          if (dx <= c.hw + 2.5 && dy <= c.hh + 2.5) { const d = dx + dy; if (d < best) { best = d; hotFloor = c.floor; } }
+        }
+        if (huds.length) {
+          if (hotFloor !== null) { if (hotFloor !== lastFloor) { fillHud(hotFloor); lastFloor = hotFloor; } setHudOpacity('1'); }
+          else setHudOpacity('0');
+        }
+        for (const c of cells) {
+          const hit = hotFloor !== null && c.floor === hotFloor;
+          const target = hit ? 1 : c.base;
+          c.cur += (target - c.cur) * (hit ? 0.5 : 0.12);
+          c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
+          c.el.style.boxShadow = c.cur > 0.18 ? '0 0 ' + (1 + c.cur * 9).toFixed(1) + 'px ' + c.color : 'none';
+        }
+      } else {
+        if (huds.length) setHudOpacity('0');
+        lastFloor = null;
+        for (const c of cells) {
+          c.cur += (c.base - c.cur) * 0.07;
+          c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
+          if (c.cur <= 0.18) c.el.style.boxShadow = 'none';
+        }
+      }
+      this._isoRaf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+
+  renderVals() {
+    const S = this.state;
+    const curId = 'dossier';
+    const vlist = (typeof window !== 'undefined' && window.HOME_VARIANTS) ? window.HOME_VARIANTS
+      : [{ id: 'interactive', label: 'Interactive', file: 'Homepage Interactive.dc.html', tagline: 'The primary portfolio site' },
+         { id: 'dossier', label: 'Dossier', file: 'Homepage Dossier.dc.html', tagline: 'Classified case-file layout' }];
+    const variants = vlist.map(v => ({
+      id: v.id, label: v.label, file: v.file, tagline: v.tagline,
+      labelUpper: v.label.toUpperCase(),
+      mark: v.id === curId ? '\u25B8 ' : '',
+      rowBg: v.id === curId ? '#e7d9b8' : 'transparent',
+      titleColor: v.id === curId ? '#b23a2e' : '#0a0a0a',
+    }));
+    const currentName = ((vlist.find(v => v.id === curId) || vlist[0]).label || 'Dossier').toUpperCase();
+    const files = [
+      { num: '01', title: 'WaveLinx CORE Insights', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Operational intelligence · IoT', cat: 'Cooper Lighting · Signify', highlight: 'Live dashboards at scale', href: 'Core Insights.dc.html' },
+      { num: '02', title: 'WaveLinx DALI-2', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Commissioning · Healthcare', cat: 'Industry First', highlight: "N. America's largest install", href: 'DALI-2.dc.html' },
+      { num: '03', title: 'Application of AI', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Enterprise AI · Light ARchitect', cat: 'AI · Decision Support', highlight: '$6M+ shipping product', href: 'Enterprise AI.dc.html' },
+      { num: '04', title: 'Dynamic Space Partitioning', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Adaptive spatial · Sensor-driven', cat: 'Industry First', highlight: 'Real-time autonomous zones', href: 'Partitioning.dc.html' },
+      { num: '05', title: 'Smart Lighting App', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Consumer IoT · Mobile', cat: 'Consumer IoT', highlight: 'iOS & Android', href: 'Smart Lighting.dc.html' },
+      { num: '06', title: 'Goals-Driven Fintech', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Concept · Regulated · Open Banking', cat: 'Fintech · AI', highlight: 'PRD · Claude · Cursor · GitHub', href: 'Goals-Driven Fintech.html' },
+      { num: '07', title: 'AEGIS Decision Intelligence', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Multi-INT Fusion · Resilient AI', cat: 'Decision Intelligence', highlight: 'Concept · clickable build', href: 'AEGIS DI.dc.html' },
+      { num: '08', title: 'CTOC Dashboard System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Enterprise Cyber · 13 Dashboards', cat: 'Cyber Operations', highlight: 'Concept · hi-fi prototype', href: 'CTOC Case Study v2.dc.html' },
+    ];
+    return {
+      files, m1: S.m1, m2: S.m2, m3: S.m3, m4: S.m4, m5: S.m5, m6: S.m6,
+      menuClass: S.menu ? 'menu-open' : '',
+      variants, currentName,
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      mailToggle: (e) => {
+        const d = e.currentTarget;
+        if (this._mailT) { clearTimeout(this._mailT); this._mailT = null; }
+        if (d.open) { this._mailT = setTimeout(() => { d.removeAttribute('open'); }, 10000); }
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

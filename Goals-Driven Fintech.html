@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goals-Driven Finance, Case Study · Robert Babiarz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>/* latin-ext */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+.cs{
+  --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-body:#534f48;--c-muted:#7a756a;--c-muted2:#9a9486;
+  --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;
+  --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
+  --c-navbg:rgba(255,252,245,0.84);
+  --c-mount:#0e1320;
+  --c-good:#15803D;--c-warn:#b45309;--c-bad:#9a3412;
+}
+.cs.dark{
+  --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
+  --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;
+  --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
+  --c-navbg:rgba(11,16,22,0.82);
+  --c-good:#4ade80;--c-warn:#fbbf24;--c-bad:#f87171;
+  color-scheme:dark;
+}
+.cs{background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;overflow-x:clip}
+::selection{background:#0d5350;color:#fff}
+.mono{font-family:'JetBrains Mono',monospace}
+.disp{font-family:'Inter',sans-serif}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:-0.02em;line-height:1.06}
+.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--c-accent)}
+@keyframes cs-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+[data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}.hero-float{animation:none!important}}
+
+/* sections + side toc */
+.cs section[id]{scroll-margin-top:80px}
+.toc{position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:11px;align-items:flex-end}
+.toc a{display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end}
+.toc .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.toc:hover .lbl{opacity:1;transform:none}
+.toc .dot{width:9px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .25s}
+.toc a[data-on] .lbl{opacity:1;color:var(--c-accent)}
+.toc a[data-on] .dot{background:var(--c-accent);width:22px}
+@media (max-width:1180px){.toc{display:none}}
+
+/* iPhone device frame */
+.mount{display:inline-block;position:relative;padding:10px;border-radius:50px;
+  background:linear-gradient(135deg,#56585d 0%,#202225 16%,#0a0b0c 50%,#202225 84%,#56585d 100%);
+  box-shadow:0 0 0 1.5px #050506, 0 34px 66px -26px rgba(10,20,30,.62), inset 0 1.5px 2px rgba(255,255,255,.42), inset 0 -1.5px 2px rgba(255,255,255,.16);}
+.mount::after{content:'';position:absolute;left:-2.5px;top:15%;width:2.5px;height:31%;border-radius:3px 0 0 3px;
+  background:linear-gradient(#191b1e 0 13%,transparent 13% 30%,#191b1e 30% 62%,transparent 62% 71%,#191b1e 71% 100%);}
+.mount::before{content:'';position:absolute;right:-2.5px;top:30%;width:2.5px;height:13%;border-radius:0 3px 3px 0;background:#191b1e;}
+.phone{width:234px;height:507px;display:block;border-radius:42px;background:#000;object-fit:cover;object-position:left top;}
+.phone-cap{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--c-muted);text-transform:uppercase;text-align:center;margin-top:16px}
+.phone-cap.ondark{color:rgba(255,255,255,.6)}
+
+.wrap{max-width:1240px;margin:0 auto}
+.pad{padding:92px 40px}
+.lead{font-size:clamp(16px,1.5vw,17.5px);color:var(--c-body);line-height:1.75}
+.sec-h{font-size:clamp(30px,4vw,50px);letter-spacing:-1.3px;color:var(--c-ink)}
+.card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
+.tag{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink2)}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
+nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand:hover{color:var(--c-ink)}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
+.iconbtn:hover{background:var(--c-card)}
+.pill{display:flex;align-items:center;gap:9px;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface)}
+.cs-switch{position:relative}
+.cs-switch summary{list-style:none;display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface)}
+.cs-switch summary::-webkit-details-marker{display:none}
+.cs-switch .cs-chev{transition:transform .2s}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+.cs-sheet a:hover{background:var(--c-bg2)}
+
+/* stat strip */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--c-navy);border-radius:18px;overflow:hidden}
+.stat-strip>div{padding:34px 26px;border-right:1px solid rgba(255,255,255,.08)}
+.stat-strip>div:last-child{border-right:none}
+.stat-n{font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#5fc4b6;letter-spacing:-1px;line-height:1}
+.stat-l{font-size:13.5px;color:#cdd6e0;margin-top:9px;line-height:1.5}
+.stat-k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#7d93a8;letter-spacing:0.08em;margin-top:11px}
+
+table.cmp{width:100%;border-collapse:collapse;min-width:760px;font-size:13.5px}
+table.cmp th{text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em;color:var(--c-muted);text-transform:uppercase;font-weight:500}
+table.cmp td{padding:14px 14px;color:var(--c-body);border-top:1px solid var(--c-b1)}
+.yes{color:var(--c-good);font-weight:600}.mid{color:var(--c-muted)}.no{color:var(--c-bad)}
+
+/* mobile menu */
+.burger{display:none;width:40px;height:40px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{width:18px;height:2px;background:var(--c-accent);border-radius:2px;transition:transform .3s,opacity .2s}
+.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .burger span:nth-child(2){opacity:0}
+.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#mob{position:fixed;inset:0;z-index:75;background:var(--c-bg);display:flex;flex-direction:column;padding:84px 26px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .3s,visibility .3s;pointer-events:none}
+.menu-open #mob{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#mob a{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--c-ink);text-decoration:none;padding:13px 2px;border-bottom:1px solid var(--c-b2)}
+#mob a .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-muted)}
+
+@media (max-width:980px){
+  nav.top .bar{padding:0 18px}
+  .pad{padding:60px 18px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr!important}
+  .hero-grid{grid-template-columns:1fr!important;gap:40px!important}
+  .hero-float{display:none!important}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .scroll-x{overflow-x:auto}
+}
+@media (min-width:981px){.burger{display:none}#mob{display:none}}
+@media (max-width:980px){.burger{display:flex}}
+@media (max-width:560px){
+  .cs h1{font-size:40px!important;letter-spacing:-1.6px!important}
+  .stat-strip{grid-template-columns:1fr}
+}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+#onboarding .grid-4 .mount{border-radius:43px;padding:8.5px}
+#onboarding .grid-4 .phone{border-radius:36px}
+.scroll-x{border:1px solid var(--c-b3);border-radius:14px;overflow:hidden;overflow-x:auto}
+.verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill a:hover{color:var(--c-ink)}
+.verpill a.on{background:var(--c-accent);color:#fff}
+.cs.dark .verpill a.on{color:#06201d}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+</style>
+</head>
+<body>
+<div class="cs" id="top">
+
+  <!-- NAV -->
+  <nav class="top">
+    <div class="bar">
+      <a class="brand" href="Homepage Interactive.dc.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
+        <details class="cs-switch">
+          <summary>
+            <span class="mono" style="font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent)">Goals-Driven Finance</span>
+            <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300">
+            <a href="Core Insights.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none"><div style="font-size:14px;font-weight:600;color:var(--c-ink2)">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Operational intelligence · IoT</div></a>
+            <a href="DALI-2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none"><div style="font-size:14px;font-weight:600;color:var(--c-ink2)">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Commissioning at hospital scale</div></a>
+            <a href="Partitioning.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none"><div style="font-size:14px;font-weight:600;color:var(--c-ink2)">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Operable walls · adaptive zones</div></a>
+            <a href="Smart Lighting.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none"><div style="font-size:14px;font-weight:600;color:var(--c-ink2)">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Consumer IoT · enterprise depth</div></a>
+            <a href="Enterprise AI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none"><div style="font-size:14px;font-weight:600;color:#0d5350">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Enterprise AI · CORE platform</div></a>
+            <a href="Goals-Driven Fintech.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-accent)">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Self-directed fintech concept</div></a>
+            <a href="AEGIS DI.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none"><div style="font-size:14px;font-weight:600;color:var(--c-ink2)">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Defence · multi-INT fusion</div></a>
+            <a href="CTOC Case Study v2.dc.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none"><div style="font-size:14px;font-weight:600;color:var(--c-ink2)">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px">Enterprise cyber · 13 dashboards</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px"></div>
+            <a href="Homepage Interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted)">← All work</a>
+          </div>
+        </details>
+        <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mob">
+    <div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted);margin-bottom:6px">Sections</div>
+    <a href="#overview" data-m=""><span>Overview</span><span class="n">01</span></a>
+    <a href="#research" data-m=""><span>Research &amp; Discovery</span><span class="n">02</span></a>
+    <a href="#design" data-m=""><span>Design Language</span><span class="n">03</span></a>
+    <a href="#goals" data-m=""><span>Goals &amp; Alignment</span><span class="n">04</span></a>
+    <a href="#spending" data-m=""><span>Spending Intelligence</span><span class="n">05</span></a>
+    <a href="#ai" data-m=""><span>AI Assistant</span><span class="n">06</span></a>
+    <a href="#onboarding" data-m=""><span>Onboarding</span><span class="n">07</span></a>
+    <a href="#trust" data-m=""><span>Trust &amp; Transparency</span><span class="n">08</span></a>
+    <a href="#reflection" data-m=""><span>Reflection</span><span class="n">09</span></a>
+  </div>
+
+  <!-- SIDE TOC -->
+  <nav class="toc" aria-label="Sections">
+    <a href="#overview" data-toc="overview"><span class="lbl">Overview</span><span class="dot"></span></a>
+    <a href="#research" data-toc="research"><span class="lbl">Research</span><span class="dot"></span></a>
+    <a href="#design" data-toc="design"><span class="lbl">Design</span><span class="dot"></span></a>
+    <a href="#goals" data-toc="goals"><span class="lbl">Goals</span><span class="dot"></span></a>
+    <a href="#spending" data-toc="spending"><span class="lbl">Spending</span><span class="dot"></span></a>
+    <a href="#ai" data-toc="ai"><span class="lbl">AI</span><span class="dot"></span></a>
+    <a href="#onboarding" data-toc="onboarding"><span class="lbl">Onboarding</span><span class="dot"></span></a>
+    <a href="#trust" data-toc="trust"><span class="lbl">Trust</span><span class="dot"></span></a>
+    <a href="#reflection" data-toc="reflection"><span class="lbl">Reflection</span><span class="dot"></span></a>
+  </nav>
+
+  <!-- HERO -->
+  <section style="position:relative;overflow:hidden;padding:74px 40px 86px">
+    <div style="position:absolute;top:-140px;right:-90px;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(44,122,123,.12),transparent 68%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-80px;left:-60px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(15,42,74,.08),transparent 70%);pointer-events:none"></div>
+    <div class="wrap hero-grid" style="display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;position:relative">
+      <div>
+        <!-- ARCHIVE:HERO-EYEBROW:START (hidden per request; uncomment to restore)
+        <div data-reveal="" style="display:flex;align-items:center;gap:11px;margin-bottom:22px">
+          <span style="width:30px;height:1.5px;background:var(--c-accent)"></span>
+          <span class="eyebrow">Consumer Fintech · Self-directed concept</span>
+        </div>
+        ARCHIVE:HERO-EYEBROW:END -->
+        <h1 data-reveal="" style="font-size:clamp(40px,4.9vw,68px);line-height:1.0;letter-spacing:-2.2px">GOALS-DRIVEN<br>FINANCE<br><em>money, anchored to your life</em></h1>
+        <p class="lead" data-reveal="" style="font-size:clamp(17px,1.6vw,20px);max-width:500px;margin-top:26px">A mobile finance companion that reframes money around the life you're building, not the accounts you happen to hold. Transparent AI turns everyday spending into goal impact, with compassion in place of shame.</p>
+        <div data-reveal="" style="display:grid;grid-template-columns:repeat(3,auto);gap:18px 40px;margin-top:38px;width:max-content;max-width:100%">
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Lead Product Designer</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Scope</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Research → Prototype</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Platform</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">iOS (mobile)</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Stack</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Claude · Cursor · GitHub</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Year</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">2026</div></div>
+          <!-- ARCHIVE:HERO-TYPE:START (hidden per request; uncomment to restore)
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Type</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Concept · synthetic data</div></div>
+          ARCHIVE:HERO-TYPE:END -->
+        </div>
+      </div>
+      <div class="hero-float" data-reveal="" style="display:flex;justify-content:center">
+        <div class="hero-float" style="animation:cs-float 6s ease-in-out infinite">
+          <div class="mount">
+            <img class="phone" src="fintech/img-fdd62557.png" alt="Goals dashboard with alignment score">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 OVERVIEW -->
+  <section id="overview" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">01 · Project Overview</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:1000px;margin:16px 0 28px">FROM ACCOUNT-FIRST TO <em>life-first finance</em></h2>
+      <div class="grid-2" data-reveal="" style="max-width:1000px;margin-bottom:50px">
+        <p class="lead">Most adults have capable financial tools, yet financial anxiety is at record highs. The root cause is a structural mismatch: finance is presented as <strong style="color:var(--c-ink2)">accounts and balances</strong>, but people think in <strong style="color:var(--c-ink2)">goals, the people they love, and the milestones they fear missing</strong>. Translating a $145 grocery bill into a position on a 30-year retirement trajectory is exhausting work the user is left to do alone.</p>
+        <p class="lead">I used this concept to explore a different spine: what if every screen, transaction, and nudge was rendered through the lens of the life someone said they wanted? I led it end-to-end, synthesizing research into a comprehensive PRD, defining the IA and visual system, then building a working, navigable iOS prototype with an AI-assisted toolchain.</p>
+      </div>
+
+      <div class="grid-2" data-reveal="" style="margin-bottom:48px">
+        <div class="card" style="padding:30px 32px">
+          <div class="tag" style="margin-bottom:16px">MY ROLE</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <div style="display:flex;gap:10px"><span style="color:var(--c-accent)">●</span><span style="font-size:14.5px;color:var(--c-body)">End-to-end ownership: research, IA, interaction &amp; visual design</span></div>
+            <div style="display:flex;gap:10px"><span style="color:var(--c-accent)">●</span><span style="font-size:14.5px;color:var(--c-body)">Market &amp; competitive analysis across five PFM archetypes</span></div>
+            <div style="display:flex;gap:10px"><span style="color:var(--c-accent)">●</span><span style="font-size:14.5px;color:var(--c-body)">Authored a comprehensive PRD, vision, personas, AI spec, regulatory framing</span></div>
+            <div style="display:flex;gap:10px"><span style="color:var(--c-accent)">●</span><span style="font-size:14.5px;color:var(--c-body)">Defined the design language and the Goal Alignment Score model</span></div>
+            <div style="display:flex;gap:10px"><span style="color:var(--c-accent)">●</span><span style="font-size:14.5px;color:var(--c-body)">Built the high-fidelity, clickable prototype end-to-end</span></div>
+          </div>
+        </div>
+        <div class="card" style="padding:30px 32px">
+          <div class="tag" style="margin-bottom:16px">TOOLS &amp; METHOD</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:11px"><span style="font-size:14.5px;color:var(--c-body)">Research synthesis &amp; PRD</span><span class="mono" style="font-size:12px;color:var(--c-ink2)">Claude</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:11px"><span style="font-size:14.5px;color:var(--c-body)">Prototype build &amp; iteration</span><span class="mono" style="font-size:12px;color:var(--c-ink2)">Cursor + Claude</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:11px"><span style="font-size:14.5px;color:var(--c-body)">Versioning &amp; handoff</span><span class="mono" style="font-size:12px;color:var(--c-ink2)">GitHub</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-b3);padding-bottom:11px"><span style="font-size:14.5px;color:var(--c-body)">Fidelity</span><span class="mono" style="font-size:12px;color:var(--c-ink2)">Functional iOS app</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:14.5px;color:var(--c-body)">Data</span><span class="mono" style="font-size:12px;color:var(--c-ink2)">Synthetic personas</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-strip" data-reveal="" id="stats">
+        <div><div class="stat-n" data-count="165" data-suffix="M">0</div><div class="stat-l">U.S. adults in the addressable market (TAM)</div><div class="stat-k">MARKET SIZING</div></div>
+        <div><div class="stat-n" data-count="90" data-suffix="M">0</div><div class="stat-l">Serviceable market earning $40K–$250K</div><div class="stat-k">SAM</div></div>
+        <div><div class="stat-n" data-count="5">0</div><div class="stat-l">Incumbent PFM archetypes benchmarked</div><div class="stat-k">COMPETITIVE SCOPE</div></div>
+        <div><div class="stat-n" data-count="7" data-prefix="3–">0</div><div class="stat-l">Financial accounts the average person juggles</div><div class="stat-k">USER REALITY</div></div>
+      </div>
+      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:14px">FIGURES ARE DESK-RESEARCH ESTIMATES FRAMING A CONCEPT, NOT VALIDATED PRODUCT METRICS.</div>
+    </div>
+  </section>
+
+  <!-- 02 RESEARCH -->
+  <section id="research" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">02 · Research &amp; Discovery</div>
+      <h2 class="sec-h" data-reveal="" style="margin:16px 0 22px">UNDERSTANDING THE <em>money–life gap</em></h2>
+      <p class="lead" data-reveal="" style="max-width:880px;margin-bottom:44px">Before a single screen, I mapped why a decade of personal-finance tools left the same need unmet. Five gaps surfaced repeatedly, and each became a design constraint rather than a feature request.</p>
+
+      <div class="grid-3" data-reveal="" style="margin-bottom:18px">
+        <div class="card" style="padding:22px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:9px">GAP 01</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">No single story</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.6">People hold 3–7 accounts; every app shows a slice. The user is left as the integrator.</div></div>
+        <div class="card" style="padding:22px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:9px">GAP 02</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">Backward-looking</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.6">Tools report what you spent. The question people actually ask is forward: what does this mean for what I want?</div></div>
+        <div class="card" style="padding:22px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:9px">GAP 03</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">Shame as default</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.6">Deficit framing ("you overspent by $80") drives avoidance. People want to be treated as adults making trade-offs.</div></div>
+        <div class="card" style="padding:22px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:9px">GAP 04</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">Investing fear</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.6">Most users don't want to pick stocks. They want to know if what they hold matches what they're trying to achieve.</div></div>
+        <div class="card" style="padding:22px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:9px">GAP 05</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">Opaque automation</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.6">AI nudges are everywhere; their reasoning rarely is. People accept guidance only when they understand its basis.</div></div>
+        <div class="card" style="padding:22px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.06em;margin-bottom:9px">THE OPENING</div><div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:7px">Timing</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.6">Open Banking (CFPB §1033), cheap explainable AI, and Mint's 2024 sunset created a rare moment of consumer willingness to switch.</div></div>
+      </div>
+
+      <div data-reveal="" style="background:var(--c-accent-soft);border-radius:14px;padding:28px 32px;margin:34px 0 50px">
+        <p style="font-family:'Inter',sans-serif;font-style:italic;font-weight:300;font-size:clamp(19px,2.1vw,25px);color:var(--c-ink2);line-height:1.5">"Translating a $145 grocery bill into a position on a 30-year retirement trajectory is work most people can't do, and the few who can find it exhausting. The product's whole job is to do that translation, in public, every day."</p>
+      </div>
+
+      <div class="tag" data-reveal="" style="margin-bottom:8px">WHERE THIS CONCEPT WINS</div>
+      <p class="lead" data-reveal="" style="max-width:880px;margin-bottom:22px">Each strength exists in some competitor, but none integrates all of them. The white space is the <strong style="color:var(--c-ink2)">intersection</strong>: unified aggregation, explainable AI, and goal-mapped investing in one compassionate product.</p>
+      <div class="scroll-x" data-reveal="">
+        <table class="cmp">
+          <thead><tr style="background:var(--c-card)">
+            <th>Product</th><th>Unified view</th><th>Goal-anchored</th><th>Explainable AI</th><th>Spend ↔ Invest</th><th>Compassion</th><th>Free tier</th>
+          </tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;color:var(--c-ink2)">Monarch</td><td class="yes">✓</td><td class="mid">◐ sidebar</td><td class="no">✗</td><td class="mid">◐ tracking</td><td class="mid">◐</td><td class="no">✗</td></tr>
+            <tr style="background:var(--c-bg2)"><td style="font-weight:600;color:var(--c-ink2)">YNAB</td><td class="mid">◐</td><td class="mid">◐ envelopes</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗ rigid</td><td class="no">✗</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-ink2)">Empower</td><td class="yes">✓</td><td class="mid">◐ abstract</td><td class="no">✗</td><td class="mid">◐ invest-led</td><td class="mid">◐</td><td class="mid">◐ advisor upsell</td></tr>
+            <tr style="background:var(--c-bg2)"><td style="font-weight:600;color:var(--c-ink2)">Copilot</td><td class="yes">✓</td><td class="mid">◐ narrow</td><td class="mid">◐ ML categorize</td><td class="no">✗</td><td class="yes">✓</td><td class="no">✗ iOS only</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-ink2)">Rocket Money</td><td class="yes">✓</td><td class="no">✗ "cancel"</td><td class="mid">◐</td><td class="no">✗</td><td class="mid">◐</td><td class="mid">◐</td></tr>
+            <tr style="border-top:2px solid var(--c-accent);background:var(--c-accent-soft)">
+              <td style="font-weight:700;color:var(--c-accent)">This concept<span class="mono" style="display:block;font-size:9px;font-weight:400;color:var(--c-muted)">GOALS-DRIVEN</span></td>
+              <td class="yes">✓</td><td class="yes">✓ the spine</td><td class="yes">✓ every nudge</td><td class="yes">✓ continuous</td><td class="yes">✓ by design</td><td class="yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tag" data-reveal="" style="margin:50px 0 16px">THREE PEOPLE THE PRODUCT IS FOR</div>
+      <div class="grid-3" data-reveal="">
+        <div class="card" style="padding:24px"><div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px"><span style="font-size:19px;font-weight:700;color:var(--c-ink2);font-family:'Inter',sans-serif">Sarah</span><span class="mono" style="font-size:11px;color:var(--c-muted)">29</span></div><div style="font-size:13px;font-weight:600;color:var(--c-accent);margin-bottom:10px">The Aspiring Homeowner</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6;margin-bottom:12px">Disciplined and organized, but anxious about whether her plan is "enough."</p><div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Anti-goal</div><p style="font-size:12.5px;color:var(--c-body);line-height:1.55">A budget that tells her she can't have lattes.</p></div>
+        <div class="card" style="padding:24px"><div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px"><span style="font-size:19px;font-weight:700;color:var(--c-ink2);font-family:'Inter',sans-serif">Marcus</span><span class="mono" style="font-size:11px;color:var(--c-muted)">38</span></div><div style="font-size:13px;font-weight:600;color:var(--c-accent);margin-bottom:10px">The Values-Conscious Spender</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6;margin-bottom:12px">Two kids; comfortable but feels his money "leaks." Wants to spend with intention.</p><div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Anti-goal</div><p style="font-size:12.5px;color:var(--c-body);line-height:1.55">Lectures, or a tool that frames everything as a problem.</p></div>
+        <div class="card" style="padding:24px"><div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px"><span style="font-size:19px;font-weight:700;color:var(--c-ink2);font-family:'Inter',sans-serif">Jordan</span><span class="mono" style="font-size:11px;color:var(--c-muted)">47</span></div><div style="font-size:13px;font-weight:600;color:var(--c-accent);margin-bottom:10px">The Hands-Off Investor</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6;margin-bottom:12px">$850K invested across many accounts. Successful but cognitively overloaded.</p><div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Anti-goal</div><p style="font-size:12.5px;color:var(--c-body);line-height:1.55">Another dashboard that adds work instead of removing it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 DESIGN LANGUAGE -->
+  <section id="design" class="pad" style="background:var(--c-navy);color:#e8edf3">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="" style="color:#7dd3c0">03 · Design Language</div>
+      <h2 class="sec-h" data-reveal="" style="color:#fff;margin:16px 0 22px">A CALM SYSTEM FOR A <em style="color:#7dd3c0">tense subject</em></h2>
+      <p data-reveal="" style="font-size:16.5px;color:#aeb9c5;line-height:1.72;max-width:880px;margin-bottom:48px">Money is emotional. The system is deliberately quiet: a warm, paper-like canvas for everyday surfaces, deep navy reserved for moments that carry weight, and a single trustworthy teal for action. Type is humanist and legible; numbers are tabular so they never jitter as they update.</p>
+
+      <div class="grid-2" data-reveal="" style="gap:48px;margin-bottom:46px">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:14px">TWO-TONE SURFACE STRATEGY</div>
+          <p style="font-size:14.5px;color:#aeb9c5;line-height:1.66;margin-bottom:14px">A warm sand canvas carries daily, low-stakes browsing, goals, transactions, progress. Deep navy is rationed for emphasis: the "Next Best Action," net-worth reveals, and projections. The colour itself signals "this matters" before a word is read.</p>
+          <p style="font-size:14.5px;color:#aeb9c5;line-height:1.66">Semantic colour is strict: green means aligned, amber means drifting, never decorative. Alignment shows as a coloured dot readable in peripheral vision, no label required.</p>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:14px">NAVIGATION ARCHITECTURE</div>
+          <p style="font-size:14.5px;color:#aeb9c5;line-height:1.66;margin-bottom:18px">Five persistent tabs, ordered by life logic: <strong style="color:#fff">Goals</strong> first (your life), <strong style="color:#fff">Money</strong> second (flows), <strong style="color:#fff">Invest</strong> third (the future), then Alerts and Profile. The system itself comes last.</p>
+          <div class="grid-2" style="gap:14px">
+            <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px"><div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:600;color:#7dd3c0">5</div><div style="font-size:13px;color:#aeb9c5;margin-top:4px;line-height:1.45">Persistent tabs, no hidden menus</div></div>
+            <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px"><div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:600;color:#7dd3c0">1</div><div style="font-size:13px;color:#aeb9c5;margin-top:4px;line-height:1.45">Most-recommended action per surface</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-4" data-reveal="" style="margin-bottom:40px">
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)"><div style="height:62px;background:#FAF7F2"></div><div style="padding:10px 12px;background:rgba(255,255,255,.04)"><div style="font-size:12px;font-weight:600;color:#fff">Canvas</div><div class="mono" style="font-size:10px;color:#8aa">#FAF7F2</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)"><div style="height:62px;background:#0F2A4A"></div><div style="padding:10px 12px;background:rgba(255,255,255,.04)"><div style="font-size:12px;font-weight:600;color:#fff">Emphasis navy</div><div class="mono" style="font-size:10px;color:#8aa">#0F2A4A</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)"><div style="height:62px;background:#0d5350"></div><div style="padding:10px 12px;background:rgba(255,255,255,.04)"><div style="font-size:12px;font-weight:600;color:#fff">Action teal</div><div class="mono" style="font-size:10px;color:#8aa">#0d5350</div></div></div>
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)"><div style="height:62px;background:linear-gradient(90deg,#15803D 50%,#b45309 50%)"></div><div style="padding:10px 12px;background:rgba(255,255,255,.04)"><div style="font-size:12px;font-weight:600;color:#fff">Aligned / Drift</div><div class="mono" style="font-size:10px;color:#8aa">Semantic</div></div></div>
+      </div>
+      <div class="grid-2" data-reveal="" style="gap:14px;margin-bottom:50px">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 24px"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:8px">PRIMARY · DM SANS</div><div style="font-family:'DM Sans',sans-serif;font-size:30px;font-weight:700;color:#fff;letter-spacing:-.5px">Money that means something</div><div style="font-size:13px;color:#aeb9c5;margin-top:6px">Humanist, friendly, highly legible at small sizes.</div></div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 24px"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:8px">NUMERIC · DM MONO</div><div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:500;color:#fff;letter-spacing:-.5px">$248,600 · 74</div><div style="font-size:13px;color:#aeb9c5;margin-top:6px">Tabular figures so amounts never shift on update.</div></div>
+      </div>
+
+      <div style="display:flex;gap:30px;flex-wrap:wrap;justify-content:center" data-reveal="">
+        <div><div class="mount"><img class="phone" src="fintech/img-fdd62557.png" alt="Goals dashboard"></div><div class="phone-cap ondark">Goals, daily canvas</div></div>
+        <div><div class="mount"><img class="phone" src="fintech/img-65da32e0.png" alt="Money tab"></div><div class="phone-cap ondark">Money, guided accounts</div></div>
+        <div><div class="mount"><img class="phone" src="fintech/img-de6e5498.png" alt="Invest tab"></div><div class="phone-cap ondark">Invest, mindful portfolio</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 GOALS & ALIGNMENT -->
+  <section id="goals" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">04 · Goals &amp; Alignment</div>
+      <h2 class="sec-h" data-reveal="" style="margin:16px 0 22px">ONE NUMBER FOR <em>"am I on track?"</em></h2>
+      <p class="lead" data-reveal="" style="max-width:880px;margin-bottom:44px">The dashboard's headline isn't a balance, it's the <strong style="color:var(--c-ink2)">Goal Alignment Score</strong>, a single interpretable read on whether today's behaviour serves tomorrow's goals. It's a composite, and tapping it reveals exactly how it's built. Below it, goals are cards; beneath them, one contextual next action.</p>
+
+      <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:46px;align-items:center" class="hero-grid" data-reveal="">
+        <div style="display:flex;justify-content:center"><div class="mount"><img class="phone" src="fintech/img-fdd62557.png" alt="Goal dashboard with alignment score 74"></div></div>
+        <div>
+          <div class="tag" style="margin-bottom:14px">HOW THE SCORE IS COMPOSED</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;color:var(--c-ink2);font-weight:500">Savings Rate Consistency</span><span class="mono" style="font-size:12px;color:var(--c-muted)">weight 30%</span></div><div style="height:7px;border-radius:99px;background:var(--c-card)"><div style="height:100%;width:82%;border-radius:99px;background:var(--c-good)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;color:var(--c-ink2);font-weight:500">Spending Alignment</span><span class="mono" style="font-size:12px;color:var(--c-muted)">weight 30%</span></div><div style="height:7px;border-radius:99px;background:var(--c-card)"><div style="height:100%;width:68%;border-radius:99px;background:var(--c-warn)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;color:var(--c-ink2);font-weight:500">Investment Fit</span><span class="mono" style="font-size:12px;color:var(--c-muted)">weight 20%</span></div><div style="height:7px;border-radius:99px;background:var(--c-card)"><div style="height:100%;width:70%;border-radius:99px;background:var(--c-accent)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;color:var(--c-ink2);font-weight:500">Debt Trajectory</span><span class="mono" style="font-size:12px;color:var(--c-muted)">weight 20%</span></div><div style="height:7px;border-radius:99px;background:var(--c-card)"><div style="height:100%;width:80%;border-radius:99px;background:var(--c-good)"></div></div></div>
+          </div>
+          <p style="font-size:13.5px;color:var(--c-body);line-height:1.65;margin-top:20px">The score is never a black box. Every component is visible, weighted, and explained, turning an abstract "wellbeing" feeling into something a user can actually act on.</p>
+        </div>
+      </div>
+
+      <div class="grid-3" data-reveal="" style="margin-top:48px">
+        <div class="card" style="padding:24px"><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Goals as cards</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Each goal shows progress, target date, and a plain-language status pill, On Track, Ahead, Slightly Behind, instead of raw percentages alone.</p></div>
+        <div class="card" style="padding:24px"><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Next Best Action</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">One recommended move, "save $200 more to reach your home goal 8 months sooner", paired with a "Why?" that shows the arithmetic.</p></div>
+        <div class="card" style="padding:24px"><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Detail &amp; scenarios</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">A goal opens to contribution history, conservative/expected/optimistic projections, and inline editing of target, date, and linked accounts.</p></div>
+      </div>
+
+      <div style="display:flex;justify-content:center;margin-top:42px" data-reveal="">
+        <div style="text-align:center"><div class="mount"><img class="phone" src="fintech/img-26e8c2a0.png" alt="Goal detail with projections"></div><div class="phone-cap">Goal detail, history, scenarios, inline edit</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 SPENDING -->
+  <section id="spending" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">05 · Spending Intelligence</div>
+      <h2 class="sec-h" data-reveal="" style="margin:16px 0 22px">EVERY TRANSACTION, <em>rendered through your goals</em></h2>
+      <p class="lead" data-reveal="" style="max-width:880px;margin-bottom:44px">This is the heart of the bet: spending and investing as one continuous narrative. Tap any transaction and it doesn't just show a category, it shows the trade-off. An $88 dinner becomes "42 days later on your home goal," with the math one tap away and a path to recover it.</p>
+
+      <div style="display:flex;gap:30px;flex-wrap:wrap;justify-content:center;margin-bottom:48px" data-reveal="">
+        <div><div class="mount"><img class="phone" src="fintech/img-65da32e0.png" alt="Money tab with category pace"></div><div class="phone-cap">Pace bars, spend vs. aligned</div></div>
+        <div><div class="mount"><img class="phone" src="fintech/img-b6ef446a.png" alt="Category drilldown"></div><div class="phone-cap">Drill into a category</div></div>
+        <div><div class="mount"><img class="phone" src="fintech/img-857549c9.png" alt="Transaction goal impact"></div><div class="phone-cap">Transaction → goal impact</div></div>
+      </div>
+
+      <div class="grid-3" data-reveal="">
+        <div class="card" style="padding:24px"><div class="mono" style="font-size:10px;color:var(--c-accent);margin-bottom:9px">ALIGNMENT, NOT BUDGET</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">Dots, not deficits</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Each transaction carries a quiet alignment dot, aligned, neutral, out-of-sync. No red overspend banners; the user defines what "aligned" means.</p></div>
+        <div class="card" style="padding:24px"><div class="mono" style="font-size:10px;color:var(--c-accent);margin-bottom:9px">PACE OVER LIMITS</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">Trending, not policing</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Category bars compare spend to a goal-aligned pace, not a hard cap, "Dining is 24% above pace, shifting your timeline ~6 weeks."</p></div>
+        <div class="card" style="padding:24px"><div class="mono" style="font-size:10px;color:var(--c-accent);margin-bottom:9px">RECOVERY, NOT GUILT</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px">Always a way back</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Drift always comes with a concrete, low-effort path to recover the time, closing the loop the moment anxiety would otherwise start.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 AI -->
+  <section id="ai" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">06 · AI Assistant</div>
+      <h2 class="sec-h" data-reveal="" style="margin:16px 0 22px">GUIDANCE YOU CAN <em>interrogate</em></h2>
+      <p class="lead" data-reveal="" style="max-width:880px;margin-bottom:44px">AI is the category claim, and the biggest risk. The rule I designed against: <strong style="color:var(--c-ink2)">every nudge surfaces its reasoning</strong>. The conversational assistant is grounded in the user's own data, opens with the questions people actually have, and is bounded by a strict information-not-advice line.</p>
+
+      <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:46px;align-items:center" class="hero-grid" data-reveal="">
+        <div style="display:flex;justify-content:center"><div class="mount"><img class="phone" src="fintech/img-4e539639.png" alt="AI financial guidance chat"></div></div>
+        <div>
+          <div class="tag" style="margin-bottom:14px">CAPABILITY MAP</div>
+          <div style="display:flex;flex-direction:column">
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--c-b2)"><span style="font-size:14px;color:var(--c-ink2)">Transaction categorization</span><span class="mono" style="font-size:11.5px;color:var(--c-muted);white-space:nowrap">≥92% top-1</span></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--c-b2)"><span style="font-size:14px;color:var(--c-ink2)">Predictive guidance engine</span><span class="mono" style="font-size:11.5px;color:var(--c-muted);white-space:nowrap">rule + LLM</span></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--c-b2)"><span style="font-size:14px;color:var(--c-ink2)">Goal projection</span><span class="mono" style="font-size:11.5px;color:var(--c-muted);white-space:nowrap">Monte Carlo</span></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--c-b2)"><span style="font-size:14px;color:var(--c-ink2)">Goal Alignment Score</span><span class="mono" style="font-size:11.5px;color:var(--c-muted);white-space:nowrap">composite</span></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--c-b2)"><span style="font-size:14px;color:var(--c-ink2)">Subscription &amp; anomaly detection</span><span class="mono" style="font-size:11.5px;color:var(--c-muted);white-space:nowrap">pattern</span></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0"><span style="font-size:14px;color:var(--c-ink2)">Conversational guidance</span><span class="mono" style="font-size:11.5px;color:var(--c-muted);white-space:nowrap">LLM + retrieval</span></div>
+          </div>
+          <div style="background:var(--c-accent-soft);border-radius:12px;padding:14px 16px;margin-top:20px;display:flex;gap:10px"><span style="font-size:16px">ℹ️</span><p style="font-size:12.5px;color:var(--c-ink2);line-height:1.55"><strong>Information, not advice.</strong> The assistant explains, projects, and educates, it never issues personalized buy/sell recommendations. The line is a trust moat, not a limitation.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 ONBOARDING -->
+  <section id="onboarding" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">07 · Onboarding</div>
+      <h2 class="sec-h" data-reveal="" style="margin:16px 0 22px">EARNING TRUST IN <em>eight screens</em></h2>
+      <p class="lead" data-reveal="" style="max-width:880px;margin-bottom:46px">Onboarding does double duty: it teaches the product's worldview <em style="color:var(--c-body);font-style:normal;font-weight:600">and</em> earns permission to connect a person's financial life. It opens with values, show the math, no shame, before ever asking to link an account, and ends with a first dashboard that already reflects the user.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px" class="grid-4" data-reveal="">
+        <div><div class="mount"><img class="phone" src="fintech/img-ed9caada.png" alt="Welcome screen" style="width:200px;height:433px"></div><div style="text-align:center;margin-top:12px"><div class="mono" style="font-size:10px;color:var(--c-accent)">01 · VALUE</div><div style="font-size:13px;color:var(--c-body);margin-top:3px">Money that means something</div></div></div>
+        <div><div class="mount"><img class="phone" src="fintech/img-85814e91.png" alt="Compassion screen" style="width:200px;height:433px"></div><div style="text-align:center;margin-top:12px"><div class="mono" style="font-size:10px;color:var(--c-accent)">03 · TONE</div><div style="font-size:13px;color:var(--c-body);margin-top:3px">No shame, ever</div></div></div>
+        <div><div class="mount"><img class="phone" src="fintech/img-e6c5ce74.png" alt="Account linking" style="width:200px;height:433px"></div><div style="text-align:center;margin-top:12px"><div class="mono" style="font-size:10px;color:var(--c-accent)">06 · CONNECT</div><div style="font-size:13px;color:var(--c-body);margin-top:3px">Read-only, §1033</div></div></div>
+        <div><div class="mount"><img class="phone" src="fintech/img-80b9abac.png" alt="Dashboard reveal" style="width:200px;height:433px"></div><div style="text-align:center;margin-top:12px"><div class="mono" style="font-size:10px;color:var(--c-accent)">08 · REVEAL</div><div style="font-size:13px;color:var(--c-body);margin-top:3px">Your dashboard, ready</div></div></div>
+      </div>
+
+      <div class="grid-3" data-reveal="" style="margin-top:44px">
+        <div class="card" style="padding:24px"><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Values before asks</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">The first three screens sell the philosophy, connection, transparency, compassion, so linking an account feels earned, not extracted.</p></div>
+        <div class="card" style="padding:24px"><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Trust signals at the ask</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">The linking screen states it plainly: 256-bit encryption, read-only access, CFPB §1033 compliant, surfaced exactly when hesitation peaks.</p></div>
+        <div class="card" style="padding:24px"><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">A payoff, not a form</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">It closes on a populated dashboard with an animated net-worth reveal, the value is felt before the work of daily use begins.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 TRUST -->
+  <section id="trust" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">08 · Trust &amp; Transparency</div>
+      <h2 class="sec-h" data-reveal="" style="margin:16px 0 22px">THE <em>"Why?"</em> PATTERN</h2>
+      <p class="lead" data-reveal="" style="max-width:880px;margin-bottom:44px">A repeating component anchors the whole product: anywhere a number, projection, or nudge appears, a "Why?" reveals the plain-language arithmetic behind it. Trust isn't a marketing claim here, it's a UI pattern, applied consistently, and backed by a set of principles that break ties when decisions conflict.</p>
+
+      <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:46px;align-items:center" class="hero-grid" data-reveal="">
+        <div style="display:flex;flex-direction:column;align-items:center"><div class="mount"><img class="phone" src="fintech/img-857549c9.png" alt="Why explanation on a transaction"></div><div class="phone-cap">"Why?" on every goal impact</div></div>
+        <div>
+          <div class="tag" style="margin-bottom:16px">PRINCIPLES THAT BREAK TIES</div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--c-b2)"><span class="mono" style="font-size:11px;color:var(--c-accent);min-width:18px">01</span><div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Goals are the spine</div><div style="font-size:13px;color:var(--c-body)">Every screen renders state through the user's goals.</div></div></div>
+            <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--c-b2)"><span class="mono" style="font-size:11px;color:var(--c-accent);min-width:18px">02</span><div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Show the math</div><div style="font-size:13px;color:var(--c-body)">Every projection surfaces its reasoning in plain language.</div></div></div>
+            <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--c-b2)"><span class="mono" style="font-size:11px;color:var(--c-accent);min-width:18px">03</span><div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Compassion over shame</div><div style="font-size:13px;color:var(--c-body)">No deficit framing, no streaks that punish breakage.</div></div></div>
+            <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--c-b2)"><span class="mono" style="font-size:11px;color:var(--c-accent);min-width:18px">04</span><div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Information, not advice</div><div style="font-size:13px;color:var(--c-body)">Guidance and education, never personalized advice unlicensed.</div></div></div>
+            <div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--c-b2)"><span class="mono" style="font-size:11px;color:var(--c-accent);min-width:18px">05</span><div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Privacy is a product</div><div style="font-size:13px;color:var(--c-body)">Users see what data we hold, why, and can revoke it easily.</div></div></div>
+            <div style="display:flex;gap:14px;padding:12px 0"><span class="mono" style="font-size:11px;color:var(--c-accent);min-width:18px">06</span><div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Inclusive by default</div><div style="font-size:13px;color:var(--c-body)">WCAG 2.2 AA and plain-language financial vocabulary throughout.</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" data-reveal="" style="margin-top:46px;gap:18px">
+        <div class="card" style="padding:26px 28px;display:flex;gap:18px;align-items:flex-start"><div style="font-size:13px;font-weight:700;color:var(--c-bad);font-family:'Inter',sans-serif;white-space:nowrap;padding-top:2px">OTHER APPS</div><p style="font-size:15px;color:var(--c-body);line-height:1.6;font-style:italic">"You overspent by $140 this month."</p></div>
+        <div class="card" style="padding:26px 28px;display:flex;gap:18px;align-items:flex-start;border-color:var(--c-accent)"><div style="font-size:13px;font-weight:700;color:var(--c-good);font-family:'Inter',sans-serif;white-space:nowrap;padding-top:2px">THIS APP</div><p style="font-size:15px;color:var(--c-ink2);line-height:1.6">"Dining is trending high. At this pace your home goal shifts ~6 weeks. Here's the math, and an easy way to recover it."</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE PROTOTYPE -->
+  <section id="prototype" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">Live · Interactive Prototype</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:1000px;margin:16px 0 22px">TRY THE <em>working build</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">A fully interactive prototype of the app, tap through goals, spending intelligence, the AI assistant, and onboarding. It runs live, right here.</p>
+      <div data-reveal="" style="display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:34px">
+        <div style="position:relative;width:min(390px,92vw);border:10px solid #0f1116;border-radius:46px;background:#0f1116;box-shadow:0 40px 90px rgba(15,16,22,.42),0 0 0 1px var(--c-b2);overflow:hidden">
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:130px;height:26px;background:#0f1116;border-radius:0 0 16px 16px;z-index:2"></div>
+          <iframe src="https://rbabiarz.github.io/Fintech-Platform/" title="Goals-Driven Finance, interactive prototype" loading="lazy" allow="clipboard-write; fullscreen" style="display:block;width:100%;height:min(820px,82vh);border:0;border-radius:36px;background:#fff"></iframe>
+        </div>
+        <a href="https://rbabiarz.github.io/Fintech-Platform/" target="_blank" rel="noopener" class="mono" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-accent);text-decoration:none;border:1px solid var(--c-b3);border-radius:999px;padding:11px 20px;transition:background .2s,border-color .2s" onmouseover="this.style.background='var(--c-bg3)';this.style.borderColor='var(--c-accent)'" onmouseout="this.style.background='transparent';this.style.borderColor='var(--c-b3)'">Open prototype in a new tab <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 REFLECTION, ARCHIVED (hidden per request; uncomment this block to restore) -->
+  <!-- ARCHIVE:REFLECTION:START
+  <section id="reflection" class="pad" style="background:var(--c-navy);color:#e8edf3">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="" style="color:#7dd3c0">09 · Reflection</div>
+      <h2 class="sec-h" data-reveal="" style="color:#fff;margin:16px 0 22px">A CONCEPT BUILT TO BE <em style="color:#7dd3c0">tested next</em></h2>
+      <p data-reveal="" style="font-size:16.5px;color:#aeb9c5;line-height:1.72;max-width:880px;margin-bottom:44px">This is a self-directed concept on synthetic data, its value is in making the bet concrete and pressure-testing it through a real, navigable product rather than slides. Designing every surface end-to-end surfaced the hardest open questions, which is exactly where I'd take validation first.</p>
+      <div class="grid-3" data-reveal="">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px"><div class="mono" style="font-size:10px;color:#a9ddd0;margin-bottom:10px">VALIDATE</div><div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Does the score land?</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">Test whether a single Goal Alignment Score reduces anxiety, or quietly becomes a new source of it.</p></div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px"><div class="mono" style="font-size:10px;color:#a9ddd0;margin-bottom:10px">PROBE</div><div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Is "Why?" enough?</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">Measure whether showing the math actually builds trust in AI guidance, or adds cognitive load people skip.</p></div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px"><div class="mono" style="font-size:10px;color:#a9ddd0;margin-bottom:10px">REFINE</div><div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Tone at scale</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">Marcus is tone-sensitive. The compassionate voice needs testing across hundreds of generated nudges, not a handful.</p></div>
+      </div>
+      <div data-reveal="" style="margin-top:50px;padding-top:30px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+        <div style="font-size:14px;color:#8aa0b3">Goals-Driven Finance · Self-directed concept, 2026</div>
+        <a href="#top" style="text-decoration:none;color:#7dd3c0;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px">Back to top <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></a>
+      </div>
+    </div>
+  </section>
+  ARCHIVE:REFLECTION:END -->
+
+  <!-- ════════ FOOTER NAV ════════ -->
+  <footer style="padding:42px 40px;background:var(--c-bg);border-top:1px solid var(--c-b1)">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+      <div>
+        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
+        <a href="Smart Lighting.dc.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Smart Lighting App <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+    </div>
+  </footer>
+
+  <!-- VERSION TOGGLE -->
+  <div class="verpill">
+    <span class="vlbl">Version</span>
+    <a href="Goals-Driven Fintech.html" class="on">Editorial</a>
+    <a href="Goals-Driven Fintech v2.html">Showcase</a>
+  </div>
+
+</div>
+
+
+
+<script>
+(function(){
+  var root=document.getElementById('top');
+  // theme
+  var btn=document.getElementById('themeBtn');
+  var SUN='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg>';
+  var MOON='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  function applyTheme(d){ root.classList.toggle('dark',d); btn.innerHTML=d?SUN:MOON; try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){} }
+  var stored=null; try{stored=localStorage.getItem('rba-int-dark');}catch(e){}
+  applyTheme(stored==='true'||stored==='1');
+  btn.addEventListener('click',function(){ applyTheme(!root.classList.contains('dark')); });
+
+  // mobile menu
+  var burger=document.getElementById('burger');
+  burger.addEventListener('click',function(){ root.classList.toggle('menu-open'); });
+  document.querySelectorAll('#mob a').forEach(function(a){ a.addEventListener('click',function(){ root.classList.remove('menu-open'); }); });
+
+  // reveal
+  var revealedAny=false;
+  function reveal(el){ el.classList.add('in'); el.style.opacity='1'; el.style.transform='none'; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revealedAny=true; reveal(e.target); io.unobserve(e.target);} }); },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+
+  // counters
+  var counted=false;
+  var statsEl=document.getElementById('stats');
+  function runCounters(){
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var target=parseFloat(el.getAttribute('data-count'));
+      var suffix=el.getAttribute('data-suffix')||'';
+      var prefix=el.getAttribute('data-prefix')||'';
+      var t0=Date.now(),dur=1500;
+      (function tick(){
+        var p=Math.min(1,(Date.now()-t0)/dur), e=1-Math.pow(1-p,3);
+        el.textContent=prefix+Math.round(target*e)+suffix;
+        if(p<1) requestAnimationFrame(tick);
+      })();
+    });
+  }
+  if(statsEl){
+    var co=new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!counted){counted=true;runCounters();co.disconnect();} },{threshold:0.3});
+    co.observe(statsEl);
+  }
+
+  // fallback: if IntersectionObserver never fires (e.g. offscreen/iframe render),
+  // guarantee content is visible and counters run.
+  setTimeout(function(){
+    if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); }
+    if(!counted){ counted=true; runCounters(); }
+  },1000);
+
+  // scrollspy
+  var tocLinks=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=tocLinks.map(function(a){ return document.getElementById(a.getAttribute('data-toc')); });
+  var so=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        tocLinks.forEach(function(l){ l.removeAttribute('data-on'); });
+        var i=secs.indexOf(e.target);
+        if(i>=0) tocLinks[i].setAttribute('data-on','');
+      }
+    });
+  },{threshold:0.4,rootMargin:'-20% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) so.observe(s); });
+})();
+</script>
+
+
+</body></html>
