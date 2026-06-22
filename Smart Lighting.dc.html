@@ -26,7 +26,25 @@ body{margin:0}
 @keyframes sl-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
 @keyframes sl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes sl-glow{0%,100%{box-shadow:0 0 0 0 rgba(240,176,64,0.5)}50%{box-shadow:0 0 0 7px rgba(240,176,64,0)}}
-.sl-swap{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s ease}
+.sl-swap{position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);object-fit:cover;object-position:top center;display:block;opacity:0;transition:opacity .25s ease}
+.sl-phone-stack{position:relative;aspect-ratio:285/618;overflow:hidden;background:#000}
+.sl-phone-stack > img:not(.sl-swap){position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);object-fit:cover;object-position:top center;display:block}
+.sl-version-bar{display:none}
+.sl-scale-fan{display:flex;align-items:flex-end;justify-content:center;padding:18px 0 6px;min-height:380px}
+.sl-scale-fan .sl-scale-phone{flex:none;position:relative}
+.sl-scale-fan .sl-scale-phone:first-child{width:196px;transform:rotate(-5deg) translateX(18px);z-index:1;margin-right:-42px}
+.sl-scale-fan .sl-scale-phone:last-child{width:212px;transform:rotate(4deg) translateY(-6px);z-index:2}
+.sl-scale-phone{width:100%;max-width:176px;margin:0 auto;border-radius:24px;background:#16161a;padding:7px;box-shadow:0 22px 48px -24px rgba(20,30,40,0.38);border:1px solid rgba(0,0,0,0.08)}
+.sl-scale-phone .sl-scale-screen{border-radius:20px;overflow:hidden;background:#000}
+.sl-scale-phone .sl-scale-screen img{width:100%;display:block}
+.sl-scale-cap{padding:8px 10px 10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);text-align:center;line-height:1.35}
+.sl-scale-onboard{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:420px;margin:0 auto}
+@media (max-width:880px){
+  .sl-scale-fan{min-height:340px;padding-top:8px}
+  .sl-scale-fan .sl-scale-phone:first-child{width:172px;margin-right:-32px}
+  .sl-scale-fan .sl-scale-phone:last-child{width:186px}
+  .sl-scale-onboard{max-width:100%}
+}
 .sl-swap.sl-on{opacity:1}
 summary{list-style:none}
 summary::-webkit-details-marker{display:none}
@@ -122,7 +140,6 @@ summary::-webkit-details-marker{display:none}
             <a href="Smart Lighting Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:#e7f1f0;"><div style="font-size:14px;font-weight:600;color:#0d5350;">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
             <a href="DALI-2 Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
             <a href="Core Insights Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
-            <a href="Enterprise AI Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
             <a href="AEGIS Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
             <a href="Goals-Driven Fintech v2.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
             <a href="CTOC Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
@@ -152,7 +169,6 @@ summary::-webkit-details-marker{display:none}
     <div class="cs-stagger" style="display:flex;flex-direction:column;">
       <a class="csm-switch" href="DALI-2 Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
       <a class="csm-switch" href="Core Insights Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
-      <a class="csm-switch" href="Enterprise AI Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
       <a class="csm-switch" href="AEGIS Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
       <a class="csm-switch" href="Goals-Driven Fintech v2.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
       <a class="csm-switch" href="CTOC Showcase.html"><div style="font-size:15px;font-weight:600;color:var(--c-accent);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
@@ -195,10 +211,9 @@ summary::-webkit-details-marker{display:none}
       </div>
       <div class="cs-hero-media" style="display:flex;justify-content:center;animation:sl-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.15s both;">
         <div style="position:relative;width:300px;animation:sl-float 6s ease-in-out infinite;">
-          <div style="position:absolute;inset:-3% -8% -3% -8%;background:radial-gradient(circle at 50% 40%,rgba(13,83,80,0.16),transparent 70%);"></div>
-          <div style="position:relative;border-radius:40px;background:#16161a;padding:9px;box-shadow:0 40px 80px -30px rgba(20,30,40,0.6);border:1px solid rgba(255,255,255,0.08);">
-            <div style="position:relative;border-radius:32px;overflow:hidden;background:#2a2d42;">
-              <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:96px;height:22px;background:#16161a;border-radius:0 0 16px 16px;z-index:6;"></div>
+          <div style="position:absolute;inset:-1% -4%;background:radial-gradient(circle at 50% 40%,rgba(13,83,80,0.14),transparent 58%);"></div>
+          <div style="position:relative;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 30px 60px -26px rgba(20,30,40,0.55);border:1px solid rgba(255,255,255,0.08);">
+            <div style="position:relative;border-radius:24px;overflow:hidden;background:#000;">
               <img src="assets/sl/accordion-expanded.jpg" alt="Light Control daily screen" style="width:100%;display:block;"/>
             </div>
           </div>
@@ -212,9 +227,9 @@ summary::-webkit-details-marker{display:none}
     <div style="max-width:1240px;margin:0 auto;">
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">01 · Project Overview</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);max-width:1000px;margin-bottom:30px;" data-reveal="1">FROM ENTERPRISE BACKBONE TO <span style="font-style:italic;font-weight:300;color:#0d5350;">Consumer Living Room</span></h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1000px;margin-bottom:54px;" data-reveal="1">
-        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">The strategic opportunity: adapt enterprise-grade technical depth for the consumer smart-home market and compete directly with established platforms. The challenge was twofold, the existing B2B UX assumed expertise and optimized for configuration depth over daily usability, while the consumer space was crowded with frictionless, polished experiences.</p>
-        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;">We couldn't simply port an enterprise app; the product philosophy needed a complete rethink. My mandate: lead end-to-end UX from market research and competitive analysis through IA, interaction design, and large-group stakeholder presentations with a cross-functional team of 15+.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;" data-reveal="1">
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;margin:0;">The strategic opportunity: adapt enterprise-grade technical depth for the consumer smart-home market and compete directly with established platforms. The challenge was twofold, the existing B2B UX assumed expertise and optimized for configuration depth over daily usability, while the consumer space was crowded with frictionless, polished experiences.</p>
+        <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;margin:0;">We couldn't simply port an enterprise app; the product philosophy needed a complete rethink. My mandate: lead end-to-end UX from market research and competitive analysis through IA, interaction design, and large-group stakeholder presentations with a cross-functional team of 15+.</p>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
         <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:16px;padding:30px 32px;" data-reveal="1">
@@ -259,7 +274,7 @@ summary::-webkit-details-marker{display:none}
         <div style="padding:28px 22px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;letter-spacing:0.08em;margin-bottom:10px;">PHASE 04</div><div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#4ca88f;margin-bottom:10px;">Stakeholder Align</div><div style="font-size:13px;color:#aab6c9;line-height:1.5;">25+ person milestone presentations to align Eng, PM &amp; Exec on direction</div></div>
         <div style="padding:28px 22px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;letter-spacing:0.08em;margin-bottom:10px;">PHASE 05</div><div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#4ca88f;margin-bottom:10px;">Design Principles</div><div style="font-size:13px;color:#aab6c9;line-height:1.5;">Three anchors: Instant Feedback · Progressive Disclosure · Non-Technical Language</div></div>
       </div>
-      <div style="background:#e7f1f0;border-left:3px solid #0d5350;border-radius:0 12px 12px 0;padding:26px 30px;margin-bottom:54px;" data-reveal="1">
+      <div style="background:#e7f1f0;border-radius:12px;padding:26px 30px;margin-bottom:54px;" data-reveal="1">
         <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(18px,2vw,23px);color:#0a3d3a;line-height:1.5;">"Consumer lighting users interact with their app 10–20 times per day. Every extra tap is not an inconvenience, it's attrition. The daily control experience had to reach near-zero friction, even if that meant hiding 80% of the system's capability behind progressive disclosure."</p>
       </div>
       <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:6px;" data-reveal="1">COMPETITIVE LANDSCAPE ANALYSIS</div>
@@ -329,8 +344,8 @@ summary::-webkit-details-marker{display:none}
       <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:44px;align-items:center;" data-reveal="1">
         <!-- LIVE ACCORDION -->
         <div style="display:flex;justify-content:center;">
-          <div style="width:330px;border-radius:34px;background:#16161a;padding:9px;box-shadow:0 36px 70px -28px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
-            <div style="border-radius:27px;overflow:hidden;background:#2a2d42;">
+          <div style="width:330px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 36px 70px -28px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
+            <div style="border-radius:24px;overflow:hidden;background:#000;">
               <div style="background:#2a2d42;padding:18px 18px 12px;display:flex;align-items:center;justify-content:space-between;">
                 <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7dd3c0;">≡</span><span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0.02em;">SWITCH HOME</span><span style="color:#9aa0bf;font-size:9px;">▾</span></div>
                 <div style="border:1px solid rgba(255,255,255,0.25);border-radius:7px;padding:5px 10px;font-size:10px;font-weight:600;color:#fff;position:relative;">DEVICES<span style="position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#e2483b;"></span></div>
@@ -387,11 +402,11 @@ summary::-webkit-details-marker{display:none}
             <div><div style="font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#4ca88f;letter-spacing:-1px;">1</div><div style="font-size:13.5px;color:#aab6c9;line-height:1.45;margin-top:2px;">Tap to expand any area and see all zones</div></div>
             <div><div style="font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#4ca88f;letter-spacing:-1px;">2×</div><div style="font-size:13.5px;color:#aab6c9;line-height:1.45;margin-top:2px;">Control surface, on/off toggle at every level</div></div>
           </div>
-          <div style="background:#16212e;border-left:3px solid #0d5350;border-radius:0 12px 12px 0;padding:20px 22px;margin-bottom:16px;">
+          <div style="background:#16212e;border-radius:12px;padding:20px 22px;margin-bottom:16px;">
             <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:7px;letter-spacing:0.02em;">DECISION · ACCORDION VS. DRILL-DOWN</div>
             <p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Early prototypes used a drill-down pattern (tap area → new screen). User testing showed disorientation, people lost track of what other areas were doing. The accordion keeps the whole home visible at all times, making state comparison trivial and eliminating back-navigation entirely.</p>
           </div>
-          <div style="background:#16212e;border-left:3px solid #F0B040;border-radius:0 12px 12px 0;padding:20px 22px;">
+          <div style="background:#16212e;border-radius:12px;padding:20px 22px;">
             <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:7px;letter-spacing:0.02em;">DECISION · ON/OFF AT EVERY LEVEL</div>
             <p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The most frequent action, turning a room off, must never require opening a detail screen. Both area-level and zone-level rows carry an on/off toggle and dim indicator. This doubled the control surface but reduced the task to a single tap for ~90% of daily interactions.</p>
           </div>
@@ -411,7 +426,7 @@ summary::-webkit-details-marker{display:none}
         <div style="display:grid;grid-template-columns:330px 1fr;gap:36px;align-items:center;">
           <div style="display:flex;justify-content:center;">
             <div style="width:300px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 30px 60px -26px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
-              <div style="position:relative;border-radius:24px;overflow:hidden;background:#2a2d42;">
+              <div style="position:relative;border-radius:24px;overflow:hidden;background:#000;">
                 <img src="assets/sl/picker-color.jpg" alt="Color picker" style="width:100%;display:block;"/>
                 <img src="assets/sl/picker-whitegrad.jpg" class="sl-swap {{ pickWhiteCls }}" alt="White picker"/>
                 <img src="assets/sl/picker-presets.jpg" class="sl-swap {{ pickPresetsCls }}" alt="Presets"/>
@@ -443,7 +458,7 @@ summary::-webkit-details-marker{display:none}
       <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;margin-top:36px;" data-reveal="1">
         <div style="display:flex;justify-content:center;">
           <div style="width:312px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 34px 66px -26px rgba(20,30,40,0.4);border:1px solid rgba(0,0,0,0.1);">
-            <div style="position:relative;border-radius:24px;overflow:hidden;background:var(--c-surface);">
+            <div style="position:relative;border-radius:24px;overflow:hidden;background:#000;">
               <img src="assets/sl/mesh-nodemap.jpg" alt="Mesh node map" style="width:100%;display:block;"/>
               <img src="assets/sl/mesh-manual1.jpg" class="sl-swap {{ mesh1Cls }}" alt="Mesh clusters"/>
               <img src="assets/sl/mesh-manual2.jpg" class="sl-swap {{ mesh2Cls }}" alt="Mesh virtual groups"/>
@@ -508,8 +523,8 @@ summary::-webkit-details-marker{display:none}
       <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;" data-reveal="1">
         <div style="display:flex;justify-content:center;">
           <div style="width:300px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 34px 66px -26px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
-            <div style="position:relative;border-radius:24px;overflow:hidden;background:var(--c-surface);">
-              <img src="assets/sl/qr-hand.jpg" alt="QR scan" style="width:100%;display:block;"/>
+            <div class="sl-phone-stack" style="border-radius:24px;background:#000;">
+              <img src="assets/sl/qr-hand.jpg" class="sl-swap {{ com0Cls }}" alt="QR scan"/>
               <img src="assets/sl/qr-found.jpg" class="sl-swap {{ com1Cls }}" alt="Device found"/>
               <img src="assets/sl/qr-added.jpg" class="sl-swap {{ com2Cls }}" alt="Device added"/>
             </div>
@@ -541,7 +556,7 @@ summary::-webkit-details-marker{display:none}
           <div style="font-size:14px;color:#aab6c9;line-height:1.5;">Install commissioning, novel in the consumer lighting space <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7a8c;margin-top:6px;">COMPETITIVE DIFFERENTIATOR</span></div>
         </div>
       </div>
-      <div style="background:#16212e;border-left:3px solid #F0B040;border-radius:0 12px 12px 0;padding:22px 26px;margin-top:22px;" data-reveal="1">
+      <div style="background:#16212e;border-radius:12px;padding:22px 26px;margin-top:22px;" data-reveal="1">
         <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:7px;letter-spacing:0.02em;">DECISION · DEVICE NAMING INSIDE COMMISSIONING</div>
         <p style="font-size:14px;color:#aab6c9;line-height:1.62;max-width:900px;">Naming was embedded in setup, not deferred to settings, because post-setup renaming rates were extremely low in comparable products. If users didn't name during commissioning, they never would, leaving them with "IRiS Color Bulb 1" forever. Forcing the moment increased permanent naming adoption significantly.</p>
       </div>
@@ -555,7 +570,7 @@ summary::-webkit-details-marker{display:none}
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:16px;max-width:880px;" data-reveal="1">Multi-home control and a circadian engine that knows when the sun sets.</h2>
       <p style="font-size:16px;color:var(--c-body);line-height:1.7;max-width:840px;margin-bottom:42px;" data-reveal="1">A differentiating capability unavailable in basic consumer competitors: multiple properties from a single account, three role types, and scheduling driven by real sunrise/sunset data, all transferred directly from B2B deployments.</p>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-bottom:56px;" data-reveal="1">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-bottom:40px;" data-reveal="1">
         <div>
           <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:#16161a;margin-bottom:18px;">THREE USER ROLES</div>
           <div style="display:flex;flex-direction:column;gap:14px;">
@@ -564,11 +579,29 @@ summary::-webkit-details-marker{display:none}
             <div style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:13px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;"><span style="width:30px;height:30px;border-radius:50%;background:#0d5350;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;flex:none;">03</span><div><div style="font-size:15px;font-weight:700;color:#16161a;">PRO, temporary installer</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.5;margin-top:3px;">Electrician or commissioning agent; account auto-deactivates when work is complete. The key B2B→B2C transfer insight.</div></div></div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/manage-homes.jpg" alt="Manage Homes" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Manage Homes</div></div>
-          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/manage-users.jpg" alt="Manage Users" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Manage Users</div></div>
-          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/add-home.jpg" alt="Add Home" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Add Home · size templates</div></div>
-          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 14px 36px -24px rgba(20,30,40,0.4);background:var(--c-surface);"><img src="assets/sl/join-home.jpg" alt="Join a Home" style="width:100%;display:block;"/><div style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);">Join a Home · invite code</div></div>
+        <div class="sl-scale-fan">
+          <div class="sl-scale-phone">
+            <div class="sl-scale-screen"><img src="assets/sl/manage-homes.jpg" alt="Manage Homes"/></div>
+            <div class="sl-scale-cap">Manage Homes</div>
+          </div>
+          <div class="sl-scale-phone">
+            <div class="sl-scale-screen"><img src="assets/sl/manage-users.jpg" alt="Manage Users"/></div>
+            <div class="sl-scale-cap">Manage Users</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:56px;" data-reveal="1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-bottom:18px;">Onboarding a new property</div>
+        <div class="sl-scale-onboard">
+          <div class="sl-scale-phone">
+            <div class="sl-scale-screen"><img src="assets/sl/add-home.jpg" alt="Add Home"/></div>
+            <div class="sl-scale-cap">Add Home · size templates</div>
+          </div>
+          <div class="sl-scale-phone">
+            <div class="sl-scale-screen"><img src="assets/sl/join-home.jpg" alt="Join a Home"/></div>
+            <div class="sl-scale-cap">Join a Home · invite code</div>
+          </div>
         </div>
       </div>
 
@@ -581,11 +614,11 @@ summary::-webkit-details-marker{display:none}
             <div><div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:600;color:#0d5350;letter-spacing:-1px;">2</div><div style="font-size:13px;color:var(--c-body);line-height:1.45;">Circadian modes, GPS Automatic + Manual phase builder</div></div>
             <div><div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:600;color:#0d5350;letter-spacing:-1px;">5</div><div style="font-size:13px;color:var(--c-body);line-height:1.45;">Life phases, Wake, Day, Relax, Dinner, Sleep</div></div>
           </div>
-          <div style="background:var(--c-surface);border-left:3px solid #0d5350;border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:14px;">
+          <div style="background:var(--c-surface);border-radius:12px;padding:18px 22px;margin-bottom:14px;">
             <div style="font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;color:#16161a;margin-bottom:6px;letter-spacing:0.02em;">DECISION · OFFSET CONTROLS FOR SUNRISE/SUNSET</div>
             <p style="font-size:13.5px;color:var(--c-body);line-height:1.58;">Users wanted lights on before the sun fully rose. The offset control (−30 min, −15 min) solved this in user-language terms without exposing absolute times that would need seasonal adjustment.</p>
           </div>
-          <div style="background:var(--c-surface);border-left:3px solid #F0B040;border-radius:0 12px 12px 0;padding:18px 22px;">
+          <div style="background:var(--c-surface);border-radius:12px;padding:18px 22px;">
             <div style="font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;color:#16161a;margin-bottom:6px;letter-spacing:0.02em;">DECISION · COLOR SWATCHES AS PHASE IDENTIFIERS</div>
             <p style="font-size:13.5px;color:var(--c-body);line-height:1.58;">Phases were anchored by warm color swatches, not Kelvin values. "Relax" at 17:30 was set by picking a warm amber swatch, emotional language replacing technical specification, lowering the bar for adoption.</p>
           </div>
@@ -643,7 +676,7 @@ summary::-webkit-details-marker{display:none}
     <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Another case study</div>
-        <a href="Enterprise AI Showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:#0d5350">Application of AI <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="DALI-2 Showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:#0d5350">WaveLinx DALI-2 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
       <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
     </div>
@@ -651,7 +684,7 @@ summary::-webkit-details-marker{display:none}
 
 </div>
 
-  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
+  <div class="sl-version-bar" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
     <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#7a756a;padding:0 10px 0 12px;">Version</span>
     <a href="Smart Lighting Showcase.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#534f48;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Showcase</a>
     <a href="Smart Lighting.dc.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#ffffff;background:#0d5350;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Standard</a>
@@ -824,7 +857,7 @@ class Component extends DCLogic {
       pickTag: pk.tag, pickTitle: pk.title, pickBody: pk.body,
       pickWhiteCls: S.pick === 'white' ? 'sl-on' : '', pickPresetsCls: S.pick === 'presets' ? 'sl-on' : '', pickKelvinCls: S.pick === 'kelvin' ? 'sl-on' : '',
       mesh1Cls: S.mesh === 1 ? 'sl-on' : '', mesh2Cls: S.mesh === 2 ? 'sl-on' : '', mesh3Cls: S.mesh === 3 ? 'sl-on' : '',
-      com1Cls: S.com === 1 ? 'sl-on' : '', com2Cls: S.com === 2 ? 'sl-on' : '',
+      com0Cls: S.com === 0 ? 'sl-on' : '', com1Cls: S.com === 1 ? 'sl-on' : '', com2Cls: S.com === 2 ? 'sl-on' : '',
       pickColor: () => this.setState({ pick: 'color' }), pickWhite: () => this.setState({ pick: 'white' }), pickPresets: () => this.setState({ pick: 'presets' }), pickKelvin: () => this.setState({ pick: 'kelvin' }),
       tabColorBg: ptab('color').bg, tabColorFg: ptab('color').fg, tabWhiteBg: ptab('white').bg, tabWhiteFg: ptab('white').fg,
       tabPresetsBg: ptab('presets').bg, tabPresetsFg: ptab('presets').fg, tabKelvinBg: ptab('kelvin').bg, tabKelvinFg: ptab('kelvin').fg,
