@@ -255,7 +255,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { dark: (typeof localStorage === 'undefined' || localStorage.getItem('rba-int-dark') !== 'false'), menu: false };
+  state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'), menu: false };
   _obs = [];
 
   on(t, e, fn, o) { if (!t) return; t.addEventListener(e, fn, o); (this._ev = this._ev || []).push([t, e, fn, o]); }
