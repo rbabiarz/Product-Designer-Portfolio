@@ -302,6 +302,47 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
+  <!-- LIVE DEMO (interactive prototypes, embedded) -->
+  <section class="pad" style="padding-top:34px">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">Interactive</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Don't take my word for it, <em>fly the watch floor</em></h2>
+      <p class="lead" data-reveal="" data-d="2">Two live builds, not screenshots. Sketch a geofence on the common operating picture and scrub seventy-two hours of tracks, then step into the full analyst workspace, eight surfaces, classification-aware chrome, a day/night swap and a disconnected-edge mode.</p>
+    </div>
+
+    <!-- GIMS common operating picture -->
+    <div class="wrap" style="margin-top:54px">
+      <div class="win" data-reveal="">
+        <div class="win-bar">
+          <span class="win-dot" style="background:#ed6a5e"></span>
+          <span class="win-dot" style="background:#f4bf4f"></span>
+          <span class="win-dot" style="background:#61c454"></span>
+          <span class="mono" style="margin-left:8px;font-size:11px;color:#8aa0b4;letter-spacing:.05em">AEGIS GIMS · Common Operating Picture · v1.0-RC2</span>
+          <a href="AEGIS GIMS.html" target="_blank" rel="noopener" class="mono" style="margin-left:auto;font-size:11px;color:#9fe9d8;text-decoration:none;letter-spacing:.04em">Open fullscreen ↗</a>
+        </div>
+        <iframe src="AEGIS GIMS.html" title="AEGIS GIMS interactive map" loading="lazy" style="width:100%;height:720px;border:0;display:block;background:#0a120f"></iframe>
+      </div>
+      <p class="mono" data-reveal="" style="font-size:12px;color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px auto 0;text-align:center;font-style:italic">Live build · pick a draw tool, sketch a geofence onto the map, toggle layers, then press Play, tracks move through the last 72 hours and alerts fire the moment an unknown or hostile contact crosses a zone with active rules.</p>
+    </div>
+
+    <!-- AEGIS DI interactive build (scaled to fit) -->
+    <div class="wrap" style="margin-top:46px">
+      <div class="win" data-reveal="">
+        <div class="win-bar">
+          <span class="win-dot" style="background:#ed6a5e"></span>
+          <span class="win-dot" style="background:#f4bf4f"></span>
+          <span class="win-dot" style="background:#61c454"></span>
+          <span class="mono" style="margin-left:8px;font-size:11px;color:#8aa0b4;letter-spacing:.05em">AEGIS DI · interactive build · v1.0-RC2</span>
+          <a href="AEGIS DI v2.html" target="_blank" rel="noopener" class="mono" style="margin-left:auto;font-size:11px;color:#9fe9d8;text-decoration:none;letter-spacing:.04em">Open fullscreen ↗</a>
+        </div>
+        <div id="cs-proto-wrap" style="position:relative;width:100%;overflow:hidden;background:#0a1410">
+          <iframe class="cs-proto" src="AEGIS DI v2.html" title="AEGIS DI interactive prototype" loading="lazy" style="width:1280px;height:812px;border:0;display:block;background:#0a1410;transform-origin:top left"></iframe>
+        </div>
+      </div>
+      <p class="mono" data-reveal="" style="font-size:12px;color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px auto 0;text-align:center;font-style:italic">Open the Tweaks panel inside the build to switch operator role, drop the network to off-link, flip day/night, or change the classification banner. Best explored full screen ↗</p>
+    </div>
+  </section>
+
   <!-- RESULTS -->
   <section class="pad">
     <div class="wrap">
@@ -405,6 +446,25 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   }
   if(statsEl){ var co=new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!counted){counted=true;runCounters();co.disconnect();} },{threshold:0.3}); co.observe(statsEl); }
   setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } if(!counted){ counted=true; runCounters(); } },1000);
+})();
+</script>
+
+<script>
+// Scale the 1280x812 AEGIS DI build to fit its container width (mirrors the Standard page).
+(function(){
+  var wrap = document.getElementById('cs-proto-wrap');
+  var frame = wrap && wrap.querySelector('.cs-proto');
+  if (!wrap || !frame) return;
+  var DESIGN_W = 1280, DESIGN_H = 812;
+  function fit(){
+    var s = wrap.clientWidth / DESIGN_W;
+    frame.style.transform = 'scale(' + s + ')';
+    wrap.style.height = (DESIGN_H * s) + 'px';
+  }
+  fit();
+  window.addEventListener('load', fit);
+  if (window.ResizeObserver) { new ResizeObserver(fit).observe(wrap); }
+  else { window.addEventListener('resize', fit); }
 })();
 </script>
 
