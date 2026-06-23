@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="page-transition.js"></script>
-<title>CTOC Dashboard System, Case Study (Showcase) · Robert Babiarz</title>
+<title>AEGIS Decision Intelligence, Case Study (Showcase) · Robert Babiarz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -48,14 +48,11 @@ body{margin:0}
 .center{text-align:center}
 .center .lead{margin-left:auto;margin-right:auto}
 
-/* browser-window framed dashboard */
 .win{border-radius:14px;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 50px 90px -34px rgba(5,12,20,.7)}
 .win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
 .win-dot{width:11px;height:11px;border-radius:50%}
 .win img{width:100%;display:block}
-.gthumbs .win img{aspect-ratio:16/10;object-fit:cover;object-position:top center}
 
-/* full-bleed showcase band */
 .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
 .band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:96px 40px}
 .band .glow{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:1}
@@ -77,7 +74,6 @@ body{margin:0}
 .cs.dark .btn-primary{color:#06201d}
 
 .card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
-.tag{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:0.05em;color:var(--c-accent);text-transform:uppercase}
 
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .res-n{font-family:'Inter',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
@@ -90,7 +86,6 @@ body{margin:0}
 .appr-h{font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;letter-spacing:-.01em}
 .appr-p{font-size:14.5px;color:var(--c-body);line-height:1.65}
 
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .case-card{display:block;text-decoration:none;border-radius:18px;overflow:hidden;border:1px solid var(--c-b2);background:var(--c-surface);transition:transform .25s,box-shadow .25s}
 .case-card:hover{transform:translateY(-5px);box-shadow:0 26px 50px -22px rgba(10,20,30,.34)}
@@ -149,7 +144,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 
   <nav class="top">
     <div class="bar">
-      <a class="brand" href="Homepage Interactive.dc.html">
+      <a class="brand" href="homepage-interactive.dc.html">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
         Robert Babiarz
       </a>
@@ -158,16 +153,17 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <details class="cs-switch">
           <summary>
             <span class="cs-sw-lbl">Case study</span>
-            <span class="cs-sw-cur">CTOC Dashboard System</span>
+            <span class="cs-sw-cur">AEGIS Decision Intelligence</span>
             <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
           <div class="cs-sheet">
-            <a href="CTOC Showcase.html" class="cur"><span class="t">CTOC Dashboard System</span><span class="s">Enterprise cyber · 13 dashboards</span></a>
-            <a href="Smart Lighting Showcase.html"><span class="t">Smart Lighting Mobile App</span><span class="s">Consumer IoT · enterprise depth</span></a>
-            <a href="DALI-2 Showcase.html"><span class="t">DALI-2 Lighting System</span><span class="s">Commissioning at hospital scale</span></a>
-            <a href="Goals-Driven Fintech v2.html"><span class="t">Goals-Driven Finance</span><span class="s">Self-directed fintech</span></a>
+            <a href="ctoc-showcase.html"><span class="t">CTOC Dashboard System</span><span class="s">Enterprise cyber · 13 dashboards</span></a>
+            <a href="aegis-showcase.html" class="cur"><span class="t">AEGIS Decision Intelligence</span><span class="s">Defence · multi-INT fusion</span></a>
+            <a href="smart-lighting-showcase.html"><span class="t">Smart Lighting Mobile App</span><span class="s">Consumer IoT · enterprise depth</span></a>
+            <a href="dali-2-showcase.html"><span class="t">DALI-2 Lighting System</span><span class="s">Commissioning at hospital scale</span></a>
+            <a href="goals-driven-fintech-showcase.html"><span class="t">Goals-Driven Finance</span><span class="s">Self-directed fintech</span></a>
             <div class="cs-div"></div>
-            <a href="Homepage Interactive.dc.html" class="cs-allwork">← All work</a>
+            <a href="homepage-interactive.dc.html" class="cs-allwork">← All work</a>
           </div>
         </details>
       </div>
@@ -177,9 +173,13 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <!-- HERO -->
   <section style="position:relative;overflow:hidden;padding:84px 0 0">
     <div class="wrap center" style="position:relative;z-index:2">
-      <div class="eyebrow" data-reveal="">Enterprise Cybersecurity</div>
-      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.4vw,88px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:16ch">Cyber Threat <em>Operations Center</em></h1>
-      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:760px;margin-top:28px;color:var(--c-ink2)">A unified dashboard ecosystem for SOC analysts, fraud teams, and cybersecurity leadership, built to compress mean-time-to-detect, cut alert fatigue, and translate technical risk into board-ready language.</p>
+      <div class="eyebrow" data-reveal="">Defense Intelligence</div>
+      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.2vw,86px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:17ch">Decision intelligence for the <em>watch floor</em></h1>
+      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:760px;margin-top:28px;color:var(--c-ink2)">Six intelligence disciplines, fused into one operating picture, built to cut signal overload, carry confidence and dissent, and stay trustworthy from the analyst's desk to the director's brief.</p>
+      <div data-reveal="" data-d="3" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px">
+        <a class="btn-primary" href="#prototype">Try the interactive prototype <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#operators" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">Meet the operators</a>
+      </div>
     </div>
 
     <div class="band band-navy" data-reveal="" style="margin-top:64px">
@@ -187,10 +187,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="glow" style="width:420px;height:420px;bottom:-160px;left:4%;background:rgba(125,211,192,.13)"></div>
       <div class="band-inner">
         <div class="win" style="max-width:980px;margin:0 auto;animation:cs-float 8s ease-in-out infinite">
-          <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.4)">ctoc · fusion-kill-chain</span></div>
-          <img src="assets/ctoc/img/fusion.png" alt="Fusion Kill Chain, hero dashboard">
+          <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.4)">aegis · common-operating-picture</span></div>
+          <img src="assets/aegis/cop.png" alt="AEGIS Common Operating Picture, fused tactical map">
         </div>
-        <div class="band-cap cap-light">Fusion Kill Chain, the SOC floor's first screen each morning</div>
+        <div class="band-cap cap-light">Common Operating Picture, fused indicators, 72-hour scrubber, live reasoning trace</div>
       </div>
     </div>
   </section>
@@ -201,18 +201,17 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">The Brief</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">Thirteen dashboards, <em>one system</em></h2>
-          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">A bank's threat operations live across fragmented, alert-noisy tools. The work spans three very different audiences, the analyst on an overnight shift, the investigator chasing a lead, and the executive who needs a board-ready read on risk.</p>
-          <p class="lead" data-reveal="" data-d="2">A self-directed concept: I framed the domain, defined the terminology, designed a shared UI system, and built thirteen interlocking dashboards as a single, coherent product.</p>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">Not too little data, <em>far too much</em></h2>
+          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">A watch-floor analyst doesn't lack data, they're drowning in it. Signals arrive faster than any team can read, each with its own format, confidence, and half-life. The hard part is judgement under pressure, made legible to whoever needs it next.</p>
+          <p class="lead" data-reveal="" data-d="2">A self-directed concept (all data fictional): I framed the domain, designed one source of truth that re-projects for each role, and built eight interlocking workspaces as a single, auditable system.</p>
         </div>
         <div class="card" data-reveal="" data-d="1" style="padding:34px">
           <div class="meta-grid">
             <div><div class="meta-k">Role</div><div class="meta-v">Product Designer · self-directed</div></div>
             <div><div class="meta-k">Scope</div><div class="meta-v stack"><span>Framing &amp; IA</span><span>UI system · Prototype</span></div></div>
-            <div><div class="meta-k">Audience</div><div class="meta-v stack"><span>SOC · Fraud ops</span><span>CISO / Executive</span></div></div>
-            <div><div class="meta-k">Status</div><div class="meta-v">Hi-fi prototype</div></div>
-            <div><div class="meta-k">Domain</div><div class="meta-v">Enterprise Cyber · Banking</div></div>
-            <div><div class="meta-k">System</div><div class="meta-v">1 design system · 13 views</div></div>
+            <div><div class="meta-k">Operators</div><div class="meta-v stack"><span>Analyst · Supervisor</span><span>Director</span></div></div>
+            <div><div class="meta-k">Domain</div><div class="meta-v">Defense · Multi-INT fusion</div></div>
+            <div><div class="meta-k">System</div><div class="meta-v">8 workspaces · 1 source of truth</div></div>
           </div>
         </div>
       </div>
@@ -223,30 +222,31 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
     <div class="wrap-n center">
       <div class="eyebrow" data-reveal="">Challenge</div>
-      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Signal, buried in <em>noise</em></h2>
-      <p class="lead" data-reveal="" data-d="2">Three structural problems shaped every decision, each became a design constraint rather than a feature request.</p>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Judgement, <em>under pressure</em></h2>
+      <p class="lead" data-reveal="" data-d="2">Three forces shaped every screen, each a constraint the system had to honor, not a feature to bolt on.</p>
     </div>
     <div class="wrap" style="margin-top:54px">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="cgrid">
-        <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">01</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Alert fatigue</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Analysts drown in undifferentiated alerts. Severity has to be unmissable, and readable at a glance, color-blind safe.</div></div>
-        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Fragmented tools</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Detection, incidents, fraud, and intel live in separate apps. The analyst is left to stitch the story together.</div></div>
-        <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">03</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Risk ≠ board language</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">Leadership needs technical risk translated into exposure, trend, and decisions, not raw event counts.</div></div>
+        <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">01</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Signal overload</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Six disciplines, every format, every half-life. The picture has to fuse, without hiding how the match was made.</div></div>
+        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Three different reads</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Analyst, supervisor, and director need the same truth re-projected into very different mental models.</div></div>
+        <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">03</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">AI must show receipts</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">Every machine claim carries its sources, confidence, and a visible dissent, trust is earned, never assumed.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- SHOWCASE: HERO DASHBOARD -->
-  <div class="band band-teal" data-reveal="">
+  <!-- SHOWCASE: OPERATORS -->
+  <div class="band band-teal" data-reveal="" id="operators">
     <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
     <div class="band-inner">
       <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow" style="color:#9fe9d8">The Hero · Fusion Kill Chain</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Every stage of an attack, <em style="color:#9fe9d8">on one timeline</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">The dashboard the team turns on first: live kill-chain progression, fused signals, and the single most urgent thing to do next.</p>
+        <div class="eyebrow" style="color:#9fe9d8">The Operators</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">One system, <em style="color:#9fe9d8">re-projected per role</em></h2>
+        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">The same source of truth becomes an analyst's assessment, a supervisor's coverage board, and a director's grounded "Ask AEGIS."</p>
       </div>
-      <div class="win" style="max-width:1000px;margin:0 auto">
-        <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span></div>
-        <img src="assets/ctoc/img/fusion.png" alt="Fusion Kill Chain dashboard">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/aegis/assessment.png" alt="Analyst assessment workspace"></div><div class="band-cap cap-light">Analyst, assessment &amp; confidence</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/aegis/watchfloor.png" alt="Supervisor coverage board"></div><div class="band-cap cap-light">Supervisor, coverage board</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/aegis/ask.png" alt="Director Ask AEGIS workspace"></div><div class="band-cap cap-light">Director, Ask AEGIS, cited</div></div>
       </div>
     </div>
   </div>
@@ -257,50 +257,88 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">Approach</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px;font-size:clamp(28px,3.6vw,46px)">One system, <em>three layers</em></h2>
-          <p class="lead" data-reveal="" data-d="2">The product is organized into three tiers that mirror how the work actually flows, from the live SOC floor, to deep investigation, to the executive read. Shared chrome and one severity language hold all thirteen views together.</p>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px;font-size:clamp(28px,3.6vw,46px)">Trust, designed <em>in</em></h2>
+          <p class="lead" data-reveal="" data-d="2">Fusion is only useful if it's auditable. Every layer is built so a human can see the reasoning, challenge it, and stay in command, even when the network drops.</p>
         </div>
         <div class="appr" data-reveal="" data-d="1">
-          <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">The SOC floor</div><div class="appr-p">Real-time monitoring built for an eight-hour overnight shift, glanceable, low-fatigue, severity unmissable.</div></div></div>
-          <div class="appr-row"><div class="appr-n">02</div><div><div class="appr-h">Investigation</div><div class="appr-p">Deep-dive views for incidents, fraud, insider risk, DLP and intel, every alert opens the same triage drawer.</div></div></div>
-          <div class="appr-row"><div class="appr-n">03</div><div><div class="appr-h">The executive read</div><div class="appr-p">Risk translated into exposure, posture, and trend, board-ready language, not raw event counts.</div></div></div>
-          <div class="appr-row"><div class="appr-n">04</div><div><div class="appr-h">One severity language</div><div class="appr-p">Five levels, encoded in more than one channel so it stays legible and color-blind safe everywhere.</div></div></div>
+          <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">Fusion with receipts</div><div class="appr-p">A fused indicator card shows exactly how a match was made, source fragments, confidence, and the AI's reasoning trace.</div></div></div>
+          <div class="appr-row"><div class="appr-n">02</div><div><div class="appr-h">Confidence &amp; dissent</div><div class="appr-p">Assessments lead with the bottom line, then carry every key judgement with its confidence, citations, and a visible dissent.</div></div></div>
+          <div class="appr-row"><div class="appr-n">03</div><div><div class="appr-h">Built for DDIL</div><div class="appr-p">Forward teams operate disconnected, degraded, intermittent, limited, AEGIS reconciles and stages merge conflicts for a human call.</div></div></div>
+          <div class="appr-row"><div class="appr-n">04</div><div><div class="appr-h">Releasable by design</div><div class="appr-p">Sharing to partners proposes inline redactions, each with a reason and an accept-or-override, no nervous manual scrub.</div></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SHOWCASE: TRIAGE -->
+  <!-- SHOWCASE: FUSION -->
   <div class="band band-sand" data-reveal="">
     <div class="band-inner">
       <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow">The Triage Workflow</div>
-        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Click any alert, <em>anywhere</em></h2>
-        <p class="lead" style="max-width:720px;margin:18px auto 0">One consistent right-side drawer opens over every dashboard, context, evidence, and the next action, without losing your place.</p>
+        <div class="eyebrow">Fusion &amp; Reasoning</div>
+        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The AI brings <em>receipts</em></h2>
+        <p class="lead" style="max-width:720px;margin:18px auto 0">A fused indicator card lays the match bare, the SIGINT and OSINT fragments, the confidence, and the reasoning trace that connected them.</p>
       </div>
       <div class="win" style="max-width:1000px;margin:0 auto">
         <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span></div>
-        <img src="assets/ctoc/img/triage.jpg" alt="Triage drawer open over a dashboard">
+        <img src="assets/aegis/triage.png" alt="Fused indicator triage card with reasoning trace">
       </div>
     </div>
   </div>
 
-  <!-- OUTCOME / ECOSYSTEM -->
-  <section id="ecosystem" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
+  <!-- OUTCOME -->
+  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
     <div class="wrap-n center">
-      <div class="eyebrow" data-reveal="">The Ecosystem</div>
-      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">The other <em>twelve</em></h2>
-      <p class="lead" data-reveal="" data-d="2">Every dashboard inherits the same chrome, top bar, sidebar, time-range, KPI strip, so moving between them never costs a re-orientation.</p>
+      <div class="eyebrow" data-reveal="">Outcome</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Eight workspaces, <em>one truth</em></h2>
+      <p class="lead" data-reveal="" data-d="2">From the assessment reader to the releasability screen to the disconnected forward node, every surface inherits the same chrome and the same auditable spine.</p>
     </div>
     <div class="wrap" style="margin-top:54px">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
-        <div class="win" data-reveal=""><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ctoc/img/detect.jpg" alt="Detection dashboard"></div>
-        <div class="win" data-reveal="" data-d="1"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ctoc/img/incidents.jpg" alt="Incidents dashboard"></div>
-        <div class="win" data-reveal="" data-d="2"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ctoc/img/intel.jpg" alt="Threat intel dashboard"></div>
-        <div class="win" data-reveal=""><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ctoc/img/money.jpg" alt="Fraud / money movement dashboard"></div>
-        <div class="win" data-reveal="" data-d="1"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ctoc/img/insider.jpg" alt="Insider risk dashboard"></div>
-        <div class="win" data-reveal="" data-d="2"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ctoc/img/exec.jpg" alt="Executive risk posture dashboard"></div>
+        <div class="win" data-reveal=""><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/aegis/assessment-editor.png" alt="Assessment editor with AI assists"></div>
+        <div class="win" data-reveal="" data-d="1"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/aegis/release.png" alt="Releasability screen with AI-proposed redactions"></div>
+        <div class="win" data-reveal="" data-d="2"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/aegis/ddil.png" alt="Disconnected forward node sync state"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- LIVE DEMO (interactive prototypes, embedded) -->
+  <section class="pad" id="prototype" style="padding-top:34px">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">Interactive</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Don't take my word for it, <em>fly the watch floor</em></h2>
+      <p class="lead" data-reveal="" data-d="2">Two live builds, not screenshots. Sketch a geofence on the common operating picture and scrub seventy-two hours of tracks, then step into the full analyst workspace, eight surfaces, classification-aware chrome, a day/night swap and a disconnected-edge mode.</p>
+    </div>
+
+    <!-- GIMS common operating picture -->
+    <div class="wrap" style="margin-top:54px">
+      <div class="win" data-reveal="">
+        <div class="win-bar">
+          <span class="win-dot" style="background:#ed6a5e"></span>
+          <span class="win-dot" style="background:#f4bf4f"></span>
+          <span class="win-dot" style="background:#61c454"></span>
+          <span class="mono" style="margin-left:8px;font-size:11px;color:#8aa0b4;letter-spacing:.05em">AEGIS GIMS · Common Operating Picture · v1.0-RC2</span>
+          <a href="aegis-gims.html" target="_blank" rel="noopener" class="mono" style="margin-left:auto;font-size:11px;color:#9fe9d8;text-decoration:none;letter-spacing:.04em">Open fullscreen ↗</a>
+        </div>
+        <iframe src="aegis-gims.html" title="AEGIS GIMS interactive map" loading="lazy" style="width:100%;height:720px;border:0;display:block;background:#0a120f"></iframe>
+      </div>
+      <p class="mono" data-reveal="" style="font-size:12px;color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px auto 0;text-align:center;font-style:italic">Live build · pick a draw tool, sketch a geofence onto the map, toggle layers, then press Play, tracks move through the last 72 hours and alerts fire the moment an unknown or hostile contact crosses a zone with active rules.</p>
+    </div>
+
+    <!-- AEGIS DI interactive build (scaled to fit) -->
+    <div class="wrap" style="margin-top:46px">
+      <div class="win" data-reveal="">
+        <div class="win-bar">
+          <span class="win-dot" style="background:#ed6a5e"></span>
+          <span class="win-dot" style="background:#f4bf4f"></span>
+          <span class="win-dot" style="background:#61c454"></span>
+          <span class="mono" style="margin-left:8px;font-size:11px;color:#8aa0b4;letter-spacing:.05em">AEGIS DI · interactive build · v1.0-RC2</span>
+          <a href="aegis-di-prototype.html" target="_blank" rel="noopener" class="mono" style="margin-left:auto;font-size:11px;color:#9fe9d8;text-decoration:none;letter-spacing:.04em">Open fullscreen ↗</a>
+        </div>
+        <div id="cs-proto-wrap" style="position:relative;width:100%;overflow:hidden;background:#0a1410">
+          <iframe class="cs-proto" src="aegis-di-prototype.html" title="AEGIS DI interactive prototype" loading="lazy" style="width:1280px;height:812px;border:0;display:block;background:#0a1410;transform-origin:top left"></iframe>
+        </div>
+      </div>
+      <p class="mono" data-reveal="" style="font-size:12px;color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px auto 0;text-align:center;font-style:italic">Open the Tweaks panel inside the build to switch operator role, drop the network to off-link, flip day/night, or change the classification banner. Best explored full screen ↗</p>
     </div>
   </section>
 
@@ -312,12 +350,12 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Scope of the system</h2>
       </div>
       <div class="results" id="stats">
-        <div data-reveal=""><div class="res-n"><span data-count="13">0</span></div><div class="res-l">Interlocking dashboards designed</div></div>
-        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="5">0</span></div><div class="res-l">Severity levels, color-blind safe</div></div>
-        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="3">0</span></div><div class="res-l">Experience layers, floor, investigation, exec</div></div>
-        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="1">0</span></div><div class="res-l">Shared design system across them all</div></div>
+        <div data-reveal=""><div class="res-n"><span data-count="6">0</span></div><div class="res-l">Intelligence disciplines fused</div></div>
+        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="8">0</span></div><div class="res-l">Interlocking workspaces designed</div></div>
+        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="3">0</span></div><div class="res-l">Operator roles, one source of truth</div></div>
+        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="72">0</span>h</div><div class="res-l">Timeline scrubber across the picture</div></div>
       </div>
-      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">SELF-DIRECTED CONCEPT ON SYNTHETIC DATA, NOT VALIDATED PRODUCT METRICS.</div>
+      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">SELF-DIRECTED CONCEPT · ALL DATA FICTIONAL, NOT A REAL SYSTEM.</div>
     </div>
   </section>
 
@@ -326,8 +364,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div class="wrap-n center">
       <div data-reveal="">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--c-accent)" style="opacity:.55;margin-bottom:18px"><path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5A1.67 1.67 0 0 1 7.17 9.5V6zm9 0A5.17 5.17 0 0 0 11 11.17V18h6.83v-6.83H14.5a1.67 1.67 0 0 1 1.67-1.67V6z"/></svg>
-        <p style="font-family:'Inter',sans-serif;font-weight:300;font-style:italic;font-size:clamp(22px,3vw,34px);line-height:1.4;color:var(--c-ink2);letter-spacing:-.5px">Before drawing a single screen, we wrote down what the product should never do, then designed everything else around those lines.</p>
-        <div class="mono" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-top:26px">Design principle · CTOC</div>
+        <p style="font-family:'Inter',sans-serif;font-weight:300;font-style:italic;font-size:clamp(22px,3vw,34px);line-height:1.4;color:var(--c-ink2);letter-spacing:-.5px">Every machine claim carries its sources, its confidence, and a visible dissent. The operator stays in command, the AI just shows its work.</p>
+        <div class="mono" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-top:26px">Design principle · AEGIS</div>
       </div>
     </div>
   </section>
@@ -340,14 +378,18 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
           <div class="eyebrow" data-reveal="">More Work</div>
           <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:14px;font-size:clamp(26px,3.2vw,40px)">Recent cases</h2>
         </div>
-        <a href="Homepage Interactive.dc.html" class="mono" data-reveal="" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-accent);text-decoration:none;display:flex;align-items:center;gap:8px">All work <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="homepage-interactive.dc.html" class="mono" data-reveal="" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-accent);text-decoration:none;display:flex;align-items:center;gap:8px">All work <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="cases">
-        <a class="case-card" data-reveal="" href="Goals-Driven Fintech v2.html">
+        <a class="case-card" data-reveal="" href="ctoc-showcase.html">
+          <img class="case-thumb" src="assets/ctoc/img/fusion.png" alt="CTOC Dashboard System">
+          <div class="case-body"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:8px">CYBER OPERATIONS</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--c-ink2)">CTOC Dashboard System</div><div style="font-size:13px;color:var(--c-muted);margin-top:4px">Enterprise cyber · 13 dashboards</div></div>
+        </a>
+        <a class="case-card" data-reveal="" data-d="1" href="goals-driven-fintech-showcase.html">
           <img class="case-thumb" src="previews/p-fintech.png" alt="Goals-Driven Finance">
           <div class="case-body"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:8px">FINTECH · AI</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--c-ink2)">Goals-Driven Finance</div><div style="font-size:13px;color:var(--c-muted);margin-top:4px">Money, anchored to your life</div></div>
         </a>
-        <a class="case-card" data-reveal="" data-d="2" href="Smart Lighting Showcase.html">
+        <a class="case-card" data-reveal="" data-d="2" href="smart-lighting-showcase.html">
           <img class="case-thumb" src="previews/p-smartlighting.png" alt="Smart Lighting App">
           <div class="case-body"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.06em;margin-bottom:8px">CONSUMER IOT</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--c-ink2)">Smart Lighting App</div><div style="font-size:13px;color:var(--c-muted);margin-top:4px">Whole-home lighting, made personal</div></div>
         </a>
@@ -360,17 +402,17 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
       <div>
         <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
-        <a href="Goals-Driven Fintech v2.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Goals-Driven Finance <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="ctoc-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">CTOC Dashboard System <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
-      <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+      <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
     </div>
   </footer>
 
   <!-- VERSION TOGGLE -->
   <div class="verpill">
     <span class="vlbl">Version</span>
-    <a href="CTOC Showcase.html" class="on">Showcase</a>
-    <a href="CTOC Case Study v2.dc.html">Standard</a>
+    <a href="aegis-showcase.html" class="on">Showcase</a>
+    <a href="aegis-di.dc.html">Standard</a>
   </div>
 
 </div>
@@ -403,6 +445,25 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   }
   if(statsEl){ var co=new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!counted){counted=true;runCounters();co.disconnect();} },{threshold:0.3}); co.observe(statsEl); }
   setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } if(!counted){ counted=true; runCounters(); } },1000);
+})();
+</script>
+
+<script>
+// Scale the 1280x812 AEGIS DI build to fit its container width (mirrors the Standard page).
+(function(){
+  var wrap = document.getElementById('cs-proto-wrap');
+  var frame = wrap && wrap.querySelector('.cs-proto');
+  if (!wrap || !frame) return;
+  var DESIGN_W = 1280, DESIGN_H = 812;
+  function fit(){
+    var s = wrap.clientWidth / DESIGN_W;
+    frame.style.transform = 'scale(' + s + ')';
+    wrap.style.height = (DESIGN_H * s) + 'px';
+  }
+  fit();
+  window.addEventListener('load', fit);
+  if (window.ResizeObserver) { new ResizeObserver(fit).observe(wrap); }
+  else { window.addEventListener('resize', fit); }
 })();
 </script>
 

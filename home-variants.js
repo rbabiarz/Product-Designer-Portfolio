@@ -9,13 +9,40 @@
    switcher from it, so no per-page list maintenance is needed. */
 (function () {
   var VARIANTS = [
-    { id: 'interactive', label: 'Interactive', file: 'Homepage Interactive.dc.html', tagline: 'The primary portfolio site' },
-    { id: 'dossier',     label: 'Dossier',     file: 'Homepage Dossier.dc.html',     tagline: 'Classified case-file layout' },
-    { id: 'retro',       label: 'Retro',       file: 'Homepage Retro.dc.html',       tagline: 'CRT terminal / RB-OS' }
+    { id: 'interactive', label: 'Interactive', file: 'homepage-interactive.dc.html', tagline: 'The primary portfolio site' },
+    { id: 'dossier',     label: 'Dossier',     file: 'homepage-dossier.dc.html',     tagline: 'Classified case-file layout' },
+    { id: 'retro',       label: 'Retro',       file: 'homepage-retro.dc.html',       tagline: 'CRT terminal / RB-OS' }
     // → add future homepage designs here
   ];
 
   window.HOME_VARIANTS = VARIANTS;
+
+  // shared contact anchor — every homepage variant uses id="contact"
+  window.homeContactHref = function () {
+    var id = window.homeVariantCurrent ? window.homeVariantCurrent() : VARIANTS[0].id;
+    var v = VARIANTS[0];
+    for (var i = 0; i < VARIANTS.length; i++) { if (VARIANTS[i].id === id) { v = VARIANTS[i]; break; } }
+    return v.file + '#contact';
+  };
+
+  function homeScrollToHash() {
+    var id = (location.hash || '').replace(/^#/, '');
+    if (!id) return;
+    var tries = 0;
+    function attempt() {
+      var el = document.getElementById(id);
+      if (!el) {
+        if (++tries < 48) return setTimeout(attempt, 50);
+        return;
+      }
+      var nav = document.querySelector('.rt-bar, #int-nav, #dsr-nav, nav[id]');
+      var offset = (nav ? nav.getBoundingClientRect().height : 72) + 12;
+      var y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+    attempt();
+  }
+  window.homeScrollToHash = homeScrollToHash;
 
   // best-effort current-variant detection from the URL (pages also hardcode
   // their own id, which is the reliable source for active-state styling)
@@ -42,7 +69,18 @@
       if (VARIANTS[i].file === f) cur = VARIANTS[i];
       if (VARIANTS[i].id === pref) target = VARIANTS[i];
     }
-    if (cur && target && cur.id !== target.id) { location.replace(target.file); }
+    if (cur && target && cur.id !== target.id) {
+      location.replace(target.file + (location.hash || ''));
+      return;
+    }
+    // already on the saved homepage — honor #contact (etc.) after DC renders
+    if (cur && location.hash) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { setTimeout(homeScrollToHash, 120); });
+      } else {
+        setTimeout(homeScrollToHash, 120);
+      }
+    }
   })();
 
   // persist the chosen design before navigation (capture phase so it runs

@@ -38,14 +38,14 @@ const at = (dur) => { const s = t; t += dur; return [s, t]; };
 
 const INTRO = at(3.0);
 const SH = [
-  { ch:'01 · Onboarding', src:'fintech/img-ed9caada.png',  title:'Money that means something',  sub:'Onboarding leads with values, connection, transparency, no judgment, before it ever asks for an account.', tap:{x:140,y:470} },
-  { ch:'01 · Onboarding', src:'fintech/img-85814e91.png',  title:'No shame, ever',               sub:'Where other apps scold, this one shows the math, and an easy way to recover the time.', tap:{x:140,y:360} },
-  { ch:'01 · Onboarding', src:'fintech/img-e6c5ce74.png',  title:'Connect, on your terms',       sub:'256-bit encryption · read-only · CFPB §1033, trust signals surfaced exactly when hesitation peaks.', tap:{x:212,y:175} },
-  { ch:'01 · Onboarding', src:'fintech/img-80b9abac.png',  title:'Your dashboard, ready',        sub:'It closes on a populated dashboard with an animated net-worth reveal, value felt before any work.', tap:{x:140,y:560} },
-  { ch:'02 · Goals & Alignment', src:'fintech/img-fdd62557.png', title:'One number: am I on track?', sub:'The headline isn’t a balance, it’s the Goal Alignment Score, a single read on whether today serves tomorrow.', tap:{x:90,y:130} },
-  { ch:'02 · Goals & Alignment', src:'fintech/img-26e8c2a0.png', title:'Every goal, fully scoped',   sub:'Open a goal for contribution history, months-left, and conservative / expected / optimistic projections.', tap:{x:140,y:175} },
-  { ch:'03 · Spending Intelligence', src:'fintech/img-65da32e0.png', title:'Spending as goal impact', sub:'Category pace vs. a goal-aligned target, tap any transaction to see the trade-off, never a deficit banner.', dur:3.8, tap:{x:140,y:340} },
-  { ch:'04 · Invest', src:'fintech/img-de6e5498.png', title:'Holdings vs. what goals need', sub:'A mindful portfolio view: allocation and holdings measured against an educational reference, not stock tips.', dur:3.8, tap:{x:110,y:200} },
+  { ch:'01 · Onboarding', src:'fintech/fintech-10.png',  title:'Money that means something',  sub:'Onboarding leads with values, connection, transparency, no judgment, before it ever asks for an account.', tap:{x:140,y:470} },
+  { ch:'01 · Onboarding', src:'fintech/fintech-06.png',  title:'No shame, ever',               sub:'Where other apps scold, this one shows the math, and an easy way to recover the time.', tap:{x:140,y:360} },
+  { ch:'01 · Onboarding', src:'fintech/fintech-09.png',  title:'Connect, on your terms',       sub:'256-bit encryption · read-only · CFPB §1033, trust signals surfaced exactly when hesitation peaks.', tap:{x:212,y:175} },
+  { ch:'01 · Onboarding', src:'fintech/fintech-04.png',  title:'Your dashboard, ready',        sub:'It closes on a populated dashboard with an animated net-worth reveal, value felt before any work.', tap:{x:140,y:560} },
+  { ch:'02 · Goals & Alignment', src:'fintech/fintech-11.png', title:'One number: am I on track?', sub:'The headline isn’t a balance, it’s the Goal Alignment Score, a single read on whether today serves tomorrow.', tap:{x:90,y:130} },
+  { ch:'02 · Goals & Alignment', src:'fintech/fintech-01.png', title:'Every goal, fully scoped',   sub:'Open a goal for contribution history, months-left, and conservative / expected / optimistic projections.', tap:{x:140,y:175} },
+  { ch:'03 · Spending Intelligence', src:'fintech/fintech-03.png', title:'Spending as goal impact', sub:'Category pace vs. a goal-aligned target, tap any transaction to see the trade-off, never a deficit banner.', dur:3.8, tap:{x:140,y:340} },
+  { ch:'04 · Invest', src:'fintech/fintech-08.png', title:'Holdings vs. what goals need', sub:'A mindful portfolio view: allocation and holdings measured against an educational reference, not stock tips.', dur:3.8, tap:{x:110,y:200} },
 ].map(s => { const [a,b] = at((s.dur||D)+OV); t -= OV; return { ...s, start:a, end:b }; });
 t = SH[SH.length-1].end;          // outro begins only after the last shot is gone
 const OUTRO = at(3.6);

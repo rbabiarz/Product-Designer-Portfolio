@@ -101,7 +101,7 @@
   <!-- ═══ NAV ═══ -->
   <nav id="wk-nav" style="position:fixed;top:0;left:0;right:0;z-index:100;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);">
     <div style="padding:0 44px;height:72px;display:flex;align-items:center;justify-content:space-between;">
-      <a href="Homepage Interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;perspective:600px;">
+      <a href="homepage-interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;perspective:600px;">
         <div class="rb-box" style="width:34px;height:34px;border:1px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:inherit;letter-spacing:-0.5px;">RB</span>
         </div>
@@ -111,10 +111,10 @@
         </div>
       </a>
       <div class="wk-navlinks" style="display:flex;align-items:center;gap:34px;">
-        <a href="Work.dc.html" style="font-size:13px;font-weight:500;color:var(--fg);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;cursor:default;pointer-events:none;">Work</a>
-        <a href="Homepage Interactive.dc.html#metrics" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Impact</a>
-        <a href="About.dc.html" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">About</a>
-        <a href="Homepage Interactive.dc.html#contact" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Contact</a>
+        <a href="work.dc.html" style="font-size:13px;font-weight:500;color:var(--fg);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;cursor:default;pointer-events:none;">Work</a>
+        <a href="homepage-interactive.dc.html#metrics" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Impact</a>
+        <a href="about.dc.html" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">About</a>
+        <a href="homepage-interactive.dc.html#contact" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Contact</a>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <button onClick="{{ toggleDark }}" aria-label="Theme" style="width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:all 0.2s;" style-hover="border-color:var(--line2)">
@@ -132,10 +132,10 @@
 
   <!-- ░░ MOBILE MENU ░░ -->
   <div id="wk-menu">
-    <a class="im-link" href="Work.dc.html" onClick="{{ closeMenu }}"><span>Work</span><span class="im-num">01</span></a>
-    <a class="im-link" href="Homepage Interactive.dc.html#metrics" onClick="{{ closeMenu }}"><span>Impact</span><span class="im-num">02</span></a>
-    <a class="im-link" href="About.dc.html" onClick="{{ closeMenu }}"><span>About</span><span class="im-num">03</span></a>
-    <a class="im-link" href="Homepage Interactive.dc.html#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="im-num">04</span></a>
+    <a class="im-link" href="work.dc.html" onClick="{{ closeMenu }}"><span>Work</span><span class="im-num">01</span></a>
+    <a class="im-link" href="homepage-interactive.dc.html#metrics" onClick="{{ closeMenu }}"><span>Impact</span><span class="im-num">02</span></a>
+    <a class="im-link" href="about.dc.html" onClick="{{ closeMenu }}"><span>About</span><span class="im-num">03</span></a>
+    <a class="im-link" href="homepage-interactive.dc.html#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="im-num">04</span></a>
   </div>
 
   <!-- ═══ HEADER STRIP ═══ -->
@@ -158,31 +158,31 @@
   <!-- ═══ COVERFLOW STAGE ═══ -->
   <div class="wk-stage" id="wk-stage" style="position:relative;z-index:1;flex:0 0 auto;min-height:0;height:clamp(340px,50vh,500px);perspective:1700px;perspective-origin:50% 46%;touch-action:pan-y;cursor:grab;margin-top:8px;">
 
-    <a class="wcard" data-i="0" href="Core Insights Showcase.html">
+    <a class="wcard" data-i="0" href="core-insights-showcase.html">
       <img src="previews/p-insights.png" alt="CORE Insights"/>
       <div class="wc-veil"></div>
       <div class="wc-badge">Live Case Study</div>
       <div class="wc-num">01</div>
     </a>
-    <a class="wcard" data-i="1" href="DALI-2 Showcase.html">
+    <a class="wcard" data-i="1" href="dali-2-showcase.html">
       <img src="previews/p-dali.png" alt="DALI-2 Lighting System"/>
       <div class="wc-veil"></div>
       <div class="wc-badge">Industry First</div>
       <div class="wc-num">02</div>
     </a>
-    <a class="wcard" data-i="2" href="Smart Lighting Showcase.html">
+    <a class="wcard" data-i="2" href="smart-lighting-showcase.html">
       <img src="previews/p-smartlighting.png" alt="Smart Lighting App"/>
       <div class="wc-veil"></div>
       <div class="wc-badge">Consumer IoT</div>
       <div class="wc-num">03</div>
     </a>
-    <a class="wcard" data-i="3" href="Goals-Driven Fintech v2.html">
+    <a class="wcard" data-i="3" href="goals-driven-fintech-showcase.html">
       <img src="previews/p-fintech.png" alt="Goals-Driven Fintech"/>
       <div class="wc-veil"></div>
       <div class="wc-badge">Fintech · AI</div>
       <div class="wc-num">04</div>
     </a>
-    <a class="wcard" data-i="4" href="CTOC Showcase.html">
+    <a class="wcard" data-i="4" href="ctoc-showcase.html">
       <img src="assets/ctoc/img/fusion.png" alt="CTOC Dashboard System"/>
       <div class="wc-veil"></div>
       <div class="wc-badge">Cyber Operations</div>
@@ -198,7 +198,7 @@
     <div style="max-width:760px;margin:0 auto 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
       <button class="wk-arrow" onClick="{{ prev }}" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
       <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-        <a id="wk-cta" href="Core Insights Showcase.html" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:var(--bg);background:var(--ac);text-decoration:none;padding:12px 22px;border-radius:999px;white-space:nowrap;transition:transform 0.2s;" style-hover="transform:translateY(-2px)">View case study <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a id="wk-cta" href="core-insights-showcase.html" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:var(--bg);background:var(--ac);text-decoration:none;padding:12px 22px;border-radius:999px;white-space:nowrap;transition:transform 0.2s;" style-hover="transform:translateY(-2px)">View case study <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <div id="wk-dots" style="display:flex;align-items:center;gap:9px;">
           <button class="wk-dot on" data-d="0" aria-label="Go to 1"></button>
           <button class="wk-dot" data-d="1" aria-label="Go to 2"></button>
@@ -254,11 +254,11 @@
   <!-- ═══ INDEX (editorial type wall) ═══ -->
   <div id="wk-index" style="display:none;position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
     <div style="max-width:1200px;margin:0 auto;border-top:1px solid var(--line);">
-      <a class="wk-idx-row" data-i="0" data-img="previews/p-insights.png" href="Core Insights Showcase.html"><span class="wk-idx-num">01</span><span class="wk-idx-title">CORE Insights</span><span class="wk-idx-meta">Operational Intelligence · IoT</span><span class="wk-idx-arrow">↗</span></a>
-      <a class="wk-idx-row" data-i="1" data-img="previews/p-dali.png" href="DALI-2 Showcase.html"><span class="wk-idx-num">02</span><span class="wk-idx-title">DALI-2 Lighting System</span><span class="wk-idx-meta">Commissioning · Healthcare</span><span class="wk-idx-arrow">↗</span></a>
-      <a class="wk-idx-row" data-i="2" data-img="previews/p-smartlighting.png" href="Smart Lighting Showcase.html"><span class="wk-idx-num">03</span><span class="wk-idx-title">Smart Lighting App</span><span class="wk-idx-meta">Consumer IoT · Mobile</span><span class="wk-idx-arrow">↗</span></a>
-      <a class="wk-idx-row" data-i="3" data-img="previews/p-fintech.png" href="Goals-Driven Fintech v2.html"><span class="wk-idx-num">04</span><span class="wk-idx-title">Goals-Driven Fintech</span><span class="wk-idx-meta">Fintech · Open Banking</span><span class="wk-idx-arrow">↗</span></a>
-      <a class="wk-idx-row" data-i="4" data-img="assets/ctoc/img/fusion.png" href="CTOC Showcase.html"><span class="wk-idx-num">05</span><span class="wk-idx-title">CTOC Dashboard System</span><span class="wk-idx-meta">Enterprise Cyber · 13 Dashboards</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="0" data-img="previews/p-insights.png" href="core-insights-showcase.html"><span class="wk-idx-num">01</span><span class="wk-idx-title">CORE Insights</span><span class="wk-idx-meta">Operational Intelligence · IoT</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="1" data-img="previews/p-dali.png" href="dali-2-showcase.html"><span class="wk-idx-num">02</span><span class="wk-idx-title">DALI-2 Lighting System</span><span class="wk-idx-meta">Commissioning · Healthcare</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="2" data-img="previews/p-smartlighting.png" href="smart-lighting-showcase.html"><span class="wk-idx-num">03</span><span class="wk-idx-title">Smart Lighting App</span><span class="wk-idx-meta">Consumer IoT · Mobile</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="3" data-img="previews/p-fintech.png" href="goals-driven-fintech-showcase.html"><span class="wk-idx-num">04</span><span class="wk-idx-title">Goals-Driven Fintech</span><span class="wk-idx-meta">Fintech · Open Banking</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="4" data-img="assets/ctoc/img/fusion.png" href="ctoc-showcase.html"><span class="wk-idx-num">05</span><span class="wk-idx-title">CTOC Dashboard System</span><span class="wk-idx-meta">Enterprise Cyber · 13 Dashboards</span><span class="wk-idx-arrow">↗</span></a>
     </div>
     <div id="wk-idx-reveal" style="position:fixed;top:0;left:0;width:340px;height:226px;border-radius:12px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 30px 70px rgba(0,0,0,0.5);pointer-events:none;opacity:0;z-index:60;transition:opacity .3s ease;will-change:transform;background:var(--bg3);"><img alt="" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"/></div>
   </div>
@@ -344,7 +344,7 @@ class Component extends DCLogic {
       d.classList.toggle('on', Number(d.getAttribute('data-d')) === this.active);
     });
     const cta = document.getElementById('wk-cta');
-    const links = ['Core Insights Showcase.html','DALI-2 Showcase.html','Smart Lighting Showcase.html','Goals-Driven Fintech v2.html','CTOC Showcase.html'];
+    const links = ['core-insights-showcase.html','dali-2-showcase.html','smart-lighting-showcase.html','goals-driven-fintech-showcase.html','ctoc-showcase.html'];
     if (cta && links[this.active]) cta.setAttribute('href', links[this.active]);
   }
 

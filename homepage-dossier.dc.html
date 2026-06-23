@@ -116,7 +116,7 @@ body{margin:0}
           <a href="#intel" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">INTELLIGENCE</a>
           <a href="#files" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">CASE FILES</a>
           <a href="#metrics" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">FINDINGS</a>
-          <a href="About.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">ABOUT</a>
+          <a href="about.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">ABOUT</a>
           <a href="#contact" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3120;text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" style-hover="color:#b23a2e">CONTACT</a>
         </div>
         <details class="dsr-switch" style="position:relative;">
@@ -147,7 +147,7 @@ body{margin:0}
       <a class="dm-sec" href="#architect" onClick="{{ closeMenu }}"><span>Light Architect</span><span class="dm-n">04</span></a>
       <a class="dm-sec" href="#references" onClick="{{ closeMenu }}"><span>References</span><span class="dm-n">05</span></a>
       <a class="dm-sec" href="#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="dm-n">06</span></a>
-      <a class="dm-sec" href="About.dc.html"><span>About</span><span class="dm-n" style="font-size:15px;">↗</span></a>
+      <a class="dm-sec" href="about.dc.html"><span>About</span><span class="dm-n" style="font-size:15px;">↗</span></a>
     </div>
     <div class="dm-lbl" style="margin-top:26px;">Homepage Design</div>
     <div class="dsr-stagger" style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
@@ -464,7 +464,7 @@ body{margin:0}
           </details>
           <div style="display:flex;gap:10px;">
             <a href="https://linkedin.com/in/robert-babiarz" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">LinkedIn ↗</a>
-            <a href="Robert_Babiarz_Resume.pdf" target="_blank" rel="noopener" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">Résumé ↓</a>
+            <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">Résumé ↓</a>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.05em;margin-top:14px;text-align:center;">416-315-4761 · robertbabiarz.com</div>
         </div>
@@ -916,8 +916,8 @@ class Component extends DCLogic {
     const S = this.state;
     const curId = 'dossier';
     const vlist = (typeof window !== 'undefined' && window.HOME_VARIANTS) ? window.HOME_VARIANTS
-      : [{ id: 'interactive', label: 'Interactive', file: 'Homepage Interactive.dc.html', tagline: 'The primary portfolio site' },
-         { id: 'dossier', label: 'Dossier', file: 'Homepage Dossier.dc.html', tagline: 'Classified case-file layout' }];
+      : [{ id: 'interactive', label: 'Interactive', file: 'homepage-interactive.dc.html', tagline: 'The primary portfolio site' },
+         { id: 'dossier', label: 'Dossier', file: 'homepage-dossier.dc.html', tagline: 'Classified case-file layout' }];
     const variants = vlist.map(v => ({
       id: v.id, label: v.label, file: v.file, tagline: v.tagline,
       labelUpper: v.label.toUpperCase(),
@@ -927,11 +927,11 @@ class Component extends DCLogic {
     }));
     const currentName = ((vlist.find(v => v.id === curId) || vlist[0]).label || 'Dossier').toUpperCase();
     const files = [
-      { num: '01', title: 'CORE Insights', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Operational intelligence · IoT', cat: 'Cooper Lighting · Signify', highlight: 'Live dashboards at scale', href: 'Core Insights Showcase.html' },
-      { num: '02', title: 'DALI-2 Lighting System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Commissioning · Healthcare', cat: 'Industry First', highlight: "N. America's largest install", href: 'DALI-2 Showcase.html' },
-      { num: '03', title: 'Smart Lighting App', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Consumer IoT · Mobile', cat: 'Consumer IoT', highlight: 'iOS & Android', href: 'Smart Lighting Showcase.html' },
-      { num: '04', title: 'Goals-Driven Fintech', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Regulated · Open Banking', cat: 'Fintech · AI', highlight: 'PRD · Claude · Cursor · GitHub', href: 'Goals-Driven Fintech v2.html' },
-      { num: '05', title: 'CTOC Dashboard System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Enterprise Cyber · 13 Dashboards', cat: 'Cyber Operations', highlight: 'Hi-fi prototype', href: 'CTOC Showcase.html' },
+      { num: '01', title: 'CORE Insights', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Operational intelligence · IoT', cat: 'Cooper Lighting · Signify', highlight: 'Live dashboards at scale', href: 'core-insights-showcase.html' },
+      { num: '02', title: 'DALI-2 Lighting System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Commissioning · Healthcare', cat: 'Industry First', highlight: "N. America's largest install", href: 'dali-2-showcase.html' },
+      { num: '03', title: 'Smart Lighting App', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Consumer IoT · Mobile', cat: 'Consumer IoT', highlight: 'iOS & Android', href: 'smart-lighting-showcase.html' },
+      { num: '04', title: 'Goals-Driven Fintech', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Regulated · Open Banking', cat: 'Fintech · AI', highlight: 'PRD · Claude · Cursor · GitHub', href: 'goals-driven-fintech-showcase.html' },
+      { num: '05', title: 'CTOC Dashboard System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Enterprise Cyber · 13 Dashboards', cat: 'Cyber Operations', highlight: 'Hi-fi prototype', href: 'ctoc-showcase.html' },
     ];
     return {
       files, m1: S.m1, m2: S.m2, m3: S.m3, m4: S.m4, m5: S.m5, m6: S.m6,
