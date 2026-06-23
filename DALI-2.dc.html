@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WaveLinx DALI-2, Case Study · Robert Babiarz</title>
+<title>DALI-2 Lighting System, Case Study · Robert Babiarz</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -25,9 +25,16 @@ body{margin:0}
 @keyframes dl-blink{0%,100%{opacity:1}50%{opacity:0.18}}
 @keyframes dl-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
 @keyframes dl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+#hero-iphone{position:absolute;bottom:0;left:-6px;width:158px;top:auto}
+#hero-iphone .ip-frame{border-radius:22px}
+#hero-iphone .ip-screen{border-radius:18px}
 @keyframes dl-spin{to{transform:rotate(360deg)}}
 summary{list-style:none}
 summary::-webkit-details-marker{display:none}
+.fp-dot:hover{z-index:60}
+.fp-tip{position:absolute;bottom:calc(100% + 10px);left:50%;width:186px;transform:translateX(-50%) translateY(5px);background:#0e151e;border:1px solid rgba(95,194,168,0.32);border-radius:10px;padding:11px 13px;box-shadow:0 18px 44px -14px rgba(0,0,0,0.78);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility .18s;z-index:60;text-align:left}
+.fp-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0e151e}
+.fp-dot:hover .fp-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
 .cs-switch[open] .cs-chev{transform:rotate(180deg)}
 @media (max-width:600px){
   nav{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
@@ -107,11 +114,10 @@ summary::-webkit-details-marker{display:none}
             <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5" style="transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
           <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
-            <a href="DALI-2 Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-bg2);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">WaveLinx DALI-2</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
-            <a href="Core Insights Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="DALI-2 Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-bg2);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">DALI-2 Lighting System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="Core Insights Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
             <a href="Smart Lighting Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
-            <a href="AEGIS Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
-            <a href="Goals-Driven Fintech v2.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+            <a href="Goals-Driven Fintech v2.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
             <a href="CTOC Showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
             <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
             <a href="Homepage Interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)">← All work</a>
@@ -140,10 +146,9 @@ summary::-webkit-details-marker{display:none}
     </div>
     <div class="csm-lbl" style="margin-top:26px;">Switch case study</div>
     <div class="cs-stagger" style="display:flex;flex-direction:column;">
-      <a class="csm-switch" href="Core Insights Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">WaveLinx CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+      <a class="csm-switch" href="Core Insights Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
       <a class="csm-switch" href="Smart Lighting Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
-      <a class="csm-switch" href="AEGIS Showcase.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">AEGIS Decision Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Defence · multi-INT fusion</div></a>
-      <a class="csm-switch" href="Goals-Driven Fintech v2.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech concept</div></a>
+      <a class="csm-switch" href="Goals-Driven Fintech v2.html"><div style="font-size:15px;font-weight:600;color:#0d5350;">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
       <a class="csm-switch" href="CTOC Showcase.html"><div style="font-size:15px;font-weight:600;color:var(--c-accent);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
       <a class="csm-switch" href="Homepage Interactive.dc.html"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">← All work</div></a>
     </div>
@@ -176,7 +181,7 @@ summary::-webkit-details-marker{display:none}
           <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);letter-spacing:0.12em;text-transform:uppercase;">Peter Gilgan Mississauga Hospital</span>
         </div>
         <h1 style="font-family:'Inter',sans-serif;font-size:clamp(38px,4.3vw,62px);font-weight:500;line-height:1.08;letter-spacing:-1.9px;color:var(--c-ink);margin-bottom:22px;text-wrap:balance;padding-bottom:0.06em;">Designing a product that didn't exist, for a protocol that <em style="font-style:italic;font-weight:300;color:var(--c-accent);">couldn't change.</em></h1>
-        <p style="font-size:18px;color:var(--c-body);line-height:1.62;max-width:496px;margin-bottom:34px;">WaveLinx DALI-2, an industry-first commissioning experience for a protocol-constrained commercial IoT product, taken from zero to shipped across hardware, firmware, and field reality at once. First deployment: the largest DALI-2 install in North America.</p>
+        <p style="font-size:18px;color:var(--c-body);line-height:1.62;max-width:496px;margin-bottom:34px;">DALI-2 Lighting System, an industry-first commissioning experience for a protocol-constrained commercial IoT product, taken from zero to shipped across hardware, firmware, and field reality at once. First deployment: the largest DALI-2 install in North America.</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px;">
           <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid rgba(13,83,80,0.25);color:var(--c-accent);">Enterprise IoT</span>
           <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid rgba(13,83,80,0.25);color:var(--c-accent);">Healthcare</span>
@@ -217,10 +222,16 @@ summary::-webkit-details-marker{display:none}
           </div>
           <div style="height:320px;overflow:hidden;background:var(--c-surface);"><img src="assets/dali/desktop-operate.jpg" alt="WaveLinx Operate floor plan" style="width:100%;display:block;"/></div>
         </div>
-        <div style="position:absolute;bottom:0;left:-6px;width:158px;border-radius:0;background:#12161d;padding:7px;box-shadow:0 30px 60px -18px rgba(20,30,40,0.5);border:1px solid rgba(255,255,255,0.05);animation:dl-float 6s ease-in-out infinite;">
-          <div style="border-radius:0;overflow:hidden;background:var(--c-surface);height:300px;position:relative;">
-            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:54px;height:15px;background:#12161d;border-radius:0 0 9px 9px;z-index:2;"></div>
-            <img src="assets/dali/mobile-area.jpg" alt="WaveLinx mobile area control" style="width:100%;display:block;"/>
+        <div id="hero-iphone" style="animation:dl-float 6s ease-in-out infinite;filter:drop-shadow(0 32px 55px rgba(20,30,40,0.5));">
+          <div class="ip-frame" style="position:relative;padding:5px;border-radius:22px;background:linear-gradient(155deg,#45494f 0%,#1c1f24 36%,#2b2f35 63%,#141619 100%);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.13),inset 0 0 0 4px #0b0d10;">
+            <div style="position:absolute;left:-2px;top:58px;width:2.5px;height:16px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
+            <div style="position:absolute;left:-2px;top:89px;width:2.5px;height:28px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
+            <div style="position:absolute;left:-2px;top:125px;width:2.5px;height:28px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
+            <div style="position:absolute;right:-2px;top:102px;width:2.5px;height:48px;border-radius:0 2px 2px 0;background:linear-gradient(#3a3e45,#1c1f24);"></div>
+            <div class="ip-screen" style="position:relative;overflow:hidden;background:#000;height:320px;border-radius:18px;">
+              <img src="assets/dali/mobile-area.jpg" alt="WaveLinx mobile area control" style="width:100%;height:100%;display:block;object-fit:cover;object-position:top center;"/>
+              <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:42px;height:12px;background:#000;border-radius:10px;z-index:3;box-shadow:0 0 0 0.5px rgba(255,255,255,0.05);"></div>
+            </div>
           </div>
         </div>
         <div style="position:absolute;top:-4px;left:30px;background:#0b1016;border:1px solid rgba(95,194,168,0.3);border-radius:11px;padding:11px 15px;box-shadow:0 18px 40px -16px rgba(11,16,22,0.7);">
@@ -304,7 +315,7 @@ summary::-webkit-details-marker{display:none}
         <div style="background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:16px;padding:28px 30px;">
           <div style="font-size:15px;font-weight:600;color:var(--c-ink);margin-bottom:16px;">What I owned</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;">
-            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Hub discovery, Lobby, Manage Hub, Area &amp; floor-plan UX</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Hub discovery, Lobby, Manage Hub, Area UX</span></div>
             <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">V1 and V2 flow architecture</span></div>
             <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Custom iconography (Illustrator → SVG/Fontello)</span></div>
             <div style="display:flex;gap:9px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:14px;color:var(--c-ink2);line-height:1.45;">Press-ready DALI-2 hub hardware label</span></div>
@@ -653,8 +664,8 @@ summary::-webkit-details-marker{display:none}
             <div style="height:26px;background:var(--c-line);display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b1);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
             <div style="position:relative;">
               <img src="assets/dali/shots/d-areafilter.jpg" alt="Filter-before-load device list" style="width:100%;display:block;"/>
-              <div style="position:absolute;top:33%;left:58%;width:39%;height:24%;border:2px solid var(--c-accent);border-radius:7px;background:rgba(13,83,80,0.08);z-index:2;"></div>
-              <div style="position:absolute;top:33%;left:58%;transform:translate(-50%,-50%);width:23px;height:23px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.4);border:2px solid var(--c-bg);z-index:3;">1</div>
+              <div style="position:absolute;top:183px;left:370px;width:163px;height:121px;border:2px solid var(--c-accent);border-radius:7px;background:rgba(13,83,80,0.08);z-index:2;"></div>
+              <div style="position:absolute;top:183px;left:370px;transform:translate(-50%,-50%);width:23px;height:23px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.4);border:2px solid var(--c-bg);z-index:3;">1</div>
             </div>
           </div>
           <div style="margin-top:14px;display:flex;gap:10px;align-items:flex-start;">
@@ -714,13 +725,32 @@ summary::-webkit-details-marker{display:none}
 
       <!-- floor plan -->
       <div style="position:relative;background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px;" data-reveal="1">
-        <div style="position:relative;width:100%;height:440px;background:linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px);background-size:34px 34px;border-radius:10px;overflow:hidden;">
+        <div style="position:relative;width:100%;height:440px;background:linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px);background-size:34px 34px;border-radius:10px;overflow:visible;">
+          <!-- zoom control -->
+          <div style="position:absolute;top:12px;right:12px;z-index:70;display:flex;flex-direction:column;background:rgba(14,21,30,0.92);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;box-shadow:0 10px 28px -12px rgba(0,0,0,0.7);">
+            <button onClick="{{ zoomIn }}" title="Zoom in · break clusters apart" style="width:36px;height:32px;border:none;cursor:{{ zoomInCursor }};background:transparent;color:{{ zoomInColor }};font-family:'DM Sans',sans-serif;font-size:19px;font-weight:500;line-height:1;display:flex;align-items:center;justify-content:center;transition:all 0.15s;">+</button>
+            <div style="padding:4px 0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.03em;color:#7dd3c0;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);">{{ zoomPct }}</div>
+            <button onClick="{{ zoomOut }}" title="Zoom out · group into clusters" style="width:36px;height:32px;border:none;cursor:{{ zoomOutCursor }};background:transparent;color:{{ zoomOutColor }};font-family:'DM Sans',sans-serif;font-size:22px;font-weight:500;line-height:1;display:flex;align-items:center;justify-content:center;transition:all 0.15s;">−</button>
+          </div>
           <div style="position:absolute;left:5%;top:8%;width:90%;height:84%;border:1.5px solid rgba(95,194,168,0.22);border-radius:6px;"></div>
           <div style="position:absolute;left:30%;top:36%;width:40%;height:28%;border:1.5px solid rgba(95,194,168,0.28);border-radius:60px;background:rgba(95,194,168,0.04);"></div>
           <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a4759;letter-spacing:0.1em;">CONFERENCE 1</div>
           <!-- device dots -->
           <sc-for list="{{ dots }}" as="d" hint-placeholder-count="48">
-            <div title="{{ d.title }}" style="position:absolute;left:{{ d.x }};top:{{ d.y }};width:13px;height:13px;border-radius:50%;background:{{ d.color }};transform:translate(-50%,-50%) scale({{ d.scale }});opacity:{{ d.opacity }};transition:all 0.4s cubic-bezier(0.22,0.61,0.36,1);"></div>
+            <div class="fp-dot" style="position:absolute;left:{{ d.x }};top:{{ d.y }};width:13px;height:13px;border-radius:50%;background:{{ d.color }};transform:translate(-50%,-50%) scale({{ d.scale }});opacity:{{ d.opacity }};transition:all 0.4s cubic-bezier(0.22,0.61,0.36,1);">
+              <div class="fp-tip">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                  <span style="width:9px;height:9px;border-radius:50%;background:{{ d.typeColor }};flex-shrink:0;"></span>
+                  <span style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#fff;white-space:nowrap;">{{ d.deviceId }}</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <div style="display:flex;justify-content:space-between;gap:14px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5a6b82;text-transform:uppercase;letter-spacing:0.05em;">Type</span><span style="font-size:11px;color:#cdd6e4;white-space:nowrap;">{{ d.typeLabel }}</span></div>
+                  <div style="display:flex;justify-content:space-between;gap:14px;align-items:center;"><span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5a6b82;text-transform:uppercase;letter-spacing:0.05em;">Status</span><span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#cdd6e4;"><span style="width:7px;height:7px;border-radius:50%;background:{{ d.statusColor }};"></span>{{ d.statusLabel }}</span></div>
+                  <div style="display:flex;justify-content:space-between;gap:14px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5a6b82;text-transform:uppercase;letter-spacing:0.05em;">Address</span><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7dd3c0;white-space:nowrap;">{{ d.addr }}</span></div>
+                  <div style="display:flex;justify-content:space-between;gap:14px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5a6b82;text-transform:uppercase;letter-spacing:0.05em;">Zone</span><span style="font-size:11px;color:#cdd6e4;white-space:nowrap;">{{ d.zone }}</span></div>
+                </div>
+              </div>
+            </div>
           </sc-for>
           <!-- cluster bubbles -->
           <sc-for list="{{ clusters }}" as="c" hint-placeholder-count="9">
@@ -814,7 +844,7 @@ summary::-webkit-details-marker{display:none}
             </div>
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-accent);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;">Illustrator · press-ready PDF</span>
           </div>
-          <div style="border-radius:0;overflow:hidden;border:1px solid rgba(10,8,4,0.12);background:var(--c-surface);box-shadow:0 10px 30px -18px rgba(20,30,40,0.25);"><img src="assets/dali/label.jpg" alt="WaveLinx DALI-2 hub hardware label" style="width:100%;display:block;"/></div>
+          <div style="border-radius:0;overflow:hidden;border:1px solid rgba(10,8,4,0.12);background:var(--c-surface);box-shadow:0 10px 30px -18px rgba(20,30,40,0.25);"><img src="assets/dali/label.jpg" alt="DALI-2 Lighting System hub hardware label" style="width:100%;display:block;"/></div>
         </div>
       </div>
     </div>
@@ -910,7 +940,7 @@ summary::-webkit-details-marker{display:none}
     <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Another case study</div>
-        <a href="Core Insights Showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-accent)">WaveLinx CORE Insights <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="Core Insights Showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-accent)">CORE Insights <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
       <a href="Homepage Interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
     </div>
@@ -926,7 +956,7 @@ summary::-webkit-details-marker{display:none}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'), step: 0, mode: 'device', zoom: 'cluster', hidden: {}, pivot: 'v1', menu: false, c1: 0, c2: 0, c3: 0, countersDone: false };
+  state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'), step: 0, mode: 'device', zoomLevel: 1, hidden: {}, hiddenStatus: {}, pivot: 'v1', menu: false, c1: 0, c2: 0, c3: 0, countersDone: false };
   _raf = {}; _obs = [];
 
   componentDidMount() {
@@ -1002,7 +1032,7 @@ class Component extends DCLogic {
         if (m === 3) status = 'override';
         else if (m === 7) status = 'alarm';
         else if (m === 9) status = 'off';
-        dots.push({ x: xp.toFixed(1) + '%', y: yp.toFixed(1) + '%', cat, status });
+        dots.push({ x: xp.toFixed(1) + '%', y: yp.toFixed(1) + '%', cat, status, idx: i });
         i++;
       }
     }
@@ -1098,26 +1128,53 @@ class Component extends DCLogic {
     const cats = ['ceiling', 'integrated', 'relay', 'wall', 'ctrl'];
     const counts = { ceiling: 0, integrated: 0, relay: 0, wall: 0, ctrl: 0 };
     (this._dots || []).forEach(d => { counts[d.cat]++; });
-    const atDevice = S.zoom === 'device';
+    const atDevice = S.zoomLevel >= 3;
+    const dotScale = S.zoomLevel >= 4 ? 1.45 : 1;
+    const zoomNames = ['', 'Site', 'Floor', 'Area', 'Device'];
+    const zoomPcts = ['', '50%', '75%', '110%', '150%'];
+    const zoomName = zoomNames[S.zoomLevel];
     let visible = 0;
+    const typeAbbr = { ceiling: 'CS', integrated: 'IS', relay: 'RSP', wall: 'WS', ctrl: 'CTRL' };
+    const statusLabels = { on: 'On', override: 'Override', alarm: 'Alarm', off: 'Off' };
+    const zoneNames = ['Conference 1', 'Open Office', 'Collab 2', 'Corridor E', 'Huddle 3', 'Reception'];
     const dots = (this._dots || []).map(d => {
-      const hide = !atDevice || !!S.hidden[d.cat];
+      const hidden = S.mode === 'status' ? !!S.hiddenStatus[d.status] : !!S.hidden[d.cat];
+      const hide = !atDevice || hidden;
       if (atDevice && !hide) visible++;
       const color = S.mode === 'status' ? this.statusColor(d.status) : meta[d.cat].color;
       const t = S.mode === 'status' ? ('Status: ' + d.status) : meta[d.cat].label;
-      return { x: d.x, y: d.y, color, title: t, opacity: hide ? '0' : '1', scale: hide ? '0' : '1' };
+      const num = String((d.idx % 48) + 1).padStart(2, '0');
+      return {
+        x: d.x, y: d.y, color, title: t, opacity: hide ? '0' : '1', scale: hide ? '0' : String(dotScale),
+        deviceId: typeAbbr[d.cat] + '-' + num,
+        typeLabel: meta[d.cat].label,
+        typeColor: meta[d.cat].color,
+        statusLabel: statusLabels[d.status],
+        statusColor: this.statusColor(d.status),
+        addr: 'Bus ' + ((d.idx % 4) + 1) + ' · DA' + (d.idx % 64),
+        zone: zoneNames[d.idx % zoneNames.length],
+      };
     });
     const clusters = this.clusterData().map(c => ({
       x: c.x, y: c.y, n: c.n, size: (34 + c.n * 0.45).toFixed(0) + 'px',
-      opacity: atDevice ? '0' : '1', scale: atDevice ? '0.3' : '1',
+      opacity: atDevice ? '0' : '1', scale: atDevice ? '0.3' : (S.zoomLevel === 1 ? '1.1' : '0.9'),
     }));
 
     let legend;
     if (S.mode === 'status') {
       const stCounts = { on: 0, override: 0, alarm: 0, off: 0 };
-      (this._dots || []).forEach(d => { if (!S.hidden[d.cat]) stCounts[d.status]++; });
+      (this._dots || []).forEach(d => { stCounts[d.status]++; });
       const items = [['on', 'On'], ['override', 'Override'], ['alarm', 'Alarm'], ['off', 'Off']];
-      legend = items.map(([k, lbl]) => ({ label: lbl, color: this.statusColor(k), count: stCounts[k], toggle: () => {}, cursor: 'default', opacity: '1', border: 'rgba(255,255,255,0.08)', chipBg: '#0b1016' }));
+      legend = items.map(([k, lbl]) => {
+        const hidden = !!S.hiddenStatus[k];
+        return {
+          label: lbl, color: this.statusColor(k), count: stCounts[k],
+          toggle: () => this.setState(st => ({ hiddenStatus: Object.assign({}, st.hiddenStatus, { [k]: !st.hiddenStatus[k] }) })),
+          cursor: 'pointer', opacity: hidden ? '0.4' : '1',
+          border: hidden ? 'rgba(255,255,255,0.06)' : 'rgba(95,194,168,0.3)',
+          chipBg: hidden ? '#0b1016' : 'rgba(13,83,80,0.14)',
+        };
+      });
     } else {
       legend = cats.map(c => {
         const hidden = !!S.hidden[c];
@@ -1163,8 +1220,13 @@ class Component extends DCLogic {
       // operate
       dots, clusters,
       atDeviceLevel: atDevice,
-      floorStat: atDevice ? (visible + ' devices · live') : (this.clusterData().length + ' clusters · zoom to expand'),
-      zoomCluster: () => this.setState({ zoom: 'cluster' }), zoomDevice: () => this.setState({ zoom: 'device' }),
+      floorStat: atDevice ? (visible + ' devices · ' + zoomName + ' zoom') : (this.clusterData().length + ' clusters · ' + zoomName + ' zoom'),
+      zoomCluster: () => this.setState({ zoomLevel: 1 }), zoomDevice: () => this.setState({ zoomLevel: 3 }),
+      zoomIn: () => this.setState(st => ({ zoomLevel: Math.min(4, st.zoomLevel + 1) })),
+      zoomOut: () => this.setState(st => ({ zoomLevel: Math.max(1, st.zoomLevel - 1) })),
+      zoomPct: zoomPcts[S.zoomLevel],
+      zoomInColor: S.zoomLevel >= 4 ? '#3a4759' : '#cdd6e4', zoomInCursor: S.zoomLevel >= 4 ? 'default' : 'pointer',
+      zoomOutColor: S.zoomLevel <= 1 ? '#3a4759' : '#cdd6e4', zoomOutCursor: S.zoomLevel <= 1 ? 'default' : 'pointer',
       clusterBg: !atDevice ? onT.bg : offT.bg, clusterFg: !atDevice ? onT.fg : offT.fg,
       deviceBg: atDevice ? onT.bg : offT.bg, deviceFg: atDevice ? onT.fg : offT.fg,
       legend,

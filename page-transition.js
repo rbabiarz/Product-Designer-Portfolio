@@ -243,8 +243,51 @@
     setTimeout(complete, DUR + 900); // throttle fallback
   }
 
+  // ---- site-wide BETA badge (site is still in progress) ----
+  function betaPill() {
+    if (document.getElementById('rb-beta')) return;
+    var dot = '<span style="width:6px;height:6px;border-radius:50%;background:' + AC + ';box-shadow:0 0 8px ' + AC + ';flex:none;"></span>';
+    // try to sit inline right after the name/brand wherever it appears
+    var host = null, nodes = document.querySelectorAll('nav div, header div, .brand div, a div div, h1, h1 span');
+    for (var i = 0; i < nodes.length; i++) {
+      if ((nodes[i].textContent || '').trim() === 'Robert Babiarz') { host = nodes[i]; break; }
+    }
+    var p = document.createElement('span');
+    p.id = 'rb-beta';
+    p.setAttribute('aria-label', 'Beta — site in progress');
+    if (host) {
+      p.style.cssText = [
+        'display:inline-flex', 'align-items:center', 'gap:5px', 'vertical-align:middle',
+        'margin-left:9px', 'padding:2px 7px', 'border-radius:999px', 'position:relative', 'top:-1px',
+        'font-family:"JetBrains Mono",monospace', 'font-size:8.5px', 'font-weight:700',
+        'letter-spacing:0.16em', 'text-transform:uppercase', 'line-height:1',
+        'color:' + FG, 'background:' + TRACK, 'border:1px solid ' + FG_SOFT,
+        'pointer-events:none', 'user-select:none'
+      ].join(';');
+      p.innerHTML = dot + 'BETA';
+      host.appendChild(p); // places it right after the name text
+    } else {
+      // fallback: fixed top-center badge on pages without the name brand
+      p.style.cssText = [
+        'position:fixed', 'top:10px', 'left:50%', 'transform:translateX(-50%)',
+        'z-index:9998', 'display:flex', 'align-items:center', 'gap:6px',
+        'padding:5px 12px', 'border-radius:999px',
+        'font-family:"JetBrains Mono",monospace', 'font-size:10px', 'font-weight:600',
+        'letter-spacing:0.16em', 'text-transform:uppercase', 'line-height:1',
+        'color:#fff', 'background:rgba(10,16,22,0.82)',
+        'backdrop-filter:blur(8px)', '-webkit-backdrop-filter:blur(8px)',
+        'border:1px solid rgba(255,255,255,0.18)',
+        'box-shadow:0 8px 22px -10px rgba(0,0,0,0.6)',
+        'pointer-events:none', 'user-select:none'
+      ].join(';');
+      p.innerHTML = dot + 'BETA';
+      document.body.appendChild(p);
+    }
+  }
+
   // ---- entrance ----
   function entrance() {
+    betaPill();
     var ov = build();
     ov.style.display = 'block';
     if (FIRST_VISIT) {
@@ -287,7 +330,8 @@
     var href = a.getAttribute('href') || '';
     if (!href || href[0] === '#') return false;
     if (/^(mailto:|tel:|https?:)/i.test(href)) return false;
-    return /\.dc\.html(\?|#|$)/i.test(href);
+    // any internal HTML document (case-study .dc.html, *Showcase.html, etc.)
+    return /\.html(\?|#|$)/i.test(href);
   }
 
   document.addEventListener('click', function (e) {

@@ -308,8 +308,8 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
   </section>
 
   <!-- ═══ MARQUEE ═══ -->
-  <div style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--bg2);">
-    <div style="display:inline-flex;align-items:center;animation:marquee 34s linear infinite;will-change:transform;">
+  <div id="kw-marquee" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--bg2);">
+    <div id="kw-track" style="display:inline-flex;align-items:center;will-change:transform;">
       <span style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.02em;color:var(--fg3);display:inline-flex;align-items:center;">
         UX Strategy <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Situational Awareness <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Information Architecture <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Interaction Design <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Design Systems <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Regulated-Domain UX <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> Operator Research <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span> AR Field Tooling <span style="color:var(--ac);margin:0 18px;font-weight:400;font-size:10px;vertical-align:middle;">●</span>&nbsp;
       </span>
@@ -429,14 +429,14 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 
         <a class="proj-row" data-preview="previews/p-insights.png" data-tag="Live Case Study" href="Core Insights Showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
           <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">01</span>
-          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">WaveLinx CORE Insights</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">CORE Insights</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Operational Building Intelligence · IoT<br/><span style="color:var(--ac);">Cooper Lighting · Signify</span></span>
           <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
 
         <a class="proj-row" data-preview="previews/p-dali.png" data-tag="Industry First" href="DALI-2 Showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
           <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">02</span>
-          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">WaveLinx DALI-2</span>
+          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">DALI-2 Lighting System</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Commissioning · Healthcare<br/><span style="color:var(--ac);">North America's largest install</span></span>
           <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
@@ -455,15 +455,8 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
 
-        <a class="proj-row" data-preview="previews/p-aegis.png" data-tag="Decision Intelligence" href="AEGIS Showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
-          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">05</span>
-          <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">AEGIS Decision Intelligence</span>
-          <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Multi-INT Fusion · Resilient AI<br/><span style="color:var(--ac);">Defence Tech · clickable build</span></span>
-          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
-        </a>
-
         <a class="proj-row" data-preview="previews/p-ctoc.png" data-tag="Cyber Operations" href="CTOC Showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
-          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">06</span>
+          <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">05</span>
           <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">CTOC Dashboard System</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Enterprise Cyber · 13 Dashboards<br/><span style="color:var(--ac);">Operations Center · hi-fi prototype</span></span>
           <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
@@ -480,7 +473,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);">
         <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
           <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="34">0</span>%</div>
-          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Increase in Connect Lighting sales</div>
+          <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">2025 Increase in Connected Lighting Sales</div>
         </div>
         <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
           <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--ac);line-height:1;"><span data-count="89">0</span>%</div>
@@ -872,6 +865,7 @@ class Component extends DCLogic {
       this.initLightArchitect();
       this.initCounters();
       this.initNavScroll();
+      this.initMarquee();
       this.initClock();
       this.initIso();
       this.initToc();
@@ -899,6 +893,8 @@ class Component extends DCLogic {
     if (this._hpRaf) cancelAnimationFrame(this._hpRaf);
     if (this._laRaf) cancelAnimationFrame(this._laRaf);
     if (this._tmRaf) cancelAnimationFrame(this._tmRaf);
+    if (this._mqRaf) cancelAnimationFrame(this._mqRaf);
+    if (this._mqScrollTimer) clearTimeout(this._mqScrollTimer);
     if (this._tmSafety) clearInterval(this._tmSafety);
     if (this._clock) clearInterval(this._clock);
     this._obs.forEach(o => o.disconnect());
@@ -1821,6 +1817,48 @@ class Component extends DCLogic {
     };
     this.on(window, 'scroll', h, { passive: true });
     h();
+  }
+
+  // Auto-drifting keyword strip (reversed, rightward). Scrolls on its own while
+  // the page is stationary and pauses while the user is actively scrolling the
+  // page. The rAF loop only runs while the strip is on-screen / motion allowed.
+  initMarquee() {
+    const wrap = document.getElementById('kw-marquee');
+    const track = document.getElementById('kw-track');
+    if (!wrap || !track) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return; // leave the strip static
+    let half = (track.scrollWidth / 2) || 1;     // one copy width (content is duplicated)
+    let pxPerSec = half / 34;                     // preserve the original marquee pace
+    const measure = () => { half = (track.scrollWidth / 2) || 1; pxPerSec = half / 34; };
+    this.on(window, 'resize', measure);
+    let p = 0, last = 0, scrolling = false;
+    const render = () => { track.style.transform = 'translate3d(' + (p - half).toFixed(2) + 'px,0,0)'; }; // rightward
+    const loop = (now) => {
+      if (!last) last = now;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (!scrolling) {                            // only drift while the page is still
+        p += pxPerSec * dt;
+        if (p >= half) p -= half;                  // wrap for a seamless loop
+        render();
+      }
+      this._mqRaf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (this._mqRaf == null) { last = 0; this._mqRaf = requestAnimationFrame(loop); } };
+    const stop = () => { if (this._mqRaf != null) { cancelAnimationFrame(this._mqRaf); this._mqRaf = null; } };
+    // pause the auto-drift while the user scrolls the page; resume shortly after they stop
+    this.on(window, 'scroll', () => {
+      scrolling = true; last = 0;
+      if (this._mqScrollTimer) clearTimeout(this._mqScrollTimer);
+      this._mqScrollTimer = setTimeout(() => { scrolling = false; }, 160);
+    }, { passive: true });
+    // only run the loop while the strip is on-screen
+    const io = new IntersectionObserver((ents) => { ents[0].isIntersecting ? start() : stop(); }, { rootMargin: '120px' });
+    io.observe(wrap);
+    this._obs.push(io);
+    measure();
+    render();
+    start();
   }
 
   renderVals() {
