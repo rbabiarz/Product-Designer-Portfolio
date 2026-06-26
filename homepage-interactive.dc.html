@@ -856,20 +856,17 @@ class Component extends DCLogic {
     window.addEventListener('home-variants-ready', this._hvReady);
     setTimeout(() => this.forceUpdate(), 320); // populate switcher once registry loads
     setTimeout(() => {
-      this.initReveal();
-      this.initHeroCanvas();
-      this.buildHeroParallax();
-      this.initHeroParallax();
-      this.initScrollReveal();
-      this.buildLightArchitect();
-      this.initLightArchitect();
-      this.initCounters();
-      this.initNavScroll();
-      this.initMarquee();
-      this.initClock();
-      this.initIso();
-      this.initToc();
-      this.scrollToHash();
+      // Run each init in isolation: one failing init (timing/font/GPU/extension
+      // dependent) must NOT abort the rest. Previously these ran as a bare
+      // sequence, so a throw in any earlier init silently skipped everything
+      // after it — most visibly leaving #iso-rig empty (the 3D building never
+      // built, with no retry). Isolating + logging makes that cascade impossible.
+      const run = (name) => { try { this[name](); } catch (e) { try { console.error('[homepage] ' + name + ' failed:', e); } catch (_) {} } };
+      [
+        'initReveal', 'initHeroCanvas', 'buildHeroParallax', 'initHeroParallax',
+        'initScrollReveal', 'buildLightArchitect', 'initLightArchitect', 'initCounters',
+        'initNavScroll', 'initMarquee', 'initClock', 'initIso', 'initToc', 'scrollToHash'
+      ].forEach(run);
     }, 120);
     this.initScrollProgress();
     // Safety net: never let entrance-animated hero content stay invisible if the
