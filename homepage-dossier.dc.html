@@ -89,12 +89,22 @@ body{margin:0}
 #la-hint .la-hint-long{display:inline}
 #la-hint .la-hint-short{display:none}
 #la-mhint{display:none;padding:0 20px 12px;font-family:'JetBrains Mono',monospace;font-size:clamp(8.5px,2.2vw,10px);letter-spacing:0.04em;color:#6b5d42;line-height:1.45}
+#architect #la-exhibit{position:relative;min-height:clamp(480px,52vh,580px)}
+#architect #la-scroll{position:absolute;inset:0;z-index:0}
+#architect #la-sticky{position:absolute;inset:0}
+#architect #la-panel{position:absolute;top:20px;right:20px;width:min(320px,34vw);max-width:320px;z-index:6;pointer-events:auto}
 @media (max-width:860px){
   #la-hint{bottom:3.5% !important;border-radius:12px !important;padding:7px 11px !important;white-space:normal !important}
   #la-hint .la-hint-long{display:none}
   #la-hint .la-hint-short{display:inline}
+  #architect #la-exhibit{display:flex;flex-direction:column;min-height:0;height:auto;overflow:visible}
+  #architect #la-scroll{position:relative;inset:auto;height:56vh;min-height:380px;flex:none;order:1}
+  #architect #la-sticky{position:relative;height:100%;min-height:0}
+  #architect #la-stage{position:relative;height:100%;min-height:0}
+  #architect #la-panel{position:relative;top:auto;right:auto;width:100%;max-width:none;order:2;border-top:1.5px solid #0a0a0a;box-shadow:none}
   #architect #la-ground{inset:0 !important}
   #architect #la-ground>div:last-child{width:125% !important;height:125% !important;margin:-62.5% 0 0 -62.5% !important}
+  #architect #la-plate-wrap{left:50% !important;top:50% !important;width:min(92vw,520px) !important;height:min(58vw,340px) !important;margin-left:calc(min(92vw,520px) / -2) !important;margin-top:calc(min(58vw,340px) / -2) !important}
 }
 @media (max-width:520px){
   #la-hint{max-width:calc(100% - 16px) !important;font-size:8.5px !important;letter-spacing:0.03em !important}
@@ -386,9 +396,9 @@ body{margin:0}
         <p style="font-size:16px;color:#3a3120;line-height:1.68;margin-bottom:26px;max-width:620px;">A browser-based photometric planner: drop fixtures on any address, and watch illuminance render live across the site, footcandle grids, stat areas, and spec-ready PDFs, all from satellite imagery.</p>
         <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0a0a0a;color:#f4ead2;padding:14px 24px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-decoration:none;transition:background 0.2s;" style-hover="background:#b23a2e">EXPLORE LIGHT ARCHITECT <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
       </div>
-      <div style="position:relative;border:1.5px solid #0a0a0a;overflow:hidden;box-shadow:8px 8px 0 rgba(10,8,4,0.16);min-height:480px;">
-        <div id="la-scroll" style="position:absolute;inset:0;z-index:0;">
-      <div id="la-sticky" style="position:absolute;inset:0;overflow:hidden;background:var(--la-bg);">
+      <div id="la-exhibit" style="border:1.5px solid #0a0a0a;overflow:hidden;box-shadow:8px 8px 0 rgba(10,8,4,0.16);">
+        <div id="la-scroll">
+      <div id="la-sticky" style="overflow:hidden;background:var(--la-bg);">
         <div id="la-stage" style="position:absolute;inset:0;">
           <div class="la-layer" data-la="0.24" id="la-ground" style="position:absolute;inset:-16%;z-index:1;">
             <div style="position:absolute;inset:0;background:var(--la-fill);"></div>
@@ -429,30 +439,28 @@ body{margin:0}
         </div>
       </div>
     </div>
-        <div style="position:relative;z-index:2;padding:44px 40px;display:flex;justify-content:flex-end;pointer-events:none;">
-          <div data-reveal="1" style="width:100%;max-width:480px;border:1.5px solid #0a0a0a;background:#fbf5e6;box-shadow:7px 7px 0 rgba(10,8,4,0.16);pointer-events:auto;">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:15px 20px;border-bottom:1.5px solid #0a0a0a;">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#0a0a0a;font-weight:700;">EXHIBIT B · PHOTOMETRIC SUMMARY</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#6b5d42;">3775 SWIFTDALE DR · MISSISSAUGA</span>
+        <div id="la-panel" data-reveal="1" style="border:1.5px solid #0a0a0a;background:#fbf5e6;box-shadow:7px 7px 0 rgba(10,8,4,0.16);">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-bottom:1.5px solid #0a0a0a;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#0a0a0a;font-weight:700;">EXHIBIT B · PHOTOMETRIC SUMMARY</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;color:#6b5d42;">3775 SWIFTDALE DR</span>
           </div>
-          <div style="display:flex;gap:7px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid rgba(10,8,4,0.18);">
-            <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#0a0a0a;color:#f4ead2;padding:7px 12px;font-weight:600;">RE-CALC</button>
-            <button id="la-add" type="button" title="Add a luminaire" style="display:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#fbf5e6;color:#3a3120;padding:7px 12px;border:1px solid rgba(10,8,4,0.3);font-weight:600;">＋ ADD</button>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid rgba(10,8,4,0.18);">
+            <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#0a0a0a;color:#f4ead2;padding:6px 10px;font-weight:600;">RE-CALC</button>
+            <button id="la-add" type="button" title="Add a luminaire" style="display:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#fbf5e6;color:#3a3120;padding:6px 10px;border:1px solid rgba(10,8,4,0.3);font-weight:600;">＋ ADD</button>
           </div>
           <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:1px;background:rgba(10,8,4,0.18);">
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;"><span id="la-avg">3.91</span></div></div>
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;"><span id="la-max">6.78</span></div></div>
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;"><span id="la-min">1.3</span></div></div>
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">A/MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;color:#b23a2e;"><span id="la-amin">3.01</span></div></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(10,8,4,0.18);">
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-avg">3.91</span></div></div>
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-max">6.78</span></div></div>
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-min">1.3</span></div></div>
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">A/MIN</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;color:#b23a2e;"><span id="la-amin">3.01</span></div></div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;padding:14px 20px;border-top:1px solid rgba(10,8,4,0.18);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em;color:#6b5d42;">
+          <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid rgba(10,8,4,0.18);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.05em;color:#6b5d42;">
             <span style="width:6px;height:6px;border-radius:50%;background:#1c6b39;"></span> ILLUMINANCE (FC) · LLF 0.912
           </div>
-          <div style="display:flex;gap:7px;flex-wrap:wrap;padding:0 20px 18px;">
-            <span id="la-count" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a3120;padding:5px 10px;border:1px solid rgba(10,8,4,0.3);">16 × GALN Galleon II</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a3120;padding:5px 10px;border:1px solid rgba(10,8,4,0.3);">Stat Area 1</span>
-          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;padding:0 16px 14px;">
+            <span id="la-count" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a3120;padding:4px 8px;border:1px solid rgba(10,8,4,0.3);">16 × GALN Galleon II</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a3120;padding:4px 8px;border:1px solid rgba(10,8,4,0.3);">Stat Area 1</span>
           </div>
         </div>
       </div>
