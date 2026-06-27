@@ -47,7 +47,19 @@ html{scroll-behavior:smooth}
 #la-recalc{cursor:pointer;border:none;font:inherit;transition:filter .15s ease;}
 #la-recalc:hover{filter:brightness(1.1);}
 #la-recalc:focus-visible{outline:2px solid var(--la-accent);outline-offset:2px;}
-#la-hint{display:none;}
+#la-hint{display:none;align-items:center;gap:8px;position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);z-index:9;background:var(--la-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--la-bd);border-radius:999px;padding:8px 15px;font-family:'JetBrains Mono',monospace;font-size:clamp(9px,2.4vw,10.5px);letter-spacing:0.04em;color:var(--la-text);pointer-events:none;box-shadow:0 12px 30px var(--la-shadow2);max-width:calc(100% - 24px);text-align:center;line-height:1.45}
+#la-hint .la-hint-dot{width:7px;height:7px;border-radius:50%;background:var(--la-accent);box-shadow:0 0 8px var(--la-cyan-glow);flex-shrink:0}
+#la-hint .la-hint-long{display:inline}
+#la-hint .la-hint-short{display:none}
+@media (max-width:860px){
+  #la-hint{bottom:3.5% !important;border-radius:12px !important;padding:7px 11px !important;white-space:normal !important}
+  #la-hint .la-hint-long{display:none}
+  #la-hint .la-hint-short{display:inline}
+}
+@media (max-width:520px){
+  #la-hint{max-width:calc(100% - 16px) !important;font-size:8.5px !important;letter-spacing:0.03em !important}
+}
+#la-mhint{display:none;padding:0 16px 11px;font-family:'JetBrains Mono',monospace;font-size:clamp(8.5px,2.2vw,9.5px);letter-spacing:0.04em;color:var(--la-dim);line-height:1.45}
 #la-add{cursor:pointer;border:none;font:inherit;}
 #la-add:active{transform:translateY(1px);}
 /* touch: markers grab themselves (no scroll) with an enlarged hit area; empty-plate swipes still scroll the page */
@@ -146,11 +158,16 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
   #iso-metrics{order:3 !important;margin-top:0 !important;padding:0 20px 76px !important}
   #iso-metrics-grid{grid-template-columns:1fr 1fr !important}
   #tst-grid{grid-template-columns:1fr !important}
-  /* light architect geospatial section */
+  /* light architect geospatial section: stack copy above interactive on mobile */
   #la-scroll{height:auto !important}
-  #la-sticky{height:78vh !important;min-height:520px !important;max-height:720px !important}
-  #la-stage{transform:none !important;margin:0 !important}
-  #la-copy{top:auto !important;bottom:5.5% !important;left:5% !important;right:5% !important;max-width:none !important}
+  #la-sticky{display:flex !important;flex-direction:column !important;height:auto !important;min-height:0 !important;max-height:none !important;overflow:hidden !important}
+  #la-copy{position:static !important;order:1 !important;padding:76px 20px 16px !important;max-width:none !important;top:auto !important;bottom:auto !important;left:auto !important;right:auto !important;z-index:auto !important}
+  #la-copy h2{white-space:normal !important}
+  #la-copy p{max-width:none !important}
+  #la-stage{position:relative !important;order:2 !important;inset:auto !important;height:56vh !important;min-height:380px !important;max-height:none !important;transform:none !important;margin:0 !important;overflow:hidden !important;isolation:isolate}
+  #la-ground{inset:0 !important}
+  #la-ground > div:last-child{width:125% !important;height:125% !important;margin:-62.5% 0 0 -62.5% !important}
+  #la-plate-wrap{left:50% !important;top:50% !important;width:min(92vw,520px) !important;height:min(58vw,340px) !important;margin-left:calc(min(92vw,520px) / -2) !important;margin-top:calc(min(58vw,340px) / -2) !important}
   #la-panel{top:3.5% !important;left:3.5% !important;right:3.5% !important;width:auto !important;max-width:none !important}
   #la-search,#la-quick{display:none !important}
 }
@@ -553,6 +570,18 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
   <section id="lightarch" data-screen-label="Light Architect geospatial planner" style="position:relative;background:var(--bg);border-top:1px solid var(--line);">
     <div id="la-scroll" style="position:relative;height:100vh;">
       <div id="la-sticky" style="position:relative;height:100vh;overflow:hidden;background:var(--la-bg);">
+        <!-- copy HUD (desktop overlay · mobile stacks above stage) -->
+        <div id="la-copy" style="position:absolute;top:7%;left:5%;max-width:430px;z-index:8;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--la-accent);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">Light Architect</div>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,50px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--la-title);margin-bottom:18px;white-space:nowrap;">Designing the tools<br/>that design light.</h2>
+          <p style="font-size:16px;line-height:1.62;color:var(--la-body);max-width:400px;">A browser-based photometric planner: drop fixtures on any address, and watch illuminance render live across the site, footcandle grids, stat areas, and spec-ready PDFs, all from satellite imagery.</p>
+          <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" data-cursor="hover" style="margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--la-btn-tx);background:var(--la-btn-bg);border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--la-shadow)">Explore Light Architect <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <div style="margin-top:14px;">
+            <span style="display:inline-flex;align-items:center;gap:9px;background:var(--la-glass2);border:1px solid var(--la-bd);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:8px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--la-body);">
+              Case study coming soon
+            </span>
+          </div>
+        </div>
         <div id="la-stage" style="position:absolute;inset:0;">
 
           <!-- LAYER 0 · aerial ground -->
@@ -611,7 +640,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
               <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);">GET PDF</span>
               <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-amber-bg);color:var(--la-amber-tx);padding:7px 11px;border-radius:6px;border:1px solid var(--la-amber-bd);">WHERE TO BUY</span>
             </div>
-            <div id="la-mhint" style="display:none;padding:0 16px 11px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.04em;color:var(--la-dim);line-height:1.45;">Drag a luminaire to move it&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
+            <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
             <div style="padding:4px 16px 16px;">
               <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--la-cell-grid);border:1px solid var(--la-cell-grid);border-radius:6px;overflow:hidden;">
                 <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-avg">3.91</span></div></div>
@@ -653,23 +682,11 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <!-- vignette to blend into page -->
           <div style="position:absolute;inset:0;background:radial-gradient(125% 95% at 50% 42%,transparent 46%,var(--la-vig) 86%,var(--la-vig2) 100%);pointer-events:none;z-index:4;"></div>
 
-          <!-- copy HUD (bottom-left) -->
-          <div class="la-layer" id="la-copy" style="position:absolute;top:7%;left:5%;max-width:430px;z-index:8;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--la-accent);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">Light Architect</div>
-            <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,50px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--la-title);margin-bottom:18px;white-space:nowrap;">Designing the tools<br/>that design light.</h2>
-            <p style="font-size:16px;line-height:1.62;color:var(--la-body);max-width:400px;">A browser-based photometric planner: drop fixtures on any address, and watch illuminance render live across the site, footcandle grids, stat areas, and spec-ready PDFs, all from satellite imagery.</p>
-            <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" data-cursor="hover" style="margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--la-btn-tx);background:var(--la-btn-bg);border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--la-shadow)">Explore Light Architect <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
-            <div style="margin-top:14px;">
-              <span style="display:inline-flex;align-items:center;gap:9px;background:var(--la-glass2);border:1px solid var(--la-bd);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:8px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--la-body);">
-                Case study coming soon
-              </span>
-            </div>
-          </div>
-
           <!-- interaction hint (desktop only; revealed by initLAInteract) -->
-          <div id="la-hint" style="position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);z-index:9;align-items:center;gap:8px;background:var(--la-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--la-bd);border-radius:999px;padding:8px 15px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;color:var(--la-text);pointer-events:none;box-shadow:0 12px 30px var(--la-shadow2);white-space:nowrap;">
-            <span style="width:7px;height:7px;border-radius:50%;background:var(--la-accent);box-shadow:0 0 8px var(--la-cyan-glow);"></span>
-            Drag a luminaire&nbsp;·&nbsp;click to add&nbsp;·&nbsp;double-click to remove
+          <div id="la-hint">
+            <span class="la-hint-dot" aria-hidden="true"></span>
+            <span class="la-hint-long">Drag a luminaire&nbsp;·&nbsp;click to add&nbsp;·&nbsp;double-click to remove</span>
+            <span class="la-hint-short">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</span>
           </div>
 
         </div>
@@ -683,7 +700,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
       <div style="max-width:820px;margin-bottom:32px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac2);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">// AEGIS · Watch Floor · Classification Drill</div>
         <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,56px);font-weight:600;letter-spacing:-0.035em;line-height:1.03;color:var(--fg);margin-bottom:18px;">Read the trace,<br/>not the number.</h2>
-        <p style="font-size:16px;line-height:1.62;color:var(--fg2);max-width:820px;"><strong style="color:var(--fg);font-weight:600;">AEGIS</strong> is a defense decision-intelligence concept I designed, a watch floor that fuses dozens of sensor and intelligence feeds into one picture an operator can act on, fast. Its thesis: the AI brings receipts, not verdicts. It hands you fused tracks with their sources, a confidence score, and the evidence it flagged against itself, then it stops. It won't make the call. <span style="color:var(--ac2);">You will.</span> This is that idea, made playable, classify each contact before it breaches the inner ring.</p>
+        <p style="font-size:16px;line-height:1.62;color:var(--fg2);max-width:820px;"><strong style="color:var(--fg);font-weight:600;">AEGIS</strong> is a defense decision-intelligence concept, a watch floor that fuses dozens of sensor and intelligence feeds into one picture an operator can act on, fast. Its thesis: the AI brings receipts, not verdicts. It hands you fused tracks with their sources, a confidence score, and the evidence it flagged against itself, then it stops. It won't make the call. <span style="color:var(--ac2);">You will.</span> This is that idea, made playable, classify each contact before it breaches the inner ring.</p>
         <div style="margin-top:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <label style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg2);">
             <span aria-hidden="true">Drill</span>
@@ -1901,6 +1918,7 @@ class Component extends DCLogic {
     if (COARSE) {
       if (addBtn) addBtn.style.display = 'inline-block';
       const mh = document.getElementById('la-mhint'); if (mh) mh.style.display = 'block';
+      const hint = document.getElementById('la-hint'); if (hint) hint.style.display = 'flex';
     } else {
       const hint = document.getElementById('la-hint'); if (hint) hint.style.display = 'flex';
       plate.style.cursor = 'crosshair';

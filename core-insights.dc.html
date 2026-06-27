@@ -91,6 +91,33 @@ summary::-webkit-details-marker{display:none}
 @media (max-width:600px){ .ci-pill{display:none !important} }
 @media (max-width:880px){ .ci-burger{display:flex} }
 @media (min-width:881px){ #ci-menu{display:none !important} }
+
+/* ── interactive hot-desking demo ── */
+.hd-rolebtn{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:#8a9ab5;background:transparent;border:none;border-radius:7px;padding:8px 15px;cursor:pointer;transition:background .15s,color .15s;}
+.hd-rolebtn[aria-selected="true"]{background:rgba(76,168,143,0.16);color:var(--c-teal3);}
+.hd-rolebtn:focus-visible{outline:2px solid var(--c-teal3);outline-offset:2px;}
+.hd-desk{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);border:none;padding:0;background:rgba(255,255,255,0.15);transition:background .3s ease,box-shadow .2s ease,transform .14s ease;z-index:2;}
+.hd-desk.is-sug{animation:hd-pulse 1.3s ease-in-out infinite;}
+.hd-desk:not(:disabled){cursor:pointer;}
+.hd-desk:not(:disabled):hover{transform:translate(-50%,-50%) scale(1.4);}
+.hd-desk:focus-visible{outline:2px solid var(--c-teal3);outline-offset:2px;}
+@keyframes hd-pulse{0%,100%{box-shadow:0 0 0 0 rgba(125,211,192,0.55);}50%{box-shadow:0 0 0 8px rgba(125,211,192,0);}}
+.hd-heat{position:absolute;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(224,108,94,0.85),rgba(212,160,54,0.3) 45%,transparent 70%);filter:blur(16px);mix-blend-mode:screen;pointer-events:none;z-index:1;transition:opacity .4s ease;}
+.hd-zone-label{position:absolute;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#5a6b82;pointer-events:none;z-index:2;}
+.hd-strip-cell{height:16px;border-radius:2px;transition:transform .2s ease,box-shadow .2s ease;}
+.hd-strip-cell.now{transform:scaleY(1.35);box-shadow:0 0 0 1.5px rgba(125,211,192,0.7);}
+#hd-time{-webkit-appearance:none;appearance:none;height:4px;border-radius:3px;background:rgba(255,255,255,0.12);cursor:pointer;}
+#hd-time::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--c-teal3);border:2px solid #0e151e;box-shadow:0 0 8px rgba(125,211,192,0.5);cursor:pointer;}
+#hd-time::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--c-teal3);border:2px solid #0e151e;cursor:pointer;}
+#hd-time:focus-visible{outline:2px solid var(--c-teal3);outline-offset:4px;}
+.hd-find{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.04em;color:#06140f;background:var(--c-teal3);border:none;border-radius:8px;padding:11px 16px;cursor:pointer;width:100%;transition:transform .12s ease,box-shadow .15s ease;}
+.hd-find:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(125,211,192,0.25);}
+.hd-cancel{background:transparent;border:1px solid rgba(255,255,255,0.18);color:#aab6c9;border-radius:6px;padding:5px 11px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.04em;cursor:pointer;}
+.hd-cancel:hover{border-color:rgba(255,255,255,0.32);color:#e8edf5;}
+.hd-plabel{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--c-teal2);}
+.hd-key{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:4px;}
+@media (max-width:760px){ .hd-grid{grid-template-columns:1fr !important;} .hd-floorcol{border-right:none !important;border-bottom:1px solid rgba(255,255,255,0.06);} }
+@media (prefers-reduced-motion: reduce){ .hd-desk,.hd-strip-cell,.hd-heat{transition:none;} .hd-desk.is-sug{animation:none;box-shadow:0 0 0 5px rgba(125,211,192,0.4);} }
 </style>
 <script src="text-motion.js"></script>
 <script src="page-transition.js"></script>
@@ -717,6 +744,40 @@ summary::-webkit-details-marker{display:none}
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">10 · In the Field</div>
         <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:#fff;">Built for how the<br/>floor actually works.</h2>
       </div>
+
+      <!-- ░░ interactive hot-desking demo — one floor, two users ░░ -->
+      <div data-reveal="1" style="margin-bottom:18px;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.12em;text-transform:uppercase;">Hot desking · try it · one floor, two users</div>
+          <div style="flex:1;min-width:30px;height:1px;background:rgba(255,255,255,0.1);"></div>
+          <div role="tablist" aria-label="View the floor as" style="display:inline-flex;background:#0b1016;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:4px;gap:4px;">
+            <button id="hd-role-emp" class="hd-rolebtn" role="tab" type="button" aria-selected="true">Employee</button>
+            <button id="hd-role-mgr" class="hd-rolebtn" role="tab" type="button" aria-selected="false">Facilities</button>
+          </div>
+        </div>
+        <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;overflow:hidden;">
+          <div class="hd-grid" style="display:grid;grid-template-columns:1.6fr 1fr;">
+            <div class="hd-floorcol" style="border-right:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.06);">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6a7e9a;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:7px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);animation:ci-blink 1.6s infinite;"></span>Floor 3 · live occupancy</div>
+                <div id="hd-clock" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal3);">10:00</div>
+              </div>
+              <div id="hd-floor" style="position:relative;width:100%;aspect-ratio:16/10;background:radial-gradient(120% 100% at 50% 0%,rgba(76,168,143,0.05),transparent 60%),#0b1016;overflow:hidden;"></div>
+              <div style="padding:14px 18px;border-top:1px solid rgba(255,255,255,0.06);">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6a7e9a;letter-spacing:0.08em;text-transform:uppercase;">Time of day</span>
+                  <span id="hd-time-label" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal3);">10:00</span>
+                </div>
+                <input id="hd-time" type="range" min="7" max="19" step="1" value="10" aria-label="Time of day, 7 AM to 7 PM" style="width:100%;display:block;">
+                <div id="hd-strip" style="display:grid;grid-template-columns:repeat(13,1fr);gap:2px;margin-top:9px;"></div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.06em;margin-top:6px;display:flex;justify-content:space-between;"><span>7 AM</span><span>TYPICAL OCCUPANCY</span><span>7 PM</span></div>
+              </div>
+            </div>
+            <div id="hd-panel" style="padding:20px 18px;display:flex;flex-direction:column;gap:15px;min-height:236px;"></div>
+          </div>
+        </div>
+      </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" data-reveal="1">
         <!-- hot desking -->
         <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px;">
@@ -863,7 +924,7 @@ class Component extends DCLogic {
     for (let i = 0; i < 30; i++) { v += (Math.random() - 0.48) * 9; v = Math.max(28, Math.min(94, v)); arr.push(v); }
     this.setState({ live: arr });
     this._iv.live = setInterval(() => this.tickLive(), 2400);
-    setTimeout(() => { this.initReveal(); this.initCounters(); this.initToc(); }, 120);
+    setTimeout(() => { this.initReveal(); this.initCounters(); this.initToc(); try { this.initHotDesk(); } catch (e) {} }, 120);
     this.initScrollProgress();
   }
   initScrollProgress() {
@@ -879,6 +940,156 @@ class Component extends DCLogic {
     const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; pill.style.opacity = st > 60 ? '1' : '0'; };
     update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
   }
+  initHotDesk() {
+    const floor = document.getElementById('hd-floor');
+    if (!floor || floor.dataset.built) return;
+    floor.dataset.built = '1';
+    const $ = (id) => document.getElementById(id);
+    const panel = $('hd-panel'), strip = $('hd-strip'), timeEl = $('hd-time'), timeLabel = $('hd-time-label'), clock = $('hd-clock');
+    const roleEmp = $('hd-role-emp'), roleMgr = $('hd-role-mgr');
+    const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+    const ZONES = { west: { name: 'West Wing', f: 0.95 }, core: { name: 'Core', f: 1.0 }, east: { name: 'East Bay', f: 0.5 } };
+    const ZN = { west: 'West Wing', core: 'Core', east: 'East Bay' };
+    const occCurve = { 7: .14, 8: .34, 9: .62, 10: .82, 11: .86, 12: .58, 13: .54, 14: .8, 15: .77, 16: .6, 17: .4, 18: .2, 19: .1 };
+    const HRS = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    const hash01 = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return ((h >>> 0) % 10000) / 10000; };
+    const fmt = (h) => String(h).padStart(2, '0') + ':00';
+    const target = (z, h) => Math.min(0.96, (occCurve[h] || 0.3) * ZONES[z].f);
+    const heatColor = (t) => t < 0.4 ? 'rgba(76,168,143,' + (0.32 + t * 0.6).toFixed(2) + ')' : t < 0.7 ? 'rgba(212,160,54,' + (0.55 + (t - 0.4) * 0.8).toFixed(2) + ')' : 'rgba(224,108,94,' + (0.62 + (t - 0.7) * 0.9).toFixed(2) + ')';
+
+    // ---- build desks: 3 zones × 3 cols × 4 rows ----
+    const desks = [];
+    const zoneX = { west: [8, 27], core: [40.5, 59.5], east: [73, 92] };
+    const cols = 3, rows = 4; let n = 0;
+    Object.keys(ZONES).forEach((z) => {
+      const xr = zoneX[z];
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+        n++;
+        const x = xr[0] + (xr[1] - xr[0]) * (c / (cols - 1));
+        const y = 22 + (80 - 22) * (r / (rows - 1));
+        const id = z[0].toUpperCase() + '-' + String(n).padStart(2, '0');
+        desks.push({ id, z, x, y, seed: id + z });
+      }
+    });
+    const total = desks.length;
+    const occupied = (d, h) => hash01(d.seed) < target(d.z, h);
+
+    const S = { role: 'emp', hour: 10, booked: null, suggest: null, suggestMsg: '' };
+
+    // ---- heat blobs (manager) behind desks ----
+    const blobs = {};
+    ['west', 'core', 'east'].forEach((z) => {
+      const b = document.createElement('div'); b.className = 'hd-heat';
+      const cx = (zoneX[z][0] + zoneX[z][1]) / 2;
+      b.style.left = cx + '%'; b.style.top = '52%'; b.style.width = '34%'; b.style.height = '72%';
+      b.style.opacity = '0';
+      floor.appendChild(b); blobs[z] = b;
+    });
+    // ---- zone labels ----
+    ['west', 'core', 'east'].forEach((z) => {
+      const lab = document.createElement('div'); lab.className = 'hd-zone-label';
+      lab.textContent = ZN[z]; lab.style.left = ((zoneX[z][0] + zoneX[z][1]) / 2) + '%'; lab.style.top = '8%';
+      floor.appendChild(lab);
+    });
+    // ---- desk buttons ----
+    desks.forEach((d) => {
+      const el = document.createElement('button'); el.type = 'button'; el.className = 'hd-desk'; el.dataset.id = d.id;
+      el.style.left = d.x + '%'; el.style.top = d.y + '%';
+      floor.appendChild(el); d.el = el;
+      el.addEventListener('click', () => onDeskClick(d));
+    });
+
+    // ---- strip ----
+    HRS.forEach((h) => { const c = document.createElement('div'); c.className = 'hd-strip-cell'; c.dataset.h = h; c.style.background = heatColor((occCurve[h] || 0.2) * 0.85); strip.appendChild(c); });
+
+    const zoneStats = (h) => { const o = { west: [0, 0], core: [0, 0], east: [0, 0] }; desks.forEach((d) => { o[d.z][1]++; if (S.booked === d.id || occupied(d, h)) o[d.z][0]++; }); return o; };
+    const freeCount = (h) => { let f = 0; desks.forEach((d) => { if (S.booked !== d.id && !occupied(d, h)) f++; }); return f; };
+
+    // ---- renderers ----
+    const renderFloor = () => {
+      const h = S.hour, mgr = S.role === 'mgr';
+      desks.forEach((d) => {
+        const booked = S.booked === d.id, occ = !booked && occupied(d, h), free = !booked && !occ;
+        const el = d.el;
+        el.classList.toggle('is-sug', S.suggest === d.id && !mgr);
+        if (mgr) {
+          el.style.background = booked ? '#7dd3c0' : occ ? heatColor(target(d.z, h)) : 'rgba(76,168,143,0.16)';
+          el.style.boxShadow = 'none'; el.style.cursor = 'default'; el.disabled = true;
+          el.setAttribute('aria-label', 'Desk ' + d.id + ' ' + ZN[d.z] + ' ' + (occ ? 'occupied' : 'free'));
+        } else {
+          el.style.background = booked ? '#7dd3c0' : occ ? 'rgba(255,255,255,0.15)' : 'var(--c-teal2)';
+          el.style.boxShadow = booked ? '0 0 0 3px rgba(125,211,192,0.32),0 0 12px rgba(125,211,192,0.55)' : 'none';
+          el.style.cursor = free ? 'pointer' : 'default'; el.disabled = occ;
+          el.setAttribute('aria-label', 'Desk ' + d.id + ' ' + ZN[d.z] + ' ' + (booked ? 'booked by you' : occ ? 'taken' : 'free — book it'));
+        }
+      });
+      const zs = zoneStats(h);
+      ['west', 'core', 'east'].forEach((z) => { const [o, t] = zs[z]; blobs[z].style.opacity = mgr ? (0.12 + (o / t) * 0.7).toFixed(2) : '0'; });
+    };
+    const renderStrip = () => { [...strip.children].forEach((c) => c.classList.toggle('now', +c.dataset.h === S.hour)); };
+    const renderPanel = () => {
+      const h = S.hour, free = freeCount(h), occPct = Math.round((total - free) / total * 100);
+      if (S.role === 'emp') {
+        const booked = S.booked ? desks.find((d) => d.id === S.booked) : null;
+        panel.innerHTML =
+          '<div><div class="hd-plabel">You · find a desk</div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-top:7px;"><span style="font-family:\'Inter\',sans-serif;font-size:38px;font-weight:600;color:var(--c-teal3);line-height:1;">' + free + '</span><span style="font-size:14px;color:#8a9ab5;">of ' + total + ' desks free at ' + fmt(h) + '</span></div></div>' +
+          '<button class="hd-find" id="hd-find">⌖&nbsp; Find me a desk</button>' +
+          '<div id="hd-suggest" style="font-size:13px;color:#aab6c9;line-height:1.5;min-height:36px;">' + (S.suggestMsg || 'Tap any teal desk to book it — or let the app point you to the emptiest wing.') + '</div>' +
+          (booked ?
+            '<div style="background:rgba(125,211,192,0.1);border:1px solid rgba(125,211,192,0.3);border-radius:10px;padding:13px 15px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="color:var(--c-teal3);font-weight:700;">✓</span><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:var(--c-teal3);letter-spacing:0.08em;">CHECKED IN</span></div><div style="font-size:14px;color:#e8edf5;">Desk ' + booked.id + ' · ' + ZN[booked.z] + '</div><div style="font-size:12px;color:#8a9ab5;margin-top:2px;">' + fmt(h) + '–17:00 today</div><button class="hd-cancel" id="hd-cancel" style="margin-top:11px;">Release desk</button></div>'
+            : '') +
+          '<div style="margin-top:auto;display:flex;gap:15px;flex-wrap:wrap;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:#6a7e9a;align-items:center;"><span><span class="hd-key" style="background:var(--c-teal2);"></span>Free</span><span><span class="hd-key" style="background:rgba(255,255,255,0.18);"></span>Taken</span><span><span class="hd-key" style="background:#7dd3c0;"></span>Yours</span></div>';
+      } else {
+        const zs = zoneStats(h);
+        const bar = (z) => { const o = zs[z][0], t = zs[z][1], p = Math.round(o / t * 100); const col = p < 45 ? 'var(--c-teal2)' : p < 72 ? '#d4a036' : '#e06c5e'; return '<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#aab6c9;margin-bottom:4px;"><span>' + ZN[z] + '</span><span style="font-family:\'JetBrains Mono\',monospace;color:#e8edf5;">' + p + '%</span></div><div style="height:7px;border-radius:4px;background:#0b1016;overflow:hidden;"><div style="width:' + p + '%;height:100%;background:' + col + ';transition:width .35s ease;"></div></div></div>'; };
+        let emptiest = 'east', ep = 9; ['west', 'core', 'east'].forEach((z) => { const p = zs[z][0] / zs[z][1]; if (p < ep) { ep = p; emptiest = z; } });
+        panel.innerHTML =
+          '<div><div class="hd-plabel">Facilities · utilization · ' + fmt(h) + '</div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-top:7px;"><span style="font-family:\'Inter\',sans-serif;font-size:38px;font-weight:600;color:#fff;line-height:1;">' + occPct + '<span style="color:var(--c-teal2);font-size:0.58em;">%</span></span><span style="font-size:14px;color:#8a9ab5;">of the floor occupied</span></div></div>' +
+          '<div>' + bar('west') + bar('core') + bar('east') + '</div>' +
+          '<div style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;font-size:13px;color:#aab6c9;line-height:1.55;">Peak around 11:00. <span style="color:#cdd6e4;">' + ZN[emptiest] + '</span> is emptiest right now — steer arrivals there and shift cleaning to the busy wings.</div>' +
+          '<div style="margin-top:auto;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:#6a7e9a;line-height:1.5;">Scrub the timeline to read the day’s rhythm — the same live sensor feed the employee sees, rolled up for planning.</div>';
+      }
+    };
+    const render = () => { renderFloor(); renderStrip(); renderPanel(); if (clock) clock.textContent = fmt(S.hour); if (timeLabel) timeLabel.textContent = fmt(S.hour); };
+
+    // ---- interactions ----
+    const onDeskClick = (d) => {
+      if (S.role !== 'emp') return;
+      if (S.booked === d.id) return;
+      if (occupied(d, S.hour)) { d.el.animate ? d.el.animate([{ transform: 'translate(-50%,-50%) scale(1)' }, { transform: 'translate(-48%,-50%) scale(1)' }, { transform: 'translate(-52%,-50%) scale(1)' }, { transform: 'translate(-50%,-50%) scale(1)' }], { duration: 240 }) : 0; return; }
+      S.booked = d.id; S.suggest = null; S.suggestMsg = 'Booked Desk ' + d.id + ' in ' + ZN[d.z] + '. See you at your seat.';
+      render();
+    };
+    const find = () => {
+      const zs = zoneStats(S.hour);
+      let bestZ = 'east', bestFree = -1;
+      ['east', 'core', 'west'].forEach((z) => { const fr = zs[z][1] - zs[z][0]; if (fr > bestFree) { bestFree = fr; bestZ = z; } });
+      const cand = desks.filter((d) => d.z === bestZ && S.booked !== d.id && !occupied(d, S.hour));
+      if (!cand.length) { S.suggest = null; S.suggestMsg = 'Floor is packed at ' + fmt(S.hour) + ' — try an earlier or later hour on the timeline.'; render(); return; }
+      const piece = cand[(cand.length / 2) | 0];
+      S.suggest = piece.id; S.suggestMsg = bestFree + ' desks open in ' + ZN[bestZ] + ' — Desk ' + piece.id + ' is clear. Tap it to book.';
+      render();
+    };
+    const setRole = (r) => {
+      S.role = r;
+      if (roleEmp) roleEmp.setAttribute('aria-selected', String(r === 'emp'));
+      if (roleMgr) roleMgr.setAttribute('aria-selected', String(r === 'mgr'));
+      S.suggest = null;
+      render();
+    };
+    const setHour = (h) => { S.hour = h; render(); };
+
+    if (roleEmp) roleEmp.addEventListener('click', () => setRole('emp'));
+    if (roleMgr) roleMgr.addEventListener('click', () => setRole('mgr'));
+    if (timeEl) timeEl.addEventListener('input', () => setHour(+timeEl.value));
+    if (panel) panel.addEventListener('click', (e) => { const t = e.target; if (!t) return; if (t.id === 'hd-find' || (t.closest && t.closest('#hd-find'))) find(); else if (t.id === 'hd-cancel') { S.booked = null; S.suggestMsg = 'Desk released.'; render(); } });
+
+    render();
+  }
+
   componentWillUnmount() {
     Object.values(this._iv).forEach(clearInterval);
     Object.values(this._raf).forEach(cancelAnimationFrame);
