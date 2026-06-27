@@ -77,6 +77,32 @@ body{margin:0}
 #la-heat>div{opacity:0;transition:opacity .5s ease}
 #la-heat.la-on>div{opacity:1}
 .la-layer{will-change:transform}
+.la-fx{position:absolute;transform:translate(-50%,-50%);width:18px;height:7px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);transition:box-shadow .12s ease,border-color .12s ease;}
+.la-fx::after{content:'';position:absolute;left:50%;top:50%;width:26px;height:26px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(155,232,74,0.20),transparent 70%);border-radius:50%;}
+.la-fx.on{border-color:#cdffa0;box-shadow:0 0 14px rgba(155,232,74,0.95);}
+#la-plate{user-select:none;-webkit-user-select:none;}
+#la-recalc,#la-add{cursor:pointer;border:none;font:inherit;transition:filter .15s ease,background .15s ease;}
+#la-recalc:hover,#la-add:hover{filter:brightness(1.08);}
+#la-recalc:focus-visible,#la-add:focus-visible{outline:2px solid var(--la-cyan);outline-offset:2px;}
+#la-hint{display:none;align-items:center;gap:8px;position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);z-index:9;background:rgba(251,245,230,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(10,8,4,0.18);border-radius:999px;padding:8px 15px;font-family:'JetBrains Mono',monospace;font-size:clamp(9px,2.4vw,10.5px);letter-spacing:0.04em;color:#3a3120;pointer-events:none;box-shadow:0 12px 30px rgba(10,8,4,0.12);max-width:calc(100% - 24px);text-align:center;line-height:1.45}
+#la-hint .la-hint-dot{width:7px;height:7px;border-radius:50%;background:var(--la-cyan);box-shadow:0 0 8px var(--la-cyan-glow);flex-shrink:0}
+#la-hint .la-hint-long{display:inline}
+#la-hint .la-hint-short{display:none}
+#la-mhint{display:none;padding:0 20px 12px;font-family:'JetBrains Mono',monospace;font-size:clamp(8.5px,2.2vw,10px);letter-spacing:0.04em;color:#6b5d42;line-height:1.45}
+@media (max-width:860px){
+  #la-hint{bottom:3.5% !important;border-radius:12px !important;padding:7px 11px !important;white-space:normal !important}
+  #la-hint .la-hint-long{display:none}
+  #la-hint .la-hint-short{display:inline}
+  #architect #la-ground{inset:0 !important}
+  #architect #la-ground>div:last-child{width:125% !important;height:125% !important;margin:-62.5% 0 0 -62.5% !important}
+}
+@media (max-width:520px){
+  #la-hint{max-width:calc(100% - 16px) !important;font-size:8.5px !important;letter-spacing:0.03em !important}
+}
+@media (hover:none){
+  .la-fx{pointer-events:auto;touch-action:none;}
+  .la-fx::before{content:'';position:absolute;left:50%;top:50%;width:44px;height:44px;transform:translate(-50%,-50%);border-radius:50%;}
+}
 #la-sticky{
   --la-bg:#fbf7ee;--la-fill:#e9e5d7;
   --la-grad:linear-gradient(125deg,#e2e6d6 0%,#e9e5d6 40%,#ebe7d9 70%,#e0e5d2 100%);
@@ -90,6 +116,44 @@ body{margin:0}
   --la-vig:rgba(244,234,210,0.6);--la-vig2:#f4ead2;
 }
 @media (max-width:760px){ #iso-hud{display:none !important} }
+
+/* ════ AEGIS · FUSION WATCH (ported) ════ */
+/* ── AEGIS · FUSION WATCH mini-game ── */
+#ag-stage:focus-visible{box-shadow:0 0 0 2px rgba(125,211,192,0.55),0 30px 80px -40px rgba(0,0,0,0.8);}
+#ag-rail button{flex:1;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:rgba(12,18,28,0.82);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#e9eef7;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;cursor:pointer;transition:background .14s ease,border-color .14s ease,transform .08s ease;-webkit-tap-highlight-color:transparent;}
+#ag-rail button small{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:9px;color:#5f726c;letter-spacing:0.06em;}
+#ag-rail button:hover{background:rgba(18,26,40,0.92);border-color:rgba(125,211,192,0.4);}
+#ag-rail button:active{transform:translateY(1px);}
+#ag-rail button:focus-visible{outline:2px solid rgba(125,211,192,0.7);outline-offset:2px;}
+#ag-rail button.ag-flash-ok{border-color:#7dd3c0;background:rgba(125,211,192,0.16);}
+#ag-rail button.ag-flash-bad{border-color:#e64d3c;background:rgba(230,77,60,0.16);}
+#ag-start:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(125,211,192,0.3);}
+#ag-start:focus-visible{outline:2px solid #7dd3c0;outline-offset:3px;}
+#ag-rc-pips .ag-pip{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+#ag-rc-pips .ag-pip i{width:11px;height:11px;border-radius:50%;border:1.5px solid #5f726c;box-sizing:border-box;display:block;}
+#ag-rc-pips .ag-pip.cor i{background:#7dd3c0;border-color:#7dd3c0;}
+#ag-rc-pips .ag-pip.con i{background:transparent;border-color:#e64d3c;}
+#ag-rc-pips .ag-pip.off i{border-color:rgba(255,255,255,0.18);background:repeating-linear-gradient(45deg,#3a4654,#3a4654 1px,transparent 1px,transparent 3px);}
+#ag-rc-pips .ag-pip span{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:0.03em;color:#5f726c;}
+#ag-rc-pips .ag-pip.con span{color:#b06a62;}
+#ag-rc-pips .ag-pip.cor span{color:#6f9c91;}
+@media (max-width:760px){
+  #aegis > div{padding:60px 16px 72px !important;}
+  #ag-stage{height:78vh !important;min-height:560px !important;}
+  #ag-receipt{top:auto !important;bottom:80px !important;left:10px !important;right:10px !important;width:auto !important;max-width:none !important;}
+  #ag-hud{font-size:10px !important;gap:11px !important;padding:11px 12px !important;}
+  #ag-rail button{min-height:60px;}
+}
+@media (prefers-reduced-motion: reduce){
+  #ag-receipt,#ag-rc-confbar,#ag-start,#ag-rail button{transition:none !important;}
+}
+#ag-info-btn:hover{border-color:rgba(125,211,192,0.5);color:#cdd6d2;}
+#ag-info-btn:focus-visible,#ag-info-close:focus-visible{outline:2px solid #7dd3c0;outline-offset:2px;}
+#ag-info-close:hover{color:#e9eef7;border-color:rgba(255,255,255,0.3);}
+#aegis .ag-info-h{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#5f726c;margin:15px 0 7px;}
+#aegis .ag-info-row{display:flex;gap:12px;align-items:baseline;font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.45;color:#aab6b1;margin-bottom:7px;}
+#aegis .ag-info-k{flex:none;width:104px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.02em;}
+@media (max-width:760px){ #aegis .ag-info-k{width:84px;} }
 </style>
 <script src="page-transition.js"></script>
 <script src="home-variants.js"></script>
@@ -187,7 +251,7 @@ body{margin:0}
         <div style="animation:dossier-up 0.7s ease 0.05s both;">
           <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6b5d42;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:22px;">Subject Profile, Designation</div>
           <h1 style="font-family:'Inter',sans-serif;font-size:clamp(40px,5.4vw,76px);font-weight:600;line-height:1.02;letter-spacing:-0.035em;margin-bottom:26px;">I make complex<br/>systems feel<br/><span style="color:#b23a2e;">effortless.</span></h1>
-          <p style="font-size:18px;color:#3a3120;line-height:1.65;max-width:560px;margin-bottom:30px;">26 years shipping high-consequence UX across networked cyber-physical IoT, regulated real-money platforms, and AR field tooling, Enterprise SaaS, B2B, earning design a founding voice inside engineering-first teams. 3 issued patents, 1 pending.</p>
+          <p style="font-size:18px;color:#3a3120;line-height:1.65;max-width:560px;margin-bottom:30px;">High-consequence UX across networked cyber-physical IoT, regulated real-money platforms, and AR field tooling, enterprise SaaS, and B2B — with design holding a founding voice in engineering-first teams. 3 issued patents, 1 pending.</p>
           <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
             <a href="#files" style="background:#0a0a0a;color:#f4ead2;padding:15px 28px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:background 0.2s;" style-hover="background:#b23a2e">OPEN CASE FILES <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             <a href="#contact" style="border:1.5px solid #0a0a0a;color:#0a0a0a;padding:15px 28px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-decoration:none;transition:background 0.2s;" style-hover="background:#e7d9b8">REQUEST CONTACT</a>
@@ -207,7 +271,7 @@ body{margin:0}
           </div>
           <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(10,8,4,0.18);">
             <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(10,8,4,0.12);"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">LOCATION</span><span style="font-size:12px;font-weight:500;">Greater Toronto Area</span></div>
-            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(10,8,4,0.12);"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">EXPERIENCE</span><span style="font-size:12px;font-weight:500;">26 years</span></div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(10,8,4,0.12);"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">SINCE</span><span style="font-size:12px;font-weight:500;">2010</span></div>
             <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(10,8,4,0.12);"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">PATENTS</span><span style="font-size:12px;font-weight:500;">3 issued · 1 pending</span></div>
             <div style="display:flex;justify-content:space-between;padding:9px 0;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b5d42;letter-spacing:0.06em;">CLEARANCE</span><span style="font-size:12px;font-weight:500;color:#1c6b39;">Eligible</span></div>
           </div>
@@ -327,7 +391,7 @@ body{margin:0}
         <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0a0a0a;color:#f4ead2;padding:14px 24px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-decoration:none;transition:background 0.2s;" style-hover="background:#b23a2e">EXPLORE LIGHT ARCHITECT <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
       </div>
       <div style="position:relative;border:1.5px solid #0a0a0a;overflow:hidden;box-shadow:8px 8px 0 rgba(10,8,4,0.16);min-height:480px;">
-        <div id="la-scroll" style="position:absolute;inset:0;z-index:0;pointer-events:none;">
+        <div id="la-scroll" style="position:absolute;inset:0;z-index:0;">
       <div id="la-sticky" style="position:absolute;inset:0;overflow:hidden;background:var(--la-bg);">
         <div id="la-stage" style="position:absolute;inset:0;">
           <div class="la-layer" data-la="0.24" id="la-ground" style="position:absolute;inset:-16%;z-index:1;">
@@ -348,7 +412,7 @@ body{margin:0}
             </div>
           </div>
           <div class="la-layer" data-la="0.52" id="la-plate-wrap" style="position:absolute;left:56%;top:50%;width:min(860px,72vw);height:min(560px,48vw);margin-left:calc(min(860px,72vw) / -2);margin-top:calc(min(560px,48vw) / -2);z-index:3;">
-            <div id="la-plate" style="position:absolute;inset:0;transform:rotate(-25deg);">
+            <div id="la-plate" role="application" aria-label="Interactive lighting layout — drag, add (click), or remove (double-click) luminaires to recompute the illuminance grid" style="position:absolute;inset:0;transform:rotate(-25deg);">
               <div id="la-heat" style="position:absolute;inset:0;display:grid;gap:0;border-radius:1px;overflow:hidden;"></div>
               <div id="la-fixtures" style="position:absolute;inset:0;pointer-events:none;"></div>
               <div style="position:absolute;inset:0;border:1.5px solid var(--la-cyan);box-shadow:0 0 22px var(--la-cyan-glow);pointer-events:none;"></div>
@@ -361,6 +425,11 @@ body{margin:0}
             </div>
           </div>
           <div style="position:absolute;inset:0;background:radial-gradient(125% 95% at 50% 42%,transparent 40%,var(--la-vig) 82%,var(--la-vig2) 100%);pointer-events:none;z-index:4;"></div>
+          <div id="la-hint">
+            <span class="la-hint-dot" aria-hidden="true"></span>
+            <span class="la-hint-long">Drag a luminaire&nbsp;·&nbsp;click to add&nbsp;·&nbsp;double-click to remove</span>
+            <span class="la-hint-short">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</span>
+          </div>
         </div>
       </div>
     </div>
@@ -370,17 +439,22 @@ body{margin:0}
             <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#0a0a0a;font-weight:700;">EXHIBIT B · PHOTOMETRIC SUMMARY</span>
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#6b5d42;">3775 SWIFTDALE DR · MISSISSAUGA</span>
           </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid rgba(10,8,4,0.18);">
+            <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#0a0a0a;color:#f4ead2;padding:7px 12px;font-weight:600;">RE-CALC</button>
+            <button id="la-add" type="button" title="Add a luminaire" style="display:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#fbf5e6;color:#3a3120;padding:7px 12px;border:1px solid rgba(10,8,4,0.3);font-weight:600;">＋ ADD</button>
+          </div>
+          <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:1px;background:rgba(10,8,4,0.18);">
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;">3.91</div></div>
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;">6.78</div></div>
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;">1.3</div></div>
-            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">A/MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;color:#b23a2e;">3.01</div></div>
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;"><span id="la-avg">3.91</span></div></div>
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;"><span id="la-max">6.78</span></div></div>
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;"><span id="la-min">1.3</span></div></div>
+            <div style="background:#fbf5e6;padding:22px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:8px;">A/MIN</div><div style="font-family:'Inter',sans-serif;font-size:26px;font-weight:600;color:#b23a2e;"><span id="la-amin">3.01</span></div></div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;padding:14px 20px;border-top:1px solid rgba(10,8,4,0.18);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em;color:#6b5d42;">
             <span style="width:6px;height:6px;border-radius:50%;background:#1c6b39;"></span> ILLUMINANCE (FC) · LLF 0.912
           </div>
           <div style="display:flex;gap:7px;flex-wrap:wrap;padding:0 20px 18px;">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a3120;padding:5px 10px;border:1px solid rgba(10,8,4,0.3);">16 × GALN Galleon II</span>
+            <span id="la-count" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a3120;padding:5px 10px;border:1px solid rgba(10,8,4,0.3);">16 × GALN Galleon II</span>
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a3120;padding:5px 10px;border:1px solid rgba(10,8,4,0.3);">Stat Area 1</span>
           </div>
           </div>
@@ -390,6 +464,99 @@ body{margin:0}
   </section>
 
   <!-- ═══ REFERENCES / TESTIMONIALS ═══ -->
+  <!-- ═══ AEGIS · FUSION WATCH (interactive classification drill) ═══ -->
+  <section id="aegis" data-screen-label="AEGIS Fusion Watch classification drill" style="position:relative;z-index:1;background:#070b12;border-top:1px solid rgba(255,255,255,0.08);overflow:hidden;">
+    <div style="max-width:1180px;margin:0 auto;padding:96px 44px 104px;">
+      <div style="max-width:820px;margin-bottom:32px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7dd3c0;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">// AEGIS · Watch Floor · Classification Drill</div>
+        <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,56px);font-weight:600;letter-spacing:-0.035em;line-height:1.03;color:#e9eef7;margin-bottom:18px;">Read the trace,<br/>not the number.</h2>
+        <p style="font-size:16px;line-height:1.62;color:#8593a8;max-width:820px;"><strong style="color:#e9eef7;font-weight:600;">AEGIS</strong> is a defense decision-intelligence concept, a watch floor that fuses dozens of sensor and intelligence feeds into one picture an operator can act on, fast. Its thesis: the AI brings receipts, not verdicts. It hands you fused tracks with their sources, a confidence score, and the evidence it flagged against itself, then it stops. It won't make the call. <span style="color:#7dd3c0;">You will.</span> This is that idea, made playable, classify each contact before it breaches the inner ring.</p>
+        <div style="margin-top:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <label style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8593a8;">
+            <span aria-hidden="true">Drill</span>
+            <select id="ag-mode" aria-label="Choose which AEGIS drill to play" style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#e9eef7;background:#0c121e url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none' stroke='%237dd3c0' stroke-width='1.6'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E&quot;) no-repeat right 12px center;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:9px 32px 9px 14px;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;">
+              <option value="fusion">Fusion Watch · deduction</option>
+              <option value="sweep">Sweep · Watchkeeper · reflex</option>
+              <option value="watchfloor">Watchfloor: Last Light · survival</option>
+            </select>
+          </label>
+          <button id="ag-info-btn" type="button" aria-haspopup="dialog" aria-controls="ag-info" aria-expanded="false" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8593a8;background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 15px;cursor:pointer;transition:border-color .15s ease,color .15s ease;">
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1.5px solid currentColor;font-family:'Inter',sans-serif;font-style:italic;font-weight:700;font-size:10px;line-height:1;">i</span>
+            How scoring works
+          </button>
+        </div>
+      </div>
+
+      <div id="ag-stage" role="application" tabindex="0" aria-label="Fusion Watch — an interactive contact-classification game. Press Enter to start. Then use J to clear a friendly contact, K to hold an unknown, and L to tag a hostile, before it crosses the inner ring." style="position:relative;width:100%;height:min(70vh,620px);min-height:518px;border:1px solid rgba(125,211,192,0.16);border-radius:16px;background:radial-gradient(ellipse at 50% 42%,#0c1724,#070b12 72%);overflow:hidden;outline:none;box-shadow:0 30px 80px -40px rgba(0,0,0,0.8),inset 0 0 0 1px rgba(255,255,255,0.02);">
+        <canvas id="ag-cvs" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+
+        <!-- HUD top rail -->
+        <div id="ag-hud" style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:20px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;color:#8593a8;pointer-events:none;z-index:4;text-transform:uppercase;flex-wrap:wrap;">
+          <span>SCORE&nbsp;<b id="ag-score" style="color:#e9eef7;font-weight:600;">0</b></span>
+          <span>COMBO&nbsp;<b id="ag-combo" style="color:#8593a8;font-weight:600;">×1</b></span>
+          <span><span id="ag-acc-label">ACC</span>&nbsp;<b id="ag-acc" style="color:#e9eef7;font-weight:600;">100%</b></span>
+          <span style="margin-left:auto;display:inline-flex;align-items:center;gap:7px;"><span id="ag-lives-label">LIVES</span>&nbsp;<span id="ag-lives" style="display:inline-flex;gap:5px;"></span></span>
+          <span>BEST&nbsp;<b id="ag-best" style="color:#e9eef7;font-weight:600;">0</b></span>
+        </div>
+
+        <!-- transient banner -->
+        <div id="ag-banner" style="position:absolute;top:46px;left:50%;transform:translateX(-50%);z-index:5;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#7dd3c0;background:rgba(6,18,22,0.7);border:1px solid rgba(125,211,192,0.3);border-radius:999px;padding:6px 14px;pointer-events:none;opacity:0;white-space:nowrap;"></div>
+
+        <!-- receipt panel -->
+        <div id="ag-receipt" style="position:absolute;top:54px;right:16px;width:250px;max-width:48vw;z-index:4;background:rgba(12,18,28,0.92);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 15px;pointer-events:none;opacity:0;transition:opacity .16s ease,border-color .16s ease;box-shadow:0 22px 50px rgba(0,0,0,0.5);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;">
+            <span id="ag-rc-id" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#e9eef7;letter-spacing:0.03em;">TRACK ——</span>
+            <span id="ag-rc-domain" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5f726c;text-transform:uppercase;letter-spacing:0.08em;">—</span>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5f726c;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">AI assessment</div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:9px;">
+            <span id="ag-rc-assessed" style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:-0.01em;color:#e9eef7;">—</span>
+            <span id="ag-rc-conf" style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#8593a8;">0.00</span>
+          </div>
+          <div style="height:4px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;margin-bottom:13px;"><div id="ag-rc-confbar" style="height:100%;width:0%;background:#4ca88f;transition:width .16s ease;"></div></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5f726c;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Sources</div>
+          <div id="ag-rc-pips" style="display:flex;gap:6px;margin-bottom:12px;"></div>
+          <div id="ag-rc-dissent" style="font-family:'Inter',sans-serif;font-style:italic;font-size:11.5px;line-height:1.46;color:#8fa39d;min-height:34px;">—</div>
+        </div>
+
+        <!-- verb rail / mobile thumb-zones -->
+        <div id="ag-rail" style="position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;padding:12px;z-index:5;">
+          <button id="ag-clear" type="button" data-verb="clear" aria-label="Clear contact as friendly (key J)" style="border-top:2px solid #4c9aff;">CLEAR<small>FRIENDLY · J</small></button>
+          <button id="ag-hold" type="button" data-verb="hold" aria-label="Hold contact as unknown (key K)" style="border-top:2px solid #d4a036;">HOLD<small>UNKNOWN · K</small></button>
+          <button id="ag-tag" type="button" data-verb="tag" aria-label="Tag contact as hostile (key L)" style="border-top:2px solid #e64d3c;">TAG<small>HOSTILE · L</small></button>
+        </div>
+
+        <!-- state overlay: attract / game-over -->
+        <div id="ag-screen" style="position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(ellipse at 50% 50%,rgba(7,11,18,0.55),rgba(7,11,18,0.88));">
+          <div id="ag-screen-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#7dd3c0;margin-bottom:14px;">FUSION WATCH</div>
+          <div id="ag-screen-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(22px,3vw,32px);letter-spacing:-0.02em;color:#e9eef7;margin-bottom:12px;max-width:440px;line-height:1.12;">Read the trace, not the number.</div>
+          <div id="ag-screen-sub" style="font-family:'Inter',sans-serif;font-size:14px;line-height:1.55;color:#8fa39d;max-width:420px;margin-bottom:22px;">The sweep lights each contact and opens its receipt — weigh the four sources and the dissent, not just the confidence. A loud 0.9 with conflicting sources is a trap.</div>
+          <button id="ag-start" type="button" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#06140f;background:#7dd3c0;border:none;border-radius:999px;padding:13px 26px;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;">Take the watch</button>
+          <div id="ag-screen-hint" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#5f726c;margin-top:18px;">J clear&nbsp;·&nbsp;K hold&nbsp;·&nbsp;L tag&nbsp;·&nbsp;or tap a verb</div>
+        </div>
+
+        <!-- screen-reader announcements -->
+        <div id="ag-live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"></div>
+
+        <!-- scoring math popup -->
+        <div id="ag-info" role="dialog" aria-modal="true" aria-label="How scoring works" style="position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,8,13,0.82);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);">
+          <div style="width:min(450px,94%);max-height:92%;overflow:auto;background:#0c1320;border:1px solid rgba(125,211,192,0.28);border-radius:14px;box-shadow:0 40px 90px -30px rgba(0,0,0,0.85);padding:22px 22px 20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#7dd3c0;">// Scoring · the math</div>
+              <button id="ag-info-close" type="button" aria-label="Close scoring info" style="width:28px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,0.14);background:transparent;color:#8593a8;font-size:14px;line-height:1;cursor:pointer;transition:color .15s,border-color .15s;">✕</button>
+            </div>
+            <div id="ag-info-title" style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:#e9eef7;letter-spacing:-0.015em;margin-bottom:13px;">Fusion Watch</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#cdd6d2;background:#070b12;border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:12px 13px;margin-bottom:14px;line-height:1.5;text-align:center;">points = <span style="color:#7dd3c0;">round(100 × modifiers)</span> × <span style="color:#4c9aff;">combo</span></div>
+            <div id="ag-info-body" style="font-family:'Inter',sans-serif;font-size:13px;line-height:1.62;color:#aab6b1;"></div>
+            <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:#8fa39d;">The combo multiplier scales every point, so keeping a streak alive is the whole game — one wrong call resets it. Best score is saved separately for each drill.</div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#97a3b8;letter-spacing:0.03em;line-height:1.5;max-width:780px;">Rule of the floor: weigh the dissent, not just the confidence. <span style="color:#8593a8;">This is the AEGIS thesis made playable — the model brings receipts, you keep the decision.</span></p>
+    </div>
+  </section>
+
+
   <section id="references" style="position:relative;z-index:1;padding:96px 40px;border-top:1.5px solid #0a0a0a;">
     <div style="max-width:1340px;margin:0 auto;">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:34px;" data-reveal="1">
@@ -491,11 +658,471 @@ class Component extends DCLogic {
     this._hvReady = () => this.forceUpdate();
     window.addEventListener('home-variants-ready', this._hvReady);
     setTimeout(() => this.forceUpdate(), 320);
-    setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.buildIso(); this.initIso(); this.buildLightArchitect(); }, 100);
+    setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.buildIso(); this.initIso(); this.buildLightArchitect(); this.initLightArchitect(); this.initLAInteract(); try { this.initAegis(); } catch (e) {} }, 100);
   }
+  initAegis() {
+    if (this._agInit) return; this._agInit = true;
+    const stage = document.getElementById('ag-stage');
+    const cvs = document.getElementById('ag-cvs');
+    if (!stage || !cvs) return;
+    const ctx = cvs.getContext ? cvs.getContext('2d') : null;
+    const $ = (id) => document.getElementById(id);
+    const live = $('ag-live'), banner = $('ag-banner'), screen = $('ag-screen'), startBtn = $('ag-start'), modeSel = $('ag-mode');
+    const elScore = $('ag-score'), elCombo = $('ag-combo'), elAcc = $('ag-acc'), elBest = $('ag-best'), elLives = $('ag-lives'), elAccLabel = $('ag-acc-label'), elLivesLabel = $('ag-lives-label');
+    const rc = { box: $('ag-receipt'), id: $('ag-rc-id'), domain: $('ag-rc-domain'), assessed: $('ag-rc-assessed'), conf: $('ag-rc-conf'), confbar: $('ag-rc-confbar'), pips: $('ag-rc-pips'), dissent: $('ag-rc-dissent') };
+
+    if (!ctx) {
+      const sub = $('ag-screen-sub');
+      if (sub) sub.textContent = 'This interactive drill needs a canvas-capable browser. The idea: the AI proposes a classification with its sources and confidence — you read the evidence and decide.';
+      if (startBtn) startBtn.style.display = 'none';
+      return;
+    }
+
+    const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const COARSE = (window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches)) || (window.innerWidth || 9999) <= 760;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    let W = 0, H = 0, cx = 0, cy = 0, R = 0;
+    const resize = () => {
+      W = stage.clientWidth; H = stage.clientHeight;
+      cvs.width = Math.max(1, Math.round(W * dpr)); cvs.height = Math.max(1, Math.round(H * dpr));
+      cx = W / 2; cy = H * 0.5; R = Math.min(W, H) * 0.46;
+    };
+    resize(); this.on(window, 'resize', resize);
+
+    const AFF = {
+      friendly: { label: 'FRIENDLY', color: '#4c9aff' },
+      unknown: { label: 'UNKNOWN', color: '#d4a036' },
+      hostile: { label: 'HOSTILE', color: '#e64d3c' },
+      neutral: { label: 'NEUTRAL', color: '#22b765' },
+    };
+    const DOMAINS = ['air', 'sea', 'land', 'sensor'];
+    const CHAN = ['RADAR', 'IR', 'SIGINT', 'EO'];
+    const INNER = 0.42, TEAL = '#4ca88f', TEAL2 = '#7dd3c0';
+    const VERB2AFF = { clear: 'friendly', hold: 'unknown', tag: 'hostile' };
+    const KEY2VERB = { j: 'clear', k: 'hold', l: 'tag', 1: 'clear', 2: 'hold', 3: 'tag' };
+
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+    const pick = (a) => a[(Math.random() * a.length) | 0];
+    const comboMult = (n) => n >= 12 ? 12 : n >= 8 ? 8 : n >= 5 ? 5 : n >= 3 ? 3 : n >= 2 ? 2 : 1;
+    const angDelta = (a, b) => { let d = Math.abs(a - b) % (Math.PI * 2); return d > Math.PI ? Math.PI * 2 - d : d; };
+
+    const G = {
+      mode: 'attract', paused: false, contacts: [], pops: [], rings: [], parts: [],
+      score: 0, combo: 0, bestCombo: 0, lives: 3, correct: 0, wrong: 0, breaches: 0, dissents: 0,
+      elapsed: 0, sweep: -Math.PI / 2, spawnAt: 0, shake: 0, activeId: null, auditUntil: 0, bannerUntil: 0,
+      degradeCh: -1, degradeUntil: 0, nextDegrade: 15, wave: 1, nextWave: 15, wavePerfect: true, best: 0,
+    };
+    for (let i = 0; i < 48; i++) G.parts.push({ on: false, x: 0, y: 0, vx: 0, vy: 0, life: 0, c: '#fff' });
+
+    const mkBase = (dom) => { const pre = dom === 'sea' ? 'MV-' : dom === 'air' ? 'AK-' : dom === 'land' ? 'LX-' : 'SN-'; return { cid: 'c' + G.elapsed.toFixed(3) + Math.random(), dom, id: pre + (1000 + ((Math.random() * 8999) | 0)), ang: Math.random() * Math.PI * 2, rad: 1.0, litUntil: 0 }; };
+
+    const dissentLine = (truth, trap) => {
+      if (!trap) return Math.random() < 0.5 ? 'No counter-evidence flagged.' : 'Minor noise on one channel, within tolerance.';
+      if (truth === 'friendly') return 'DISSENT — IFF squawk valid; emitter sits inside a FRIENDLY corridor.';
+      if (truth === 'hostile') return 'DISSENT — emission band and RCS read HOSTILE; transponder looks spoofed.';
+      return 'DISSENT — no prior match and route is diverging; this should HOLD as UNKNOWN.';
+    };
+    // FUSION WATCH — deduction: receipt card with 4 pips + dissent
+    const genFusion = () => {
+      const e = M.diff(), r = Math.random();
+      const pH = lerp(0.28, 0.42, e), pU = lerp(0.26, 0.34, e);
+      const truth = r < pH ? 'hostile' : r < pH + pU ? 'unknown' : 'friendly';
+      const trap = Math.random() < lerp(0.16, 0.52, e);
+      const others = ['friendly', 'unknown', 'hostile'].filter((x) => x !== truth);
+      const assessed = trap ? pick(others) : truth;
+      const corrob = trap ? (Math.random() < 0.5 ? 0 : 1) : (Math.random() < 0.55 ? 4 : 3);
+      const conf = trap ? 0.80 + Math.random() * 0.16 : 0.66 + Math.random() * 0.29;
+      const idx = [0, 1, 2, 3];
+      for (let i = 3; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; const t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
+      const pips = [false, false, false, false];
+      for (let i = 0; i < corrob; i++) pips[idx[i]] = true;
+      return Object.assign(mkBase(pick(DOMAINS)), { truth, assessed, conf, pips, trap, dissent: dissentLine(truth, trap), drift: (1 - INNER) / driftDur() });
+    };
+    // SWEEP / WATCHKEEPER — reflex: honest confidence chip, genuine unknowns, speed
+    const genSweep = () => {
+      const e = M.diff(), r = Math.random();
+      const pH = lerp(0.32, 0.46, e), pU = lerp(0.16, 0.24, e);
+      const truth = r < pH ? 'hostile' : r < pH + pU ? 'unknown' : 'friendly';
+      const conf = truth === 'unknown' ? 0.38 + Math.random() * 0.18 : 0.70 + Math.random() * 0.27;
+      return Object.assign(mkBase(pick(DOMAINS)), { truth, assessed: truth, conf, trap: false, ambiguous: truth === 'unknown', drift: (1 - INNER) / driftDur(), dissent: '' });
+    };
+    // WATCHFLOOR — survival: friendly/hostile/neutral, spoofs revealed by HOLD-SCAN
+    const genWatch = () => {
+      const e = M.diff(), r = Math.random();
+      const pH = lerp(0.34, 0.50, e), pN = lerp(0.18, 0.24, e);
+      const truth = r < pH ? 'hostile' : r < pH + pN ? 'neutral' : 'friendly';
+      const spoof = Math.random() < lerp(0.10, 0.40, e);
+      const others = ['friendly', 'hostile', 'neutral'].filter((x) => x !== truth);
+      const shown = spoof ? pick(others) : truth;
+      const conf = spoof ? 0.78 + Math.random() * 0.16 : 0.66 + Math.random() * 0.28;
+      return Object.assign(mkBase(pick(DOMAINS)), { truth, assessed: shown, conf, spoof, scanned: false, drift: (1 - INNER) / driftDur(), dissent: spoof ? ('DISSENT — sources read ' + AFF[truth].label) : 'No counter-evidence flagged.' });
+    };
+
+    const RULES = {
+      fusion: {
+        id: 'fusion', label: 'Fusion Watch', bestKey: 'rba-fusionwatch-best', lives0: 3, reveal: 'receipt', waves: false, zones: false, degrade: true, midStat: 'ACC',
+        title: 'Read the trace, not the number.',
+        sub: 'The sweep lights each contact and opens its receipt — weigh the four sources and the dissent, not just the confidence. A loud 0.9 with conflicting sources is a trap.',
+        verbs: [['CLEAR', 'FRIENDLY · J', '#4c9aff'], ['HOLD', 'UNKNOWN · K', '#d4a036'], ['TAG', 'HOSTILE · L', '#e64d3c']],
+        tune: { sweepP: [3.4, 2.0], spawn: [2.2, 0.95], maxd: [2, 4], maxc: [2, 3], card: [1.7, 1.05], drift: [15, 7.5] },
+        gen: genFusion, diff: () => clamp(G.elapsed / 90, 0, 1),
+      },
+      sweep: {
+        id: 'sweep', label: 'Sweep · Watchkeeper', bestKey: 'rba-sweep-best', lives0: 3, reveal: 'chip', waves: false, zones: false, degrade: true, midStat: 'ACC',
+        title: 'Read fast. Call faster.',
+        sub: 'Arcade watch-floor. The sweep lights a contact and flashes the AI confidence chip for a heartbeat — read the silhouette and commit before it breaches. Pre-commit blind from the silhouette alone for triple points.',
+        verbs: [['CLEAR', 'FRIENDLY · J', '#4c9aff'], ['MARK', 'UNKNOWN · K', '#d4a036'], ['TAG', 'HOSTILE · L', '#e64d3c']],
+        tune: { sweepP: [2.6, 1.3], spawn: [1.9, 0.7], maxd: [2, 5], maxc: [2, 3], card: [1.2, 0.78], drift: [11, 5.5] },
+        gen: genSweep, diff: () => clamp(G.elapsed / 80, 0, 1),
+      },
+      watchfloor: {
+        id: 'watchfloor', label: 'Watchfloor: Last Light', bestKey: 'rba-watchfloor-best', lives0: 5, reveal: 'chip', waves: true, zones: true, degrade: false, midStat: 'WAVE',
+        title: 'Hold the floor.',
+        sub: 'Survival. Waves of incursions converge on your zones — TAG hostiles, CLEAR friendlies and neutrals, HOLD-SCAN the spoofs to reveal their dissent before you call. A clean wave restores integrity. How long can you hold?',
+        verbs: [['CLEAR', 'FRIENDLY · J', '#4c9aff'], ['SCAN', 'REVEAL · K', '#7dd3c0'], ['TAG', 'HOSTILE · L', '#e64d3c']],
+        tune: { sweepP: [2.9, 3.6], spawn: [2.1, 0.85], maxd: [2, 6], maxc: [2, 4], card: [1.6, 1.0], drift: [14, 7] },
+        gen: genWatch, diff: () => clamp((G.wave - 1) / 7, 0, 1),
+      },
+    };
+    let M = RULES.fusion;
+
+    const loadBest = () => { try { return parseInt(localStorage.getItem(M.bestKey) || '0', 10) || 0; } catch (e) { return 0; } };
+    const saveBest = (v) => { try { localStorage.setItem(M.bestKey, String(v)); } catch (e) {} };
+
+    const tv = (arr) => lerp(arr[0], arr[1], M.diff());
+    const sweepPeriod = () => tv(M.tune.sweepP);
+    const spawnGap = () => tv(M.tune.spawn);
+    const maxLive = () => Math.round(COARSE ? tv(M.tune.maxc) : tv(M.tune.maxd));
+    const cardMs = () => tv(M.tune.card);
+    const driftDur = () => tv(M.tune.drift);
+    const posOf = (c) => [cx + Math.cos(c.ang) * R * c.rad, cy + Math.sin(c.ang) * R * c.rad];
+
+    // ---- HUD / receipt DOM ----
+    const pipEls = [];
+    for (let i = 0; i < 4; i++) { const d = document.createElement('div'); d.className = 'ag-pip'; const ic = document.createElement('i'); const sp = document.createElement('span'); sp.textContent = CHAN[i]; d.appendChild(ic); d.appendChild(sp); rc.pips.appendChild(d); pipEls.push(d); }
+    const announce = (m) => { if (live) live.textContent = m; };
+    const showBanner = (m) => { if (!banner) return; banner.textContent = m; G.bannerUntil = G.elapsed + 2.4; };
+    const updateHud = () => {
+      elScore.textContent = G.score.toLocaleString();
+      const cm = comboMult(G.combo); elCombo.textContent = '×' + cm;
+      elCombo.style.color = cm >= 8 ? TEAL2 : cm >= 5 ? TEAL : cm >= 3 ? '#e9eef7' : '#8593a8';
+      if (M.midStat === 'WAVE') { if (elAccLabel) elAccLabel.textContent = 'WAVE'; elAcc.textContent = String(G.wave); }
+      else { if (elAccLabel) elAccLabel.textContent = 'ACC'; const tot = G.correct + G.wrong + G.breaches; elAcc.textContent = (tot ? Math.round(G.correct / tot * 100) : 100) + '%'; }
+      elBest.textContent = Math.max(G.best, G.score).toLocaleString();
+      if (elLivesLabel) elLivesLabel.textContent = (M.id === 'fusion') ? 'LIVES' : 'INTEGRITY';
+      const sz = M.lives0 > 3 ? 6 : 8;
+      let lv = ''; for (let i = 0; i < M.lives0; i++) lv += '<span style="width:' + sz + 'px;height:' + sz + 'px;border-radius:50%;background:' + (i < G.lives ? '#7dd3c0' : 'rgba(255,255,255,0.14)') + ';box-shadow:' + (i < G.lives ? '0 0 7px rgba(125,211,192,0.7)' : 'none') + ';"></span>';
+      elLives.innerHTML = lv;
+    };
+    const showReceipt = (c, audit) => {
+      if (M.reveal !== 'receipt') { rc.box.style.opacity = '0'; return; }
+      if (!c) { rc.box.style.opacity = '0'; return; }
+      rc.box.style.opacity = '1';
+      rc.box.style.borderColor = audit ? '#e64d3c' : 'rgba(255,255,255,0.12)';
+      rc.id.textContent = (audit ? 'AUDIT · ' : 'TRACK ') + c.id;
+      rc.domain.textContent = c.dom;
+      const shown = audit ? c.truth : c.assessed;
+      rc.assessed.textContent = (audit ? 'WAS ' : '') + AFF[shown].label;
+      rc.assessed.style.color = AFF[shown].color;
+      rc.conf.textContent = 'CONF ' + c.conf.toFixed(2);
+      rc.confbar.style.width = Math.round(c.conf * 100) + '%';
+      rc.confbar.style.background = AFF[c.assessed].color;
+      for (let i = 0; i < 4; i++) { const off = (G.degradeCh === i && G.degradeUntil > G.elapsed); pipEls[i].className = 'ag-pip ' + (off ? 'off' : c.pips[i] ? 'cor' : 'con'); }
+      rc.dissent.textContent = audit ? c.auditMsg : c.dissent;
+      rc.dissent.style.color = audit ? '#e88a80' : (c.trap ? '#d4a036' : '#8fa39d');
+    };
+
+    const addRing = (x, y, c, good) => G.rings.push({ x, y, c, life: 1, good });
+    const addPop = (x, y, t, sub, c) => G.pops.push({ x, y, t, sub, c, life: 1 });
+    const addParts = (x, y, c) => { if (reduce) return; let n = 0; for (const p of G.parts) { if (p.on) continue; const a = Math.random() * 6.28, sp = 40 + Math.random() * 120; p.on = true; p.x = x; p.y = y; p.vx = Math.cos(a) * sp; p.vy = Math.sin(a) * sp; p.life = 1; p.c = c; if (++n >= 14) break; } };
+
+    const setActive = () => {
+      let best = null, bestRad = 9;
+      for (const c of G.contacts) { const readable = (M.reveal !== 'receipt') || COARSE || reduce || G.elapsed < c.litUntil; if (readable && c.rad < bestRad) { best = c; bestRad = c.rad; } }
+      const id = best ? best.cid : null;
+      if (id !== G.activeId) {
+        G.activeId = id;
+        if (G.auditUntil <= G.elapsed) {
+          if (M.reveal === 'receipt') showReceipt(best, false);
+          if (best && G.elapsed < best.litUntil) announce('Contact ' + best.id + ', ' + best.dom + '. ' + AFF[best.assessed].label + ', confidence ' + best.conf.toFixed(2) + '.');
+        }
+      }
+    };
+    const removeContact = (c) => { const i = G.contacts.indexOf(c); if (i >= 0) G.contacts.splice(i, 1); if (G.activeId === c.cid) { G.activeId = null; if (G.auditUntil <= G.elapsed && rc.box) rc.box.style.opacity = '0'; } };
+    const openAudit = (c, msg) => { c.auditMsg = msg; G.auditUntil = G.elapsed + 1.3; if (M.reveal === 'receipt') showReceipt(c, true); };
+
+    const flashRail = (verb, ok) => { const b = $('ag-' + verb); if (!b) return; const cls = ok ? 'ag-flash-ok' : 'ag-flash-bad'; b.classList.add(cls); G.railClear = { b, cls, at: G.elapsed + 0.22 }; };
+
+    // ---- per-mode resolution ----
+    const lockBonus = (c) => !reduce && angDelta(G.sweep, c.ang) < 0.5;
+    const win = (c, verb, pts, tag) => {
+      const p = posOf(c);
+      G.combo++; if (G.combo > G.bestCombo) G.bestCombo = G.combo; G.correct++; G.score += pts;
+      addRing(p[0], p[1], AFF[c.truth].color, true); addPop(p[0], p[1], '+' + pts + (comboMult(G.combo) > 1 ? ' ×' + comboMult(G.combo) : ''), tag, AFF[c.truth].color); addParts(p[0], p[1], AFF[c.truth].color);
+      flashRail(verb, true); announce('Correct. ' + AFF[c.truth].label + '. Plus ' + pts + '.'); removeContact(c); updateHud();
+    };
+    const fail = (c, verb, label, msg) => {
+      const p = posOf(c);
+      G.combo = 0; G.wrong++; G.lives--; G.wavePerfect = false; if (!reduce) G.shake = 1;
+      addRing(p[0], p[1], '#e64d3c', false); addPop(p[0], p[1], label, '', '#e64d3c');
+      flashRail(verb, false); openAudit(c, msg); announce(msg + ' Integrity lost.'); removeContact(c); updateHud();
+      if (G.lives <= 0) gameOver();
+    };
+    const resolveFusion = (c, verb) => {
+      const guess = VERB2AFF[verb];
+      if (guess === c.truth) {
+        let mult = 1, tag = '';
+        if (lockBonus(c)) { mult *= 1.5; tag = 'LOCKED'; }
+        if (c.trap) { mult *= 2; tag = 'READ THE TRACE'; G.dissents++; showBanner('READ THE TRACE · dissent caught'); }
+        win(c, verb, Math.round(100 * mult) * comboMult(G.combo + 1), tag);
+      } else fail(c, verb, 'MISREAD', 'You misread this — it was ' + AFF[c.truth].label + '.');
+    };
+    const resolveSweep = (c, verb) => {
+      const guess = VERB2AFF[verb], lit = G.elapsed < c.litUntil, p = posOf(c);
+      if (verb === 'hold' && c.truth !== 'unknown') { G.score += 20; addPop(p[0], p[1], '+20 HEDGE', '', '#8593a8'); flashRail(verb, true); removeContact(c); updateHud(); return; }
+      if (guess === c.truth) {
+        let mult = 1, tag = '';
+        if (!lit && (c.truth === 'friendly' || c.truth === 'hostile')) { mult *= 3; tag = 'BLIND READ'; }
+        else if (lockBonus(c)) { mult *= 2; tag = 'LOCKED'; }
+        let pts = Math.round(100 * mult) * comboMult(G.combo + 1);
+        if (c.rad > 0.73) { pts += 50; if (!tag) tag = 'EARLY'; }
+        win(c, verb, pts, tag);
+      } else fail(c, verb, 'MISCALL', 'It was ' + AFF[c.truth].label + '.');
+    };
+    const resolveWatch = (c, verb) => {
+      const p = posOf(c);
+      if (verb === 'hold') { if (!c.scanned) { c.scanned = true; c.assessed = c.truth; c.litUntil = G.elapsed + cardMs() + 0.5; addPop(p[0], p[1], 'SCANNED', '', '#7dd3c0'); announce('Scan complete — sources read ' + AFF[c.truth].label + '.'); } return; }
+      const wantHostile = verb === 'tag';
+      const correct = wantHostile ? c.truth === 'hostile' : (c.truth === 'friendly' || c.truth === 'neutral');
+      if (correct) {
+        let mult = 1, tag = '';
+        if (c.scanned) { mult *= 1.6; tag = 'EARNED TRUST'; } else if (lockBonus(c)) { mult *= 1.5; tag = 'LOCKED'; }
+        win(c, verb, Math.round(100 * mult) * comboMult(G.combo + 1), tag);
+      } else {
+        const frat = wantHostile === false ? false : (c.truth === 'friendly' || c.truth === 'neutral');
+        fail(c, verb, frat ? 'FRATRICIDE' : 'MISCALL', 'It was ' + AFF[c.truth].label + '.');
+      }
+    };
+    const RESOLVE = { fusion: resolveFusion, sweep: resolveSweep, watchfloor: resolveWatch };
+
+    const breach = (c) => {
+      const p = posOf(c);
+      if (c.truth === 'hostile' || c.truth === 'unknown') {
+        G.combo = 0; G.lives--; G.breaches++; G.wavePerfect = false; if (!reduce) G.shake = 1.2;
+        addRing(p[0], p[1], '#e64d3c', false); addPop(p[0], p[1], 'BREACH', '', '#e64d3c');
+        openAudit(c, 'You let this through — ' + AFF[c.truth].label + ' breached the ring.');
+        announce(AFF[c.truth].label + ' breached the inner ring. Integrity lost.'); removeContact(c); updateHud();
+        if (G.lives <= 0) gameOver();
+      } else removeContact(c);
+    };
+    const classify = (verb) => {
+      if (G.mode !== 'playing') return;
+      let c = null; for (const k of G.contacts) if (k.cid === G.activeId) c = k;
+      if (!c) { announce('No contact in focus — wait for the sweep.'); return; }
+      RESOLVE[M.id](c, verb);
+    };
+
+    // ---- state ----
+    const resetState = () => {
+      G.contacts.length = 0; G.pops.length = 0; G.rings.length = 0; for (const p of G.parts) p.on = false;
+      G.score = 0; G.combo = 0; G.bestCombo = 0; G.lives = M.lives0; G.correct = 0; G.wrong = 0; G.breaches = 0; G.dissents = 0;
+      G.elapsed = 0; G.spawnAt = 0.5; G.sweep = -Math.PI / 2; G.activeId = null; G.auditUntil = 0;
+      G.degradeUntil = 0; G.degradeCh = -1; G.nextDegrade = 15; G.wave = 1; G.nextWave = 15; G.wavePerfect = true; G.shake = 0; G.bannerUntil = 0;
+    };
+    const start = () => {
+      if (G.mode === 'playing') return;
+      resetState(); G.mode = 'playing';
+      screen.style.display = 'none'; rc.box.style.opacity = '0';
+      updateHud(); announce(M.label + ' started.');
+      try { stage.focus({ preventScroll: true }); } catch (e) {}
+    };
+    const gameOver = () => {
+      G.mode = 'over';
+      G.best = Math.max(G.best, G.score); saveBest(G.best);
+      const tot = G.correct + G.wrong + G.breaches, acc = tot ? Math.round(G.correct / tot * 100) : 0;
+      const isBest = G.score >= G.best && G.score > 0;
+      $('ag-screen-eyebrow').textContent = isBest ? 'NEW BEST · AFTER-ACTION' : 'AFTER-ACTION REPORT';
+      $('ag-screen-eyebrow').style.color = isBest ? '#7dd3c0' : '#8593a8';
+      $('ag-screen-title').textContent = G.score.toLocaleString() + ' pts';
+      let line = acc + '% accuracy · longest streak ' + G.bestCombo;
+      if (M.id === 'fusion') line += ' · ' + G.dissents + ' dissent' + (G.dissents === 1 ? '' : 's') + ' caught';
+      else if (M.id === 'watchfloor') line += ' · ' + G.wave + ' wave' + (G.wave === 1 ? '' : 's') + ' held';
+      if (!isBest) line += ' · best ' + G.best.toLocaleString();
+      $('ag-screen-sub').textContent = line;
+      startBtn.textContent = 'Run it back';
+      screen.style.display = 'flex'; rc.box.style.opacity = '0';
+      announce('Watch over. ' + G.score + ' points, ' + acc + ' percent accuracy. Press Enter to run it back.');
+    };
+
+    // ---- update ----
+    const updatePlay = (dt) => {
+      G.elapsed += dt;
+      if (!reduce) G.sweep += (Math.PI * 2) / sweepPeriod() * dt;
+      if (M.waves && G.elapsed >= G.nextWave) {
+        G.wave++; G.nextWave = G.elapsed + 15;
+        let msg = 'WAVE ' + G.wave + ' · INCURSION';
+        if (G.wavePerfect && G.lives < M.lives0) { G.lives = Math.min(M.lives0, G.lives + 1); msg = 'WAVE ' + G.wave + ' · CLEAN — +1 INTEGRITY'; }
+        G.wavePerfect = true; showBanner(msg); updateHud();
+      }
+      if (M.degrade && G.elapsed >= G.nextDegrade) { G.degradeCh = (Math.random() * 4) | 0; G.degradeUntil = G.elapsed + 5; G.nextDegrade = G.elapsed + 17 + Math.random() * 9; showBanner('LINK DEGRADED · ' + CHAN[G.degradeCh] + ' OFFLINE · the work continues'); }
+      if (G.elapsed >= G.spawnAt && G.contacts.length < maxLive()) { G.contacts.push(M.gen()); G.spawnAt = G.elapsed + spawnGap(); }
+      if (reduce) { let t = null, tr = 9; for (const c of G.contacts) if (c.rad < tr) { t = c; tr = c.rad; } if (t) G.sweep = t.ang; }
+      for (let i = G.contacts.length - 1; i >= 0; i--) {
+        const c = G.contacts[i];
+        if (!reduce && angDelta(G.sweep, c.ang) < 0.08) c.litUntil = G.elapsed + cardMs();
+        c.rad -= c.drift * dt;
+        if (c.rad <= INNER) breach(c);
+      }
+      setActive();
+      if (G.railClear && G.elapsed >= G.railClear.at) { G.railClear.b.classList.remove(G.railClear.cls); G.railClear = null; }
+      if (G.auditUntil && G.elapsed > G.auditUntil) { G.auditUntil = 0; G.activeId = null; setActive(); }
+    };
+    const updateAttract = (dt) => {
+      G.elapsed += dt;
+      if (!reduce) G.sweep += (Math.PI * 2) / 5.2 * dt;
+      if (G.elapsed >= G.spawnAt && G.contacts.length < 3) { const c = M.gen(); c.drift = (1 - INNER) / 16; G.contacts.push(c); G.spawnAt = G.elapsed + 1.6; }
+      for (let i = G.contacts.length - 1; i >= 0; i--) { const c = G.contacts[i]; c.rad -= c.drift * dt; if (c.rad <= INNER) G.contacts.splice(i, 1); }
+    };
+    const updateFx = (dt) => {
+      for (let i = G.rings.length - 1; i >= 0; i--) { G.rings[i].life -= dt * 2.4; if (G.rings[i].life <= 0) G.rings.splice(i, 1); }
+      for (let i = G.pops.length - 1; i >= 0; i--) { G.pops[i].life -= dt * 1.6; G.pops[i].y -= dt * 26; if (G.pops[i].life <= 0) G.pops.splice(i, 1); }
+      for (const p of G.parts) { if (!p.on) continue; p.life -= dt * 1.8; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.94; p.vy *= 0.94; if (p.life <= 0) p.on = false; }
+      if (G.shake > 0) { G.shake -= dt * 6; if (G.shake < 0) G.shake = 0; }
+      if (banner) banner.style.opacity = G.bannerUntil > G.elapsed ? String(clamp((G.bannerUntil - G.elapsed) / 0.4, 0, 1)) : '0';
+    };
+
+    // ---- render ----
+    const glyph = (x, y, s, dom) => {
+      ctx.beginPath();
+      if (dom === 'air') { ctx.moveTo(x - s, y + s * 0.6); ctx.lineTo(x, y - s * 0.8); ctx.lineTo(x + s, y + s * 0.6); }
+      else if (dom === 'sea') { ctx.moveTo(x - s, y - s * 0.4); ctx.lineTo(x + s, y - s * 0.4); ctx.lineTo(x + s * 0.6, y + s * 0.7); ctx.lineTo(x - s * 0.6, y + s * 0.7); ctx.closePath(); }
+      else if (dom === 'land') { ctx.moveTo(x - s * 0.5, y - s); ctx.lineTo(x - s, y - s); ctx.lineTo(x - s, y + s); ctx.lineTo(x - s * 0.5, y + s); ctx.moveTo(x + s * 0.5, y - s); ctx.lineTo(x + s, y - s); ctx.lineTo(x + s, y + s); ctx.lineTo(x + s * 0.5, y + s); }
+      else { ctx.moveTo(x, y - s); ctx.lineTo(x + s, y); ctx.lineTo(x, y + s); ctx.lineTo(x - s, y); ctx.closePath(); }
+      ctx.stroke();
+    };
+    const drawScope = () => {
+      ctx.lineWidth = 1;
+      const fracs = [INNER, 0.62, 0.82, 1.0];
+      if (M.zones) {
+        const zc = { 0.42: 'rgba(230,77,60,0.34)', 0.62: 'rgba(212,160,54,0.20)', 0.82: 'rgba(125,211,192,0.16)', 1.0: 'rgba(125,211,192,0.08)' };
+        for (const f of fracs) { ctx.beginPath(); ctx.arc(cx, cy, R * f, 0, 6.283); ctx.strokeStyle = zc[f] || 'rgba(125,211,192,0.08)'; ctx.lineWidth = f === INNER ? 1.6 : 1; if (f === 0.62 || f === 0.82) { ctx.setLineDash([4, 6]); } else ctx.setLineDash([]); ctx.stroke(); }
+        ctx.setLineDash([]);
+      } else {
+        for (const f of fracs) { ctx.beginPath(); ctx.arc(cx, cy, R * f, 0, 6.283); ctx.strokeStyle = f === INNER ? 'rgba(125,211,192,0.34)' : 'rgba(125,211,192,0.08)'; ctx.lineWidth = f === INNER ? 1.4 : 1; ctx.stroke(); }
+      }
+      ctx.strokeStyle = 'rgba(125,211,192,0.10)'; ctx.lineWidth = 1;
+      for (let i = 0; i < 12; i++) { const a = i / 12 * 6.283; ctx.beginPath(); ctx.moveTo(cx + Math.cos(a) * R * 0.94, cy + Math.sin(a) * R * 0.94); ctx.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); ctx.stroke(); }
+      let near = 9; for (const c of G.contacts) if (c.truth === 'hostile' || c.truth === 'unknown') near = Math.min(near, c.rad);
+      if (G.mode === 'playing' && near < 0.66) { const inten = clamp((0.66 - near) / 0.24, 0, 1) * 0.5; const g = ctx.createRadialGradient(cx, cy, R * 0.3, cx, cy, R * 1.1); g.addColorStop(0, 'rgba(230,77,60,0)'); g.addColorStop(1, 'rgba(230,77,60,' + inten.toFixed(3) + ')'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+    };
+    const drawSweep = () => {
+      const a = G.sweep;
+      if (!reduce) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, a - 0.52, a); ctx.closePath(); ctx.fillStyle = 'rgba(76,168,143,0.14)'; ctx.fill(); ctx.restore(); }
+      ctx.strokeStyle = reduce ? 'rgba(125,211,192,0.5)' : TEAL; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, 3, 0, 6.283); ctx.fillStyle = TEAL2; ctx.fill();
+    };
+    const drawContacts = () => {
+      for (const c of G.contacts) {
+        const p = posOf(c);
+        const lit = (M.reveal !== 'receipt') ? (G.elapsed < c.litUntil || COARSE || reduce) : (COARSE || reduce || G.elapsed < c.litUntil);
+        const active = c.cid === G.activeId && G.mode === 'playing';
+        const showAff = c.assessed || c.truth;
+        ctx.globalAlpha = lit ? 1 : 0.34;
+        ctx.strokeStyle = lit ? AFF[showAff].color : 'rgba(125,211,192,0.55)';
+        ctx.lineWidth = 1.6; glyph(p[0], p[1], 7, c.dom);
+        if (M.reveal === 'chip' && active && lit && G.mode === 'playing') {
+          const t = AFF[showAff].label + ' ' + c.conf.toFixed(2);
+          ctx.font = "600 9px 'JetBrains Mono', monospace"; ctx.textAlign = 'center';
+          const w = ctx.measureText(t).width + 12;
+          ctx.globalAlpha = 0.92; ctx.fillStyle = 'rgba(8,14,22,0.85)'; ctx.fillRect(p[0] - w / 2, p[1] - 26, w, 14);
+          ctx.fillStyle = AFF[showAff].color; ctx.fillText(t, p[0], p[1] - 15); ctx.textAlign = 'start';
+        }
+        if (active) { ctx.globalAlpha = 1; ctx.strokeStyle = TEAL2; ctx.lineWidth = 1.4; const s = 14 + (reduce ? 0 : Math.sin(G.elapsed * 6) * 1.5); ctx.strokeRect(p[0] - s, p[1] - s, s * 2, s * 2); }
+        ctx.globalAlpha = 1;
+      }
+    };
+    const drawFx = () => {
+      for (const r of G.rings) { const rad = reduce ? 16 : (1 - r.life) * 34 + 8; ctx.globalAlpha = clamp(r.life, 0, 1); ctx.strokeStyle = r.c; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(r.x, r.y, rad, 0, 6.283); ctx.stroke(); ctx.globalAlpha = 1; }
+      for (const p of G.parts) { if (!p.on) continue; ctx.globalAlpha = clamp(p.life, 0, 1); ctx.fillStyle = p.c; ctx.fillRect(p.x - 1.3, p.y - 1.3, 2.6, 2.6); ctx.globalAlpha = 1; }
+      for (const q of G.pops) { ctx.globalAlpha = clamp(q.life, 0, 1); ctx.fillStyle = q.c; ctx.textAlign = 'center'; ctx.font = "600 14px 'JetBrains Mono', monospace"; ctx.fillText(q.t, q.x, q.y); if (q.sub) { ctx.font = "600 9px 'JetBrains Mono', monospace"; ctx.fillStyle = TEAL2; ctx.fillText(q.sub, q.x, q.y + 13); } ctx.globalAlpha = 1; ctx.textAlign = 'start'; }
+    };
+    const render = () => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      ctx.save();
+      if (G.shake > 0 && !reduce) { const a = Math.min(8, G.shake * 8); ctx.translate((Math.random() - 0.5) * a, (Math.random() - 0.5) * a); }
+      drawScope(); drawSweep(); drawContacts(); drawFx();
+      ctx.restore();
+    };
+
+    let last = 0;
+    const loop = (now) => {
+      this._agRaf = requestAnimationFrame(loop);
+      const r = stage.getBoundingClientRect();
+      if (r.bottom < -40 || r.top > (window.innerHeight || 800) + 40) { last = now; return; }
+      let dt = last ? (now - last) / 1000 : 0; last = now; if (dt > 0.05) dt = 0.05;
+      if (G.paused) { render(); return; }
+      if (G.mode === 'playing') updatePlay(dt); else updateAttract(dt);
+      updateFx(dt); render();
+    };
+
+    // ---- mode switching ----
+    const SCOREINFO = {
+      fusion: '<b style="color:#7dd3c0;">LOCKED ×1.5</b> classify while the sweep is on the contact · <b style="color:#d4a036;">DISSENT ×2</b> catch a trap by reading the sources over the headline number · combo <b style="color:#4c9aff;">×1→×12</b>, +1 per correct call · a wrong call or a hostile/unknown breach resets the combo and costs a life.',
+      sweep: '<b style="color:#7dd3c0;">LOCKED ×2</b> call it in the lit window · <b style="color:#d4a036;">BLIND READ ×3</b> commit from the silhouette before it lights · <b>+50 EARLY</b> resolve in the outer ring · MARK genuinely ambiguous contacts UNKNOWN (hedging a clear contact = +20, no combo) · combo <b style="color:#4c9aff;">×1→×12</b> · a miscall or breach resets it and costs integrity.',
+      watchfloor: '<b style="color:#7dd3c0;">LOCKED ×1.5</b> call it in the lit window · <b style="color:#7dd3c0;">EARNED TRUST ×1.6</b> HOLD-SCAN a spoof to reveal its dissent, then call it right · combo <b style="color:#4c9aff;">×1→×12</b> · TAG a friendly/neutral = fratricide · a clean wave (no miscall, no breach) restores +1 integrity · survive the waves.',
+    };
+    const relabel = () => {
+      M.verbs.forEach((vb, i) => {
+        const b = $('ag-' + ['clear', 'hold', 'tag'][i]);
+        if (b) { b.innerHTML = vb[0] + '<small>' + vb[1] + '</small>'; b.style.borderTopColor = vb[2]; b.setAttribute('aria-label', vb[0] + ' (' + vb[1] + ')'); }
+      });
+    };
+    const setInfo = () => { const body = $('ag-info-body'); if (body) body.innerHTML = SCOREINFO[M.id]; const t = $('ag-info-title'); if (t) t.textContent = M.label; };
+    const setMode = (id) => {
+      if (!RULES[id]) return;
+      this._agMode = id; M = RULES[id]; G.best = loadBest();
+      resetState(); G.mode = 'attract';
+      if (rc.box) { rc.box.style.opacity = '0'; rc.box.style.display = (id === 'fusion') ? '' : 'none'; }
+      relabel();
+      $('ag-screen-eyebrow').textContent = M.label.toUpperCase(); $('ag-screen-eyebrow').style.color = '#7dd3c0';
+      $('ag-screen-title').textContent = M.title; $('ag-screen-sub').textContent = M.sub; startBtn.textContent = 'Take the watch';
+      screen.style.display = 'flex';
+      setInfo(); updateHud();
+      if (modeSel && modeSel.value !== id) modeSel.value = id;
+    };
+
+    // ---- input ----
+    const infoBtn = $('ag-info-btn'), infoBox = $('ag-info'), infoClose = $('ag-info-close');
+    const openInfo = () => { if (!infoBox) return; infoBox.style.display = 'flex'; G.paused = true; if (infoBtn) infoBtn.setAttribute('aria-expanded', 'true'); try { if (infoClose) infoClose.focus(); } catch (e) {} };
+    const closeInfo = () => { if (!infoBox) return; infoBox.style.display = 'none'; G.paused = false; if (infoBtn) { infoBtn.setAttribute('aria-expanded', 'false'); try { infoBtn.focus(); } catch (e) {} } };
+
+    this.on(stage, 'keydown', (e) => {
+      if (infoBox && infoBox.style.display !== 'none') { if (e.key === 'Escape') { e.preventDefault(); closeInfo(); } return; }
+      const v = KEY2VERB[(e.key || '').toLowerCase()];
+      if (v) { e.preventDefault(); classify(v); return; }
+      if (e.key === 'Enter' || e.key === ' ') { if (G.mode !== 'playing') { e.preventDefault(); start(); } }
+      else if (e.key === 'Escape') { if (G.mode === 'playing') gameOver(); }
+    });
+    this.on(stage, 'click', (e) => { if (e.target && e.target.closest && e.target.closest('#ag-rail')) return; if (G.mode !== 'playing') start(); });
+    ['clear', 'hold', 'tag'].forEach((v) => { const b = $('ag-' + v); if (b) this.on(b, 'click', (e) => { e.preventDefault(); if (G.mode === 'playing') classify(v); else start(); }); });
+    if (startBtn) this.on(startBtn, 'click', (e) => { e.preventDefault(); start(); });
+    if (modeSel) this.on(modeSel, 'change', (e) => { setMode(modeSel.value); try { stage.focus({ preventScroll: true }); } catch (er) {} });
+
+    if (infoBtn) this.on(infoBtn, 'click', (e) => { e.preventDefault(); openInfo(); });
+    if (infoClose) this.on(infoClose, 'click', (e) => { e.preventDefault(); closeInfo(); });
+    if (infoBox) { this.on(infoBox, 'click', (e) => { if (e.target === infoBox) closeInfo(); }); this.on(infoBox, 'keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); closeInfo(); } }); }
+
+    relabel(); setInfo(); updateHud();
+    this._agRaf = requestAnimationFrame(loop);
+  }
+
+
   componentWillUnmount() {
     Object.values(this._raf).forEach(cancelAnimationFrame);
-    [this._isoRaf, this._laRaf].forEach(r => r && cancelAnimationFrame(r));
+    [this._isoRaf, this._laRaf, this._laDragRaf, this._agRaf].forEach(r => r && cancelAnimationFrame(r));
     this._obs.forEach(o => o.disconnect());
     (this._listeners || []).forEach(([el, ev, fn, opts]) => { try { el.removeEventListener(ev, fn, opts); } catch (e) {} });
     if (this._hvReady) window.removeEventListener('home-variants-ready', this._hvReady);
@@ -561,45 +1188,21 @@ class Component extends DCLogic {
     const heat = document.getElementById('la-heat');
     if (!heat) return;
     const COLS = 24, ROWS = 16;
+    this._laCOLS = COLS; this._laROWS = ROWS;
     heat.style.gridTemplateColumns = 'repeat(' + COLS + ',1fr)';
     heat.style.gridTemplateRows = 'repeat(' + ROWS + ',1fr)';
-    const fx = [];
     const cx4 = [0.16, 0.39, 0.61, 0.84], cy4 = [0.17, 0.39, 0.61, 0.83];
-    cx4.forEach(x => cy4.forEach(y => fx.push({ x, y })));
-    const E = [];
-    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
-      const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
-      let e = 0;
-      fx.forEach(f => { const dx = px - f.x, dy = (py - f.y) * 0.92; e += 1 / (0.014 + (dx * dx + dy * dy) * 8.5); });
-      const edge = Math.min(px, 1 - px, py, 1 - py);
-      e *= (0.32 + 1.15 * Math.min(1, edge * 3.1));
-      E.push(e);
-    }
-    const max = Math.max.apply(null, E), min = Math.min.apply(null, E);
+    this._laDefault = [];
+    cx4.forEach(x => cy4.forEach(y => this._laDefault.push({ x, y })));
+    this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y }));
+    this._laDrag = -1; this._laK = null;
     let html = '';
-    this._laV = [];
     for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
-      const v = (E[r * COLS + c] - min) / (max - min || 1);
-      const fc = (1.1 + v * 5.7).toFixed(1);
       const delay = (((c + r) / (COLS + ROWS)) * 850).toFixed(0);
-      this._laV.push(v);
-      html += '<div style="display:flex;align-items:center;justify-content:center;font-family:\'JetBrains Mono\',monospace;font-size:9px;color:rgba(255,255,255,0.92);text-shadow:0 1px 2px rgba(0,0,0,0.55);transition-delay:' + delay + 'ms;">' + fc + '</div>';
+      html += '<div style="display:flex;align-items:center;justify-content:center;font-family:\'JetBrains Mono\',monospace;font-size:9px;color:rgba(255,255,255,0.92);text-shadow:0 1px 2px rgba(0,0,0,0.55);transition-delay:' + delay + 'ms;"></div>';
     }
     heat.innerHTML = html;
-    this.tintHeat();
-    const fl = document.getElementById('la-fixtures');
-    if (fl) {
-      let f = '';
-      fx.forEach((p, i) => {
-        const hot = (i % 4 === 1 || i % 4 === 2) && (Math.floor(i / 4) === 1 || Math.floor(i / 4) === 2);
-        const rot = ((i * 47) % 60) - 30;
-        f += '<div style="position:absolute;left:' + (p.x * 100).toFixed(1) + '%;top:' + (p.y * 100).toFixed(1) + '%;transform:translate(-50%,-50%) rotate(' + rot + 'deg);width:20px;height:7px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);"></div>';
-        if (hot) {
-          f += '<div style="position:absolute;left:' + (p.x * 100).toFixed(1) + '%;top:' + (p.y * 100).toFixed(1) + '%;transform:translate(-50%,-50%);width:30px;height:30px;pointer-events:none;"><span style="position:absolute;left:50%;top:0;width:2px;height:100%;margin-left:-1px;background:#9be84a;box-shadow:0 0 6px rgba(155,232,74,0.6);"></span><span style="position:absolute;top:50%;left:0;height:2px;width:100%;margin-top:-1px;background:#9be84a;box-shadow:0 0 6px rgba(155,232,74,0.6);"></span></div>';
-        }
-      });
-      fl.innerHTML = f;
-    }
+    this.laRecompute();
     if (window.IntersectionObserver) {
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const obs = new IntersectionObserver((ents) => {
@@ -616,6 +1219,96 @@ class Component extends DCLogic {
       this._obs.push(obs);
     } else {
       heat.classList.add('la-on');
+    }
+  }
+
+  laRecompute() {
+    const heat = document.getElementById('la-heat');
+    if (!heat || !this._laFx) return;
+    const COLS = this._laCOLS || 24, ROWS = this._laROWS || 16, fx = this._laFx;
+    const E = [], inside = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
+      let e = 0;
+      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.05 + (dx * dx + dy * dy) * 6.2); }
+      const edge = Math.min(px, 1 - px, py, 1 - py);
+      E.push(e * (0.4 + 1.0 * Math.min(1, edge * 3.2)));
+      inside.push(edge > 0.14);
+    }
+    let iSum = 0, iN = 0; for (let i = 0; i < E.length; i++) if (inside[i]) { iSum += E[i]; iN++; }
+    if (this._laK == null) this._laK = 3.9 / ((iSum / (iN || 1)) || 1);
+    const k = this._laK, kids = heat.children;
+    this._laV = []; let fcMin = 1e9, fcMax = -1e9, fcSum = 0, fcN = 0;
+    for (let i = 0; i < E.length; i++) {
+      const fc = E[i] * k, v = fc / 8;
+      this._laV.push(v < 0 ? 0 : v > 1 ? 1 : v);
+      if (kids[i]) kids[i].textContent = fc.toFixed(1);
+      if (inside[i]) { if (fc < fcMin) fcMin = fc; if (fc > fcMax) fcMax = fc; fcSum += fc; fcN++; }
+    }
+    this.tintHeat();
+    const fcAvg = fcSum / (fcN || 1), amin = fcMin > 0.01 ? fcAvg / fcMin : 0;
+    const set = (id, val, dec) => { const el = document.getElementById(id); if (el) el.textContent = val.toFixed(dec); };
+    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-amin', amin, 2);
+    const fl = document.getElementById('la-fixtures');
+    if (fl) {
+      let f = '';
+      for (let i = 0; i < fx.length; i++) f += '<div class="la-fx' + (i === this._laDrag ? ' on' : '') + '" data-i="' + i + '" style="left:' + (fx[i].x * 100).toFixed(2) + '%;top:' + (fx[i].y * 100).toFixed(2) + '%;"></div>';
+      fl.innerHTML = f;
+    }
+    const cnt = document.getElementById('la-count'); if (cnt) cnt.textContent = fx.length + ' × GALN Galleon II';
+  }
+
+  initLAInteract() {
+    const plate = document.getElementById('la-plate'), wrap = document.getElementById('la-plate-wrap');
+    if (!plate || !wrap || !this._laFx) return;
+    const COARSE = (window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches)) || (window.innerWidth || 9999) <= 760;
+    const TH = -25 * Math.PI / 180, C = Math.cos(TH), S = Math.sin(TH);
+    const geom = () => { const r = plate.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: wrap.clientWidth || r.width, h: wrap.clientHeight || r.height }; };
+    const toPlate = (px, py) => { const g = geom(); const dx = px - g.cx, dy = py - g.cy; return { x: 0.5 + (dx * C + dy * S) / g.w, y: 0.5 + (-dx * S + dy * C) / g.h }; };
+    const toScreen = (x, y) => { const g = geom(); const lx = (x - 0.5) * g.w, ly = (y - 0.5) * g.h; return { sx: g.cx + (lx * C - ly * S), sy: g.cy + (lx * S + ly * C) }; };
+    const clamp01 = (v) => v < 0.03 ? 0.03 : v > 0.97 ? 0.97 : v;
+    const nearest = (px, py) => { let bi = -1, bd = 1e9; for (let i = 0; i < this._laFx.length; i++) { const s = toScreen(this._laFx[i].x, this._laFx[i].y); const d = Math.hypot(s.sx - px, s.sy - py); if (d < bd) { bd = d; bi = i; } } return { i: bi, d: bd }; };
+    let pend = null;
+    const flush = () => { this._laDragRaf = null; if (pend && this._laDrag >= 0 && this._laFx[this._laDrag]) { const p = toPlate(pend.x, pend.y); this._laFx[this._laDrag] = { x: clamp01(p.x), y: clamp01(p.y) }; this.laRecompute(); } };
+    const schedule = (x, y) => { pend = { x, y }; if (!this._laDragRaf) this._laDragRaf = requestAnimationFrame(flush); };
+    const endDrag = () => { if (this._laDrag >= 0) { this._laDrag = -1; plate.style.cursor = COARSE ? '' : 'crosshair'; this.laRecompute(); } };
+    this.on(window, 'pointermove', (e) => { if (this._laDrag >= 0) schedule(e.clientX, e.clientY); });
+    this.on(window, 'pointerup', endDrag);
+    this.on(window, 'pointercancel', endDrag);
+    const fl = document.getElementById('la-fixtures');
+    if (fl) this.on(fl, 'pointerdown', (e) => {
+      const m = e.target && e.target.closest ? e.target.closest('.la-fx') : null;
+      if (!m) return;
+      const idx = parseInt(m.getAttribute('data-i'), 10);
+      if (isNaN(idx)) return;
+      e.preventDefault(); e.stopPropagation();
+      const now = (window.performance && performance.now) ? performance.now() : 0;
+      if (this._laTapI === idx && now - (this._laTapT || 0) < 320) {
+        this._laTapI = -1; this._laDrag = -1;
+        if (this._laFx.length > 1) { this._laFx.splice(idx, 1); this.laRecompute(); }
+        return;
+      }
+      this._laTapI = idx; this._laTapT = now; this._laDrag = idx; this.laRecompute();
+    });
+    this.on(plate, 'pointerdown', (e) => {
+      if (COARSE) return;
+      const px = e.clientX, py = e.clientY, n = nearest(px, py);
+      if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; }
+      else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; }
+      plate.style.cursor = 'grabbing'; this.laRecompute(); e.preventDefault();
+    });
+    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this.laRecompute(); } e.preventDefault(); });
+    const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this.laRecompute(); };
+    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this.laRecompute(); };
+    const recalc = document.getElementById('la-recalc'); if (recalc) this.on(recalc, 'click', (e) => { e.preventDefault(); reset(); });
+    const addBtn = document.getElementById('la-add'); if (addBtn) this.on(addBtn, 'click', (e) => { e.preventDefault(); addLight(); });
+    if (COARSE) {
+      if (addBtn) addBtn.style.display = 'inline-block';
+      const mh = document.getElementById('la-mhint'); if (mh) mh.style.display = 'block';
+      const hint = document.getElementById('la-hint'); if (hint) hint.style.display = 'flex';
+    } else {
+      const hint = document.getElementById('la-hint'); if (hint) hint.style.display = 'flex';
+      plate.style.cursor = 'crosshair';
     }
   }
 
