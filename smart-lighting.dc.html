@@ -65,6 +65,7 @@ summary::-webkit-details-marker{display:none}
 @keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
 @keyframes cs-fade{from{opacity:0}to{opacity:1}}
 .cs section[id]{scroll-margin-top:84px}
+.cs-toc a{min-height:24px;}
 .cs-toc a .cs-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
 .cs-toc:hover a .cs-toc-label{opacity:1;transform:none}
 .cs-toc a[data-active] .cs-toc-label{opacity:1;color:#0d5350}
@@ -366,7 +367,7 @@ summary::-webkit-details-marker{display:none}
                       </div>
                       <div style="display:flex;align-items:center;gap:11px;flex:none;">
                         <span style="width:15px;height:15px;border-radius:50%;background:{{ a.dotColor }};display:block;box-shadow:{{ a.dotGlow }};"></span>
-                        <button onClick="{{ a.toggleOn }}" style="width:30px;height:30px;border-radius:50%;border:1.5px solid {{ a.powerBorder }};background:{{ a.powerBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ a.powerColor }}" stroke-width="2.2"><path d="M12 4v8M7.5 7a7 7 0 1 0 9 0"/></svg></button>
+                        <button aria-label="Toggle power" onClick="{{ a.toggleOn }}" style="width:30px;height:30px;border-radius:50%;border:1.5px solid {{ a.powerBorder }};background:{{ a.powerBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ a.powerColor }}" stroke-width="2.2"><path d="M12 4v8M7.5 7a7 7 0 1 0 9 0"/></svg></button>
                       </div>
                     </div>
                     <sc-if value="{{ a.expanded }}" hint-placeholder-val="{{ false }}">
@@ -381,7 +382,7 @@ summary::-webkit-details-marker{display:none}
                               </div>
                               <div style="display:flex;align-items:center;gap:10px;flex:none;">
                                 <span style="width:14px;height:14px;border-radius:50%;background:{{ z.dotColor }};display:block;box-shadow:{{ z.dotGlow }};"></span>
-                                <button onClick="{{ z.toggleOn }}" style="width:28px;height:28px;border-radius:50%;border:1.5px solid {{ z.powerBorder }};background:{{ z.powerBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ z.powerColor }}" stroke-width="2.2"><path d="M12 4v8M7.5 7a7 7 0 1 0 9 0"/></svg></button>
+                                <button aria-label="Toggle power" onClick="{{ z.toggleOn }}" style="width:28px;height:28px;border-radius:50%;border:1.5px solid {{ z.powerBorder }};background:{{ z.powerBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ z.powerColor }}" stroke-width="2.2"><path d="M12 4v8M7.5 7a7 7 0 1 0 9 0"/></svg></button>
                               </div>
                             </div>
                           </sc-for>
@@ -714,7 +715,7 @@ summary::-webkit-details-marker{display:none}
 </div>
 
   <div class="sl-version-bar" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#7a756a;padding:0 10px 0 12px;">Version</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6a60;padding:0 10px 0 12px;">Version</span>
     <a href="smart-lighting-showcase.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#534f48;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Showcase</a>
     <a href="smart-lighting.dc.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#ffffff;background:#0d5350;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Standard</a>
   </div>
@@ -872,7 +873,7 @@ class Component extends DCLogic {
       const active = i === S.com, done = i < S.com;
       return { num: done ? '✓' : String(i + 1), title: c.title, sub: c.sub, go: () => this.setState({ com: i }),
         bg: active ? 'rgba(13,83,80,0.16)' : '#121a26', border: active ? 'rgba(76,168,143,0.5)' : 'rgba(255,255,255,0.07)',
-        numBg: active ? '#0d5350' : done ? 'rgba(76,168,143,0.22)' : 'rgba(255,255,255,0.06)', numFg: active ? '#fff' : done ? '#4ca88f' : '#5a6b82',
+        numBg: active ? '#0d5350' : done ? 'rgba(76,168,143,0.22)' : 'rgba(255,255,255,0.06)', numFg: active ? '#fff' : done ? '#4ca88f' : '#8a9ab5',
         titleColor: active ? '#fff' : done ? '#cdd6e4' : '#8a9ab5' };
     });
 

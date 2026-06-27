@@ -117,7 +117,7 @@ function App() {
                 )}
                 {t.theme === "dark" ? "Day" : "Night"}
               </button>
-              <button className="btn btn-ghost btn-sm">
+              <button className="btn btn-ghost btn-sm" aria-label="Settings">
                 <Icon d={ICONS.cog} size={13}/>
               </button>
             </div>

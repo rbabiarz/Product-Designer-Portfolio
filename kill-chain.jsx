@@ -286,12 +286,12 @@ const KillChainScreen = ({ onOpenAlert, onOpenCampaign, filters }) => {
           <BarRow label="Fraud/Acme" value={14} max={100} severity="low" suffix="%" />
 
           <div style={{ marginTop: 12, marginBottom: 6 }} className="dim mono uppr">Top IOCs · last hr</div>
-          <div className="kv">
+          <dl className="kv" style={{ margin: 0 }}>
             <dt>IP</dt><dd>185.244.31.0/24</dd>
             <dt>DOMAIN</dt><dd>cdn-msft-update[.]com</dd>
             <dt>HASH</dt><dd>a1c4..f7e9 (loader.dll)</dd>
             <dt>CERT-SHA1</dt><dd>3c91..0b22 (revoked)</dd>
-          </div>
+          </dl>
         </Panel>
       </div>
     </div>

@@ -153,6 +153,7 @@ function TimeSlider({ value, onChange }) {
           type="range" min="0" max="100" value={value}
           onChange={e => onChange(+e.target.value)}
           className="ts-input"
+          aria-label="Time window scrubber"
         />
         <div className="ts-handle" style={{ left: `${value}%` }}>
           <div className="ts-handle-bar"/>
@@ -189,7 +190,7 @@ function CopRail({ pins, indicators, selected, onSelect }) {
             <button key={ind.id} className={`cop-feed-item ${isSel ? "on" : ""}`} onClick={() => onSelect(ind.id)}>
               <div className="cop-feed-h">
                 <span className={`sev ${ind.severity}`}>SEV {ind.severity.slice(1)}</span>
-                <span className="mono" style={{ color: "var(--data-muted)", fontSize: 10 }}>{ind.id} · {ago} ago</span>
+                <span className="mono" style={{ color: "var(--data-muted-soft)", fontSize: 10 }}>{ind.id} · {ago} ago</span>
               </div>
               <div className="cop-feed-title">{ind.title}</div>
               <div className="cop-feed-sources">
@@ -257,7 +258,7 @@ function ScreenGeo({ data, onOpenTriage, tweaks }) {
           </div>
           <div className="panel-body" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 18 }}>
             <div>
-              <div className="kv-grid">
+              <dl className="kv-grid" style={{ margin: 0 }}>
                 <dt>Region</dt><dd>{ind.region}</dd>
                 <dt>Coords</dt><dd>{ind.coords}</dd>
                 <dt>Reported</dt><dd>{data.fmtZulu(ind.ts)}</dd>
@@ -265,17 +266,17 @@ function ScreenGeo({ data, onOpenTriage, tweaks }) {
                 <dd style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
                   {ind.sources.map(s => <SourceChip key={s.ref} kind={s.kind}/>)}
                 </dd>
-              </div>
+              </dl>
             </div>
             <div>
-              <div className="kv-grid">
+              <dl className="kv-grid" style={{ margin: 0 }}>
                 <dt>AI proposal</dt>
                 <dd style={{ color: "var(--accent-violet)" }}>{ind.ai.proposedEntity}</dd>
                 <dt>Confidence</dt>
                 <dd><Confidence value={ind.ai.confidence}/></dd>
                 <dt>Model</dt>
                 <dd className="muted">{ind.ai.modelVersion}</dd>
-              </div>
+              </dl>
             </div>
             <div className="ai-block" style={{ borderLeftColor: "var(--accent-violet)" }}>
               <div className="ai-label">Reasoning trace · summarised</div>

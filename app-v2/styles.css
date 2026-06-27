@@ -36,7 +36,7 @@
   --accent-red-dim: #991b1b;
   --accent-emerald: #16a34a;
   --accent-emerald-dim: #065f46;
-  --accent-violet: #8b6fd9;
+  --accent-violet: #6941c6;
 
   /* Confidence */
   --conf-high: #16a34a;
@@ -426,12 +426,12 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .chip.outline     { background: transparent; border-color: var(--chrome-hairline-strong); color: var(--chrome-body); }
 .chip.outline-dark { background: transparent; border-color: var(--data-hairline); color: var(--data-body); }
 
-.chip.source-sigint { background: rgba(111,203,176,0.15); color: var(--accent-cyan); }
+.chip.source-sigint { background: rgba(111,203,176,0.15); color: #0f6f51; }
 .chip.source-osint  { background: rgba(139,111,217,0.18); color: var(--accent-violet); }
-.chip.source-geoint { background: rgba(212,160,54,0.15); color: var(--accent-amber); }
-.chip.source-humint { background: rgba(22,163,74,0.15); color: var(--accent-emerald); }
-.chip.source-fininl { background: rgba(230,77,60,0.13); color: var(--accent-red); }
-.chip.source-partner { background: rgba(255,255,255,0.06); color: var(--data-body); border-color: var(--data-hairline); }
+.chip.source-geoint { background: rgba(212,160,54,0.15); color: var(--accent-amber-dim); }
+.chip.source-humint { background: rgba(22,163,74,0.15); color: var(--accent-emerald-dim); }
+.chip.source-fininl { background: rgba(230,77,60,0.13); color: var(--accent-red-dim); }
+.chip.source-partner { background: rgba(255,255,255,0.06); color: var(--data-muted-soft); border-color: var(--data-hairline); }
 
 /* Confidence bars */
 .conf {
@@ -701,9 +701,9 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 }
 .ts-controls .btn:hover { background: var(--data-elevated); }
 .ts-controls .btn.btn-primary {
-  background: var(--accent-cyan-dim);
+  background: #15795c;
   color: white;
-  border-color: var(--accent-cyan-dim);
+  border-color: #15795c;
 }
 
 /* COP rail */
