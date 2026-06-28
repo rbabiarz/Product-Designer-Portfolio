@@ -1,13 +1,16 @@
 {
-  "_comment": "Role-based aliases pointing at primitives. UI references these (or var(--\u2026)).",
+  "_comment": "Role-based aliases for the PRIMARY (interactive) surface, matching the live --bg/--fg/--ac CSS custom properties. UI references the CSS vars; this maps them to primitives. Other surfaces (dossier/retro/ctoc) declare their own roles inline — see design-tokens.json > surfaces.",
   "color": {
-    "bg.default": "{palette.ink.900}",
-    "bg.raised": "{palette.ink.800}",
-    "bg.overlay": "{palette.ink.700}",
-    "fg.default": "{palette.slate.100}",
-    "fg.muted": "{palette.slate.500}",
-    "accent.default": "{palette.teal.500}",
-    "accent.bright": "{palette.teal.400}",
-    "risk.max": "{palette.signal.coral}"
+    "bg.default":   {"role": "--bg",   "ref": "{palette.ink.900}"},
+    "bg.raised":    {"role": "--bg2",  "ref": "{palette.ink.800}"},
+    "bg.overlay":   {"role": "--bg3",  "ref": "{palette.ink.700}"},
+    "fg.default":   {"role": "--fg",   "ref": "{palette.slate.100}"},
+    "fg.muted":     {"role": "--fg2",  "ref": "{palette.slate.400}"},
+    "fg.subtle":    {"role": "--fg3",  "ref": "{palette.slate.300}"},
+    "line.default": {"role": "--line", "ref": "rgba(255,255,255,0.08)"},
+    "line.strong":  {"role": "--line2","ref": "rgba(255,255,255,0.15)"},
+    "accent.default": {"role": "--ac",  "ref": "{palette.teal.500}"},
+    "accent.bright":  {"role": "--ac2", "ref": "{palette.teal.300}"},
+    "risk.max":      {"role": "n/a",    "ref": "{palette.signal.coral}", "_note": "strongest risk signal; never a generic stoplight red"}
   }
 }

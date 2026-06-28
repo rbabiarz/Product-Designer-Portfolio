@@ -1,8 +1,10 @@
 {
-  "_comment": "Light 'architect' theme. Matches .light in the live prototypes.",
+  "_comment": "Interactive surface — LIGHT 'architect' theme. Matches .light in the prototypes. Persisted via localStorage['rba-int-dark'].",
+  "selector": ".light",
   "color": {
-    "bg.default": "{palette.paper.50}",
-    "fg.default": "{palette.slate.900}",
-    "accent.default": "{palette.teal.700}"
+    "bg": "#fffcf5", "bg2": "#f7f2e6", "bg3": "#ebe6d6",
+    "fg": "#0a0a0a", "fg2": "#595959", "fg3": "#5e5e5e",
+    "line": "rgba(0,0,0,0.09)", "line2": "rgba(0,0,0,0.16)",
+    "ac": "#0d5350", "ac2": "#4ca88f", "grid": "rgba(13,83,80,0.05)"
   }
 }

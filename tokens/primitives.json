@@ -1,41 +1,15 @@
 {
-  "_comment": "Raw values. No semantic meaning. Referenced by semantic.json.",
+  "_comment": "Raw values — no semantic meaning. Mirrors the real hexes/scale used in tokens.css and the per-surface inline palettes. Referenced by semantic.json and themes/.",
   "palette": {
-    "ink": {
-      "900": "#070b12",
-      "800": "#0c121e",
-      "700": "#121a28"
-    },
-    "paper": {
-      "50": "#fffcf5",
-      "100": "#f7f2e6",
-      "200": "#ebe6d6"
-    },
-    "slate": {
-      "100": "#e9eef7",
-      "400": "#97a3b8",
-      "500": "#8593a8",
-      "900": "#0a0a0a"
-    },
-    "teal": {
-      "400": "#7dd3c0",
-      "500": "#4ca88f",
-      "700": "#0d5350"
-    },
-    "signal": {
-      "coral": "#e64d3c",
-      "ochre": "#d4a036",
-      "lavender": "#8b6fd9",
-      "peach": "#ff9d66",
-      "pink": "#d63b75"
-    }
+    "ink":   {"900": "#070b12", "800": "#0c121e", "700": "#121a28"},
+    "slate": {"100": "#e9eef7", "300": "#97a3b8", "400": "#8593a8", "900": "#0a0a0a"},
+    "paper": {"50": "#fffcf5", "100": "#f7f2e6", "200": "#ebe6d6", "dossier": "#f4ead2"},
+    "teal":  {"300": "#7dd3c0", "500": "#4ca88f", "700": "#0d5350"},
+    "phosphor": {"bright": "#cdffe2", "base": "#6cf0a4", "dim": "#3f9e69", "bg": "#040806"},
+    "signal": {"coral": "#e64d3c", "ochre": "#d4a036", "lavender": "#8b6fd9", "peach": "#ff9d66", "pink": "#d63b75", "classified": "#b23a2e"},
+    "severity": {"critical": "#b91c1c", "high": "#e64d3c", "medium": "#d4a036", "low": "#1570ef", "resolved": "#15803d"}
   },
-  "scale": {
-    "4": "4px",
-    "8": "8px",
-    "12": "12px",
-    "16": "16px",
-    "24": "24px",
-    "32": "32px"
-  }
+  "space": {"xxs": "2px", "xs": "4px", "sm": "8px", "md": "12px", "lg": "16px", "xl": "20px", "2xl": "24px", "3xl": "32px", "4xl": "48px", "5xl": "64px", "6xl": "96px", "7xl": "128px"},
+  "radius": {"xxs": "2px", "xs": "4px", "sm": "6px", "md": "8px", "lg": "12px", "xl": "16px", "2xl": "20px", "pill": "9999px", "full": "50%"},
+  "font": {"display": "Inter", "body": "DM Sans", "mono": "JetBrains Mono", "retro": "VT323"}
 }

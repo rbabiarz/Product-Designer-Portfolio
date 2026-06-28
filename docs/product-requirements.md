@@ -1,4 +1,4 @@
-# Product requirements — Defence Portfolio
+# Product requirements — Product Designer Portfolio
 
 ## Overview
 Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light Architect, DALI-2, CORE Insights).

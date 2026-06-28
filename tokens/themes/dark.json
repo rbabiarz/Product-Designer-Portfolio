@@ -1,8 +1,10 @@
 {
-  "_comment": "Dark theme (default). Matches :root in the live prototypes.",
+  "_comment": "Interactive surface — DARK theme (default). Matches :root in the homepage/case-study prototypes.",
+  "selector": ":root  (also #int-root:not(.light))",
   "color": {
-    "bg.default": "{palette.ink.900}",
-    "fg.default": "{palette.slate.100}",
-    "accent.default": "{palette.teal.500}"
+    "bg": "#070b12", "bg2": "#0c121e", "bg3": "#121a28",
+    "fg": "#e9eef7", "fg2": "#8593a8", "fg3": "#97a3b8",
+    "line": "rgba(255,255,255,0.08)", "line2": "rgba(255,255,255,0.15)",
+    "ac": "#4ca88f", "ac2": "#7dd3c0", "grid": "rgba(76,168,143,0.045)"
   }
 }

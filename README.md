@@ -1,4 +1,4 @@
-# Robert Babiarz — Product Design Portfolio
+# Robert Babiarz — Product Designer Portfolio
 
 A static product design portfolio built as self-contained HTML pages rendered
 client-side by a lightweight DesignCode (DC) runtime — **no build step, no server,
@@ -27,21 +27,26 @@ static files. This means the site works as-is on any static host, including GitH
 ```
 index.html                      → redirects to the primary homepage (GitHub Pages entry)
 
-Homepage Interactive.dc.html    PRIMARY homepage
-Homepage Dossier.dc.html          alt homepage — "classified case-file" theme
-Homepage Retro.dc.html            alt homepage — CRT terminal theme
+homepage-interactive.dc.html    PRIMARY homepage
+homepage-dossier.dc.html          alt homepage — "classified case-file" theme
+homepage-retro.dc.html            alt homepage — CRT terminal theme
 home-variants.js                  the VIEW switcher; remembers the chosen homepage
 
-About.dc.html                     bio + experience
-Work.dc.html                      project index
+about.dc.html                     bio + experience
+work.dc.html                      project index
+*-showcase.html / *.dc.html       case studies (AEGIS, CTOC, CORE Insights, DALI-2, …)
 
 Shared runtime & styling
   support.js  page-transition.js  a11y.js  text-motion.js
-  tokens.css  styles.css  colors_and_type.css  design-system/
+  tokens.css  styles.css  colors_and_type.css
 
-Assets
-  assets/  previews/  fintech/
-  Robert_Babiarz_Resume.pdf
+Design system & project context (docs only — not loaded at runtime)
+  DESIGN.md                       design philosophy, palette, principles
+  design-system/                  foundations · components · patterns · usage-guidelines
+  design-tokens.json  tokens/      portable mirror of the live CSS tokens
+  docs/                           brief, PRD, decisions, personas, IA, metrics
+  reference/                      research, brand, moodboards, flows
+  .claude/                        rules, agents, commands for AI-assisted work
 ```
 
 ### The homepage variant switcher
@@ -49,7 +54,27 @@ The three homepages are interchangeable. The "VIEW" control sets
 `localStorage["rb-home-variant"]`; on the next visit, [`home-variants.js`](home-variants.js)
 routes the viewer to their chosen variant. `index.html` redirects into the Interactive
 homepage, where this logic then takes over — which is why `index.html` redirects rather
-than duplicating the homepage.
+than duplicating the homepage. The dark/light toggle persists separately in
+`localStorage["rba-int-dark"]`.
+
+---
+
+## Design system
+
+The visual system has two layers, documented in [`DESIGN.md`](DESIGN.md) and
+[`design-system/`](design-system/):
+
+1. **A shared foundational scale** — type, spacing, radius, shadow, transitions, and brand color
+   cards — in [`tokens.css`](tokens.css) (the SOC/CTOC dashboard skin in `styles.css` builds on it).
+2. **Per-surface color palettes** layered on top — Interactive (dark-first with a `.light`
+   "architect" mirror), Dossier (cream/classified-red), Retro (CRT phosphor), and CTOC (severity
+   scale) — declared inline in each prototype's `:root` / `.light`.
+
+[`design-tokens.json`](design-tokens.json) and [`tokens/`](tokens/) are a portable mirror of both
+layers (not consumed at runtime). House rules: reference `var(--…)` tokens (never hardcode), one
+accent per screen, meaning never rides on hue alone, WCAG 2.2 AA / AODA, and every animation gates
+on `prefers-reduced-motion`. Details in
+[`design-system/usage-guidelines.md`](design-system/usage-guidelines.md).
 
 ---
 
@@ -82,6 +107,6 @@ your DNS per GitHub's instructions, then set the domain under Settings → Pages
 ---
 
 ## Notes
-- Page filenames contain spaces (e.g. `Homepage Interactive.dc.html`); browsers encode
-  these as `%20`. Existing links already handle this. The public entry URL is just the
-  repo root, so visitors don't see the inner filenames unless deep-linking.
+- Page filenames are kebab-case (e.g. `homepage-interactive.dc.html`); all internal links are
+  relative. The public entry URL is just the repo root, so visitors don't see the inner filenames
+  unless deep-linking.

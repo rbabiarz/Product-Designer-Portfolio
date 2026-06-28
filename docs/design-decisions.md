@@ -1,4 +1,4 @@
-# Design decisions (ADR log) — Defence Portfolio
+# Design decisions (ADR log) — Product Designer Portfolio
 
 Append-only record of meaningful choices. Newest at top.
 

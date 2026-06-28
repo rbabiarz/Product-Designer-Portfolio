@@ -1,6 +1,6 @@
 # Rule: Content & voice
 
-The voice for the Defence Portfolio.
+The voice for the Product Designer Portfolio.
 
 - **Tone:** clear, calm, evidence-led. Defense-literate without cosplay. Confident, never hype.
 - **Thesis line:** "the model brings receipts, you keep the decision." Lead with outcomes,

@@ -1,4 +1,4 @@
-# Brief — Defence Portfolio
+# Brief — Product Designer Portfolio
 
 ## Problem
 A senior product designer with deep connected-lighting / IoT-security experience needs to be
