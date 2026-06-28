@@ -769,7 +769,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
         <div id="ag-live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"></div>
 
         <!-- scoring math popup -->
-        <div id="ag-info" role="dialog" aria-modal="true" aria-label="How scoring works" style="position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,8,13,0.82);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);">
+        <div id="ag-info" role="dialog" aria-modal="true" aria-label="How scoring works" style="position:absolute;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,8,13,0.82);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);">
           <div style="width:min(450px,94%);max-height:92%;overflow:auto;background:#0c1320;border:1px solid rgba(125,211,192,0.28);border-radius:14px;box-shadow:0 40px 90px -30px rgba(0,0,0,0.85);padding:22px 22px 20px;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
               <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#7dd3c0;">// Scoring · the math</div>
@@ -1490,7 +1490,7 @@ class Component extends DCLogic {
 
     // ---- input ----
     const infoBtn = $('ag-info-btn'), infoBox = $('ag-info'), infoClose = $('ag-info-close');
-    const openInfo = () => { if (!infoBox) return; infoBox.style.display = 'flex'; G.paused = true; if (infoBtn) infoBtn.setAttribute('aria-expanded', 'true'); try { if (infoClose) infoClose.focus(); } catch (e) {} };
+    const openInfo = () => { if (!infoBox) return; infoBox.style.display = 'flex'; G.paused = true; if (infoBtn) infoBtn.setAttribute('aria-expanded', 'true'); try { stage.scrollIntoView({ block: 'center', behavior: 'auto' }); } catch (e) {} try { if (infoClose) infoClose.focus({ preventScroll: true }); } catch (e) {} };
     const closeInfo = () => { if (!infoBox) return; infoBox.style.display = 'none'; G.paused = false; if (infoBtn) { infoBtn.setAttribute('aria-expanded', 'false'); try { infoBtn.focus(); } catch (e) {} } };
 
     this.on(stage, 'keydown', (e) => {

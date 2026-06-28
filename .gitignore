@@ -17,3 +17,9 @@ ehthumbs.db
 # Node (not used today, but keeps accidental installs out of the repo)
 node_modules/
 npm-debug.log*
+
+# local & secrets (added by scaffold, 2026-06-28)
+CLAUDE.local.md
+.claude/settings.local.json
+.env
+.env.local

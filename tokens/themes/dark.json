@@ -1,0 +1,8 @@
+{
+  "_comment": "Dark theme (default). Matches :root in the live prototypes.",
+  "color": {
+    "bg.default": "{palette.ink.900}",
+    "fg.default": "{palette.slate.100}",
+    "accent.default": "{palette.teal.500}"
+  }
+}

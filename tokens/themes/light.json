@@ -1,0 +1,8 @@
+{
+  "_comment": "Light 'architect' theme. Matches .light in the live prototypes.",
+  "color": {
+    "bg.default": "{palette.paper.50}",
+    "fg.default": "{palette.slate.900}",
+    "accent.default": "{palette.teal.700}"
+  }
+}

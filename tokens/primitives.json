@@ -1,0 +1,41 @@
+{
+  "_comment": "Raw values. No semantic meaning. Referenced by semantic.json.",
+  "palette": {
+    "ink": {
+      "900": "#070b12",
+      "800": "#0c121e",
+      "700": "#121a28"
+    },
+    "paper": {
+      "50": "#fffcf5",
+      "100": "#f7f2e6",
+      "200": "#ebe6d6"
+    },
+    "slate": {
+      "100": "#e9eef7",
+      "400": "#97a3b8",
+      "500": "#8593a8",
+      "900": "#0a0a0a"
+    },
+    "teal": {
+      "400": "#7dd3c0",
+      "500": "#4ca88f",
+      "700": "#0d5350"
+    },
+    "signal": {
+      "coral": "#e64d3c",
+      "ochre": "#d4a036",
+      "lavender": "#8b6fd9",
+      "peach": "#ff9d66",
+      "pink": "#d63b75"
+    }
+  },
+  "scale": {
+    "4": "4px",
+    "8": "8px",
+    "12": "12px",
+    "16": "16px",
+    "24": "24px",
+    "32": "32px"
+  }
+}

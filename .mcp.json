@@ -1,0 +1,13 @@
+{
+  "_comment": "MCP servers this project uses. Figma is the primary design bridge.",
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ]
+    }
+  }
+}
