@@ -1454,6 +1454,7 @@ class Component extends DCLogic {
     let last = 0;
     const loop = (now) => {
       this._agRaf = requestAnimationFrame(loop);
+      if (document.hidden) { last = now; return; }
       const r = stage.getBoundingClientRect();
       if (r.bottom < -40 || r.top > (window.innerHeight || 800) + 40) { last = now; return; }
       let dt = last ? (now - last) / 1000 : 0; last = now; if (dt > 0.05) dt = 0.05;
@@ -1554,7 +1555,7 @@ class Component extends DCLogic {
     let active = false;
     let tx = 0, ty = 0, cx = 0, cy = 0;
     const rows = document.querySelectorAll('.proj-row');
-    const move = (e) => { tx = e.clientX; ty = e.clientY; };
+    const move = (e) => { tx = e.clientX; ty = e.clientY; kick(); };
     rows.forEach(row => {
       this.on(row, 'mouseenter', () => {
         const src = row.getAttribute('data-preview');
@@ -1585,12 +1586,16 @@ class Component extends DCLogic {
     });
     this.on(window, 'mousemove', move);
     const loop = () => {
+      this._heroRaf = 0;
       cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
       const dx = Math.max(-12, Math.min(12, (tx - cx) * 0.6));
       reveal.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%) scale(${active ? 1 : 0.9}) rotate(${dx * 0.4}deg)`;
-      this._heroRaf = requestAnimationFrame(loop);
+      // idle-stop: keep going only while a row is hovered or the card is still catching up
+      if (active || Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3) this._heroRaf = requestAnimationFrame(loop);
     };
-    loop();
+    const kick = () => { if (!this._heroRaf && !document.hidden) this._heroRaf = requestAnimationFrame(loop); };
+    this.on(document, 'visibilitychange', () => { if (!document.hidden && active) kick(); });
+    kick();
   }
 
   // Topographic contour field. Lines warp around the cursor (a soft "peak" in the
@@ -1600,6 +1605,8 @@ class Component extends DCLogic {
     if (!canvas) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const ctx = canvas.getContext('2d');
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let lastDraw = 0;
     let W = 0, H = 0;
     const resize = () => { W = canvas.offsetWidth; H = canvas.offsetHeight; canvas.width = W * dpr; canvas.height = H * dpr; };
     resize();
@@ -1688,9 +1695,19 @@ class Component extends DCLogic {
         }
       }
      } catch (e) { /* skip a transient bad frame, keep the field alive */ }
-      this._netRaf = requestAnimationFrame(draw);
     };
-    this._netRaf = requestAnimationFrame(draw);
+    // Driver: pause the heavy contour solve while the tab is hidden; under reduced-motion
+    // paint one static frame and stop entirely; throttle to ~30fps when the pointer is idle
+    // (the ambient drift is slow enough that half-rate is imperceptible and halves the cost).
+    const frame = (now) => {
+      if (document.hidden) { this._netRaf = requestAnimationFrame(frame); return; }
+      if (mx <= -9000 && (now - lastDraw) < 33) { this._netRaf = requestAnimationFrame(frame); return; }
+      lastDraw = now || 0;
+      draw(now);
+      this._netRaf = requestAnimationFrame(frame);
+    };
+    if (reduce) { draw(0); return; }   // static field, no loop, for reduced-motion users
+    this._netRaf = requestAnimationFrame(frame);
   }
 
   initScrollReveal() {
@@ -2239,12 +2256,15 @@ class Component extends DCLogic {
     refresh();
     this.on(window, 'resize', refresh);
     let frame = 0;
-    const loop = () => {
+    // Idle-stops: only re-arms while something is moving (hover, drag, scroll-driven spin,
+    // or cell easing). Re-armed by kick() on pointer/scroll/resize/visibility. Per-cell
+    // box-shadow is cached and only re-written when its bucketed value changes, so resting
+    // frames do no paint. Pauses off-screen and while the tab is hidden.
+    const step = () => {
+      this._isoRaf = 0;
+      if (document.hidden) return;                                       // re-armed on visibilitychange
       const r = stage.getBoundingClientRect();
-      // Off-screen: skip the heavy 3D spin + per-cell work. It's invisible there, and
-      // mutating the rig transform every frame forces a compositor re-layerize on each
-      // scroll frame through the rest of the page (the main remaining mobile cost).
-      if (r.bottom < -40 || r.top > (window.innerHeight || 800) + 40) { this._isoRaf = requestAnimationFrame(loop); return; }
+      if ((r.bottom < -40 || r.top > (window.innerHeight || 800) + 40) && !dragging) return; // off-screen: re-armed on scroll
       const nx = inside ? ((mx - r.left) / r.width - 0.5) * 2 : 0;
       const ny = inside ? ((my - r.top) / r.height - 0.5) * 2 : 0;
       // autonomous scroll-driven spin: maps the section's travel through the
@@ -2261,18 +2281,15 @@ class Component extends DCLogic {
       pllx.forEach(({ el, f }) => { el.style.transform = 'translate3d(' + (-nx * f * 55).toFixed(1) + 'px,' + (-ny * f * 38).toFixed(1) + 'px,0)'; });
       if ((frame % 5) === 0) refresh();
       frame++;
-      const demoActive = demoOn && !inside && !dragging && performance.now() < demoUntil;
-      if (inside || demoActive) {
+      let busy = inside || dragging || Math.abs(tYaw - curYaw) > 0.0005 || Math.abs(tPitch - curPitch) > 0.0005;
+      if (inside) {
         // which floor is the cursor over? find the room square under it,
         // then light up that entire floor (every pane in the same face-row)
-        // (during the first-reveal demo, spotlight the demo floor instead)
         let hotFloor = null, best = 1e9;
-        if (inside) {
-          for (const c of cells) {
-            const dx = Math.abs(c.cx - mx), dy = Math.abs(c.cy - my);
-            if (dx <= c.hw + 2.5 && dy <= c.hh + 2.5) { const d = dx + dy; if (d < best) { best = d; hotFloor = c.floor; } }
-          }
-        } else { hotFloor = demoFloor; }
+        for (const c of cells) {
+          const dx = Math.abs(c.cx - mx), dy = Math.abs(c.cy - my);
+          if (dx <= c.hw + 2.5 && dy <= c.hh + 2.5) { const d = dx + dy; if (d < best) { best = d; hotFloor = c.floor; } }
+        }
         if (huds.length) {
           if (hotFloor !== null) { if (hotFloor !== lastFloor) { fillHud(hotFloor); lastFloor = hotFloor; } setHudOpacity('1'); }
           else setHudOpacity('0');
@@ -2280,43 +2297,31 @@ class Component extends DCLogic {
         for (const c of cells) {
           const hit = hotFloor !== null && c.floor === hotFloor;
           const target = hit ? 1 : c.base;
+          if (Math.abs(target - c.cur) > 0.002) busy = true;
           c.cur += (target - c.cur) * (hit ? 0.5 : 0.12);
           c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
-          c.el.style.boxShadow = c.cur > 0.18 ? '0 0 ' + (1 + c.cur * 9).toFixed(1) + 'px ' + c.color : 'none';
+          const sh = c.cur > 0.18 ? '0 0 ' + (1 + c.cur * 9).toFixed(1) + 'px ' + c.color : 'none';
+          if (sh !== c.shadow) { c.el.style.boxShadow = sh; c.shadow = sh; }
         }
       } else {
         if (huds.length) setHudOpacity('0');
         lastFloor = null;
         for (const c of cells) {
+          if (Math.abs(c.base - c.cur) > 0.002) busy = true;
           c.cur += (c.base - c.cur) * 0.07;
           c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
-          if (c.cur <= 0.18) c.el.style.boxShadow = 'none';
+          if (c.cur <= 0.18 && c.shadow !== 'none') { c.el.style.boxShadow = 'none'; c.shadow = 'none'; }
         }
       }
-      this._isoRaf = requestAnimationFrame(loop);
+      if (busy) this._isoRaf = requestAnimationFrame(step);
     };
-    loop();
-
-    // First-reveal demo: when the building first scrolls into view, spotlight
-    // one floor for ~3s so the user discovers they can hover to inspect floors.
-    const fcount = new Map();
-    for (const c of cells) fcount.set(c.floor, (fcount.get(c.floor) || 0) + 1);
-    let bestc = 0;
-    for (const [k, v] of fcount) { if (v > bestc) { bestc = v; demoFloor = k; } }
-    if (demoFloor !== null && 'IntersectionObserver' in window) {
-      let started = false;
-      const io = new IntersectionObserver((ents) => {
-        for (const e of ents) {
-          if (e.isIntersecting && !started && !inside && !dragging) {
-            started = true;
-            demoOn = true; demoUntil = performance.now() + 3000;
-            if (huds.length) { fillHud(demoFloor); lastFloor = demoFloor; }
-            io.disconnect();
-          }
-        }
-      }, { threshold: 0.45 });
-      io.observe(stage);
-    }
+    const kick = () => { if (!this._isoRaf && !document.hidden) this._isoRaf = requestAnimationFrame(step); };
+    this.on(window, 'pointermove', kick, { passive: true });
+    this.on(window, 'pointerdown', kick, { passive: true });
+    this.on(window, 'scroll', kick, { passive: true });
+    this.on(window, 'resize', kick, { passive: true });
+    this.on(document, 'visibilitychange', () => { if (!document.hidden) kick(); });
+    kick();
   }
 
   buildHeroParallax() {

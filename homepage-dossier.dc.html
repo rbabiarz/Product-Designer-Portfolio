@@ -1560,13 +1560,17 @@ class Component extends DCLogic {
     refresh();
     this.on(window, 'resize', refresh);
     let frame = 0;
-    const loop = () => {
+    // The loop idle-stops: it only re-arms while something is moving (hover, drag, or
+    // cells/tilt easing). It's re-armed by kick() on pointer/scroll/resize/visibility.
+    // Per-cell box-shadow is cached and only re-written when its bucketed value changes,
+    // so resting frames do zero paint. Pauses off-screen and while the tab is hidden.
+    const step = () => {
+      this._isoRaf = 0;
+      if (document.hidden) return;                                   // re-armed on visibilitychange
       const r = stage.getBoundingClientRect();
+      if ((r.bottom < -20 || r.top > (window.innerHeight || 800) + 20) && !dragging) return; // off-screen: re-armed on scroll
       const nx = inside ? ((mx - r.left) / r.width - 0.5) * 2 : 0;
       const ny = inside ? ((my - r.top) / r.height - 0.5) * 2 : 0;
-      const vh = window.innerHeight || 800;
-      const center = r.top + r.height / 2;
-      const prog = Math.max(-1, Math.min(1, (vh / 2 - center) / (vh / 2 + r.height / 2)));
       const scrollDeg = 0; // no scroll-driven parallax on the dossier
       let tYaw, tPitch, k;
       if (dragging) { tYaw = yaw + scrollDeg; tPitch = pitch; k = 0.4; }
@@ -1576,6 +1580,7 @@ class Component extends DCLogic {
       pllx.forEach(({ el, f }) => { el.style.transform = 'translate3d(' + (-nx * f * 55).toFixed(1) + 'px,' + (-ny * f * 38).toFixed(1) + 'px,0)'; });
       if ((frame % 5) === 0) refresh();
       frame++;
+      let busy = inside || dragging || Math.abs(tYaw - curYaw) > 0.0005 || Math.abs(tPitch - curPitch) > 0.0005;
       if (inside) {
         let hotFloor = null, best = 1e9;
         for (const c of cells) {
@@ -1589,22 +1594,31 @@ class Component extends DCLogic {
         for (const c of cells) {
           const hit = hotFloor !== null && c.floor === hotFloor;
           const target = hit ? 1 : c.base;
+          if (Math.abs(target - c.cur) > 0.002) busy = true;
           c.cur += (target - c.cur) * (hit ? 0.5 : 0.12);
           c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
-          c.el.style.boxShadow = c.cur > 0.18 ? '0 0 ' + (1 + c.cur * 9).toFixed(1) + 'px ' + c.color : 'none';
+          const sh = c.cur > 0.18 ? '0 0 ' + (1 + c.cur * 9).toFixed(1) + 'px ' + c.color : 'none';
+          if (sh !== c.shadow) { c.el.style.boxShadow = sh; c.shadow = sh; }
         }
       } else {
         if (huds.length) setHudOpacity('0');
         lastFloor = null;
         for (const c of cells) {
+          if (Math.abs(c.base - c.cur) > 0.002) busy = true;
           c.cur += (c.base - c.cur) * 0.07;
           c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
-          if (c.cur <= 0.18) c.el.style.boxShadow = 'none';
+          if (c.cur <= 0.18 && c.shadow !== 'none') { c.el.style.boxShadow = 'none'; c.shadow = 'none'; }
         }
       }
-      this._isoRaf = requestAnimationFrame(loop);
+      if (busy) this._isoRaf = requestAnimationFrame(step);
     };
-    loop();
+    const kick = () => { if (!this._isoRaf && !document.hidden) this._isoRaf = requestAnimationFrame(step); };
+    this.on(window, 'pointermove', kick, { passive: true });
+    this.on(window, 'pointerdown', kick, { passive: true });
+    this.on(window, 'scroll', kick, { passive: true });
+    this.on(window, 'resize', kick, { passive: true });
+    this.on(document, 'visibilitychange', () => { if (!document.hidden) kick(); });
+    kick();
   }
 
   renderVals() {

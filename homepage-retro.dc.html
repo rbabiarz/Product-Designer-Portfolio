@@ -798,6 +798,7 @@ class Component extends DCLogic {
     let last = 0;
     const loop = (now) => {
       this._agRaf = requestAnimationFrame(loop);
+      if (document.hidden) { last = now; return; }
       const r = stage.getBoundingClientRect();
       if (r.bottom < -40 || r.top > (window.innerHeight || 800) + 40) { last = now; return; }
       let dt = last ? (now - last) / 1000 : 0; last = now; if (dt > 0.05) dt = 0.05;
@@ -898,7 +899,7 @@ class Component extends DCLogic {
     const grid = []; const gExt = 430, gStep = 70, gy = -172;
     for (let x = -gExt; x <= gExt; x += gStep) grid.push([[x,gy,-gExt],[x,gy,gExt]]);
     for (let z = -gExt; z <= gExt; z += gStep) grid.push([[-gExt,gy,z],[gExt,gy,z]]);
-    const draw = () => {
+    const paint = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, bw, bh);
       ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(108,240,164,0.22)'; ctx.shadowColor = 'rgba(108,240,164,0.4)'; ctx.shadowBlur = 4;
@@ -909,13 +910,27 @@ class Component extends DCLogic {
       ctx.beginPath();
       edges.forEach(([a, b]) => { const pa = proj(verts[a]), pb = proj(verts[b]); ctx.moveTo(pa[0], pa[1]); ctx.lineTo(pb[0], pb[1]); });
       ctx.stroke();
-      if (!reduce) autoyaw += 0.0045;
-      this._bldgRaf = requestAnimationFrame(draw);
     };
-    this.on(cv, 'pointerdown', (e) => { drag = true; sx = e.clientX; sy = e.clientY; syaw = yaw; spitch = pitch; cv.style.cursor = 'grabbing'; });
-    this.on(window, 'pointermove', (e) => { if (!drag) return; yaw = syaw + (e.clientX - sx) * 0.01; pitch = Math.max(-1.1, Math.min(0.4, spitch + (e.clientY - sy) * 0.006)); });
-    this.on(window, 'pointerup', () => { drag = false; cv.style.cursor = 'grab'; });
-    draw();
+    // Animate only while visible AND something is moving (auto-rotation, or an active
+    // drag). Under reduced-motion the scene is static, so paint once and don't re-arm.
+    // Pause when scrolled off-screen or the tab is hidden (re-armed by kick()).
+    const step = () => {
+      this._bldgRaf = 0;
+      if (document.hidden) return;
+      const r = cv.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > (window.innerHeight || 800)) return;
+      if (!reduce && !drag) autoyaw += 0.0045;
+      paint();
+      if (!reduce || drag) this._bldgRaf = requestAnimationFrame(step);
+    };
+    const kick = () => { if (!this._bldgRaf && !document.hidden) this._bldgRaf = requestAnimationFrame(step); };
+    this.on(cv, 'pointerdown', (e) => { drag = true; sx = e.clientX; sy = e.clientY; syaw = yaw; spitch = pitch; cv.style.cursor = 'grabbing'; kick(); });
+    this.on(window, 'pointermove', (e) => { if (!drag) return; yaw = syaw + (e.clientX - sx) * 0.01; pitch = Math.max(-1.1, Math.min(0.4, spitch + (e.clientY - sy) * 0.006)); kick(); });
+    this.on(window, 'pointerup', () => { drag = false; cv.style.cursor = 'grab'; kick(); });
+    this.on(window, 'scroll', kick, { passive: true });
+    this.on(window, 'resize', kick, { passive: true });
+    this.on(document, 'visibilitychange', () => { if (!document.hidden) kick(); });
+    kick();
   }
   typewriter() {
     const el = document.getElementById('rt-type');
@@ -946,7 +961,7 @@ class Component extends DCLogic {
     // 4x4 fixtures across the plane
     const fx = []; const gx = [-180, -60, 60, 180];
     gx.forEach(a => gx.forEach(b => fx.push([a, b])));
-    const draw = () => {
+    const paint = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, bw, bh);
       // ground grid
@@ -974,17 +989,29 @@ class Component extends DCLogic {
       ctx.beginPath();
       [[-EXT,-EXT],[EXT,-EXT],[EXT,EXT],[-EXT,EXT],[-EXT,-EXT]].forEach((p, i) => { const q = proj(p[0], p[1]); if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]); });
       ctx.stroke();
-      // sweeping calc scan line
+      // sweeping calc scan line (animated only when motion is allowed)
       if (!reduce) {
         const zz = -EXT + ((t % 200) / 200) * (EXT * 2);
         const a = proj(-EXT, zz), b = proj(EXT, zz);
         ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(205,255,226,0.85)'; ctx.shadowColor = 'rgba(205,255,226,0.9)'; ctx.shadowBlur = 12;
         ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
-        t += 0.6;
       }
-      this._archRaf = requestAnimationFrame(draw);
     };
-    draw();
+    // Loop only the scan, only while visible. Under reduced-motion the scene is static,
+    // so paint once and don't re-arm. Pause off-screen / when the tab is hidden.
+    const step = () => {
+      this._archRaf = 0;
+      if (document.hidden) return;
+      const r = cv.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > (window.innerHeight || 800)) return;
+      paint();
+      if (!reduce) { t += 0.6; this._archRaf = requestAnimationFrame(step); }
+    };
+    const kick = () => { if (!this._archRaf && !document.hidden) this._archRaf = requestAnimationFrame(step); };
+    this.on(window, 'scroll', kick, { passive: true });
+    this.on(window, 'resize', kick, { passive: true });
+    this.on(document, 'visibilitychange', () => { if (!document.hidden) kick(); });
+    kick();
   }
 
   renderVals() {
