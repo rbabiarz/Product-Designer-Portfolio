@@ -168,6 +168,7 @@ summary::-webkit-details-marker{display:none}
     <a href="#s-hero" data-toc="s-hero" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Fusion</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-severity" data-toc="s-severity" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Severity</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-triage" data-toc="s-triage" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Triage</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-designsystem" data-toc="s-designsystem" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Design System</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-screens" data-toc="s-screens" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Screens</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-glossary" data-toc="s-glossary" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Glossary</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-goals" data-toc="s-goals" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Goals</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
@@ -458,10 +459,68 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 09 · SCREENS GALLERY ════════ -->
+  <!-- ════════ 09 · DESIGN SYSTEM (dark band) ════════ -->
+  <section id="s-designsystem" style="padding:90px 40px;background:#0b1016;color:#e8edf5;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">09 · The Design System</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;max-width:24ch;" data-reveal="1">One kit of parts <span style="font-style:italic;font-weight:300;color:#5fc2a8;">behind all thirteen screens.</span></h2>
+      <p style="font-size:16.5px;color:#aab6c9;line-height:1.7;max-width:72ch;margin-bottom:14px;" data-reveal="1">Thirteen dashboards across three tiers could only feel like one product if they were <em>assembled</em>, not authored. So the system is a token layer, color, type, spacing, elevation, motion, plus a library of composable components defined once and reused everywhere. A severity pill, a KPI tile, a data table, the triage drawer: each means the same thing on every screen.</p>
+      <p style="font-size:16.5px;color:#aab6c9;line-height:1.7;max-width:72ch;margin-bottom:42px;" data-reveal="1">What changes between screens is <strong style="color:#fff;">data and density</strong>, never the grammar. That is how new domains, Insider Threat, Money Movement, Executive Travel, shipped without re-deciding the basics, and how the product stayed coherent as it tripled in scope.</p>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#8a9ab5;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.1);" data-reveal="1">Foundations</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;" data-reveal="1">
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px 20px;">
+          <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:#fff;margin-bottom:8px;">Type as data</div>
+          <p style="font-size:13px;color:#9aa7ba;line-height:1.55;margin-bottom:15px;"><strong style="color:#cdd6e4;">Inter</strong> for wallboard-legible headlines, <strong style="color:#cdd6e4;">DM&nbsp;Sans</strong> for 13–14px body, <strong style="color:#cdd6e4;">JetBrains&nbsp;Mono</strong> for every number and ID, with tabular numerals so columns align down a 1,400-row queue.</p>
+          <div style="display:flex;align-items:baseline;gap:13px;font-variant-numeric:tabular-nums;border-top:1px solid rgba(255,255,255,0.07);padding-top:13px;">
+            <span style="font-family:'Inter',sans-serif;font-size:27px;font-weight:600;color:#fff;letter-spacing:-0.01em;line-height:1;">1,432</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5fd08c;font-weight:500;">▾ 12%</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6a7e9a;letter-spacing:0.07em;text-transform:uppercase;">open alerts · 24h</span>
+          </div>
+        </div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px 20px;">
+          <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:#fff;margin-bottom:8px;">Restraint &amp; density</div>
+          <p style="font-size:13px;color:#9aa7ba;line-height:1.55;">A monochrome base on near-black (<code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7dd3c0;">#0b1016</code>). Density comes from 6px row padding and economical labels, not shrinking type. Color is rationed, when it appears, it is a signal, not decoration, so an analyst reading for a full shift never tunes it out.</p>
+        </div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px 20px;">
+          <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:#fff;margin-bottom:10px;">Severity scale</div>
+          <p style="font-size:13px;color:#9aa7ba;line-height:1.55;margin-bottom:13px;">Five compound signals, color + label + square, never hue alone (full table in §07). Re-tinted for the dark theme so they read at wallboard distance.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;background:rgba(185,28,28,0.2);color:#ef8a7a;border:1px solid rgba(245,181,181,0.35);">▪ Critical</span>
+            <span style="display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;background:rgba(230,77,60,0.2);color:#f0907e;border:1px solid rgba(230,77,60,0.35);">▪ High</span>
+            <span style="display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;background:rgba(212,160,54,0.18);color:#e6c168;border:1px solid rgba(212,160,54,0.35);">▪ Medium</span>
+            <span style="display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;background:rgba(21,112,239,0.2);color:#8cc0ff;border:1px solid rgba(21,112,239,0.35);">▪ Low</span>
+            <span style="display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;background:rgba(22,163,74,0.18);color:#5fd08c;border:1px solid rgba(22,163,74,0.35);">▪ Resolved</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#8a9ab5;margin:34px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;" data-reveal="1">The component library <span style="color:#fff;font-weight:600;">12 primitives</span></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;" data-reveal="1">
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">01</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Panel</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">The titled container every widget sits in, a head with title and tools, a body for content.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">02</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">KPI strip</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">Six-up tabular metrics with deltas and a trailing baseline footnote, atop every screen.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">03</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Severity pill</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">The five-level compound signal, identical on every screen, never red alone.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">04</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Data table</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">Sticky mono headers, hover rows, right-aligned tabular numbers, graceful truncation.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">05</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Kill-chain strip</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">The seven attack stages with per-stage volume, active correlations, and confidence.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">06</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">MITRE grid</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">Tactic columns with the observed techniques highlighted, click any to filter the feed.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">07</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Asset topology</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">Node-and-edge blast radius, edges colored by intent, live nodes pulse.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">08</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Triage drawer</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">The right-side flyout with the six-step workflow, invoked from any alert, anywhere.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">09</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Timeline</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">A human-readable narrative of fused cross-stream events in chronological order.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">10</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Live feed</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">A streaming alert list that highlights new rows as they arrive, then settles.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">11</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Heatmap</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">A density grid for coverage, utilization, and time-of-day load.</p></div>
+        <div style="background:#121a26;border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:14px 16px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:#5fc2a8;margin-bottom:6px;">12</div><div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;">Buttons &amp; chips</div><p style="font-size:12.5px;color:#9aa7ba;line-height:1.45;">Primary, danger, and ghost actions, plus tags and filter pills, one set, sized for density.</p></div>
+      </div>
+
+      <div style="background:#121a26;border-left:3px solid #5fc2a8;border-radius:0 12px 12px 0;padding:24px 28px;margin-top:40px;max-width:900px;" data-reveal="1">
+        <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(18px,2vw,22px);color:#e8edf5;line-height:1.45;">"Twelve primitives and one token file are the reason a thirteen-dashboard product reads as a single screen, designed once, reused everywhere, impossible to drift."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 10 · SCREENS GALLERY ════════ -->
   <section id="s-screens" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">09 · The Other Twelve Screens</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">10 · The Other Twelve Screens</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;max-width:24ch;" data-reveal="1">One pattern language, applied across <span style="font-style:italic;font-weight:300;color:var(--c-accent);">every operational domain.</span></h2>
       <p style="font-size:16.5px;color:var(--c-body);line-height:1.7;max-width:64ch;margin-bottom:40px;" data-reveal="1">Every dashboard inherits the same chrome (top bar, sidebar, time-range, KPI strip) and the same severity system. What varies is the <em>information architecture</em> each domain has a unique payload, but the analyst reads them all the same way.</p>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:26px;" data-reveal="1">
@@ -481,10 +540,10 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 10 · GLOSSARY ════════ -->
+  <!-- ════════ 11 · GLOSSARY ════════ -->
   <section id="s-glossary" style="padding:90px 40px;background:var(--c-bg);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">10 · Glossary</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">11 · Glossary</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">The shared vocabulary <span style="font-style:italic;font-weight:300;color:var(--c-accent);">of the system.</span></h2>
       <p style="font-size:16.5px;color:var(--c-body);line-height:1.7;max-width:64ch;margin-bottom:40px;" data-reveal="1">Cybersecurity is acronym-dense and the product reflects that. We did <em>not</em> try to simplify the terminology, analysts speak this way, and dumbing it down would have made the product harder, not easier, to use. Every term has a consistent definition surfaced as a tooltip on first use.</p>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;" data-reveal="1">
@@ -508,10 +567,10 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 11 · GOALS ════════ -->
+  <!-- ════════ 12 · GOALS ════════ -->
   <section id="s-goals" style="padding:90px 40px;background:var(--c-bg2);border-top:1px solid var(--c-b1);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">11 · Design Goals</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">12 · Design Goals</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;max-width:24ch;" data-reveal="1">What success would <span style="font-style:italic;font-weight:300;color:var(--c-accent);">look like</span> for this system.</h2>
       <p style="font-size:16.5px;color:var(--c-body);line-height:1.7;max-width:64ch;margin-bottom:40px;" data-reveal="1">As a concept, this work hasn't been through user testing or production rollout, so rather than report results, this section states the targets the design is built to hit. Each is drawn from the source PRD's success criteria and expressed as the bar a future validation effort would measure against.</p>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--c-b2);border:1px solid var(--c-b2);border-radius:16px;overflow:hidden;" data-reveal="1">
@@ -525,10 +584,10 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 12 · REFLECTION ════════ -->
+  <!-- ════════ 13 · REFLECTION ════════ -->
   <section id="s-reflection" style="padding:90px 40px;background:var(--c-bg);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">12 · Reflection</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">13 · Reflection</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:36px;" data-reveal="1">What I'd <span style="font-style:italic;font-weight:300;color:var(--c-accent);">do differently.</span></h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;" data-reveal="1">
         <div>
