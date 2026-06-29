@@ -196,6 +196,10 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 #int-menu .im-foot{margin-top:34px;opacity:0;transform:translateY(20px);transition:opacity .45s ease .32s,transform .45s ease .32s;display:flex;flex-direction:column;gap:6px}
 .menu-open #int-menu .im-foot{opacity:1;transform:none}
 @media (max-width:860px){ .int-burger{display:flex} }
+/* Hero scroll cue: it's a decorative desktop affordance pinned to the bottom; hide it where the
+   centered hero content reaches the bottom and would collide with the clearance ribbon — i.e. on
+   narrow (mobile) or short viewports. Keeps "Canadian Citizen · clock" clean on the responsive view. */
+@media (max-width:860px), (max-height:760px){ #hp-scroll{display:none !important} }
 @media (min-width:861px){ #int-menu{display:none !important} }
 
 /* ── AEGIS · FUSION WATCH mini-game ── */
@@ -371,7 +375,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
     <div id="hp-fg" style="position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;will-change:transform;"></div>
 
     <!-- bottom-center scroll cue -->
-    <div data-hero-anim="1" style="position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.14em;pointer-events:none;animation:fade-up 0.8s ease 0.8s both;">
+    <div id="hp-scroll" data-hero-anim="1" style="position:absolute;left:0;right:0;bottom:26px;z-index:4;display:flex;flex-direction:column;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.14em;pointer-events:none;animation:fade-up 0.8s ease 0.8s both;">
       <span>SCROLL TO EXPLORE</span>
       <span style="display:inline-block;width:14px;height:22px;border:1px solid var(--fg3);border-radius:8px;position:relative;"><span style="position:absolute;left:50%;top:5px;width:2px;height:4px;background:var(--ac);border-radius:2px;transform:translateX(-50%);animation:scrolldot 1.6s infinite;"></span></span>
     </div>
