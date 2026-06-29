@@ -31,12 +31,20 @@ body{margin:0}
 .sl-phone-stack > img:not(.sl-swap){position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);object-fit:cover;object-position:top center;display:block}
 .sl-version-bar{display:none}
 /* §07 device screenshots — unified upright system: one frame, fixed aspect ratio, captions as labels below the frame */
+/* metallic iPhone frame — shared across all phone mockups on this page */
+.sl-ip-phone,.sl-scale-phone{position:relative;width:100%;margin:0;padding:4.5px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.16) 0%,transparent 24%),linear-gradient(155deg,#636870 0%,#3d424a 14%,#1a1d22 38%,#434851 62%,#121418 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.2),inset 0 0 0 2px rgba(0,0,0,0.62),0 24px 48px -22px rgba(12,16,24,0.58),0 6px 14px -6px rgba(12,16,24,0.22)}
+.sl-ip-phone::before,.sl-scale-phone::before{content:'';position:absolute;left:-2px;top:23%;width:2px;height:11%;border-radius:2px 0 0 2px;background:linear-gradient(180deg,#5c616a,#22262c);box-shadow:0 15px 0 0 #383d45,0 30px 0 0 #383d45;z-index:6;pointer-events:none}
+.sl-ip-phone::after,.sl-scale-phone::after{content:'';position:absolute;right:-2px;top:34%;width:2px;height:20%;border-radius:0 2px 2px 0;background:linear-gradient(180deg,#5c616a,#22262c);z-index:6;pointer-events:none}
+.sl-ip-screen,.sl-scale-phone .sl-scale-screen{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:198/429;line-height:0;font-size:0}
+.sl-ip-screen--auto,.sl-ip-screen--stack{aspect-ratio:auto;line-height:normal;font-size:initial}
+.sl-ip-screen::before,.sl-scale-phone .sl-scale-screen::before{display:none}
+.sl-ip-screen img,.sl-scale-phone .sl-scale-screen img{width:100%;height:calc(100% + 3px);min-height:100%;display:block;object-fit:cover;object-position:top center;vertical-align:top}
+.sl-ip-screen::after,.sl-scale-phone .sl-scale-screen::after{display:none}
+.sl-ip-screen .sl-phone-stack{border-radius:12px;aspect-ratio:285/618;width:100%}
+.sl-ip-phone--md{width:300px}
+.sl-ip-phone--312{width:312px}
+.sl-ip-phone--lg{width:330px}
 .sl-scale-item{--sl-phone-w:176px;flex:none;width:var(--sl-phone-w)}
-.sl-scale-phone{position:relative;width:100%;margin:0;background:#16161a;padding:13px 6px 6px;border-radius:30px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 22px 46px -26px rgba(18,22,32,0.5),0 4px 12px -5px rgba(18,22,32,0.16)}
-.sl-scale-phone::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:34px;height:4px;border-radius:99px;background:rgba(255,255,255,0.16)}
-.sl-scale-phone .sl-scale-screen{position:relative;border-radius:22px;overflow:hidden;background:#000;aspect-ratio:198/429}
-.sl-scale-phone .sl-scale-screen img{width:100%;height:100%;display:block;object-fit:cover;object-position:top center}
-.sl-scale-phone .sl-scale-screen::after{content:'';position:absolute;inset:0;border-radius:22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);pointer-events:none}
 .sl-scale-cap{padding:13px 4px 0;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);text-align:center;line-height:1.4;letter-spacing:0.02em}
 .sl-scale-fan{display:flex;align-items:flex-start;justify-content:center;gap:20px;padding:4px 0}
 .sl-scale-onboard{display:flex;align-items:flex-start;justify-content:center;gap:24px;flex-wrap:wrap}
@@ -87,7 +95,7 @@ summary::-webkit-details-marker{display:none}
 @media (max-width:760px){
   /* phone mockups: shrink so the screenshot + the controls beneath it
      both fit comfortably in a stacked mobile column */
-  .cs [style*="border-radius:30px"]{width:208px !important;margin:0 auto !important}
+  .sl-ip-phone--md,.sl-ip-phone--lg,.sl-ip-phone--312{width:208px !important;margin:0 auto !important}
   /* data tables: tighter cells + a smaller min-width so less side-scroll */
   .sl-scroll table{min-width:520px !important;font-size:12px !important}
   .sl-scroll th,.sl-scroll td{padding:9px 10px !important}
@@ -217,10 +225,8 @@ summary::-webkit-details-marker{display:none}
       <div class="cs-hero-media" style="display:flex;justify-content:center;animation:sl-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.15s both;">
         <div style="position:relative;width:300px;animation:sl-float 6s ease-in-out infinite;">
           <div style="position:absolute;inset:-1% -4%;background:radial-gradient(circle at 50% 40%,rgba(13,83,80,0.14),transparent 58%);"></div>
-          <div style="position:relative;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 30px 60px -26px rgba(20,30,40,0.55);border:1px solid rgba(255,255,255,0.08);">
-            <div style="position:relative;border-radius:24px;overflow:hidden;background:#000;">
-              <img src="assets/sl/accordion-expanded.jpg" alt="Light Control daily screen" style="width:100%;display:block;"/>
-            </div>
+          <div class="sl-ip-phone sl-ip-phone--md">
+            <div class="sl-ip-screen"><img src="assets/sl/accordion-expanded.jpg" alt="Light Control daily screen"/></div>
           </div>
         </div>
       </div>
@@ -349,8 +355,8 @@ summary::-webkit-details-marker{display:none}
       <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:44px;align-items:center;" data-reveal="1">
         <!-- LIVE ACCORDION -->
         <div style="display:flex;justify-content:center;">
-          <div style="width:330px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 36px 70px -28px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
-            <div style="border-radius:24px;overflow:hidden;background:#000;">
+          <div class="sl-ip-phone sl-ip-phone--lg">
+            <div class="sl-ip-screen sl-ip-screen--auto">
               <div style="background:#2a2d42;padding:18px 18px 12px;display:flex;align-items:center;justify-content:space-between;">
                 <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7dd3c0;">≡</span><span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0.02em;">SWITCH HOME</span><span style="color:#9aa0bf;font-size:9px;">▾</span></div>
                 <div style="border:1px solid rgba(255,255,255,0.25);border-radius:7px;padding:5px 10px;font-size:10px;font-weight:600;color:#fff;position:relative;">DEVICES<span style="position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#e2483b;"></span></div>
@@ -430,9 +436,9 @@ summary::-webkit-details-marker{display:none}
         </div>
         <div style="display:grid;grid-template-columns:330px 1fr;gap:36px;align-items:center;">
           <div style="display:flex;justify-content:center;">
-            <div style="width:300px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 30px 60px -26px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
-              <div style="position:relative;border-radius:24px;overflow:hidden;background:#000;">
-                <img src="assets/sl/picker-color.jpg" alt="Color picker" style="width:100%;display:block;"/>
+            <div class="sl-ip-phone sl-ip-phone--md">
+              <div class="sl-ip-screen">
+                <img src="assets/sl/picker-color.jpg" alt="Color picker"/>
                 <img src="assets/sl/picker-whitegrad.jpg" class="sl-swap {{ pickWhiteCls }}" alt="White picker"/>
                 <img src="assets/sl/picker-presets.jpg" class="sl-swap {{ pickPresetsCls }}" alt="Presets"/>
                 <img src="assets/sl/picker-kelvin.jpg" class="sl-swap {{ pickKelvinCls }}" alt="Kelvin picker"/>
@@ -462,9 +468,9 @@ summary::-webkit-details-marker{display:none}
       <p style="font-size:16px;color:var(--c-body);line-height:1.7;max-width:840px;margin-bottom:18px;" data-reveal="1"><strong style="color:#16161a;">Core insight: users don't need to understand the technology if they can read the map.</strong> Node colors required zero explanation, black = active repeater, white = stable relay, red = reliability problem. But the real question was how much decision-making to ask of a homeowner. We proposed four models. <strong style="color:#16161a;">Click through them.</strong></p>
       <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;margin-top:36px;" data-reveal="1">
         <div style="display:flex;justify-content:center;">
-          <div style="width:312px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 34px 66px -26px rgba(20,30,40,0.4);border:1px solid rgba(0,0,0,0.1);">
-            <div style="position:relative;border-radius:24px;overflow:hidden;background:#000;">
-              <img src="assets/sl/mesh-nodemap.jpg" alt="Mesh node map" style="width:100%;display:block;"/>
+          <div class="sl-ip-phone sl-ip-phone--312">
+            <div class="sl-ip-screen">
+              <img src="assets/sl/mesh-nodemap.jpg" alt="Mesh node map"/>
               <img src="assets/sl/mesh-manual1.jpg" class="sl-swap {{ mesh1Cls }}" alt="Mesh clusters"/>
               <img src="assets/sl/mesh-manual2.jpg" class="sl-swap {{ mesh2Cls }}" alt="Mesh virtual groups"/>
               <img src="assets/sl/mesh-autoselect.jpg" class="sl-swap {{ mesh3Cls }}" alt="Mesh auto select"/>
@@ -527,11 +533,13 @@ summary::-webkit-details-marker{display:none}
       <p style="font-size:16px;color:#aab6c9;line-height:1.7;max-width:840px;margin-bottom:40px;" data-reveal="1">NFC tags let users scan a device still in its box, assign it to a room, and name it, building a complete logical map of the home before the electrician installs anything. <strong style="color:#fff;">Step through the QR / NFC flow.</strong></p>
       <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;" data-reveal="1">
         <div style="display:flex;justify-content:center;">
-          <div style="width:300px;border-radius:30px;background:#16161a;padding:8px;box-shadow:0 34px 66px -26px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.08);">
-            <div class="sl-phone-stack" style="border-radius:24px;background:#000;">
-              <img src="assets/sl/qr-hand.jpg" class="sl-swap {{ com0Cls }}" alt="QR scan"/>
-              <img src="assets/sl/qr-found.jpg" class="sl-swap {{ com1Cls }}" alt="Device found"/>
-              <img src="assets/sl/qr-added.jpg" class="sl-swap {{ com2Cls }}" alt="Device added"/>
+          <div class="sl-ip-phone sl-ip-phone--md">
+            <div class="sl-ip-screen sl-ip-screen--stack">
+              <div class="sl-phone-stack">
+                <img src="assets/sl/qr-hand.jpg" class="sl-swap {{ com0Cls }}" alt="QR scan"/>
+                <img src="assets/sl/qr-found.jpg" class="sl-swap {{ com1Cls }}" alt="Device found"/>
+                <img src="assets/sl/qr-added.jpg" class="sl-swap {{ com2Cls }}" alt="Device added"/>
+              </div>
             </div>
           </div>
         </div>
@@ -693,10 +701,10 @@ summary::-webkit-details-marker{display:none}
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6fae9b;letter-spacing:0.14em;text-transform:uppercase;">Reflection · What this project taught me</span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" data-reveal="1">
-        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 01</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Engineering confidence unlocks better UX</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The Auto Select model only became possible once engineering confirmed system confidence in choosing optimal nodes. The best UX decision, remove the decision entirely, required trusting engineering data. Cross-functional candor produced the outcome, not design alone.</p></div>
-        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 02</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">B2B → B2C is translation, not simplification</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The same underlying capabilities, subnet management, role-based access, multi-site control, needed expression in consumer language and mental models. The PRO role and multi-home features came directly from B2B and became differentiators in B2C.</p></div>
-        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 03</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Daily-use screens deserve 80% of design effort</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Light Control, opened 10–20× per day, received the most iteration, testing and engineering negotiation. The accordion, dual-level controls and status indicators all came from multiple feedback rounds. Daily ritual screens matter far more than configuration screens.</p></div>
-        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b7fd6;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 04</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Emotional language beats technical specs</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Scheduling landed better named Wake-Up, Relax, Dinner, Sleep than labeled by Kelvin. The circadian engine was technically sophisticated; the UI had to make it feel like curating a mood, not programming a system. Emotional interface on a technical substrate is the core craft of consumer IoT.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b8a3e8;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 01</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Engineering confidence unlocks better UX</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The Auto Select model only became possible once engineering confirmed system confidence in choosing optimal nodes. The best UX decision, remove the decision entirely, required trusting engineering data. Cross-functional candor produced the outcome, not design alone.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b8a3e8;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 02</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">B2B → B2C is translation, not simplification</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">The same underlying capabilities, subnet management, role-based access, multi-site control, needed expression in consumer language and mental models. The PRO role and multi-home features came directly from B2B and became differentiators in B2C.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b8a3e8;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 03</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Daily-use screens deserve 80% of design effort</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Light Control, opened 10–20× per day, received the most iteration, testing and engineering negotiation. The accordion, dual-level controls and status indicators all came from multiple feedback rounds. Daily ritual screens matter far more than configuration screens.</p></div>
+        <div style="background:#101826;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b8a3e8;letter-spacing:0.06em;margin-bottom:10px;">INSIGHT 04</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Emotional language beats technical specs</div><p style="font-size:13.5px;color:#aab6c9;line-height:1.6;">Scheduling landed better named Wake-Up, Relax, Dinner, Sleep than labeled by Kelvin. The circadian engine was technically sophisticated; the UI had to make it feel like curating a mood, not programming a system. Emotional interface on a technical substrate is the core craft of consumer IoT.</p></div>
       </div>
     </div>
   </section>

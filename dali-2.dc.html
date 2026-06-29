@@ -26,8 +26,11 @@ body{margin:0}
 @keyframes dl-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
 @keyframes dl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 #hero-iphone{position:absolute;bottom:0;left:-6px;width:158px;top:auto}
-#hero-iphone .ip-frame{border-radius:22px}
-#hero-iphone .ip-screen{border-radius:18px}
+#hero-iphone .ip-frame{border-radius:16px}
+#hero-iphone .ip-screen{border-radius:12px;line-height:0;font-size:0}
+#hero-iphone .ip-screen img{height:calc(100% + 3px);min-height:100%;object-fit:cover;object-position:top center;vertical-align:top}
+.cs-hero-desktop-shot{line-height:0;font-size:0}
+.cs-hero-desktop-shot img{width:100%;height:calc(100% + 3px);min-height:100%;display:block;object-fit:cover;object-position:top center;vertical-align:top}
 @keyframes dl-spin{to{transform:rotate(360deg)}}
 summary{list-style:none}
 summary::-webkit-details-marker{display:none}
@@ -219,19 +222,18 @@ summary::-webkit-details-marker{display:none}
             <div style="width:9px;height:9px;border-radius:50%;background:#e06c5e;"></div>
             <div style="width:9px;height:9px;border-radius:50%;background:#e0b94e;"></div>
             <div style="width:9px;height:9px;border-radius:50%;background:#5bbd7a;"></div>
-            <div style="margin-left:14px;flex:1;height:17px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">wavelinx.app/operate · Floor 1, East</span></div>
+            <div style="margin-left:14px;flex:1;height:17px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">wavelinx.app/devices · Manage DALI-HUB_1 · Bus 1</span></div>
           </div>
-          <div style="height:320px;overflow:hidden;background:var(--c-surface);"><img src="assets/dali/desktop-operate.jpg" alt="WaveLinx Operate floor plan" style="width:100%;display:block;"/></div>
+          <div class="cs-hero-desktop-shot" style="height:320px;overflow:hidden;background:var(--c-surface);"><img src="assets/dali/Lighting%20Devices%20102.jpg" alt="Manage DALI-HUB_1, new and existing devices on Bus 1 with ADD DEVICES action"/></div>
         </div>
         <div id="hero-iphone" style="animation:dl-float 6s ease-in-out infinite;filter:drop-shadow(0 32px 55px rgba(20,30,40,0.5));">
-          <div class="ip-frame" style="position:relative;padding:5px;border-radius:22px;background:linear-gradient(155deg,#45494f 0%,#1c1f24 36%,#2b2f35 63%,#141619 100%);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.13),inset 0 0 0 4px #0b0d10;">
+          <div class="ip-frame" style="position:relative;padding:5px;border-radius:16px;background:linear-gradient(155deg,#45494f 0%,#1c1f24 36%,#2b2f35 63%,#141619 100%);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.13),inset 0 0 0 4px #0b0d10;">
             <div style="position:absolute;left:-2px;top:58px;width:2.5px;height:16px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
             <div style="position:absolute;left:-2px;top:89px;width:2.5px;height:28px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
             <div style="position:absolute;left:-2px;top:125px;width:2.5px;height:28px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
             <div style="position:absolute;right:-2px;top:102px;width:2.5px;height:48px;border-radius:0 2px 2px 0;background:linear-gradient(#3a3e45,#1c1f24);"></div>
-            <div class="ip-screen" style="position:relative;overflow:hidden;background:#000;height:320px;border-radius:18px;">
-              <img src="assets/dali/mobile-area.jpg" alt="WaveLinx mobile area control" style="width:100%;height:100%;display:block;object-fit:cover;object-position:top center;"/>
-              <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:42px;height:12px;background:#000;border-radius:10px;z-index:3;box-shadow:0 0 0 0.5px rgba(255,255,255,0.05);"></div>
+            <div class="ip-screen" style="position:relative;overflow:hidden;background:#000;height:320px;border-radius:12px;">
+              <img src="assets/dali/iPhone%2013%20mini%20-%2080.jpg" alt="WaveLinx mobile Sites, Collab 1 area with zones and unassigned DALI devices" style="width:100%;display:block;"/>
             </div>
           </div>
         </div>
@@ -643,7 +645,7 @@ summary::-webkit-details-marker{display:none}
       </div>
 
       <!-- UX Design Decision -->
-      <div data-reveal="1" style="background:var(--c-card);border:1px solid rgba(13,83,80,0.12);border-left:3px solid var(--c-accent);border-radius:12px;padding:26px 30px;">
+      <div data-reveal="1" style="background:var(--c-card);border-radius:12px;padding:26px 30px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">UX design decision</div>
         <p style="font-size:16px;color:#3a3833;line-height:1.65;">Separating new from existing devices before committing any change was a deliberate safeguard at hospital scale, blindly importing an unexpected count could cause real downstream commissioning problems. The green bus indicators give at-a-glance triage so technicians can prioritise which buses to address first, and the processing modal's time estimate was added in direct response to commissioning teams who needed to plan around the 5–8 minute rescan window on a live hub.</p>
       </div>
@@ -665,8 +667,7 @@ summary::-webkit-details-marker{display:none}
             <div style="height:26px;background:var(--c-line);display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b1);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
             <div style="position:relative;">
               <img src="assets/dali/shots/d-areafilter.jpg" alt="Filter-before-load device list" style="width:100%;display:block;"/>
-              <div style="position:absolute;top:183px;left:370px;width:163px;height:121px;border:2px solid var(--c-accent);border-radius:7px;background:rgba(13,83,80,0.08);z-index:2;"></div>
-              <div style="position:absolute;top:183px;left:370px;transform:translate(-50%,-50%);width:23px;height:23px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.4);border:2px solid var(--c-bg);z-index:3;">1</div>
+              <div style="position:absolute;top:35%;left:51%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:var(--c-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;box-shadow:0 4px 12px rgba(11,16,22,0.4);border:2px solid var(--c-bg);z-index:3;">1</div>
             </div>
           </div>
           <div style="margin-top:14px;display:flex;gap:10px;align-items:flex-start;">

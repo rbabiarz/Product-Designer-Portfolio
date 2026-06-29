@@ -49,10 +49,23 @@ body{margin:0}
 .center{text-align:center}
 .center .lead{margin-left:auto;margin-right:auto}
 
-/* phone mockup */
-.slph{display:inline-block;border-radius:30px;background:#16161a;padding:7px;box-shadow:0 44px 80px -34px rgba(5,12,20,.7);border:1px solid rgba(255,255,255,.08)}
-.slph > span{display:block;position:relative;border-radius:24px;overflow:hidden;background:#000;width:232px;aspect-ratio:285/618;line-height:0;font-size:0}
+/* phone mockup — metallic iPhone frame, matched to the Standard view (smart-lighting.dc.html .sl-ip-phone) */
+.slph{display:inline-block;position:relative;border-radius:16px;padding:4.5px;background:linear-gradient(180deg,rgba(255,255,255,0.16) 0%,transparent 24%),linear-gradient(155deg,#636870 0%,#3d424a 14%,#1a1d22 38%,#434851 62%,#121418 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.2),inset 0 0 0 2px rgba(0,0,0,0.62),0 24px 48px -22px rgba(12,16,24,0.58),0 6px 14px -6px rgba(12,16,24,0.22)}
+.slph::before{content:'';position:absolute;left:-2px;top:23%;width:2px;height:11%;border-radius:2px 0 0 2px;background:linear-gradient(180deg,#5c616a,#22262c);box-shadow:0 15px 0 0 #383d45,0 30px 0 0 #383d45;z-index:6;pointer-events:none}
+.slph::after{content:'';position:absolute;right:-2px;top:34%;width:2px;height:20%;border-radius:0 2px 2px 0;background:linear-gradient(180deg,#5c616a,#22262c);z-index:6;pointer-events:none}
+.slph > span{display:block;position:relative;border-radius:12px;overflow:hidden;background:#000;width:232px;aspect-ratio:285/618;line-height:0;font-size:0}
 .slph img{position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);display:block;object-fit:cover;object-position:top center}
+.sl-swap{opacity:0;transition:opacity .25s ease}
+.sl-swap.sl-on{opacity:1}
+.mesh-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:44px;align-items:center;margin-top:36px}
+.mesh-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.mesh-tab{padding:9px 15px;border-radius:9px;border:1px solid var(--c-b3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:transparent;color:var(--c-body);transition:all .2s}
+.mesh-tab.is-on[data-tier="drop"]{background:#c0392b;border-color:#c0392b;color:#fff}
+.mesh-tab.is-on[data-tier="ship"]{background:#2e7d4f;border-color:#2e7d4f;color:#fff}
+.mesh-result{display:inline-block;padding:4px 11px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.06em}
+.mesh-table-wrap{margin-top:56px;overflow-x:auto;border-radius:14px;border:1px solid var(--c-b3)}
+.mesh-table{width:100%;border-collapse:collapse;min-width:680px;font-size:14px}
+@media (max-width:980px){.mesh-grid{grid-template-columns:1fr;gap:32px}}
 
 .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
 .band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:96px 40px}
@@ -180,7 +193,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:740px;margin-top:28px;color:var(--c-ink2)">Professional-grade connected lighting, reframed for the consumer smart home, enterprise depth under the hood, one-tap simplicity on the surface.</p>
       <div data-reveal="" data-d="3" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px">
         <a class="btn-primary" href="smart-lighting-showcase.html">Read the full case study <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="#commission" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See commissioning</a>
+        <a href="#network" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See network topology</a>
       </div>
     </div>
 
@@ -274,21 +287,68 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- SHOWCASE: COMMISSIONING -->
-  <div class="band band-sand" data-reveal="" id="commission">
-    <div class="band-inner">
-      <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow">Commission Before Install</div>
-        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Set up the light <em>before it's on the wall</em></h2>
-        <p class="lead" style="max-width:720px;margin:18px auto 0">Scan a device in its box, watch it appear, and assign it to a room, the chore of installation turns into thirty seconds of satisfying feedback.</p>
+  <!-- SHOWCASE: NETWORK TOPOLOGY -->
+  <section class="pad" style="background:var(--c-bg);border-top:1px solid var(--c-b1)" id="network" data-reveal="">
+    <div class="wrap">
+      <div class="eyebrow">Making Network Topology Human</div>
+      <h2 class="sec-h" style="margin:16px 0 16px;font-size:clamp(28px,3.6vw,46px);max-width:880px">How do you hand BLE mesh configuration to someone who's never heard of BLE?</h2>
+      <p class="lead" style="max-width:840px;margin-bottom:0"><strong style="color:var(--c-ink2)">Core insight: users don't need to understand the technology if they can read the map.</strong> Node colors required zero explanation, black = active repeater, white = stable relay, red = reliability problem. But the real question was how much decision-making to ask of a homeowner. We proposed four models. <strong style="color:var(--c-ink2)">Click through them.</strong></p>
+
+      <div class="mesh-grid">
+        <div style="display:flex;justify-content:center">
+          <span class="slph" style="display:inline-block"><span>
+            <img src="assets/sl/mesh-nodemap.jpg" alt="Mesh node map">
+            <img src="assets/sl/mesh-manual1.jpg" class="sl-swap" data-mesh-swap="1" alt="Mesh clusters">
+            <img src="assets/sl/mesh-manual2.jpg" class="sl-swap" data-mesh-swap="2" alt="Mesh virtual groups">
+            <img src="assets/sl/mesh-autoselect.jpg" class="sl-swap" data-mesh-swap="3" alt="Mesh auto select">
+          </span></span>
+        </div>
+        <div>
+          <div class="mesh-tabs" role="tablist" aria-label="Mesh configuration proposals">
+            <button type="button" class="mesh-tab is-on" data-mesh="0" data-tier="drop" role="tab" aria-selected="true">P1 · Node Map</button>
+            <button type="button" class="mesh-tab" data-mesh="1" data-tier="drop" role="tab" aria-selected="false">P2 · Clusters</button>
+            <button type="button" class="mesh-tab" data-mesh="2" data-tier="drop" role="tab" aria-selected="false">P3 · Virtual Groups</button>
+            <button type="button" class="mesh-tab" data-mesh="3" data-tier="ship" role="tab" aria-selected="false">P4 · Auto Select</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <span class="mono" id="meshLabel" style="font-size:11px;color:var(--c-muted);letter-spacing:0.06em">P1 · NODE MAP</span>
+            <span class="mesh-result" id="meshResult" style="background:rgba(192,57,43,0.16);color:#c0392b">DROPPED</span>
+          </div>
+          <div id="meshTitle" style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:var(--c-ink2);letter-spacing:-0.5px;margin-bottom:10px">Live mesh, drag-to-repeater</div>
+          <p id="meshBody" class="lead" style="font-size:15px;line-height:1.66;max-width:480px;margin-bottom:16px">A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers.</p>
+          <div>
+            <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px">User decision load</div>
+            <div id="meshLoad" style="font-size:14px;font-weight:600;color:var(--c-ink2)">High, manual node selection</div>
+          </div>
+        </div>
       </div>
-      <div class="showrow">
-        <div><span class="slph" style="display:inline-block;animation:cs-float 7s ease-in-out infinite"><span><img src="assets/sl/qr-hand.jpg" alt="Scan a device"></span></span><div class="band-cap cap-dark">Scan in the box</div></div>
-        <div class="lift"><span class="slph" style="display:inline-block;animation:cs-float2 7.6s ease-in-out infinite .3s"><span><img src="assets/sl/qr-found.jpg" alt="Device found"></span></span><div class="band-cap cap-dark">Device found</div></div>
-        <div><span class="slph" style="display:inline-block;animation:cs-float 8.2s ease-in-out infinite .5s"><span><img src="assets/sl/qr-added.jpg" alt="Device added"></span></span><div class="band-cap cap-dark">Assigned &amp; named</div></div>
+
+      <div class="mesh-table-wrap" data-reveal="">
+        <table class="mesh-table">
+          <thead><tr style="background:#16161a">
+            <th style="text-align:left;padding:16px 20px;color:#fff;font-weight:600;font-size:13px">Proposal</th>
+            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px">Approach</th>
+            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px">Decision Load</th>
+            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px">Result</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--c-b1);background:var(--c-surface)"><td style="padding:16px 20px;font-weight:600;color:#c0392b">P1 · Node Map</td><td style="padding:16px;color:var(--c-body)">Live mesh viz, drag-to-repeater</td><td style="padding:16px;color:var(--c-body)">High, manual node selection</td><td style="padding:16px"><span style="color:#c0392b;font-weight:700">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px">Too intimidating</span></td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:var(--c-bg2)"><td style="padding:16px 20px;font-weight:600;color:#c0392b">P2 · Clusters</td><td style="padding:16px;color:var(--c-body)">Proximity-based device grouping</td><td style="padding:16px;color:var(--c-body)">Medium, group-level decisions</td><td style="padding:16px"><span style="color:#c0392b;font-weight:700">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px">Still exposed topology</span></td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:var(--c-surface)"><td style="padding:16px 20px;font-weight:600;color:#c0392b">P3 · Virtual Groups</td><td style="padding:16px;color:var(--c-body)">User-defined criteria groups</td><td style="padding:16px;color:var(--c-body)">Medium, still per-device</td><td style="padding:16px"><span style="color:#c0392b;font-weight:700">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px">Increased commissioning time</span></td></tr>
+            <tr style="border-top:1px solid var(--c-b1);background:#eafaf0"><td style="padding:16px 20px;font-weight:700;color:#2e7d4f">P4 · Auto Select</td><td style="padding:16px;color:#1f5e3a">System chooses optimal repeaters</td><td style="padding:16px;color:#1f5e3a">Zero, one confirm tap</td><td style="padding:16px"><span style="color:#2e7d4f;font-weight:700">SHIPPED ✓</span> <span style="color:#1f5e3a;font-size:12.5px">Engineering validated</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:54px" data-reveal="">
+        <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink2);margin-bottom:6px">DEVICE DISTRIBUTION AT SCALE</div>
+        <p class="lead" style="font-size:15px;line-height:1.65;max-width:840px;margin-bottom:22px">The same logical map scales from a 32-device condo to a 247-device estate, the system creates groups and subnets, then assigns repeaters automatically. Example: <strong style="color:var(--c-ink2)">247 devices, 66 repeaters, 22 subnets created.</strong></p>
+        <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 18px 44px -28px rgba(20,30,40,0.3);background:var(--c-surface);padding:18px">
+          <img src="assets/sl/floorplans.jpg" alt="Device distribution across floor plans" style="width:100%;display:block">
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- OUTCOME -->
   <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
@@ -405,6 +465,35 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   }
   if(statsEl){ var co=new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!counted){counted=true;runCounters();co.disconnect();} },{threshold:0.3}); co.observe(statsEl); }
   setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } if(!counted){ counted=true; runCounters(); } },1000);
+
+  var meshData=[
+    { label:'P1 · NODE MAP', result:'DROPPED', rb:'rgba(192,57,43,0.16)', rf:'#c0392b', title:'Live mesh, drag-to-repeater', body:'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers.', load:'High, manual node selection' },
+    { label:'P2 · CLUSTERS', result:'DROPPED', rb:'rgba(192,57,43,0.16)', rf:'#c0392b', title:'Proximity-based clusters', body:'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load:'Medium, group-level decisions' },
+    { label:'P3 · VIRTUAL GROUPS', result:'DROPPED', rb:'rgba(192,57,43,0.16)', rf:'#c0392b', title:'User-defined virtual groups', body:'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load:'Medium, still per-device' },
+    { label:'P4 · AUTO SELECT', result:'SHIPPED ✓', rb:'rgba(46,125,79,0.18)', rf:'#2e7d4f', title:'The system decides', body:'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load:'Zero, one confirm tap' }
+  ];
+  var meshTabs=document.querySelectorAll('.mesh-tab');
+  var meshSwaps=document.querySelectorAll('[data-mesh-swap]');
+  function setMesh(i){
+    var d=meshData[i];
+    document.getElementById('meshLabel').textContent=d.label;
+    var badge=document.getElementById('meshResult');
+    badge.textContent=d.result; badge.style.background=d.rb; badge.style.color=d.rf;
+    document.getElementById('meshTitle').textContent=d.title;
+    document.getElementById('meshBody').textContent=d.body;
+    document.getElementById('meshLoad').textContent=d.load;
+    meshTabs.forEach(function(btn){
+      var on=parseInt(btn.getAttribute('data-mesh'),10)===i;
+      btn.classList.toggle('is-on',on);
+      btn.setAttribute('aria-selected',on?'true':'false');
+    });
+    meshSwaps.forEach(function(img){
+      img.classList.toggle('sl-on',parseInt(img.getAttribute('data-mesh-swap'),10)===i);
+    });
+  }
+  meshTabs.forEach(function(btn){
+    btn.addEventListener('click',function(){ setMesh(parseInt(btn.getAttribute('data-mesh'),10)); });
+  });
 })();
 </script>
 

@@ -48,10 +48,10 @@ body{margin:0}
 .center{text-align:center}
 .center .lead{margin-left:auto;margin-right:auto}
 
-.win{border-radius:14px;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 50px 90px -34px rgba(5,12,20,.7)}
+.win{border-radius:14px 14px 0 0;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 50px 90px -34px rgba(5,12,20,.7)}
 .win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
 .win-dot{width:11px;height:11px;border-radius:50%}
-.win img{width:100%;display:block}
+.win img{width:100%;display:block;border-radius:0}
 
 .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
 .band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:96px 40px}
@@ -194,10 +194,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="glow" style="width:420px;height:420px;bottom:-160px;left:4%;background:rgba(125,211,192,.13)"></div>
       <div class="band-inner">
         <div class="win" style="max-width:980px;margin:0 auto;animation:cs-float 8s ease-in-out infinite">
-          <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">wavelinx.app · operate · floor 1, east</span></div>
-          <img src="assets/dali/desktop-operate.jpg" alt="WaveLinx Operate floor plan, rooms color-coded by lighting state">
+          <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">wavelinx.app · sites · floor 1, east · collab 1</span></div>
+          <img src="assets/dali/Lighting%20Sites%20166.jpg" alt="WaveLinx Sites, Collab 1 area with zones, paired devices, and unassigned DALI drivers filtered by hub and bus">
         </div>
-        <div class="band-cap cap-light">WaveLinx Operate, floor-wide health status with rooms color-coded by state, clustered to scale from 50 to 3,000 devices</div>
+        <div class="band-cap cap-light">WaveLinx Sites, area-level DALI assignment — zones, hub and bus filters, and unassigned inventory before devices land in a room</div>
       </div>
     </div>
   </section>
