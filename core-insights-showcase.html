@@ -51,7 +51,9 @@ body{margin:0}
 .win{border-radius:14px;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 50px 90px -34px rgba(5,12,20,.7)}
 .win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
 .win-dot{width:11px;height:11px;border-radius:50%}
-.win img{width:100%;display:block}
+.win img{width:100%;height:auto;display:block}
+.gthumbs{align-items:start}
+.gthumbs .win{height:fit-content;align-self:start;width:100%}
 
 .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
 .band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:96px 40px}
@@ -186,7 +188,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="glow" style="width:560px;height:560px;top:-160px;right:8%;background:rgba(95,196,182,.2)"></div>
       <div class="glow" style="width:420px;height:420px;bottom:-160px;left:4%;background:rgba(125,211,192,.13)"></div>
       <div class="band-inner">
-        <div class="win" style="max-width:980px;margin:0 auto;animation:cs-float 8s ease-in-out infinite">
+        <div class="win" style="max-width:735px;margin:0 auto;animation:cs-float 8s ease-in-out infinite">
           <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">core-insights · occupancy-pro · floor-5</span></div>
           <img src="assets/ci/overview.jpg" alt="CORE Insights Occupancy PRO dashboard, floor heat map with utilization and capacity rolled up on one screen">
         </div>
@@ -242,12 +244,12 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="center" style="margin-bottom:44px">
         <div class="eyebrow" style="color:#9fe9d8">The Operators</div>
         <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The same data, <em style="color:#9fe9d8">shaped to each role</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">One source of truth becomes the PRO analyst's portfolio heat map, the facilities manager's floor and room view, and the technician's at-a-glance answers on mobile.</p>
+        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">One source of truth becomes the PRO analyst's portfolio heat map, the facilities manager's floor and room view, and the technician's at-a-glance desk availability.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/desktop-portfolio.jpg" alt="PRO portfolio dashboard comparing occupancy, energy, and alerts across every site"></div><div class="band-cap cap-light">PRO analyst, portfolio comparison</div></div>
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/desktop-floor.jpg" alt="Facilities manager floor view, spatial heat map orienting utilization across the plan"></div><div class="band-cap cap-light">Facilities manager, floor heat map</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/mobile.jpg" alt="CORE Insights mobile app, technician checking live occupancy and free spaces on a phone"></div><div class="band-cap cap-light">Technician, live answers on mobile</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/hot-desking.jpg" alt="Hot Desking desktop dashboard, per-desk vacancy on the floor plan so a technician can see live occupancy and free spaces"></div><div class="band-cap cap-light">Technician, live desk availability</div></div>
       </div>
     </div>
   </div>
@@ -279,9 +281,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">A spreadsheet becomes <em>a living map</em></h2>
         <p class="lead" style="max-width:720px;margin:18px auto 0">At floor level a heat map replaces the bar chart, where spatial context matters more than comparative data. Click any space to inspect live occupancy, status, capacity, and trend.</p>
       </div>
-      <div class="win" style="max-width:1000px;margin:0 auto">
+      <div class="win" style="max-width:735px;margin:0 auto">
         <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">core-insights · floor-plan · tower-a · floor-5</span></div>
-        <img src="assets/ci/desktop-floor.jpg" alt="Floor-plan console rendering spaces as a live heat map, color encoding utilization from vacant to at capacity">
+        <img src="assets/ci/conference-floor.jpg" alt="Conference Room dashboard — space-availability floor plan with the occupied room highlighted (10 of 20 seats), live temperature and humidity, and a real-time people-versus-capacity area graph">
       </div>
       <div class="band-cap cap-dark">Spatial-first at the floor, color encodes utilization from vacant to at capacity</div>
     </div>
@@ -296,9 +298,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
     <div class="wrap" style="margin-top:54px">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
-        <div class="win" data-reveal=""><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/hot-desking.jpg" alt="Hot Desking dashboard, per-desk vacancy on the floor plan with a busiest-time heat map for planning arrivals"></div>
-        <div class="win" data-reveal="" data-d="1"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/conference.jpg" alt="Conference Room dashboard, live room status with people, capacity, temperature and humidity in spatial context"></div>
-        <div class="win" data-reveal="" data-d="2"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/desktop-portfolio.jpg" alt="Portfolio dashboard rolling occupancy, energy, and capacity across multiple buildings into one view"></div>
+        <div data-reveal=""><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/hot-desking.jpg" alt="Hot Desking dashboard, per-desk vacancy on the floor plan with a busiest-time heat map for planning arrivals"></div></div>
+        <div data-reveal="" data-d="1"><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/conference.jpg" alt="Conference Room dashboard, live room status with people, capacity, temperature and humidity in spatial context"></div></div>
+        <div data-reveal="" data-d="2"><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/desktop-portfolio.jpg" alt="Portfolio dashboard rolling occupancy, energy, and capacity across multiple buildings into one view"></div></div>
       </div>
     </div>
   </section>
