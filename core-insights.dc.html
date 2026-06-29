@@ -103,13 +103,21 @@ summary::-webkit-details-marker{display:none}
 .hd-rolebtn{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:#8a9ab5;background:transparent;border:none;border-radius:7px;padding:8px 15px;cursor:pointer;transition:background .15s,color .15s;}
 .hd-rolebtn[aria-selected="true"]{background:rgba(76,168,143,0.16);color:var(--c-teal3);}
 .hd-rolebtn:focus-visible{outline:2px solid var(--c-teal3);outline-offset:2px;}
-.hd-desk{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);border:none;padding:0;background:rgba(255,255,255,0.15);transition:background .3s ease,box-shadow .2s ease,transform .14s ease;z-index:2;}
+/* each seat is a workstation (desk) on the plan, not a dot */
+.hd-desk{position:absolute;width:4.4%;height:4.7%;border-radius:1.5px;transform:translate(-50%,-50%);border:none;padding:0;background:var(--c-teal2);box-shadow:inset 0 0 0 1px rgba(8,14,22,0.45);transition:background .3s ease,box-shadow .2s ease,transform .14s ease;z-index:3;}
+.hd-desk::before{content:"";position:absolute;left:50%;width:54%;height:40%;transform:translateX(-50%);background:rgba(255,255,255,0.13);border-radius:42% 42% 55% 55%/60% 60% 40% 40%;}
+.hd-desk.up::before{bottom:108%;}
+.hd-desk.down::before{top:108%;border-radius:55% 55% 42% 42%/40% 40% 60% 60%;}
 .hd-desk.is-sug{animation:hd-pulse 1.3s ease-in-out infinite;}
 .hd-desk:not(:disabled){cursor:pointer;}
-.hd-desk:not(:disabled):hover{transform:translate(-50%,-50%) scale(1.4);}
-.hd-desk:focus-visible{outline:2px solid var(--c-teal3);outline-offset:2px;}
-@keyframes hd-pulse{0%,100%{box-shadow:0 0 0 0 rgba(125,211,192,0.55);}50%{box-shadow:0 0 0 8px rgba(125,211,192,0);}}
-.hd-heat{position:absolute;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(224,108,94,0.85),rgba(212,160,54,0.3) 45%,transparent 70%);filter:blur(16px);mix-blend-mode:screen;pointer-events:none;z-index:1;transition:opacity .4s ease;}
+.hd-desk:not(:disabled):hover{transform:translate(-50%,-50%) scale(1.22);z-index:4;}
+.hd-desk:focus-visible{outline:2px solid var(--c-teal3);outline-offset:2px;z-index:4;}
+@keyframes hd-pulse{0%,100%{box-shadow:0 0 0 0 rgba(125,211,192,0.55);}50%{box-shadow:0 0 0 7px rgba(125,211,192,0);}}
+/* vector floor plan (walls + rooms) drawn behind the seats */
+.hd-plan{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+.hd-plan-label{font-family:'JetBrains Mono',monospace;font-size:2.8px;letter-spacing:0.35px;fill:#54657f;text-transform:uppercase;}
+/* per-zone utilisation tint (facilities heat) */
+.hd-zone-fill{position:absolute;border-radius:4px;pointer-events:none;z-index:1;opacity:0;background:rgba(76,168,143,0.3);transition:opacity .4s ease,background .4s ease;mix-blend-mode:screen;}
 .hd-zone-label{position:absolute;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a9ab5;pointer-events:none;z-index:2;}
 .hd-strip-cell{height:16px;border-radius:2px;transition:transform .2s ease,box-shadow .2s ease;}
 .hd-strip-cell.now{transform:scaleY(1.35);box-shadow:0 0 0 1.5px rgba(125,211,192,0.7);}
@@ -124,7 +132,7 @@ summary::-webkit-details-marker{display:none}
 .hd-plabel{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--c-teal2);}
 .hd-key{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:4px;}
 @media (max-width:760px){ .hd-grid{grid-template-columns:1fr !important;} .hd-floorcol{border-right:none !important;border-bottom:1px solid rgba(255,255,255,0.06);} }
-@media (prefers-reduced-motion: reduce){ .hd-desk,.hd-strip-cell,.hd-heat{transition:none;} .hd-desk.is-sug{animation:none;box-shadow:0 0 0 5px rgba(125,211,192,0.4);} }
+@media (prefers-reduced-motion: reduce){ .hd-desk,.hd-strip-cell,.hd-zone-fill{transition:none;} .hd-desk.is-sug{animation:none;box-shadow:0 0 0 5px rgba(125,211,192,0.4);} }
 </style>
 <script src="text-motion.js"></script>
 <script src="page-transition.js"></script>
@@ -771,7 +779,7 @@ summary::-webkit-details-marker{display:none}
                   <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6a7e9a;letter-spacing:0.08em;text-transform:uppercase;">Time of day</span>
                   <span id="hd-time-label" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal3);">10:00</span>
                 </div>
-                <input id="hd-time" type="range" min="7" max="19" step="1" value="10" aria-label="Time of day, 7 AM to 7 PM" style="width:100%;display:block;">
+                <input id="hd-time" type="range" min="7" max="19" step="1" aria-label="Time of day, 7 AM to 7 PM" style="width:100%;display:block;">
                 <div id="hd-strip" style="display:grid;grid-template-columns:repeat(13,1fr);gap:2px;margin-top:9px;"></div>
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.06em;margin-top:6px;display:flex;justify-content:space-between;"><span>7 AM</span><span>TYPICAL OCCUPANCY</span><span>7 PM</span></div>
               </div>
@@ -790,7 +798,7 @@ summary::-webkit-details-marker{display:none}
           </div>
           <p style="font-size:15px;color:#8a9ab5;line-height:1.62;margin-bottom:18px;">One screen, two users at once: an employee finding a free desk <em style="font-style:italic;color:#cdd6e4;">right now</em>, and a facilities manager reading utilization patterns to optimize the floor.</p>
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);flex-shrink:0;margin-top:7px;"></div><span style="font-size:14px;color:#aab6c9;line-height:1.5;">Furniture-level dots, occupied vs. free at a glance</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);flex-shrink:0;margin-top:7px;"></div><span style="font-size:14px;color:#aab6c9;line-height:1.5;">Furniture-level seats on the real floor plan, occupied vs. free at a glance</span></div>
             <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);flex-shrink:0;margin-top:7px;"></div><span style="font-size:14px;color:#aab6c9;line-height:1.5;">Spatial clusters help people navigate, "free desks top-right"</span></div>
             <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--c-teal2);flex-shrink:0;margin-top:7px;"></div><span style="font-size:14px;color:#aab6c9;line-height:1.5;">A busiest-time heat map for planning when to come in</span></div>
           </div>
@@ -891,7 +899,6 @@ summary::-webkit-details-marker{display:none}
 
       <div style="max-width:680px;margin:0 auto;text-align:center;" data-reveal="1">
         <p style="font-family:'Inter',sans-serif;font-size:clamp(20px,2.2vw,28px);font-weight:300;font-style:italic;color:#cdd6e4;line-height:1.5;letter-spacing:-0.4px;">"CORE Insights changed how our facilities teams operate. They went from monthly reports to a live picture they can act on in seconds."</p>
-        <div style="margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a5a72;letter-spacing:0.06em;">VP of Product · Cooper Lighting Solutions</div>
       </div>
     </div>
   </section>
@@ -961,18 +968,41 @@ class Component extends DCLogic {
     const target = (z, h) => Math.min(0.96, (occCurve[h] || 0.3) * ZONES[z].f);
     const heatColor = (t) => t < 0.4 ? 'rgba(76,168,143,' + (0.32 + t * 0.6).toFixed(2) + ')' : t < 0.7 ? 'rgba(212,160,54,' + (0.55 + (t - 0.4) * 0.8).toFixed(2) + ')' : 'rgba(224,108,94,' + (0.62 + (t - 0.7) * 0.9).toFixed(2) + ')';
 
-    // ---- build desks: 3 zones × 3 cols × 4 rows ----
+    // ---- the floor plan: vector walls + rooms drawn behind the seats (a real plan, not dots) ----
+    // Logical drawing space is 160 × 100 (matches the 16:10 stage). PX() converts an X to a width-%.
+    const zoneBands = { west: [6, 51.3], core: [57.3, 102.7], east: [108.7, 154] };
+    const PX = (x) => (x * 0.625);
+    const amen = { west: 'Conf A', core: 'Huddle', east: 'Conf B' };
+    const W = 'stroke="rgba(255,255,255,0.13)" stroke-width="0.7" fill="none"';
+    const RM = 'fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.10)" stroke-width="0.6"';
+    const AISLE = 'stroke="rgba(255,255,255,0.06)" stroke-width="0.4" stroke-dasharray="1.6 1.6"';
+    let svg = '<svg class="hd-plan" viewBox="0 0 160 100" preserveAspectRatio="none" aria-hidden="true">';
+    svg += '<rect x="2.5" y="2.5" width="155" height="95" rx="2" ' + W + '/>';
+    Object.keys(zoneBands).forEach((z) => {
+      const [a, b] = zoneBands[z];
+      svg += '<rect x="' + a + '" y="5" width="' + (b - a) + '" height="15" rx="1.5" ' + RM + '/>';                 // amenity room
+      svg += '<text class="hd-plan-label" x="' + ((a + b) / 2) + '" y="13.4" text-anchor="middle">' + amen[z] + '</text>';
+      svg += '<rect x="' + a + '" y="26" width="' + (b - a) + '" height="58" rx="1.5" ' + W + '/>';                  // desk neighbourhood
+      svg += '<line x1="' + (a + 3) + '" y1="39.5" x2="' + (b - 3) + '" y2="39.5" ' + AISLE + '/>';                  // bench spines
+      svg += '<line x1="' + (a + 3) + '" y1="69.5" x2="' + (b - 3) + '" y2="69.5" ' + AISLE + '/>';
+    });
+    svg += '<line x1="4" y1="54.5" x2="156" y2="54.5" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="2.2 2.2"/>'; // cross corridor
+    svg += '</svg>';
+    floor.insertAdjacentHTML('afterbegin', svg);
+
+    // ---- build seats: 3 neighbourhoods × 2 benches × (2 facing rows × 3 cols) = 36 desks ----
     const desks = [];
-    const zoneX = { west: [8, 27], core: [40.5, 59.5], east: [73, 92] };
-    const cols = 3, rows = 4; let n = 0;
+    const benchY = [33.5, 45.5, 63.5, 75.5];     // two benches; rows pair up to face across a spine
+    const chairUp = [true, false, true, false];
+    const cols = 3; let n = 0;
     Object.keys(ZONES).forEach((z) => {
-      const xr = zoneX[z];
-      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const [a, b] = zoneBands[z];
+      const cx0 = a + 6, cx1 = b - 6;
+      for (let r = 0; r < benchY.length; r++) for (let c = 0; c < cols; c++) {
         n++;
-        const x = xr[0] + (xr[1] - xr[0]) * (c / (cols - 1));
-        const y = 22 + (80 - 22) * (r / (rows - 1));
+        const x = PX(cx0 + (cx1 - cx0) * (c / (cols - 1)));
         const id = z[0].toUpperCase() + '-' + String(n).padStart(2, '0');
-        desks.push({ id, z, x, y, seed: id + z });
+        desks.push({ id, z, x, y: benchY[r], up: chairUp[r], seed: id + z });
       }
     });
     const total = desks.length;
@@ -980,24 +1010,24 @@ class Component extends DCLogic {
 
     const S = { role: 'emp', hour: 10, booked: null, suggest: null, suggestMsg: '' };
 
-    // ---- heat blobs (manager) behind desks ----
-    const blobs = {};
-    ['west', 'core', 'east'].forEach((z) => {
-      const b = document.createElement('div'); b.className = 'hd-heat';
-      const cx = (zoneX[z][0] + zoneX[z][1]) / 2;
-      b.style.left = cx + '%'; b.style.top = '52%'; b.style.width = '34%'; b.style.height = '72%';
-      b.style.opacity = '0';
-      floor.appendChild(b); blobs[z] = b;
+    // ---- per-zone utilisation tint (facilities heat), over the plan and under the seats ----
+    const zoneFill = {};
+    Object.keys(zoneBands).forEach((z) => {
+      const [a, b] = zoneBands[z];
+      const f = document.createElement('div'); f.className = 'hd-zone-fill';
+      f.style.left = PX(a) + '%'; f.style.width = PX(b - a) + '%'; f.style.top = '26%'; f.style.height = '58%';
+      floor.appendChild(f); zoneFill[z] = f;
     });
     // ---- zone labels ----
-    ['west', 'core', 'east'].forEach((z) => {
+    Object.keys(zoneBands).forEach((z) => {
+      const [a, b] = zoneBands[z];
       const lab = document.createElement('div'); lab.className = 'hd-zone-label';
-      lab.textContent = ZN[z]; lab.style.left = ((zoneX[z][0] + zoneX[z][1]) / 2) + '%'; lab.style.top = '8%';
+      lab.textContent = ZN[z]; lab.style.left = PX((a + b) / 2) + '%'; lab.style.top = '22.5%';
       floor.appendChild(lab);
     });
-    // ---- desk buttons ----
+    // ---- seats (each is a live, bookable workstation) ----
     desks.forEach((d) => {
-      const el = document.createElement('button'); el.type = 'button'; el.className = 'hd-desk'; el.dataset.id = d.id;
+      const el = document.createElement('button'); el.type = 'button'; el.className = 'hd-desk ' + (d.up ? 'up' : 'down'); el.dataset.id = d.id;
       el.style.left = d.x + '%'; el.style.top = d.y + '%';
       floor.appendChild(el); d.el = el;
       el.addEventListener('click', () => onDeskClick(d));
@@ -1017,18 +1047,18 @@ class Component extends DCLogic {
         const el = d.el;
         el.classList.toggle('is-sug', S.suggest === d.id && !mgr);
         if (mgr) {
-          el.style.background = booked ? '#7dd3c0' : occ ? heatColor(target(d.z, h)) : 'rgba(76,168,143,0.16)';
+          el.style.background = booked ? '#a78bfa' : occ ? heatColor(target(d.z, h)) : 'rgba(76,168,143,0.16)';
           el.style.boxShadow = 'none'; el.style.cursor = 'default'; el.disabled = true;
           el.setAttribute('aria-label', 'Desk ' + d.id + ' ' + ZN[d.z] + ' ' + (occ ? 'occupied' : 'free'));
         } else {
-          el.style.background = booked ? '#7dd3c0' : occ ? 'rgba(255,255,255,0.15)' : 'var(--c-teal2)';
-          el.style.boxShadow = booked ? '0 0 0 3px rgba(125,211,192,0.32),0 0 12px rgba(125,211,192,0.55)' : 'none';
+          el.style.background = booked ? '#a78bfa' : occ ? 'rgba(255,255,255,0.15)' : 'var(--c-teal2)';
+          el.style.boxShadow = booked ? '0 0 0 3px rgba(167,139,250,0.38),0 0 12px rgba(167,139,250,0.6)' : 'none';
           el.style.cursor = free ? 'pointer' : 'default'; el.disabled = occ;
           el.setAttribute('aria-label', 'Desk ' + d.id + ' ' + ZN[d.z] + ' ' + (booked ? 'booked by you' : occ ? 'taken' : 'free — book it'));
         }
       });
       const zs = zoneStats(h);
-      ['west', 'core', 'east'].forEach((z) => { const [o, t] = zs[z]; blobs[z].style.opacity = mgr ? (0.12 + (o / t) * 0.7).toFixed(2) : '0'; });
+      ['west', 'core', 'east'].forEach((z) => { const [o, t] = zs[z]; const u = t ? o / t : 0; const f = zoneFill[z]; if (mgr) { f.style.background = heatColor(u); f.style.opacity = (0.12 + u * 0.42).toFixed(2); } else { f.style.opacity = '0'; } });
     };
     const renderStrip = () => { [...strip.children].forEach((c) => c.classList.toggle('now', +c.dataset.h === S.hour)); };
     const renderPanel = () => {
@@ -1041,9 +1071,9 @@ class Component extends DCLogic {
           '<button class="hd-find" id="hd-find">⌖&nbsp; Find me a desk</button>' +
           '<div id="hd-suggest" style="font-size:13px;color:#aab6c9;line-height:1.5;min-height:36px;">' + (S.suggestMsg || 'Tap any teal desk to book it — or let the app point you to the emptiest wing.') + '</div>' +
           (booked ?
-            '<div style="background:rgba(125,211,192,0.1);border:1px solid rgba(125,211,192,0.3);border-radius:10px;padding:13px 15px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="color:var(--c-teal3);font-weight:700;">✓</span><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:var(--c-teal3);letter-spacing:0.08em;">CHECKED IN</span></div><div style="font-size:14px;color:#e8edf5;">Desk ' + booked.id + ' · ' + ZN[booked.z] + '</div><div style="font-size:12px;color:#8a9ab5;margin-top:2px;">' + fmt(h) + '–17:00 today</div><button class="hd-cancel" id="hd-cancel" style="margin-top:11px;">Release desk</button></div>'
+            '<div style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.34);border-radius:10px;padding:13px 15px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="color:#c4b5fd;font-weight:700;">✓</span><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:#c4b5fd;letter-spacing:0.08em;">CHECKED IN</span></div><div style="font-size:14px;color:#e8edf5;">Desk ' + booked.id + ' · ' + ZN[booked.z] + '</div><div style="font-size:12px;color:#8a9ab5;margin-top:2px;">' + fmt(h) + '–17:00 today</div><button class="hd-cancel" id="hd-cancel" style="margin-top:11px;">Release desk</button></div>'
             : '') +
-          '<div style="margin-top:auto;display:flex;gap:15px;flex-wrap:wrap;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:#6a7e9a;align-items:center;"><span><span class="hd-key" style="background:var(--c-teal2);"></span>Free</span><span><span class="hd-key" style="background:rgba(255,255,255,0.18);"></span>Taken</span><span><span class="hd-key" style="background:#7dd3c0;"></span>Yours</span></div>';
+          '<div style="margin-top:auto;display:flex;gap:15px;flex-wrap:wrap;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:#6a7e9a;align-items:center;"><span><span class="hd-key" style="background:var(--c-teal2);"></span>Free</span><span><span class="hd-key" style="background:rgba(255,255,255,0.18);"></span>Taken</span><span><span class="hd-key" style="background:#a78bfa;"></span>Yours</span></div>';
       } else {
         const zs = zoneStats(h);
         const bar = (z) => { const o = zs[z][0], t = zs[z][1], p = Math.round(o / t * 100); const col = p < 45 ? 'var(--c-teal2)' : p < 72 ? '#d4a036' : '#e06c5e'; return '<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#aab6c9;margin-bottom:4px;"><span>' + ZN[z] + '</span><span style="font-family:\'JetBrains Mono\',monospace;color:#e8edf5;">' + p + '%</span></div><div style="height:7px;border-radius:4px;background:#0b1016;overflow:hidden;"><div style="width:' + p + '%;height:100%;background:' + col + ';transition:width .35s ease;"></div></div></div>'; };
@@ -1056,7 +1086,7 @@ class Component extends DCLogic {
           '<div style="margin-top:auto;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:#6a7e9a;line-height:1.5;">Scrub the timeline to read the day’s rhythm — the same live sensor feed the employee sees, rolled up for planning.</div>';
       }
     };
-    const render = () => { renderFloor(); renderStrip(); renderPanel(); if (clock) clock.textContent = fmt(S.hour); if (timeLabel) timeLabel.textContent = fmt(S.hour); };
+    const render = () => { renderFloor(); renderStrip(); renderPanel(); if (timeEl && +timeEl.value !== S.hour) timeEl.value = String(S.hour); if (clock) clock.textContent = fmt(S.hour); if (timeLabel) timeLabel.textContent = fmt(S.hour); };
 
     // ---- interactions ----
     const onDeskClick = (d) => {
