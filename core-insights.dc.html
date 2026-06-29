@@ -22,6 +22,11 @@ body{margin:0}
 .ci-frame-scroll::-webkit-scrollbar{width:7px;height:7px}
 .ci-frame-scroll::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.18);border-radius:10px}
 .ci-frame-scroll::-webkit-scrollbar-track{background:transparent}
+.ci-shipped{align-items:start}
+.ci-shipped-col{align-self:start}
+.ci-screen{height:fit-content;width:100%}
+.ci-screen-body{overflow:visible}
+.ci-screen-body img{width:100%;height:auto;display:block}
 @keyframes ci-blink{0%,100%{opacity:1}50%{opacity:0.18}}
 @keyframes ci-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ci-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -39,6 +44,7 @@ body{margin:0}
   .ci [style*="grid-template-columns: 1.55fr 1fr"]{grid-template-columns:1fr !important;gap:30px !important}
   #s-model [style*="repeat(5, 1fr)"],#s-decisions [style*="repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
   #s-usecases [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important;gap:16px !important}
+  #s-challenge .ci-shipped{grid-template-columns:1fr !important}
   .ci-hero-media{display:none !important}
   .ci-hero-media-m{display:flex !important}
   .ci section[style*="padding:84px"]{padding-top:60px !important;padding-bottom:64px !important}
@@ -205,8 +211,6 @@ summary::-webkit-details-marker{display:none}
       <div style="animation:ci-up 0.8s cubic-bezier(0.22,0.61,0.36,1) both;">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
           <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal);letter-spacing:0.14em;text-transform:uppercase;">Cooper Lighting · Signify</span>
-          <div style="width:22px;height:1px;background:rgba(10,8,4,0.2);"></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);letter-spacing:0.14em;text-transform:uppercase;">2022, 2023</span>
         </div>
         <h1 style="font-family:'Inter',sans-serif;font-size:clamp(40px,4.6vw,68px);font-weight:500;line-height:1.04;letter-spacing:-2.2px;color:var(--c-ink);margin-bottom:24px;">A live mesh of devices,<br/>made <span class="ci-hl"><em style="font-style:italic;font-weight:300;color:var(--c-teal);">legible.</em></span></h1>
         <p style="font-size:19px;color:var(--c-body);line-height:1.62;max-width:480px;margin-bottom:38px;">CORE Insights turns raw lighting &amp; sensor telemetry into operational intelligence, one platform serving the portfolio analyst, the facilities manager, and the technician on the floor.</p>
@@ -246,11 +250,15 @@ summary::-webkit-details-marker{display:none}
             <img src="assets/ci/overview.jpg" alt="CORE Insights desktop dashboard" style="width:100%;display:block;"/>
           </div>
         </div>
-        <!-- phone -->
-        <div style="position:absolute;bottom:0;left:-6px;width:158px;border-radius:24px;background:#12161d;padding:7px;box-shadow:0 30px 60px -18px rgba(20,30,40,0.5);border:1px solid rgba(255,255,255,0.05);animation:ci-float 6s ease-in-out infinite;">
-          <div style="border-radius:18px;overflow:hidden;background:var(--c-surface);height:300px;position:relative;">
-            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:54px;height:15px;background:#12161d;border-radius:0 0 9px 9px;z-index:2;"></div>
-            <img src="assets/ci/mobile.jpg" alt="CORE Insights mobile" style="width:100%;display:block;"/>
+        <!-- secondary desktop -->
+        <div style="position:absolute;bottom:0;left:-6px;width:268px;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:0 30px 60px -18px rgba(20,30,40,0.5);border:1px solid var(--c-b2);animation:ci-float 6s ease-in-out infinite;transform:perspective(1200px) rotateY(7deg) rotateX(-1deg);">
+          <div style="height:28px;background:var(--c-line);display:flex;align-items:center;padding:0 10px;gap:5px;border-bottom:1px solid var(--c-b1);">
+            <div style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></div>
+          </div>
+          <div class="ci-frame-scroll" tabindex="0" style="height:248px;overflow-y:auto;background:var(--c-surface);">
+            <img src="assets/ci/hot-desking.jpg" alt="Hot Desking dashboard, per-desk availability" style="width:100%;display:block;"/>
           </div>
         </div>
         <!-- floating live chip -->
@@ -271,11 +279,13 @@ summary::-webkit-details-marker{display:none}
           </div>
           <div class="ci-frame-scroll" tabindex="0" style="height:300px;overflow-y:auto;background:var(--c-surface);"><img src="assets/ci/overview.jpg" alt="CORE Insights desktop dashboard" style="width:100%;display:block;"/></div>
         </div>
-        <div style="flex:0 0 130px;width:130px;border-radius:22px;background:#12161d;padding:6px;box-shadow:0 20px 40px -18px rgba(20,30,40,0.42);border:1px solid rgba(255,255,255,0.05);">
-          <div style="border-radius:16px;overflow:hidden;background:var(--c-surface);height:246px;position:relative;">
-            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:44px;height:13px;background:#12161d;border-radius:0 0 8px 8px;z-index:2;"></div>
-            <img src="assets/ci/mobile.jpg" alt="CORE Insights mobile" style="width:100%;display:block;"/>
+        <div style="flex:1;min-width:0;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:0 30px 60px -28px rgba(20,30,40,0.32),0 6px 18px -10px rgba(20,30,40,0.16);border:1px solid var(--c-b2);">
+          <div style="height:32px;background:var(--c-line);display:flex;align-items:center;padding:0 13px;gap:6px;border-bottom:1px solid var(--c-b1);">
+            <div style="width:9px;height:9px;border-radius:50%;background:#e06c5e;"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#e0b94e;"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#5bbd7a;"></div>
           </div>
+          <div class="ci-frame-scroll" tabindex="0" style="height:300px;overflow-y:auto;background:var(--c-surface);"><img src="assets/ci/hot-desking.jpg" alt="Hot Desking dashboard, per-desk availability" style="width:100%;display:block;"/></div>
         </div>
       </div>
     </div>
@@ -359,13 +369,17 @@ summary::-webkit-details-marker{display:none}
       </div>
 
       <!-- cropped screenshots: the raw surface -->
-      <div style="display:flex;flex-direction:column;gap:24px;margin-top:40px;" data-reveal="1">
-        <div>
-          <div class="ci-frame-scroll" tabindex="0" style="border-radius:0;overflow-y:auto;border:1px solid var(--c-b2);box-shadow:var(--shadow-lg);background:#0e151e;height:520px;"><img src="assets/ci/desktop-portfolio.jpg" alt="Dense portfolio dashboard, raw surface" style="width:100%;display:block;" loading="lazy"/></div>
+      <div class="ci-shipped" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px;" data-reveal="1">
+        <div class="ci-shipped-col">
+          <div class="ci-screen" style="overflow:hidden;border:1px solid var(--c-b2);box-shadow:var(--shadow-lg);background:#0e151e;">
+            <div class="ci-screen-body"><img src="assets/ci/desktop-portfolio.jpg" alt="Dense portfolio dashboard, raw surface" loading="lazy"/></div>
+          </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:9px;">Portfolio view · every metric at once</div>
         </div>
-        <div>
-          <div style="border-radius:0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:var(--shadow-lg);background:#0e151e;height:230px;"><img src="assets/ci/conference.jpg" alt="Room dashboard, dense data tables" style="width:100%;display:block;" loading="lazy"/></div>
+        <div class="ci-shipped-col">
+          <div class="ci-screen" style="overflow:hidden;border:1px solid var(--c-b2);box-shadow:var(--shadow-lg);background:#0e151e;">
+            <div class="ci-screen-body"><img src="assets/ci/conference.jpg" alt="Room dashboard, dense data tables" loading="lazy"/></div>
+          </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:9px;">Room view · tables, charts, and status stacked</div>
         </div>
       </div>
@@ -475,25 +489,25 @@ summary::-webkit-details-marker{display:none}
       <!-- the model, made real -->
       <div style="margin-top:46px;" data-reveal="1">
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;">The model, in the product</div>
-        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;">
-          <div>
-            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
+        <div class="ci-shipped" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div class="ci-shipped-col">
+            <div class="ci-screen" style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
               <div style="height:26px;background:#ece8e0;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b2);"><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span></div>
-              <div class="ci-frame-scroll" tabindex="0" style="height:440px;overflow-y:auto;"><img src="assets/ci/overview.jpg" alt="Floor-level heat map, Occupancy PRO" style="width:100%;display:block;" loading="lazy"/></div>
+              <div class="ci-screen-body"><img src="assets/ci/overview.jpg" alt="Floor-level heat map, Occupancy PRO" loading="lazy"/></div>
             </div>
             <div style="padding:0 2px;margin-top:8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Floor level · heat map</div><p style="font-size:13px;color:var(--c-muted);line-height:1.55;">Spatial orientation, color encodes utilization across the plan.</p></div>
           </div>
-          <div>
-            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
+          <div class="ci-shipped-col">
+            <div class="ci-screen" style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
               <div style="height:26px;background:#ece8e0;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b2);"><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span></div>
-              <div class="ci-frame-scroll" tabindex="0" style="height:440px;overflow-y:auto;"><img src="assets/ci/conference.jpg" alt="Room-level dashboard, Conference Rooms" style="width:100%;display:block;" loading="lazy"/></div>
+              <div class="ci-screen-body"><img src="assets/ci/conference.jpg" alt="Room-level dashboard, Conference Rooms" loading="lazy"/></div>
             </div>
             <div style="padding:0 2px;margin-top:8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Room level · trends</div><p style="font-size:13px;color:var(--c-muted);line-height:1.55;">One space over time, live status, area graph, and capacity.</p></div>
           </div>
-          <div>
-            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
+          <div class="ci-shipped-col">
+            <div class="ci-screen" style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--c-b2);box-shadow:0 24px 54px -30px rgba(0,0,0,0.4);background:#0e151e;">
               <div style="height:26px;background:#ece8e0;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid var(--c-b2);"><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span><span style="width:8px;height:8px;border-radius:50%;background:#cfc8b8;"></span></div>
-              <div class="ci-frame-scroll" tabindex="0" style="height:440px;overflow-y:auto;"><img src="assets/ci/hot-desking.jpg" alt="Hot desking floor view" style="width:100%;display:block;" loading="lazy"/></div>
+              <div class="ci-screen-body"><img src="assets/ci/hot-desking.jpg" alt="Hot desking floor view" loading="lazy"/></div>
             </div>
             <div style="padding:0 2px;margin-top:8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Desk level · availability</div><p style="font-size:13px;color:var(--c-muted);line-height:1.55;">Individual desks, who's where, and what's free right now.</p></div>
           </div>
@@ -667,27 +681,15 @@ summary::-webkit-details-marker{display:none}
       <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:center;background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:20px;padding:40px;">
         <!-- device frame -->
         <div style="display:flex;justify-content:center;align-items:center;min-height:440px;">
-          <!-- desktop tiers -->
-          <sc-if value="{{ tierIsDesktop }}" hint-placeholder-val="{{ true }}">
-            <div style="width:100%;max-width:620px;border-radius:12px;overflow:hidden;background:var(--c-surface);box-shadow:0 30px 64px -28px rgba(20,30,40,0.32),0 6px 18px -10px rgba(20,30,40,0.16);border:1px solid var(--c-b2);">
-              <div style="height:36px;background:var(--c-line);display:flex;align-items:center;padding:0 14px;gap:7px;border-bottom:1px solid var(--c-b1);">
-                <div style="width:10px;height:10px;border-radius:50%;background:#e06c5e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#e0b94e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#5bbd7a;"></div>
-                <div style="margin-left:14px;flex:1;height:19px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">{{ tierUrl }}</span></div>
-              </div>
-              <div class="ci-frame-scroll" tabindex="0" style="height:432px;overflow-y:auto;background:var(--c-surface);">
-                <img src="{{ tierImg }}" alt="CORE Insights dashboard" style="width:100%;display:block;"/>
-              </div>
+          <div style="width:100%;max-width:620px;border-radius:12px;overflow:hidden;background:var(--c-surface);box-shadow:0 30px 64px -28px rgba(20,30,40,0.32),0 6px 18px -10px rgba(20,30,40,0.16);border:1px solid var(--c-b2);">
+            <div style="height:36px;background:var(--c-line);display:flex;align-items:center;padding:0 14px;gap:7px;border-bottom:1px solid var(--c-b1);">
+              <div style="width:10px;height:10px;border-radius:50%;background:#e06c5e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#e0b94e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#5bbd7a;"></div>
+              <div style="margin-left:14px;flex:1;height:19px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">{{ tierUrl }}</span></div>
             </div>
-          </sc-if>
-          <!-- mobile tier -->
-          <sc-if value="{{ tierIsMobile }}" hint-placeholder-val="{{ false }}">
-            <div style="width:262px;border-radius:34px;background:#12161d;padding:9px;box-shadow:0 30px 64px -24px rgba(20,30,40,0.4);border:1px solid rgba(255,255,255,0.06);">
-              <div style="border-radius:26px;overflow:hidden;background:var(--c-surface);height:480px;position:relative;">
-                <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:88px;height:22px;background:#12161d;border-radius:0 0 14px 14px;z-index:3;"></div>
-                <div class="ci-frame-scroll" tabindex="0" style="height:100%;overflow-y:auto;"><img src="assets/ci/mobile.jpg" alt="CORE Insights mobile" style="width:100%;display:block;"/></div>
-              </div>
+            <div class="ci-frame-scroll" tabindex="0" style="height:432px;overflow-y:auto;background:var(--c-surface);">
+              <img src="{{ tierImg }}" alt="CORE Insights dashboard" style="width:100%;display:block;"/>
             </div>
-          </sc-if>
+          </div>
         </div>
 
         <!-- rationale -->
@@ -822,28 +824,28 @@ summary::-webkit-details-marker{display:none}
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.12em;text-transform:uppercase;">Shipped to the field, the real screens</div>
           <div style="flex:1;height:1px;background:rgba(255,255,255,0.1);"></div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <div class="ci-shipped" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
 
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
+          <div class="ci-shipped-col" style="display:flex;flex-direction:column;gap:12px;">
+            <div class="ci-screen" style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
               <div style="height:26px;background:#161d27;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
-              <div style="height:300px;overflow:hidden;"><img src="assets/ci/hot-desking.jpg" alt="Hot Desking dashboard, per-desk availability" style="width:100%;display:block;"/></div>
+              <div class="ci-screen-body"><img src="assets/ci/hot-desking.jpg" alt="Hot Desking dashboard, per-desk availability"/></div>
             </div>
             <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Hot Desking</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Per-desk vacancy on the floor plan, with a busiest-time heatmap for planning arrivals.</div></div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
+          <div class="ci-shipped-col" style="display:flex;flex-direction:column;gap:12px;">
+            <div class="ci-screen" style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
               <div style="height:26px;background:#161d27;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
-              <div class="ci-frame-scroll" tabindex="0" style="height:300px;overflow-y:auto;"><img src="assets/ci/conference.jpg" alt="Conference Room dashboard, live room status" style="width:100%;display:block;"/></div>
+              <div class="ci-screen-body"><img src="assets/ci/conference.jpg" alt="Conference Room dashboard, live room status"/></div>
             </div>
             <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Conference Room</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">Live room status, people, capacity, temperature and humidity, read in spatial context.</div></div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
+          <div class="ci-shipped-col" style="display:flex;flex-direction:column;gap:12px;">
+            <div class="ci-screen" style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 54px -30px rgba(0,0,0,0.7);background:#0e151e;">
               <div style="height:26px;background:#161d27;display:flex;align-items:center;padding:0 11px;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
-              <div style="height:300px;overflow:hidden;"><img src="assets/ci/overview.jpg" alt="Occupancy PRO dashboard, floor heatmap and utilization" style="width:100%;display:block;"/></div>
+              <div class="ci-screen-body"><img src="assets/ci/overview.jpg" alt="Occupancy PRO dashboard, floor heatmap and utilization"/></div>
             </div>
             <div style="padding:0 2px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-teal2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Occupancy PRO</div><div style="font-size:12px;color:#aab6c9;line-height:1.45;">The analyst view, floor heatmap, utilization and capacity rolled up on one screen.</div></div>
           </div>
@@ -1222,10 +1224,10 @@ class Component extends DCLogic {
       pro: { tag: 'Company PRO · Analyst', url: 'insights.cooperlighting.com/portfolio', img: 'assets/ci/desktop-portfolio.jpg',
         title: 'See the whole portfolio at a glance.', body: 'PRO users manage dozens of buildings. The dashboard leads with cross-site rollups, utilization, capacity, and busiest-time heatmaps, so an analyst spots the outlier site in seconds.',
         points: ['Floor-plan availability with live vacant / occupied state', 'Sortable utilization tables that drill from org → building → floor', 'Weekly heatmaps to plan space and staffing'] },
-      sme: { tag: 'Site Manager · Floor', url: 'insights.cooperlighting.com/floor-5', img: 'assets/ci/desktop-floor.jpg',
+      sme: { tag: 'Site Manager · Floor', url: 'insights.cooperlighting.com/floor-5', img: 'assets/ci/conference-floor.jpg',
         title: 'Run a single floor in real time.', body: 'Site managers live at floor level. The same data narrows to one space: an interactive floor plan with per-room temperature and humidity, paired with a 7-day utilization graph.',
         points: ['Click a room on the plan for live environmental readings', 'Layered area graph compares rooms over time', 'Capacity vs. occupancy surfaced at a glance'] },
-      mobile: { tag: 'Technician · On-site', url: '', img: 'assets/ci/mobile.jpg',
+      mobile: { tag: 'Technician · On-site', url: 'insights.cooperlighting.com/hot-desking', img: 'assets/ci/hot-desking.jpg',
         title: 'The essentials, in your hand.', body: 'On the floor, a technician needs answers, not a spreadsheet. The mobile app distills it to average vs. peak occupancy, popular spaces, and a breadcrumb that mirrors the desktop hierarchy.',
         points: ['Average and peak occupancy up top, with 7-day delta', 'Most / least popular spaces ranked instantly', 'Same hierarchy as desktop, no relearning'] },
     };
@@ -1280,7 +1282,6 @@ class Component extends DCLogic {
       liveLine, liveArea, liveNow, livePeak, liveAvg,
       tabPro: () => this.setState({ tier: 'pro' }), tabSme: () => this.setState({ tier: 'sme' }), tabMob: () => this.setState({ tier: 'mobile' }),
       proBg: tt('pro').bg, proFg: tt('pro').fg, smeBg: tt('sme').bg, smeFg: tt('sme').fg, mobBg: tt('mobile').bg, mobFg: tt('mobile').fg,
-      tierIsDesktop: tier !== 'mobile', tierIsMobile: tier === 'mobile',
       tierUrl: td.url, tierImg: td.img, tierTag: td.tag, tierTitle: td.title, tierBody: td.body, tierPoints: td.points,
       baDown: e => this.baDown(e), baTouchStart: e => this.baTouchStart(e), baMove: e => this.baMove(e), baTouchMove: e => this.baTouchMove(e), baUp: () => this.baUp(),
       isBefore: S.shift === 'before', isAfter: S.shift === 'after',
