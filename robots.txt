@@ -1,0 +1,5 @@
+# robots.txt — robertbabiarz.com
+User-agent: *
+Allow: /
+
+Sitemap: https://robertbabiarz.com/sitemap.xml

@@ -5,6 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Robert Babiarz, Senior Product Designer</title>
 <script src="./support.js"></script>
+
+  <!-- SEO·OG·JSONLD (injected) -->
+  <meta name="description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces.">
+  <meta name="author" content="Robert Babiarz">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://robertbabiarz.com/">
+  <meta name="theme-color" content="#070b12">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/assets/rob-babiarz-photo.png">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Robert Babiarz — Product Designer">
+  <meta property="og:title" content="Robert Babiarz, Senior Product Designer">
+  <meta property="og:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces.">
+  <meta property="og:url" content="https://robertbabiarz.com/">
+  <meta property="og:image" content="https://robertbabiarz.com/previews/p-ctoc.png">
+  <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Robert Babiarz, Senior Product Designer">
+  <meta name="twitter:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces.">
+  <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-ctoc.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Robert Babiarz","jobTitle":"Senior Product Designer","url":"https://robertbabiarz.com/","image":"https://robertbabiarz.com/assets/rob-babiarz-photo.png","email":"mailto:rbabiarz@gmail.com","description":"Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS \u2014 design systems, data visualization, and WCAG 2.2-accessible interfaces.","address":{"@type":"PostalAddress","addressLocality":"Greater Toronto Area","addressRegion":"Ontario","addressCountry":"CA"},"sameAs":["https://linkedin.com/in/robert-babiarz"],"knowsAbout":["Product Design","UX Design","UI Design","Design Systems","Data Visualization","Dashboard Design","Information Architecture","Interaction Design","User Research","Usability Testing","Prototyping","Figma","Accessibility","WCAG 2.2","Cybersecurity UX","SOC dashboards","Threat operations UX","Defense technology UX","Connected lighting","IoT","Fintech UX","Enterprise SaaS","B2B product design","AR field tooling","Design tokens","Operator interfaces"],"knowsLanguage":"en","seeks":{"@type":"Demand","name":"Full-time and freelance / contract product-design engagements"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Robert Babiarz \u2014 Product Designer Portfolio","url":"https://robertbabiarz.com/","author":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Design Systems, Data Visualization, Dashboard Design, Information Architecture, Interaction Design, User Research, Usability Testing, Prototyping, Figma, Accessibility, WCAG 2.2, Cybersecurity UX, SOC dashboards, Threat operations UX, Defense technology UX, Connected lighting, IoT, Fintech UX, Enterprise SaaS, B2B product design, AR field tooling, Design tokens, Operator interfaces"}</script>
+  <script src="/analytics.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -47,6 +71,16 @@ html{scroll-behavior:smooth}
 #la-recalc{cursor:pointer;border:none;font:inherit;transition:filter .15s ease;}
 #la-recalc:hover{filter:brightness(1.1);}
 #la-recalc:focus-visible{outline:2px solid var(--la-accent);outline-offset:2px;}
+#la-add,#la-del{cursor:pointer;transition:filter .15s ease,opacity .15s ease;}
+#la-add:hover,#la-del:not(:disabled):hover{filter:brightness(1.08);}
+#la-add:focus-visible,#la-del:focus-visible{outline:2px solid var(--la-accent);outline-offset:2px;}
+#la-del:disabled{opacity:0.42;cursor:not-allowed;}
+#la-panel-head:hover{background:var(--la-soft-bg);}
+#la-panel-head:focus-visible{outline:2px solid var(--la-accent);outline-offset:-2px;}
+#la-caret{transition:transform .2s ease;}
+#la-panel.la-collapsed #la-panel-head{border-bottom-color:transparent;}
+#la-panel.la-collapsed #la-caret{transform:rotate(-90deg);}
+#la-panel.la-collapsed #la-body{display:none;}
 #la-hint{display:none;align-items:center;gap:8px;position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);z-index:9;background:var(--la-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--la-bd);border-radius:999px;padding:8px 15px;font-family:'JetBrains Mono',monospace;font-size:clamp(9px,2.4vw,10.5px);letter-spacing:0.04em;color:var(--la-text);pointer-events:none;box-shadow:0 12px 30px var(--la-shadow2);max-width:calc(100% - 24px);text-align:center;line-height:1.45}
 #la-hint .la-hint-dot{width:7px;height:7px;border-radius:50%;background:var(--la-accent);box-shadow:0 0 8px var(--la-cyan-glow);flex-shrink:0}
 #la-hint .la-hint-long{display:inline}
@@ -633,16 +667,16 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 
           <!-- LAYER 2 · photometric summary panel (top-right) -->
           <div class="la-layer" data-la="-0.4" id="la-panel" style="position:absolute;top:13%;right:5%;width:340px;max-width:42vw;z-index:6;background:var(--la-glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--la-bd);border-radius:12px;box-shadow:0 26px 60px var(--la-shadow);overflow:hidden;">
-            <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--la-bd-soft);">
+            <button id="la-panel-head" type="button" aria-expanded="true" aria-controls="la-body" title="Collapse / expand the summary" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:none;border-bottom:1px solid var(--la-bd-soft);background:transparent;width:100%;font:inherit;text-align:left;cursor:pointer;">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--la-accent)"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
               <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.13em;color:var(--la-text-strong);font-weight:500;">PHOTOMETRIC SUMMARY</span>
-              <span style="margin-left:auto;color:var(--la-dim);">▾</span>
-            </div>
+              <span id="la-caret" style="margin-left:auto;color:var(--la-dim);">▾</span>
+            </button>
+            <div id="la-body">
             <div style="display:flex;gap:7px;padding:13px 16px;">
               <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-btn-bg);color:var(--la-btn-tx);padding:7px 11px;border-radius:6px;font-weight:600;">RE-CALC</button>
-              <button id="la-add" type="button" title="Add a luminaire" style="display:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);font-weight:600;">＋ ADD</button>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);">GET PDF</span>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-amber-bg);color:var(--la-amber-tx);padding:7px 11px;border-radius:6px;border:1px solid var(--la-amber-bd);">WHERE TO BUY</span>
+              <button id="la-add" type="button" title="Add a luminaire to the map" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);font-weight:600;">＋ ADD</button>
+              <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-amber-bg);color:var(--la-amber-tx);padding:7px 11px;border-radius:6px;border:1px solid var(--la-amber-bd);font-weight:600;">✕ DELETE</button>
             </div>
             <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
             <div style="padding:4px 16px 16px;">
@@ -656,6 +690,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--la-accent);animation:blink 2s ease-in-out infinite;"></span>
                 <span>ILLUMINANCE (FC) · LLF 0.912</span>
               </div>
+            </div>
             </div>
           </div>
 
@@ -1814,7 +1849,7 @@ class Component extends DCLogic {
     this._laDefault = [];
     cx4.forEach(x => cy4.forEach(y => this._laDefault.push({ x, y })));
     this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y }));
-    this._laDrag = -1; this._laK = null;
+    this._laDrag = -1; this._laSel = -1; this._laK = null;
     // build the empty cell grid once; values + colour are filled by laRecompute (so it can update live)
     let html = '';
     for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
@@ -1876,14 +1911,81 @@ class Component extends DCLogic {
     const fl = document.getElementById('la-fixtures');
     if (fl) {
       let f = '';
-      for (let i = 0; i < fx.length; i++) f += '<div class="la-fx' + (i === this._laDrag ? ' on' : '') + '" data-i="' + i + '" style="left:' + (fx[i].x * 100).toFixed(2) + '%;top:' + (fx[i].y * 100).toFixed(2) + '%;"></div>';
+      for (let i = 0; i < fx.length; i++) f += '<div class="la-fx' + ((i === this._laDrag || i === this._laSel) ? ' on' : '') + '" data-i="' + i + '" style="left:' + (fx[i].x * 100).toFixed(2) + '%;top:' + (fx[i].y * 100).toFixed(2) + '%;"></div>';
       fl.innerHTML = f;
     }
     const cnt = document.getElementById('la-count'); if (cnt) cnt.textContent = fx.length + ' × GALN Galleon II';
+    this.laSyncDelete();
+  }
+
+  // enable the DELETE button only while a luminaire is selected (and one would remain)
+  laSyncDelete() {
+    const del = document.getElementById('la-del');
+    if (!del) return;
+    const active = this._laSel != null && this._laSel >= 0 && this._laFx && this._laSel < this._laFx.length && this._laFx.length > 1;
+    del.disabled = !active;
+    del.title = active ? 'Delete the selected luminaire' : 'Select a luminaire to delete it';
   }
 
   // make the plate a working planner: drag luminaires, click to add, double-click to remove.
   initLAInteract() {
+    // collapse / expand the photometric summary panel (works in every view)
+    const panel = document.getElementById('la-panel'), head = document.getElementById('la-panel-head'),
+          laStage = document.getElementById('la-stage');
+    if (panel && head && laStage && !head._laBound) {
+      head._laBound = true;
+      head.style.cursor = 'grab';
+      head.style.userSelect = 'none'; head.style.webkitUserSelect = 'none'; head.style.touchAction = 'none';
+      head.title = 'Drag to move · click to collapse';
+      let drag = null, moved = false;
+      // Freeze the window where it visually sits, then take it off the scroll-parallax so the drag is 1:1.
+      const pin = () => {
+        const pr = panel.getBoundingClientRect(), sr = laStage.getBoundingClientRect();
+        panel.style.left = (pr.left - sr.left) + 'px';
+        panel.style.top = (pr.top - sr.top) + 'px';
+        panel.style.right = 'auto';
+        panel.style.transform = '';
+        panel.style.zIndex = '20';            // a moved window comes to the front
+        panel.setAttribute('data-la-pinned', '');
+      };
+      this.on(head, 'pointerdown', (e) => {
+        if (e.button != null && e.button > 0) return;   // left button / touch only
+        moved = false; drag = { x: e.clientX, y: e.clientY };
+        try { head.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+      this.on(head, 'pointermove', (e) => {
+        if (!drag) return;
+        if (!moved) {
+          if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 4) return; // tolerate a click
+          moved = true; pin();
+          drag.l = parseFloat(panel.style.left) || 0; drag.t = parseFloat(panel.style.top) || 0;
+          drag.px = e.clientX; drag.py = e.clientY; head.style.cursor = 'grabbing';
+        }
+        const sr = laStage.getBoundingClientRect();
+        let nl = drag.l + (e.clientX - drag.px), nt = drag.t + (e.clientY - drag.py);
+        nl = Math.max(2, Math.min(sr.width - panel.offsetWidth - 2, nl));
+        nt = Math.max(2, Math.min(sr.height - panel.offsetHeight - 2, nt));
+        panel.style.left = nl + 'px'; panel.style.top = nt + 'px';
+      });
+      const endDrag = (e) => {
+        if (!drag) return;
+        drag = null; head.style.cursor = 'grab';
+        try { head.releasePointerCapture(e.pointerId); } catch (_) {}
+        if (moved) {   // it was a drag, not a click — swallow the click so the window doesn't also collapse
+          const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault(); head.removeEventListener('click', swallow, true); };
+          head.addEventListener('click', swallow, true);
+          setTimeout(() => head.removeEventListener('click', swallow, true), 80);
+        }
+      };
+      this.on(head, 'pointerup', endDrag);
+      this.on(head, 'pointercancel', endDrag);
+      this.on(head, 'click', (e) => {
+        e.preventDefault();
+        const collapsed = panel.classList.toggle('la-collapsed');
+        head.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+    }
+
     const plate = document.getElementById('la-plate'), wrap = document.getElementById('la-plate-wrap');
     if (!plate || !wrap || !this._laFx) return;
     const COARSE = (window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches)) || (window.innerWidth || 9999) <= 760;
@@ -1914,30 +2016,32 @@ class Component extends DCLogic {
       e.preventDefault(); e.stopPropagation();
       const now = (window.performance && performance.now) ? performance.now() : 0;
       if (this._laTapI === idx && now - (this._laTapT || 0) < 320) { // double-tap → remove
-        this._laTapI = -1; this._laDrag = -1;
+        this._laTapI = -1; this._laDrag = -1; this._laSel = -1;
         if (this._laFx.length > 1) { this._laFx.splice(idx, 1); this.laRecompute(); }
         return;
       }
-      this._laTapI = idx; this._laTapT = now; this._laDrag = idx; this.laRecompute();
+      this._laTapI = idx; this._laTapT = now; this._laDrag = idx; this._laSel = idx; this.laRecompute();
     });
 
     // empty plate: desktop click adds a luminaire; on touch the gesture is left alone so the page scrolls
     this.on(plate, 'pointerdown', (e) => {
       if (COARSE) return;
       const px = e.clientX, py = e.clientY, n = nearest(px, py);
-      if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; }
-      else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; }
+      if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; this._laSel = n.i; }
+      else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; this._laSel = this._laDrag; }
       plate.style.cursor = 'grabbing'; this.laRecompute(); e.preventDefault();
     });
-    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this.laRecompute(); } e.preventDefault(); });
+    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
 
-    const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this.laRecompute(); };
-    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this.laRecompute(); };
+    const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
+    const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };
+    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this.laRecompute(); };
     const recalc = document.getElementById('la-recalc'); if (recalc) this.on(recalc, 'click', (e) => { e.preventDefault(); reset(); });
     const addBtn = document.getElementById('la-add'); if (addBtn) this.on(addBtn, 'click', (e) => { e.preventDefault(); addLight(); });
+    const delBtn = document.getElementById('la-del'); if (delBtn) this.on(delBtn, 'click', (e) => { e.preventDefault(); delLight(); });
+    this.laSyncDelete();
 
     if (COARSE) {
-      if (addBtn) addBtn.style.display = 'inline-block';
       const mh = document.getElementById('la-mhint'); if (mh) mh.style.display = 'block';
       const hint = document.getElementById('la-hint'); if (hint) hint.style.display = 'flex';
     } else {
@@ -1968,6 +2072,7 @@ class Component extends DCLogic {
     const loop = () => {
       cur += (target - cur) * 0.14;
       layers.forEach(({ el, f, base }) => {
+        if (el.hasAttribute('data-la-pinned')) return; // user has dragged this window — it owns its left/top now
         el.style.transform = base + ' translate3d(0,' + (cur * f * AMP).toFixed(1) + 'px,0)';
       });
       if (Math.abs(target - cur) > 0.0004) { this._laRaf = requestAnimationFrame(loop); }
