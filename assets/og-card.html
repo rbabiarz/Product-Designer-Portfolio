@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Source for the 1200x630 social share card. Render at 1200x630 (DSF 2) -> previews/og-home.png -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:1200px;height:630px;overflow:hidden}
+    body{
+      background:radial-gradient(120% 130% at 82% -15%,#11263d 0%,#0b1320 48%,#070b12 100%);
+      color:#e9eef7;font-family:'Inter',sans-serif;
+      padding:74px 80px;display:flex;flex-direction:column;justify-content:space-between;position:relative;
+    }
+    body::after{content:"";position:absolute;inset:0;border:1px solid rgba(125,211,192,.12);pointer-events:none}
+    .top{display:flex;align-items:center;gap:16px}
+    .rb{width:58px;height:58px;border:1.5px solid rgba(255,255,255,.22);border-radius:15px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:23px;letter-spacing:.02em}
+    .who b{font-size:21px;font-weight:600;letter-spacing:-.01em;display:block;line-height:1.2}
+    .who span{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8593a8}
+    h1{font-size:80px;line-height:.96;letter-spacing:-.045em;font-weight:600}
+    h1 em{font-style:normal;color:#7dd3c0}
+    .tag{font-size:25px;color:#aab6c8;margin-top:26px;max-width:33ch;font-weight:500;letter-spacing:-.005em;line-height:1.35}
+    .foot{display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .domains{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.07em;text-transform:uppercase;color:#8593a8}
+    .avail{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.02em;color:#7dd3c0;border:1px solid rgba(125,211,192,.4);border-radius:999px;padding:11px 18px;white-space:nowrap}
+    .avail .dot{width:9px;height:9px;border-radius:50%;background:#7dd3c0;box-shadow:0 0 0 5px rgba(125,211,192,.16)}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="rb">RB</div>
+    <div class="who"><b>Robert Babiarz</b><span>Greater Toronto Area</span></div>
+  </div>
+  <div>
+    <h1>Senior <em>Product&nbsp;Designer</em></h1>
+    <p class="tag">High-consequence UX for defense AI, cybersecurity, connected-lighting IoT &amp; fintech.</p>
+  </div>
+  <div class="foot">
+    <div class="domains">Design systems · Data viz · Dashboards · WCAG&nbsp;2.2</div>
+    <div class="avail"><span class="dot"></span>Open to full-time &amp; freelance</div>
+  </div>
+</body>
+</html>
