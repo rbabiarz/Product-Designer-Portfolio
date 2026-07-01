@@ -258,9 +258,32 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 @media (max-width:760px){
   #aegis > div{padding:60px 16px 72px !important;}
   #ag-stage{height:78vh !important;min-height:560px !important;}
-  #ag-receipt{top:auto !important;bottom:80px !important;left:10px !important;right:10px !important;width:auto !important;max-width:none !important;}
   #ag-hud{font-size:10px !important;gap:11px !important;padding:11px 12px !important;}
   #ag-rail button{min-height:60px;}
+}
+/* tablet & phone: the receipt collapses to a one-line strip above the verb rail */
+@media (max-width:1024px){
+  #ag-receipt{top:auto !important;bottom:88px !important;left:10px !important;right:10px !important;width:auto !important;max-width:none !important;display:flex;flex-wrap:wrap;align-items:center;column-gap:12px;row-gap:2px;padding:6px 12px 9px !important;border-radius:10px !important;overflow:hidden;}
+  #ag-receipt .ag-rc-lbl{display:none;}
+  #ag-receipt .ag-rc-head{margin-bottom:0 !important;justify-content:flex-start !important;gap:7px;flex:none;}
+  #ag-receipt .ag-rc-main{margin-bottom:0 !important;flex:none;}
+  #ag-rc-assessed{font-size:13px !important;}
+  #ag-rc-conf{margin-left:0 !important;font-size:11px !important;}
+  #ag-receipt .ag-rc-barwrap{position:absolute;left:0;right:0;bottom:0;height:3px;margin:0 !important;border-radius:0;}
+  #ag-rc-pips{margin-bottom:0 !important;margin-left:auto;gap:8px !important;order:2;}
+  #ag-rc-pips .ag-pip{flex:none;gap:2px;}
+  #ag-rc-dissent{flex:1 1 140px;order:1;min-height:0 !important;font-size:10px !important;line-height:1.3 !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+}
+/* narrow phones: tighten the strip so it stays one line — dots only, dissent names the source */
+@media (max-width:480px){
+  #ag-receipt{column-gap:9px;}
+  #ag-rc-id{font-size:10px !important;}
+  #ag-rc-domain{font-size:9px !important;}
+  #ag-rc-assessed{font-size:12px !important;}
+  #ag-rc-conf{font-size:10px !important;}
+  #ag-rc-pips{gap:6px !important;}
+  #ag-rc-pips .ag-pip span{display:none;}
+  #ag-rc-domain{display:none !important;}
 }
 @media (prefers-reduced-motion: reduce){
   #ag-receipt,#ag-rc-confbar,#ag-start,#ag-rail button{transition:none !important;}
@@ -773,17 +796,17 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 
         <!-- receipt panel -->
         <div id="ag-receipt" style="position:absolute;top:54px;right:16px;width:250px;max-width:48vw;z-index:4;background:rgba(12,18,28,0.92);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 15px;pointer-events:none;opacity:0;transition:opacity .16s ease,border-color .16s ease;box-shadow:0 22px 50px rgba(0,0,0,0.5);">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;">
+          <div class="ag-rc-head" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;">
             <span id="ag-rc-id" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#e9eef7;letter-spacing:0.03em;">TRACK ——</span>
             <span id="ag-rc-domain" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5f726c;text-transform:uppercase;letter-spacing:0.08em;">—</span>
           </div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5f726c;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">AI assessment</div>
-          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:9px;">
+          <div class="ag-rc-lbl" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5f726c;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">AI assessment</div>
+          <div class="ag-rc-main" style="display:flex;align-items:baseline;gap:8px;margin-bottom:9px;">
             <span id="ag-rc-assessed" style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:-0.01em;color:#e9eef7;">—</span>
             <span id="ag-rc-conf" style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#8593a8;">0.00</span>
           </div>
-          <div style="height:4px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;margin-bottom:13px;"><div id="ag-rc-confbar" style="height:100%;width:0%;background:#4ca88f;transition:width .16s ease;"></div></div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5f726c;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Sources</div>
+          <div class="ag-rc-barwrap" style="height:4px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;margin-bottom:13px;"><div id="ag-rc-confbar" style="height:100%;width:0%;background:#4ca88f;transition:width .16s ease;"></div></div>
+          <div class="ag-rc-lbl" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5f726c;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Sources</div>
           <div id="ag-rc-pips" style="display:flex;gap:6px;margin-bottom:12px;"></div>
           <div id="ag-rc-dissent" style="font-family:'Inter',sans-serif;font-style:italic;font-size:11.5px;line-height:1.46;color:#8fa39d;min-height:34px;">—</div>
         </div>
