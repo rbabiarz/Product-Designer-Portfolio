@@ -105,8 +105,10 @@ body{margin:0}
 .la-fx.on{border-color:#cdffa0;box-shadow:0 0 14px rgba(155,232,74,0.95);}
 #la-plate{user-select:none;-webkit-user-select:none;}
 #la-recalc,#la-add{cursor:pointer;border:none;font:inherit;transition:filter .15s ease,background .15s ease;}
-#la-recalc:hover,#la-add:hover{filter:brightness(1.08);}
-#la-recalc:focus-visible,#la-add:focus-visible{outline:2px solid var(--la-cyan);outline-offset:2px;}
+#la-del{cursor:pointer;font:inherit;transition:filter .15s ease,opacity .15s ease;}
+#la-recalc:hover,#la-add:hover,#la-del:not(:disabled):hover{filter:brightness(1.08);}
+#la-recalc:focus-visible,#la-add:focus-visible,#la-del:focus-visible{outline:2px solid var(--la-cyan);outline-offset:2px;}
+#la-del:disabled{opacity:0.42;cursor:not-allowed;}
 #la-hint{display:none;align-items:center;gap:8px;position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);z-index:9;background:rgba(251,245,230,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(10,8,4,0.18);border-radius:999px;padding:8px 15px;font-family:'JetBrains Mono',monospace;font-size:clamp(9px,2.4vw,10.5px);letter-spacing:0.04em;color:#3a3120;pointer-events:none;box-shadow:0 12px 30px rgba(10,8,4,0.12);max-width:calc(100% - 24px);text-align:center;line-height:1.45}
 #la-hint .la-hint-dot{width:7px;height:7px;border-radius:50%;background:var(--la-cyan);box-shadow:0 0 8px var(--la-cyan-glow);flex-shrink:0}
 #la-hint .la-hint-long{display:inline}
@@ -469,7 +471,8 @@ body{margin:0}
           </div>
           <div style="display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid rgba(10,8,4,0.18);">
             <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#0a0a0a;color:#f4ead2;padding:6px 10px;font-weight:600;">RE-CALC</button>
-            <button id="la-add" type="button" title="Add a luminaire" style="display:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#fbf5e6;color:#3a3120;padding:6px 10px;border:1px solid rgba(10,8,4,0.3);font-weight:600;">＋ ADD</button>
+            <button id="la-add" type="button" title="Add a luminaire" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#fbf5e6;color:#3a3120;padding:6px 10px;border:1px solid rgba(10,8,4,0.3);font-weight:600;">＋ ADD</button>
+            <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:rgba(176,106,31,0.12);color:#8a4a0c;padding:6px 10px;border:1px solid rgba(138,74,12,0.5);font-weight:600;">✕ DELETE</button>
           </div>
           <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(10,8,4,0.18);">
@@ -1220,7 +1223,7 @@ class Component extends DCLogic {
     this._laDefault = [];
     cx4.forEach(x => cy4.forEach(y => this._laDefault.push({ x, y })));
     this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y }));
-    this._laDrag = -1; this._laK = null;
+    this._laDrag = -1; this._laSel = -1; this._laK = null;
     let html = '';
     for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
       const delay = (((c + r) / (COLS + ROWS)) * 850).toFixed(0);
@@ -1277,10 +1280,20 @@ class Component extends DCLogic {
     const fl = document.getElementById('la-fixtures');
     if (fl) {
       let f = '';
-      for (let i = 0; i < fx.length; i++) f += '<div class="la-fx' + (i === this._laDrag ? ' on' : '') + '" data-i="' + i + '" style="left:' + (fx[i].x * 100).toFixed(2) + '%;top:' + (fx[i].y * 100).toFixed(2) + '%;"></div>';
+      for (let i = 0; i < fx.length; i++) f += '<div class="la-fx' + ((i === this._laDrag || i === this._laSel) ? ' on' : '') + '" data-i="' + i + '" style="left:' + (fx[i].x * 100).toFixed(2) + '%;top:' + (fx[i].y * 100).toFixed(2) + '%;"></div>';
       fl.innerHTML = f;
     }
     const cnt = document.getElementById('la-count'); if (cnt) cnt.textContent = fx.length + ' × GALN Galleon II';
+    this.laSyncDelete();
+  }
+
+  // enable the DELETE button only while a luminaire is selected (and one would remain)
+  laSyncDelete() {
+    const del = document.getElementById('la-del');
+    if (!del) return;
+    const active = this._laSel != null && this._laSel >= 0 && this._laFx && this._laSel < this._laFx.length && this._laFx.length > 1;
+    del.disabled = !active;
+    del.title = active ? 'Delete the selected luminaire' : 'Select a luminaire to delete it';
   }
 
   initLAInteract() {
@@ -1309,26 +1322,28 @@ class Component extends DCLogic {
       e.preventDefault(); e.stopPropagation();
       const now = (window.performance && performance.now) ? performance.now() : 0;
       if (this._laTapI === idx && now - (this._laTapT || 0) < 320) {
-        this._laTapI = -1; this._laDrag = -1;
+        this._laTapI = -1; this._laDrag = -1; this._laSel = -1;
         if (this._laFx.length > 1) { this._laFx.splice(idx, 1); this.laRecompute(); }
         return;
       }
-      this._laTapI = idx; this._laTapT = now; this._laDrag = idx; this.laRecompute();
+      this._laTapI = idx; this._laTapT = now; this._laDrag = idx; this._laSel = idx; this.laRecompute();
     });
     this.on(plate, 'pointerdown', (e) => {
       if (COARSE) return;
       const px = e.clientX, py = e.clientY, n = nearest(px, py);
-      if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; }
-      else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; }
+      if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; this._laSel = n.i; }
+      else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; this._laSel = this._laDrag; }
       plate.style.cursor = 'grabbing'; this.laRecompute(); e.preventDefault();
     });
-    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this.laRecompute(); } e.preventDefault(); });
-    const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this.laRecompute(); };
-    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this.laRecompute(); };
+    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
+    const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
+    const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };
+    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this.laRecompute(); };
     const recalc = document.getElementById('la-recalc'); if (recalc) this.on(recalc, 'click', (e) => { e.preventDefault(); reset(); });
     const addBtn = document.getElementById('la-add'); if (addBtn) this.on(addBtn, 'click', (e) => { e.preventDefault(); addLight(); });
+    const delBtn = document.getElementById('la-del'); if (delBtn) this.on(delBtn, 'click', (e) => { e.preventDefault(); delLight(); });
+    this.laSyncDelete();
     if (COARSE) {
-      if (addBtn) addBtn.style.display = 'inline-block';
       const mh = document.getElementById('la-mhint'); if (mh) mh.style.display = 'block';
       const hint = document.getElementById('la-hint'); if (hint) hint.style.display = 'flex';
     } else {
