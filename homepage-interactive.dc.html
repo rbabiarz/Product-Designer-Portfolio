@@ -625,19 +625,19 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
     <div style="max-width:1480px;margin:0 auto;">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);">
         <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
-          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="35">0</span>%</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="35" data-suffix="%">0</span></div>
           <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">2025 Increase in Connected Lighting Sales</div>
         </div>
         <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
-          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--ac);line-height:1;"><span data-count="89">0</span>%</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--ac);line-height:1;"><span data-count="89" data-suffix="%">0</span></div>
           <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Fewer clicks to root cause on the CORE Insights console</div>
         </div>
         <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
-          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="175">0</span>%</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="175" data-suffix="%">0</span></div>
           <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Lift in deep-feature navigation engagement</div>
         </div>
         <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
-          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="90">0</span>%</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:600;letter-spacing:-0.03em;color:var(--fg);line-height:1;"><span data-count="90" data-suffix="%">0</span></div>
           <div style="font-size:14px;color:var(--fg2);margin-top:14px;line-height:1.5;">Faster report generation for facility operators</div>
         </div>
         <div data-reveal="true" style="background:var(--bg);padding:44px 36px;">
@@ -2181,12 +2181,15 @@ class Component extends DCLogic {
     const animate = (el) => {
       const to = parseFloat(el.getAttribute('data-count'));
       const dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      const prefix = el.getAttribute('data-prefix') || '';
+      const suffix = el.getAttribute('data-suffix') || '';
       const dur = 1500, start = performance.now();
       const step = (now) => {
         const p = Math.min(1, (now - start) / dur);
         const eased = 1 - Math.pow(1 - p, 3);
         const val = to * eased;
-        el.textContent = dec > 0 ? val.toFixed(dec) : Math.round(val).toLocaleString();
+        const num = dec > 0 ? val.toFixed(dec) : Math.round(val).toLocaleString();
+        el.textContent = prefix + num + suffix;
         if (p < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);

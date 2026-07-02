@@ -1239,7 +1239,7 @@ class Component extends DCLogic {
     o.observe(el); this._obs.push(o);
   }
   run() {
-    const tg = [34, 89, 175, 90, 2, 3], dur = 1700, t0 = Date.now();
+    const tg = [35, 89, 175, 90, 2, 3], dur = 1700, t0 = Date.now();
     const tick = () => {
       const p = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
       this.setState({ m1: Math.round(tg[0] * e), m2: Math.round(tg[1] * e), m3: Math.round(tg[2] * e), m4: Math.round(tg[3] * e), m5: Math.round(tg[4] * e), m6: Math.round(tg[5] * e) });
