@@ -325,7 +325,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="mesh-grid">
         <div style="display:flex;justify-content:center">
           <span class="slph" style="display:inline-block"><span>
-            <img src="assets/sl/mesh-nodemap.jpg" alt="Mesh node map">
+            <img src="assets/sl/mesh-nodemap.jpg" class="mesh-base" style="transition:opacity .25s ease" alt="Mesh node map">
             <img src="assets/sl/mesh-manual1.jpg" class="sl-swap" data-mesh-swap="1" alt="Mesh clusters">
             <img src="assets/sl/mesh-manual2.jpg" class="sl-swap" data-mesh-swap="2" alt="Mesh virtual groups">
             <img src="assets/sl/mesh-autoselect.jpg" class="sl-swap" data-mesh-swap="3" alt="Mesh auto select">
@@ -495,6 +495,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       btn.classList.toggle('is-on',on);
       btn.setAttribute('aria-selected',on?'true':'false');
     });
+    document.querySelectorAll('.mesh-grid .mesh-base').forEach(function(bimg){ bimg.style.opacity = (i===0 ? '1' : '0'); });
     meshSwaps.forEach(function(img){
       img.classList.toggle('sl-on',parseInt(img.getAttribute('data-mesh-swap'),10)===i);
     });
