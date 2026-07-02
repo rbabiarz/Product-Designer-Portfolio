@@ -415,7 +415,7 @@ summary::-webkit-details-marker{display:none}
         <!-- mock UI -->
         <div style="position:relative;background:#0e151e;border:1px solid {{ pivotBorder }};border-radius:16px;padding:20px;overflow:hidden;transition:border-color 0.3s;">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.08em;text-transform:uppercase;">Add DALI Hub to WAC</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;letter-spacing:0.08em;text-transform:uppercase;">Add DALI Hub to WAC</div>
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;background:{{ stateTagBg }};color:{{ stateTagFg }};">{{ stateTag }}</span>
           </div>
           <!-- faux app body -->
@@ -512,14 +512,14 @@ summary::-webkit-details-marker{display:none}
       <div style="display:grid;grid-template-columns:1fr 1.35fr;gap:16px;align-items:stretch;" data-reveal="1">
         <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px;">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;letter-spacing:0.1em;text-transform:uppercase;">Discovered DALI Hubs</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;letter-spacing:0.1em;text-transform:uppercase;">Discovered DALI Hubs</div>
             <div style="display:flex;align-items:center;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:#5fc2a8;animation:dl-blink 2s infinite;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;">SCAN</span></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:7px;">
             <sc-for list="{{ hubs }}" as="h" hint-placeholder-count="6">
               <div style="display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:9px;background:{{ h.bg }};border:1px solid {{ h.border }};transition:all 0.2s;">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="{{ h.icon }}" stroke-width="1.7" style="flex-shrink:0;"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
-                <div style="flex:1;min-width:0;"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{ h.name }};line-height:1.2;">{{ h.id }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;margin-top:2px;">{{ h.ip }}</div></div>
+                <div style="flex:1;min-width:0;"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{ h.name }};line-height:1.2;">{{ h.id }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7d8ca3;margin-top:2px;">{{ h.ip }}</div></div>
                 <sc-if value="{{ h.imported }}" hint-placeholder-val="{{ false }}"><div style="width:18px;height:18px;border-radius:50%;background:#3a9d5d;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--c-surface)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></sc-if>
                 <sc-if value="{{ h.selDot }}" hint-placeholder-val="{{ false }}"><div style="width:7px;height:7px;border-radius:50%;background:#5fc2a8;flex-shrink:0;"></div></sc-if>
               </div>
@@ -534,7 +534,7 @@ summary::-webkit-details-marker{display:none}
               <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:500;letter-spacing:-0.5px;color:#fff;">{{ stepTitle }}</div>
             </div>
             <div style="text-align:right;flex-shrink:0;padding-left:16px;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">Remaining in WAC</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7d8ca3;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">Remaining in WAC</div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:500;color:#7dd3c0;line-height:1;">{{ wacCount }}</div>
             </div>
           </div>
@@ -544,13 +544,13 @@ summary::-webkit-details-marker{display:none}
             <div style="height:6px;border-radius:100px;background:#0e151e;overflow:hidden;border:1px solid rgba(255,255,255,0.05);">
               <div style="height:100%;width:{{ progressW }};background:linear-gradient(90deg,var(--c-accent),#5fc2a8);border-radius:100px;transition:width 0.6s cubic-bezier(0.22,0.61,0.36,1);"></div>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;">{{ progressLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd3c0;">{{ progressPct }}</span></div>
+            <div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;">{{ progressLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd3c0;">{{ progressPct }}</span></div>
           </div>
 
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;">
             <sc-for list="{{ buses }}" as="b" hint-placeholder-count="4">
               <div style="background:#0e151e;border:1px solid {{ b.border }};border-radius:10px;padding:13px 12px;transition:all 0.3s;">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4a5a72;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px;">Bus {{ b.n }}</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7d8ca3;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px;">Bus {{ b.n }}</div>
                 <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:{{ b.color }};line-height:1;">{{ b.count }}</div>
                 <div style="font-size:10px;color:#8a9ab5;margin-top:4px;">{{ b.note }}</div>
               </div>
@@ -717,10 +717,10 @@ summary::-webkit-details-marker{display:none}
 
       <!-- dropdown nav bar (decorative, real pattern) -->
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" data-reveal="1">
-        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#cdd6e4;">McLaughlin Rd <span style="color:#4a5a72;">▾</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#cdd6e4;">Floor 1, East <span style="color:#4a5a72;">▾</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a9ab5;">Area <span style="color:#4a5a72;">▾</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a9ab5;">Zone <span style="color:#4a5a72;">▾</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#cdd6e4;">McLaughlin Rd <span style="color:#7d8ca3;">▾</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#cdd6e4;">Floor 1, East <span style="color:#7d8ca3;">▾</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a9ab5;">Area <span style="color:#7d8ca3;">▾</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#0e151e;border:1px solid rgba(255,255,255,0.08);border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a9ab5;">Zone <span style="color:#7d8ca3;">▾</span></div>
       </div>
 
       <!-- controls -->
@@ -760,7 +760,7 @@ summary::-webkit-details-marker{display:none}
           </div>
           <div style="position:absolute;left:5%;top:8%;width:90%;height:84%;border:1.5px solid rgba(95,194,168,0.22);border-radius:6px;"></div>
           <div style="position:absolute;left:30%;top:36%;width:40%;height:28%;border:1.5px solid rgba(95,194,168,0.28);border-radius:60px;background:rgba(95,194,168,0.04);"></div>
-          <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a4759;letter-spacing:0.1em;">CONFERENCE 1</div>
+          <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;letter-spacing:0.1em;">CONFERENCE 1</div>
           <!-- device dots -->
           <sc-for list="{{ dots }}" as="d" hint-placeholder-count="48">
             <div class="fp-dot" style="position:absolute;left:{{ d.x }};top:{{ d.y }};width:13px;height:13px;border-radius:50%;background:{{ d.color }};transform:translate(-50%,-50%) scale({{ d.scale }});opacity:{{ d.opacity }};transition:all 0.4s cubic-bezier(0.22,0.61,0.36,1);">
@@ -784,7 +784,7 @@ summary::-webkit-details-marker{display:none}
           </sc-for>
         </div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:10px;">
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;">McLaughlin Rd › Floor 1, East › Conference 1</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;">McLaughlin Rd › Floor 1, East › Conference 1</span>
           <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd3c0;">{{ floorStat }}</span>
         </div>
       </div>
@@ -812,7 +812,7 @@ summary::-webkit-details-marker{display:none}
               <span style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a9ab5;"><span style="width:14px;height:14px;border-radius:50%;background:#e0a92e;color:#0b1016;display:inline-flex;align-items:center;justify-content:center;font-size:8px;">2</span> Collab 2 · override</span>
               <span style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a9ab5;"><span style="width:14px;height:14px;border-radius:50%;background:#3a9d5d;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:8px;">3</span> Collab 3 · on</span>
             </div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5a72;">Web · floor-wide health status, rooms color-coded by state.</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;">Web · floor-wide health status, rooms color-coded by state.</div>
           </div>
 
           <div style="display:flex;flex-direction:column;gap:12px;">
@@ -1127,7 +1127,7 @@ class Component extends DCLogic {
         border: active ? 'rgba(95,194,168,0.55)' : 'rgba(255,255,255,0.07)',
         numBg: active ? '#5fc2a8' : done ? 'rgba(95,194,168,0.2)' : 'rgba(255,255,255,0.06)',
         numFg: active ? '#0b1016' : done ? '#5fc2a8' : '#8a9ab5',
-        titleColor: active ? '#fff' : done ? '#cdd6e4' : '#6b7a90',
+        titleColor: active ? '#fff' : done ? '#cdd6e4' : '#7a889f',
       };
     });
 
@@ -1140,7 +1140,7 @@ class Component extends DCLogic {
         id, ip: ips[i],
         bg: sel ? 'rgba(13,83,80,0.18)' : '#0e151e',
         border: sel ? 'rgba(95,194,168,0.5)' : 'rgba(255,255,255,0.05)',
-        icon: sel ? '#5fc2a8' : '#4a5a72',
+        icon: sel ? '#5fc2a8' : '#7d8ca3',
         name: sel ? '#fff' : '#8a9ab5',
         imported, selDot: sel && !imported,
       };
@@ -1148,7 +1148,7 @@ class Component extends DCLogic {
 
     const buses = step.buses.map((cnt, i) => {
       const isNew = cnt.toString().indexOf('+') === 0;
-      return { n: i + 1, count: cnt, color: isNew ? '#7dd3c0' : (cnt === '—' ? '#4a5a72' : '#e8edf5'), border: isNew ? 'rgba(125,211,192,0.4)' : 'rgba(255,255,255,0.06)', note: step.busNote };
+      return { n: i + 1, count: cnt, color: isNew ? '#7dd3c0' : (cnt === '—' ? '#7d8ca3' : '#e8edf5'), border: isNew ? 'rgba(125,211,192,0.4)' : 'rgba(255,255,255,0.06)', note: step.busNote };
     });
 
     // operate
