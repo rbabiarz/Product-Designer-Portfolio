@@ -60,6 +60,23 @@ body{margin:0;background:#040806}
 .rt-readout>div>div:first-child{font-size:clamp(22px,4.6vw,40px) !important;white-space:nowrap;overflow-wrap:normal;}
 @media (max-width:680px){ .rt-readout{grid-template-columns:1fr 1fr !important} .rt-readout>div{border-right:none !important;border-bottom:1px solid rgba(108,240,164,0.18);} }
 
+/* ════ LIGHT ARCHITECT · interactive photometric map (ported) ════ */
+.la-tb{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;padding:7px 11px;font-weight:600;cursor:pointer;transition:filter .15s ease,opacity .15s ease;}
+.la-tb:hover:not(:disabled){filter:brightness(1.2);}
+.la-tb:focus-visible,#la-info-close:focus-visible{outline:2px solid #6cf0a4;outline-offset:2px;}
+#la-del:disabled{opacity:0.4;cursor:not-allowed;}
+#la-info-close:hover{color:#cdffe2;border-color:rgba(108,240,164,0.55);}
+#la-plate{user-select:none;-webkit-user-select:none;}
+#la-heat>div{opacity:0;transition:opacity .5s ease}
+#la-heat.la-on>div{opacity:1}
+.la-fx{position:absolute;transform:translate(-50%,-50%);width:24px;height:12px;background:#04130b;border:1.5px solid #6cf0a4;box-shadow:0 0 8px rgba(108,240,164,0.55);transition:box-shadow .12s ease,border-color .12s ease;}
+.la-fx::after{content:'';position:absolute;left:50%;top:50%;width:39px;height:39px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(108,240,164,0.22),transparent 70%);}
+.la-fx.on{border-color:#cdffe2;box-shadow:0 0 14px rgba(108,240,164,0.95);}
+@media (hover: none){.la-fx{pointer-events:auto;touch-action:none;width:36px;height:21px;}}
+.la-info-h{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#3f9e69;margin:14px 0 7px;}
+.la-info-row{display:flex;gap:12px;align-items:baseline;font-size:12px;line-height:1.55;color:#9af0c2;margin-bottom:7px;}
+.la-info-row strong{color:#cdffe2;}
+.la-info-k{flex:none;width:52px;font-size:11px;font-weight:700;letter-spacing:0.02em;color:#cdffe2;}
 /* ════ AEGIS · FUSION WATCH (ported) ════ */
 /* ── AEGIS · FUSION WATCH mini-game ── */
 #ag-stage:focus-visible{box-shadow:0 0 0 2px rgba(108,240,164,0.55),0 30px 80px -40px rgba(0,0,0,0.8);}
@@ -130,6 +147,7 @@ body{margin:0;background:#040806}
 <script src="page-transition.js"></script>
 <script src="home-variants.js"></script>
 <script src="a11y.js"></script>
+<script src="cursor.js" defer></script>
 </helmet>
 
 <div style="position:relative;min-height:100vh;background:#040806;color:#6cf0a4;font-family:'JetBrains Mono',monospace;overflow-x:hidden;">
@@ -245,7 +263,6 @@ body{margin:0;background:#040806}
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">ENTERPRISE CYBER</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
-
       </div>
     </section>
 
@@ -253,22 +270,60 @@ body{margin:0;background:#040806}
     <section data-screen-label="Retro light architect" style="margin-top:54px;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:10px;">
         <div style="font-size:14px;letter-spacing:0.08em;color:#cdffe2;">C:\&gt; <span style="color:#ffb454;">PLOT</span> PHOTOMETRY.VEC --site=3775-SWIFTDALE</div>
-        <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">ISOLUX CONTOUR MODE</div>
+        <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">LIVE FOOTCANDLE GRID</div>
       </div>
-      <p style="font-size:13px;line-height:1.7;color:#6cf0a4;max-width:680px;margin-bottom:12px;">&gt; A browser-based photometric planner: drop fixtures on any address, footcandle grids, isolux contours &amp; spec-ready PDFs, all computed from satellite imagery.</p>
-      <div style="position:relative;border:1px solid rgba(108,240,164,0.3);overflow:hidden;background:#030605;">
-        <canvas id="rt-arch" style="display:block;width:100%;height:clamp(320px,48vh,480px);touch-action:pan-y;"></canvas>
-        <div style="position:absolute;top:14px;left:16px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;text-shadow:0 0 6px rgba(108,240,164,0.5);">SITE: 3775 SWIFTDALE DR · 16× GALN GALLEON II</div>
-        <div style="position:absolute;top:14px;right:16px;font-size:11px;letter-spacing:0.1em;color:#3f9e69;pointer-events:none;">ILLUMINANCE (FC) · LLF 0.912</div>
-        <div style="position:absolute;bottom:12px;left:16px;display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;"><span style="width:7px;height:7px;border-radius:50%;background:#6cf0a4;box-shadow:0 0 8px 2px rgba(108,240,164,0.8);animation:rt-blink 1.6s steps(1) infinite;"></span>STAT AREA 1 · COMPUTING</div>
+      <p style="font-size:13px;line-height:1.7;color:#6cf0a4;max-width:680px;margin-bottom:12px;">&gt; A browser-based photometric planner: drop fixtures on any address, footcandle grids, isolux contours &amp; spec-ready PDFs, all computed from satellite imagery. This build is live: drag a fixture, click the grid to add one, double-click to delete.</p>
+      <div id="lightarch" style="position:relative;border:1px solid rgba(108,240,164,0.3);overflow:hidden;background:#030605;">
+        <div id="la-stage" style="position:relative;height:clamp(420px,58vh,560px);overflow:hidden;">
+          <!-- plotter grid backdrop -->
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(108,240,164,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(108,240,164,0.05) 1px,transparent 1px);background-size:34px 34px;pointer-events:none;"></div>
+          <!-- HUD -->
+          <div style="position:absolute;top:14px;left:16px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;text-shadow:0 0 6px rgba(108,240,164,0.5);z-index:4;">SITE: 3775 SWIFTDALE DR · <span id="la-count">16 × GALN GALLEON II</span></div>
+          <div class="rt-hide-sm" style="position:absolute;bottom:12px;right:16px;font-size:11px;letter-spacing:0.1em;color:#3f9e69;pointer-events:none;z-index:4;">ILLUMINANCE (FC) · LLF 0.912</div>
+          <div style="position:absolute;bottom:12px;left:16px;display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;z-index:4;"><span style="width:7px;height:7px;border-radius:50%;background:#6cf0a4;box-shadow:0 0 8px 2px rgba(108,240,164,0.8);animation:rt-blink 1.6s steps(1) infinite;"></span><span id="la-hint-line">DRAG FIXTURE · CLICK GRID = ADD · DBL-CLICK = DELETE</span></div>
+          <!-- toolbar -->
+          <div style="position:absolute;top:36px;right:12px;z-index:5;display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;">
+            <button id="la-recalc" type="button" title="Reset to the default layout" class="la-tb" style="background:#6cf0a4;color:#04130b;border:1px solid #6cf0a4;">⟲ RESET</button>
+            <button id="la-add" type="button" title="Add a luminaire to the map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);">＋ ADD</button>
+            <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" class="la-tb" style="background:rgba(255,180,84,0.1);color:#ffb454;border:1px solid rgba(255,180,84,0.4);">✕ DELETE</button>
+            <button id="la-info-btn" type="button" aria-haspopup="dialog" aria-controls="la-info" aria-expanded="false" title="How to read the photometric map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);">ⓘ INFO</button>
+          </div>
+          <!-- footcandle plate -->
+          <div id="la-plate-wrap" style="position:absolute;left:50%;top:54%;width:min(860px,86%);height:min(400px,62%);transform:translate(-50%,-50%);z-index:2;">
+            <div id="la-plate" role="application" aria-label="Interactive lighting layout — drag, add (click), or remove (double-click) luminaires to recompute the illuminance grid" style="position:absolute;inset:0;">
+              <div id="la-heat" style="position:absolute;inset:0;display:grid;gap:0;overflow:hidden;"></div>
+              <div id="la-fixtures" style="position:absolute;inset:0;pointer-events:none;"></div>
+              <div style="position:absolute;inset:0;border:1px solid #6cf0a4;box-shadow:0 0 20px rgba(108,240,164,0.3);pointer-events:none;"></div>
+              <div style="position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);background:#030605;border:1px solid rgba(108,240,164,0.4);padding:2px 8px;font-size:10px;letter-spacing:0.1em;color:#6cf0a4;white-space:nowrap;z-index:3;">STAT AREA 1</div>
+            </div>
+          </div>
+          <!-- photometric info popup -->
+          <div id="la-info" role="dialog" aria-modal="true" aria-label="How to read the photometric map" style="position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,6,4,0.74);">
+            <div style="width:min(460px,94%);max-height:92%;overflow:auto;background:#04130b;border:1px solid #6cf0a4;box-shadow:0 0 26px rgba(108,240,164,0.25);padding:20px 20px 18px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div style="font-size:11px;letter-spacing:0.16em;color:#3f9e69;">// PHOTOMETRIC MAP</div>
+                <button id="la-info-close" type="button" aria-label="Close photometric map info" style="width:28px;height:28px;border:1px solid rgba(108,240,164,0.28);background:transparent;color:#3f9e69;font-size:14px;line-height:1;cursor:pointer;transition:color .15s,border-color .15s;">✕</button>
+              </div>
+              <div style="font-family:'VT323',monospace;font-size:30px;line-height:0.95;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);margin-bottom:10px;">LIGHT THE SITE,<br/>KEEP IT EVEN.</div>
+              <p style="font-size:12px;line-height:1.6;color:#9af0c2;margin:0;">Every cell shows calculated illuminance in foot-candles (fc) — the light your GALN Galleon II area luminaires land on Stat Area 1, after a 0.912 light-loss factor. Drag a luminaire, click empty grid to add one, double-click to remove it; the field recomputes live.</p>
+              <div class="la-info-h">Read the numbers</div>
+              <div class="la-info-row"><span class="la-info-k">AVG</span><span>Mean illuminance across the stat area. Site lighting reads comfortable at <strong>2–5 fc</strong>.</span></div>
+              <div class="la-info-row"><span class="la-info-k">MAX</span><span>The brightest cell, directly under a luminaire. A MAX far above AVG reads as hot spots.</span></div>
+              <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. Hold <strong>≥ 1.0 fc</strong> so no corner goes dark.</span></div>
+              <div class="la-info-row"><span class="la-info-k">A/MIN</span><span>Uniformity: average ÷ minimum. <strong>≤ 4.0</strong> reads even to the eye; <strong>≤ 3.0</strong> is the enhanced target — lower is more uniform.</span></div>
+              <div class="la-info-h">Why it matters</div>
+              <p style="font-size:11.5px;line-height:1.6;color:#3f9e69;margin:0;">Targets follow IES recommended practice for exterior site and area lighting. The values are computed live from this layout — move one fixture and watch A/MIN respond.</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="rt-readout" style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(108,240,164,0.3);border-top:none;">
-        <div style="padding:18px;border-right:1px solid rgba(108,240,164,0.18);"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);">3.91</div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">AVG FC</div></div>
-        <div style="padding:18px;border-right:1px solid rgba(108,240,164,0.18);"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);">6.78</div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">MAX FC</div></div>
-        <div style="padding:18px;border-right:1px solid rgba(108,240,164,0.18);"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);">1.3</div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">MIN FC</div></div>
-        <div style="padding:18px;"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#ffb454;text-shadow:0 0 10px rgba(255,180,84,0.4);">3.01</div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">AVG / MIN RATIO</div></div>
+        <div style="padding:18px;border-right:1px solid rgba(108,240,164,0.18);"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);"><span id="la-avg">3.91</span></div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">AVG FC</div></div>
+        <div style="padding:18px;border-right:1px solid rgba(108,240,164,0.18);"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);"><span id="la-max">6.78</span></div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">MAX FC</div></div>
+        <div style="padding:18px;border-right:1px solid rgba(108,240,164,0.18);"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);"><span id="la-min">1.3</span></div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">MIN FC</div></div>
+        <div style="padding:18px;"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#ffb454;text-shadow:0 0 10px rgba(255,180,84,0.4);"><span id="la-amin">3.01</span></div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">AVG / MIN RATIO</div></div>
       </div>
-      <a class="rt-link" href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;margin-top:14px;border:1px solid #6cf0a4;color:#cdffe2;padding:12px 20px;font-size:12px;letter-spacing:0.08em;text-decoration:none;">&gt; EXPLORE LIGHT ARCHITECT <span>↗</span></a>
+      <a class="rt-link" href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;margin-top:14px;border:1px solid #6cf0a4;color:#cdffe2;padding:12px 20px;font-size:12px;letter-spacing:0.08em;text-decoration:none;">&gt; EXPLORE LIGHT ARCHITECT <span style="color:#3f9e69;">· COOPERLIGHTING.COM</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">(opens the Cooper Lighting website in a new tab)</span> <span aria-hidden="true">↗</span></a>
     </section>
 
     <!-- ═══ AEGIS · FUSION WATCH (interactive classification drill) ═══ -->
@@ -440,7 +495,7 @@ class Component extends DCLogic {
     this._t.push(setTimeout(() => this.forceUpdate(), 300));
     this._t.push(setTimeout(() => this.typewriter(), 950));
     this._t.push(setTimeout(() => this.initBldg(), 140));
-    this._t.push(setTimeout(() => this.initArch(), 160));
+    this._t.push(setTimeout(() => { this.buildLightArchitect(); this.initLAInteract(); }, 160));
     this._t.push(setTimeout(() => { try { this.initAegis(); } catch (e) {} }, 200));
     if (location.hash) this._t.push(setTimeout(() => window.homeScrollToHash && window.homeScrollToHash(), 180));
   }
@@ -906,9 +961,12 @@ class Component extends DCLogic {
 
 
   componentWillUnmount() {
+    clearTimeout(this._laSaveT);
     (this._t || []).forEach(clearTimeout);
     if (this._bldgRaf) cancelAnimationFrame(this._bldgRaf);
     if (this._archRaf) cancelAnimationFrame(this._archRaf);
+    if (this._laDragRaf) cancelAnimationFrame(this._laDragRaf);
+    (this._obs || []).forEach(o => { try { o.disconnect(); } catch (err) {} });
     if (this._agRaf) cancelAnimationFrame(this._agRaf);
     (this._ev || []).forEach(([t, e, fn, o]) => { try { t.removeEventListener(e, fn, o); } catch (err) {} });
     if (this._hv) window.removeEventListener('home-variants-ready', this._hv);
@@ -992,72 +1050,176 @@ class Component extends DCLogic {
     };
     tick();
   }
-  initArch() {
-    const cv = document.getElementById('rt-arch');
-    if (!cv) return;
-    const ctx = cv.getContext('2d');
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let bw = 0, bh = 0, dpr = 1, t = 0;
-    const resize = () => { dpr = Math.min(2, window.devicePixelRatio || 1); const r = cv.getBoundingClientRect(); bw = r.width; bh = r.height; cv.width = Math.round(bw * dpr); cv.height = Math.round(bh * dpr); };
-    resize(); this.on(window, 'resize', resize);
-    const tilt = 1.02, ct = Math.cos(tilt), st = Math.sin(tilt);
-    // plane point (x,z) on ground -> screen
-    const proj = (x, z) => { const y2 = -z * st, z2 = z * ct; const dist = 540, f = dist / (dist + z2 + 230); return [bw / 2 + x * f, bh * 0.46 - y2 * f, f]; };
-    const EXT = 300, STEP = 50;
-    // 4x4 fixtures across the plane
-    const fx = []; const gx = [-180, -60, 60, 180];
-    gx.forEach(a => gx.forEach(b => fx.push([a, b])));
-    const paint = () => {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, bw, bh);
-      // ground grid
-      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(108,240,164,0.20)'; ctx.shadowColor = 'rgba(108,240,164,0.4)'; ctx.shadowBlur = 3;
-      ctx.beginPath();
-      for (let x = -EXT; x <= EXT; x += STEP) { const a = proj(x, -EXT), b = proj(x, EXT); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); }
-      for (let z = -EXT; z <= EXT; z += STEP) { const a = proj(-EXT, z), b = proj(EXT, z); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); }
-      ctx.stroke();
-      // isolux contour rings around each fixture
-      const radii = [26, 54, 84];
-      fx.forEach((fpt) => {
-        radii.forEach((rad, ri) => {
-          ctx.beginPath();
-          for (let i = 0; i <= 36; i++) { const th = (i / 36) * Math.PI * 2; const p = proj(fpt[0] + Math.cos(th) * rad, fpt[1] + Math.sin(th) * rad); if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]); }
-          ctx.lineWidth = 1.3; ctx.strokeStyle = ri === 0 ? 'rgba(255,180,84,0.9)' : 'rgba(146,255,196,' + (0.5 - ri * 0.13) + ')'; ctx.shadowColor = ri === 0 ? 'rgba(255,180,84,0.7)' : 'rgba(108,240,164,0.7)'; ctx.shadowBlur = 6;
-          ctx.stroke();
-        });
-        // fixture cross
-        const c = proj(fpt[0], fpt[1]);
-        ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(205,255,226,0.95)'; ctx.shadowBlur = 8;
-        ctx.beginPath(); ctx.moveTo(c[0] - 6, c[1]); ctx.lineTo(c[0] + 6, c[1]); ctx.moveTo(c[0], c[1] - 6); ctx.lineTo(c[0], c[1] + 6); ctx.stroke();
-      });
-      // stat-area boundary
-      ctx.lineWidth = 1.6; ctx.strokeStyle = 'rgba(108,240,164,0.85)'; ctx.shadowBlur = 7;
-      ctx.beginPath();
-      [[-EXT,-EXT],[EXT,-EXT],[EXT,EXT],[-EXT,EXT],[-EXT,-EXT]].forEach((p, i) => { const q = proj(p[0], p[1]); if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]); });
-      ctx.stroke();
-      // sweeping calc scan line (animated only when motion is allowed)
-      if (!reduce) {
-        const zz = -EXT + ((t % 200) / 200) * (EXT * 2);
-        const a = proj(-EXT, zz), b = proj(EXT, zz);
-        ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(205,255,226,0.85)'; ctx.shadowColor = 'rgba(205,255,226,0.9)'; ctx.shadowBlur = 12;
-        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+  buildLightArchitect() {
+    const heat = document.getElementById('la-heat');
+    if (!heat) return;
+    const COLS = 24, ROWS = 14;
+    this._laCOLS = COLS; this._laROWS = ROWS;
+    heat.style.gridTemplateColumns = 'repeat(' + COLS + ',1fr)';
+    heat.style.gridTemplateRows = 'repeat(' + ROWS + ',1fr)';
+    const cx4 = [0.16, 0.39, 0.61, 0.84], cy4 = [0.17, 0.39, 0.61, 0.83];
+    this._laDefault = [];
+    cx4.forEach(x => cy4.forEach(y => this._laDefault.push({ x, y })));
+    this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y }));
+    this._laDrag = -1; this._laSel = -1; this._laK = null;
+    let html = '';
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const delay = (((c + r) / (COLS + ROWS)) * 850).toFixed(0);
+      html += '<div style="display:flex;align-items:center;justify-content:center;font-family:\'JetBrains Mono\',monospace;font-size:9px;color:rgba(234,255,243,0.92);text-shadow:0 1px 2px rgba(0,0,0,0.8);transition-delay:' + delay + 'ms;"></div>';
+    }
+    heat.innerHTML = html;
+    this.laRecompute();
+    // restore the visitor's saved layout (one key, shared across all homepage variants);
+    // the first recompute above calibrates _laK on the default layout so absolute fc values stay comparable
+    try {
+      const saved = JSON.parse(localStorage.getItem('rba-la-fx') || 'null');
+      if (Array.isArray(saved) && saved.length && saved.length <= 48 && saved.every(p => p && isFinite(p.x) && isFinite(p.y))) {
+        this._laFx = saved.map(p => ({ x: Math.min(0.97, Math.max(0.03, +p.x)), y: Math.min(0.97, Math.max(0.03, +p.y)) }));
+        this.laRecompute();
       }
+    } catch (e) {}
+    if (window.IntersectionObserver) {
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const obs = new IntersectionObserver((ents) => {
+        ents.forEach(e => {
+          if (e.isIntersecting) {
+            if (reduce) [...heat.children].forEach(ch => { ch.style.transitionDelay = '0ms'; });
+            heat.classList.add('la-on');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.18 });
+      obs.observe(document.getElementById('lightarch'));
+      (this._obs = this._obs || []).push(obs);
+    } else {
+      heat.classList.add('la-on');
+    }
+  }
+
+  laRecompute() {
+    const heat = document.getElementById('la-heat');
+    if (!heat || !this._laFx) return;
+    const COLS = this._laCOLS || 24, ROWS = this._laROWS || 14, fx = this._laFx;
+    const E = [], inside = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
+      let e = 0;
+      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.05 + (dx * dx + dy * dy) * 6.2); }
+      const edge = Math.min(px, 1 - px, py, 1 - py);
+      E.push(e); // each luminaire keeps full output wherever it sits; stats still read the interior stat area only
+      inside.push(edge > 0.14);
+    }
+    let iSum = 0, iN = 0; for (let i = 0; i < E.length; i++) if (inside[i]) { iSum += E[i]; iN++; }
+    if (this._laK == null) this._laK = 3.9 / ((iSum / (iN || 1)) || 1);
+    const k = this._laK, kids = heat.children;
+    this._laV = []; let fcMin = 1e9, fcMax = -1e9, fcSum = 0, fcN = 0;
+    for (let i = 0; i < E.length; i++) {
+      const fc = E[i] * k, v = fc / 8;
+      this._laV.push(v < 0 ? 0 : v > 1 ? 1 : v);
+      if (kids[i]) kids[i].textContent = fc.toFixed(1);
+      if (inside[i]) { if (fc < fcMin) fcMin = fc; if (fc > fcMax) fcMax = fc; fcSum += fc; fcN++; }
+    }
+    this.tintHeat();
+    const fcAvg = fcSum / (fcN || 1), amin = fcMin > 0.01 ? fcAvg / fcMin : 0;
+    const set = (id, val, dec) => { const el = document.getElementById(id); if (el) el.textContent = val.toFixed(dec); };
+    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-amin', amin, 2);
+    const fl = document.getElementById('la-fixtures');
+    if (fl) {
+      let f = '';
+      for (let i = 0; i < fx.length; i++) f += '<div class="la-fx' + ((i === this._laDrag || i === this._laSel) ? ' on' : '') + '" data-i="' + i + '" style="left:' + (fx[i].x * 100).toFixed(2) + '%;top:' + (fx[i].y * 100).toFixed(2) + '%;"></div>';
+      fl.innerHTML = f;
+    }
+    const cnt = document.getElementById('la-count'); if (cnt) cnt.textContent = fx.length + ' \u00d7 GALN GALLEON II';
+    this.laSyncDelete();
+    // remember the layout (debounced so drags don't hammer storage)
+    clearTimeout(this._laSaveT);
+    this._laSaveT = setTimeout(() => { try { localStorage.setItem('rba-la-fx', JSON.stringify(this._laFx.map(p => ({ x: +p.x.toFixed(4), y: +p.y.toFixed(4) })))); } catch (e) {} }, 300);
+  }
+
+  laSyncDelete() {
+    const del = document.getElementById('la-del');
+    if (!del) return;
+    const active = this._laSel != null && this._laSel >= 0 && this._laFx && this._laSel < this._laFx.length && this._laFx.length > 1;
+    del.disabled = !active;
+    del.title = active ? 'Delete the selected luminaire' : 'Select a luminaire to delete it';
+  }
+
+  tintHeat() {
+    const heat = document.getElementById('la-heat');
+    if (!heat || !this._laV) return;
+    // phosphor ramp: near-black green -> bright terminal green
+    const stops = [[4, 12, 8], [9, 36, 22], [16, 68, 40], [28, 112, 64], [50, 168, 98], [80, 212, 132]];
+    const ramp = (v) => {
+      v = Math.max(0, Math.min(1, v));
+      const s = v * (stops.length - 1), i = Math.floor(s), f = s - i;
+      const a = stops[i], b = stops[Math.min(stops.length - 1, i + 1)];
+      return a.map((c, k) => Math.round(c + (b[k] - c) * f)).join(',');
     };
-    // Loop only the scan, only while visible. Under reduced-motion the scene is static,
-    // so paint once and don't re-arm. Pause off-screen / when the tab is hidden.
-    const step = () => {
-      this._archRaf = 0;
-      if (document.hidden) return;
-      const r = cv.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > (window.innerHeight || 800)) return;
-      paint();
-      if (!reduce) { t += 0.6; this._archRaf = requestAnimationFrame(step); }
-    };
-    const kick = () => { if (!this._archRaf && !document.hidden) this._archRaf = requestAnimationFrame(step); };
-    this.on(window, 'scroll', kick, { passive: true });
-    this.on(window, 'resize', kick, { passive: true });
-    this.on(document, 'visibilitychange', () => { if (!document.hidden) kick(); });
-    kick();
+    const kids = heat.children;
+    for (let i = 0; i < kids.length; i++) {
+      const v = this._laV[i] || 0;
+      kids[i].style.background = 'rgba(' + ramp(v) + ',' + (0.55 + 0.42 * v).toFixed(2) + ')';
+    }
+  }
+
+  initLAInteract() {
+    const plate = document.getElementById('la-plate');
+    if (!plate || !this._laFx) return;
+    const COARSE = (window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches)) || (window.innerWidth || 9999) <= 760;
+    const geom = () => { const r = plate.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: r.width, h: r.height }; };
+    const toPlate = (px, py) => { const g = geom(); return { x: 0.5 + (px - g.cx) / g.w, y: 0.5 + (py - g.cy) / g.h }; };
+    const toScreen = (x, y) => { const g = geom(); return { sx: g.cx + (x - 0.5) * g.w, sy: g.cy + (y - 0.5) * g.h }; };
+    const clamp01 = (v) => v < 0.03 ? 0.03 : v > 0.97 ? 0.97 : v;
+    const nearest = (px, py) => { let bi = -1, bd = 1e9; for (let i = 0; i < this._laFx.length; i++) { const s = toScreen(this._laFx[i].x, this._laFx[i].y); const d = Math.hypot(s.sx - px, s.sy - py); if (d < bd) { bd = d; bi = i; } } return { i: bi, d: bd }; };
+    let pend = null;
+    const flush = () => { this._laDragRaf = null; if (pend && this._laDrag >= 0 && this._laFx[this._laDrag]) { const p = toPlate(pend.x, pend.y); this._laFx[this._laDrag] = { x: clamp01(p.x), y: clamp01(p.y) }; this.laRecompute(); } };
+    const schedule = (x, y) => { pend = { x, y }; if (!this._laDragRaf) this._laDragRaf = requestAnimationFrame(flush); };
+    const endDrag = () => { if (this._laDrag >= 0) { this._laDrag = -1; plate.style.cursor = COARSE ? '' : 'crosshair'; this.laRecompute(); } };
+    this.on(window, 'pointermove', (e) => { if (this._laDrag >= 0) schedule(e.clientX, e.clientY); });
+    this.on(window, 'pointerup', endDrag);
+    this.on(window, 'pointercancel', endDrag);
+    const fl = document.getElementById('la-fixtures');
+    if (fl) this.on(fl, 'pointerdown', (e) => {
+      const m = e.target && e.target.closest ? e.target.closest('.la-fx') : null;
+      if (!m) return;
+      const idx = parseInt(m.getAttribute('data-i'), 10);
+      if (isNaN(idx)) return;
+      e.preventDefault(); e.stopPropagation();
+      const now = (window.performance && performance.now) ? performance.now() : 0;
+      if (this._laTapI === idx && now - (this._laTapT || 0) < 320) {
+        this._laTapI = -1; this._laDrag = -1; this._laSel = -1;
+        if (this._laFx.length > 1) { this._laFx.splice(idx, 1); this.laRecompute(); }
+        return;
+      }
+      this._laTapI = idx; this._laTapT = now; this._laDrag = idx; this._laSel = idx; this.laRecompute();
+    });
+    this.on(plate, 'pointerdown', (e) => {
+      if (COARSE) return;
+      const px = e.clientX, py = e.clientY, n = nearest(px, py);
+      if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; this._laSel = n.i; }
+      else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; this._laSel = this._laDrag; }
+      plate.style.cursor = 'grabbing'; this.laRecompute(); e.preventDefault();
+    });
+    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
+    const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
+    const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };
+    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this.laRecompute(); };
+    const recalc = document.getElementById('la-recalc'); if (recalc) this.on(recalc, 'click', (e) => { e.preventDefault(); reset(); });
+    const addBtn = document.getElementById('la-add'); if (addBtn) this.on(addBtn, 'click', (e) => { e.preventDefault(); addLight(); });
+    const delBtn = document.getElementById('la-del'); if (delBtn) this.on(delBtn, 'click', (e) => { e.preventDefault(); delLight(); });
+    const infoBtn = document.getElementById('la-info-btn'), infoBox = document.getElementById('la-info'), infoClose = document.getElementById('la-info-close');
+    if (infoBtn && infoBox && infoClose) {
+      const openInfo = () => { infoBox.style.display = 'flex'; infoBtn.setAttribute('aria-expanded', 'true'); try { infoClose.focus({ preventScroll: true }); } catch (e) {} };
+      const closeInfo = () => { infoBox.style.display = 'none'; infoBtn.setAttribute('aria-expanded', 'false'); try { infoBtn.focus({ preventScroll: true }); } catch (e) {} };
+      this.on(infoBtn, 'click', (e) => { e.preventDefault(); openInfo(); });
+      this.on(infoClose, 'click', (e) => { e.preventDefault(); closeInfo(); });
+      this.on(infoBox, 'click', (e) => { if (e.target === infoBox) closeInfo(); });
+      this.on(infoBox, 'keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); closeInfo(); } });
+    }
+    this.laSyncDelete();
+    if (!COARSE) plate.style.cursor = 'crosshair';
+    const hintEl = document.getElementById('la-hint-line');
+    if (hintEl && COARSE) hintEl.textContent = 'DRAG FIXTURE \u00b7 \uff0b ADD \u00b7 DOUBLE-TAP = DELETE';
   }
 
   renderVals() {

@@ -28,6 +28,7 @@
   <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-insights.png">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Robert Babiarz","jobTitle":"Senior Product Designer","url":"https://robertbabiarz.com/","image":"https://robertbabiarz.com/assets/rob-babiarz-photo.png","email":"mailto:rbabiarz@gmail.com","description":"Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS \u2014 design systems, data visualization, and WCAG 2.2-accessible interfaces.","address":{"@type":"PostalAddress","addressLocality":"Greater Toronto Area","addressRegion":"Ontario","addressCountry":"CA"},"sameAs":["https://linkedin.com/in/robert-babiarz"],"knowsAbout":["Product Design","UX Design","UI Design","Design Systems","Data Visualization","Dashboard Design","Information Architecture","Interaction Design","User Research","Usability Testing","Prototyping","Figma","Accessibility","WCAG 2.2","Cybersecurity UX","SOC dashboards","Threat operations UX","Defense technology UX","Connected lighting","IoT","Fintech UX","Enterprise SaaS","B2B product design","AR field tooling","Design tokens","Operator interfaces"],"knowsLanguage":"en","seeks":{"@type":"Demand","name":"Full-time and freelance / contract product-design engagements"}}</script>
   <script src="/analytics.js" defer></script>
+  <script src="cursor.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -80,6 +81,17 @@
 .nav-cm:active{opacity:0.5}
 #wk-nav a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(--fg);color:#000}
 .light #wk-nav a:hover .rb-box{color:#fff}
+@media (max-width:600px){
+  #wk-nav > div{padding:0 12px !important;gap:7px !important}
+  #wk-nav .int-switch summary span{font-size:9.5px !important}
+  #wk-nav .rb-box{display:none !important}
+  #wk-nav > div > a div{white-space:nowrap !important}
+  #wk-nav > div > a > div:last-child > div:first-child{font-size:12px !important}
+  #wk-nav > div > a > div:last-child > div:last-child{font-size:8px !important;letter-spacing:0.05em !important}
+  #wk-nav .int-switch summary{padding:8px 9px !important}
+  #wk-nav .int-switch summary > span:first-child{display:none !important}
+  #wk-nav .int-burger{flex-shrink:0 !important}
+}
 @media (max-width:860px){
   #wk-nav > div{padding:0 18px !important;height:60px !important}
   #wk-nav .wk-navlinks{display:none !important}
@@ -130,7 +142,7 @@
         </div>
         <div>
           <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--fg);letter-spacing:0.04em;text-transform:uppercase;line-height:1.15;">Robert Babiarz</div>
-          <div style="font-size:9.5px;color:var(--fg2);font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;line-height:1.3;text-transform:uppercase;">Product Designer</div>
+          <div style="font-size:9.5px;color:var(--fg2);font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;line-height:1.3;text-transform:uppercase;">Senior Product Designer</div>
         </div>
       </a>
       <div class="wk-navlinks" style="display:flex;align-items:center;gap:34px;">
@@ -138,6 +150,7 @@
         <a href="homepage-interactive.dc.html#metrics" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Impact</a>
         <a href="about.dc.html" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">About</a>
         <a href="homepage-interactive.dc.html#contact" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Contact</a>
+        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Résumé ↓</a>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <button onClick="{{ toggleDark }}" aria-label="Theme" style="width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:all 0.2s;" style-hover="border-color:var(--line2)">
@@ -159,6 +172,12 @@
     <a class="im-link" href="homepage-interactive.dc.html#metrics" onClick="{{ closeMenu }}"><span>Impact</span><span class="im-num">02</span></a>
     <a class="im-link" href="about.dc.html" onClick="{{ closeMenu }}"><span>About</span><span class="im-num">03</span></a>
     <a class="im-link" href="homepage-interactive.dc.html#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="im-num">04</span></a>
+    <div style="margin-top:26px;display:flex;flex-direction:column;gap:9px;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg3);">Homepage design</span>
+      <a href="homepage-interactive.dc.html" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border:1px solid var(--line2);border-radius:10px;text-decoration:none;"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:0.03em;color:var(--fg);">Interactive</span><span style="font-size:11px;color:var(--fg2);text-align:right;">The primary portfolio site</span></a>
+      <a href="homepage-dossier.dc.html" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border:1px solid var(--line2);border-radius:10px;text-decoration:none;"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:0.03em;color:var(--fg);">Dossier</span><span style="font-size:11px;color:var(--fg2);text-align:right;">Classified case-file layout</span></a>
+      <a href="homepage-retro.dc.html" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border:1px solid var(--line2);border-radius:10px;text-decoration:none;"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:0.03em;color:var(--fg);">Retro</span><span style="font-size:11px;color:var(--fg2);text-align:right;">RB-OS phosphor terminal</span></a>
+    </div>
   </div>
 
   <!-- ═══ HEADER STRIP ═══ -->
@@ -269,6 +288,7 @@
         <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">An enterprise cyber-operations command center, 13 interlocking dashboards that fuse fragmented threat signals into one coherent, trustworthy operating picture.</p>
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Enterprise Cyber</div>
       </div>
+
 
     </div>
 

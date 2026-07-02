@@ -137,10 +137,12 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   .gthumbs{grid-template-columns:1fr 1fr!important}
 }
 @media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}}
+.navq:hover{color:var(--c-ink)}
+@media (max-width:680px){.navq{display:none}}
 </style>
 
   <!-- SEO·OG·JSONLD (injected) -->
-  <meta name="description" content="Partitioning — enterprise data-architecture product design by Robert Babiarz.">
+  <meta name="description" content="Partitioning — industry-first mobile partitioning UX for connected lighting (WaveLinx CORE), by Robert Babiarz.">
   <meta name="author" content="Robert Babiarz">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://robertbabiarz.com/partitioning.dc.html">
@@ -150,17 +152,18 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Robert Babiarz — Product Designer">
   <meta property="og:title" content="Dynamic Space Partitioning, Case Study (Showcase) · Robert Babiarz">
-  <meta property="og:description" content="Partitioning — enterprise data-architecture product design by Robert Babiarz.">
+  <meta property="og:description" content="Partitioning — industry-first mobile partitioning UX for connected lighting (WaveLinx CORE), by Robert Babiarz.">
   <meta property="og:url" content="https://robertbabiarz.com/partitioning-showcase.html">
   <meta property="og:image" content="https://robertbabiarz.com/previews/p-partitioning.png">
   <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
   <meta property="og:locale" content="en_CA">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dynamic Space Partitioning, Case Study (Showcase) · Robert Babiarz">
-  <meta name="twitter:description" content="Partitioning — enterprise data-architecture product design by Robert Babiarz.">
+  <meta name="twitter:description" content="Partitioning — industry-first mobile partitioning UX for connected lighting (WaveLinx CORE), by Robert Babiarz.">
   <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-partitioning.png">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Dynamic Space Partitioning, Case Study (Showcase) \u00b7 Robert Babiarz","headline":"Dynamic Space Partitioning, Case Study (Showcase) \u00b7 Robert Babiarz","description":"Partitioning \u2014 enterprise data-architecture product design by Robert Babiarz.","url":"https://robertbabiarz.com/partitioning-showcase.html","image":"https://robertbabiarz.com/previews/p-partitioning.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Design Systems, Data Visualization, Dashboard Design, Information Architecture, Interaction Design, User Research, Usability Testing, Prototyping, Figma, Accessibility, WCAG 2.2","isPartOf":{"@type":"WebSite","name":"Robert Babiarz \u2014 Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Dynamic Space Partitioning, Case Study (Showcase) \u00b7 Robert Babiarz","headline":"Dynamic Space Partitioning, Case Study (Showcase) \u00b7 Robert Babiarz","description":"Partitioning \u2014 industry-first mobile partitioning UX for connected lighting (WaveLinx CORE), by Robert Babiarz.","url":"https://robertbabiarz.com/partitioning-showcase.html","image":"https://robertbabiarz.com/previews/p-partitioning.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Design Systems, Data Visualization, Dashboard Design, Information Architecture, Interaction Design, User Research, Usability Testing, Prototyping, Figma, Accessibility, WCAG 2.2","isPartOf":{"@type":"WebSite","name":"Robert Babiarz \u2014 Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
   <script src="/analytics.js" defer></script>
+  <script src="cursor.js" defer></script>
 </head>
 <body>
 <div class="cs" id="top">
@@ -172,6 +175,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         Robert Babiarz
       </a>
       <div style="display:flex;align-items:center;gap:12px">
+        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="mono navq" style="font-size:10.5px;letter-spacing:.08em;color:var(--c-accent);font-weight:700;text-decoration:none">RÉSUMÉ ↓</a>
+        <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="font-size:10.5px;letter-spacing:.08em;color:var(--c-muted);text-decoration:none">CONTACT</a>
         <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
         <details class="cs-switch">
           <summary>
@@ -200,7 +205,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.2vw,86px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:18ch">One room becomes many, the moment a <em>wall moves</em></h1>
       <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:780px;margin-top:28px;color:var(--c-ink2)">Dynamic Space Partitioning lets a single ballroom split into eight independently-lit rooms, and merge back, as operable walls open and close. I designed the system that models those moving walls, sub-areas, and devices into one configuration any installer can run.</p>
       <div data-reveal="" data-d="3" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px">
-        <a class="btn-primary" href="partitioning-showcase.html">Read the full case study <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn-primary" href="partitioning.dc.html">Read the full case study <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a href="#flow" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See the flow</a>
       </div>
     </div>
@@ -213,7 +218,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
           <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">wavelinx · rose-ballroom · partition-plan</span></div>
           <img src="assets/part/diagram.png" alt="Rose Ballroom partition floor plan, eight sub-areas split by seven operable walls">
         </div>
-        <div class="band-cap cap-light">Rose Ballroom, 8 sub-areas · 7 operable walls · merge and split on contact-closure inputs</div>
+        <div class="band-cap cap-light">Rose Ballroom, 8 sub-areas · 7 operable walls · merge and split auto-sensed by IRTR contact inputs</div>
       </div>
     </div>
   </section>
@@ -230,11 +235,11 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         </div>
         <div class="card" data-reveal="" data-d="1" style="padding:34px">
           <div class="meta-grid">
-            <div><div class="meta-k">Role</div><div class="meta-v">Lead Product Designer</div></div>
+            <div><div class="meta-k">Role</div><div class="meta-v">Lead Experience Designer</div></div>
             <div><div class="meta-k">Scope</div><div class="meta-v stack"><span>Concept &amp; data model</span><span>IA · UX · Delivery</span></div></div>
             <div><div class="meta-k">Surfaces</div><div class="meta-v stack"><span>Mobile · Tablet</span><span>Desktop</span></div></div>
             <div><div class="meta-k">Status</div><div class="meta-v">Shipped · validated at UAG 2023</div></div>
-            <div><div class="meta-k">Platform</div><div class="meta-v">WaveLinx · Cooper Lighting / Signify</div></div>
+            <div><div class="meta-k">Platform</div><div class="meta-v">WaveLinx CORE · Cooper Lighting / Signify</div></div>
             <div><div class="meta-k">Sample space</div><div class="meta-v">Rose Ballroom · 8 sub-areas</div></div>
           </div>
         </div>
@@ -254,6 +259,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">01</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Walls aren't fixtures</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">A wall is a relationship between two rooms, not a device. No object in the platform modelled "these two sub-areas merge when this wall opens."</div></div>
         <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Merge &amp; split, automatically</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">When a wall opens mid-event the lighting must unify instantly, and re-separate when it closes, without staff recalling scenes by hand.</div></div>
         <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">03</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Configure once, correctly</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">Sub-areas, walls, joins, devices and contact inputs are a lot to set up. One wrong mapping lights the wrong rooms, so the flow had to be guided and hard to get wrong.</div></div>
+      </div>
+      <div class="card" data-reveal="" style="margin-top:18px;padding:26px 30px;border-left:3px solid var(--c-accent)">
+        <p style="font-family:'Inter',sans-serif;font-size:19px;font-style:italic;font-weight:300;color:var(--c-ink2);line-height:1.55;margin-bottom:10px">“The wall moves. The lights should just know. I don't want to go find a laptop and open a program, I'm holding a phone.”</p>
+        <div class="mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted)">Commissioning agent · field research interview</div>
       </div>
     </div>
   </section>
@@ -383,10 +392,16 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="results" id="stats">
         <div data-reveal=""><div class="res-n"><span data-count="8">0</span></div><div class="res-l">Sub-areas configurable from one Rose Ballroom</div></div>
         <div data-reveal="" data-d="1"><div class="res-n"><span data-count="7">0</span></div><div class="res-l">Operable walls live-sensed via contact inputs</div></div>
-        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="6">0</span></div><div class="res-l">Device types per sub-area, mapped to the plan</div></div>
+        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="6">0</span></div><div class="res-l">Devices per sub-area, mapped to the plan</div></div>
         <div data-reveal="" data-d="3"><div class="res-n"><span data-count="3">0</span></div><div class="res-l">Surfaces at parity, mobile, tablet, desktop</div></div>
       </div>
-      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">WAVELINX · COOPER LIGHTING / SIGNIFY · FIRST OPERABLE-WALL SUPPORT IN WAVELINX, VALIDATED AT UAG 2023.</div>
+      <div class="results" style="margin-top:44px">
+        <div data-reveal=""><div class="res-n">1st</div><div class="res-l">Mobile partitioning UX in connected commercial lighting</div></div>
+        <div data-reveal="" data-d="1"><div class="res-n">40–60<span style="font-size:.55em">%</span></div><div class="res-l">Reduction in on-site commissioning time, cited by field teams</div></div>
+        <div data-reveal="" data-d="2"><div class="res-n">~90<span style="font-size:.55em">%</span></div><div class="res-l">Fewer API calls on partition-area detail pages</div></div>
+        <div data-reveal="" data-d="3"><div class="res-n">11+</div><div class="res-l">Critical usability issues resolved before build</div></div>
+      </div>
+      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">WAVELINX CORE · COOPER LIGHTING / SIGNIFY · INDUSTRY-FIRST MOBILE PARTITIONING UX, VALIDATED AT UAG 2023 · METRICS FROM UAG SESSION DATA, ENGINEERING DOCS &amp; FIELD INTERVIEWS.</div>
     </div>
   </section>
 
@@ -435,6 +450,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
         <a href="smart-lighting-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Smart Lighting Mobile App <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
+      <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);font-weight:600;text-decoration:none;">Résumé ↓</a>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;">rbabiarz@gmail.com</a>
       <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
     </div>
   </footer>
@@ -442,8 +459,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <!-- VERSION TOGGLE -->
   <div class="verpill">
     <span class="vlbl">View</span>
-    <a href="partitioning-showcase.html" class="on">Showcase</a>
-    <a href="partitioning.dc.html">Standard</a>
+    <a href="partitioning-showcase.html" class="on">Quick tour</a>
+    <a href="partitioning.dc.html">Deep dive</a>
   </div>
 
 </div>
