@@ -244,7 +244,58 @@
   }
 
   // ---- entrance ----
+  // ---- viewport-size readout (bottom-left HUD pill) ----
+  function sizePill() {
+    if (document.getElementById('rb-vp-size')) return;
+    var p = document.createElement('div');
+    p.id = 'rb-vp-size';
+    p.setAttribute('aria-hidden', 'true');
+    p.style.cssText = [
+      'position:fixed', 'bottom:20px', 'left:20px', 'z-index:9997',
+      'display:flex', 'align-items:center', 'gap:7px',
+      'padding:7px 12px', 'border-radius:999px',
+      'font-family:"JetBrains Mono",monospace', 'font-size:10.5px', 'font-weight:500',
+      'letter-spacing:0.06em', 'line-height:1', 'font-variant-numeric:tabular-nums',
+      'color:#e9eef7', 'background:rgba(10,16,22,0.82)',
+      'backdrop-filter:blur(8px)', '-webkit-backdrop-filter:blur(8px)',
+      'border:1px solid rgba(255,255,255,0.16)',
+      'box-shadow:0 8px 22px -10px rgba(0,0,0,0.5)',
+      'pointer-events:none', 'user-select:none'
+    ].join(';');
+    var glyph = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="opacity:0.65"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+    var label = document.createElement('span');
+    p.innerHTML = glyph;
+    p.appendChild(label);
+    var t = null;
+    function update() {
+      label.textContent = window.innerWidth + ' \u00d7 ' + window.innerHeight + ' px';
+    }
+    window.addEventListener('resize', function () {
+      if (t) clearTimeout(t);
+      t = setTimeout(update, 60);
+    }, { passive: true });
+    // hide when the page is scrolled to the very bottom so it never covers the footer
+    p.style.transition = 'opacity 0.3s ease';
+    function vis() {
+      var f = document.querySelector('footer');
+      var hide;
+      if (f) {
+        hide = f.getBoundingClientRect().top < window.innerHeight - 30;
+      } else {
+        var st = window.scrollY || document.documentElement.scrollTop || 0;
+        var max = (document.documentElement.scrollHeight - window.innerHeight) || 0;
+        hide = max > 200 && st >= max - 140;
+      }
+      p.style.opacity = hide ? '0' : '1';
+    }
+    window.addEventListener('scroll', vis, { passive: true });
+    vis();
+    update();
+    document.body.appendChild(p);
+  }
+
   function entrance() {
+    sizePill();
     var ov = build();
     ov.style.display = 'block';
     if (FIRST_VISIT) {

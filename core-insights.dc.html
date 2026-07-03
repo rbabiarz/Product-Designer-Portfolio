@@ -972,7 +972,7 @@ class Component extends DCLogic {
     pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
     document.body.appendChild(bar); document.body.appendChild(pill);
     const num = document.getElementById('scroll-prog-num');
-    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; pill.style.opacity = st > 60 ? '1' : '0'; };
+    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; const _f = document.querySelector('footer'); const _footIn = _f ? _f.getBoundingClientRect().top < window.innerHeight - 30 : st >= h - 140; pill.style.opacity = (st > 60 && !_footIn) ? '1' : '0'; };
     update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
   }
   initHotDesk() {

@@ -812,6 +812,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <label style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg2);">
             <span aria-hidden="true">Drill</span>
             <select id="ag-mode" aria-label="Choose which AEGIS drill to play" style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--fg);background:var(--bg2) url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none' stroke='%237dd3c0' stroke-width='1.6'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E&quot;) no-repeat right 12px center;border:1px solid var(--line2);border-radius:999px;padding:9px 32px 9px 14px;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;">
+              <option value="arctic">Arctic Shield · intercept</option>
               <option value="fusion">Fusion Watch · deduction</option>
               <option value="sweep">Sweep · Watchkeeper · reflex</option>
               <option value="watchfloor">Watchfloor: Last Light · survival</option>
@@ -1572,6 +1573,7 @@ class Component extends DCLogic {
 
     // ---- mode switching ----
     const SCOREINFO = {
+      arctic: '<b style="color:#7dd3c0;">SSK +250</b> · <b style="color:#7dd3c0;">VESSEL +120</b> · <b style="color:#7dd3c0;">AIR +100</b> · <b style="color:#7dd3c0;">SWARM +80</b> per intercept · streak <b style="color:#4c9aff;">+×0.25 each, cap ×4</b> · <b style="color:#d4a036;">POS ID +50</b> task a contact your sensors revealed · <b style="color:#d4a036;">LAST-SECOND +150</b> catch it at the line · tasking wildlife = <b style="color:#e64d3c;">−200</b> and the streak · sensors cost <b>40⚡</b> · clear the op for <b>+500</b>, <b>+250</b> per integrity remaining.',
       fusion: '<b style="color:#7dd3c0;">LOCKED ×1.5</b> classify while the sweep is on the contact · <b style="color:#d4a036;">DISSENT ×2</b> catch a trap by reading the sources over the headline number · combo <b style="color:#4c9aff;">×1→×12</b>, +1 per correct call · a wrong call or a hostile/unknown breach resets the combo and costs a life.',
       sweep: '<b style="color:#7dd3c0;">LOCKED ×2</b> call it in the lit window · <b style="color:#d4a036;">BLIND READ ×3</b> commit from the silhouette before it lights · <b>+50 EARLY</b> resolve in the outer ring · MARK genuinely ambiguous contacts UNKNOWN (hedging a clear contact = +20, no combo) · combo <b style="color:#4c9aff;">×1→×12</b> · a miscall or breach resets it and costs integrity.',
       watchfloor: '<b style="color:#7dd3c0;">LOCKED ×1.5</b> call it in the lit window · <b style="color:#7dd3c0;">EARNED TRUST ×1.6</b> HOLD-SCAN a spoof to reveal its dissent, then call it right · combo <b style="color:#4c9aff;">×1→×12</b> · TAG a friendly/neutral = fratricide · a clean wave (no miscall, no breach) restores +1 integrity · survive the waves.',
@@ -1611,13 +1613,42 @@ class Component extends DCLogic {
     this.on(stage, 'click', (e) => { if (e.target && e.target.closest && e.target.closest('#ag-rail')) return; if (G.mode !== 'playing') start(); });
     ['clear', 'hold', 'tag'].forEach((v) => { const b = $('ag-' + v); if (b) this.on(b, 'click', (e) => { e.preventDefault(); if (G.mode === 'playing') classify(v); else start(); }); });
     if (startBtn) this.on(startBtn, 'click', (e) => { e.preventDefault(); start(); });
-    if (modeSel) this.on(modeSel, 'change', (e) => { setMode(modeSel.value); try { stage.focus({ preventScroll: true }); } catch (er) {} });
+    // ---- Arctic Shield: a self-contained bundled game, embedded in the stage as an iframe ----
+    const setArctic = (on) => {
+      let f = document.getElementById('ag-arctic');
+      if (on) {
+        if (!f) {
+          f = document.createElement('iframe');
+          f.id = 'ag-arctic';
+          f.title = 'Arctic Shield — drone intercept training game';
+          f.setAttribute('loading', 'lazy');
+          f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;z-index:40;background:#081210;';
+          f.src = 'arctic-shield.html';
+          stage.appendChild(f);
+        }
+        f.style.display = 'block';
+        const it = $('ag-info-title'); if (it) it.textContent = 'Arctic Shield';
+        const ib = $('ag-info-body'); if (ib) ib.innerHTML = SCOREINFO.arctic;
+        if (G.mode === 'playing') gameOver();
+        G.paused = true;
+      } else if (f) { f.style.display = 'none'; G.paused = false; }
+    };
+    if (modeSel) this.on(modeSel, 'change', (e) => {
+      try { localStorage.setItem('rba-ag-mode', modeSel.value); } catch (er) {}
+      if (modeSel.value === 'arctic') { setArctic(true); }
+      else { setArctic(false); setMode(modeSel.value); try { stage.focus({ preventScroll: true }); } catch (er) {} }
+    });
 
     if (infoBtn) this.on(infoBtn, 'click', (e) => { e.preventDefault(); openInfo(); });
     if (infoClose) this.on(infoClose, 'click', (e) => { e.preventDefault(); closeInfo(); });
     if (infoBox) { this.on(infoBox, 'click', (e) => { if (e.target === infoBox) closeInfo(); }); this.on(infoBox, 'keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); closeInfo(); } }); }
 
     relabel(); setInfo(); updateHud();
+    // restore the visitor's last-used drill (shared across homepage variants)
+    let savedMode = null; try { savedMode = localStorage.getItem('rba-ag-mode'); } catch (e) {}
+    if (modeSel && savedMode && savedMode !== modeSel.value && (savedMode === 'arctic' || RULES[savedMode])) modeSel.value = savedMode;
+    if (modeSel && modeSel.value === 'arctic') setArctic(true);
+    else if (modeSel && RULES[modeSel.value] && this._agMode !== modeSel.value) setMode(modeSel.value);
     this._agRaf = requestAnimationFrame(loop);
   }
   componentWillUnmount() {
