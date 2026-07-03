@@ -1435,8 +1435,7 @@
       //! nosemgrep: create-script-element
       const s = document.createElement("script");
       s.src = src;
-      s.integrity = integrity;
-      s.crossOrigin = "anonymous";
+      if (integrity) { s.integrity = integrity; s.crossOrigin = "anonymous"; }
       s.async = false;
       s.onload = () => resolve2();
       s.onerror = () => reject(new Error(`failed to load ${src}`));
@@ -1446,10 +1445,16 @@
   function loadReactUmd() {
     const w = window;
     if (w.React && w.ReactDOM) return Promise.resolve();
+    // Local vendored copies first (same bytes as the pinned CDN build — the SRI
+    // hashes match), so the site has no hard runtime dependency on unpkg.
+    // The CDN remains as a fallback if the local files are ever missing.
     return Promise.all([
+      loadScript("/vendor/react.production.min.js"),
+      loadScript("/vendor/react-dom.production.min.js")
+    ]).catch(() => Promise.all([
       loadScript(REACT_URL, REACT_SRI),
       loadScript(REACT_DOM_URL, REACT_DOM_SRI)
-    ]).then(() => void 0);
+    ])).then(() => void 0);
   }
   function init() {
     const runtime = createRuntime(document);
