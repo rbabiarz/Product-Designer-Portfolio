@@ -13,7 +13,7 @@
   <link rel="canonical" href="https://robertbabiarz.com/partitioning.dc.html">
   <meta name="theme-color" content="#070b12">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="icon" type="image/png" href="/assets/rob-babiarz-photo.png">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Robert Babiarz — Product Designer">
   <meta property="og:title" content="Dynamic Space Partitioning, Case Study · Robert Babiarz">
@@ -70,6 +70,7 @@ summary::-webkit-details-marker{display:none}
 .cs-toc a[data-active] .cs-toc-dot{background:#0d5350;width:22px}
 @media (max-width:1180px){ .cs-toc{display:none !important} }
 @media (max-width:880px){
+  .pw-grid{grid-template-columns:1fr !important}
   .cs nav > div{padding-left:18px !important;padding-right:18px !important}
   .cs section{padding-left:18px !important;padding-right:18px !important;padding-top:60px !important;padding-bottom:60px !important}
   .cs [style*="grid-template-columns"]{grid-template-columns:1fr !important}
@@ -182,6 +183,7 @@ summary::-webkit-details-marker{display:none}
     <a href="#s-iterations" data-toc="s-iterations" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Iterations</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-flow" data-toc="s-flow" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">The flow</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-floor" data-toc="s-floor" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Floor plan</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-setup" data-toc="s-setup" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Configure</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-surfaces" data-toc="s-surfaces" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Surfaces</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-outcomes" data-toc="s-outcomes" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Outcomes</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
   </nav>
@@ -558,10 +560,22 @@ summary::-webkit-details-marker{display:none}
   </section>
 
   <!-- ════════ 8 · MULTI-SURFACE ════════ -->
+
+  <!-- ════════ 07 · CONFIGURE IT YOURSELF (interactive wizard, mirrors the WaveLinx app-note flow) ════════ -->
+  <section id="s-setup" style="padding:88px 40px;background:#0e151e;color:#e8edf5;border-top:1px solid rgba(255,255,255,0.05);">
+    <div style="max-width:1160px;margin:0 auto;">
+      <div data-reveal="1" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7dd3c0;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">07 · Configure It Yourself</div>
+      <h2 data-reveal="1" style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,44px);font-weight:500;letter-spacing:-1.2px;line-height:1.08;color:#fff;margin-bottom:16px;">Five steps from a sketch to a self-sensing floor.</h2>
+      <p data-reveal="1" style="font-size:16px;color:#aab6c8;line-height:1.7;max-width:820px;margin-bottom:14px;">This is the shipped configuration flow, playable. It walks the same five steps an installer runs in the WaveLinx app — create the area, define its shape, name the sub-areas, tell each wall what it joins, and wire each wall's sensor to a contact input — then hands you the walls to test. The plan below is the standard training layout: <b style="color:#e8edf5;">four sub-areas, five operable walls</b>.</p>
+      <div id="pw-root" data-reveal="1" style="margin-top:26px;"></div>
+      <p data-reveal="1" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7d8ca3;line-height:1.7;max-width:860px;margin-top:18px;">HARDWARE TRUTHS · one IRTR sensor per wall, transmitter facing receiver across the wall pocket (≤ 8 ft) · each IRTR is powered (EXPS-15V) and lands on a contact-closure input — one CCI module carries up to four walls, within 32 ft · an Area Controller holds up to two partitioned spaces of 10 sub-areas and 10 walls each. Flow mirrors the WaveLinx application note (v16, 2025).</p>
+    </div>
+  </section>
+
   <section id="s-surfaces" style="padding:90px 40px;background:var(--c-bg);">
     <div style="max-width:1240px;margin:0 auto;">
       <div style="max-width:700px;margin-bottom:40px;" data-reveal="1">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">07 · One Flow, Every Surface</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">08 · One Flow, Every Surface</div>
         <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:16px;">Commission on a phone. Operate on the wall.</h2>
         <p style="font-size:17px;color:var(--c-body);line-height:1.66;">An installer configures partitions on a phone at the panel; a venue manager runs the room from a wall-mounted tablet or the web. The same three-step model, sub-areas → walls → devices, scales to each screen.</p>
       </div>
@@ -605,7 +619,7 @@ summary::-webkit-details-marker{display:none}
   <section id="s-outcomes" style="padding:96px 40px;background:#0b1016;color:#e8edf5;">
     <div style="max-width:1240px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:52px;" data-reveal="1">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ca88f;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">08 · Outcomes</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ca88f;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">09 · Outcomes</div>
         <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:500;letter-spacing:-1.4px;line-height:1.08;color:#fff;">A moving room, made<br/>configurable once.</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;margin-bottom:14px;">
@@ -675,7 +689,143 @@ class Component extends DCLogic {
   state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'), menu: false, ver: 'v1', stepF: 0, walls: { P1: false, P2: false, P3: false, P4: false, P5: false, P6: false, P7: false }, c1: 0, c2: 0, c3: 0, countersDone: false };
   _raf = {}; _obs = [];
 
-  componentDidMount() { setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.initScrollProgress(); }, 120); }
+  componentDidMount() { setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.initScrollProgress(); this.initPartWizard(); }, 120); }
+
+  // ── 07 · Configure It Yourself: the shipped partition setup flow, playable ──
+  initPartWizard() {
+    const root = document.getElementById('pw-root');
+    if (!root || root.dataset.init) return; root.dataset.init = '1';
+    const TRUE = { 1: ['A', 'B'], 2: ['B', 'C'], 3: ['A', 'D'], 4: ['B', 'D'], 5: ['C', 'D'] };
+    const NAMESETS = { conf: ['Conference A', 'Conference B', 'Conference C', 'Conference D'], salon: ['Salon A', 'Salon B', 'Salon C', 'Salon D'], train: ['Training 1', 'Training 2', 'Training 3', 'Training 4'] };
+    const AREANAMES = ['Rose Ballroom West', 'Conference Space', 'Training Wing'];
+    const STEPS = ['Create', 'Define', 'Name', 'Join', 'Assign', 'Test'];
+    const st = this._pw = { step: 1, name: null, type: null, walls: 3, subs: 3, nameKey: null, joins: {}, act: null, pick: [], inputs: {}, actIn: null, open: {}, hint: '', log: '' };
+    const roomName = (k) => st.nameKey ? NAMESETS[st.nameKey]['ABCD'.indexOf(k)] : 'Sub-area ' + k;
+    const T = { teal: '#7dd3c0', coral: '#e0907e', dim: '#7d8ca3', text: '#e8edf5', card: '#121a24', line: 'rgba(255,255,255,0.09)', sand: '#e8c069' };
+
+    const sketch = () => {
+      const W = { 1: 'left:2%;right:47%;top:calc(33.3% - 5px);height:10px;', 2: 'left:2%;right:47%;top:calc(66.6% - 5px);height:10px;', 3: 'left:calc(53% - 5px);width:10px;top:2%;height:31.3%;', 4: 'left:calc(53% - 5px);width:10px;top:35.5%;height:31.3%;', 5: 'left:calc(53% - 5px);width:10px;top:68.8%;height:29.2%;' };
+      const R = { A: 'left:2%;right:47%;top:2%;height:31.3%;', B: 'left:2%;right:47%;top:35.5%;height:31.3%;', C: 'left:2%;right:47%;top:68.8%;height:29.2%;', D: 'left:55%;right:2%;top:2%;bottom:2%;' };
+      let tint = {};
+      if (st.step === 6) {
+        const p = { A: 'A', B: 'B', C: 'C', D: 'D' };
+        const find = (x) => p[x] === x ? x : (p[x] = find(p[x]));
+        for (let w = 1; w <= 5; w++) if (st.open[w]) { const ab = TRUE[w]; p[find(ab[0])] = find(ab[1]); }
+        const groups = {}; 'ABCD'.split('').forEach(r => { const g = find(r); (groups[g] = groups[g] || []).push(r); });
+        const PAL = ['rgba(125,211,192,0.18)', 'rgba(224,144,126,0.18)', 'rgba(232,192,105,0.16)', 'rgba(125,140,163,0.2)'];
+        Object.keys(groups).sort().forEach((g, i2) => groups[g].forEach(r => tint[r] = PAL[i2 % 4]));
+      }
+      let h = '<div style="position:relative;aspect-ratio:5/4;background:#0b1016;border:1px solid ' + T.line + ';border-radius:12px;overflow:hidden;">';
+      for (const k of 'ABCD') {
+        h += '<div data-pw="room:' + k + '" style="position:absolute;' + R[k] + 'background:' + (tint[k] || 'rgba(125,211,192,0.05)') + ';border:1px dashed rgba(255,255,255,0.14);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:' + (st.step === 4 ? 'pointer' : 'default') + ';transition:background .25s ease;' + (st.step === 4 && st.pick.indexOf(k) !== -1 ? 'outline:2px solid ' + T.teal + ';outline-offset:-2px;' : '') + '">' +
+          '<span style="font-family:\'Inter\',sans-serif;font-size:26px;font-weight:600;color:rgba(232,237,245,' + (st.step >= 3 ? '0.9' : '0.35') + ');">' + k + '</span>' +
+          (st.step >= 3 && st.nameKey ? '<span style="font-family:\'JetBrains Mono\',monospace;font-size:9.5px;letter-spacing:0.06em;color:' + T.dim + ';">' + roomName(k).toUpperCase() + '</span>' : '') + '</div>';
+      }
+      for (let w = 1; w <= 5; w++) {
+        const joined = !!st.joins[w], assigned = !!st.inputs[w], isOpen = !!st.open[w];
+        let bg = 'rgba(224,144,126,0.55)', glow = '';
+        if (st.step === 4) { bg = joined ? 'rgba(125,211,192,0.75)' : 'rgba(224,144,126,0.6)'; if (st.act === w && !joined) glow = 'box-shadow:0 0 0 3px rgba(224,144,126,0.35);'; }
+        else if (st.step === 5) { bg = assigned ? 'rgba(125,211,192,0.75)' : 'rgba(224,144,126,0.6)'; if (st.actIn === w && !assigned) glow = 'box-shadow:0 0 0 3px rgba(224,144,126,0.35);'; }
+        else if (st.step === 6) bg = isOpen ? 'rgba(125,211,192,0.25)' : 'rgba(232,237,245,0.75)';
+        h += '<button type="button" data-pw="wall:' + w + '" aria-label="Wall ' + w + (st.step === 6 ? (isOpen ? ' — open, tap to close' : ' — closed, tap to open') : '') + '" style="position:absolute;' + W[w] + 'background:' + bg + ';border:0;border-radius:5px;cursor:pointer;padding:0;' + glow + 'transition:background .2s ease;">' +
+          '<span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#0b1016;border:1.5px solid ' + (st.step === 6 ? (isOpen ? T.teal : '#cdd6e4') : T.coral) + ';color:' + (st.step === 6 ? (isOpen ? T.teal : '#cdd6e4') : T.coral) + ';font-family:\'JetBrains Mono\',monospace;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:2;">' + w + '</span></button>';
+      }
+      return h + '</div>';
+    };
+
+    const card = (inner) => '<div style="background:' + T.card + ';border:1px solid ' + T.line + ';border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:14px;min-height:340px;">' + inner + '</div>';
+    const btn = (label, act, on, primary) => '<button type="button" data-pw="' + act + '" ' + (on ? '' : 'disabled') + ' style="padding:10px 20px;border-radius:9px;font-family:\'JetBrains Mono\',monospace;font-size:11.5px;font-weight:700;letter-spacing:0.06em;cursor:' + (on ? 'pointer' : 'not-allowed') + ';opacity:' + (on ? '1' : '0.35') + ';' + (primary ? 'background:' + T.teal + ';color:#06201d;border:0;' : 'background:transparent;color:' + T.text + ';border:1px solid rgba(255,255,255,0.25);') + '">' + label + '</button>';
+    const chip = (label, act, sel) => '<button type="button" data-pw="' + act + '" style="padding:8px 13px;border-radius:999px;font-family:\'JetBrains Mono\',monospace;font-size:10.5px;letter-spacing:0.04em;cursor:pointer;background:' + (sel ? 'rgba(125,211,192,0.16)' : 'transparent') + ';color:' + (sel ? T.teal : T.text) + ';border:1px solid ' + (sel ? T.teal : 'rgba(255,255,255,0.22)') + ';">' + label + '</button>';
+    const kick = (t) => '<div style="font-family:\'JetBrains Mono\',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:' + T.dim + ';">' + t + '</div>';
+    const hd = (t) => '<div style="font-family:\'Inter\',sans-serif;font-size:19px;font-weight:600;color:#fff;letter-spacing:-0.01em;">' + t + '</div>';
+    const note = (t, warm) => '<div style="font-size:12.5px;line-height:1.6;color:' + (warm ? T.sand : '#aab6c8') + ';">' + t + '</div>';
+    const stepper = (label, key, val) => '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b1016;border:1px solid ' + T.line + ';border-radius:10px;padding:10px 14px;"><span style="font-size:13px;color:' + T.text + ';">' + label + '</span><span style="display:flex;align-items:center;gap:12px;"><button type="button" data-pw="' + key + ':-" aria-label="decrease" style="width:30px;height:30px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:' + T.text + ';font-size:15px;cursor:pointer;">−</button><b style="font-family:\'JetBrains Mono\',monospace;font-size:15px;min-width:22px;text-align:center;color:' + T.teal + ';">' + val + '</b><button type="button" data-pw="' + key + ':+" aria-label="increase" style="width:30px;height:30px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:' + T.text + ';font-size:15px;cursor:pointer;">+</button></span></div>';
+
+    const stepUI = () => {
+      if (st.step === 1) return card(kick('Step 1 · Create the area') + hd('New area — name it, make it Partitioned.') +
+        note('In the app this is the “+” on All Areas. The type decision is the one that matters: only a <b style="color:#e8edf5">Partitioned</b> area can own walls and sub-areas.') +
+        '<div>' + kick('Area name') + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">' + AREANAMES.map(n => chip(n, 'name:' + n, st.name === n)).join('') + '</div></div>' +
+        '<div>' + kick('Area type') + '<div style="display:flex;gap:8px;margin-top:8px;">' + chip('Standard', 'type:Standard', st.type === 'Standard') + chip('Partitioned', 'type:Partitioned', st.type === 'Partitioned') + '</div></div>' +
+        (st.type === 'Standard' ? note('A standard area has no walls or sub-areas — the IRTRs would have nowhere to report. Pick Partitioned.', true) : '') +
+        '<div style="margin-top:auto;display:flex;justify-content:flex-end;">' + btn('NEXT', 'next', !!st.name && st.type === 'Partitioned', true) + '</div>');
+      if (st.step === 2) return card(kick('Step 2 · Define the partitioned area') + hd('How many walls? How many rooms?') +
+        note('Count them off the sketch: <b style="color:#e8edf5">5 walls, 4 sub-areas</b>. WaveLinx allows up to 10 of each — and the number is <b style="color:' + T.sand + '">locked once the area is saved</b>. The app note says sketch first for a reason.') +
+        stepper('Number of partition walls', 'walls', st.walls) + stepper('Number of sub-areas', 'subs', st.subs) +
+        '<div style="margin-top:auto;display:flex;justify-content:space-between;">' + btn('BACK', 'back', true, false) + btn('NEXT', 'next', st.walls === 5 && st.subs === 4, true) + '</div>');
+      if (st.step === 3) return card(kick('Step 3 · Name the sub-areas') + hd('Call the rooms what the venue calls them.') +
+        note('Field teams navigate by the names on the doors, not by letters on a plan.') +
+        '<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start;">' + Object.keys(NAMESETS).map(k => chip(NAMESETS[k].join(' · '), 'names:' + k, st.nameKey === k)).join('') + '</div>' +
+        '<div style="margin-top:auto;display:flex;justify-content:space-between;">' + btn('BACK', 'back', true, false) + btn('NEXT', 'next', !!st.nameKey, true) + '</div>');
+      if (st.step === 4) { const done = Object.keys(st.joins).length; return card(kick('Step 4 · Join the walls · ' + done + '/5') + hd(st.act ? 'Wall ' + st.act + ' — tap the two rooms it separates.' : 'Tap a wall on the sketch.') +
+        note('Every wall must know which sub-areas it joins when it opens. This mapping <i>is</i> the partition logic.') +
+        (st.hint ? note(st.hint, true) : '') +
+        '<div style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:' + T.dim + ';line-height:1.9;">' + [1, 2, 3, 4, 5].map(w => 'Wall ' + w + ' — ' + (st.joins[w] ? '<b style="color:' + T.teal + '">' + st.joins[w].map(roomName).join(' + ') + ' ✓</b>' : (st.act === w ? '<b style="color:' + T.coral + '">' + (st.pick.length ? roomName(st.pick[0]) + ' + …' : 'picking…') + '</b>' : '—'))).join('<br>') + '</div>' +
+        '<div style="margin-top:auto;display:flex;justify-content:space-between;">' + btn('BACK', 'back', true, false) + btn('NEXT', 'next', done === 5, true) + '</div>'); }
+      if (st.step === 5) { const done = Object.keys(st.inputs).length; const used = {}; Object.keys(st.inputs).forEach(k => used[st.inputs[k]] = 1);
+        const slot = (c, i2) => { const key = c + ':' + i2, u = used[key]; return '<button type="button" data-pw="slot:' + key + '" ' + (u ? 'disabled' : '') + ' style="padding:8px 0;border-radius:8px;font-family:\'JetBrains Mono\',monospace;font-size:10.5px;border:1px solid ' + (u ? 'rgba(125,211,192,0.5)' : 'rgba(255,255,255,0.22)') + ';background:' + (u ? 'rgba(125,211,192,0.14)' : 'transparent') + ';color:' + (u ? T.teal : T.text) + ';cursor:' + (u ? 'default' : 'pointer') + ';width:100%;">IN ' + i2 + (u ? ' ✓' : '') + '</button>'; };
+        return card(kick('Step 5 · Assign each wall\'s sensor · ' + done + '/5') + hd(st.actIn ? 'Wall ' + st.actIn + ' — pick the contact input its IRTR lands on.' : 'All five walls wired.') +
+        note('One CCI module carries four IRTRs, so with five walls the fifth lands on a second module — exactly what the sample plan in the app note does.') +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' + ['1', '2'].map(c => '<div style="background:#0b1016;border:1px solid ' + T.line + ';border-radius:10px;padding:10px 12px;">' + kick('PRO CCI #' + c) + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;">' + [1, 2, 3, 4].map(i2 => slot(c, i2)).join('') + '</div></div>').join('') + '</div>' +
+        '<div style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:' + T.dim + ';line-height:1.9;">' + [1, 2, 3, 4, 5].map(w => 'Wall ' + w + ' — ' + (st.inputs[w] ? '<b style="color:' + T.teal + '">CCI #' + st.inputs[w].replace(':', ' · Input ') + ' ✓</b>' : (st.actIn === w ? '<b style="color:' + T.coral + '">choose an input…</b>' : '—'))).join('<br>') + '</div>' +
+        '<div style="margin-top:auto;display:flex;justify-content:space-between;">' + btn('BACK', 'back', true, false) + btn('GO LIVE', 'next', done === 5, true) + '</div>'); }
+      return card(kick('Step 6 · Wall test') + hd('The floor is live. Move the walls.') +
+        note('Tap any wall: the IRTR beam clears or breaks, the CCI reports it, and the rooms join or separate — no wallstation taps, no one walking the floor with a tablet.') +
+        '<div aria-live="polite" style="font-family:\'JetBrains Mono\',monospace;font-size:11px;line-height:1.75;color:' + T.teal + ';background:#0b1016;border:1px solid ' + T.line + ';border-radius:10px;padding:12px 14px;min-height:76px;">' + (st.log || 'Every wall starts closed — four rooms, each running its own lights. Tap a wall number.') + '</div>' +
+        note('Rooms sharing a colour are one joined space: their wallstations and occupancy sensors act on the whole group, per the partitioned-area operation rules.') +
+        '<div style="margin-top:auto;display:flex;justify-content:space-between;">' + btn('BACK', 'back', true, false) + btn('RESTART', 'restart', true, false) + '</div>');
+    };
+
+    const table = () => {
+      let rows = '';
+      for (let w = 1; w <= 5; w++) rows += '<tr><td style="padding:9px 14px;border-top:1px solid ' + T.line + ';font-family:\'JetBrains Mono\',monospace;font-size:11px;color:' + T.text + ';">Wall ' + w + '</td><td style="padding:9px 14px;border-top:1px solid ' + T.line + ';font-family:\'JetBrains Mono\',monospace;font-size:11px;color:' + (st.inputs[w] ? T.teal : T.dim) + ';">' + (st.inputs[w] ? 'PRO CCI #' + st.inputs[w].replace(':', ' · Input ') : '—') + '</td><td style="padding:9px 14px;border-top:1px solid ' + T.line + ';font-size:12px;color:' + (st.joins[w] ? T.text : T.dim) + ';">' + (st.joins[w] ? st.joins[w].map(roomName).join(' + ') : '—') + '</td></tr>';
+      return '<div style="margin-top:16px;background:' + T.card + ';border:1px solid ' + T.line + ';border-radius:12px;overflow-x:auto;"><table style="width:100%;border-collapse:collapse;min-width:520px;"><thead><tr>' + ['Partition wall', 'IRTR contact input', 'Sub-areas joined'].map(h2 => '<th style="text-align:left;padding:10px 14px;font-family:\'JetBrains Mono\',monospace;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:' + T.dim + ';">' + h2 + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+    };
+
+    const render = () => {
+      root.innerHTML =
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">' + STEPS.map((s, i2) => '<span ' + (st.step === i2 + 1 ? 'aria-current="step"' : '') + ' style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:0.08em;padding:5px 11px;border-radius:999px;border:1px solid ' + (st.step === i2 + 1 ? T.teal : (st.step > i2 + 1 ? 'rgba(125,211,192,0.4)' : 'rgba(255,255,255,0.14)')) + ';color:' + (st.step === i2 + 1 ? T.teal : (st.step > i2 + 1 ? 'rgba(125,211,192,0.75)' : T.dim)) + ';">' + (i2 + 1) + ' ' + s.toUpperCase() + (st.step > i2 + 1 ? ' ✓' : '') + '</span>').join('') + '</div>' +
+        '<div class="pw-grid" style="display:grid;grid-template-columns:1.05fr 1fr;gap:18px;align-items:stretch;"><div>' + sketch() + '</div>' + stepUI() + '</div>' + table();
+    };
+
+    root.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-pw]'); if (!el || el.disabled) return;
+      const parts = el.getAttribute('data-pw').split(':'); const act = parts[0]; const val = parts.slice(1).join(':');
+      st.hint = '';
+      if (act === 'name') st.name = val;
+      else if (act === 'type') st.type = val;
+      else if (act === 'names') st.nameKey = val;
+      else if (act === 'walls') st.walls = Math.max(1, Math.min(10, st.walls + (val === '+' ? 1 : -1)));
+      else if (act === 'subs') st.subs = Math.max(1, Math.min(10, st.subs + (val === '+' ? 1 : -1)));
+      else if (act === 'back') { st.step = Math.max(1, st.step - 1); st.act = null; st.pick = []; }
+      else if (act === 'next') { st.step = Math.min(6, st.step + 1); if (st.step === 4) { st.act = [1, 2, 3, 4, 5].find(w => !st.joins[w]) || null; } if (st.step === 5) st.actIn = [1, 2, 3, 4, 5].find(w => !st.inputs[w]) || null; if (st.step === 6) { st.open = {}; st.log = ''; } }
+      else if (act === 'restart') { st.step = 1; st.name = null; st.type = null; st.walls = 3; st.subs = 3; st.nameKey = null; st.joins = {}; st.act = null; st.pick = []; st.inputs = {}; st.actIn = null; st.open = {}; st.hint = ''; st.log = ''; }
+      else if (act === 'wall') {
+        const w = parseInt(val, 10);
+        if (st.step === 4) { if (!st.joins[w]) { st.act = w; st.pick = []; } }
+        else if (st.step === 5) { if (!st.inputs[w]) st.actIn = w; }
+        else if (st.step === 6) {
+          st.open[w] = !st.open[w];
+          const ab = TRUE[w];
+          st.log = 'IRTR W' + w + ' — ' + (st.open[w] ? 'line of sight restored' : 'beam interrupted') + '<br>→ PRO CCI #' + st.inputs[w].replace(':', ' · Input ') + ' reports ' + (st.open[w] ? 'OPEN' : 'CLOSED') + '<br>→ ' + roomName(ab[0]) + ' + ' + roomName(ab[1]) + (st.open[w] ? ' now run as one space' : ' separated — each on its own again');
+        }
+      }
+      else if (act === 'room') {
+        if (st.step !== 4 || !st.act) return;
+        if (st.pick.indexOf(val) !== -1) return;
+        st.pick.push(val);
+        if (st.pick.length === 2) {
+          const want = TRUE[st.act].slice().sort().join(''), got = st.pick.slice().sort().join('');
+          if (got === want) { st.joins[st.act] = TRUE[st.act]; st.act = [1, 2, 3, 4, 5].find(w => !st.joins[w]) || null; }
+          else st.hint = 'Wall ' + st.act + ' doesn\'t meet ' + roomName(st.pick[0]) + ' and ' + roomName(st.pick[1]) + ' — follow the wall on the sketch.';
+          st.pick = [];
+        }
+      }
+      else if (act === 'slot') { if (st.actIn && !st.inputs[st.actIn]) { st.inputs[st.actIn] = val; st.actIn = [1, 2, 3, 4, 5].find(w => !st.inputs[w]) || null; } }
+      render();
+    });
+    render();
+  }
+
   initScrollProgress() {
     if (document.getElementById('scroll-prog-bar')) return;
     const ac = '#0d5350', ac2 = '#d4774f';

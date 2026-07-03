@@ -60,7 +60,7 @@
     bar.id = 'rb-consent';
     bar.setAttribute('role', 'region');
     bar.setAttribute('aria-label', 'Cookie and storage consent');
-    bar.style.cssText = 'position:fixed;left:50%;bottom:16px;margin-left:max(-212.5px,calc(-50vw + 16px));z-index:99998;width:min(425px,calc(100vw - 32px));padding:16px 18px;display:flex;flex-direction:column;gap:12px;font-size:12.5px;line-height:1.55;' +
+    bar.style.cssText = 'position:fixed;left:50%;bottom:16px;margin-left:max(-265.5px,calc(-50vw + 16px));z-index:99998;width:min(531px,calc(100vw - 32px));padding:16px 18px;display:flex;flex-direction:column;gap:12px;font-size:12.5px;line-height:1.55;' +
       t.bar + (reduce ? '' : 'transform:translateY(calc(100% + 20px));transition:transform .45s cubic-bezier(.2,.8,.2,1);');
 
     var kicker = themeOf() === 'retro' ? 'C:\\> STORAGE_CONSENT' : 'Cookies & storage';

@@ -12,19 +12,19 @@
   <link rel="canonical" href="https://robertbabiarz.com/">
   <meta name="theme-color" content="#070b12">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="icon" type="image/png" href="/assets/rob-babiarz-photo.png">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png">
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Robert Babiarz — Product Designer">
   <meta property="og:title" content="Robert Babiarz, Product Designer · RB-OS Terminal">
   <meta property="og:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
   <meta property="og:url" content="https://robertbabiarz.com/">
-  <meta property="og:image" content="https://robertbabiarz.com/previews/p-ctoc.png">
+  <meta property="og:image" content="https://robertbabiarz.com/previews/og-brand.png">
   <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
   <meta property="og:locale" content="en_CA">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Robert Babiarz, Product Designer · RB-OS Terminal">
   <meta name="twitter:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
-  <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-ctoc.png">
+  <meta name="twitter:image" content="https://robertbabiarz.com/previews/og-brand.png">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Robert Babiarz","jobTitle":"Senior Product Designer","url":"https://robertbabiarz.com/","image":"https://robertbabiarz.com/assets/rob-babiarz-photo.png","email":"mailto:rbabiarz@gmail.com","description":"Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS \u2014 design systems, data visualization, and WCAG 2.2-accessible interfaces.","address":{"@type":"PostalAddress","addressLocality":"Greater Toronto Area","addressRegion":"Ontario","addressCountry":"CA"},"sameAs":["https://linkedin.com/in/robert-babiarz"],"knowsAbout":["Product Design","UX Design","UI Design","Design Systems","Data Visualization","Dashboard Design","Information Architecture","Interaction Design","User Research","Usability Testing","Prototyping","Figma","Accessibility","WCAG 2.2","Cybersecurity UX","SOC dashboards","Threat operations UX","Defense technology UX","Connected lighting","IoT","Fintech UX","Enterprise SaaS","B2B product design","AR field tooling","Design tokens","Operator interfaces"],"knowsLanguage":"en","seeks":{"@type":"Demand","name":"Full-time and freelance / contract product-design engagements"}}</script>
   <script src="/analytics.js" defer></script>
 </head>
@@ -151,7 +151,7 @@ body{margin:0;background:#040806}
 <script src="cookie-banner.js" defer></script>
 </helmet>
 
-<div style="position:relative;min-height:100vh;background:#040806;color:#6cf0a4;font-family:'JetBrains Mono',monospace;overflow-x:hidden;">
+<div style="position:relative;min-height:100vh;background:#040806;color:#6cf0a4;font-family:'JetBrains Mono',monospace;overflow-x:clip;">
 
   <!-- CRT scanlines -->
   <div style="position:fixed;inset:0;z-index:9000;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,0.22) 3px,rgba(0,0,0,0.22) 4px);"></div>
@@ -226,39 +226,47 @@ body{margin:0;background:#040806}
       <div style="margin-top:12px;font-size:12px;color:#3f9e69;letter-spacing:0.05em;">&gt; <span style="color:#cdffe2;">12,480</span> LUMINAIRES ONLINE · DALI-2 ADAPTIVE ZONES ACTIVE</div>
     </section>
 
+    <!-- ░░ FLOATING FILE PREVIEW ░░ -->
+    <div id="rt-preview" aria-hidden="true" style="position:fixed;top:0;left:0;width:390px;height:260px;pointer-events:none;z-index:60;opacity:0;transform:translate(-50%,-50%) scale(0.92);transition:opacity 0.3s cubic-bezier(.2,.8,.2,1),transform 0.3s cubic-bezier(.2,.8,.2,1);will-change:transform;">
+      <div style="position:relative;width:100%;height:100%;background:#04120a;border:1px solid rgba(108,240,164,0.5);box-shadow:0 0 30px rgba(108,240,164,0.18),0 24px 60px rgba(0,0,0,0.55);overflow:hidden;">
+        <img id="rt-preview-img" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(4,18,10,0.22) 0 1px,transparent 1px 3px);"></div>
+      </div>
+    </div>
+
     <!-- ═══ WORK / DIR ═══ -->
     <section data-screen-label="Retro work directory" style="margin-top:54px;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:8px;">
         <div style="font-size:14px;letter-spacing:0.08em;color:#cdffe2;">C:\&gt; <span style="color:#ffb454;">DIR</span> /WORK /CASE-FILES</div>
-        <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">7 FILE(S) · 0 DIR(S) · SELECT TO OPEN</div>
+        <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">5 FILE(S) · 0 DIR(S) · SELECT TO OPEN</div>
       </div>
       <div style="border-top:1px solid rgba(108,240,164,0.28);border-bottom:1px solid rgba(108,240,164,0.28);">
 
-        <a class="rt-file" href="core-insights-showcase.html" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
+        <a class="rt-file" href="core-insights-showcase.html" data-preview="previews/thumb-insights.png" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
           <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">01</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">WAVELINX_CORE_INSIGHTS.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[LIVE] OPS INTELLIGENCE</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
-        <a class="rt-file" href="dali-2-showcase.html" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
+        <a class="rt-file" href="dali-2-showcase.html" data-preview="previews/thumb-dali.png" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
           <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">02</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">WAVELINX_DALI2.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[FIRST] COMMISSIONING</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
-        <a class="rt-file" href="smart-lighting-showcase.html" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
+        <a class="rt-file" href="smart-lighting-showcase.html" data-preview="previews/thumb-smart.png" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
           <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">03</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">SMART_LIGHTING_APP.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[IOT] iOS &amp; ANDROID</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
-        <a class="rt-file" href="goals-driven-fintech-showcase.html" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
+        <a class="rt-file" href="goals-driven-fintech-showcase.html" data-preview="previews/thumb-fintech.png" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
           <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">04</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">GOALS_DRIVEN_FINTECH.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">OPEN BANKING</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
-        <a class="rt-file" href="ctoc-showcase.html" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;text-decoration:none;color:#6cf0a4;">
+        <a class="rt-file" href="ctoc-showcase.html" data-preview="previews/thumb-ctoc.png" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;text-decoration:none;color:#6cf0a4;">
           <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">05</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">CTOC_DASHBOARD_SYSTEM.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">ENTERPRISE CYBER</span>
@@ -500,7 +508,48 @@ class Component extends DCLogic {
     this._t.push(setTimeout(() => this.initBldg(), 140));
     this._t.push(setTimeout(() => { this.buildLightArchitect(); this.initLAInteract(); }, 160));
     this._t.push(setTimeout(() => { try { this.initAegis(); } catch (e) {} }, 200));
+    this._t.push(setTimeout(() => { try { this.initFilePreview(); } catch (e) {} }, 420));
     if (location.hash) this._t.push(setTimeout(() => window.homeScrollToHash && window.homeScrollToHash(), 180));
+  }
+
+  // Floating case-file preview: the same previews/p-*.png tiles the other homepages
+  // and the work browser use, framed as a phosphor CRT still. Hover-only (skipped on
+  // touch); with reduced motion the frame pins to the cursor with no lerp.
+  initFilePreview() {
+    const wrap = document.getElementById('rt-preview');
+    const img = document.getElementById('rt-preview-img');
+    if (!wrap || !img || this._fpInit) return;
+    if (!(window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches)) return;
+    const rows = document.querySelectorAll('.rt-file');
+    if (!rows.length) return;
+    this._fpInit = true;
+    const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) wrap.style.transition = 'opacity 0.2s ease';
+    let active = false, tx = 0, ty = 0, cx = 0, cy = 0;
+    const move = (e) => {
+      tx = e.clientX; ty = e.clientY;
+      if (reduce) { cx = tx; cy = ty; wrap.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`; return; }
+      kick();
+    };
+    rows.forEach(row => {
+      const bind = (ev, fn) => { if (this.on) this.on(row, ev, fn); else row.addEventListener(ev, fn); };
+      bind('mouseenter', () => {
+        const src = row.getAttribute('data-preview');
+        if (src) img.setAttribute('src', src);
+        active = true;
+        wrap.style.opacity = '1';
+      });
+      bind('mouseleave', () => { active = false; wrap.style.opacity = '0'; });
+    });
+    if (this.on) this.on(window, 'mousemove', move); else window.addEventListener('mousemove', move);
+    const loop = () => {
+      this._fpRaf = 0;
+      cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
+      wrap.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%) scale(${active ? 1 : 0.92})`;
+      if (active || Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3) this._fpRaf = requestAnimationFrame(loop);
+    };
+    const kick = () => { if (!this._fpRaf && !document.hidden) this._fpRaf = requestAnimationFrame(loop); };
+    kick();
   }
   initAegis() {
     if (this._agInit) return; this._agInit = true;
