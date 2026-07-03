@@ -572,6 +572,7 @@ body{margin:0}
             <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1.5px solid currentColor;font-family:'Inter',sans-serif;font-style:italic;font-weight:700;font-size:10px;line-height:1;">i</span>
             How scoring works
           </button>
+          <button id="ag-scores-btn" type="button" aria-haspopup="dialog" aria-controls="ag-info" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#c9b28a;background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 15px;cursor:pointer;transition:border-color .15s ease,color .15s ease;">★ Scores</button>
         </div>
       </div>
 
@@ -630,13 +631,13 @@ body{margin:0}
         <div id="ag-info" role="dialog" aria-modal="true" aria-label="How scoring works" style="position:absolute;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(18,12,5,0.82);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);">
           <div style="width:min(450px,94%);max-height:92%;overflow:auto;background:#1a1309;border:1px solid rgba(255,209,147,0.28);border-radius:14px;box-shadow:0 40px 90px -30px rgba(0,0,0,0.85);padding:22px 22px 20px;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#ffd193;">// Scoring · the math</div>
+              <div id="ag-info-kicker" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#ffd193;">// Scoring · the math</div>
               <button id="ag-info-close" type="button" aria-label="Close scoring info" style="width:28px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,0.14);background:transparent;color:#c9b28a;font-size:14px;line-height:1;cursor:pointer;transition:color .15s,border-color .15s;">✕</button>
             </div>
             <div id="ag-info-title" style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:#f4ecd6;letter-spacing:-0.015em;margin-bottom:13px;">Fusion Watch</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#cdd6d2;background:#120c05;border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:12px 13px;margin-bottom:14px;line-height:1.5;text-align:center;">points = <span style="color:#ffd193;">round(100 × modifiers)</span> × <span style="color:#ffe2b2;">combo</span></div>
+            <div id="ag-info-math" style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#cdd6d2;background:#120c05;border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:12px 13px;margin-bottom:14px;line-height:1.5;text-align:center;">points = <span style="color:#ffd193;">round(100 × modifiers)</span> × <span style="color:#ffe2b2;">combo</span></div>
             <div id="ag-info-body" style="font-family:'Inter',sans-serif;font-size:13px;line-height:1.62;color:#aab6b1;"></div>
-            <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:#8fa39d;">The combo multiplier scales every point, so keeping a streak alive is the whole game — one wrong call resets it. Best score is saved separately for each drill.</div>
+            <div id="ag-info-note" style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:#8fa39d;">The combo multiplier scales every point, so keeping a streak alive is the whole game — one wrong call resets it. Best score is saved separately for each drill.</div>
           </div>
         </div>
       </div>
@@ -1222,7 +1223,30 @@ class Component extends DCLogic {
       else { setArctic(false); setMode(modeSel.value); try { stage.focus({ preventScroll: true }); } catch (er) {} }
     });
 
-    if (infoBtn) this.on(infoBtn, 'click', (e) => { e.preventDefault(); openInfo(); });
+    if (infoBtn) this.on(infoBtn, 'click', (e) => { e.preventDefault(); const kk2 = $('ag-info-kicker'); if (kk2) kk2.textContent = '// Scoring · the math'; const fm2 = $('ag-info-math'); if (fm2) fm2.style.display = ''; const nt2 = $('ag-info-note'); if (nt2) nt2.style.display = ''; if (modeSel && modeSel.value === 'arctic') { const t2 = $('ag-info-title'); if (t2) t2.textContent = 'Arctic Shield'; const b2 = $('ag-info-body'); if (b2) b2.innerHTML = SCOREINFO.arctic; } else { setInfo(); } openInfo(); });
+    const scoresBtn = $('ag-scores-btn');
+    const showScores = () => {
+      const t2 = $('ag-info-title'); if (t2) t2.textContent = 'High Scores';
+      const kk = $('ag-info-kicker'); if (kk) kk.textContent = '// All games';
+      const fm = $('ag-info-math'); if (fm) fm.style.display = 'none';
+      const nt = $('ag-info-note'); if (nt) nt.style.display = 'none';
+      const b2 = $('ag-info-body');
+      if (b2) {
+        let hs = []; try { hs = JSON.parse(localStorage.getItem('arcticshield_hiscores') || '[]'); } catch (e2) {}
+        const num = (v) => (v || 0).toLocaleString('en-US');
+        const asRows = hs.length
+          ? hs.map((e2, i) => '<div style="display:flex;justify-content:space-between;gap:18px;padding:2px 0;"><span style="opacity:0.75;">' + (i + 1) + '. ' + e2.n + '</span><b>' + num(e2.s) + '</b></div>').join('')
+          : '<div style="opacity:0.6;">No runs logged yet — take the watch.</div>';
+        const drill = (key, name) => { let v = 0; try { v = parseInt(localStorage.getItem(key) || '0', 10) || 0; } catch (e2) {} return '<div style="display:flex;justify-content:space-between;gap:18px;padding:2px 0;"><span style="opacity:0.75;">' + name + '</span><b>' + (v ? num(v) : '—') + '</b></div>'; };
+        b2.innerHTML =
+          '<div style="font-weight:700;letter-spacing:0.08em;margin-bottom:4px;">ARCTIC SHIELD</div>' + asRows +
+          '<div style="font-weight:700;letter-spacing:0.08em;margin:12px 0 4px;border-top:1px solid rgba(128,128,128,0.3);padding-top:10px;">WATCH DRILLS · BEST</div>' +
+          drill('rba-fusionwatch-best', 'Fusion Watch') + drill('rba-sweep-best', 'Sweep · Watchkeeper') + drill('rba-watchfloor-best', 'Watchfloor: Last Light');
+      }
+      openInfo();
+    };
+    if (scoresBtn) this.on(scoresBtn, 'click', (e) => { e.preventDefault(); showScores(); });
+
     if (infoClose) this.on(infoClose, 'click', (e) => { e.preventDefault(); closeInfo(); });
     if (infoBox) { this.on(infoBox, 'click', (e) => { if (e.target === infoBox) closeInfo(); }); this.on(infoBox, 'keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); closeInfo(); } }); }
 

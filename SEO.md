@@ -51,8 +51,8 @@ designer", "defense product designer Toronto" are winnable; "product designer" a
 
 ## 3. Manual next steps (only you can do these)
 
-1. **Turn on analytics** — create a GA4 property (analytics.google.com → Admin → Data Streams →
-   Web), copy the `G-XXXXXXXXXX` Measurement ID into [`analytics.js`](analytics.js), re-deploy.
+1. **Analytics: done** — GA4 property live (`G-SLLBGG5375` in [`analytics.js`](analytics.js)),
+   consent-gated behind the cookie banner. Next: link the property to Search Console (GA Admin → Product links).
 2. **Google Search Console** (search.google.com/search-console) — add `robertbabiarz.com`, verify
    (DNS TXT or the GA tag), **submit `https://robertbabiarz.com/sitemap.xml`**. Repeat at **Bing
    Webmaster Tools**. Watch the Page-Indexing report weekly.

@@ -78,6 +78,7 @@
 
     function choose(v) {
       try { localStorage.setItem(KEY, JSON.stringify({ v: v, region: region, t: new Date().toISOString() })); } catch (e) {}
+      try { window.dispatchEvent(new CustomEvent('rb-consent', { detail: v })); } catch (e) {}
       bar.style.transform = 'translateY(100%)';
       setTimeout(function () { bar.remove(); }, reduce ? 0 : 500);
     }

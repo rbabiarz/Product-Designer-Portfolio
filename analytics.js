@@ -9,21 +9,33 @@
    Optionally add the same ID to Google Search Console + Bing Webmaster Tools
    and submit https://robertbabiarz.com/sitemap.xml (see SEO.md). */
 (function () {
-  var GA_ID = 'G-XXXXXXXXXX'; // ← replace with your GA4 Measurement ID to turn analytics on
+  var GA_ID = 'G-SLLBGG5375'; // GA4 property: robertbabiarz.com
   if (!GA_ID || GA_ID.indexOf('XXXX') !== -1) return; // disabled until configured
-  // respect Do Not Track
-  try { if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return; } catch (e) {}
-  // respect the cookie-banner choice: 'essential' means no analytics
-  try { var c = JSON.parse(localStorage.getItem('rb-consent') || 'null'); if (c && c.v === 'essential') return; } catch (e) {}
 
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-  document.head.appendChild(s);
+  // Consent-first (opt-in): the tracker never loads until the visitor has
+  // explicitly accepted on the cookie banner. No choice yet = no tracking.
+  function consent() {
+    try { var c = JSON.parse(localStorage.getItem('rb-consent') || 'null'); return c && c.v; } catch (e) { return null; }
+  }
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = gtag;
-  gtag('js', new Date());
-  gtag('config', GA_ID, { anonymize_ip: true });
+  var loaded = false;
+  function start() {
+    if (loaded) return;
+    // respect Do Not Track even after consent
+    try { if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return; } catch (e) {}
+    loaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_ID, { anonymize_ip: true });
+  }
+
+  if (consent() === 'accepted') start();
+  // late activation: the banner dispatches this the moment Accept is clicked
+  else window.addEventListener('rb-consent', function () { if (consent() === 'accepted') start(); });
 })();
