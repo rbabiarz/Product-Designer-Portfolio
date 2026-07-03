@@ -144,6 +144,17 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 @media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}}
 .navq:hover{color:var(--c-ink)}
 @media (max-width:680px){.navq{display:none}}
+.shot-ctl{display:flex;align-items:center;gap:8px}
+.shot-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase}
+.shot-seg{display:inline-flex;border:1px solid var(--c-b4);border-radius:9px;overflow:hidden}
+.shot-seg button{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;padding:6px 11px;border:0;background:transparent;color:var(--c-muted);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .18s,color .18s}
+.shot-seg button+button{border-left:1px solid var(--c-b4)}
+.shot-seg button:hover{color:var(--c-ink)}
+.shot-seg button.on{background:var(--c-ink);color:var(--c-bg)}
+.shot-seg .sw{width:9px;height:9px;border-radius:50%;border:1px solid rgba(128,128,128,0.45)}
+.shot-seg .sw.l{background:#fffcf5}
+.shot-seg .sw.d{background:#0e1014;border-color:rgba(255,255,255,0.3)}
+@media (max-width:760px){.shot-lbl{display:none}}
 </style>
 
   <!-- SEO·OG·JSONLD (injected) -->
@@ -180,6 +191,13 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         Robert Babiarz
       </a>
       <div style="display:flex;align-items:center;gap:12px">
+        <div class="shot-ctl">
+          <span class="shot-lbl">Screenshots</span>
+          <div class="shot-seg" role="group" aria-label="Screenshot theme">
+            <button type="button" id="shotL"><span class="sw l"></span>Light</button>
+            <button type="button" id="shotD"><span class="sw d"></span>Dark</button>
+          </div>
+        </div>
         <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="mono navq" style="font-size:10.5px;letter-spacing:.08em;color:var(--c-accent);font-weight:700;text-decoration:none">RÉSUMÉ ↓</a>
         <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="font-size:10.5px;letter-spacing:.08em;color:var(--c-muted);text-decoration:none">CONTACT</a>
         <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
@@ -409,6 +427,24 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   }
   if(statsEl){ var co=new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!counted){counted=true;runCounters();co.disconnect();} },{threshold:0.3}); co.observe(statsEl); }
   setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } if(!counted){ counted=true; runCounters(); } },1000);
+})();
+
+(function(){
+  var L=document.getElementById('shotL'),D=document.getElementById('shotD');
+  if(!L||!D)return;
+  function apply(mode){
+    document.querySelectorAll('img[src*="assets/ctoc/img"]').forEach(function(img){
+      var file=img.src.split('/').pop();
+      img.src='assets/ctoc/'+(mode==='dark'?'img-dark':'img')+'/'+file;
+    });
+    L.classList.toggle('on',mode!=='dark');
+    D.classList.toggle('on',mode==='dark');
+    try{localStorage.setItem('ctoc-cs-shots',mode);}catch(e){}
+  }
+  L.addEventListener('click',function(){apply('light');});
+  D.addEventListener('click',function(){apply('dark');});
+  var saved=null;try{saved=localStorage.getItem('ctoc-cs-shots');}catch(e){}
+  apply(saved==='dark'?'dark':'light');
 })();
 </script>
 
