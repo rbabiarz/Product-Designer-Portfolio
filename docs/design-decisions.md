@@ -2,6 +2,21 @@
 
 Append-only record of meaningful choices. Newest at top.
 
+## ADR-006 — No homepage reader poll; cross-visitor state stays keyless
+- **Date:** 2026-07-03
+- **Status:** Accepted
+- **Context:** A "which homepage did you like best?" poll was scaffolded (`poll.js` +
+  Firebase Firestore config) but never enabled. It required a real backend and a vendor
+  account, contradicting ADR-002's no-build / no-backend stance, and it asked visitors a
+  question the VIEW switcher already answers behaviorally.
+- **Decision:** Remove the homepage poll and all Firebase scaffolding
+  (`poll.js`, `firebase-config.js`, `firebase.json`, `firestore.rules`). The work-page
+  carousel poll stays — its tally uses a keyless public counter (Abacus), which fits the
+  static-host architecture.
+- **Consequences:** No homepage vote data; variant preference is inferred from the saved
+  VIEW choice instead. If a poll returns someday, it should use a keyless store, not a
+  vendor backend. Recoverable from git history (`ce08e02`).
+
 ## ADR-005 — The dropped P1 node map ships as a live simulation, not a screenshot
 - **Date:** 2026-07-03
 - **Status:** Accepted
