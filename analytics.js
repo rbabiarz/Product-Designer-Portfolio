@@ -13,6 +13,8 @@
   if (!GA_ID || GA_ID.indexOf('XXXX') !== -1) return; // disabled until configured
   // respect Do Not Track
   try { if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return; } catch (e) {}
+  // respect the cookie-banner choice: 'essential' means no analytics
+  try { var c = JSON.parse(localStorage.getItem('rb-consent') || 'null'); if (c && c.v === 'essential') return; } catch (e) {}
 
   var s = document.createElement('script');
   s.async = true;
