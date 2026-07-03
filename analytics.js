@@ -13,9 +13,15 @@
   if (!GA_ID || GA_ID.indexOf('XXXX') !== -1) return; // disabled until configured
 
   // Consent-first (opt-in): the tracker never loads until the visitor has
-  // explicitly accepted on the cookie banner. No choice yet = no tracking.
-  function consent() {
-    try { var c = JSON.parse(localStorage.getItem('rb-consent') || 'null'); return c && c.v; } catch (e) { return null; }
+  // explicitly allowed analytics on the cookie banner / settings dialog.
+  // No choice yet = no tracking. Granular records carry c.analytics; records
+  // stored before the settings dialog existed only carry v: 'accepted'.
+  function allowed() {
+    try {
+      var c = JSON.parse(localStorage.getItem('rb-consent') || 'null');
+      if (!c) return false;
+      return c.c ? c.c.analytics === true : c.v === 'accepted';
+    } catch (e) { return false; }
   }
 
   var loaded = false;
@@ -24,6 +30,7 @@
     // respect Do Not Track even after consent
     try { if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return; } catch (e) {}
     loaded = true;
+    window['ga-disable-' + GA_ID] = false;
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
@@ -35,7 +42,12 @@
     gtag('config', GA_ID, { anonymize_ip: true });
   }
 
-  if (consent() === 'accepted') start();
-  // late activation: the banner dispatches this the moment Accept is clicked
-  else window.addEventListener('rb-consent', function () { if (consent() === 'accepted') start(); });
+  if (allowed()) start();
+  // the banner/settings dialog dispatches this on every choice: late
+  // activation on allow, and if consent is later withdrawn while GA is
+  // already loaded, GA's kill switch stops further hits this session
+  window.addEventListener('rb-consent', function () {
+    if (allowed()) start();
+    else if (loaded) window['ga-disable-' + GA_ID] = true;
+  });
 })();

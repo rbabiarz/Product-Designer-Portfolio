@@ -321,6 +321,11 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 <script src="a11y.js"></script>
 <script src="cursor.js" defer></script>
 <script src="cookie-banner.js" defer></script>
+<!-- reader poll disabled for now, kept for future implementation — re-enable by
+     uncommenting these two scripts and the #rb-poll mount below the last section
+<script src="firebase-config.js" defer></script>
+<script src="poll.js" defer></script>
+-->
 </helmet>
 
 <div id="int-root" class="{{ rootClass }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'DM Sans',sans-serif;position:relative;overflow-x:hidden;transition:background 0.5s,color 0.5s;">
@@ -1054,7 +1059,9 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
     </div>
   </section>
 
-  <!-- ═══ FOOTER ═══ -->
+  <!-- <div id="rb-poll"></div> — reader poll mount, disabled for now -->
+
+      <!-- ═══ FOOTER ═══ -->
   <footer style="padding:30px 44px;border-top:1px solid var(--line);">
     <div style="max-width:1480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.04em;">© 2026 ROBERT BABIARZ · SR. PRODUCT DESIGNER</span>
@@ -1615,6 +1622,26 @@ class Component extends DCLogic {
     ['clear', 'hold', 'tag'].forEach((v) => { const b = $('ag-' + v); if (b) this.on(b, 'click', (e) => { e.preventDefault(); if (G.mode === 'playing') classify(v); else start(); }); });
     if (startBtn) this.on(startBtn, 'click', (e) => { e.preventDefault(); start(); });
     // ---- Arctic Shield: a self-contained bundled game, embedded in the stage as an iframe ----
+    // The bundled Arctic Shield game reflows down to ~375px but clips below that.
+    // On a narrow stage, render it at a fixed logical width and scale-to-fit so it
+    // stays fully visible + playable on any phone (touch coords scale with the transform).
+    const AG_ARCTIC_MINW = 384;
+    const fitArctic = () => {
+      const f = document.getElementById('ag-arctic');
+      if (!f || f.style.display === 'none') return;
+      const sw = stage.clientWidth, sh = stage.clientHeight;
+      if (!sw || !sh) return;
+      if (sw >= AG_ARCTIC_MINW) {
+        f.style.width = '100%'; f.style.height = '100%'; f.style.transform = 'none';
+      } else {
+        const k = sw / AG_ARCTIC_MINW;
+        f.style.width = AG_ARCTIC_MINW + 'px';
+        f.style.height = Math.round(sh / k) + 'px';
+        f.style.transformOrigin = 'top left';
+        f.style.transform = 'scale(' + k + ')';
+      }
+    };
+    this.on(window, 'resize', fitArctic);
     const setArctic = (on) => {
       let f = document.getElementById('ag-arctic');
       if (on) {
@@ -1623,11 +1650,12 @@ class Component extends DCLogic {
           f.id = 'ag-arctic';
           f.title = 'Arctic Shield — drone intercept training game';
           f.setAttribute('loading', 'lazy');
-          f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;z-index:40;background:#081210;';
+          f.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;z-index:40;background:#081210;';
           f.src = 'arctic-shield.html';
           stage.appendChild(f);
         }
         f.style.display = 'block';
+        fitArctic(); setTimeout(fitArctic, 120);
         const it = $('ag-info-title'); if (it) it.textContent = 'Arctic Shield';
         const ib = $('ag-info-body'); if (ib) ib.innerHTML = SCOREINFO.arctic;
         if (G.mode === 'playing') gameOver();

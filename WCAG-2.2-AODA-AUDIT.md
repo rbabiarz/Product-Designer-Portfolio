@@ -158,3 +158,29 @@ Legend — ✅ Pass · ⚠️ Partial / needs review · ❌ Fail · ➖ Not appl
 
 ## 6. Bottom line
 The portfolio is in good automated shape — most pages pass WCAG 2.2 AA scanning outright. To claim **AODA (WCAG 2.0 AA) conformance** the P0 list (unlabeled select, two `lang` attributes, three contrast fixes) must close. To claim **WCAG 2.2 AA** the P1 list adds reflow, target-size, and — most substantively — a **keyboard/non-drag path for the Light Architect** (2.1.1 + 2.5.7), which is the single biggest piece of real engineering in this audit. Everything in P0–P1 is fixable; P2 raises the floor from "passes tools" to "works with a screen reader and a keyboard."
+
+---
+
+## 7. Addendum — cookie consent banner + settings dialog (2026-07-03)
+
+`cookie-banner.js` (loaded site-wide) gained a second layer: a preference-center dialog. Reviewed on all three homepage themes at build time:
+
+- **Dialog semantics (4.1.2):** `role="dialog"` + `aria-modal="true"` + `aria-labelledby`; focus moves into the dialog on open and returns to the invoking button on close.
+- **Keyboard (2.1.1 / 2.1.2):** full path — Tab is trapped inside the dialog, Escape closes, toggles are real `<button role="switch" aria-checked>` elements operable with Enter/Space; no focus trap persists after close.
+- **Expand/collapse (4.1.2):** per-category info uses `aria-expanded` + `aria-controls`; panels toggle the `hidden` attribute.
+- **Meaning without color (1.4.1):** every switch pairs the track with a mono ON/OFF text label and knob position; "ALWAYS ON" is text, not a color chip.
+- **Target size (2.5.8):** switch and expand rows are ≥44px tall hit areas.
+- **Reduced motion (2.3.3):** banner slide and switch transitions are gated on `prefers-reduced-motion`.
+- **Residual risk:** dialog copy relies on the page's theme palette; the muted text tokens were chosen to stay ≥4.5:1 on each theme's card surface, but the next full axe sweep should include the dialog open state on all three homepages.
+
+## 8. Addendum — mesh node-map simulation (2026-07-03)
+
+`mesh-sim.js` replaces the static P1 screenshot on both smart-lighting pages with an interactive drag-to-repeater simulation. Reviewed at build time:
+
+- **Keyboard (2.1.1):** the map is a single focusable `role="application"` stop with an instruction label; arrow keys cycle devices, Enter promotes, T tests, R resets — the full drag interaction has a keyboard equivalent.
+- **Status messages (4.1.3):** promotion/test/reset outcomes announce via the visible `role="status"` toast plus a visually-hidden `aria-live` region for device-by-device selection feedback.
+- **Meaning without color (1.4.1):** low-reliability devices pair coral with a "!" badge and dashed link lines; repeaters are a filled shape; the legend carries counts as text.
+- **Reduced motion (2.3.3):** the TEST radar sweep and node snap-back transitions gate on `prefers-reduced-motion`.
+- **Pointer gestures (2.5.7):** dragging is path-based, but the keyboard path and AUTO SELECT provide non-drag equivalents for the same outcomes.
+- **Known limitation:** individual node hit targets are ~20–27px inside the phone frame (below 24×24 target-size guidance); the keyboard path is the documented alternative, consistent with the site's other games.
+- **Site-wide fix:** the page-transition overlay (`#rb-pt`) was hit-testable during its entrance animation, intercepting the first ~1.5s of pointer input on every page; it is now `pointer-events:none` except while deliberately covering for navigation.

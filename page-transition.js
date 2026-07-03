@@ -106,7 +106,9 @@
     ov.setAttribute('aria-hidden', 'true');
     ov.style.cssText = [
       'position:fixed', 'inset:0', 'z-index:99999', 'background:transparent',
-      'overflow:hidden', "font-family:'Inter',-apple-system,sans-serif"
+      'overflow:hidden', "font-family:'Inter',-apple-system,sans-serif",
+      // never hit-testable by default — the exit cover opts back in explicitly
+      'pointer-events:none'
     ].join(';');
 
     // teal rim layer (behind the panel; trails the mask edge)
@@ -176,6 +178,7 @@
   // ---- reveal: block implodes from full-bleed to nothing ----
   function lift(ov, done) {
     var BIG = bigSize();
+    ov.style.pointerEvents = 'none';
     if (REDUCED) { ov.style.display = 'none'; if (done) done(); return; }
     var lock = document.getElementById('rb-pt-lock');
     if (lock) lock.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: 'ease', fill: 'forwards' });

@@ -55,7 +55,13 @@ body{margin:0}
 .slph::after{content:'';position:absolute;right:-2px;top:34%;width:2px;height:20%;border-radius:0 2px 2px 0;background:linear-gradient(180deg,#5c616a,#22262c);z-index:6;pointer-events:none}
 .slph > span{display:block;position:relative;border-radius:12px;overflow:hidden;background:#000;width:232px;aspect-ratio:285/618;line-height:0;font-size:0}
 .slph img{position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);display:block;object-fit:cover;object-position:top center}
-.sl-swap{opacity:0;transition:opacity .25s ease}
+.slph--lg > span{width:min(320px,82vw)}
+#network .mesh-tab{border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.85)}
+#network .mesh-tab:hover{border-color:rgba(255,255,255,.65)}
+/* fixed-height text column: per-proposal copy varies, the tab row must not move */
+#network .mesh-grid > div:nth-child(2){min-height:400px}
+@media (max-width:980px){#network .mesh-grid > div:nth-child(2){min-height:0}}
+.sl-swap{opacity:0;transition:opacity .25s ease;pointer-events:none}
 .sl-swap.sl-on{opacity:1}
 .mesh-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:44px;align-items:center;margin-top:36px}
 .mesh-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
@@ -180,6 +186,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Smart Lighting App, Case Study (Showcase) \u00b7 Robert Babiarz","headline":"Smart Lighting App, Case Study (Showcase) \u00b7 Robert Babiarz","description":"Smart Lighting mobile app \u2014 professional-grade connected lighting reframed for the consumer smart home. Product design by Robert Babiarz.","url":"https://robertbabiarz.com/smart-lighting-showcase.html","image":"https://robertbabiarz.com/previews/p-smartlighting.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Design Systems, Data Visualization, Dashboard Design, Information Architecture, Interaction Design, User Research, Usability Testing, Prototyping, Figma, Accessibility, WCAG 2.2","isPartOf":{"@type":"WebSite","name":"Robert Babiarz \u2014 Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
   <script src="/analytics.js" defer></script>
   <script src="cursor.js" defer></script>
+  <script src="mesh-sim.js" defer></script>
 <script src="cookie-banner.js" defer></script>
 </head>
 <body>
@@ -317,20 +324,25 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   </section>
 
   <!-- SHOWCASE: NETWORK TOPOLOGY -->
-  <section class="pad" style="background:var(--c-bg);border-top:1px solid var(--c-b1)" id="network" data-reveal="">
-    <div class="wrap">
-      <div class="eyebrow">Making Network Topology Human</div>
-      <h2 class="sec-h" style="margin:16px 0 16px;font-size:clamp(28px,3.6vw,46px);max-width:880px">How do you hand BLE mesh configuration to someone who's never heard of BLE?</h2>
-      <p class="lead" style="max-width:840px;margin-bottom:0"><strong style="color:var(--c-ink2)">Core insight: users don't need to understand the technology if they can read the map.</strong> Node colors required zero explanation, black = active repeater, white = stable relay, red = reliability problem. But the real question was how much decision-making to ask of a homeowner. We proposed four models. <strong style="color:var(--c-ink2)">Click through them.</strong></p>
-
+  <section id="network">
+    <div class="band band-navy" data-reveal="">
+      <div class="glow" style="width:560px;height:560px;top:-160px;right:6%;background:rgba(95,196,182,.18)"></div>
+      <div class="glow" style="width:440px;height:440px;bottom:-180px;left:3%;background:rgba(125,211,192,.12)"></div>
+      <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow" style="color:#9fe9d8">Making Network Topology Human</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">How do you hand BLE mesh configuration to someone who's <em style="color:#9fe9d8">never heard of BLE?</em></h2>
+        <p class="lead" style="color:#c7d5e8;max-width:760px;margin:18px auto 0"><strong style="color:#fff">Users don't need to understand the technology if they can read the map.</strong> Black = active repeater, white = stable relay, red = reliability problem. We proposed four models, <strong style="color:#fff">click through them</strong> — P1 is rebuilt live in the frame.</p>
+      </div>
       <div class="mesh-grid">
-        <div style="display:flex;justify-content:center">
-          <span class="slph" style="display:inline-block"><span>
-            <img src="assets/sl/mesh-nodemap.jpg" class="mesh-base" style="transition:opacity .25s ease" alt="Mesh node map">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+          <span class="slph slph--lg" style="display:inline-block"><span>
+            <div class="mesh-base" data-mesh-sim role="group" aria-label="Interactive recreation of the P1 node-map screen: drag a bulb onto the gateway to promote it to a repeater" style="transition:opacity .25s ease"></div>
             <img src="assets/sl/mesh-manual1.jpg" class="sl-swap" data-mesh-swap="1" alt="Mesh clusters">
             <img src="assets/sl/mesh-manual2.jpg" class="sl-swap" data-mesh-swap="2" alt="Mesh virtual groups">
             <img src="assets/sl/mesh-autoselect.jpg" class="sl-swap" data-mesh-swap="3" alt="Mesh auto select">
           </span></span>
+          <div class="band-cap cap-light" id="meshCap">P1 · Node Map — rebuilt live, drag a bulb onto the gateway</div>
         </div>
         <div>
           <div class="mesh-tabs" role="tablist" aria-label="Mesh configuration proposals">
@@ -340,41 +352,28 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <button type="button" class="mesh-tab" data-mesh="3" data-tier="ship" role="tab" aria-selected="false">P4 · Auto Select</button>
           </div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-            <span class="mono" id="meshLabel" style="font-size:11px;color:var(--c-muted);letter-spacing:0.06em">P1 · NODE MAP</span>
-            <span class="mesh-result" id="meshResult" style="background:rgba(192,57,43,0.16);color:#c0392b">DROPPED</span>
+            <span class="mono" id="meshLabel" style="font-size:11px;color:rgba(255,255,255,.58);letter-spacing:0.06em">P1 · NODE MAP</span>
+            <span class="mesh-result" id="meshResult" style="background:rgba(192,57,43,0.35);color:#f2a99e">DROPPED</span>
           </div>
-          <div id="meshTitle" style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:var(--c-ink2);letter-spacing:-0.5px;margin-bottom:10px">Live mesh, drag-to-repeater</div>
-          <p id="meshBody" class="lead" style="font-size:15px;line-height:1.66;max-width:480px;margin-bottom:16px">A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers.</p>
+          <div id="meshTitle" style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;margin-bottom:10px">Live mesh, drag-to-repeater</div>
+          <p id="meshBody" class="lead" style="font-size:15px;line-height:1.66;max-width:480px;margin-bottom:16px;color:#c7d5e8">A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers. The frame here is a working rebuild. Drag a flagged bulb onto the gateway, then press TEST.</p>
           <div>
-            <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px">User decision load</div>
-            <div id="meshLoad" style="font-size:14px;font-weight:600;color:var(--c-ink2)">High, manual node selection</div>
+            <div class="mono" style="font-size:10px;color:rgba(255,255,255,.58);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px">User decision load</div>
+            <div id="meshLoad" style="font-size:14px;font-weight:600;color:#fff">High, manual node selection</div>
           </div>
         </div>
       </div>
 
-      <div class="mesh-table-wrap" data-reveal="">
-        <table class="mesh-table">
-          <thead><tr style="background:#16161a">
-            <th style="text-align:left;padding:16px 20px;color:#fff;font-weight:600;font-size:13px">Proposal</th>
-            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px">Approach</th>
-            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px">Decision Load</th>
-            <th style="text-align:left;padding:16px 16px;color:#fff;font-weight:600;font-size:13px">Result</th>
-          </tr></thead>
-          <tbody>
-            <tr style="border-top:1px solid var(--c-b1);background:var(--c-surface)"><td style="padding:16px 20px;font-weight:600;color:#c0392b">P1 · Node Map</td><td style="padding:16px;color:var(--c-body)">Live mesh viz, drag-to-repeater</td><td style="padding:16px;color:var(--c-body)">High, manual node selection</td><td style="padding:16px"><span style="color:#c0392b;font-weight:700">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px">Too intimidating</span></td></tr>
-            <tr style="border-top:1px solid var(--c-b1);background:var(--c-bg2)"><td style="padding:16px 20px;font-weight:600;color:#c0392b">P2 · Clusters</td><td style="padding:16px;color:var(--c-body)">Proximity-based device grouping</td><td style="padding:16px;color:var(--c-body)">Medium, group-level decisions</td><td style="padding:16px"><span style="color:#c0392b;font-weight:700">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px">Still exposed topology</span></td></tr>
-            <tr style="border-top:1px solid var(--c-b1);background:var(--c-surface)"><td style="padding:16px 20px;font-weight:600;color:#c0392b">P3 · Virtual Groups</td><td style="padding:16px;color:var(--c-body)">User-defined criteria groups</td><td style="padding:16px;color:var(--c-body)">Medium, still per-device</td><td style="padding:16px"><span style="color:#c0392b;font-weight:700">DROPPED</span> <span style="color:var(--c-muted);font-size:12.5px">Increased commissioning time</span></td></tr>
-            <tr style="border-top:1px solid var(--c-b1);background:#eafaf0"><td style="padding:16px 20px;font-weight:700;color:#2e7d4f">P4 · Auto Select</td><td style="padding:16px;color:#1f5e3a">System chooses optimal repeaters</td><td style="padding:16px;color:#1f5e3a">Zero, one confirm tap</td><td style="padding:16px"><span style="color:#2e7d4f;font-weight:700">SHIPPED ✓</span> <span style="color:#1f5e3a;font-size:12.5px">Engineering validated</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div style="margin-top:54px" data-reveal="">
-        <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink2);margin-bottom:6px">DEVICE DISTRIBUTION AT SCALE</div>
-        <p class="lead" style="font-size:15px;line-height:1.65;max-width:840px;margin-bottom:22px">The same logical map scales from a 32-device condo to a 247-device estate, the system creates groups and subnets, then assigns repeaters automatically. Example: <strong style="color:var(--c-ink2)">247 devices, 66 repeaters, 22 subnets created.</strong></p>
-        <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 9px 22px -14px rgba(20,30,40,0.2);background:var(--c-surface);padding:18px">
+      <div style="margin-top:64px" data-reveal="">
+        <div class="center" style="margin-bottom:26px">
+          <div class="eyebrow" style="color:#9fe9d8">Device Distribution at Scale</div>
+          <p class="lead" style="color:#c7d5e8;max-width:720px;margin:14px auto 0">The same logical map scales from a 32-device condo to a 247-device estate, groups, subnets, and repeaters assigned automatically. Example: <strong style="color:#fff">247 devices, 66 repeaters, 22 subnets created.</strong></p>
+        </div>
+        <div style="border-radius:14px;overflow:hidden;box-shadow:0 24px 55px -24px rgba(4,10,20,0.6);background:#fff;padding:18px">
           <img src="assets/sl/floorplans.jpg" alt="Device distribution across floor plans" style="width:100%;display:block">
         </div>
+        <div class="band-cap cap-light" style="margin-top:16px">Auto-grouping across real floor plans</div>
+      </div>
       </div>
     </div>
   </section>
@@ -476,10 +475,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } if(!counted){ counted=true; runCounters(); } },1000);
 
   var meshData=[
-    { label:'P1 · NODE MAP', result:'DROPPED', rb:'rgba(192,57,43,0.16)', rf:'#c0392b', title:'Live mesh, drag-to-repeater', body:'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers.', load:'High, manual node selection' },
-    { label:'P2 · CLUSTERS', result:'DROPPED', rb:'rgba(192,57,43,0.16)', rf:'#c0392b', title:'Proximity-based clusters', body:'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load:'Medium, group-level decisions' },
-    { label:'P3 · VIRTUAL GROUPS', result:'DROPPED', rb:'rgba(192,57,43,0.16)', rf:'#c0392b', title:'User-defined virtual groups', body:'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load:'Medium, still per-device' },
-    { label:'P4 · AUTO SELECT', result:'SHIPPED ✓', rb:'rgba(46,125,79,0.18)', rf:'#2e7d4f', title:'The system decides', body:'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load:'Zero, one confirm tap' }
+    { label:'P1 · NODE MAP', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P1 · Node Map — rebuilt live, drag a bulb onto the gateway', title:'Live mesh, drag-to-repeater', body:'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers. The frame here is a working rebuild. Drag a flagged bulb onto the gateway, then press TEST.', load:'High, manual node selection' },
+    { label:'P2 · CLUSTERS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P2 · Clusters — proximity-based grouping', title:'Proximity-based clusters', body:'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load:'Medium, group-level decisions' },
+    { label:'P3 · VIRTUAL GROUPS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P3 · Virtual Groups — user-defined criteria', title:'User-defined virtual groups', body:'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load:'Medium, still per-device' },
+    { label:'P4 · AUTO SELECT', result:'SHIPPED ✓', rb:'rgba(46,125,79,0.4)', rf:'#9fe9d8', cap:'P4 · Auto Select — the system decides, shipped', title:'The system decides', body:'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load:'Zero, one confirm tap' }
   ];
   var meshTabs=document.querySelectorAll('.mesh-tab');
   var meshSwaps=document.querySelectorAll('[data-mesh-swap]');
@@ -491,6 +490,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     document.getElementById('meshTitle').textContent=d.title;
     document.getElementById('meshBody').textContent=d.body;
     document.getElementById('meshLoad').textContent=d.load;
+    var cap=document.getElementById('meshCap'); if(cap) cap.textContent=d.cap;
     meshTabs.forEach(function(btn){
       var on=parseInt(btn.getAttribute('data-mesh'),10)===i;
       btn.classList.toggle('is-on',on);

@@ -29,6 +29,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Smart Lighting App, Case Study \u00b7 Robert Babiarz","headline":"Smart Lighting App, Case Study \u00b7 Robert Babiarz","description":"Smart Lighting mobile app \u2014 consumer IoT with enterprise depth. Connected-lighting product design case study by Robert Babiarz: invisible mesh topology, circadian automation, and one-tap scene control.","url":"https://robertbabiarz.com/smart-lighting.dc.html","image":"https://robertbabiarz.com/previews/p-smartlighting.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Design Systems, Data Visualization, Dashboard Design, Information Architecture, Interaction Design, User Research, Usability Testing, Prototyping, Figma, Accessibility, WCAG 2.2","isPartOf":{"@type":"WebSite","name":"Robert Babiarz \u2014 Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
   <script src="/analytics.js" defer></script>
   <script src="cursor.js" defer></script>
+  <script src="mesh-sim.js" defer></script>
 <script src="cookie-banner.js" defer></script>
 </head>
 <body>
@@ -51,7 +52,7 @@ body{margin:0}
 @keyframes sl-up{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
 @keyframes sl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes sl-glow{0%,100%{box-shadow:0 0 0 0 rgba(240,176,64,0.5)}50%{box-shadow:0 0 0 7px rgba(240,176,64,0)}}
-.sl-swap{position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);object-fit:cover;object-position:top center;display:block;opacity:0;transition:opacity .25s ease}
+.sl-swap{position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);object-fit:cover;object-position:top center;display:block;opacity:0;transition:opacity .25s ease;pointer-events:none}
 .sl-phone-stack{position:relative;aspect-ratio:285/618;overflow:hidden;background:#000}
 .sl-phone-stack > img:not(.sl-swap){position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);object-fit:cover;object-position:top center;display:block}
 .sl-version-bar{display:none}
@@ -85,6 +86,9 @@ body{margin:0}
   .sl-circadian-phones .sl-scale-item{--sl-phone-w:29vw}
 }
 .sl-swap.sl-on{opacity:1}
+/* fixed-height mesh text column: per-proposal copy varies, the tab row must not move */
+.sl-mesh-info{min-height:400px;display:flex;flex-direction:column;justify-content:flex-start}
+@media (max-width:880px){.sl-mesh-info{min-height:0}}
 summary{list-style:none}
 summary::-webkit-details-marker{display:none}
 .cs-switch[open] .cs-chev{transform:rotate(180deg)}
@@ -489,14 +493,14 @@ summary::-webkit-details-marker{display:none}
         <div style="display:flex;justify-content:center;">
           <div class="sl-ip-phone sl-ip-phone--312">
             <div class="sl-ip-screen">
-              <img src="assets/sl/mesh-nodemap.jpg" alt="Mesh node map"/>
+              <div data-mesh-sim role="group" aria-label="Interactive recreation of the P1 node-map screen: drag a bulb onto the gateway to promote it to a repeater"></div>
               <img src="assets/sl/mesh-manual1.jpg" class="sl-swap {{ mesh1Cls }}" alt="Mesh clusters"/>
               <img src="assets/sl/mesh-manual2.jpg" class="sl-swap {{ mesh2Cls }}" alt="Mesh virtual groups"/>
               <img src="assets/sl/mesh-autoselect.jpg" class="sl-swap {{ mesh3Cls }}" alt="Mesh auto select"/>
             </div>
           </div>
         </div>
-        <div>
+        <div class="sl-mesh-info">
           <div style="display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;">
             <button onClick="{{ mesh0 }}" style="padding:9px 15px;border-radius:9px;border:1px solid {{ m0Border }};cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:{{ m0Bg }};color:{{ m0Fg }};transition:all .2s;">P1 · Node Map</button>
             <button onClick="{{ mesh1 }}" style="padding:9px 15px;border-radius:9px;border:1px solid {{ m1Border }};cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:{{ m1Bg }};color:{{ m1Fg }};transition:all .2s;">P2 · Clusters</button>
@@ -837,7 +841,7 @@ class Component extends DCLogic {
 
   meshData() {
     return [
-      { img: 'assets/sl/mesh-nodemap.jpg', label: 'P1 · NODE MAP', result: 'DROPPED', rb: 'rgba(192,57,43,0.16)', rf: '#e0796c', title: 'Live mesh, drag-to-repeater', body: 'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers.', load: 'High, manual node selection' },
+      { img: 'assets/sl/mesh-nodemap.jpg', label: 'P1 · NODE MAP', result: 'DROPPED', rb: 'rgba(192,57,43,0.16)', rf: '#e0796c', title: 'Live mesh, drag-to-repeater', body: 'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers. The frame here is a working rebuild. Drag a flagged bulb onto the gateway, then press TEST.', load: 'High, manual node selection' },
       { img: 'assets/sl/mesh-manual1.jpg', label: 'P2 · CLUSTERS', result: 'DROPPED', rb: 'rgba(192,57,43,0.16)', rf: '#e0796c', title: 'Proximity-based clusters', body: 'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load: 'Medium, group-level decisions' },
       { img: 'assets/sl/mesh-manual2.jpg', label: 'P3 · VIRTUAL GROUPS', result: 'DROPPED', rb: 'rgba(192,57,43,0.16)', rf: '#e0796c', title: 'User-defined virtual groups', body: 'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load: 'Medium, still per-device' },
       { img: 'assets/sl/mesh-autoselect.jpg', label: 'P4 · AUTO SELECT', result: 'SHIPPED ✓', rb: 'rgba(46,125,79,0.18)', rf: '#2e7d4f', title: 'The system decides', body: 'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load: 'Zero, one confirm tap' },

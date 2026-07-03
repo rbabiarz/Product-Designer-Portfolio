@@ -2,6 +2,23 @@
 
 Append-only record of meaningful choices. Newest at top.
 
+## ADR-005 — The dropped P1 node map ships as a live simulation, not a screenshot
+- **Date:** 2026-07-03
+- **Status:** Accepted
+- **Context:** The Smart Lighting mesh section showed four proposals as static screenshots. P1
+  (drag-to-repeater node map) is the strongest demonstration of interaction craft, and the
+  portfolio thesis is interactive, code-level prototypes — a screenshot undersells it.
+- **Decision:** Rebuild the P1 screen as a working sim (`mesh-sim.js`, shared by both smart-lighting
+  pages via `[data-mesh-sim]`): distance-based signal model, drag-a-bulb-onto-the-gateway
+  promotion, TEST sweep that reveals marginal devices with where-to-work guidance, and AUTO
+  SELECT that performs the shipped P4 behavior — making the P1→P4 argument playable. Low
+  reliability is coral **plus** a "!" badge and dashed links (never hue alone); full keyboard path
+  (arrows/Enter/T/R) with `aria-live` announcements; sim state survives `.dc` re-renders.
+- **Consequences:** One more shared runtime module to maintain; the P2/P3/P4 tabs remain
+  screenshots layered above the sim (which goes inert while covered). Fixing pointer delivery
+  surfaced a site-wide bug: the page-transition overlay stayed hit-testable during its entrance
+  animation — it is now `pointer-events:none` except during the deliberate exit cover.
+
 ## ADR-004 — In-game overlays anchor to their stage, not the viewport
 - **Date:** 2026-06-28
 - **Status:** Accepted
