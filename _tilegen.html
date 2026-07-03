@@ -1,0 +1,189 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#05070c;padding:24px;display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.tile{
+  width:1200px;height:800px;position:relative;overflow:hidden;
+  background:radial-gradient(120% 100% at 82% 8%, color-mix(in srgb, var(--ac) 16%, #0a1119) 0%, #080d16 46%, #05080f 100%);
+  font-family:'Inter',sans-serif;color:#e9eef7;isolation:isolate;
+}
+/* faint coordinate grid */
+.grid{position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(color-mix(in srgb,var(--ac) 30%,transparent) 1px,transparent 1px),
+    linear-gradient(90deg,color-mix(in srgb,var(--ac) 30%,transparent) 1px,transparent 1px);
+  background-size:60px 60px;mask-image:radial-gradient(130% 100% at 80% 10%,#000 0%,transparent 78%);opacity:.10}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 3px,rgba(0,0,0,.16) 3px 4px);opacity:.5;mix-blend-mode:overlay}
+/* structural ghost index */
+.ghost{position:absolute;right:-24px;bottom:-176px;font-weight:800;font-size:560px;line-height:.7;
+  color:var(--ac);opacity:.06;letter-spacing:-.04em;font-variant-numeric:tabular-nums;user-select:none}
+/* thin instrument frame + corner ticks */
+.frame{position:absolute;inset:22px;border:1px solid rgba(255,255,255,.07);border-radius:4px;pointer-events:none}
+.tick{position:absolute;width:16px;height:16px;pointer-events:none}
+.tick::before,.tick::after{content:'';position:absolute;background:var(--ac);opacity:.85}
+.tick::before{width:16px;height:2px}.tick::after{width:2px;height:16px}
+.tl{top:22px;left:22px}.tr{top:22px;right:22px}.bl{bottom:22px;left:22px}.br{bottom:22px;right:22px}
+.tr::before,.tr::after{right:0}.bl::before{bottom:0}.bl::after{bottom:0}.br::before{right:0;bottom:0}.br::after{right:0;bottom:0}
+/* status chip (top-left) */
+.chip{position:absolute;top:52px;left:56px;display:inline-flex;align-items:center;gap:9px;
+  font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:#dfe7f2;
+  background:rgba(6,12,22,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:9px 16px 9px 14px}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--ac);box-shadow:0 0 12px var(--ac)}
+/* bottom-left text block */
+.text{position:absolute;left:56px;bottom:60px;max-width:720px;z-index:4}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:25px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ac);margin-bottom:24px;display:flex;align-items:center;gap:18px}
+.eyebrow .idx{color:#fff;opacity:.9}
+.title{font-weight:700;font-size:76px;line-height:.98;letter-spacing:-.035em;color:#f3f7fd;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.org{margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:24px;letter-spacing:.03em;color:#9fb0c6}
+/* motif stage (upper-right hero zone) */
+.motif{position:absolute;top:0;right:0;width:640px;height:560px;z-index:3}
+/* ---------- HEATPLATE (CORE) ---------- */
+.hp{position:absolute;top:120px;right:96px;width:452px;height:300px;transform:rotate(-18deg) skewX(-9deg);
+  display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(8,1fr);gap:6px;
+  filter:drop-shadow(0 24px 50px rgba(0,0,0,.55))}
+.hp i{border-radius:3px;background:color-mix(in srgb,var(--ac) calc(var(--v)*1%),#0c1622);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.hp i.hot{background:color-mix(in srgb,#f0b070 calc(var(--v)*1%),#0c1622)}
+/* ---------- COMMISSIONING ARRAY (DALI) ---------- */
+.darr{position:absolute;top:104px;right:70px;width:552px;transform:rotate(-15deg) skewX(-8deg);
+  display:flex;flex-direction:column;gap:42px;filter:drop-shadow(0 26px 54px rgba(0,0,0,.55))}
+.drow{position:relative;height:18px}
+.drow .bl{position:absolute;top:50%;left:0;right:0;height:1.5px;transform:translateY(-50%);
+  background:linear-gradient(90deg,var(--ac),color-mix(in srgb,var(--ac) 16%,transparent))}
+.ln{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;
+  border:1.5px solid color-mix(in srgb,var(--ac) 42%,#39455a);background:#0a0f18}
+.ln.on{background:var(--ac);border-color:var(--ac);box-shadow:0 0 13px var(--ac),0 0 26px color-mix(in srgb,var(--ac) 42%,transparent)}
+.dtag{position:absolute;top:66px;right:70px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.14em;
+  text-transform:uppercase;color:color-mix(in srgb,var(--ac) 86%,#fff);display:flex;align-items:center;gap:10px}
+.dtag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac)}
+/* ---------- PHONE (SMART) ---------- */
+.ph{position:absolute;top:96px;right:150px;width:246px;height:400px;border-radius:34px;background:linear-gradient(160deg,#141b26,#0a0f18);
+  border:1.5px solid rgba(255,255,255,.10);box-shadow:0 30px 70px rgba(0,0,0,.6);overflow:hidden;z-index:2}
+.ph::after{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:70px;height:6px;border-radius:3px;background:rgba(255,255,255,.14)}
+.ph .bloom{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--ac) 85%,#fff) 0%,var(--ac) 30%,transparent 66%);filter:blur(2px);opacity:.9}
+.ph .sw{position:absolute;bottom:34px;left:0;right:0;display:flex;justify-content:center;gap:14px}
+.ph .sw span{width:26px;height:26px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.12)}
+.glowring{position:absolute;top:96px;right:150px;width:246px;height:400px;border-radius:34px;
+  box-shadow:0 0 90px 10px color-mix(in srgb,var(--ac) 45%,transparent);z-index:1}
+/* ---------- GAUGE (FINTECH) ---------- */
+.ga{position:absolute;top:126px;right:120px;width:340px;height:340px;border-radius:50%;
+  background:conic-gradient(from -220deg,var(--ac) 0turn,var(--ac) calc(var(--p)*.78turn),#16202e calc(var(--p)*.78turn),#16202e .78turn,transparent .78turn);
+  filter:drop-shadow(0 20px 46px rgba(0,0,0,.5))}
+.ga::before{content:'';position:absolute;inset:34px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#0d151f,#080d15)}
+.ga .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ga .val b{font-size:96px;font-weight:700;letter-spacing:-.04em;color:#f2f7fd;line-height:1}
+.ga .val s{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--ac);text-decoration:none}
+/* ---------- RADAR (CTOC) ---------- */
+.rad{position:absolute;top:110px;right:110px;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,transparent 0 48%,color-mix(in srgb,var(--ac) 8%,transparent) 48%);}
+.rad .ring{position:absolute;border:1px solid color-mix(in srgb,var(--ac) 34%,transparent);border-radius:50%;inset:0}
+.rad .ring.r2{inset:64px}.rad .ring.r3{inset:128px}.rad .ring.r4{inset:186px}
+.rad .cross{position:absolute;background:color-mix(in srgb,var(--ac) 26%,transparent)}
+.rad .cross.h{top:50%;left:0;right:0;height:1px}.rad .cross.v{left:50%;top:0;bottom:0;width:1px}
+.rad .sweep{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from -18deg,color-mix(in srgb,var(--ac) 46%,transparent),transparent 46deg)}
+.rad .c{position:absolute;width:16px;height:16px;border-radius:50%;transform:translate(-50%,-50%);background:var(--ac);box-shadow:0 0 14px var(--ac)}
+.rad .c.threat{background:#e64d3c;box-shadow:0 0 16px #e64d3c;width:20px;height:20px}
+.rad .c.threat::after{content:'';position:absolute;inset:-9px;border:1.5px solid #e64d3c;border-radius:50%;opacity:.6}
+/* ---------- RECON MAP (AEGIS) ---------- */
+.recon{position:absolute;top:112px;right:76px;width:474px;height:322px;border:1.5px solid color-mix(in srgb,var(--ac) 38%,transparent);border-radius:5px;
+  background:linear-gradient(color-mix(in srgb,var(--ac) 6%,transparent),transparent),
+    repeating-linear-gradient(0deg,transparent 0 47px,color-mix(in srgb,var(--ac) 14%,transparent) 47px 48px),
+    repeating-linear-gradient(90deg,transparent 0 59px,color-mix(in srgb,var(--ac) 14%,transparent) 59px 60px);
+  box-shadow:0 24px 54px rgba(0,0,0,.5),inset 0 0 60px color-mix(in srgb,var(--ac) 7%,transparent)}
+.recon .ao{position:absolute;inset:52px 78px 74px 54px;border:1.5px dashed color-mix(in srgb,var(--ac) 52%,transparent);border-radius:3px}
+.recon .ct{position:absolute;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);background:var(--ac);box-shadow:0 0 12px var(--ac)}
+.recon .tgt{width:15px;height:15px;background:#e8b45a;box-shadow:0 0 14px #e8b45a}
+.recon .retic{position:absolute;width:52px;height:52px;transform:translate(-50%,-50%);border:2px solid #e8b45a;border-radius:2px;box-shadow:0 0 10px color-mix(in srgb,#e8b45a 45%,transparent)}
+.recon .retic::before{content:'';position:absolute;top:50%;left:-13px;right:-13px;height:2px;background:#e8b45a;transform:translateY(-50%)}
+.recon .retic::after{content:'';position:absolute;left:50%;top:-13px;bottom:-13px;width:2px;background:#e8b45a;transform:translateX(-50%)}
+/* ---------- NEURAL NET (ENTERPRISE AI) ---------- */
+.neural{position:absolute;top:120px;right:76px;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--ac) 26%,transparent))}
+.neural .dim{stroke:rgba(130,145,175,.15);stroke-width:1}
+.neural .on{stroke:var(--ac);stroke-width:2.2}
+.neural .nd{fill:#0c1220;stroke:color-mix(in srgb,var(--ac) 45%,#3a4658);stroke-width:1.5}
+.neural .out{fill:var(--ac)}
+.neural .halo{fill:var(--ac);opacity:.2}
+/* ---------- PARTITION (PARTITIONING) ---------- */
+.part{position:absolute;top:120px;right:80px;width:452px;height:300px;transform:rotate(-1.5deg);filter:drop-shadow(0 24px 52px rgba(0,0,0,.5))}
+.part .r{position:absolute;border:1.5px solid color-mix(in srgb,var(--ac) 28%,#2a3646);border-radius:5px;background:color-mix(in srgb,var(--ac) 4%,transparent)}
+.part .r.hi{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 15%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--ac) 32%,transparent)}
+/* ---------- OG / SOCIAL 1200x630 ---------- */
+.og{height:630px}
+.og .motif{transform:scale(.78);transform-origin:top right}
+.og .title{font-size:50px !important}
+.og .eyebrow{font-size:20px;letter-spacing:.22em;margin-bottom:16px;gap:14px}
+.og .org{font-size:19px;margin-top:16px}
+.og .text{bottom:48px}
+.og .ghost{font-size:420px;bottom:-118px}
+.cap{font-family:'JetBrains Mono',monospace;font-size:13px;color:#5a6b82;margin-top:8px}
+</style></head>
+<body>
+<div id="stage"></div>
+<script>
+const TILES=[
+ {i:'01',key:'insights',ac:'#7dd3c0',domain:'Operational Intelligence',title:'CORE Insights',org:'Cooper Lighting · Signify',chip:'Live Case Study',motif:'heatplate'},
+ {i:'02',key:'dali',ac:'#e8c37a',domain:'Commissioning · Healthcare',title:'DALI-2 Lighting System',org:"North America's largest install",chip:'Industry First',motif:'bus'},
+ {i:'03',key:'smart',ac:'#f0a878',domain:'Consumer IoT · Mobile',title:'Smart Lighting App',org:'iOS & Android',chip:'Consumer IoT',motif:'phone'},
+ {i:'04',key:'fintech',ac:'#6ea8ff',domain:'Fintech · Open Banking',title:'Goals-Driven Fintech',org:'Interactive prototype',chip:'Fintech · AI',motif:'gauge'},
+ {i:'05',key:'ctoc',ac:'#7dd3c0',domain:'Enterprise Cyber Ops',title:'CTOC Dashboard System',org:'13 interlocking dashboards',chip:'Cyber Operations',motif:'radar'},
+ {i:'06',key:'aegis',ac:'#6fb3d6',domain:'Defense Intelligence',title:'AEGIS Decision Intelligence',org:'Sensor fusion · watch floor',motif:'recon',sz:58},
+ {i:'07',key:'ai',ac:'#a78bfa',domain:'Enterprise · AI',title:'Application of AI',org:'Enterprise decision support',motif:'neural'},
+ {i:'08',key:'partitioning',ac:'#5ecf9e',domain:'Data Architecture',title:'Dynamic Space Partitioning',org:'WaveLinx · Cooper Lighting',motif:'partition',sz:58},
+];
+function heatplate(){ // deterministic occupancy heat
+ let cells='';const hot=new Set([15,16,27,28,29,39,40,52,53,64]);
+ for(let r=0;r<8;r++)for(let c=0;c<12;c++){const idx=r*12+c;
+   const d=Math.abs(c-4.5)+Math.abs(r-3.2);let v=Math.max(6,74-d*9+((idx*37)%17));
+   const isHot=hot.has(idx);cells+=`<i class="${isHot?'hot':''}" style="--v:${isHot?Math.min(96,v+20):v}"></i>`;}
+ return `<div class="hp">${cells}</div>`;
+}
+function bus(){const COLS=12,ROWS=4;let rows='',on=0;
+ for(let r=0;r<ROWS;r++){let nodes='';
+  for(let c=0;c<COLS;c++){const lit=(c/(COLS-1))+r*0.045<0.70;if(lit)on++;
+   const x=6+c*(540/(COLS-1));nodes+=`<div class="ln ${lit?'on':''}" style="left:${x}px"></div>`;}
+  rows+=`<div class="drow"><div class="bl"></div>${nodes}</div>`;}
+ return `<div class="darr">${rows}</div>`;}
+function phone(){return `<div class="glowring"></div><div class="ph"><div class="bloom"></div>
+  <div class="sw"><span style="background:#ffd9a8"></span><span style="background:#a8d8ff"></span><span style="background:#f0a878"></span></div></div>`;}
+function gauge(){return `<div class="ga" style="--p:0.78"><div class="val"><b>78</b><s>Alignment</s></div></div>`;}
+function radar(){const dots=[[68,30,''],[40,58,''],[62,72,''],[30,40,''],[50,50,'threat']];
+ let d='';dots.forEach(([x,y,t])=>d+=`<div class="c ${t}" style="left:${x}%;top:${y}%"></div>`);
+ return `<div class="rad"><div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
+  <div class="cross h"></div><div class="cross v"></div><div class="sweep"></div>${d}</div>`;}
+function recon(){const cts=[[28,32],[66,28],[44,64]];let d='';
+ cts.forEach(([x,y])=>d+=`<div class="ct" style="left:${x}%;top:${y}%"></div>`);
+ const tx=63,ty=57;
+ d+=`<div class="ct tgt" style="left:${tx}%;top:${ty}%"></div><div class="retic" style="left:${tx}%;top:${ty}%"></div>`;
+ return `<div class="recon"><div class="ao"></div>${d}</div>`;}
+function neural(){const L1=[[40,50],[40,120],[40,190],[40,260]],L2=[[200,85],[200,155],[200,225]],OUT=[360,155];
+ const active=new Set(['0-1','2-1','3-2']);let e='';
+ L1.forEach((a,i)=>L2.forEach((b,j)=>{e+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="${active.has(i+'-'+j)?'on':'dim'}"/>`;}));
+ L2.forEach((b,j)=>e+=`<line x1="${b[0]}" y1="${b[1]}" x2="${OUT[0]}" y2="${OUT[1]}" class="${j===1?'on':'dim'}"/>`);
+ let n='';L1.concat(L2).forEach(([x,y])=>n+=`<circle cx="${x}" cy="${y}" r="9" class="nd"/>`);
+ n+=`<circle cx="${OUT[0]}" cy="${OUT[1]}" r="19" class="halo"/><circle cx="${OUT[0]}" cy="${OUT[1]}" r="12" class="out"/>`;
+ return `<svg class="neural" viewBox="0 0 400 305" width="476" height="363">${e}${n}</svg>`;}
+function partition(){const rects=[[2,2,40,56,0],[44,2,54,26,0],[44,30,32,28,1],[78,30,20,28,0],[2,60,24,38,0],[28,60,42,38,0],[72,60,26,18,0],[72,80,26,18,0]];
+ let r='';rects.forEach(([x,y,w,h,hi])=>r+=`<div class="r ${hi?'hi':''}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></div>`);
+ return `<div class="part">${r}</div>`;}
+const M={heatplate,bus,phone,gauge,radar,recon,neural,partition};
+document.getElementById('stage').innerHTML=TILES.map(t=>`
+ <div>
+ <div class="cap">${t.key} · previews/p-${t.key}.png · 1200×800</div>
+ <div class="tile" id="t-${t.key}" style="--ac:${t.ac}">
+   <div class="ghost">${t.i}</div>
+   <div class="motif">${M[t.motif]()}</div>
+   <div class="text">
+     <div class="eyebrow"><span class="idx">${t.i}</span>${t.domain}</div>
+     <div class="title"${t.sz?` style="font-size:${t.sz}px"`:''}>${t.title}</div>
+     <div class="org">${t.org}</div>
+   </div>
+ </div></div>`).join('');
+if(location.search.indexOf('og')>=0)document.querySelectorAll('.tile').forEach(t=>t.classList.add('og'));
+</script>
+</body></html>

@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0f0c;padding:24px;display:flex;flex-direction:column;gap:24px;align-items:flex-start;font-family:'Inter',sans-serif}
+:root{
+  --bg:#1a2a20;--pill:#26362b;--pillbd:#3a4b3f;--ink:#eef3ee;
+  --orange:#f2a165;--teal:#40c99b;--purple:#7f61e0;--amber:#e6a83c;--pink:#ea4b80;
+  --eyebrow:#dd8f56;--title:#a9b7ac;--desc:#8b9a8f;--white:#faf7f0;--check:#14624a;
+}
+.cap{font-family:'Inter';font-size:12px;color:#5a6b60;margin-bottom:-14px}
+/* ============ OG CARD 1200x630 ============ */
+.card{position:relative;width:1200px;height:630px;background:var(--bg);overflow:hidden}
+.card .tx{position:absolute;left:82px;top:0;height:100%;width:548px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--eyebrow);margin-bottom:20px;line-height:1.4}
+.nm{font-size:64px;font-weight:800;letter-spacing:-.028em;color:#f2f5f1;line-height:1}
+.role{font-size:27px;font-weight:500;color:var(--title);margin-top:16px}
+.desc{font-size:19px;font-weight:400;line-height:1.5;color:var(--desc);margin-top:22px;max-width:410px}
+.url{font-size:15px;color:#6f7f74;margin-top:22px;letter-spacing:.02em}
+/* graph */
+.graph{position:absolute;inset:0;pointer-events:none}
+.node{position:absolute;height:44px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:0 15px;border-radius:11px;background:var(--pill);border:1px solid var(--pillbd);
+  font-size:17px;font-weight:600;color:var(--ink);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.node .d{width:11px;height:11px;border-radius:50%;flex:none}
+.rb{position:absolute;width:64px;height:64px;border-radius:16px;background:var(--orange);
+  display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#1c2a21;
+  box-shadow:0 10px 26px rgba(242,161,101,.28)}
+.eff{position:absolute;height:50px;display:flex;align-items:center;gap:11px;padding:0 20px 0 13px;border-radius:999px;
+  background:var(--white);font-size:19px;font-weight:700;color:#1c2a21;box-shadow:0 10px 30px rgba(0,0,0,.32)}
+.eff .ck{width:26px;height:26px;border-radius:50%;background:var(--check);display:flex;align-items:center;justify-content:center;flex:none}
+.eff .ck svg{width:14px;height:14px;stroke:#fff;stroke-width:3;fill:none}
+/* ============ APP ICON 512 ============ */
+.icon{position:relative;width:512px;height:512px;background:var(--bg);overflow:hidden;border-radius:0}
+.icon .rb{width:150px;height:150px;border-radius:34px;font-size:60px;left:250px;top:181px}
+.icon .idot{position:absolute;width:26px;height:26px;border-radius:50%}
+</style></head>
+<body>
+<div class="cap">previews/og-brand.png · 1200×630</div>
+<div class="card" id="card">
+  <div class="tx">
+    <div class="eyebrow">Systems Thinking · Complex Workflows · Rapid Prototyping</div>
+    <div class="nm">Robert Babiarz</div>
+    <div class="role">Senior Product Designer</div>
+    <div class="desc">A genuine obsession with the moment when a complicated system suddenly feels effortless to use.</div>
+  </div>
+  <svg class="graph" viewBox="0 0 1200 630" width="1200" height="630" fill="none">
+    <path d="M738 146 C 796 146, 794 305, 846 305" stroke="#40c99b" stroke-width="2.6"/>
+    <path d="M738 254 C 798 254, 800 305, 846 305" stroke="#7f61e0" stroke-width="2.6"/>
+    <path d="M738 362 C 798 362, 800 305, 846 305" stroke="#e6a83c" stroke-width="2.6"/>
+    <path d="M738 470 C 796 470, 794 305, 846 305" stroke="#ea4b80" stroke-width="2.6"/>
+    <path d="M910 305 L 946 305" stroke="#f2a165" stroke-width="3"/>
+  </svg>
+  <div class="node" style="left:648px;top:124px;width:108px"><span>IoT</span><span class="d" style="background:var(--teal)"></span></div>
+  <div class="node" style="left:648px;top:232px;width:108px"><span>SaaS</span><span class="d" style="background:var(--purple)"></span></div>
+  <div class="node" style="left:648px;top:340px;width:108px"><span>AR</span><span class="d" style="background:var(--amber)"></span></div>
+  <div class="node" style="left:648px;top:448px;width:108px"><span>iGaming</span><span class="d" style="background:var(--pink)"></span></div>
+  <div class="rb" style="left:846px;top:273px">RB</div>
+  <div class="eff" style="left:948px;top:280px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span>Effortless</div>
+</div>
+
+<div class="cap">assets/icon (app icon) · 512×512</div>
+<div class="icon" id="icon">
+  <svg viewBox="0 0 512 512" width="512" height="512" fill="none" style="position:absolute;inset:0">
+    <path d="M150 150 C 210 150, 250 210, 258 250" stroke="#40c99b" stroke-width="4"/>
+    <path d="M120 235 C 190 235, 240 250, 258 256" stroke="#7f61e0" stroke-width="4"/>
+    <path d="M132 320 C 200 320, 245 275, 258 262" stroke="#e6a83c" stroke-width="4"/>
+    <path d="M162 398 C 220 398, 250 300, 262 272" stroke="#ea4b80" stroke-width="4"/>
+  </svg>
+  <span class="idot" style="left:137px;top:137px;background:var(--teal)"></span>
+  <span class="idot" style="left:107px;top:222px;background:var(--purple)"></span>
+  <span class="idot" style="left:119px;top:307px;background:var(--amber)"></span>
+  <span class="idot" style="left:149px;top:385px;background:var(--pink)"></span>
+  <div class="rb">RB</div>
+</div>
+</body></html>
