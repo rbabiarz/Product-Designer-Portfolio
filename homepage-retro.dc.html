@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="home-variants.js"></script>
+<script src="boot-loader.js"></script>
 <script src="./support.js"></script>
 
   <!-- SEO·OG·JSONLD (injected) -->
@@ -145,7 +147,6 @@ body{margin:0;background:#040806}
 @media (max-width:760px){ #aegis .ag-info-k{width:84px;} }
 </style>
 <script src="page-transition.js"></script>
-<script src="home-variants.js"></script>
 <script src="a11y.js"></script>
 <script src="cursor.js" defer></script>
 <script src="cookie-banner.js" defer></script>
@@ -504,12 +505,40 @@ class Component extends DCLogic {
     this._hv = () => this.forceUpdate();
     window.addEventListener('home-variants-ready', this._hv);
     this._t.push(setTimeout(() => this.forceUpdate(), 300));
+    // Run each init in isolation — one failure must not abort the rest.
+    const runInit = (name) => { try { this[name](); } catch (e) { try { console.error('[homepage] ' + name + ' failed:', e); } catch (_) {} } };
+    const mark = () => {
+      this._bootMarks = {
+        preview: document.getElementById('rt-preview'),
+        row: document.querySelector('.rt-file'),
+        bldg: document.getElementById('rt-bldg'),
+        la: document.getElementById('la-heat')
+      };
+    };
     this._t.push(setTimeout(() => this.typewriter(), 950));
-    this._t.push(setTimeout(() => this.initBldg(), 140));
-    this._t.push(setTimeout(() => { this.buildLightArchitect(); this.initLAInteract(); }, 160));
-    this._t.push(setTimeout(() => { try { this.initAegis(); } catch (e) {} }, 200));
-    this._t.push(setTimeout(() => { try { this.initFilePreview(); } catch (e) {} }, 420));
+    this._t.push(setTimeout(() => runInit('initBldg'), 140));
+    this._t.push(setTimeout(() => { runInit('buildLightArchitect'); runInit('initLAInteract'); }, 160));
+    this._t.push(setTimeout(() => { runInit('initAegis'); }, 200));
+    this._t.push(setTimeout(() => { runInit('initFilePreview'); mark(); }, 420));
     if (location.hash) this._t.push(setTimeout(() => window.homeScrollToHash && window.homeScrollToHash(), 180));
+    // Boot bridge for boot-loader.js — see homepage-interactive.dc.html for the rationale.
+    window.__homeBoot = {
+      verify: () => {
+        const m = this._bootMarks;
+        if (!m) return { ok: false, failed: ['pending'] };
+        const live = (el) => !!(el && el.isConnected);
+        const failed = [];
+        if (!live(m.preview) || !live(m.row)) failed.push('file previews');
+        if (!live(m.bldg)) failed.push('3D building');
+        if (!live(m.la) || !m.la.children.length) failed.push('light architect');
+        return { ok: !failed.length, failed };
+      },
+      reinit: () => {
+        this._fpInit = false;
+        ['initBldg', 'buildLightArchitect', 'initLAInteract', 'initAegis', 'initFilePreview'].forEach(runInit);
+        mark();
+      }
+    };
   }
 
   // Floating case-file preview: the same previews/p-*.png tiles the other homepages
@@ -1085,6 +1114,21 @@ class Component extends DCLogic {
     this._agRaf = requestAnimationFrame(loop);
   }
 
+
+  componentDidUpdate() {
+    // A structural re-render (counter setState, menu/theme toggles, late data)
+    // can replace the nodes the imperative inits wired — their listeners and
+    // observers die with them. Verify after updates settle and re-wire in
+    // place, so no interaction ever needs a manual refresh.
+    if (!this._bootMarks || !window.__homeBoot) return;
+    clearTimeout(this._healT);
+    this._healT = setTimeout(() => {
+      try {
+        const v = window.__homeBoot.verify();
+        if (!v.ok && !(v.failed.length === 1 && v.failed[0] === 'pending')) window.__homeBoot.reinit();
+      } catch (e) {}
+    }, 260);
+  }
 
   componentWillUnmount() {
     clearTimeout(this._laSaveT);

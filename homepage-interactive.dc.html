@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Robert Babiarz, Senior Product Designer</title>
+<script src="home-variants.js"></script>
+<script src="boot-loader.js"></script>
 <script src="./support.js"></script>
 
   <!-- SEO·OG·JSONLD (injected) -->
@@ -317,7 +319,6 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 </style>
 <script src="text-motion.js"></script>
 <script src="page-transition.js"></script>
-<script src="home-variants.js"></script>
 <script src="a11y.js"></script>
 <script src="cursor.js" defer></script>
 <script src="cookie-banner.js" defer></script>
@@ -1135,19 +1136,47 @@ class Component extends DCLogic {
     this._hvReady = () => this.forceUpdate();
     window.addEventListener('home-variants-ready', this._hvReady);
     setTimeout(() => this.forceUpdate(), 320); // populate switcher once registry loads
-    setTimeout(() => {
-      // Run each init in isolation: one failing init (timing/font/GPU/extension
-      // dependent) must NOT abort the rest. Previously these ran as a bare
-      // sequence, so a throw in any earlier init silently skipped everything
-      // after it — most visibly leaving #iso-rig empty (the 3D building never
-      // built, with no retry). Isolating + logging makes that cascade impossible.
-      const run = (name) => { try { this[name](); } catch (e) { try { console.error('[homepage] ' + name + ' failed:', e); } catch (_) {} } };
-      [
-        'initReveal', 'initHeroCanvas', 'buildHeroParallax', 'initHeroParallax',
-        'initScrollReveal', 'buildLightArchitect', 'initLightArchitect', 'initLAInteract', 'initCounters',
-        'initNavScroll', 'initMarquee', 'initClock', 'initIso', 'initAegis', 'initToc', 'scrollToHash'
-      ].forEach(run);
-    }, 120);
+    // Run each init in isolation: one failing init (timing/font/GPU/extension
+    // dependent) must NOT abort the rest. Previously these ran as a bare
+    // sequence, so a throw in any earlier init silently skipped everything
+    // after it — most visibly leaving #iso-rig empty (the 3D building never
+    // built, with no retry). Isolating + logging makes that cascade impossible.
+    const runInit = (name) => { try { this[name](); } catch (e) { try { console.error('[homepage] ' + name + ' failed:', e); } catch (_) {} } };
+    const INITS = [
+      'initReveal', 'initHeroCanvas', 'buildHeroParallax', 'initHeroParallax',
+      'initScrollReveal', 'buildLightArchitect', 'initLightArchitect', 'initLAInteract', 'initCounters',
+      'initNavScroll', 'initMarquee', 'initClock', 'initIso', 'initAegis', 'initToc', 'scrollToHash'
+    ];
+    // Re-runnable subset: skip one-shot page effects that would visibly repeat.
+    const RE_INITS = INITS.filter(n => n !== 'scrollToHash');
+    const mark = () => {
+      this._bootMarks = {
+        reveal: document.getElementById('reveal'),
+        row: document.querySelector('.proj-row'),
+        iso: document.getElementById('iso-rig'),
+        la: document.getElementById('la-heat'),
+        counter: document.querySelector('[data-count]')
+      };
+    };
+    setTimeout(() => { INITS.forEach(runInit); mark(); }, 120);
+    // Boot bridge for boot-loader.js — detects the first-load race where a late
+    // structural re-render detaches the nodes the inits wired (previews dead,
+    // counters stuck at 0, empty rig) and re-wires everything in place instead
+    // of needing a manual refresh.
+    window.__homeBoot = {
+      verify: () => {
+        const m = this._bootMarks;
+        if (!m) return { ok: false, failed: ['pending'] };
+        const live = (el) => !!(el && el.isConnected);
+        const failed = [];
+        if (!live(m.reveal) || !live(m.row)) failed.push('case-study previews');
+        if (!live(m.iso) || !m.iso.children.length) failed.push('3D building');
+        if (!live(m.la) || !m.la.children.length) failed.push('light architect');
+        if (!live(m.counter)) failed.push('key metrics');
+        return { ok: !failed.length, failed };
+      },
+      reinit: () => { RE_INITS.forEach(runInit); mark(); }
+    };
     this.initScrollProgress();
     // Safety net: never let entrance-animated hero content stay invisible if the
     // CSS animation timeline fails to start (e.g. non-compositing context).
@@ -1696,6 +1725,21 @@ class Component extends DCLogic {
     else if (modeSel && RULES[modeSel.value] && this._agMode !== modeSel.value) setMode(modeSel.value);
     this._agRaf = requestAnimationFrame(loop);
   }
+  componentDidUpdate() {
+    // A structural re-render (counter setState, menu/theme toggles, late data)
+    // can replace the nodes the imperative inits wired — their listeners and
+    // observers die with them. Verify after updates settle and re-wire in
+    // place, so no interaction ever needs a manual refresh.
+    if (!this._bootMarks || !window.__homeBoot) return;
+    clearTimeout(this._healT);
+    this._healT = setTimeout(() => {
+      try {
+        const v = window.__homeBoot.verify();
+        if (!v.ok && !(v.failed.length === 1 && v.failed[0] === 'pending')) window.__homeBoot.reinit();
+      } catch (e) {}
+    }, 260);
+  }
+
   componentWillUnmount() {
     clearTimeout(this._laSaveT);
     if (this._raf) cancelAnimationFrame(this._raf);
@@ -1719,6 +1763,7 @@ class Component extends DCLogic {
   on(target, ev, fn, opts) { target.addEventListener(ev, fn, opts); this._listeners.push([target, ev, fn]); }
 
   initClock() {
+    if (this._clock) clearInterval(this._clock); // re-runnable: one live clock only
     const el = document.getElementById('hero-clock');
     if (!el) return;
     const tick = () => {

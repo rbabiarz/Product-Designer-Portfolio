@@ -165,6 +165,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <script src="/analytics.js" defer></script>
   <script src="cursor.js" defer></script>
 <script src="cookie-banner.js" defer></script>
+<script src="floor-plan-sim.js" defer></script>
 </head>
 <body>
 <div class="cs" id="top">
@@ -346,18 +347,25 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- SHOWCASE: FLOOR PLAN -->
+  <!-- SHOWCASE: LIVE FLOOR PLAN -->
   <div class="band band-navy" data-reveal="" id="floor">
     <div class="glow" style="width:520px;height:520px;top:-160px;right:6%;background:rgba(95,196,182,.18)"></div>
     <div class="band-inner">
-      <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow" style="color:#9fe9d8">The Payoff, Floor Plan</div>
+      <div class="center" style="margin-bottom:36px">
+        <div class="eyebrow" style="color:#9fe9d8">The Payoff · Live Floor Plan</div>
         <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Open a wall. <em style="color:#9fe9d8">The rooms merge.</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:740px;margin:18px auto 0">On tablet the shipped plan maps every chandelier, cove and zone to its sub-area, assign by tapping the floor. When walls open, their devices fall under one zone's control; scenes, occupancy and daylight all follow.</p>
+        <p class="lead" style="color:#bfe7df;max-width:760px;margin:18px auto 0">The Rose Ballroom, 8 sub-areas, 7 walls. <strong style="color:#fff;font-weight:600">Tap any wall</strong> to open or close it; sub-areas joined by an open wall fuse into a single lighting zone.</p>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="gthumbs">
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/tablet-floor.png" alt="Tablet floor plan view showing devices placed across the sub-areas"></div><div class="band-cap cap-light">Tablet · floor plan, devices</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/tablet-zones.png" alt="Tablet floor plan view showing live lighting zones across sub-areas"></div><div class="band-cap cap-light">Tablet · floor plan, zones</div></div>
+      <div data-floor-sim data-reveal="" data-d="1"></div>
+      <div style="margin-top:40px" data-reveal="" data-d="2">
+        <div class="center" style="margin-bottom:22px">
+          <div class="eyebrow" style="color:#9fe9d8">The Shipped Floor-Plan View</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="gthumbs">
+          <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/tablet-floor.png" alt="Tablet floor plan view showing devices placed across the sub-areas"></div><div class="band-cap cap-light">Tablet · floor plan, devices</div></div>
+          <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/tablet-zones.png" alt="Tablet floor plan view showing live lighting zones across sub-areas"></div><div class="band-cap cap-light">Tablet · floor plan, zones</div></div>
+        </div>
+        <p class="mono cap-light" style="text-align:center;margin-top:16px;font-size:10.5px;letter-spacing:0.06em;line-height:1.6">On tablet, the same plan maps every chandelier, cove and zone to its sub-area, assign by tapping the floor.</p>
       </div>
     </div>
   </div>
