@@ -265,7 +265,7 @@
       'box-shadow:0 8px 22px -10px rgba(0,0,0,0.5)',
       'pointer-events:none', 'user-select:none'
     ].join(';');
-    var glyph = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="opacity:0.65"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+    var glyph = '<span class="msi" aria-hidden="true" style="font-size:24px;opacity:0.65;vertical-align:-0.18em;">crop_free</span>';
     var label = document.createElement('span');
     p.innerHTML = glyph;
     p.appendChild(label);

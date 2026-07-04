@@ -567,18 +567,18 @@ function PlaybackBar({ time, duration, playing, onPlayPause, onReset, onSeek, on
       flexShrink: 0,
     }}>
       <IconButton onClick={onReset} title="Return to start (0)">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <svg width="24" height="24" viewBox="0 0 14 14" fill="none">
           <path d="M3 2v10M12 2L5 7l7 5V2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round"/>
         </svg>
       </IconButton>
       <IconButton onClick={onPlayPause} title="Play/pause (space)">
         {playing ? (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <svg width="24" height="24" viewBox="0 0 14 14" fill="none">
             <rect x="3" y="2" width="3" height="10" fill="currentColor"/>
             <rect x="8" y="2" width="3" height="10" fill="currentColor"/>
           </svg>
         ) : (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <svg width="24" height="24" viewBox="0 0 14 14" fill="none">
             <path d="M3 2l9 5-9 5V2z" fill="currentColor"/>
           </svg>
         )}

@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Robert Babiarz, Senior Product Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <style>svg[width="24"],svg[width="36"]{flex-shrink:0}
+/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
 <script src="home-variants.js"></script>
 <script src="boot-loader.js"></script>
 <script src="./support.js"></script>
@@ -366,7 +369,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <details class="int-switch" style="position:relative;">
-          <summary data-cursor="hover" style="list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:9px 13px;border:1px solid var(--line2);border-radius:8px;background:transparent;color:var(--fg);transition:border-color 0.2s;" style-hover="border-color:var(--fg3)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;color:var(--fg2);">VIEW:</span><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;font-weight:500;">{{ currentName }}</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <summary data-cursor="hover" style="list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:9px 13px;border:1px solid var(--line2);border-radius:8px;background:transparent;color:var(--fg);transition:border-color 0.2s;" style-hover="border-color:var(--fg3)"><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;color:var(--fg2);">VIEW:</span><span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;font-weight:500;">{{ currentName }}</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></summary>
           <div style="position:absolute;top:calc(100% + 9px);right:0;min-width:252px;background:var(--bg2);border:1px solid var(--line2);border-radius:12px;box-shadow:0 20px 54px rgba(0,0,0,0.3);padding:7px;z-index:300;">
             <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg3);padding:7px 11px 9px;">Homepage design</div>
             <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
@@ -379,10 +382,10 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
         </details>
         <button onClick="{{ toggleDark }}" data-cursor="hover" style="width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:all 0.2s;" style-hover="border-color:var(--line2)">
           <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span>
           </sc-if>
           <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span>
           </sc-if>
         </button>
         <button class="int-burger" onClick="{{ toggleMenu }}" data-cursor="hover" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -443,7 +446,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
         <p style="font-size:18px;color:var(--fg2);line-height:1.6;max-width:560px;">Senior product designer shipping high-consequence UX across cyber-physical IoT, regulated real-money platforms, AR field tooling, and enterprise B2B SaaS — earning design a founding voice inside engineering-first teams. 3 issued patents, 1 pending.</p>
       </div>
       <div data-hero-anim="1" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:30px;animation:fade-up 0.8s ease 0.6s both;position:relative;z-index:3;">
-        <a href="#work" data-cursor="hover" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bg);background:var(--ac);padding:14px 24px;border-radius:999px;text-decoration:none;transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(76,168,143,0.35)">View selected work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#work" data-cursor="hover" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bg);background:var(--ac);padding:14px 24px;border-radius:999px;text-decoration:none;transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(76,168,143,0.35)">View selected work <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" data-cursor="hover" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg);border:1px solid var(--line2);padding:14px 24px;border-radius:999px;text-decoration:none;transition:border-color .2s,color .2s;" style-hover="border-color:var(--ac);color:var(--ac)">Résumé ↓</a>
       </div>
     </div>
@@ -452,7 +455,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
     <div data-hero-anim="1" style="max-width:1480px;margin:64px auto 0;width:100%;position:relative;z-index:2;animation:fade-up 0.8s ease 0.65s both;">
       <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);">
         <div style="display:flex;align-items:center;gap:9px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.08em;">Canadian Citizen</span>
         </div>
         <div style="flex:1;min-width:40px;"></div>
@@ -559,11 +562,11 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
         <div data-reveal="true" style="background:rgba(6,20,24,0.72);backdrop-filter:blur(8px);padding:32px 26px;">
           <div style="display:flex;align-items:flex-end;gap:30px;">
             <div>
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="1.7" style="margin-bottom:12px;display:block;"><path d="M3 21V8l6-4 6 4v13"/><path d="M15 21V11l6 4v6"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="1.7" style="margin-bottom:12px;display:block;"><path d="M3 21V8l6-4 6 4v13"/><path d="M15 21V11l6 4v6"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
               <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.6vw,46px);font-weight:500;color:#fff;line-height:1;letter-spacing:-0.01em;"><span data-count="20">0</span></div>
             </div>
             <div>
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="1.7" style="margin-bottom:12px;display:block;"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="1.7" style="margin-bottom:12px;display:block;"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
               <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.6vw,46px);font-weight:500;color:#fff;line-height:1;letter-spacing:-0.01em;"><span data-count="100">0</span></div>
             </div>
           </div>
@@ -594,35 +597,35 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">01</span>
           <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">CORE Insights</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Operational Building Intelligence · IoT<br/><span style="color:var(--ac);">Cooper Lighting · Signify</span></span>
-          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
 
         <a class="proj-row" data-preview="previews/thumb-dali.png" data-tag="Industry First" href="dali-2-showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
           <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">02</span>
           <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">DALI-2 Lighting System</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Commissioning · Healthcare<br/><span style="color:var(--ac);">North America's largest install</span></span>
-          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
 
         <a class="proj-row" data-preview="previews/thumb-smart.png" data-tag="Consumer IoT" href="smart-lighting-showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
           <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">03</span>
           <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">Smart Lighting App</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Consumer IoT · Mobile<br/><span style="color:var(--ac);">iOS &amp; Android</span></span>
-          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
 
         <a class="proj-row" data-preview="previews/thumb-fintech.png" data-tag="Fintech · AI" href="goals-driven-fintech-showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
           <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">04</span>
           <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">Goals-Driven Fintech</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Clickable Build · Open Banking<br/><span style="color:var(--ac);">PRD · Claude · Cursor · GitHub</span></span>
-          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
 
         <a class="proj-row" data-preview="previews/thumb-ctoc.png" data-tag="Cyber Operations" href="ctoc-showcase.html" data-cursor="view" style="display:grid;grid-template-columns:64px 1fr auto 64px;align-items:center;gap:24px;padding:32px 8px;border-bottom:1px solid var(--line);text-decoration:none;position:relative;transition:padding 0.3s;">
           <span class="pr-num" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--fg3);transition:color 0.3s;">05</span>
           <span class="pr-title" style="font-family:'Inter',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:500;letter-spacing:-0.02em;color:var(--fg);transition:transform 0.3s,color 0.3s;display:inline-block;">CTOC Dashboard System</span>
           <span class="pr-meta" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg2);letter-spacing:0.05em;text-transform:uppercase;text-align:right;transition:color 0.3s;">Enterprise Cyber · 13 Dashboards<br/><span style="color:var(--ac);">Operations Center · hi-fi prototype</span></span>
-          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+          <span class="pr-arrow" style="justify-self:end;color:var(--fg3);transition:transform 0.3s,color 0.3s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
         </a>
       </div>
     </div>
@@ -669,7 +672,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--la-accent);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">Light Architect</div>
           <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,50px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--la-title);margin-bottom:18px;white-space:nowrap;">Designing the tools<br/>that design light.</h2>
           <p style="font-size:16px;line-height:1.62;color:var(--la-body);max-width:400px;">A browser-based photometric planner: drop fixtures on any address, and watch illuminance render live across the site, footcandle grids, stat areas, and spec-ready PDFs, all from satellite imagery.</p>
-          <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" data-cursor="hover" style="margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--la-btn-tx);background:var(--la-btn-bg);border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--la-shadow)">Explore Light Architect <span style="opacity:0.62;font-weight:500;">· cooperlighting.com</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">(opens the Cooper Lighting website in a new tab)</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" data-cursor="hover" style="margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--la-btn-tx);background:var(--la-btn-bg);border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--la-shadow)">Explore Light Architect <span style="opacity:0.62;font-weight:500;">· cooperlighting.com</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">(opens the Cooper Lighting website in a new tab)</span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
           <div style="margin-top:14px;">
             <span style="display:inline-flex;align-items:center;gap:9px;background:var(--la-glass2);border:1px solid var(--la-bd);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:8px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--la-body);">
               Case study coming soon
@@ -743,16 +746,16 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <!-- LAYER 2 · photometric summary panel (top-right) -->
           <div class="la-layer" data-la="-0.4" id="la-panel" style="position:absolute;top:13%;right:5%;width:340px;max-width:42vw;z-index:6;background:var(--la-glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--la-bd);border-radius:12px;box-shadow:0 26px 60px var(--la-shadow);overflow:hidden;">
             <button id="la-panel-head" type="button" aria-expanded="true" aria-controls="la-body" title="Collapse / expand the summary" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:none;border-bottom:1px solid var(--la-bd-soft);background:transparent;width:100%;font:inherit;text-align:left;cursor:pointer;">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--la-accent)"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--la-accent)"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
               <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.13em;color:var(--la-text-strong);font-weight:500;">PHOTOMETRIC SUMMARY</span>
               <span id="la-caret" style="margin-left:auto;color:var(--la-dim);">▾</span>
             </button>
             <div id="la-body">
             <div style="display:flex;gap:7px;padding:13px 16px;">
-              <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-btn-bg);color:var(--la-btn-tx);padding:7px 11px;border-radius:6px;font-weight:600;">⟲ RESET</button>
-              <button id="la-add" type="button" title="Add a luminaire to the map" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);font-weight:600;">＋ ADD</button>
-              <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-amber-bg);color:var(--la-amber-tx);padding:7px 11px;border-radius:6px;border:1px solid var(--la-amber-bd);font-weight:600;">✕ DELETE</button>
-              <button id="la-info-btn" type="button" aria-haspopup="dialog" aria-controls="la-info" aria-expanded="false" title="How to read the photometric map" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);font-weight:600;">ⓘ INFO</button>
+              <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-btn-bg);color:var(--la-btn-tx);padding:7px 11px;border-radius:6px;font-weight:600;"><span class="msi" aria-hidden="true" style="font-size:24px;">restore</span> RESET</button>
+              <button id="la-add" type="button" title="Add a luminaire to the map" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);font-weight:600;"><span class="msi" aria-hidden="true" style="font-size:24px;">add</span> ADD</button>
+              <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-amber-bg);color:var(--la-amber-tx);padding:7px 11px;border-radius:6px;border:1px solid var(--la-amber-bd);font-weight:600;"><span class="msi" aria-hidden="true" style="font-size:24px;">delete</span> DELETE</button>
+              <button id="la-info-btn" type="button" aria-haspopup="dialog" aria-controls="la-info" aria-expanded="false" title="How to read the photometric map" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:var(--la-soft-bg);color:var(--la-text);padding:7px 11px;border-radius:6px;border:1px solid var(--la-bd-soft2);font-weight:600;"><span class="msi" aria-hidden="true" style="font-size:24px;">info</span> INFO</button>
             </div>
             <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
             <div style="padding:4px 16px 16px;">
@@ -773,7 +776,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <!-- search field (top-left) -->
           <div class="la-layer" data-la="-0.26" id="la-search" style="position:absolute;bottom:8%;left:5%;z-index:7;display:flex;align-items:center;gap:9px;">
             <div style="display:flex;align-items:center;gap:9px;background:var(--la-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--la-bd);border-radius:10px;padding:9px 14px;box-shadow:0 14px 36px var(--la-shadow2);">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--la-accent)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--la-accent)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--la-text);">3775 Swiftdale Dr, Mississauga</span>
             </div>
             <div style="display:flex;flex-direction:column;border:1px solid var(--la-bd);border-radius:9px;overflow:hidden;background:var(--la-glass);">
@@ -1045,11 +1048,11 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
         </div>
         <div style="flex-shrink:0;min-width:300px;">
           <details class="mail-choose" onToggle="{{ mailToggle }}" style="margin-bottom:10px;position:relative;">
-            <summary data-cursor="hover" style="list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--ac);color:#fff;padding:18px 26px;border-radius:11px;font-size:16px;font-weight:600;cursor:pointer;transition:opacity 0.2s;" style-hover="opacity:0.88">Email me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></summary>
+            <summary data-cursor="hover" style="list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--ac);color:#fff;padding:18px 26px;border-radius:11px;font-size:16px;font-weight:600;cursor:pointer;transition:opacity 0.2s;" style-hover="opacity:0.88">Email me <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></summary>
             <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;border:1px solid var(--line2);background:var(--bg2);border-radius:11px;padding:8px;">
-              <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Gmail</a>
-              <a href="https://outlook.office.com/mail/deeplink/compose?to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Outlook</a>
-              <a href="mailto:rbabiarz@gmail.com" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Default mail app</a>
+              <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Gmail</a>
+              <a href="https://outlook.office.com/mail/deeplink/compose?to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Outlook</a>
+              <a href="mailto:rbabiarz@gmail.com" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Default mail app</a>
             </div>
           </details>
           <div style="display:flex;gap:10px;">
@@ -1102,7 +1105,7 @@ class Component extends DCLogic {
     bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');box-shadow:0 0 10px rgba(76,168,143,0.5);transition:width 0.08s linear;pointer-events:none;';
     const pill = document.createElement('div');
     pill.id = 'scroll-prog-pill';
-    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(10,20,16,0.82);backdrop-filter:blur(8px);border:1px solid rgba(76,168,143,0.4);border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.style.cssText = 'position:fixed;bottom:56px;left:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(10,20,16,0.82);backdrop-filter:blur(8px);border:1px solid rgba(76,168,143,0.4);border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
     pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
     document.body.appendChild(bar);
     document.body.appendChild(pill);
@@ -1235,8 +1238,8 @@ class Component extends DCLogic {
     resize(); this.on(window, 'resize', resize);
 
     // ---- mobile: fullscreen the game + lock landscape (graceful fallback if unsupported) ----
-    const FS_OPEN = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
-    const FS_SHUT = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3a1 1 0 0 0 1-1V4M20 8h-3a1 1 0 0 1-1-1V4M4 16h3a1 1 0 0 1 1 1v3M20 16h-3a1 1 0 0 0-1 1v3"/></svg>';
+    const FS_OPEN = '<span class="msi" aria-hidden="true" style="font-size:24px;">fullscreen</span>';
+    const FS_SHUT = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3a1 1 0 0 0 1-1V4M20 8h-3a1 1 0 0 1-1-1V4M4 16h3a1 1 0 0 1 1 1v3M20 16h-3a1 1 0 0 0-1 1v3"/></svg>';
     const fsBtn = document.createElement('button');
     fsBtn.id = 'ag-fs'; fsBtn.type = 'button'; fsBtn.setAttribute('aria-label', 'Play fullscreen'); fsBtn.innerHTML = FS_OPEN;
     stage.appendChild(fsBtn);
@@ -1839,15 +1842,26 @@ class Component extends DCLogic {
     const img = document.getElementById('reveal-img');
     if (!reveal || !img) return;
     let active = false;
-    let tx = 0, ty = 0, cx = 0, cy = 0;
+    let tx = 0, ty = 0, cx = 0, cy = 0, seeded = false;
     const rows = document.querySelectorAll('.proj-row');
-    const move = (e) => { tx = e.clientX; ty = e.clientY; kick(); };
+    const move = (e) => { tx = e.clientX; ty = e.clientY; seeded = true; kick(); };
+    // keep the card fully inside the viewport (16px margin) whatever the cursor does
+    const clampX = (x) => { const h = reveal.offsetWidth / 2 + 16; return Math.max(h, Math.min(window.innerWidth - h, x)); };
+    const clampY = (y) => { const h = reveal.offsetHeight / 2 + 16; return Math.max(h, Math.min(window.innerHeight - h, y)); };
     rows.forEach(row => {
-      this.on(row, 'mouseenter', () => {
+      this.on(row, 'mouseenter', (e) => {
+        // seed from the enter event — scroll-under-a-stationary-cursor fires
+        // mouseenter with NO mousemove, which used to leave the card at the
+        // viewport origin (or lerping in from a stale point across the screen)
+        if (e && typeof e.clientX === 'number' && (e.clientX || e.clientY)) { tx = e.clientX; ty = e.clientY; }
+        else { const rr = row.getBoundingClientRect(); tx = rr.left + Math.min(320, rr.width / 2); ty = rr.top + rr.height / 2; }
+        if (!seeded || Math.hypot(tx - cx, ty - cy) > 320) { cx = tx; cy = ty; }
+        seeded = true;
         const src = row.getAttribute('data-preview');
         if (src) img.setAttribute('src', src);
         active = true;
         reveal.style.opacity = '1';
+        kick();
         // row emphasis
         const num = row.querySelector('.pr-num');
         const title = row.querySelector('.pr-title');
@@ -1874,7 +1888,7 @@ class Component extends DCLogic {
       this._heroRaf = 0;
       cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
       const dx = Math.max(-12, Math.min(12, (tx - cx) * 0.6));
-      reveal.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%) scale(${active ? 1 : 0.9}) rotate(${dx * 0.4}deg)`;
+      reveal.style.transform = `translate(${clampX(cx)}px,${clampY(cy)}px) translate(-50%,-50%) scale(${active ? 1 : 0.9}) rotate(${dx * 0.4}deg)`;
       // idle-stop: keep going only while a row is hovered or the card is still catching up
       if (active || Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3) this._heroRaf = requestAnimationFrame(loop);
     };
@@ -2522,7 +2536,7 @@ class Component extends DCLogic {
       +   '<div style="display:flex;justify-content:space-between;gap:10px;"><span style="color:#7fa39c;">ASSETS TRACKED</span><span data-h="assets" style="color:#9be6d3;">27</span></div>'
       + '</div>'
       + '<div style="margin-top:11px;padding-top:9px;border-top:1px solid rgba(125,211,192,0.18);display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:0.05em;color:#86b8af;line-height:1.3;">'
-      +   '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>'
+      +   '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9be6d3" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>'
       +   'REAL-TIME HOSPITAL ASSET TRACKING'
       + '</div>'
       + '</div>';

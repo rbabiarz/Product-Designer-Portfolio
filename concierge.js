@@ -223,7 +223,7 @@
       pills: ['Leadership examples', 'Enterprise SaaS work', 'Defense industry projects'] }
   ];
 
-  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Defense industry projects', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work'];
+  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Lighting IoT work', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work'];
   var WELCOME = "Hi — I'm the portfolio concierge. Tell me what you're hiring for or looking for, and I'll route you to the most relevant projects, skills, and case studies on this site.";
 
   /* ================= RETRIEVAL ================= */
@@ -280,8 +280,17 @@
     return '30vw';
   }
 
+  function ensureIconFont() {
+    if (document.querySelector('link[href*="Material+Symbols"]')) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_forward,auto_awesome,close,refresh,remove&display=block';
+    document.head.appendChild(l);
+  }
+
   function build() {
     T = THEMES[themeOf()] || THEMES['default'];
+    ensureIconFont();
     var base = 'font-family:' + T.font + ';box-sizing:border-box;';
 
     /* ---- FAB ---- */
@@ -291,7 +300,7 @@
     fab.setAttribute('aria-label', 'Open the portfolio concierge chat');
     fab.setAttribute('data-cursor', 'hover');
     fab.setAttribute('aria-haspopup', 'dialog');
-    var glyph = mk('span', 'font-size:20px;line-height:1;' + (reduce ? '' : 'animation:rbAiPulse 2.6s ease-in-out infinite;'), '✦');
+    var glyph = mk('span', 'font-size:20px;line-height:1;' + (reduce ? '' : 'animation:rbAiPulse 2.6s ease-in-out infinite;'), '<span class="msi" aria-hidden="true" style="font-size:26px;">auto_awesome</span>');
     glyph.setAttribute('aria-hidden', 'true');
     var fabLbl = mk('span', 'max-width:0;overflow:hidden;white-space:nowrap;' + (reduce ? '' : 'transition:max-width .28s ease;'), seenBefore || state.msgs.length ? 'Continue your conversation' : 'Ask my portfolio anything');
     fab.appendChild(glyph); fab.appendChild(fabLbl);
@@ -324,15 +333,15 @@
 
     /* header */
     var head = mk('div', 'display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid ' + (themeOf() === 'dossier' ? 'rgba(10,8,4,0.3)' : 'rgba(127,127,127,0.25)') + ';flex:0 0 auto;');
-    var avatar = mk('span', 'width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:' + (T.radius === '0' ? '0' : '999px') + ';font-size:15px;flex:0 0 auto;' + T.user, '✦');
+    var avatar = mk('span', 'width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:' + (T.radius === '0' ? '0' : '999px') + ';font-size:15px;flex:0 0 auto;' + T.user, '<span class="msi" aria-hidden="true">auto_awesome</span>');
     avatar.setAttribute('aria-hidden', 'true');
     var titleBox = mk('div', 'flex:1;min-width:0;');
     titleBox.appendChild(mk('div', 'font-size:13px;font-weight:700;letter-spacing:0.02em;', 'Portfolio Concierge'));
     titleBox.appendChild(mk('div', 'font-family:' + T.mono + ';font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:' + T.dimText + ';', 'Finds the work — you keep the decision'));
     var btnStyle = 'background:transparent;border:0;cursor:pointer;color:' + T.dimText + ';font-size:14px;padding:6px 7px;line-height:1;font-family:' + T.mono + ';';
-    var newBtn = mk('button', btnStyle, '⟳'); newBtn.type = 'button'; newBtn.title = 'New chat'; newBtn.setAttribute('aria-label', 'Start a new chat');
-    var minBtn = mk('button', btnStyle, '–'); minBtn.type = 'button'; minBtn.title = 'Minimize'; minBtn.setAttribute('aria-label', 'Minimize the chat');
-    var closeBtn = mk('button', btnStyle, '✕'); closeBtn.type = 'button'; closeBtn.title = 'Close'; closeBtn.setAttribute('aria-label', 'Close the chat');
+    var newBtn = mk('button', btnStyle, '<span class="msi" aria-hidden="true">refresh</span>'); newBtn.type = 'button'; newBtn.title = 'New chat'; newBtn.setAttribute('aria-label', 'Start a new chat');
+    var minBtn = mk('button', btnStyle, '<span class="msi" aria-hidden="true">remove</span>'); minBtn.type = 'button'; minBtn.title = 'Minimize'; minBtn.setAttribute('aria-label', 'Minimize the chat');
+    var closeBtn = mk('button', btnStyle, '<span class="msi" aria-hidden="true">close</span>'); closeBtn.type = 'button'; closeBtn.title = 'Close'; closeBtn.setAttribute('aria-label', 'Close the chat');
     newBtn.addEventListener('click', function () { state.msgs = []; persist(); renderMsgs(); pushAI(WELCOME, null, DEFAULT_PILLS); });
     minBtn.addEventListener('click', minimize);
     closeBtn.addEventListener('click', function () { state.msgs = []; minimize(); persist(); });
@@ -426,7 +435,7 @@
       img.src = p.thumb; img.alt = ''; img.loading = 'lazy';
       c.appendChild(img);
     } else {
-      var ph = mk('div', 'width:86px;height:57px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:19px;border-radius:' + (T.radius === '0' ? '0' : '7px') + ';' + T.user, '✦');
+      var ph = mk('div', 'width:86px;height:57px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:19px;border-radius:' + (T.radius === '0' ? '0' : '7px') + ';' + T.user, '<span class="msi" aria-hidden="true">auto_awesome</span>');
       ph.setAttribute('aria-hidden', 'true');
       c.appendChild(ph);
     }
@@ -435,7 +444,7 @@
     body.appendChild(mk('div', 'font-family:' + T.mono + ';font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:' + T.dimText + ';margin:2px 0 5px;', p.tags.join(' · ') + ' · ' + p.read));
     var linkRow = mk('div', 'display:flex;flex-wrap:wrap;gap:6px;');
     p.links.forEach(function (l) {
-      var a = mk('a', 'font-size:11.5px;font-weight:600;text-decoration:none;padding:5px 10px;cursor:pointer;color:' + T.accent + ';border:1px solid ' + T.accent + ';border-radius:' + (T.radius === '0' ? '0' : '999px') + ';', l.label + ' →');
+      var a = mk('a', 'font-size:11.5px;font-weight:600;text-decoration:none;padding:5px 10px;cursor:pointer;color:' + T.accent + ';border:1px solid ' + T.accent + ';border-radius:' + (T.radius === '0' ? '0' : '999px') + ';', l.label + ' <span class="msi" aria-hidden="true" style="font-size:1em;">arrow_forward</span>');
       a.href = l.href;
       a.setAttribute('data-cursor', 'hover');
       a.addEventListener('click', function () {

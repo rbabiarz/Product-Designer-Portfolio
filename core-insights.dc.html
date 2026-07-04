@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CORE Insights, Case Study · Robert Babiarz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
 <script src="./support.js"></script>
 
   <!-- SEO·OG·JSONLD (injected) -->
@@ -171,19 +173,19 @@ summary::-webkit-details-marker{display:none}
   <nav style="position:sticky;top:0;z-index:100;background:var(--c-navbg);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1);">
     <div style="padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;">
       <a href="homepage-interactive.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color 0.15s;" style-hover="color:var(--c-ink)">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>
         Robert Babiarz
       </a>
       <div style="display:flex;align-items:center;gap:10px;">
         <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background 0.2s,border-color 0.2s;" style-hover="background:var(--c-card)">
-          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></sc-if>
-          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></sc-if>
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span></sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span></sc-if>
         </button>
         <details class="cs-switch" style="position:relative;">
           <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
             <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
             <span style="font-size:13px;font-weight:600;color:var(--c-teal);">CORE Insights</span>
-            <svg class="cs-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--c-muted)" stroke-width="2.5" style="transition:transform .2s;"><path d="M6 9l6 6 6-6"/></svg>
+            <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;color:var(--c-muted);transition:transform .2s;">expand_more</span>
           </summary>
           <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
             <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-card);"><div style="font-size:14px;font-weight:600;color:var(--c-teal);">CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
@@ -388,15 +390,15 @@ summary::-webkit-details-marker{display:none}
         </div>
         <div data-reveal="1" style="display:flex;flex-direction:column;gap:14px;">
           <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
-            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(230,77,60,0.1);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e64d3c" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(230,77,60,0.1);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e64d3c" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
             <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">Every building was a silo</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">No way to compare occupancy, energy, or alerts across a portfolio. Each site lived in its own report.</p></div>
           </div>
           <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
-            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(212,160,54,0.12);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c08a1e" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(212,160,54,0.12);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c08a1e" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">Three users, one interface</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">PRO analysts wanted portfolio analytics. Site managers wanted floor control. Technicians wanted it on a phone.</p></div>
           </div>
           <div style="display:flex;gap:18px;padding:24px;background:var(--c-bg);border:1px solid var(--c-b2);border-radius:14px;">
-            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(13,83,80,0.1);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/></svg></div>
+            <div style="width:42px;height:42px;flex-shrink:0;border-radius:10px;background:rgba(13,83,80,0.1);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/></svg></div>
             <div><div style="font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:5px;">No shared taxonomy</div><p style="font-size:14px;color:var(--c-muted);line-height:1.6;">Fixtures, zones, and spaces had no semantic model, so nothing could roll up or drill down cleanly.</p></div>
           </div>
         </div>
@@ -600,7 +602,7 @@ summary::-webkit-details-marker{display:none}
                   <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">{{ selType }}</div>
                   <div style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:#fff;">{{ selName }}</div>
                 </div>
-                <button onClick="{{ deselect }}" style="width:28px;height:28px;border-radius:7px;border:1px solid rgba(255,255,255,0.1);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#8a9ab5;flex-shrink:0;" style-hover="background:rgba(255,255,255,0.06)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                <button onClick="{{ deselect }}" aria-label="Deselect space" style="width:28px;height:28px;border-radius:7px;border:1px solid rgba(255,255,255,0.1);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#8a9ab5;flex-shrink:0;" style-hover="background:rgba(255,255,255,0.06)"><span class="msi" aria-hidden="true" style="font-size:24px;">close</span></button>
               </div>
               <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:18px 20px;margin-bottom:12px;display:flex;align-items:flex-end;justify-content:space-between;">
                 <div>
@@ -736,7 +738,7 @@ summary::-webkit-details-marker{display:none}
           <div style="display:flex;flex-direction:column;gap:13px;">
             <sc-for list="{{ tierPoints }}" as="p" hint-placeholder-count="3">
               <div style="display:flex;gap:11px;align-items:flex-start;">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal)" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg>
+                <span class="msi" aria-hidden="true" style="font-size:24px;color:var(--c-teal);flex-shrink:0;margin-top:2px;">check</span>
                 <span style="font-size:15px;color:var(--c-ink2);line-height:1.5;">{{ p }}</span>
               </div>
             </sc-for>
@@ -818,7 +820,7 @@ summary::-webkit-details-marker{display:none}
         <!-- hot desking -->
         <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px;">
           <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;">
-            <div style="width:38px;height:38px;border-radius:10px;background:rgba(76,168,143,0.12);display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal2)" stroke-width="1.8"><rect x="3" y="10" width="18" height="5" rx="1"/><path d="M5 15v4M19 15v4M7 10V7h10v3"/></svg></div>
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(76,168,143,0.12);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal2)" stroke-width="1.8"><rect x="3" y="10" width="18" height="5" rx="1"/><path d="M5 15v4M19 15v4M7 10V7h10v3"/></svg></div>
             <div style="font-size:18px;font-weight:600;color:#fff;">Hot Desking</div>
           </div>
           <p style="font-size:15px;color:#8a9ab5;line-height:1.62;margin-bottom:18px;">One screen, two users at once: an employee finding a free desk <em style="font-style:italic;color:#cdd6e4;">right now</em>, and a facilities manager reading utilization patterns to optimize the floor.</p>
@@ -836,7 +838,7 @@ summary::-webkit-details-marker{display:none}
         <!-- conference room -->
         <div style="background:#0e151e;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px;">
           <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;">
-            <div style="width:38px;height:38px;border-radius:10px;background:rgba(76,168,143,0.12);display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal2)" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14M3 10h5M3 14h5"/></svg></div>
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(76,168,143,0.12);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c-teal2)" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14M3 10h5M3 14h5"/></svg></div>
             <div style="font-size:18px;font-weight:600;color:#fff;">Conference Rooms</div>
           </div>
           <p style="font-size:15px;color:#8a9ab5;line-height:1.62;margin-bottom:18px;">Managers watch utilization live, review it over time, and manage future bookings, with the most- and least-used rooms ranked so under-booked space is obvious.</p>
@@ -933,11 +935,11 @@ summary::-webkit-details-marker{display:none}
     <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Next case study</div>
-        <a href="dali-2-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-teal)">DALI-2 Lighting System <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="dali-2-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-teal)">DALI-2 Lighting System <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
       </div>
       <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);font-weight:600;text-decoration:none;">Résumé ↓</a>
       <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
-      <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to portfolio</a>
+      <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
     </div>
   </footer>
 
@@ -970,7 +972,7 @@ class Component extends DCLogic {
     const bar = document.createElement('div'); bar.id = 'scroll-prog-bar';
     bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');transition:width 0.08s linear;pointer-events:none;';
     const pill = document.createElement('div'); pill.id = 'scroll-prog-pill';
-    pill.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
+    pill.style.cssText = 'position:fixed;bottom:56px;left:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
     pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
     document.body.appendChild(bar); document.body.appendChild(pill);
     const num = document.getElementById('scroll-prog-num');
@@ -1098,7 +1100,7 @@ class Component extends DCLogic {
           '<button class="hd-find" id="hd-find">⌖&nbsp; Find me a desk</button>' +
           '<div id="hd-suggest" style="font-size:13px;color:#aab6c9;line-height:1.5;min-height:36px;">' + (S.suggestMsg || 'Tap any teal desk to book it — or let the app point you to the emptiest wing.') + '</div>' +
           (booked ?
-            '<div style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.34);border-radius:10px;padding:13px 15px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="color:#c4b5fd;font-weight:700;">✓</span><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:#c4b5fd;letter-spacing:0.08em;">CHECKED IN</span></div><div style="font-size:14px;color:#e8edf5;">Desk ' + booked.id + ' · ' + ZN[booked.z] + '</div><div style="font-size:12px;color:#8a9ab5;margin-top:2px;">' + fmt(h) + '–17:00 today</div><button class="hd-cancel" id="hd-cancel" style="margin-top:11px;">Release desk</button></div>'
+            '<div style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.34);border-radius:10px;padding:13px 15px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span class="msi" aria-hidden="true" style="color:#c4b5fd;font-size:24px;">check</span><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;color:#c4b5fd;letter-spacing:0.08em;">CHECKED IN</span></div><div style="font-size:14px;color:#e8edf5;">Desk ' + booked.id + ' · ' + ZN[booked.z] + '</div><div style="font-size:12px;color:#8a9ab5;margin-top:2px;">' + fmt(h) + '–17:00 today</div><button class="hd-cancel" id="hd-cancel" style="margin-top:11px;">Release desk</button></div>'
             : '') +
           '<div style="margin-top:auto;display:flex;gap:15px;flex-wrap:wrap;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:#7a889f;align-items:center;"><span><span class="hd-key" style="background:var(--c-teal2);"></span>Free</span><span><span class="hd-key" style="background:rgba(255,255,255,0.18);"></span>Taken</span><span><span class="hd-key" style="background:#a78bfa;"></span>Yours</span></div>';
       } else {

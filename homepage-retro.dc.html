@@ -34,6 +34,8 @@
 <x-dc>
 <helmet>
 <title>Robert Babiarz, Product Designer · RB-OS Terminal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=VT323&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -300,10 +302,10 @@ body{margin:0;background:#040806}
           <div style="position:absolute;bottom:12px;left:16px;display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;z-index:4;"><span style="width:7px;height:7px;border-radius:50%;background:#6cf0a4;box-shadow:0 0 8px 2px rgba(108,240,164,0.8);animation:rt-blink 1.6s steps(1) infinite;"></span><span id="la-hint-line">DRAG FIXTURE · CLICK GRID = ADD · DBL-CLICK = DELETE</span></div>
           <!-- toolbar -->
           <div style="position:absolute;top:36px;right:12px;z-index:5;display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;">
-            <button id="la-recalc" type="button" title="Reset to the default layout" class="la-tb" style="background:#6cf0a4;color:#04130b;border:1px solid #6cf0a4;">⟲ RESET</button>
-            <button id="la-add" type="button" title="Add a luminaire to the map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);">＋ ADD</button>
-            <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" class="la-tb" style="background:rgba(255,180,84,0.1);color:#ffb454;border:1px solid rgba(255,180,84,0.4);">✕ DELETE</button>
-            <button id="la-info-btn" type="button" aria-haspopup="dialog" aria-controls="la-info" aria-expanded="false" title="How to read the photometric map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);">ⓘ INFO</button>
+            <button id="la-recalc" type="button" title="Reset to the default layout" class="la-tb" style="background:#6cf0a4;color:#04130b;border:1px solid #6cf0a4;"><span class="msi" aria-hidden="true" style="font-size:24px;">restore</span> RESET</button>
+            <button id="la-add" type="button" title="Add a luminaire to the map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);"><span class="msi" aria-hidden="true" style="font-size:24px;">add</span> ADD</button>
+            <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" class="la-tb" style="background:rgba(255,180,84,0.1);color:#ffb454;border:1px solid rgba(255,180,84,0.4);"><span class="msi" aria-hidden="true" style="font-size:24px;">delete</span> DELETE</button>
+            <button id="la-info-btn" type="button" aria-haspopup="dialog" aria-controls="la-info" aria-expanded="false" title="How to read the photometric map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);"><span class="msi" aria-hidden="true" style="font-size:24px;">info</span> INFO</button>
           </div>
           <!-- footcandle plate -->
           <div id="la-plate-wrap" style="position:absolute;left:50%;top:54%;width:min(860px,86%);height:min(400px,62%);transform:translate(-50%,-50%);z-index:2;">
@@ -564,19 +566,30 @@ class Component extends DCLogic {
     this._fpInit = true;
     const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) wrap.style.transition = 'opacity 0.2s ease';
-    let active = false, tx = 0, ty = 0, cx = 0, cy = 0;
+    let active = false, tx = 0, ty = 0, cx = 0, cy = 0, seeded = false;
+    // keep the card fully inside the viewport (16px margin) whatever the cursor does
+    const clampX = (x) => { const h = wrap.offsetWidth / 2 + 16; return Math.max(h, Math.min(window.innerWidth - h, x)); };
+    const clampY = (y) => { const h = wrap.offsetHeight / 2 + 16; return Math.max(h, Math.min(window.innerHeight - h, y)); };
     const move = (e) => {
-      tx = e.clientX; ty = e.clientY;
-      if (reduce) { cx = tx; cy = ty; wrap.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`; return; }
+      tx = e.clientX; ty = e.clientY; seeded = true;
+      if (reduce) { cx = tx; cy = ty; wrap.style.transform = `translate(${clampX(cx)}px,${clampY(cy)}px) translate(-50%,-50%)`; return; }
       kick();
     };
     rows.forEach(row => {
       const bind = (ev, fn) => { if (this.on) this.on(row, ev, fn); else row.addEventListener(ev, fn); };
-      bind('mouseenter', () => {
+      bind('mouseenter', (e) => {
+        // seed from the enter event — scroll-under-a-stationary-cursor fires
+        // mouseenter with NO mousemove, which used to leave the card at the
+        // viewport origin (or lerping in from a stale point across the screen)
+        if (e && typeof e.clientX === 'number' && (e.clientX || e.clientY)) { tx = e.clientX; ty = e.clientY; }
+        else { const rr = row.getBoundingClientRect(); tx = rr.left + Math.min(320, rr.width / 2); ty = rr.top + rr.height / 2; }
+        if (!seeded || Math.hypot(tx - cx, ty - cy) > 320) { cx = tx; cy = ty; }
+        seeded = true;
         const src = row.getAttribute('data-preview');
         if (src) img.setAttribute('src', src);
         active = true;
         wrap.style.opacity = '1';
+        if (reduce) { wrap.style.transform = `translate(${clampX(cx)}px,${clampY(cy)}px) translate(-50%,-50%)`; } else { kick(); }
       });
       bind('mouseleave', () => { active = false; wrap.style.opacity = '0'; });
     });
@@ -584,7 +597,7 @@ class Component extends DCLogic {
     const loop = () => {
       this._fpRaf = 0;
       cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
-      wrap.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%) scale(${active ? 1 : 0.92})`;
+      wrap.style.transform = `translate(${clampX(cx)}px,${clampY(cy)}px) translate(-50%,-50%) scale(${active ? 1 : 0.92})`;
       if (active || Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3) this._fpRaf = requestAnimationFrame(loop);
     };
     const kick = () => { if (!this._fpRaf && !document.hidden) this._fpRaf = requestAnimationFrame(loop); };
@@ -621,8 +634,8 @@ class Component extends DCLogic {
     resize(); this.on(window, 'resize', resize);
 
     // ---- mobile: fullscreen the game + lock landscape (graceful fallback if unsupported) ----
-    const FS_OPEN = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
-    const FS_SHUT = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3a1 1 0 0 0 1-1V4M20 8h-3a1 1 0 0 1-1-1V4M4 16h3a1 1 0 0 1 1 1v3M20 16h-3a1 1 0 0 0-1 1v3"/></svg>';
+    const FS_OPEN = '<span class="msi" aria-hidden="true" style="font-size:24px;">fullscreen</span>';
+    const FS_SHUT = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3a1 1 0 0 0 1-1V4M20 8h-3a1 1 0 0 1-1-1V4M4 16h3a1 1 0 0 1 1 1v3M20 16h-3a1 1 0 0 0-1 1v3"/></svg>';
     const fsBtn = document.createElement('button');
     fsBtn.id = 'ag-fs'; fsBtn.type = 'button'; fsBtn.setAttribute('aria-label', 'Play fullscreen'); fsBtn.innerHTML = FS_OPEN;
     stage.appendChild(fsBtn);

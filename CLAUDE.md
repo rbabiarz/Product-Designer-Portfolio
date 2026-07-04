@@ -10,7 +10,7 @@ Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT
 Owner / lead designer: Robert Babiarz · Live: https://robertbabiarz.com/
 
 ## How it runs (the load-bearing fact)
-Self-contained HTML — single-file pages with inline CSS/JS, no build step and no server. `.dc.html` pages embed markup in an `<x-dc>` template that `support.js` renders with React (loaded from the unpkg CDN). Icons via Lucide (`<i data-lucide="name">`). No build, no server, no backend — every page opens directly in a
+Self-contained HTML — single-file pages with inline CSS/JS, no build step and no server. `.dc.html` pages embed markup in an `<x-dc>` template that `support.js` renders with React (loaded from the unpkg CDN). Icons via Material Symbols from the MUI kit (`<span class="msi" aria-hidden="true">icon_name</span>`; subsetted Google Fonts link + `.msi` class in each page's head). No build, no server, no backend — every page opens directly in a
 browser and deploys to any static host (GitHub Pages). The only runtime dependency is
 the React CDN + Google Fonts; both degrade gracefully offline.
 
@@ -33,7 +33,7 @@ the React CDN + Google Fonts; both degrade gracefully offline.
 - Prototypes are single-file `.html` / `.dc.html` (markup + inline CSS/JS). Shared runtime
   modules (`support.js`, `a11y.js`, `text-motion.js`, `page-transition.js`,
   `home-variants.js`) live at the repo root; documented in [`src/components/`](./src/components/).
-- Icons: `<i data-lucide="name"></i>` — never hand-author SVG paths.
+- Icons: Material Symbols via `<span class="msi" aria-hidden="true">icon_name</span>` (MUI for Figma kit is the source of truth) — never hand-author SVG paths.
 - Status/meaning never rides on hue alone; never use saturated red/amber/stoplight-green
   as status (see [`DESIGN.md`](./DESIGN.md)).
 - Decisions get logged in [`docs/design-decisions.md`](./docs/design-decisions.md) (ADR style);
