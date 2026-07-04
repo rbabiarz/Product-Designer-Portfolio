@@ -99,10 +99,9 @@ body{margin:0;background:#040806}
 #ag-rc-pips .ag-pip span{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:0.03em;color:#3f9e69;}
 #ag-rc-pips .ag-pip.con span{color:#c98a7a;}
 #ag-rc-pips .ag-pip.cor span{color:#3f8d67;}
-#ag-fs{position:absolute;top:8px;right:8px;z-index:60;display:none;width:40px;height:40px;align-items:center;justify-content:center;border-radius:10px;border:1px solid rgba(255,255,255,0.18);background:rgba(6,18,22,0.68);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#cdd6d2;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s ease,color .15s ease;}
+#ag-fs{position:absolute;top:52px;right:8px;z-index:60;display:flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:10px;border:1px solid rgba(255,255,255,0.18);background:rgba(6,18,22,0.68);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#cdd6d2;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s ease,color .15s ease;}
 #ag-fs:hover{border-color:rgba(125,211,192,0.5);color:#e9eef7;}
 #ag-fs:focus-visible{outline:2px solid #7dd3c0;outline-offset:2px;}
-@media (pointer:coarse){#ag-fs{display:flex;}#ag-hud{padding-right:54px !important;}}
 #ag-stage.ag-fs-on{border-radius:0 !important;}
 #ag-stage.ag-pseudo-fs{position:fixed !important;inset:0 !important;width:100vw !important;height:100vh !important;max-width:none !important;z-index:99998 !important;border-radius:0 !important;}
 #ag-stage:fullscreen,#ag-stage:-webkit-full-screen{width:100vw !important;height:100vh !important;max-width:none !important;border-radius:0 !important;}
@@ -627,6 +626,12 @@ class Component extends DCLogic {
     const fsBtn = document.createElement('button');
     fsBtn.id = 'ag-fs'; fsBtn.type = 'button'; fsBtn.setAttribute('aria-label', 'Play fullscreen'); fsBtn.innerHTML = FS_OPEN;
     stage.appendChild(fsBtn);
+    // sit just below the HUD bar whatever it wraps to (it can be 1-3 lines,
+    // and its height changes when the stats fill in after boot)
+    const fsPlace = () => { const hud = document.getElementById('ag-hud'); if (hud) fsBtn.style.top = (hud.offsetTop + hud.offsetHeight + 8) + 'px'; };
+    fsPlace();
+    this.on(window, 'resize', fsPlace);
+    if (window.ResizeObserver) { const hudEl = document.getElementById('ag-hud'); if (hudEl) { const ro = new ResizeObserver(fsPlace); ro.observe(hudEl); this._obs.push(ro); } }
     const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement;
     const isFs = () => fsEl() === stage || stage.classList.contains('ag-pseudo-fs');
     const lockLand = () => { try { const o = window.screen && window.screen.orientation; if (o && o.lock) { const p = o.lock('landscape'); if (p && p.catch) p.catch(() => {}); } } catch (e) {} };
@@ -652,6 +657,7 @@ class Component extends DCLogic {
     this.on(fsBtn, 'click', (e) => { e.preventDefault(); e.stopPropagation(); isFs() ? exitFs() : enterFs(); });
     this.on(document, 'fullscreenchange', onFsChange);
     this.on(document, 'webkitfullscreenchange', onFsChange);
+    this.on(window, 'message', (e) => { const fr = document.getElementById('ag-arctic'); if (fr && e.source === fr.contentWindow && e.data === 'as-fs-toggle') { isFs() ? exitFs() : enterFs(); } });
 
     const AFF = {
       friendly: { label: 'FRIENDLY', color: '#6cf0a4' },
@@ -1096,6 +1102,10 @@ class Component extends DCLogic {
     };
     this.on(window, 'resize', fitArctic);
     const setArctic = (on) => {
+      // Arctic Shield ships its own touch fullscreen control, so on coarse
+      // pointers the stage-level toggle yields to it while the game is active.
+      // On fine pointers ours is the only fullscreen affordance — keep it.
+      const coarse = window.matchMedia && matchMedia('(pointer:coarse)').matches;
       let f = document.getElementById('ag-arctic');
       if (on) {
         if (!f) {
@@ -1103,17 +1113,20 @@ class Component extends DCLogic {
           f.id = 'ag-arctic';
           f.title = 'Arctic Shield — drone intercept training game';
           f.setAttribute('loading', 'lazy');
+          f.setAttribute('allowfullscreen', '');
+          f.setAttribute('allow', 'fullscreen');
           f.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;z-index:40;background:#081210;';
           f.src = 'arctic-shield.html?theme=retro';
           stage.appendChild(f);
         }
         f.style.display = 'block';
         fitArctic(); setTimeout(fitArctic, 120);
+        fsBtn.style.display = coarse ? 'none' : '';
         const it = $('ag-info-title'); if (it) it.textContent = 'Arctic Shield';
         const ib = $('ag-info-body'); if (ib) ib.innerHTML = SCOREINFO.arctic;
         if (G.mode === 'playing') gameOver();
         G.paused = true;
-      } else if (f) { f.style.display = 'none'; G.paused = false; }
+      } else if (f) { f.style.display = 'none'; G.paused = false; fsBtn.style.display = ''; }
     };
     if (modeSel) this.on(modeSel, 'change', (e) => {
       try { localStorage.setItem('rba-ag-mode', modeSel.value); } catch (er) {}
