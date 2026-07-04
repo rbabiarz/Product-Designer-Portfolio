@@ -276,6 +276,13 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 #ag-rc-pips .ag-pip span{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:0.03em;color:#5f726c;}
 #ag-rc-pips .ag-pip.con span{color:#b06a62;}
 #ag-rc-pips .ag-pip.cor span{color:#6f9c91;}
+#ag-fs{position:absolute;top:8px;right:8px;z-index:60;display:none;width:40px;height:40px;align-items:center;justify-content:center;border-radius:10px;border:1px solid rgba(255,255,255,0.18);background:rgba(6,18,22,0.68);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#cdd6d2;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s ease,color .15s ease;}
+#ag-fs:hover{border-color:rgba(125,211,192,0.5);color:#e9eef7;}
+#ag-fs:focus-visible{outline:2px solid #7dd3c0;outline-offset:2px;}
+@media (pointer:coarse){#ag-fs{display:flex;}#ag-hud{padding-right:54px !important;}}
+#ag-stage.ag-fs-on{border-radius:0 !important;}
+#ag-stage.ag-pseudo-fs{position:fixed !important;inset:0 !important;width:100vw !important;height:100vh !important;max-width:none !important;z-index:99998 !important;border-radius:0 !important;}
+#ag-stage:fullscreen,#ag-stage:-webkit-full-screen{width:100vw !important;height:100vh !important;max-width:none !important;border-radius:0 !important;}
 @media (max-width:760px){
   #aegis > div{padding:60px 16px 72px !important;}
   #ag-stage{height:78vh !important;min-height:560px !important;}
@@ -322,6 +329,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 <script src="a11y.js"></script>
 <script src="cursor.js" defer></script>
 <script src="cookie-banner.js" defer></script>
+<script src="concierge.js" defer></script>
 </helmet>
 
 <div id="int-root" class="{{ rootClass }}" style="min-height:100vh;background:var(--bg);color:var(--fg);font-family:'DM Sans',sans-serif;position:relative;overflow-x:hidden;transition:background 0.5s,color 0.5s;">
@@ -1155,7 +1163,8 @@ class Component extends DCLogic {
         row: document.querySelector('.proj-row'),
         iso: document.getElementById('iso-rig'),
         la: document.getElementById('la-heat'),
-        counter: document.querySelector('[data-count]')
+        counter: document.querySelector('[data-count]'),
+        ag: document.getElementById('ag-stage')
       };
     };
     setTimeout(() => { INITS.forEach(runInit); mark(); }, 120);
@@ -1173,9 +1182,13 @@ class Component extends DCLogic {
         if (!live(m.iso) || !m.iso.children.length) failed.push('3D building');
         if (!live(m.la) || !m.la.children.length) failed.push('light architect');
         if (!live(m.counter)) failed.push('key metrics');
+        if (m.ag && !live(m.ag)) failed.push('AEGIS drills');
         return { ok: !failed.length, failed };
       },
-      reinit: () => { RE_INITS.forEach(runInit); mark(); }
+      reinit: () => {
+        if (this._bootMarks && this._bootMarks.ag && !this._bootMarks.ag.isConnected) this._agInit = false;
+        RE_INITS.forEach(runInit); mark();
+      }
     };
     this.initScrollProgress();
     // Safety net: never let entrance-animated hero content stay invisible if the
@@ -1221,6 +1234,38 @@ class Component extends DCLogic {
       cx = W / 2; cy = H * 0.5; R = Math.min(W, H) * 0.46;
     };
     resize(); this.on(window, 'resize', resize);
+
+    // ---- mobile: fullscreen the game + lock landscape (graceful fallback if unsupported) ----
+    const FS_OPEN = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+    const FS_SHUT = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3a1 1 0 0 0 1-1V4M20 8h-3a1 1 0 0 1-1-1V4M4 16h3a1 1 0 0 1 1 1v3M20 16h-3a1 1 0 0 0-1 1v3"/></svg>';
+    const fsBtn = document.createElement('button');
+    fsBtn.id = 'ag-fs'; fsBtn.type = 'button'; fsBtn.setAttribute('aria-label', 'Play fullscreen'); fsBtn.innerHTML = FS_OPEN;
+    stage.appendChild(fsBtn);
+    const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement;
+    const isFs = () => fsEl() === stage || stage.classList.contains('ag-pseudo-fs');
+    const lockLand = () => { try { const o = window.screen && window.screen.orientation; if (o && o.lock) { const p = o.lock('landscape'); if (p && p.catch) p.catch(() => {}); } } catch (e) {} };
+    const onFsChange = () => {
+      const on = isFs();
+      fsBtn.innerHTML = on ? FS_SHUT : FS_OPEN;
+      fsBtn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'Play fullscreen');
+      stage.classList.toggle('ag-fs-on', on);
+      setTimeout(() => { try { window.dispatchEvent(new Event('resize')); } catch (e) {} }, 80);
+    };
+    const enterFs = () => {
+      const req = stage.requestFullscreen || stage.webkitRequestFullscreen;
+      if (req) {
+        try { const p = req.call(stage); if (p && p.then) p.then(lockLand, () => { stage.classList.add('ag-pseudo-fs'); onFsChange(); }); else lockLand(); }
+        catch (e) { stage.classList.add('ag-pseudo-fs'); lockLand(); onFsChange(); }
+      } else { stage.classList.add('ag-pseudo-fs'); lockLand(); onFsChange(); }
+    };
+    const exitFs = () => {
+      try { const o = window.screen && window.screen.orientation; if (o && o.unlock) o.unlock(); } catch (e) {}
+      if (fsEl()) { try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {} }
+      if (stage.classList.contains('ag-pseudo-fs')) { stage.classList.remove('ag-pseudo-fs'); onFsChange(); }
+    };
+    this.on(fsBtn, 'click', (e) => { e.preventDefault(); e.stopPropagation(); isFs() ? exitFs() : enterFs(); });
+    this.on(document, 'fullscreenchange', onFsChange);
+    this.on(document, 'webkitfullscreenchange', onFsChange);
 
     const AFF = {
       friendly: { label: 'FRIENDLY', color: '#4c9aff' },
@@ -1830,6 +1875,7 @@ class Component extends DCLogic {
   initHeroCanvas() {
     const canvas = document.getElementById('hero-cvs');
     if (!canvas) return;
+    const gen = this._netGen = (this._netGen || 0) + 1; // stale re-init loops exit
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const ctx = canvas.getContext('2d');
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1927,6 +1973,7 @@ class Component extends DCLogic {
     // paint one static frame and stop entirely; throttle to ~30fps when the pointer is idle
     // (the ambient drift is slow enough that half-rate is imperceptible and halves the cost).
     const frame = (now) => {
+      if (gen !== this._netGen) return;
       if (document.hidden) { this._netRaf = requestAnimationFrame(frame); return; }
       if (mx <= -9000 && (now - lastDraw) < 33) { this._netRaf = requestAnimationFrame(frame); return; }
       lastDraw = now || 0;
@@ -1939,8 +1986,9 @@ class Component extends DCLogic {
 
   initScrollReveal() {
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const nodes = [...document.querySelectorAll('[data-reveal]')];
+    const nodes = [...document.querySelectorAll('[data-reveal]')].filter(el => !el.__rbReveal);
     if (!nodes.length) return;
+    nodes.forEach(el => { el.__rbReveal = 1; });
 
     // each item flies in from a direction, then settles dead level
     const dirs = [[-1,0],[1,0],[0,1],[0,-1],[-1,1],[1,1],[-1,-1],[1,-1]];
@@ -2236,9 +2284,9 @@ class Component extends DCLogic {
     const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
     const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };
     const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this.laRecompute(); };
-    const recalc = document.getElementById('la-recalc'); if (recalc) this.on(recalc, 'click', (e) => { e.preventDefault(); reset(); });
-    const addBtn = document.getElementById('la-add'); if (addBtn) this.on(addBtn, 'click', (e) => { e.preventDefault(); addLight(); });
-    const delBtn = document.getElementById('la-del'); if (delBtn) this.on(delBtn, 'click', (e) => { e.preventDefault(); delLight(); });
+    const recalc = document.getElementById('la-recalc'); if (recalc && !recalc.__laWired) { recalc.__laWired = 1; this.on(recalc, 'click', (e) => { e.preventDefault(); reset(); }); }
+    const addBtn = document.getElementById('la-add'); if (addBtn && !addBtn.__laWired) { addBtn.__laWired = 1; this.on(addBtn, 'click', (e) => { e.preventDefault(); addLight(); }); }
+    const delBtn = document.getElementById('la-del'); if (delBtn && !delBtn.__laWired) { delBtn.__laWired = 1; this.on(delBtn, 'click', (e) => { e.preventDefault(); delLight(); }); }
     const infoBtn = document.getElementById('la-info-btn'), infoBox = document.getElementById('la-info'), infoClose = document.getElementById('la-info-close');
     if (infoBtn && infoBox && infoClose) {
       const openInfo = () => { infoBox.style.display = 'flex'; infoBtn.setAttribute('aria-expanded', 'true'); try { infoClose.focus({ preventScroll: true }); } catch (e) {} };
@@ -2314,9 +2362,9 @@ class Component extends DCLogic {
       requestAnimationFrame(step);
     };
     const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); } });
+      entries.forEach(e => { if (e.isIntersecting) { if (!e.target.__rbCounted) { e.target.__rbCounted = 1; animate(e.target); } obs.unobserve(e.target); } });
     }, { threshold: 0.4 });
-    document.querySelectorAll('[data-count]').forEach(el => obs.observe(el));
+    document.querySelectorAll('[data-count]').forEach(el => { if (!el.__rbCounted) obs.observe(el); });
     this._obs.push(obs);
   }
 
@@ -2808,6 +2856,7 @@ class Component extends DCLogic {
   initHeroParallax() {
     const top = document.getElementById('top');
     if (!top) return;
+    const gen = this._hpGen = (this._hpGen || 0) + 1; // stale re-init loops exit
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const cvs = document.getElementById('hp-mesh');
     const ctx = cvs ? cvs.getContext('2d') : null;
@@ -2828,6 +2877,7 @@ class Component extends DCLogic {
     if (reduce) { if (ctx) this.drawMesh(ctx, W, H, 0, 0, 0); return; }
     let last = performance.now();
     const loop = (now) => {
+      if (gen !== this._hpGen) return;
       const dt = Math.min(0.05, (now - last) / 1000); last = now;
       px += (tpx - px) * 0.06; py += (tpy - py) * 0.06;
       const sy = window.scrollY || window.pageYOffset || 0;

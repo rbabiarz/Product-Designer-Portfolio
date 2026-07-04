@@ -60,7 +60,7 @@
   var shown = 1, target = 6, mi = 0, finished = false, revealed = false, timer = null;
 
   function build() {
-    if (wrap || !document.body) return;
+    if (wrap || revealed || !document.body) return;
     wrap = document.createElement('div');
     wrap.id = 'rb-boot';
     wrap.setAttribute('role', 'status');
@@ -114,7 +114,7 @@
     shown += reduce ? Math.max(1, target - shown) : Math.max(0.25, (target - shown) * 0.09);
     if (shown > target) shown = target;
     render();
-    if (finished && shown >= target - 0.5) return reveal();
+    if (finished && shown >= target - 0.5) { shown = 100; render(); return reveal(); }
     timer = setTimeout(step, reduce ? 120 : 40);
   }
 
@@ -153,7 +153,6 @@
     // exists and say what happened + the next step, never a silent trap
     if (!(window.React && window.ReactDOM)) {
       setLabel('the page runtime could not be loaded — check your connection and refresh');
-      target = 100; finished = true;
       setTimeout(function () { finish(false, ['runtime missing']); }, 2200);
       return;
     }
@@ -177,7 +176,6 @@
     try { sessionStorage.setItem('rb-booted', '1'); } catch (e) {}
     document.documentElement.style.overflow = '';
     if (!wrap) return;
-    setLabel('loaded');
     if (reduce) { wrap.remove(); wrap = null; return; }
     wrap.style.opacity = '0';
     setTimeout(function () { if (wrap) { wrap.remove(); wrap = null; } }, 420);
@@ -203,6 +201,7 @@
   if (!firstVisit) { silentHeal(); return; }
 
   (function arm() {
+    if (revealed) return; // failsafe may have fired while this tab was hidden
     if (document.body) {
       build();
       render();
