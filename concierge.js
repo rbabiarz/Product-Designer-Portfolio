@@ -139,11 +139,11 @@
       links: [{ label: 'About page', href: 'about.dc.html' }]
     },
     resume: {
-      title: 'Résumé', org: 'PDF · one page', thumb: null,
-      blurb: 'The full résumé as a PDF — roles, scope, and impact in one page.',
-      tags: ['Résumé'], read: '1 min',
+      title: 'Resume', org: 'PDF · one page', thumb: null,
+      blurb: 'The full resume as a PDF — roles, scope, and impact in one page.',
+      tags: ['Resume'], read: '1 min',
       kw: 'resume cv curriculum pdf download experience roles history',
-      links: [{ label: 'Open the résumé (PDF)', href: 'robert-babiarz-resume.pdf' }]
+      links: [{ label: 'Open the resume (PDF)', href: 'robert-babiarz-resume.pdf' }]
     },
     contact: {
       title: 'Contact', org: 'Available for full-time & contract', thumb: null,
@@ -160,7 +160,7 @@
       reply: 'Defense-adjacent work runs through this portfolio: cyber threat operations, enterprise AI with human-in-the-loop patterns, and playable decision drills built on the thesis that the model brings receipts and you keep the decision.',
       projects: ['ctoc', 'eai', 'aegis'],
       pills: ['Geospatial maps', 'Cyber operations dashboards', 'Systems thinking', 'Data visualization', 'Leadership examples'],
-      tour: { name: 'Defense product designer tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Résumé (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
+      tour: { name: 'Defense product designer tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
     { id: 'enterprise', kw: 'enterprise saas b2b business admin console platform complex workflows internal tools',
       reply: 'The enterprise SaaS work centers on dense, operational surfaces — analytics platforms, a 13-dashboard cyber suite, and AI woven into enterprise workflows.',
       projects: ['insights', 'ctoc', 'eai'],
@@ -180,7 +180,7 @@
     { id: 'leadership', kw: 'leadership lead led leading team teams cross-functional crossfunctional mentor stakeholders strategy strategic executive principal staff head senior seniority',
       reply: "Leadership evidence lives on the About page — cross-functional delivery on North America's largest DALI-2 install, three patent applications, and the career arc from IoT to defense-adjacent AI.",
       projects: ['about', 'dali'],
-      pills: ['Patents', 'Enterprise SaaS work', 'Résumé'] },
+      pills: ['Patents', 'Enterprise SaaS work', 'Resume'] },
     { id: 'iot', kw: 'iot connected hardware devices device sensor sensors embedded lighting luminaire smart building',
       reply: 'Connected-lighting IoT is the origin story: platform analytics, a first-of-its-kind healthcare commissioning system, and a consumer mobile app.',
       projects: ['insights', 'dali', 'smart'],
@@ -212,13 +212,13 @@
     { id: 'patents', kw: 'patent patents invention inventions ip intellectual property',
       reply: 'Three lighting-design patent applications (filed at Signify), each linked to Google Patents from the About page.',
       projects: ['about'],
-      pills: ['Leadership examples', 'IoT work', 'Résumé'] },
+      pills: ['Leadership examples', 'IoT work', 'Resume'] },
     { id: 'hire', kw: 'hire hiring interview role position opening job candidate fit recruit recruiter available availability contract freelance',
-      reply: "Robert is available for full-time and contract work. Tell me the role's domain and I'll line up the most relevant evidence — or jump straight to the résumé and contact below.",
+      reply: "Robert is available for full-time and contract work. Tell me the role's domain and I'll line up the most relevant evidence — or jump straight to the resume and contact below.",
       projects: ['resume', 'contact', 'about'],
       pills: ['Defense industry projects', 'Enterprise SaaS work', 'Design systems experience', 'Leadership examples'] },
     { id: 'resume', kw: 'resume cv curriculum vitae download pdf',
-      reply: 'Here is the résumé, plus the fastest routes to evidence behind it.',
+      reply: 'Here is the resume, plus the fastest routes to evidence behind it.',
       projects: ['resume', 'about', 'contact'],
       pills: ['Leadership examples', 'Enterprise SaaS work', 'Defense industry projects'] }
   ];
@@ -286,7 +286,7 @@
     if (secHits.length) {
       return { text: 'Here is where that comes up on this site — jump straight to the section:', sections: secHits, pills: DEFAULT_PILLS.slice(0, 4), intent: 'search' };
     }
-    return { text: "I couldn't match that to anything indexed on this site. Try a domain (defense, fintech, IoT), a craft (design systems, accessibility, data viz), or ask for leadership, patents, or the résumé.", projects: ['insights', 'ctoc'], pills: DEFAULT_PILLS.slice(0, 4), intent: 'none' };
+    return { text: "I couldn't match that to anything indexed on this site. Try a domain (defense, fintech, IoT), a craft (design systems, accessibility, data viz), or ask for leadership, patents, or the resume.", projects: ['insights', 'ctoc'], pills: DEFAULT_PILLS.slice(0, 4), intent: 'none' };
   }
 
   /* ================= STATE ================= */

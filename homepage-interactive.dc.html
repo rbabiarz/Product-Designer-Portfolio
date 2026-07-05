@@ -69,7 +69,7 @@ html{scroll-behavior:smooth}
 @keyframes laScan{0%{transform:translateY(-100%);opacity:0}10%{opacity:0.9}90%{opacity:0.9}100%{transform:translateY(1100%);opacity:0}}
 #la-heat>div{opacity:0;transition:opacity .5s ease}
 #la-heat.la-on>div{opacity:1}
-.la-fx{position:absolute;transform:translate(-50%,-50%);width:27px;height:11px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);transition:box-shadow .12s ease,border-color .12s ease;}
+.la-fx{pointer-events:auto;touch-action:none;position:absolute;transform:translate(-50%,-50%);width:27px;height:11px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);transition:box-shadow .12s ease,border-color .12s ease;}
 .la-fx::after{content:'';position:absolute;left:50%;top:50%;width:39px;height:39px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(155,232,74,0.20),transparent 70%);border-radius:50%;}
 .la-fx.on{border-color:#cdffa0;box-shadow:0 0 14px rgba(155,232,74,0.95);}
 #la-plate{user-select:none;-webkit-user-select:none;}
@@ -366,7 +366,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
         <a href="#metrics" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Impact</a>
         <a href="about.dc.html" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">About</a>
         <a href="#contact" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Contact</a>
-        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Résumé ↓</a>
+        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="nav-cm" data-cursor="hover" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Resume ↓</a>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <details class="int-switch" style="position:relative;">
@@ -448,7 +448,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
       </div>
       <div data-hero-anim="1" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:30px;animation:fade-up 0.8s ease 0.6s both;position:relative;z-index:3;">
         <a href="#work" data-cursor="hover" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bg);background:var(--ac);padding:14px 24px;border-radius:999px;text-decoration:none;transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(76,168,143,0.35)">View selected work <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" data-cursor="hover" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg);border:1px solid var(--line2);padding:14px 24px;border-radius:999px;text-decoration:none;transition:border-color .2s,color .2s;" style-hover="border-color:var(--ac);color:var(--ac)">Résumé ↓</a>
+        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" data-cursor="hover" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg);border:1px solid var(--line2);padding:14px 24px;border-radius:999px;text-decoration:none;transition:border-color .2s,color .2s;" style-hover="border-color:var(--ac);color:var(--ac)">Resume ↓</a>
       </div>
     </div>
 
@@ -669,11 +669,11 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
     <div id="la-scroll" style="position:relative;height:100vh;">
       <div id="la-sticky" style="position:relative;height:100vh;overflow:hidden;background:var(--la-bg);">
         <!-- copy HUD (desktop overlay · mobile stacks above stage) -->
-        <div id="la-copy" style="position:absolute;top:7%;left:5%;max-width:430px;z-index:8;">
+        <div id="la-copy" style="position:absolute;top:7%;left:5%;max-width:430px;z-index:8;pointer-events:none;">
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--la-accent);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">Light Architect</div>
           <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,50px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--la-title);margin-bottom:18px;white-space:nowrap;">Designing the tools<br/>that design light.</h2>
           <p style="font-size:16px;line-height:1.62;color:var(--la-body);max-width:400px;">A browser-based photometric planner: drop fixtures on any address, and watch illuminance render live across the site, footcandle grids, stat areas, and spec-ready PDFs, all from satellite imagery.</p>
-          <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" data-cursor="hover" style="margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--la-btn-tx);background:var(--la-btn-bg);border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--la-shadow)">Explore Light Architect <span style="opacity:0.62;font-weight:500;">· cooperlighting.com</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">(opens the Cooper Lighting website in a new tab)</span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <a href="https://www.cooperlighting.com/global/solutions/technologies/light-architect" target="_blank" rel="noopener" data-cursor="hover" style="pointer-events:auto;margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--la-btn-tx);background:var(--la-btn-bg);border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--la-shadow)">Explore Light Architect <span style="opacity:0.62;font-weight:500;">· cooperlighting.com</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">(opens the Cooper Lighting website in a new tab)</span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
           <div style="margin-top:14px;">
             <span style="display:inline-flex;align-items:center;gap:9px;background:var(--la-glass2);border:1px solid var(--la-bd);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:8px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--la-body);">
               Case study coming soon
@@ -695,6 +695,8 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
       <div class="la-info-row"><span class="la-info-k">MAX</span><span>The brightest cell, directly under a pole. Peaks several times the average are normal in a parking lot — uniformity is judged by MAX:MIN, not by MAX alone.</span></div>
       <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. IES RP-8-22 requires <strong>≥ 0.2 fc</strong> maintained at grade for parking lots and drive aisles.</span></div>
       <div class="la-info-row"><span class="la-info-k">MAX:MIN</span><span>Uniformity: maximum ÷ minimum. IES RP-8-22 allows up to <strong>20:1</strong> for parking lots — lower is more uniform.</span></div>
+      <div class="la-info-row"><span class="la-info-k">AVG:MIN</span><span>Average ÷ minimum — the uniformity commercial design guides judge; the shipped Light Architect reports both ratios.</span></div>
+      <div class="la-info-row"><span class="la-info-k">RP-8-22</span><span>Basic requirements, parking lots at grade (not security lighting): all lots &amp; drive aisles <strong>0.2 fc</strong> min at <strong>20:1</strong>; transaction areas <strong>0.9 fc</strong> pre-curfew / <strong>0.2</strong> post at <strong>15:1</strong>. Chosen over IES RP-6-20 (sports fields) and the Lighting Handbook dealer-lot tables because this site is an open customer parking lot at grade.</span></div>
       <div class="la-info-h">Why it matters</div>
               <p style="font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:var(--la-dim);margin:0;">Targets follow IES RP-8-22, basic requirements for parking lots at grade (not security lighting): ≥ 0.2 fc maintained minimum and ≤ 20:1 max:min uniformity. Transaction areas call for 0.9 fc pre-curfew / 0.2 post-curfew at 15:1, and project specifics may necessitate different criteria. Values compute live — move a fixture and watch MAX:MIN respond.</p>
             </div>
@@ -760,11 +762,12 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
             </div>
             <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
             <div style="padding:4px 16px 16px;">
-              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--la-cell-grid);border:1px solid var(--la-cell-grid);border-radius:6px;overflow:hidden;">
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-avg">1.60</span></div></div>
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-max">6.34</span></div></div>
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-min">0.8</span></div></div>
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX:MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-accent);margin-top:3px;"><span id="la-maxmin">8.0</span></div></div>
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--la-cell-grid);border:1px solid var(--la-cell-grid);border-radius:6px;overflow:hidden;">
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-avg">2.05</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-max">3.20</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-min">1.5</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">AVG:MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-avgmin">1.4</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX:MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-accent);margin-top:3px;"><span id="la-maxmin">2.1</span></div></div>
               </div>
               <div id="la-ies" role="status" style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.05em;color:var(--la-accent);"></div>
               <div style="display:flex;align-items:center;gap:7px;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.05em;color:var(--la-dim);">
@@ -1059,7 +1062,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           </details>
           <div style="display:flex;gap:10px;">
             <a href="https://linkedin.com/in/robert-babiarz" target="_blank" rel="noopener" class="scp-ghost" data-cursor="hover" style="flex:1;border:1px solid var(--line2);color:var(--fg);padding:14px;border-radius:10px;font-size:13px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s,color 0.2s,border-color 0.2s;">LinkedIn ↗</a>
-            <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="scp-ghost" data-cursor="hover" style="flex:1;border:1px solid var(--line2);color:var(--fg);padding:14px;border-radius:10px;font-size:13px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s,color 0.2s,border-color 0.2s;">Résumé ↓</a>
+            <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="scp-ghost" data-cursor="hover" style="flex:1;border:1px solid var(--line2);color:var(--fg);padding:14px;border-radius:10px;font-size:13px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s,color 0.2s,border-color 0.2s;">Resume ↓</a>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.05em;margin-top:16px;text-align:center;"><a href="tel:+14163154761" style="color:inherit;text-decoration:none;">416-315-4761</a> · <a href="mailto:rbabiarz@gmail.com" style="color:var(--ac2);text-decoration:underline;text-underline-offset:2px;">rbabiarz@gmail.com</a></div>
         </div>
@@ -2150,13 +2153,13 @@ class Component extends DCLogic {
     for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
       const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
       let e = 0;
-      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.012 + (dx * dx + dy * dy) * 30); }
+      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.03 + (dx * dx + dy * dy) * 8.28); }
       const edge = Math.min(px, 1 - px, py, 1 - py);
       E.push(e); // each luminaire keeps full output wherever it sits; stats still read the interior stat area only
       inside.push(edge > 0.14);
     }
     // calibrate once against the DEFAULT pole grid — a representative IES RP-8-22
-    // basic parking design (~1.6 fc avg, peaks under poles, ~8:1 max:min) — and
+    // basic parking design; Galleon II throw widened 30% with per-pole peak preserved (~2 fc avg, ~2:1 max:min) so fewer poles still meet the standard — and
     // hold the scale fixed, so user edits genuinely move the numbers.
     if (this._laK == null) {
       const D = (this._laDefault && this._laDefault.length) ? this._laDefault : fx;
@@ -2165,15 +2168,15 @@ class Component extends DCLogic {
         const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
         if (Math.min(px, 1 - px, py, 1 - py) <= 0.14) continue;
         let e = 0;
-        for (let i = 0; i < D.length; i++) { const dx = px - D[i].x, dy = (py - D[i].y) * 0.92; e += 1 / (0.012 + (dx * dx + dy * dy) * 30); }
+        for (let i = 0; i < D.length; i++) { const dx = px - D[i].x, dy = (py - D[i].y) * 0.92; e += 1 / (0.03 + (dx * dx + dy * dy) * 8.28); }
         dSum += e; dN++;
       }
-      this._laK = 1.6 / ((dSum / (dN || 1)) || 1);
+      this._laK = 2.05 / ((dSum / (dN || 1)) || 1);
     }
     const k = this._laK, kids = heat.children;
     this._laV = []; let fcMin = 1e9, fcMax = -1e9, fcSum = 0, fcN = 0;
     for (let i = 0; i < E.length; i++) {
-      const fc = E[i] * k, v = fc / 6.5;
+      const fc = E[i] * k, v = Math.pow(fc / 6.8, 0.72); // tone curve: one pole crests in the warm band (~0.63); only 2-3 overlapping poles reach the hot band (>0.8)
       this._laV.push(v < 0 ? 0 : v > 1 ? 1 : v);
       if (kids[i]) kids[i].textContent = fc.toFixed(1);
       if (inside[i]) { if (fc < fcMin) fcMin = fc; if (fc > fcMax) fcMax = fc; fcSum += fc; fcN++; }
@@ -2183,7 +2186,8 @@ class Component extends DCLogic {
     // maintained minimum >= 0.2 fc at grade, uniformity max:min <= 20:1.
     const fcAvg = fcSum / (fcN || 1), maxmin = fcMin > 0.01 ? fcMax / fcMin : 0;
     const set = (id, val, dec) => { const el = document.getElementById(id); if (el) el.textContent = val.toFixed(dec); };
-    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-maxmin', maxmin, 1);
+    const avgmin = fcMin > 0.01 ? fcAvg / fcMin : 0;
+    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-avgmin', avgmin, 1); set('la-maxmin', maxmin, 1);
     const ies = document.getElementById('la-ies');
     if (ies) {
       const okMin = fcMin >= 0.2, okUni = maxmin > 0 && maxmin <= 20;
@@ -2221,6 +2225,12 @@ class Component extends DCLogic {
           laStage = document.getElementById('la-stage');
     if (panel && head && laStage && !head._laBound) {
       head._laBound = true;
+      // at laptop widths the open panel covers the right of the plate and its
+      // fixtures can't be grabbed — start collapsed there; one tap expands it
+      if ((window.innerWidth || 9999) <= 1520 && !panel.classList.contains('la-collapsed')) {
+        panel.classList.add('la-collapsed');
+        head.setAttribute('aria-expanded', 'false');
+      }
       head.style.cursor = 'grab';
       head.style.userSelect = 'none'; head.style.webkitUserSelect = 'none'; head.style.touchAction = 'none';
       head.title = 'Drag to move · click to collapse';
@@ -2311,14 +2321,19 @@ class Component extends DCLogic {
     });
 
     // empty plate: desktop click adds a luminaire; on touch the gesture is left alone so the page scrolls
-    this.on(plate, 'pointerdown', (e) => {
-      if (COARSE) return;
+    // grab from anywhere on the stage — at laptop widths parts of the plate sit
+    // under copy/HUD chrome, and a press near a fixture should still grab it —
+    // but never steal the press from real controls.
+    const grabHost = document.getElementById('la-stage') || plate;
+    const onChrome = (e) => !!(e.target && e.target.closest && e.target.closest('#la-panel, #la-info, .la-tb, a, button, [role="dialog"]'));
+    this.on(grabHost, 'pointerdown', (e) => {
+      if (COARSE || onChrome(e)) return;
       const px = e.clientX, py = e.clientY, n = nearest(px, py);
       if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; this._laSel = n.i; }
       else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; this._laSel = this._laDrag; }
       plate.style.cursor = 'grabbing'; this.laRecompute(); e.preventDefault();
     });
-    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
+    this.on(grabHost, 'dblclick', (e) => { if (COARSE || onChrome(e)) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
 
     const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
     const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };

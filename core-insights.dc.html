@@ -178,6 +178,7 @@ summary::-webkit-details-marker{display:none}
         Robert Babiarz
       </a>
       <div style="display:flex;align-items:center;gap:10px;">
+        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" data-cursor="hover" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;color:var(--c-accent);font-weight:700;text-decoration:none;">RESUME <span class="msi" aria-hidden="true" style="font-size:24px;">download</span></a>
         <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background 0.2s,border-color 0.2s;" style-hover="background:var(--c-card)">
           <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span></sc-if>
           <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span></sc-if>
@@ -937,7 +938,6 @@ summary::-webkit-details-marker{display:none}
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">Next case study</div>
         <a href="dali-2-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s;" style-hover="color:var(--c-teal)">DALI-2 Lighting System <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
       </div>
-      <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);font-weight:600;text-decoration:none;">Résumé ↓</a>
       <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
       <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s;" style-hover="color:var(--c-ink)"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
     </div>
@@ -1172,7 +1172,7 @@ class Component extends DCLogic {
       { id: 'col2', name: 'Collaboration 2', type: 'Collaboration', occ: 58, cap: 8, sensors: 4, temp: '21.8°C', x: '78.5%', y: '28%', w: '18.5%', h: '20%' },
       { id: 'lobby', name: 'Lobby & Reception', type: 'Lobby', occ: 92, cap: 60, sensors: 4, temp: '20.2°C', x: '3%', y: '51%', w: '21%', h: '43%' },
       { id: 'desk', name: 'Hot Desk Pod', type: 'Workspace · Hot desk', occ: 55, cap: 40, sensors: 9, temp: '21.6°C', x: '26%', y: '51%', w: '29%', h: '24%' },
-      { id: 'cafe', name: 'Café Lounge', type: 'Amenity', occ: 78, cap: 50, sensors: 5, temp: '22.3°C', x: '26%', y: '77%', w: '29%', h: '17%' },
+      { id: 'cafe', name: 'Cafe Lounge', type: 'Amenity', occ: 78, cap: 50, sensors: 5, temp: '22.3°C', x: '26%', y: '77%', w: '29%', h: '17%' },
       { id: 'well', name: 'Wellness Room', type: 'Amenity', occ: 0, cap: 6, sensors: 2, temp: '20.0°C', x: '57%', y: '51%', w: '18.5%', h: '20%' },
       { id: 'srv', name: 'Server Room', type: 'Infrastructure', occ: 0, cap: 0, sensors: 6, temp: '18.5°C', infra: true, x: '78.5%', y: '51%', w: '18.5%', h: '20%' },
       { id: 'hall', name: 'Town Hall', type: 'Theatre', occ: 30, cap: 100, sensors: 8, temp: '21.2°C', x: '57%', y: '73%', w: '40%', h: '21%' },

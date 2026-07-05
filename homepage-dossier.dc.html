@@ -106,7 +106,7 @@ body{margin:0}
 #la-heat>div{opacity:0;transition:opacity .5s ease}
 #la-heat.la-on>div{opacity:1}
 .la-layer{will-change:transform}
-.la-fx{position:absolute;transform:translate(-50%,-50%);width:27px;height:11px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);transition:box-shadow .12s ease,border-color .12s ease;}
+.la-fx{pointer-events:auto;touch-action:none;position:absolute;transform:translate(-50%,-50%);width:27px;height:11px;background:#0c1118;border:1.5px solid #9be84a;border-radius:2px;box-shadow:0 0 7px rgba(155,232,74,0.45);transition:box-shadow .12s ease,border-color .12s ease;}
 .la-fx::after{content:'';position:absolute;left:50%;top:50%;width:39px;height:39px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(155,232,74,0.20),transparent 70%);border-radius:50%;}
 .la-fx.on{border-color:#cdffa0;box-shadow:0 0 14px rgba(155,232,74,0.95);}
 @media (hover: none){
@@ -135,6 +135,12 @@ body{margin:0}
 #architect #la-scroll{position:absolute;inset:0;z-index:0}
 #architect #la-sticky{position:absolute;inset:0}
 #architect #la-panel{position:absolute;top:20px;right:20px;width:min(320px,34vw);max-width:320px;z-index:6;pointer-events:auto}
+/* laptop widths: the open panel would cover the plate's upper right and the rotated
+   corners clip at the stage edge — dock the panel low and pull the plate in a touch */
+@media (max-width:1380px) and (min-width:861px){
+  #architect #la-panel{top:auto;bottom:18px}
+  #architect #la-plate-wrap{top:45% !important;width:min(720px,60vw) !important;height:min(469px,39vw) !important;margin-left:calc(min(720px,60vw) / -2) !important;margin-top:calc(min(469px,39vw) / -2) !important}
+}
 @media (max-width:860px){
   #la-hint{bottom:3.5% !important;border-radius:12px !important;padding:7px 11px !important;white-space:normal !important}
   #la-hint .la-hint-long{display:none}
@@ -495,6 +501,8 @@ body{margin:0}
       <div class="la-info-row"><span class="la-info-k">MAX</span><span>The brightest cell, directly under a pole. Peaks several times the average are normal in a parking lot — uniformity is judged by MAX:MIN, not by MAX alone.</span></div>
       <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. IES RP-8-22 requires <strong>≥ 0.2 fc</strong> maintained at grade for parking lots and drive aisles.</span></div>
       <div class="la-info-row"><span class="la-info-k">MAX:MIN</span><span>Uniformity: maximum ÷ minimum. IES RP-8-22 allows up to <strong>20:1</strong> for parking lots — lower is more uniform.</span></div>
+      <div class="la-info-row"><span class="la-info-k">AVG:MIN</span><span>Average ÷ minimum — the uniformity commercial design guides judge; the shipped Light Architect reports both ratios.</span></div>
+      <div class="la-info-row"><span class="la-info-k">RP-8-22</span><span>Basic requirements, parking lots at grade (not security lighting): all lots &amp; drive aisles <strong>0.2 fc</strong> min at <strong>20:1</strong>; transaction areas <strong>0.9 fc</strong> pre-curfew / <strong>0.2</strong> post at <strong>15:1</strong>. Chosen over IES RP-6-20 (sports fields) and the Lighting Handbook dealer-lot tables because this site is an open customer parking lot at grade.</span></div>
       <div class="la-info-h">Why it matters</div>
               <p style="font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:#6b5d42;margin:0;">Targets follow IES RP-8-22, basic requirements for parking lots at grade (not security lighting): ≥ 0.2 fc maintained minimum and ≤ 20:1 max:min uniformity. Transaction areas call for 0.9 fc pre-curfew / 0.2 post-curfew at 15:1, and project specifics may necessitate different criteria. Values compute live — move a fixture and watch MAX:MIN respond.</p>
             </div>
@@ -551,11 +559,12 @@ body{margin:0}
             <button id="la-info-btn" type="button" aria-haspopup="dialog" aria-controls="la-info" aria-expanded="false" title="How to read the photometric map" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#fbf5e6;color:#3a3120;padding:6px 10px;border:1px solid rgba(10,8,4,0.3);font-weight:600;"><span class="msi" aria-hidden="true" style="font-size:24px;">info</span> INFO</button>
           </div>
           <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(10,8,4,0.18);">
-            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-avg">1.60</span></div></div>
-            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-max">6.34</span></div></div>
-            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-min">0.8</span></div></div>
-            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MAX:MIN</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;color:#b23a2e;"><span id="la-maxmin">8.0</span></div></div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(10,8,4,0.18);">
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-avg">2.05</span></div></div>
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-max">3.29</span></div></div>
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-min">0.5</span></div></div>
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">AVG:MIN</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;"><span id="la-avgmin">3.8</span></div></div>
+            <div style="background:#fbf5e6;padding:14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:#6b5d42;margin-bottom:6px;">MAX:MIN</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;color:#b23a2e;"><span id="la-maxmin">6.1</span></div></div>
           </div>
           <div id="la-ies" role="status" style="padding:10px 16px 0;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;color:#1c6b39;"></div>
           <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid rgba(10,8,4,0.18);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.05em;color:#6b5d42;">
@@ -738,7 +747,7 @@ body{margin:0}
           </details>
           <div style="display:flex;gap:10px;">
             <a href="https://linkedin.com/in/robert-babiarz" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">LinkedIn ↗</a>
-            <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">Résumé ↓</a>
+            <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="flex:1;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;text-align:center;transition:background 0.2s;" style-hover="background:#e7d9b8">Resume ↓</a>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.05em;margin-top:14px;text-align:center;"><a href="tel:+14163154761" style="color:inherit;text-decoration:none;">416-315-4761</a> · <a href="mailto:rbabiarz@gmail.com" style="color:#b23a2e;text-decoration:underline;text-underline-offset:2px;">rbabiarz@gmail.com</a></div>
         </div>
@@ -1520,7 +1529,7 @@ class Component extends DCLogic {
     this._laCOLS = COLS; this._laROWS = ROWS;
     heat.style.gridTemplateColumns = 'repeat(' + COLS + ',1fr)';
     heat.style.gridTemplateRows = 'repeat(' + ROWS + ',1fr)';
-    const cx4 = [0.16, 0.39, 0.61, 0.84], cy4 = [0.17, 0.39, 0.61, 0.83];
+    const cx4 = [0.18, 0.36, 0.54, 0.72], cy4 = [0.22, 0.38, 0.55, 0.71]; // pulled inward: the dossier layout crops the plate's rotated corners and its summary panel overlays the top-right — every default pole must stay visible and grabbable
     this._laDefault = [];
     cx4.forEach(x => cy4.forEach(y => this._laDefault.push({ x, y })));
     this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y }));
@@ -1568,13 +1577,13 @@ class Component extends DCLogic {
     for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
       const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
       let e = 0;
-      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.012 + (dx * dx + dy * dy) * 30); }
+      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.03 + (dx * dx + dy * dy) * 8.28); }
       const edge = Math.min(px, 1 - px, py, 1 - py);
       E.push(e); // each luminaire keeps full output wherever it sits; stats still read the interior stat area only
       inside.push(edge > 0.14);
     }
     // calibrate once against the DEFAULT pole grid — a representative IES RP-8-22
-    // basic parking design (~1.6 fc avg, peaks under poles, ~8:1 max:min) — and
+    // basic parking design; Galleon II throw widened 30% with per-pole peak preserved (~2 fc avg, ~2:1 max:min) so fewer poles still meet the standard — and
     // hold the scale fixed, so user edits genuinely move the numbers.
     if (this._laK == null) {
       const D = (this._laDefault && this._laDefault.length) ? this._laDefault : fx;
@@ -1583,15 +1592,15 @@ class Component extends DCLogic {
         const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
         if (Math.min(px, 1 - px, py, 1 - py) <= 0.14) continue;
         let e = 0;
-        for (let i = 0; i < D.length; i++) { const dx = px - D[i].x, dy = (py - D[i].y) * 0.92; e += 1 / (0.012 + (dx * dx + dy * dy) * 30); }
+        for (let i = 0; i < D.length; i++) { const dx = px - D[i].x, dy = (py - D[i].y) * 0.92; e += 1 / (0.03 + (dx * dx + dy * dy) * 8.28); }
         dSum += e; dN++;
       }
-      this._laK = 1.6 / ((dSum / (dN || 1)) || 1);
+      this._laK = 2.05 / ((dSum / (dN || 1)) || 1);
     }
     const k = this._laK, kids = heat.children;
     this._laV = []; let fcMin = 1e9, fcMax = -1e9, fcSum = 0, fcN = 0;
     for (let i = 0; i < E.length; i++) {
-      const fc = E[i] * k, v = fc / 6.5;
+      const fc = E[i] * k, v = Math.pow(fc / 6.8, 0.72); // tone curve: one pole crests in the warm band (~0.63); only 2-3 overlapping poles reach the hot band (>0.8)
       this._laV.push(v < 0 ? 0 : v > 1 ? 1 : v);
       if (kids[i]) kids[i].textContent = fc.toFixed(1);
       if (inside[i]) { if (fc < fcMin) fcMin = fc; if (fc > fcMax) fcMax = fc; fcSum += fc; fcN++; }
@@ -1601,7 +1610,8 @@ class Component extends DCLogic {
     // maintained minimum >= 0.2 fc at grade, uniformity max:min <= 20:1.
     const fcAvg = fcSum / (fcN || 1), maxmin = fcMin > 0.01 ? fcMax / fcMin : 0;
     const set = (id, val, dec) => { const el = document.getElementById(id); if (el) el.textContent = val.toFixed(dec); };
-    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-maxmin', maxmin, 1);
+    const avgmin = fcMin > 0.01 ? fcAvg / fcMin : 0;
+    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-avgmin', avgmin, 1); set('la-maxmin', maxmin, 1);
     const ies = document.getElementById('la-ies');
     if (ies) {
       const okMin = fcMin >= 0.2, okUni = maxmin > 0 && maxmin <= 20;
@@ -1664,14 +1674,19 @@ class Component extends DCLogic {
       }
       this._laTapI = idx; this._laTapT = now; this._laDrag = idx; this._laSel = idx; this.laRecompute();
     });
-    this.on(plate, 'pointerdown', (e) => {
-      if (COARSE) return;
+    // grab from anywhere on the stage — at laptop widths parts of the plate sit
+    // under copy/HUD chrome, and a press near a fixture should still grab it —
+    // but never steal the press from real controls.
+    const grabHost = document.getElementById('la-stage') || plate;
+    const onChrome = (e) => !!(e.target && e.target.closest && e.target.closest('#la-panel, #la-info, .la-tb, a, button, [role="dialog"]'));
+    this.on(grabHost, 'pointerdown', (e) => {
+      if (COARSE || onChrome(e)) return;
       const px = e.clientX, py = e.clientY, n = nearest(px, py);
       if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; this._laSel = n.i; }
       else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; this._laSel = this._laDrag; }
       plate.style.cursor = 'grabbing'; this.laRecompute(); e.preventDefault();
     });
-    this.on(plate, 'dblclick', (e) => { if (COARSE) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
+    this.on(grabHost, 'dblclick', (e) => { if (COARSE || onChrome(e)) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
     const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
     const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };
     const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this.laRecompute(); };
