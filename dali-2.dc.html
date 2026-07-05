@@ -1028,12 +1028,8 @@ class Component extends DCLogic {
     const ac = '#0d5350', ac2 = '#4a6fd0';
     const bar = document.createElement('div'); bar.id = 'scroll-prog-bar';
     bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;background:linear-gradient(90deg,' + ac + ',' + ac2 + ');transition:width 0.08s linear;pointer-events:none;';
-    const pill = document.createElement('div'); pill.id = 'scroll-prog-pill';
-    pill.style.cssText = 'position:fixed;bottom:56px;left:20px;z-index:9999;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(20,18,16,0.82);backdrop-filter:blur(8px);border:1px solid ' + ac2 + '66;border-radius:999px;padding:7px 13px;pointer-events:none;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s;';
-    pill.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:' + ac2 + ';"></span><span id="scroll-prog-num">0%</span>';
-    document.body.appendChild(bar); document.body.appendChild(pill);
-    const num = document.getElementById('scroll-prog-num');
-    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; num.textContent = Math.round(p * 100) + '%'; const _f = document.querySelector('footer'); const _footIn = _f ? _f.getBoundingClientRect().top < window.innerHeight - 30 : st >= h - 140; pill.style.opacity = (st > 60 && !_footIn) ? '1' : '0'; };
+    document.body.appendChild(bar);
+    const update = () => { const st = window.scrollY || document.documentElement.scrollTop || 0; const h = (document.documentElement.scrollHeight - window.innerHeight) || 1; const p = Math.max(0, Math.min(1, st / h)); bar.style.width = (p * 100) + '%'; };
     update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update);
   }
 

@@ -266,12 +266,22 @@
       'pointer-events:none', 'user-select:none'
     ].join(';');
     var glyph = '<span class="msi" aria-hidden="true" style="font-size:24px;opacity:0.65;vertical-align:-0.18em;">crop_free</span>';
+    // combined readout: scroll progress + viewport size in a single pill
+    p.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:#4ca88f;flex:0 0 auto;"></span>' +
+      '<span id="rb-vp-pct" style="min-width:3ch;text-align:right;">0%</span>' +
+      '<span style="width:1px;height:12px;background:rgba(255,255,255,0.22);flex:0 0 auto;"></span>' + glyph;
     var label = document.createElement('span');
-    p.innerHTML = glyph;
     p.appendChild(label);
+    var pctEl = p.querySelector('#rb-vp-pct');
+    function pct() {
+      var st = window.scrollY || document.documentElement.scrollTop || 0;
+      var h = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+      pctEl.textContent = Math.round(Math.max(0, Math.min(1, st / h)) * 100) + '%';
+    }
     var t = null;
     function update() {
       label.textContent = window.innerWidth + ' \u00d7 ' + window.innerHeight + ' px';
+      pct();
     }
     window.addEventListener('resize', function () {
       if (t) clearTimeout(t);
@@ -291,7 +301,7 @@
       }
       p.style.opacity = hide ? '0' : '1';
     }
-    window.addEventListener('scroll', vis, { passive: true });
+    window.addEventListener('scroll', function () { vis(); pct(); }, { passive: true });
     vis();
     update();
     document.body.appendChild(p);
