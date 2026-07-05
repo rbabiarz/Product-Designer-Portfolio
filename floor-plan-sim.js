@@ -100,6 +100,8 @@
         '<div class="fpsim-toolbar">' +
           '<span class="fpsim-lbl">Presets</span>' +
           '<button type="button" class="fpsim-preset" data-preset="split">8 Separate Rooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="six">6 Ballrooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="four">4 Ballrooms</button>' +
           '<button type="button" class="fpsim-preset" data-preset="two">2 Events</button>' +
           '<button type="button" class="fpsim-preset" data-preset="grand">1 Grand Ballroom</button>' +
           '<div class="fpsim-badge"><b data-zone-count>8</b><span>active<br>lighting zones</span></div>' +
@@ -202,6 +204,16 @@
     }
 
     root.querySelector('[data-preset="split"]').addEventListener('click', function () { walls = Object.assign({}, DEFAULT_WALLS); render(); });
+    root.querySelector('[data-preset="six"]').addEventListener('click', function () {
+      // A+B and F+G merge: 6 zones
+      walls = Object.assign({}, DEFAULT_WALLS, { P1: true, P6: true });
+      render();
+    });
+    root.querySelector('[data-preset="four"]').addEventListener('click', function () {
+      // A+B+C, D+E, F+G, H: 4 zones
+      walls = Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P4: true, P6: true });
+      render();
+    });
     root.querySelector('[data-preset="two"]').addEventListener('click', function () {
       walls = Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P3: true, P5: true, P6: true, P7: true });
       render();

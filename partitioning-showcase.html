@@ -50,7 +50,7 @@ body{margin:0}
 .center{text-align:center}
 .center .lead{margin-left:auto;margin-right:auto}
 
-.win{border-radius:14px;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 24px 44px -18px rgba(5,12,20,.42)}
+.win{border-radius:0;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 24px 44px -18px rgba(5,12,20,.42)}
 .win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
 .win-dot{width:11px;height:11px;border-radius:50%}
 .win img{width:100%;display:block}
@@ -221,7 +221,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="band-inner">
         <div class="win" style="max-width:980px;margin:0 auto;animation:cs-float 8s ease-in-out infinite">
           <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">wavelinx · rose-ballroom · partition-plan</span></div>
-          <img src="assets/part/diagram.png" alt="Rose Ballroom partition floor plan, eight sub-areas split by seven operable walls">
+          <img src="assets/part/Partitioning_Desktop_007.jpg" alt="WaveLinx Configure Partitioned Area screen: seven partition walls listed with the sub-areas they join, and Wall 1's sensor assigned to contact-closure input 1 on CCI 1">
         </div>
         <div class="band-cap cap-light">Rose Ballroom, 8 sub-areas · 7 operable walls · merge and split auto-sensed by IRTR contact inputs</div>
       </div>
@@ -265,7 +265,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Merge &amp; split, automatically</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">When a wall opens mid-event the lighting must unify instantly, and re-separate when it closes, without staff recalling scenes by hand.</div></div>
         <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">03</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Configure once, correctly</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">Sub-areas, walls, joins, devices and contact inputs are a lot to set up. One wrong mapping lights the wrong rooms, so the flow had to be guided and hard to get wrong.</div></div>
       </div>
-      <div class="card" data-reveal="" style="margin-top:18px;padding:26px 30px;border-left:3px solid var(--c-accent)">
+      <div class="card" data-reveal="" style="margin-top:18px;padding:26px 30px;">
         <p style="font-family:'Inter',sans-serif;font-size:19px;font-style:italic;font-weight:300;color:var(--c-ink2);line-height:1.55;margin-bottom:10px">“The wall moves. The lights should just know. I don't want to go find a laptop and open a program, I'm holding a phone.”</p>
         <div class="mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted)">Commissioning agent · field research interview</div>
       </div>
@@ -273,6 +273,45 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   </section>
 
   <!-- SHOWCASE: WHAT IT IS -->
+  <div class="band band-navy" data-reveal="" id="floor">
+    <div class="glow" style="width:520px;height:520px;top:-160px;right:6%;background:rgba(95,196,182,.18)"></div>
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:36px">
+        <div class="eyebrow" style="color:#9fe9d8">The Payoff · Live Floor Plan</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Open a wall. <em style="color:#9fe9d8">The rooms merge.</em></h2>
+        <p class="lead" style="color:#bfe7df;max-width:760px;margin:18px auto 0">The Rose Ballroom, 8 sub-areas, 7 walls. <strong style="color:#fff;font-weight:600">Tap any wall</strong> to open or close it; sub-areas joined by an open wall fuse into a single lighting zone.</p>
+      </div>
+      <div data-floor-sim data-reveal="" data-d="1"></div>
+      <div style="margin-top:40px" data-reveal="" data-d="2">
+        <div class="center" style="margin-bottom:22px">
+          <div class="eyebrow" style="color:#9fe9d8">Thought Process</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="gthumbs">
+          <div><div style="background:#fff;border:1px solid rgba(255,255,255,0.18);padding:10px"><img src="assets/part/Partitioning_thought_process_1.png" alt="Rose Ballroom plan with wall panels P1 to P7 arranged around it, each mapped to the sub-areas it joins" style="width:100%;display:block"></div><div class="band-cap cap-light">1 · Map each wall P1–P7 to the sub-areas it joins</div></div>
+          <div><div style="background:#fff;border:1px solid rgba(255,255,255,0.18);padding:10px"><img src="assets/part/Partitioning_thought_process_2.png" alt="App area screens beside the plan, breaking the ballroom into sub-areas A to H with zone groups for chandeliers, coves, sconces and bar" style="width:100%;display:block"></div><div class="band-cap cap-light">2 · Break the ballroom into sub-areas A–H and zone groups</div></div>
+          <div><div style="background:#fff;border:1px solid rgba(255,255,255,0.18);padding:10px"><img src="assets/part/Partitioning_thought_process_3.png" alt="Device screens beside the plan, assigning chandeliers, coves and contact-closure inputs into Sub Area A's zones" style="width:100%;display:block"></div><div class="band-cap cap-light">3 · Assign chandeliers, coves and CCIs into each sub-area's zones</div></div>
+          <div><div style="background:#fff;border:1px solid rgba(255,255,255,0.18);padding:10px"><img src="assets/part/Partitioning_thought_process_4.png" alt="Sub Area A's finished zone list checked against the plan, four zones assigned" style="width:100%;display:block"></div><div class="band-cap cap-light">4 · Check the finished sub-area against the plan</div></div>
+        </div>
+        <p class="mono cap-light" style="text-align:center;margin-top:16px;font-size:10.5px;letter-spacing:0.06em;line-height:1.6">Thinking the room through before the app: every wall, sub-area, chandelier and cove mapped from the Rose Ballroom plan to the objects the configurator needs.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTCOME: EVERY SURFACE -->
+  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">Every Surface</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Commission on a phone, <em>operate on the wall</em></h2>
+      <p class="lead" data-reveal="" data-d="2">An installer configures partitions on a phone at the panel; a venue manager runs the room from a wall-mounted tablet or the web. The same three-step model, sub-areas → walls → devices, scales to each screen.</p>
+    </div>
+    <div class="wrap" style="margin-top:54px">
+      <div data-reveal="" style="background:#fff;border:1px solid var(--c-b2);padding:22px;max-width:1000px;margin:0 auto">
+        <img src="assets/mobile_commissioning.png" alt="Twelve annotated mobile screens of the commissioning flow: create a partitioned area, set the number of walls and sub-areas, add devices, zones and occupancy sets to each sub-area, then match each wall to the sub-areas it divides" style="width:100%;display:block">
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
   <div class="band band-teal" data-reveal="" id="what">
     <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
     <div class="band-inner">
@@ -351,50 +390,6 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   </section>
 
   <!-- SHOWCASE: LIVE FLOOR PLAN -->
-  <div class="band band-navy" data-reveal="" id="floor">
-    <div class="glow" style="width:520px;height:520px;top:-160px;right:6%;background:rgba(95,196,182,.18)"></div>
-    <div class="band-inner">
-      <div class="center" style="margin-bottom:36px">
-        <div class="eyebrow" style="color:#9fe9d8">The Payoff · Live Floor Plan</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Open a wall. <em style="color:#9fe9d8">The rooms merge.</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:760px;margin:18px auto 0">The Rose Ballroom, 8 sub-areas, 7 walls. <strong style="color:#fff;font-weight:600">Tap any wall</strong> to open or close it; sub-areas joined by an open wall fuse into a single lighting zone.</p>
-      </div>
-      <div data-floor-sim data-reveal="" data-d="1"></div>
-      <div style="margin-top:40px" data-reveal="" data-d="2">
-        <div class="center" style="margin-bottom:22px">
-          <div class="eyebrow" style="color:#9fe9d8">The Shipped Floor-Plan View</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="gthumbs">
-          <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/tablet-floor.png" alt="Tablet floor plan view showing devices placed across the sub-areas"></div><div class="band-cap cap-light">Tablet · floor plan, devices</div></div>
-          <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/tablet-zones.png" alt="Tablet floor plan view showing live lighting zones across sub-areas"></div><div class="band-cap cap-light">Tablet · floor plan, zones</div></div>
-        </div>
-        <p class="mono cap-light" style="text-align:center;margin-top:16px;font-size:10.5px;letter-spacing:0.06em;line-height:1.6">On tablet, the same plan maps every chandelier, cove and zone to its sub-area, assign by tapping the floor.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- OUTCOME: EVERY SURFACE -->
-  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
-    <div class="wrap-n center">
-      <div class="eyebrow" data-reveal="">Every Surface</div>
-      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Commission on a phone, <em>operate on the wall</em></h2>
-      <p class="lead" data-reveal="" data-d="2">An installer configures partitions on a phone at the panel; a venue manager runs the room from a wall-mounted tablet or the web. The same three-step model, sub-areas → walls → devices, scales to each screen.</p>
-    </div>
-    <div class="wrap" style="margin-top:54px">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
-        <div class="win" data-reveal=""><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/d-walls.png" alt="Desktop, configure walls, wall-to-sub-area joins and device inputs"></div>
-        <div class="win" data-reveal="" data-d="1"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/d-subareas.png" alt="Desktop, configure sub-areas list"></div>
-        <div class="win" data-reveal="" data-d="2"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/d-devices.png" alt="Desktop, configure devices for each sub-area"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px" class="gthumbs">
-        <div class="win" data-reveal=""><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/m-walls.png" alt="Mobile, walls step of the configuration wizard"></div>
-        <div class="win" data-reveal="" data-d="1"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/m-subareas.png" alt="Mobile, sub-areas step of the configuration wizard"></div>
-        <div class="win" data-reveal="" data-d="2"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/m-complete.png" alt="Mobile, completed configuration confirmation step"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESULTS -->
   <section class="pad">
     <div class="wrap">
       <div class="center" style="margin-bottom:60px">
@@ -423,7 +418,6 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div data-reveal="">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--c-accent)" style="opacity:.55;margin-bottom:18px"><path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5A1.67 1.67 0 0 1 7.17 9.5V6zm9 0A5.17 5.17 0 0 0 11 11.17V18h6.83v-6.83H14.5a1.67 1.67 0 0 1 1.67-1.67V6z"/></svg>
         <p style="font-family:'Inter',sans-serif;font-weight:300;font-style:italic;font-size:clamp(22px,3vw,34px);line-height:1.4;color:var(--c-ink2);letter-spacing:-.5px">The breakthrough wasn't a screen, it was deciding that rooms, not walls, should be the primary object, and letting the wall hardware fall behind a floor plan anyone can read.</p>
-        <div class="mono" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-top:26px">Reflection · Dynamic Space Partitioning</div>
       </div>
     </div>
   </section>
