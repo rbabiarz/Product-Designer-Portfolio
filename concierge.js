@@ -237,8 +237,32 @@
     }
     return n;
   }
+  // full-text section search over window.RB_SEARCH_INDEX (see build-search-index.py):
+  // lets answers deep-link to a specific page *and* section, beyond the case-study cards.
+  function searchSections(q) {
+    var idx = window.RB_SEARCH_INDEX;
+    if (!idx || !idx.length) return [];
+    var out = [];
+    for (var i = 0; i < idx.length; i++) {
+      var e = idx[i];
+      var sc = scoreText(q, e.h) * 2 + scoreText(q, e.p) + scoreText(q, e.k);
+      if (sc > 0) out.push([sc, e]);
+    }
+    out.sort(function (a, b) { return b[0] - a[0]; });
+    return out;
+  }
+  function topSections(scored, min, n) {
+    var seen = {}, out = [];
+    for (var i = 0; i < scored.length && out.length < n; i++) {
+      if (scored[i][0] < min) break;
+      var e = scored[i][1];
+      if (seen[e.u]) continue; seen[e.u] = 1; out.push(e);
+    }
+    return out;
+  }
   function respond(query) {
     var q = tokens(query);
+    var secScored = searchSections(q);
     var best = null, bestScore = 0, second = null;
     for (var i = 0; i < INTENTS.length; i++) {
       var s = scoreText(q, INTENTS[i].kw);
@@ -250,13 +274,17 @@
       var projects = best.projects.slice(0, 4);
       // multi-intent: blend the runner-up's top project in
       if (second && second !== best && scoreText(q, second.kw) >= 2 && projects.indexOf(second.projects[0]) === -1) projects.push(second.projects[0]);
-      return { text: best.reply, projects: projects.slice(0, 4), pills: best.pills, tour: (wantsTour || best.id === 'hire') && best.tour ? best.tour : (best.tour && /hiring|recruit/i.test(query) ? best.tour : null), intent: best.id };
+      return { text: best.reply, projects: projects.slice(0, 4), pills: best.pills, tour: (wantsTour || best.id === 'hire') && best.tour ? best.tour : (best.tour && /hiring|recruit/i.test(query) ? best.tour : null), sections: topSections(secScored, 9, 2), intent: best.id };
     }
     // fallback: score the index directly
     var ranked = Object.keys(P).map(function (k) { return [k, scoreText(q, P[k].kw + ' ' + P[k].title + ' ' + P[k].blurb)]; })
       .sort(function (a, b) { return b[1] - a[1]; }).filter(function (r) { return r[1] > 0; });
     if (ranked.length) {
-      return { text: 'Here is the closest work I can find for that:', projects: ranked.slice(0, 3).map(function (r) { return r[0]; }), pills: DEFAULT_PILLS.slice(0, 4), intent: 'fallback' };
+      return { text: 'Here is the closest work I can find for that:', projects: ranked.slice(0, 3).map(function (r) { return r[0]; }), pills: DEFAULT_PILLS.slice(0, 4), sections: topSections(secScored, 4, 3), intent: 'fallback' };
+    }
+    var secHits = topSections(secScored, 2, 4);
+    if (secHits.length) {
+      return { text: 'Here is where that comes up on this site — jump straight to the section:', sections: secHits, pills: DEFAULT_PILLS.slice(0, 4), intent: 'search' };
     }
     return { text: "I couldn't match that to anything indexed on this site. Try a domain (defense, fintech, IoT), a craft (design systems, accessibility, data viz), or ask for leadership, patents, or the résumé.", projects: ['insights', 'ctoc'], pills: DEFAULT_PILLS.slice(0, 4), intent: 'none' };
   }
@@ -473,6 +501,23 @@
     wrap.appendChild(ol);
     return wrap;
   }
+  function sectionBlock(list) {
+    var wrap = mk('div', 'align-self:stretch;padding:11px 13px;' + T.card);
+    wrap.appendChild(mk('div', 'font-family:' + T.mono + ';font-size:9.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:' + T.accent + ';margin-bottom:8px;', 'Jump to a section'));
+    var col = mk('div', 'display:flex;flex-direction:column;gap:8px;');
+    list.forEach(function (e) {
+      var a = mk('a', 'display:block;text-decoration:none;color:inherit;cursor:pointer;');
+      a.href = e.u;
+      a.setAttribute('data-cursor', 'hover');
+      a.appendChild(mk('div', 'font-size:12.5px;font-weight:700;line-height:1.35;color:' + T.accent + ';',
+        e.p + ' › ' + e.h + ' <span class="msi" aria-hidden="true" style="font-size:1em;">arrow_forward</span>'));
+      if (e.s) a.appendChild(mk('div', 'font-size:11.5px;line-height:1.45;color:' + T.dimText + ';margin-top:2px;', e.s));
+      a.addEventListener('click', function () { track('AI_SECTION_CLICKED', { target: e.u, heading: e.h }); });
+      col.appendChild(a);
+    });
+    wrap.appendChild(col);
+    return wrap;
+  }
   function renderPills(list) {
     els.pills.innerHTML = '';
     (list || DEFAULT_PILLS).slice(0, 6).forEach(function (label) {
@@ -491,13 +536,14 @@
       els.log.appendChild(bubble(m));
       if (m.projects) m.projects.forEach(function (k) { var c = cardFor(k); if (c) els.log.appendChild(c); });
       if (m.tour) els.log.appendChild(tourBlock(m.tour));
+      if (m.sections && m.sections.length) els.log.appendChild(sectionBlock(m.sections));
       if (m.pills) lastPills = m.pills;
     });
     renderPills(lastPills);
     els.log.scrollTop = els.log.scrollHeight;
   }
   function pushAI(text, extra, pills) {
-    var m = { role: 'ai', text: text, projects: extra && extra.projects, tour: extra && extra.tour, pills: pills || (extra && extra.pills) };
+    var m = { role: 'ai', text: text, projects: extra && extra.projects, tour: extra && extra.tour, sections: extra && extra.sections, pills: pills || (extra && extra.pills) };
     state.msgs.push(m); persist(); renderMsgs();
   }
   function ask(q) {

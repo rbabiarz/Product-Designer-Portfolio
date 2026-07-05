@@ -331,6 +331,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 <script src="a11y.js"></script>
 <script src="cursor.js" defer></script>
 <script src="cookie-banner.js" defer></script>
+<script src="search-index.js" defer></script>
 <script src="concierge.js" defer></script>
 </helmet>
 
@@ -690,12 +691,12 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
               <div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:600;color:var(--la-text-strong);letter-spacing:-0.015em;margin-bottom:9px;">Light the site, keep it even.</div>
               <p style="font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.55;color:var(--la-text);margin:0;">Every cell shows calculated illuminance in foot-candles (fc) — the light your GALN Galleon II area luminaires land on Stat Area 1, after a 0.912 light-loss factor. Drag a luminaire, click empty ground to add one, double-click to remove it; the field recomputes live.</p>
       <div class="la-info-h">Read the numbers</div>
-      <div class="la-info-row"><span class="la-info-k">AVG</span><span>Mean illuminance across the stat area. Site lighting reads comfortable at <strong>2–5 fc</strong>.</span></div>
-      <div class="la-info-row"><span class="la-info-k">MAX</span><span>The brightest cell, directly under a luminaire. A MAX far above AVG reads as hot spots.</span></div>
-      <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. Hold <strong>≥ 1.0 fc</strong> so no corner goes dark.</span></div>
-      <div class="la-info-row"><span class="la-info-k">A/MIN</span><span>Uniformity: average ÷ minimum. <strong>≤ 4.0</strong> reads even to the eye; <strong>≤ 3.0</strong> is the enhanced target — lower is more uniform.</span></div>
+      <div class="la-info-row"><span class="la-info-k">AVG</span><span>Mean illuminance across the stat area. RP-8-22 is driven by the minimum, not the average — a compliant lot typically averages <strong>1–3 fc</strong>.</span></div>
+      <div class="la-info-row"><span class="la-info-k">MAX</span><span>The brightest cell, directly under a pole. Peaks several times the average are normal in a parking lot — uniformity is judged by MAX:MIN, not by MAX alone.</span></div>
+      <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. IES RP-8-22 requires <strong>≥ 0.2 fc</strong> maintained at grade for parking lots and drive aisles.</span></div>
+      <div class="la-info-row"><span class="la-info-k">MAX:MIN</span><span>Uniformity: maximum ÷ minimum. IES RP-8-22 allows up to <strong>20:1</strong> for parking lots — lower is more uniform.</span></div>
       <div class="la-info-h">Why it matters</div>
-              <p style="font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:var(--la-dim);margin:0;">Targets follow IES recommended practice for exterior site and area lighting. The values are computed live from this layout — move one fixture and watch A/MIN respond.</p>
+              <p style="font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:var(--la-dim);margin:0;">Targets follow IES RP-8-22, basic requirements for parking lots at grade (not security lighting): ≥ 0.2 fc maintained minimum and ≤ 20:1 max:min uniformity. Transaction areas call for 0.9 fc pre-curfew / 0.2 post-curfew at 15:1, and project specifics may necessitate different criteria. Values compute live — move a fixture and watch MAX:MIN respond.</p>
             </div>
           </div>
 
@@ -760,11 +761,12 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
             <div id="la-mhint">Drag to move&nbsp;·&nbsp;＋ Add&nbsp;·&nbsp;double-tap to remove</div>
             <div style="padding:4px 16px 16px;">
               <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--la-cell-grid);border:1px solid var(--la-cell-grid);border-radius:6px;overflow:hidden;">
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-avg">3.91</span></div></div>
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-max">6.78</span></div></div>
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-min">1.3</span></div></div>
-                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">A/MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-accent);margin-top:3px;"><span id="la-amin">3.01</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">AVG</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-avg">1.60</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-max">6.34</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-text-strong);margin-top:3px;"><span id="la-min">0.8</span></div></div>
+                <div style="background:var(--la-cell);padding:9px 8px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--la-dim);letter-spacing:0.06em;">MAX:MIN</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--la-accent);margin-top:3px;"><span id="la-maxmin">8.0</span></div></div>
               </div>
+              <div id="la-ies" role="status" style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.05em;color:var(--la-accent);"></div>
               <div style="display:flex;align-items:center;gap:7px;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.05em;color:var(--la-dim);">
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--la-accent);animation:blink 2s ease-in-out infinite;"></span>
                 <span>ILLUMINANCE (FC) · LLF 0.912</span>
@@ -2148,27 +2150,48 @@ class Component extends DCLogic {
     for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
       const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
       let e = 0;
-      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.05 + (dx * dx + dy * dy) * 6.2); }
+      for (let i = 0; i < fx.length; i++) { const dx = px - fx[i].x, dy = (py - fx[i].y) * 0.92; e += 1 / (0.012 + (dx * dx + dy * dy) * 30); }
       const edge = Math.min(px, 1 - px, py, 1 - py);
       E.push(e); // each luminaire keeps full output wherever it sits; stats still read the interior stat area only
       inside.push(edge > 0.14);
     }
-    // calibrate once over the interior "stat area" so the default layout reads ~3.9 fc avg,
-    // then hold the scale fixed so adding luminaires genuinely raises illuminance.
-    let iSum = 0, iN = 0; for (let i = 0; i < E.length; i++) if (inside[i]) { iSum += E[i]; iN++; }
-    if (this._laK == null) this._laK = 3.9 / ((iSum / (iN || 1)) || 1);
+    // calibrate once against the DEFAULT pole grid — a representative IES RP-8-22
+    // basic parking design (~1.6 fc avg, peaks under poles, ~8:1 max:min) — and
+    // hold the scale fixed, so user edits genuinely move the numbers.
+    if (this._laK == null) {
+      const D = (this._laDefault && this._laDefault.length) ? this._laDefault : fx;
+      let dSum = 0, dN = 0;
+      for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+        const px = (c + 0.5) / COLS, py = (r + 0.5) / ROWS;
+        if (Math.min(px, 1 - px, py, 1 - py) <= 0.14) continue;
+        let e = 0;
+        for (let i = 0; i < D.length; i++) { const dx = px - D[i].x, dy = (py - D[i].y) * 0.92; e += 1 / (0.012 + (dx * dx + dy * dy) * 30); }
+        dSum += e; dN++;
+      }
+      this._laK = 1.6 / ((dSum / (dN || 1)) || 1);
+    }
     const k = this._laK, kids = heat.children;
     this._laV = []; let fcMin = 1e9, fcMax = -1e9, fcSum = 0, fcN = 0;
     for (let i = 0; i < E.length; i++) {
-      const fc = E[i] * k, v = fc / 8;
+      const fc = E[i] * k, v = fc / 6.5;
       this._laV.push(v < 0 ? 0 : v > 1 ? 1 : v);
       if (kids[i]) kids[i].textContent = fc.toFixed(1);
       if (inside[i]) { if (fc < fcMin) fcMin = fc; if (fc > fcMax) fcMax = fc; fcSum += fc; fcN++; }
     }
     this.tintHeat();
-    const fcAvg = fcSum / (fcN || 1), amin = fcMin > 0.01 ? fcAvg / fcMin : 0;
+    // IES RP-8-22 (parking lots, basic requirements — not security lighting):
+    // maintained minimum >= 0.2 fc at grade, uniformity max:min <= 20:1.
+    const fcAvg = fcSum / (fcN || 1), maxmin = fcMin > 0.01 ? fcMax / fcMin : 0;
     const set = (id, val, dec) => { const el = document.getElementById(id); if (el) el.textContent = val.toFixed(dec); };
-    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-amin', amin, 2);
+    set('la-avg', fcAvg, 2); set('la-max', fcMax, 2); set('la-min', fcMin, 1); set('la-maxmin', maxmin, 1);
+    const ies = document.getElementById('la-ies');
+    if (ies) {
+      const okMin = fcMin >= 0.2, okUni = maxmin > 0 && maxmin <= 20;
+      ies.textContent = (okMin && okUni ? 'MEETS IES RP-8-22 BASIC' : 'BELOW IES RP-8-22 BASIC') +
+        ' · MIN ' + fcMin.toFixed(1) + (okMin ? ' FC ≥ 0.2' : ' FC < 0.2') +
+        ' · MAX:MIN ' + maxmin.toFixed(1) + (okUni ? ':1 ≤ 20:1' : ':1 > 20:1');
+      ies.style.color = (okMin && okUni) ? 'var(--la-accent)' : '#e0907e';
+    }
     const fl = document.getElementById('la-fixtures');
     if (fl) {
       let f = '';

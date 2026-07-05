@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+"""build-search-index.py — regenerates search-index.js for the concierge chat.
+
+Parses the static HTML of every indexable page, extracts each `<section id=…>`
+(heading + visible text), and writes a compact full-text index that concierge.js
+searches so chat answers can deep-link to a specific page *and* section.
+
+Run from the repo root after editing page content:  python3 build-search-index.py
+No dependencies beyond the Python standard library.
+"""
+import re, json, html
+from html.parser import HTMLParser
+
+# page file -> human page title shown in chat results
+PAGES = {
+    'homepage-interactive.dc.html': 'Homepage',
+    'about.dc.html': 'About',
+    'work.dc.html': 'Selected Work',
+    'core-insights.dc.html': 'CORE Insights case study',
+    'dali-2.dc.html': 'DALI-2 case study',
+    'smart-lighting.dc.html': 'Smart Lighting case study',
+    'goals-driven-fintech.html': 'Goals-Driven Fintech case study',
+    'ctoc-case-study.dc.html': 'CTOC case study',
+    'enterprise-ai.dc.html': 'Enterprise AI case study',
+    'partitioning.dc.html': 'Partitioning case study',
+}
+
+STOP = set('the a an and or of to in on for with is are was were be been it its this that these those you your i we our as at by from not no yes if then than so but into over under out up down off across per each every all any some more most other same own just only also very can will would should could there here what which who when where how'.split())
+
+class SectionParser(HTMLParser):
+    """Collects text + first heading per <section id=…>; skips script/style/svg."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.sections = []          # {id, heading, text}
+        self.cur = None
+        self.depth = 0
+        self.skip = 0               # inside script/style/svg/noscript
+        self.head_tag = 0           # inside h1-h6
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag in ('script', 'style', 'svg', 'noscript', 'template'):
+            self.skip += 1; return
+        if tag == 'section' and a.get('id') and self.cur is None:
+            self.cur = {'id': a['id'], 'heading': '', 'text': [],
+                        'label': a.get('data-screen-label') or a.get('aria-label') or ''}
+            self.depth = 1; return
+        if self.cur:
+            if tag == 'section': self.depth += 1
+            if tag in ('h1','h2','h3','h4') and not self.cur['heading']: self.head_tag = 1
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'svg', 'noscript', 'template'):
+            self.skip = max(0, self.skip - 1); return
+        if self.cur:
+            if tag in ('h1','h2','h3','h4') and self.head_tag: self.head_tag = 0
+            if tag == 'section':
+                self.depth -= 1
+                if self.depth == 0:
+                    self.sections.append(self.cur); self.cur = None
+    def handle_data(self, data):
+        if self.skip or not self.cur: return
+        t = data.strip()
+        if not t: return
+        if self.head_tag and len(self.cur['heading']) < 90:
+            self.cur['heading'] = (self.cur['heading'] + ' ' + t).strip()
+        self.cur['text'].append(t)
+
+def condense(texts, max_words=170):
+    """Deduped keyword bag: keeps search recall, drops index weight."""
+    seen, out = set(), []
+    for t in texts:
+        for w in re.findall(r"[a-z0-9][a-z0-9'-]+", t.lower()):
+            if len(w) < 3 or w in STOP or w in seen: continue
+            seen.add(w); out.append(w)
+            if len(out) >= max_words: return ' '.join(out)
+    return ' '.join(out)
+
+def snippet(texts, heading):
+    for t in texts:
+        s = t.strip()
+        if len(s) > 60 and s != heading:
+            return (s[:128] + '…') if len(s) > 129 else s
+    joined = ' '.join(texts)
+    return (joined[:128] + '…') if len(joined) > 129 else joined
+
+entries = []
+for f, page_title in PAGES.items():
+    try:
+        src = open(f, encoding='utf-8').read()
+    except OSError:
+        print('!! missing', f); continue
+    p = SectionParser(); p.feed(src)
+    n = 0
+    for s in p.sections:
+        body = ' '.join(s['text'])
+        if len(body) < 60: continue                      # skip empty/hidden stubs
+        heading = s['heading'] or s['label'] or s['id'].replace('-', ' ').title()
+        entries.append({
+            'u': f + '#' + s['id'],
+            'p': page_title,
+            'h': html.unescape(heading)[:90],
+            's': html.unescape(snippet(s['text'], s['heading'])),
+            'k': condense([heading] + s['text']),
+        })
+        n += 1
+    if n == 0:  # page had no id'd sections — index whole page shallowly
+        texts = re.sub(r'<(script|style|svg)[\s\S]*?</\1>', ' ', src)
+        texts = re.sub(r'<[^>]+>', ' ', texts)
+        entries.append({'u': f, 'p': page_title, 'h': page_title,
+                        's': '', 'k': condense([texts])})
+        n = 1
+    print(f'{f:38} {n} sections')
+
+out = ('/* search-index.js — generated by build-search-index.py; do not edit by hand.\n'
+       '   Full-text section index for the concierge chat (deep links to page#section). */\n'
+       'window.RB_SEARCH_INDEX = ' + json.dumps(entries, ensure_ascii=False, separators=(',', ':')) + ';\n')
+open('search-index.js', 'w', encoding='utf-8').write(out)
+print(f'\nwrote search-index.js — {len(entries)} sections, {len(out)//1024}KB')
