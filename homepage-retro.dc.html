@@ -678,6 +678,10 @@ class Component extends DCLogic {
       fsBtn.innerHTML = on ? FS_SHUT : FS_OPEN;
       fsBtn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'Play fullscreen');
       stage.classList.toggle('ag-fs-on', on);
+      // Arctic Shield renders its own fullscreen buttons inside the iframe; tell it
+      // the stage's state so its icon can flip between enter and exit.
+      const asFrame = document.getElementById('ag-arctic');
+      if (asFrame && asFrame.contentWindow) { try { asFrame.contentWindow.postMessage({ type: 'as-fs-state', on: on }, '*'); } catch (e) {} }
       setTimeout(() => { try { window.dispatchEvent(new Event('resize')); } catch (e) {} }, 80);
     };
     const enterFs = () => {
@@ -1140,10 +1144,9 @@ class Component extends DCLogic {
     };
     this.on(window, 'resize', fitArctic);
     const setArctic = (on) => {
-      // Arctic Shield ships its own touch fullscreen control, so on coarse
-      // pointers the stage-level toggle yields to it while the game is active.
-      // On fine pointers ours is the only fullscreen affordance — keep it.
-      const coarse = window.matchMedia && matchMedia('(pointer:coarse)').matches;
+      // Arctic Shield ships its own fullscreen controls — top-right on the menu,
+      // scores and debrief screens, embedded beside pause in the gameplay HUD —
+      // so the stage-level toggle always yields while the game is active.
       let f = document.getElementById('ag-arctic');
       if (on) {
         if (!f) {
@@ -1159,7 +1162,7 @@ class Component extends DCLogic {
         }
         f.style.display = 'block';
         fitArctic(); setTimeout(fitArctic, 120);
-        fsBtn.style.display = coarse ? 'none' : '';
+        fsBtn.style.display = 'none';
         const it = $('ag-info-title'); if (it) it.textContent = 'Arctic Shield';
         const ib = $('ag-info-body'); if (ib) ib.innerHTML = SCOREINFO.arctic;
         if (G.mode === 'playing') gameOver();

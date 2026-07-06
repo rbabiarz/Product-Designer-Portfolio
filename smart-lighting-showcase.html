@@ -339,7 +339,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="center" style="margin-bottom:44px">
         <div class="eyebrow" style="color:#9fe9d8">Making Network Topology Human</div>
         <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">How do you hand BLE mesh configuration to someone who's <em style="color:#9fe9d8">never heard of BLE?</em></h2>
-        <p class="lead" style="color:#c7d5e8;max-width:760px;margin:18px auto 0"><strong style="color:#fff">Users don't need to understand the technology if they can read the map.</strong> Black = active repeater, white = stable relay, red = reliability problem. We proposed four models, <strong style="color:#fff">click through them</strong> — P1 is rebuilt live in the frame.</p>
+        <p class="lead" style="color:#c7d5e8;max-width:760px;margin:18px auto 0"><strong style="color:#fff">Users don't need to understand the technology if they can read the map.</strong> Black = active repeater, white = stable relay, red = reliability problem. We proposed four models, <strong style="color:#fff">click through them</strong>. P1 is rebuilt live in the frame.</p>
       </div>
       <div class="mesh-grid">
         <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
@@ -349,7 +349,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <img src="assets/sl/mesh-manual2.jpg" class="sl-swap" data-mesh-swap="2" alt="Mesh virtual groups">
             <img src="assets/sl/mesh-autoselect.jpg" class="sl-swap" data-mesh-swap="3" alt="Mesh auto select">
           </span></span>
-          <div class="band-cap cap-light" id="meshCap">P1 · Node Map — rebuilt live, drag a bulb onto the gateway</div>
+          <div class="band-cap cap-light" id="meshCap">P1 · Node Map, rebuilt live, drag a bulb onto the gateway</div>
         </div>
         <div>
           <div class="mesh-tabs" role="tablist" aria-label="Mesh configuration proposals">
@@ -480,10 +480,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } if(!counted){ counted=true; runCounters(); } },1000);
 
   var meshData=[
-    { label:'P1 · NODE MAP', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P1 · Node Map — rebuilt live, drag a bulb onto the gateway', title:'Live mesh, drag-to-repeater', body:'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers. The frame here is a working rebuild. Drag a flagged bulb onto the gateway, then press TEST.', load:'High, manual node selection' },
-    { label:'P2 · CLUSTERS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P2 · Clusters — proximity-based grouping', title:'Proximity-based clusters', body:'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load:'Medium, group-level decisions' },
-    { label:'P3 · VIRTUAL GROUPS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P3 · Virtual Groups — user-defined criteria', title:'User-defined virtual groups', body:'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load:'Medium, still per-device' },
-    { label:'P4 · AUTO SELECT', result:'SHIPPED <span class="msi" aria-hidden="true" style="font-size:24px;">check</span>', rb:'rgba(46,125,79,0.4)', rf:'#9fe9d8', cap:'P4 · Auto Select — the system decides, shipped', title:'The system decides', body:'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load:'Zero, one confirm tap' }
+    { label:'P1 · NODE MAP', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P1 · Node Map, rebuilt live, drag a bulb onto the gateway', title:'Live mesh, drag-to-repeater', body:'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers. The frame here is a working rebuild. Drag a flagged bulb onto the gateway, then press TEST.', load:'High, manual node selection' },
+    { label:'P2 · CLUSTERS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P2 · Clusters, proximity-based grouping', title:'Proximity-based clusters', body:'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load:'Medium, group-level decisions' },
+    { label:'P3 · VIRTUAL GROUPS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P3 · Virtual Groups, user-defined criteria', title:'User-defined virtual groups', body:'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load:'Medium, still per-device' },
+    { label:'P4 · AUTO SELECT', result:'SHIPPED <span class="msi" aria-hidden="true" style="font-size:24px;">check</span>', rb:'rgba(46,125,79,0.4)', rf:'#9fe9d8', cap:'P4 · Auto Select, the system decides, shipped', title:'The system decides', body:'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load:'Zero, one confirm tap' }
   ];
   var meshTabs=document.querySelectorAll('.mesh-tab');
   var meshSwaps=document.querySelectorAll('[data-mesh-swap]');
