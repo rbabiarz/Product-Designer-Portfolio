@@ -586,15 +586,15 @@ body{margin:0}
       <div style="max-width:820px;margin-bottom:32px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ffd193;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">// AEGIS · Watch Floor · Classification Drill</div>
         <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,56px);font-weight:600;letter-spacing:-0.035em;line-height:1.03;color:#f4ecd6;margin-bottom:18px;">Read the trace,<br/>not the number.</h2>
-        <p style="font-size:16px;line-height:1.62;color:#c9b28a;max-width:820px;"><strong style="color:#f4ecd6;font-weight:600;">AEGIS</strong> is a defense decision-intelligence concept, a watch floor that fuses dozens of sensor and intelligence feeds into one picture an operator can act on, fast. Its thesis: the AI brings receipts, not verdicts. It hands you fused tracks with their sources, a confidence score, and the evidence it flagged against itself, then it stops. It won't make the call. <span style="color:#ffd193;">You will.</span> This is that idea, made playable, four drills. Take Arctic Shield's intercept line, drop sensors for positive ID and never task an interceptor on a guess, or run the classification watches: read the receipts, call each contact before it breaches the inner ring.</p>
+        <p style="font-size:16px;line-height:1.62;color:#c9b28a;max-width:820px;">Arctic Shield is the intercept trainer: the AI senses, you decide. Drop sensors, ID contacts, never fire on a guess. The other three drills are watch-floor classification challenges: Fusion Watch teaches you to read the evidence behind the confidence score, Sweep · Watchkeeper makes you call contacts in a heartbeat, and Watchfloor: Last Light is survival. Hold the line as long as you can.</p>
         <div style="margin-top:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <label style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#c9b28a;">
             <span aria-hidden="true">Drill</span>
             <select id="ag-mode" aria-label="Choose which AEGIS drill to play" style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#f4ecd6;background:#1a1309 url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none' stroke='%237dd3c0' stroke-width='1.6'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E&quot;) no-repeat right 12px center;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:9px 32px 9px 14px;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;">
+              <option value="arctic">Arctic Shield · intercept</option>
               <option value="fusion">Fusion Watch · deduction</option>
               <option value="sweep">Sweep · Watchkeeper · reflex</option>
               <option value="watchfloor">Watchfloor: Last Light · survival</option>
-              <option value="arctic">Arctic Shield · intercept</option>
             </select>
           </label>
           <button id="ag-info-btn" type="button" aria-haspopup="dialog" aria-controls="ag-info" aria-expanded="false" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#c9b28a;background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 15px;cursor:pointer;transition:border-color .15s ease,color .15s ease;">
@@ -1436,11 +1436,10 @@ class Component extends DCLogic {
     // restore the visitor's last-used drill (shared across homepage variants)
     let savedMode = null; try { savedMode = localStorage.getItem('rba-ag-mode'); } catch (e) {}
     if (modeSel && savedMode && savedMode !== modeSel.value && (savedMode === 'arctic' || RULES[savedMode])) modeSel.value = savedMode;
-    // Arctic Shield embeds a heavy standalone iframe (its own React runtime, no
-    // local fallback) — only auto-load it for a visitor who explicitly chose it
-    // before. A brand-new visitor should never eager-load that iframe just
-    // because it happens to be a <select> option; they land on a real drill.
-    if (modeSel && modeSel.value === 'arctic' && savedMode === 'arctic') setArctic(true);
+    // Arctic Shield is the flagship drill and the default. Its standalone
+    // iframe carries loading="lazy" (set before src), so a fresh visitor
+    // doesn't fetch it until the watch floor nears the viewport.
+    if (modeSel && modeSel.value === 'arctic') setArctic(true);
     else if (modeSel && RULES[modeSel.value] && this._agMode !== modeSel.value) setMode(modeSel.value);
     this._agRaf = requestAnimationFrame(loop);
   }
