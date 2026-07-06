@@ -1517,7 +1517,61 @@
     if (document.readyState !== "loading") api.__dcBoot();
     else document.addEventListener("DOMContentLoaded", () => api.__dcBoot());
   }
-  hideRawTemplate();
+  // Deep links into rendered content: .dc pages build their DOM after the load
+  // event, so the browser's native #fragment scroll runs before the target
+  // exists — links like page.dc.html#section land at the top (or in half-laid-out
+  // space) until a manual refresh. Poll for the target as the runtime renders and
+  // scroll when it appears; abandon silently if the visitor scrolls first.
+  (function scrollToDeepLink() {
+    // Deep links into rendered content: .dc pages build their DOM after the load
+    // event, so the browser's native #fragment scroll runs before the target
+    // exists — links like page.dc.html#section land at the top (or in half-laid-out
+    // space) until a manual refresh. Poll for the target as the runtime renders and
+    // scroll when it appears. Abandon silently if the visitor scrolls first, and
+    // let stale timers die if the hash changes (in-page nav stays untouched).
+    var cancelled = false;
+    var cancel = function () { cancelled = true; };
+    window.addEventListener("wheel", cancel, { passive: true, once: true });
+    window.addEventListener("touchstart", cancel, { passive: true, once: true });
+    window.addEventListener("keydown", cancel, { once: true });
+    var currentId = function () {
+      if (!location.hash || location.hash.length < 2) return "";
+      try { return decodeURIComponent(location.hash.slice(1)); } catch (e) { return location.hash.slice(1); }
+    };
+    var place = function (el) {
+      var off = 8;
+      try {
+        var hd = document.querySelector("header");
+        if (hd) {
+          var cs = getComputedStyle(hd);
+          if (cs.position === "fixed" || cs.position === "sticky") off += hd.offsetHeight;
+        }
+      } catch (e) {}
+      window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - off));
+    };
+    var tries = 0;
+    var seek = function (id) {
+      if (cancelled || id !== currentId()) return;   // user took over, or hash moved on
+      var el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().height > 0) {
+        place(el);
+        // late images / widgets can still shift layout — settle once more
+        setTimeout(function () {
+          if (cancelled || id !== currentId()) return;
+          var el2 = document.getElementById(id);
+          if (el2) place(el2);
+        }, 700);
+        return;
+      }
+      if (++tries < 40) setTimeout(function () { seek(id); }, 300);
+    };
+    var start = function () {
+      var id = currentId();
+      if (id) setTimeout(function () { seek(id); }, 60);
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+    else start();
+  })();  hideRawTemplate();
   loadReactUmd().then(init).catch((err) => {
     console.error("[dc] failed to load React or boot:", err);
     throw err;

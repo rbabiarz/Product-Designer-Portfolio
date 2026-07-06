@@ -6,7 +6,15 @@
 <title>Robert Babiarz, Senior Product Designer</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
   <style>svg[width="24"],svg[width="36"]{flex-shrink:0}
-/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
+/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
+/* Firefox paints backdrop-filter unreliably over transformed / animated content
+   (clipped cards, see-through fixed bars — the same failure class as the cookie
+   banner). Every glass surface here already carries a >=0.6-alpha tint, so in
+   Firefox we keep the tint and skip the blur instead of risking the glitch. */
+@supports (-moz-appearance:none) {
+  * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}
+</style>
 <script src="home-variants.js"></script>
 <script src="boot-loader.js"></script>
 <script src="./support.js"></script>
@@ -587,7 +595,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
     <div style="max-width:1480px;margin:0 auto;">
       <div data-reveal="true" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:18px;">
         <div>
-          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,58px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--fg);">Systems where<br/>the stakes are real.</h2>
+          <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,58px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--fg);">Selected Work</h2>
         </div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;max-width:240px;text-align:right;">Hover over a project to preview</div>
       </div>

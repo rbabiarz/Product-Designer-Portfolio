@@ -77,7 +77,7 @@
 
   var THEMES = {
     'default': {
-      bar: 'background:rgba(10,16,22,0.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.16);border-radius:14px;box-shadow:0 18px 44px -16px rgba(0,0,0,0.6);color:#e9eef7;font-family:"DM Sans","Inter",-apple-system,sans-serif;',
+      bar: 'background:rgba(10,16,22,0.98);border:1px solid rgba(255,255,255,0.16);border-radius:14px;box-shadow:0 18px 44px -16px rgba(0,0,0,0.6);color:#e9eef7;font-family:"DM Sans","Inter",-apple-system,sans-serif;',
       accept: 'background:#4ca88f;color:#06201d;border:0;border-radius:999px;',
       decline: 'background:transparent;color:#e9eef7;border:1px solid rgba(255,255,255,0.3);border-radius:999px;',
       kicker: 'color:#7dd3c0;',
