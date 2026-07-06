@@ -127,14 +127,13 @@ body{background:#05070c;padding:24px;display:flex;flex-direction:column;gap:24px
 <div id="stage"></div>
 <script>
 const TILES=[
- {i:'01',key:'insights',ac:'#7dd3c0',domain:'Operational Intelligence',title:'CORE Insights',org:'Cooper Lighting · Signify',chip:'Live Case Study',motif:'heatplate'},
- {i:'02',key:'dali',ac:'#e8c37a',domain:'Commissioning · Healthcare',title:'DALI-2 Lighting System',org:"North America's largest install",chip:'Industry First',motif:'bus'},
- {i:'03',key:'smart',ac:'#f0a878',domain:'Consumer IoT · Mobile',title:'Smart Lighting App',org:'iOS & Android',chip:'Consumer IoT',motif:'phone'},
- {i:'04',key:'fintech',ac:'#6ea8ff',domain:'Fintech · Open Banking',title:'Goals-Driven Fintech',org:'Interactive prototype',chip:'Fintech · AI',motif:'gauge'},
- {i:'05',key:'ctoc',ac:'#7dd3c0',domain:'Enterprise Cyber Ops',title:'CTOC Dashboard System',org:'13 interlocking dashboards',chip:'Cyber Operations',motif:'radar'},
- {i:'06',key:'aegis',ac:'#6fb3d6',domain:'Defense Intelligence',title:'AEGIS Decision Intelligence',org:'Sensor fusion · watch floor',motif:'recon',sz:58},
- {i:'07',key:'ai',ac:'#a78bfa',domain:'Enterprise · AI',title:'Application of AI',org:'Enterprise decision support',motif:'neural'},
- {i:'08',key:'partitioning',ac:'#5ecf9e',domain:'Data Architecture',title:'Dynamic Space Partitioning',org:'WaveLinx · Cooper Lighting',motif:'partition',sz:58},
+ {i:'01',key:'dali',ac:'#e8c37a',domain:'Commissioning · Healthcare',title:'DALI-2 Lighting System',org:"North America's largest install",motif:'bus'},
+ {i:'02',key:'insights',ac:'#7dd3c0',domain:'Operational Intelligence',title:'Insights Dashboards',org:'Cooper Lighting · Signify',motif:'heatplate'},
+ {i:'03',key:'partitioning',ac:'#5ecf9e',domain:'Connected Spaces · WaveLinx',title:'Dynamic Space Partitioning',org:'WaveLinx · Cooper Lighting',motif:'partition'},
+ {i:'04',key:'ai',ac:'#a78bfa',domain:'Enterprise · AI',title:'Enterprise AI',org:'Conversational · Explainable · Predictive',motif:'neural'},
+ {i:'05',key:'smart',ac:'#f0a878',domain:'Consumer IoT · Mobile',title:'Smart Lighting Mobile App',org:'iOS & Android',motif:'phone'},
+ {i:'06',key:'fintech',ac:'#6ea8ff',domain:'Fintech · Open Banking',title:'Goals-Driven Fintech',org:'Interactive prototype',motif:'gauge'},
+ {i:'07',key:'ctoc',ac:'#7dd3c0',domain:'Enterprise Cyber Ops',title:'CTOC Dashboard System',org:'13 interlocking dashboards',motif:'radar'},
 ];
 function heatplate(){ // deterministic occupancy heat
  let cells='';const hot=new Set([15,16,27,28,29,39,40,52,53,64]);
@@ -176,10 +175,9 @@ document.getElementById('stage').innerHTML=TILES.map(t=>`
  <div>
  <div class="cap">${t.key} · previews/p-${t.key}.png · 1200×800</div>
  <div class="tile" id="t-${t.key}" style="--ac:${t.ac}">
-   <div class="ghost">${t.i}</div>
    <div class="motif">${M[t.motif]()}</div>
    <div class="text">
-     <div class="eyebrow"><span class="idx">${t.i}</span>${t.domain}</div>
+     <div class="eyebrow">${t.domain}</div>
      <div class="title"${t.sz?` style="font-size:${t.sz}px"`:''}>${t.title}</div>
      <div class="org">${t.org}</div>
    </div>

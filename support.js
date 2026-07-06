@@ -994,17 +994,24 @@
     let babelLoading = null;
     const reportedMissing = /* @__PURE__ */ new Map();
     const polling = /* @__PURE__ */ new Set();
-    function ensureBabel() {
-      if (window.Babel) return Promise.resolve();
-      if (babelLoading) return babelLoading;
-      babelLoading = new Promise((res, rej) => {
+    function loadOneScript(src) {
+      return new Promise((res, rej) => {
         const s = document.createElement("script");
-        s.src = BABEL_URL;
+        s.src = src;
         s.crossOrigin = "anonymous";
         s.onload = () => res();
         s.onerror = rej;
         document.head.appendChild(s);
       });
+    }
+    function ensureBabel() {
+      if (window.Babel) return Promise.resolve();
+      if (babelLoading) return babelLoading;
+      // Local vendored copy first (same pattern as React/ReactDOM below) so a
+      // blocked or unreachable unpkg.com — ad blockers, corporate proxies,
+      // offline dev — doesn't strand .dc.html pages on the boot screen forever.
+      babelLoading = loadOneScript("/vendor/babel.min.js")
+        .catch(() => loadOneScript(BABEL_URL));
       return babelLoading;
     }
     function load(kind, url) {

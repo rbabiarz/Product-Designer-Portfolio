@@ -50,7 +50,7 @@ body{margin:0}
 .center{text-align:center}
 .center .lead{margin-left:auto;margin-right:auto}
 
-.win{border-radius:0;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 24px 44px -18px rgba(5,12,20,.42)}
+.win{border-radius:10px 10px 0 0;overflow:hidden;background:#0e1622;box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 24px 44px -18px rgba(5,12,20,.42)}
 .win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
 .win-dot{width:11px;height:11px;border-radius:50%}
 .win img{width:100%;display:block}
@@ -191,11 +191,13 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;">expand_more</span>
           </summary>
           <div class="cs-sheet">
-            <a href="partitioning-showcase.html" class="cur"><span class="t">Dynamic Space Partitioning</span><span class="s">Connected lighting · operable walls</span></a>
-            <a href="ctoc-showcase.html"><span class="t">CTOC Dashboard System</span><span class="s">Enterprise cyber · 13 dashboards</span></a>
-            <a href="smart-lighting-showcase.html"><span class="t">Smart Lighting Mobile App</span><span class="s">Consumer IoT · enterprise depth</span></a>
             <a href="dali-2-showcase.html"><span class="t">DALI-2 Lighting System</span><span class="s">Commissioning at hospital scale</span></a>
-            <a href="goals-driven-fintech-showcase.html"><span class="t">Goals-Driven Finance</span><span class="s">Self-directed fintech</span></a>
+            <a href="core-insights-showcase.html"><span class="t">Insights Dashboards</span><span class="s">Operational intelligence · IoT</span></a>
+            <a href="partitioning-showcase.html" class="cur"><span class="t">Dynamic Space Partitioning</span><span class="s">Spaces that change shape · WaveLinx</span></a>
+            <a href="enterprise-ai-showcase.html"><span class="t">Enterprise AI</span><span class="s">Conversational · explainable · predictive</span></a>
+            <a href="smart-lighting-showcase.html"><span class="t">Smart Lighting Mobile App</span><span class="s">Consumer IoT · enterprise depth</span></a>
+            <a href="goals-driven-fintech-showcase.html"><span class="t">Goals-Driven Fintech</span><span class="s">Self-directed fintech</span></a>
+            <a href="ctoc-showcase.html"><span class="t">CTOC Dashboard System</span><span class="s">Enterprise cyber · 13 dashboards</span></a>
             <div class="cs-div"></div>
             <a href="homepage-interactive.dc.html" class="cs-allwork">← All work</a>
           </div>
@@ -303,7 +305,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div class="wrap-n center">
       <div class="eyebrow" data-reveal="">Every Surface</div>
       <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Commission on a phone, <em>operate on the wall</em></h2>
-      <p class="lead" data-reveal="" data-d="2">An installer configures partitions on a phone at the panel; a venue manager runs the room from a wall-mounted tablet or the web. The same three-step model, sub-areas → walls → devices, scales to each screen.</p>
+      <p class="lead" data-reveal="" data-d="2">An installer configures partitions on a phone at the panel; a venue manager runs the room from a wall-mounted wallstation. The same three-step model, sub-areas → walls → devices, scales to each screen.</p>
+      <p class="lead" data-reveal="" data-d="3">Once the controller knows wall state, behavior follows: when walls are closed, wallstations operate their individual sub-area; when walls open, wallstations in the joined sub-areas command the original area plus any joined sub-areas.</p>
     </div>
     <div class="wrap" style="margin-top:54px">
       <div data-reveal="" style="background:#fff;border:1px solid var(--c-b2);padding:22px;max-width:1000px;margin:0 auto">
@@ -360,7 +363,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/v1-walls.png" alt="Version 1, walls listed as the primary object, later abandoned"></div><div class="band-cap cap-dark">V1 · walls first, abandoned</div></div>
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/v2a-subareas.png" alt="Version 2A, sub-areas promoted to the primary list"></div><div class="band-cap cap-dark">V2A · sub-areas first</div></div>
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/v2b-expand.png" alt="Version 2B, inline expand and collapse of each sub-area's devices"></div><div class="band-cap cap-dark">V2B · expand in place</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/v3-consolidation.png" alt="Shipped version, consolidated 3-step wizard with live wall status board"></div><div class="band-cap cap-dark">Shipped · wizard + status</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_007.jpg" alt="Shipped version, consolidated 3-step wizard with live wall status board"></div><div class="band-cap cap-dark">Shipped · wizard + status</div></div>
       </div>
     </div>
   </div>
@@ -373,19 +376,27 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <p class="lead" data-reveal="" data-d="2">The shipped desktop wizard takes a room from "Partitioned" to fully wall-aware, defining sub-areas, the walls between them, and the contact input that senses each one.</p>
     </div>
     <div class="wrap" style="margin-top:54px">
-      <div class="appr" data-reveal="">
-        <div class="appr-row"><div class="appr-n">01</div><div style="flex:1"><div class="appr-h">Create the Area</div><div class="appr-p">Tap + to add a new area, the entry point for any space being commissioned.</div></div></div>
-        <div class="appr-row"><div class="appr-n">02</div><div style="flex:1"><div class="appr-h">Define the Partitioned Area</div><div class="appr-p">Set the Partitioned type, then the wall and sub-area counts that describe the room.</div></div></div>
-        <div class="appr-row"><div class="appr-n">03</div><div style="flex:1"><div class="appr-h">Update Sub-Area Names</div><div class="appr-p">Name each room for the application so the floor plan reads in the venue's own language.</div></div></div>
-        <div class="appr-row"><div class="appr-n">04</div><div style="flex:1"><div class="appr-h">Define Each Wall's Joins</div><div class="appr-p">Pick the sub-areas each wall separates, the relationship that drives merge and split.</div></div></div>
-        <div class="appr-row"><div class="appr-n">05</div><div style="flex:1"><div class="appr-h">Assign the Wall Input</div><div class="appr-p">Map each wall to a CCI / IRTR contact input so its open / closed state is sensed live.</div></div></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:46px" class="gthumbs">
-        <div><div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/step1-create.png" alt="Step 1, create the area screen"></div><div class="band-cap cap-dark">Step 1 · Create</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/step2-define.png" alt="Step 2, define the partitioned area, wall and sub-area counts"></div><div class="band-cap cap-dark">Step 2 · Define</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/step3-names.png" alt="Step 3, update sub-area names"></div><div class="band-cap cap-dark">Step 3 · Names</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/step4-walls.png" alt="Step 4, define each wall's joins between sub-areas"></div><div class="band-cap cap-dark">Step 4 · Walls</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/step5-input.png" alt="Step 5, assign the wall input to a contact-closure"></div><div class="band-cap cap-dark">Step 5 · Input</div></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px 18px" class="gthumbs">
+        <div data-reveal="">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_001.jpg" alt="Step 1, create the area screen"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">01</div><div style="flex:1"><div class="appr-h">Create the Area</div><div class="appr-p">Tap + to add a new area, the entry point for any space being commissioned.</div></div></div>
+        </div>
+        <div data-reveal="" data-d="1">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_002.jpg" alt="Step 2, define the partitioned area, wall and sub-area counts"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">02</div><div style="flex:1"><div class="appr-h">Define the Partitioned Area</div><div class="appr-p">Set the Partitioned type, then the wall and sub-area counts that describe the room.</div></div></div>
+        </div>
+        <div data-reveal="" data-d="2">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_003.jpg" alt="Step 3, update sub-area names"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">03</div><div style="flex:1"><div class="appr-h">Update Sub-Area Names</div><div class="appr-p">Name each room for the application so the floor plan reads in the venue's own language.</div></div></div>
+        </div>
+        <div data-reveal="">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_004.jpg" alt="Step 4, define each wall's joins between sub-areas"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">04</div><div style="flex:1"><div class="appr-h">Define Each Wall's Joins</div><div class="appr-p">Pick the sub-areas each wall separates, the relationship that drives merge and split.</div></div></div>
+        </div>
+        <div data-reveal="" data-d="1">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_005.jpg" alt="Step 5, assign the wall input to a contact-closure"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">05</div><div style="flex:1"><div class="appr-h">Assign the Wall Input</div><div class="appr-p">Map each wall to a CCI / IRTR contact input so its open / closed state is sensed live.</div></div></div>
+        </div>
       </div>
     </div>
   </section>

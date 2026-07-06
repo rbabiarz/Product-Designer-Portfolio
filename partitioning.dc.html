@@ -116,8 +116,9 @@ summary::-webkit-details-marker{display:none}
 @media (min-width:881px){ #cs-menu{display:none !important} }
 /* square corners on every screenshot frame + device bezel (all imgs here are screenshots) */
 .cs :has(> img),.cs :has(> * > img),.cs :has(> * > * > img){border-radius:0 !important}
-#hero-iphone .ip-frame{border-radius:36px !important}
-#hero-iphone .ip-screen,#hero-iphone .pt-scroll{border-radius:30px !important}
+.cs .browser-frame{border-radius:10px 10px 0 0 !important}
+#hero-iphone .ip-frame{border-radius:16px !important}
+#hero-iphone .ip-screen,#hero-iphone .pt-scroll{border-radius:12px !important}
 </style>
 <script src="page-transition.js"></script>
 <script src="a11y.js"></script>
@@ -138,14 +139,16 @@ summary::-webkit-details-marker{display:none}
         <details class="cs-switch" style="position:relative;">
           <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
             <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
-            <span style="font-size:13px;font-weight:600;color:var(--c-accent);">Partitioning</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent);">Dynamic Space Partitioning</span>
             <span class="cs-chev msi" aria-hidden="true" style="font-size:24px;color:var(--c-muted);transition:transform .2s;">expand_more</span>
           </summary>
           <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
             <a href="dali-2-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">DALI-2 Lighting System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
-            <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
-            <a href="smart-lighting-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:#eef6f3"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
-            <a href="goals-driven-fintech-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
+            <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Insights Dashboards</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="partitioning-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-bg2);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Spaces that change shape · WaveLinx</div></a>
+            <a href="enterprise-ai-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Enterprise AI</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Conversational · explainable · predictive</div></a>
+            <a href="smart-lighting-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="goals-driven-fintech-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Fintech</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
             <a href="ctoc-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
             <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
             <a href="homepage-interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)">← All work</a>
@@ -237,21 +240,21 @@ summary::-webkit-details-marker{display:none}
 
       <!-- hero collage -->
       <div class="cs-hero-media" style="position:relative;height:478px;animation:pt-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.12s both;">
-        <div style="position:absolute;top:22px;left:0;right:0;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:0 20px 40px -14px rgba(20,30,40,0.26),0 4px 12px -6px rgba(20,30,40,0.13);border:1px solid var(--c-b2);">
+        <div class="browser-frame" style="position:absolute;top:22px;left:0;right:0;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:0 20px 40px -14px rgba(20,30,40,0.26),0 4px 12px -6px rgba(20,30,40,0.13);border:1px solid var(--c-b2);">
           <div style="height:30px;background:var(--c-line);display:flex;align-items:center;padding:0 13px;gap:6px;border-bottom:1px solid var(--c-b1);">
             <div style="width:9px;height:9px;border-radius:50%;background:#e06c5e;"></div><div style="width:9px;height:9px;border-radius:50%;background:#e0b94e;"></div><div style="width:9px;height:9px;border-radius:50%;background:#5bbd7a;"></div>
             <div style="margin-left:12px;flex:1;height:16px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 9px;"><span style="font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--c-muted);">wavelinx.app/partitioning · Rose Ballroom</span></div>
           </div>
           <div style="background:var(--c-surface);"><img src="assets/part/Partitioning_Desktop_007.jpg" alt="WaveLinx Configure Partitioned Area screen: seven partition walls listed with the sub-areas they join, and Wall 1's sensor assigned to contact-closure input 1 on CCI 1" style="width:100%;display:block;"/></div>
         </div>
-        <div id="hero-iphone" style="position:absolute;bottom:0;left:-6px;width:162px;animation:pt-float 6s ease-in-out infinite;filter:drop-shadow(0 32px 55px rgba(20,30,40,0.5));">
-          <div class="ip-frame" style="position:relative;padding:5px;background:linear-gradient(155deg,#45494f 0%,#1c1f24 36%,#2b2f35 63%,#141619 100%);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.13),inset 0 0 0 4px #0b0d10;">
+        <div id="hero-iphone" style="position:absolute;bottom:0;left:-6px;width:158px;animation:pt-float 6s ease-in-out infinite;filter:drop-shadow(0 32px 55px rgba(20,30,40,0.5));">
+          <div class="ip-frame" style="position:relative;padding:5px;border-radius:16px;background:linear-gradient(155deg,#45494f 0%,#1c1f24 36%,#2b2f35 63%,#141619 100%);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.13),inset 0 0 0 4px #0b0d10;">
             <div style="position:absolute;left:-2.5px;top:60px;width:3px;height:17px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
             <div style="position:absolute;left:-2.5px;top:92px;width:3px;height:30px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
             <div style="position:absolute;left:-2.5px;top:130px;width:3px;height:30px;border-radius:2px 0 0 2px;background:linear-gradient(#3a3e45,#1c1f24);"></div>
             <div style="position:absolute;right:-2.5px;top:106px;width:3px;height:50px;border-radius:0 2px 2px 0;background:linear-gradient(#3a3e45,#1c1f24);"></div>
             <div class="ip-screen" style="position:relative;overflow:hidden;background:#000;height:300px;">
-              <div class="pt-scroll" style="height:100%;overflow:hidden;"><img src="assets/part/m-subareas.png" alt="Partitioning mobile" style="width:100%;display:block;"/></div>
+              <div class="pt-scroll" style="height:100%;overflow:hidden;"><img src="assets/part/mobile_hero.jpg" alt="WaveLinx mobile Device Configuration, selecting CCI inputs and a wallstation for Wall 1" style="width:100%;display:block;"/></div>
               <div style="position:absolute;top:9px;left:50%;transform:translateX(-50%);width:44px;height:13px;background:#000;border-radius:10px;z-index:3;box-shadow:0 0 0 0.5px rgba(255,255,255,0.05);"></div>
             </div>
           </div>
@@ -463,7 +466,7 @@ summary::-webkit-details-marker{display:none}
           </sc-for>
         </div>
         <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px;display:flex;flex-direction:column;">
-          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:var(--c-surface);">
+          <div class="browser-frame" style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:var(--c-surface);">
             <div style="height:26px;background:var(--c-line);display:flex;align-items:center;padding:0 11px;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#e06c5e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#e0b94e;"></span><span style="width:8px;height:8px;border-radius:50%;background:#5bbd7a;"></span></div>
             <img src="{{ stepImg }}" alt="Partitioning configuration step" style="width:100%;display:block;"/>
           </div>
@@ -490,40 +493,11 @@ summary::-webkit-details-marker{display:none}
       <div style="max-width:700px;margin-bottom:40px;" data-reveal="1">
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">07 · One Flow, Every Surface</div>
         <h2 style="font-family:'Inter',sans-serif;font-size:clamp(28px,3.3vw,44px);font-weight:500;letter-spacing:-1.3px;line-height:1.08;color:var(--c-ink);margin-bottom:16px;">Commission on a phone. Operate on the wall.</h2>
-        <p style="font-size:17px;color:var(--c-body);line-height:1.66;">An installer configures partitions on a phone at the panel; a venue manager runs the room from a wall-mounted tablet or the web. The same three-step model, sub-areas → walls → devices, scales to each screen.</p>
+        <p style="font-size:17px;color:var(--c-body);line-height:1.66;">An installer configures partitions on a phone at the panel; a venue manager runs the room from a wall-mounted wallstation. The same three-step model, sub-areas → walls → devices, scales to each screen.</p>
+        <p style="font-size:17px;color:var(--c-body);line-height:1.66;margin-top:14px;">Once the controller knows wall state, behavior follows: when walls are closed, wallstations operate their individual sub-area; when walls open, wallstations in the joined sub-areas command the original area plus any joined sub-areas.</p>
       </div>
-      <div data-reveal="1" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;align-items:stretch;">
-        <!-- desktop -->
-        <div style="background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:18px;padding:28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
-            <div style="width:32px;height:32px;border-radius:9px;background:rgba(13,83,80,0.1);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.9"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-            <div><div style="font-size:15px;font-weight:600;color:var(--c-ink);">Desktop · Configure walls</div><div style="font-size:12px;color:var(--c-muted);">Wall-to-sub-area joins &amp; device inputs</div></div>
-          </div>
-          <div style="border-radius:10px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 9px 22px -13px rgba(20,30,40,0.2);background:var(--c-surface);">
-            <img src="assets/part/d-walls.png" alt="Desktop configure walls" style="width:100%;display:block;"/>
-          </div>
-          <div style="border-radius:10px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 9px 22px -13px rgba(20,30,40,0.2);background:var(--c-surface);margin-top:12px;">
-            <img src="assets/part/d-devices.png" alt="Desktop configure devices" style="width:100%;display:block;"/>
-          </div>
-        </div>
-        <!-- mobile -->
-        <div style="background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:18px;padding:28px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
-            <div style="width:32px;height:32px;border-radius:9px;background:rgba(13,83,80,0.1);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c-accent)" stroke-width="1.9"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div>
-            <div><div style="font-size:15px;font-weight:600;color:var(--c-ink);">Mobile · 3-step wizard</div><div style="font-size:12px;color:var(--c-muted);">Sub-areas → walls → devices</div></div>
-          </div>
-          <div style="display:flex;gap:12px;justify-content:center;flex:1;align-items:center;">
-            <div style="width:50%;max-width:170px;border-radius:26px;background:#12161d;padding:7px;box-shadow:0 11px 25px -13px rgba(20,30,40,0.29);border:1px solid rgba(255,255,255,0.06);">
-              <div style="border-radius:20px;overflow:hidden;background:var(--c-surface);"><img src="assets/part/m-walls.png" alt="Mobile walls step" style="width:100%;display:block;"/></div>
-            </div>
-            <div style="width:50%;max-width:170px;border-radius:26px;background:#12161d;padding:7px;box-shadow:0 11px 25px -13px rgba(20,30,40,0.29);border:1px solid rgba(255,255,255,0.06);">
-              <div style="border-radius:20px;overflow:hidden;background:var(--c-surface);"><img src="assets/part/m-complete.png" alt="Mobile complete step" style="width:100%;display:block;"/></div>
-            </div>
-          </div>
-          <div style="margin-top:18px;border-radius:10px;overflow:hidden;border:1px solid var(--c-b3);background:var(--c-surface);">
-            <img src="assets/part/d-subareas.png" alt="Configure sub areas" style="width:100%;display:block;"/>
-          </div>
-        </div>
+      <div data-reveal="1" style="background:#fff;border:1px solid var(--c-b2);padding:22px;max-width:1000px;margin:0 auto;">
+        <img src="assets/mobile_commissioning.png" alt="Twelve annotated mobile screens of the commissioning flow: create a partitioned area, set the number of walls and sub-areas, add devices, zones and occupancy sets to each sub-area, then match each wall to the sub-areas it divides" style="width:100%;display:block;"/>
       </div>
     </div>
   </section>
@@ -798,7 +772,7 @@ class Component extends DCLogic {
       v2b: { step: 3, stage: 'Version 2B', stageBg: 'rgba(159,180,232,0.16)', stageFg: '#9fb4e8', img: 'assets/part/v2b-expand.png',
         title: 'Expand & collapse in place', body: 'Added inline expand/collapse so a tech could drill into a sub-area\u2019s devices without losing their place, but the screen still juggled walls and sub-areas in a single dense view.',
         points: [{ dot: '#9fb4e8', text: 'Inline expand/collapse of sub-areas' }, { dot: '#9fb4e8', text: 'Devices visible in context' }, { dot: '#9fb4e8', text: 'Still two competing concepts on one screen' }] },
-      final: { step: 4, stage: 'Shipped', stageBg: 'rgba(76,168,143,0.16)', stageFg: '#7dd3c0', img: 'assets/part/v3-consolidation.png',
+      final: { step: 4, stage: 'Shipped', stageBg: 'rgba(76,168,143,0.16)', stageFg: '#7dd3c0', img: 'assets/part/Partitioning_Desktop_010.jpg',
         title: 'A guided wizard + live wall status', body: 'Consolidated everything into a 3-step wizard \u2014 Sub-Area Names \u2192 Wall Configuration \u2192 Devices \u2014 plus a Wall Status board showing each wall\u2019s live open/closed state. One mental model, start to finish.',
         points: [{ dot: '#7dd3c0', text: '3-step wizard removes ambiguity' }, { dot: '#7dd3c0', text: 'Live Wall Status with open/closed state' }, { dot: '#7dd3c0', text: 'Identical flow on every surface' }] },
     };
@@ -807,11 +781,11 @@ class Component extends DCLogic {
   // ---- flow ----
   flowData() {
     return [
-      { tag: 'Step 1', title: 'Create the Area', sub: 'Tap + to add a new area', img: 'assets/part/step1-create.png' },
-      { tag: 'Step 2', title: 'Define the Partitioned Area', sub: 'Set the Partitioned type, wall & sub-area counts', img: 'assets/part/step2-define.png' },
-      { tag: 'Step 3', title: 'Update Sub-Area Names', sub: 'Name each room for the application', img: 'assets/part/step3-names.png' },
-      { tag: 'Step 4', title: 'Define Each Wall\u2019s Joins', sub: 'Pick the sub-areas each wall separates', img: 'assets/part/step4-walls.png' },
-      { tag: 'Step 5', title: 'Assign the Wall Input', sub: 'Map each wall to a CCI / IRTR contact input', img: 'assets/part/step5-input.png' },
+      { tag: 'Step 1', title: 'Create the Area', sub: 'Tap + to add a new area', img: 'assets/part/Partitioning_Desktop_001.jpg' },
+      { tag: 'Step 2', title: 'Define the Partitioned Area', sub: 'Set the Partitioned type, wall & sub-area counts', img: 'assets/part/Partitioning_Desktop_002.jpg' },
+      { tag: 'Step 3', title: 'Update Sub-Area Names', sub: 'Name each room for the application', img: 'assets/part/Partitioning_Desktop_003.jpg' },
+      { tag: 'Step 4', title: 'Define Each Wall\u2019s Joins', sub: 'Pick the sub-areas each wall separates', img: 'assets/part/Partitioning_Desktop_004.jpg' },
+      { tag: 'Step 5', title: 'Assign the Wall Input', sub: 'Map each wall to a CCI / IRTR contact input', img: 'assets/part/Partitioning_Desktop_005.jpg' },
     ];
   }
 

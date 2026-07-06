@@ -76,46 +76,53 @@
      (quick tours ≈ 3–5 min, deep dives ≈ 8–12 min). */
   var P = {
     insights: {
-      title: 'CORE Insights', org: 'Cooper Lighting · Signify', thumb: 'previews/thumb-insights.png',
+      title: 'CORE Insights', org: 'Cooper Lighting · Signify', thumb: 'previews/thumb-insights.png?v=2',
       blurb: 'A building-analytics platform turning occupancy and energy telemetry into decisions — live dashboards, occupancy floor maps, and heat-map reporting at portfolio scale.',
       tags: ['Enterprise SaaS', 'Data viz', 'IoT'], read: '4 min tour · 10 min deep dive',
       kw: 'enterprise saas b2b dashboard dashboards analytics data visualization heatmap occupancy floor map maps plan building iot sensors telemetry energy facility operations reporting console admin live metrics charts',
       links: [{ label: 'Quick tour', href: 'core-insights-showcase.html' }, { label: 'Deep dive', href: 'core-insights.dc.html' }]
     },
     dali: {
-      title: 'DALI-2 Lighting System', org: 'Industry first · Healthcare', thumb: 'previews/thumb-dali.png',
+      title: 'DALI-2 Lighting System', org: 'Industry first · Healthcare', thumb: 'previews/thumb-dali.png?v=2',
       blurb: "Commissioning UX for North America's largest DALI-2 hospital install — an industry first, shipped into a regulated healthcare environment.",
       tags: ['Commissioning', 'Healthcare', 'Industry first'], read: '4 min tour · 9 min deep dive',
       kw: 'dali commissioning healthcare hospital regulated lighting controls protocol industry first hardware embedded field tools installer largest install',
       links: [{ label: 'Quick tour', href: 'dali-2-showcase.html' }, { label: 'Deep dive', href: 'dali-2.dc.html' }]
     },
     smart: {
-      title: 'Smart Lighting App', org: 'Consumer IoT · iOS & Android', thumb: 'previews/thumb-smart.png',
+      title: 'Smart Lighting App', org: 'Consumer IoT · iOS & Android', thumb: 'previews/thumb-smart.png?v=2',
       blurb: 'A consumer mobile app for connected lighting — onboarding, scenes, and control patterns designed for non-technical households.',
       tags: ['Consumer IoT', 'Mobile'], read: '3 min tour · 8 min deep dive',
       kw: 'mobile app ios android consumer iot onboarding smart home connected lighting scenes control app store',
       links: [{ label: 'Quick tour', href: 'smart-lighting-showcase.html' }, { label: 'Deep dive', href: 'smart-lighting.dc.html' }]
     },
     fintech: {
-      title: 'Goals-Driven Finance', org: 'Fintech · Open Banking', thumb: 'previews/thumb-fintech.png',
+      title: 'Goals-Driven Finance', org: 'Fintech · Open Banking', thumb: 'previews/thumb-fintech.png?v=2',
       blurb: 'A goals-first fintech product for regulated open banking — from PRD to a clickable build, produced with an AI-assisted design-to-code workflow.',
       tags: ['Fintech', 'Open banking', 'AI-assisted build'], read: '4 min tour · walkthrough',
       kw: 'fintech finance bank banking open banking payments regulated money goals savings prd ai assisted claude cursor github clickable build walkthrough',
       links: [{ label: 'Quick tour', href: 'goals-driven-fintech-showcase.html' }, { label: 'Product walkthrough', href: 'fintech-walkthrough.html' }]
     },
     ctoc: {
-      title: 'CTOC Dashboard System', org: 'Enterprise cyber · 13 dashboards', thumb: 'previews/thumb-ctoc.png',
+      title: 'CTOC Dashboard System', org: 'Enterprise cyber · 13 dashboards', thumb: 'previews/thumb-ctoc.png?v=2',
       blurb: 'A cyber threat-operations center: 13 coordinated dashboards on one dark, token-driven design system — SOC workflows, threat feeds, and dense data visualization.',
       tags: ['Cyber operations', 'Design system', 'Data viz'], read: '5 min tour · 12 min deep dive',
       kw: 'cyber security soc threat operations dashboard dashboards dark theme design system tokens components enterprise data visualization monitoring incident defense defence secure tactical',
       links: [{ label: 'Quick tour', href: 'ctoc-showcase.html' }, { label: 'Deep dive', href: 'ctoc-case-study.dc.html' }]
     },
     eai: {
-      title: 'Application of AI', org: 'Enterprise AI', thumb: 'previews/thumb-ai.png',
+      title: 'Application of AI', org: 'Enterprise AI', thumb: 'previews/thumb-ai.png?v=2',
       blurb: 'Designing AI into enterprise product surfaces — where automation earns trust, where humans keep the decision, and how agentic workflows get evidence-first UX.',
       tags: ['Enterprise AI', 'Agentic UX'], read: '4 min tour · 10 min deep dive',
       kw: 'ai artificial intelligence ml agentic llm copilot automation human in the loop trust evidence defense defence enterprise machine learning',
       links: [{ label: 'Quick tour', href: 'enterprise-ai-showcase.html' }, { label: 'Deep dive', href: 'enterprise-ai.dc.html' }]
+    },
+    partitioning: {
+      title: 'Dynamic Space Partitioning', org: 'Cooper Lighting · Signify · WaveLinx CORE', thumb: 'previews/thumb-partitioning.png?v=2',
+      blurb: 'A ballroom splits into eight independently-lit rooms, and merges back, as operable walls open and close — the system modeling moving walls, sub-areas, and devices into one configuration any installer can run.',
+      tags: ['Connected Lighting', 'Hospitality & Venues', 'Operable Walls'], read: '4 min tour · 10 min deep dive',
+      kw: 'partition partitioning wavelinx hospitality venue ballroom hotel operable wall walls sub-area sub-areas zone zones merge split sensor irtr contact closure floor plan simulator installer commissioning connected lighting cooper',
+      links: [{ label: 'Quick tour', href: 'partitioning-showcase.html' }, { label: 'Deep dive', href: 'partitioning.dc.html' }]
     },
     la: {
       title: 'Light Architect', org: 'Interactive photometric planner', thumb: null,
@@ -174,16 +181,16 @@
       projects: ['insights', 'ctoc', 'smart'],
       pills: ['Design systems experience', 'Enterprise SaaS work', 'Consumer mobile work'] },
     { id: 'geo', kw: 'map maps mapping geospatial gis satellite spatial location floor plan plans site geo',
-      reply: 'Two live examples: Light Architect, a photometric planner over satellite imagery you can operate right on the homepage, and the occupancy floor maps at the heart of CORE Insights.',
-      projects: ['la', 'insights', 'aegis'],
+      reply: 'Three live examples: Light Architect, a photometric planner over satellite imagery you can operate right on the homepage, the occupancy floor maps at the heart of CORE Insights, and the live floor-plan simulator in Dynamic Space Partitioning.',
+      projects: ['la', 'insights', 'partitioning', 'aegis'],
       pills: ['Defense industry projects', 'Data visualization', 'Interactive prototypes'] },
     { id: 'leadership', kw: 'leadership lead led leading team teams cross-functional crossfunctional mentor stakeholders strategy strategic executive principal staff head senior seniority',
       reply: "Leadership evidence lives on the About page — cross-functional delivery on North America's largest DALI-2 install, three patent applications, and the career arc from IoT to defense-adjacent AI.",
       projects: ['about', 'dali'],
       pills: ['Patents', 'Enterprise SaaS work', 'Resume'] },
     { id: 'iot', kw: 'iot connected hardware devices device sensor sensors embedded lighting luminaire smart building',
-      reply: 'Connected-lighting IoT is the origin story: platform analytics, a first-of-its-kind healthcare commissioning system, and a consumer mobile app.',
-      projects: ['insights', 'dali', 'smart'],
+      reply: 'Connected-lighting IoT is the origin story: platform analytics, a first-of-its-kind healthcare commissioning system, dynamic space partitioning with operable walls, and a consumer mobile app.',
+      projects: ['insights', 'dali', 'partitioning', 'smart'],
       pills: ['Enterprise SaaS work', 'Consumer mobile work', 'Geospatial and mapping work'] },
     { id: 'mobile', kw: 'mobile ios android phone app consumer apps native',
       reply: 'The consumer mobile work is the Smart Lighting App — onboarding, scenes, and control designed for non-technical households on iOS and Android.',
@@ -322,7 +329,7 @@
     var base = 'font-family:' + T.font + ';box-sizing:border-box;';
 
     /* ---- FAB ---- */
-    var fab = mk('button', base + 'position:fixed;right:18px;bottom:18px;z-index:99990;height:54px;min-width:54px;padding:0 16px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:0.02em;' + T.fab + (reduce ? '' : 'transition:transform .2s ease, box-shadow .2s ease;'));
+    var fab = mk('button', base + 'position:fixed;right:18px;bottom:18px;z-index:99990;height:54px;min-width:54px;max-width:calc(100vw - 36px);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:0 16px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:0.02em;' + T.fab + (reduce ? '' : 'transition:transform .2s ease, box-shadow .2s ease;'));
     fab.id = 'rb-ai-fab';
     fab.type = 'button';
     fab.setAttribute('aria-label', 'Open the portfolio concierge chat');
@@ -416,13 +423,28 @@
              : '1px solid rgba(255,255,255,0.16)';
     if (mode === 'mini') {
       s.width = 'min(450px, calc(100vw - 24px))'; s.height = 'min(560px, calc(100vh - 96px))';
+      try { if (window.CSS && CSS.supports('height', '100dvh')) s.height = 'min(560px, calc(100dvh - 96px))'; } catch (e) {}
       s.right = '18px'; s.bottom = '84px'; s.top = 'auto'; s.left = 'auto';
       s.borderRadius = T.radius === '0' ? '0' : '16px';
       s.border = edge;
       s.boxShadow = themeOf() === 'dossier' ? '8px 8px 0 rgba(10,8,4,0.14)' : '0 26px 64px -14px rgba(0,0,0,0.55)';
     } else {
       var w = panelWidth();
-      s.width = w; s.height = '100vh'; s.right = '0'; s.bottom = '0'; s.top = '0'; s.left = 'auto';
+      if (window.innerWidth <= 720) { s.left = '0'; s.right = '0'; s.width = 'auto'; }
+      else { s.width = w; s.right = '0'; s.left = 'auto'; }
+      s.height = '100vh';
+      try { if (window.CSS && CSS.supports('height', '100dvh')) s.height = '100dvh'; } catch (e) {}
+      s.maxWidth = '100vw'; s.overflowX = 'hidden';
+      s.bottom = '0'; s.top = '0';
+      // keyboard-aware: 100vh/100dvh do not shrink when the on-screen keyboard
+      // opens (especially iOS), leaving the input row hidden behind it. The
+      // visual viewport tracks the keyboard on both platforms — fit to it.
+      var vv = window.visualViewport;
+      if (vv && window.innerWidth <= 720) {
+        s.top = vv.offsetTop + 'px';
+        s.bottom = 'auto';
+        s.height = vv.height + 'px';
+      }
       s.borderRadius = '0';
       s.border = 'none';
       s.borderLeft = edge;
@@ -431,6 +453,7 @@
   }
 
   function open(mode, restoring) {
+    if (window.innerWidth <= 720) mode = 'panel'; // phones: full-screen chat, keyboard-fitted
     state.mode = mode; persist();
     try { localStorage.setItem('rb-ai-seen', '1'); } catch (e) {}
     els.shell.style.display = 'flex';
@@ -558,6 +581,16 @@
 
   /* ---- responsive: re-lay the panel on resize ---- */
   window.addEventListener('resize', function () { if (state.mode === 'panel' && els.shell && els.shell.style.display !== 'none') layout('panel'); });
+  if (window.visualViewport) {
+    var vvFit = function () {
+      if (state.mode === 'panel' && els.shell && els.shell.style.display !== 'none') {
+        layout('panel');
+        if (els.log) els.log.scrollTop = els.log.scrollHeight;
+      }
+    };
+    window.visualViewport.addEventListener('resize', vvFit);
+    window.visualViewport.addEventListener('scroll', vvFit);
+  }
 
   function boot() { if (!document.body) return setTimeout(boot, 60); build(); }
   boot();

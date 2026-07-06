@@ -591,10 +591,10 @@ body{margin:0}
           <label style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#c9b28a;">
             <span aria-hidden="true">Drill</span>
             <select id="ag-mode" aria-label="Choose which AEGIS drill to play" style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#f4ecd6;background:#1a1309 url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none' stroke='%237dd3c0' stroke-width='1.6'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E&quot;) no-repeat right 12px center;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:9px 32px 9px 14px;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;">
-              <option value="arctic">Arctic Shield · intercept</option>
               <option value="fusion">Fusion Watch · deduction</option>
               <option value="sweep">Sweep · Watchkeeper · reflex</option>
               <option value="watchfloor">Watchfloor: Last Light · survival</option>
+              <option value="arctic">Arctic Shield · intercept</option>
             </select>
           </label>
           <button id="ag-info-btn" type="button" aria-haspopup="dialog" aria-controls="ag-info" aria-expanded="false" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#c9b28a;background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 15px;cursor:pointer;transition:border-color .15s ease,color .15s ease;">
@@ -1436,7 +1436,11 @@ class Component extends DCLogic {
     // restore the visitor's last-used drill (shared across homepage variants)
     let savedMode = null; try { savedMode = localStorage.getItem('rba-ag-mode'); } catch (e) {}
     if (modeSel && savedMode && savedMode !== modeSel.value && (savedMode === 'arctic' || RULES[savedMode])) modeSel.value = savedMode;
-    if (modeSel && modeSel.value === 'arctic') setArctic(true);
+    // Arctic Shield embeds a heavy standalone iframe (its own React runtime, no
+    // local fallback) — only auto-load it for a visitor who explicitly chose it
+    // before. A brand-new visitor should never eager-load that iframe just
+    // because it happens to be a <select> option; they land on a real drill.
+    if (modeSel && modeSel.value === 'arctic' && savedMode === 'arctic') setArctic(true);
     else if (modeSel && RULES[modeSel.value] && this._agMode !== modeSel.value) setMode(modeSel.value);
     this._agRaf = requestAnimationFrame(loop);
   }
@@ -2034,11 +2038,13 @@ class Component extends DCLogic {
     }));
     const currentName = ((vlist.find(v => v.id === curId) || vlist[0]).label || 'Dossier').toUpperCase();
     const files = [
-      { num: '01', title: 'CORE Insights', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Operational intelligence · IoT', cat: 'Cooper Lighting · Signify', highlight: 'Live dashboards at scale', href: 'core-insights-showcase.html', preview: 'previews/thumb-insights.png' },
-      { num: '02', title: 'DALI-2 Lighting System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Commissioning · Healthcare', cat: 'Industry First', highlight: "N. America's largest install", href: 'dali-2-showcase.html', preview: 'previews/thumb-dali.png' },
-      { num: '03', title: 'Smart Lighting App', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Consumer IoT · Mobile', cat: 'Consumer IoT', highlight: 'iOS & Android', href: 'smart-lighting-showcase.html', preview: 'previews/thumb-smart.png' },
-      { num: '04', title: 'Goals-Driven Fintech', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Regulated · Open Banking', cat: 'Fintech · AI', highlight: 'PRD · Claude · Cursor · GitHub', href: 'goals-driven-fintech-showcase.html', preview: 'previews/thumb-fintech.png' },
-      { num: '05', title: 'CTOC Dashboard System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Enterprise Cyber · 13 Dashboards', cat: 'Cyber Operations', highlight: 'Hi-fi prototype', href: 'ctoc-showcase.html', preview: 'previews/thumb-ctoc.png' },
+      { num: '01', title: 'DALI-2 Lighting System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Commissioning · Healthcare', cat: 'Industry First', highlight: "N. America's largest install", href: 'dali-2-showcase.html', preview: 'previews/thumb-dali.png?v=2' },
+      { num: '02', title: 'Insights Dashboards', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Operational intelligence · IoT', cat: 'Cooper Lighting · Signify', highlight: 'Live dashboards at scale', href: 'core-insights-showcase.html', preview: 'previews/thumb-insights.png?v=2' },
+      { num: '03', title: 'Dynamic Space Partitioning', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Space partitioning · WaveLinx', cat: 'Connected Spaces', highlight: 'Commission on a phone', href: 'partitioning-showcase.html', preview: 'previews/thumb-partitioning.png?v=2' },
+      { num: '04', title: 'Enterprise AI', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Conversational · Explainable · Predictive', cat: 'AI Strategy', highlight: 'The model brings receipts', href: 'enterprise-ai-showcase.html', preview: 'previews/thumb-ai.png?v=2' },
+      { num: '05', title: 'Smart Lighting Mobile App', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Consumer IoT · Mobile', cat: 'Consumer IoT', highlight: 'iOS & Android', href: 'smart-lighting-showcase.html', preview: 'previews/thumb-smart.png?v=2' },
+      { num: '06', title: 'Goals-Driven Fintech', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Regulated · Open Banking', cat: 'Fintech · AI', highlight: 'PRD · Claude · Cursor · GitHub', href: 'goals-driven-fintech-showcase.html', preview: 'previews/thumb-fintech.png?v=2' },
+      { num: '07', title: 'CTOC Dashboard System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Enterprise Cyber · 13 Dashboards', cat: 'Cyber Operations', highlight: 'Hi-fi prototype', href: 'ctoc-showcase.html', preview: 'previews/thumb-ctoc.png?v=2' },
     ];
     return {
       files, m1: S.m1, m2: S.m2, m3: S.m3, m4: S.m4, m5: S.m5, m6: S.m6,

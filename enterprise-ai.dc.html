@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Application of AI, Case Study · Robert Babiarz</title>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fingerprint,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,psychology,refresh,remove,restore,sensors,star&display=block" rel="stylesheet">
   <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
 <script src="./support.js"></script>
 
@@ -113,6 +113,92 @@ summary::-webkit-details-marker{display:none}
 @media (min-width:881px){ #cs-menu{display:none !important} }
 /* square corners on all screenshot frames (any frame wrapping an <img>) */
 .cs div:has(> img){border-radius:0 !important}
+
+/* ── 03 · The Through-Line (Follow the Signal) ─────────────────────── */
+#s-infuse .if-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start;margin-top:44px}
+#s-infuse .if-hud{display:flex;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#5d9d8a;padding:14px 18px;border-bottom:1px solid rgba(95,194,168,0.14)}
+#if-corridor{background:#0b1a16;border:1px solid rgba(95,194,168,0.18);border-radius:13px;overflow:hidden}
+#s-infuse .if-room{position:relative;padding:64px 22px 24px}
+#if-fxrow{display:flex;gap:4.5%}
+#s-infuse .if-fx{flex:1;height:16px;border-radius:5px;background:rgba(159,214,200,0.16);border:1px solid rgba(159,214,200,0.4);position:relative}
+#s-infuse .if-fx::after{content:'';position:absolute;top:100%;left:6%;right:6%;height:72px;background:linear-gradient(180deg,rgba(159,214,200,0.2),transparent);pointer-events:none}
+#if-fx-a42{border-style:dashed;border-color:#9fd6c8}
+#if-scene[data-stage="0"] #if-fx-a42{animation:if-flick 1.1s steps(2) infinite}
+@keyframes if-flick{0%,58%{opacity:1}59%,100%{opacity:0.42}}
+#s-infuse .if-addr{position:absolute;top:-30px;left:50%;transform:translate(-50%,4px);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em;color:#9fcabd;background:rgba(9,26,22,0.9);border:1px solid rgba(95,194,168,0.3);border-radius:999px;padding:3px 9px;white-space:nowrap;opacity:0;transition:opacity .3s ease,transform .3s ease}
+#s-infuse .if-fx:nth-child(2) .if-addr{transition-delay:.04s}#s-infuse .if-fx:nth-child(3) .if-addr{transition-delay:.08s}#s-infuse .if-fx:nth-child(4) .if-addr{transition-delay:.12s}#s-infuse .if-fx:nth-child(5) .if-addr{transition-delay:.16s}#s-infuse .if-fx:nth-child(6) .if-addr{transition-delay:.2s}
+#if-scene[data-stage="1"] .if-addr,#if-scene[data-stage="2"] .if-addr,#if-scene[data-stage="3"] .if-addr{opacity:1;transform:translate(-50%,0)}
+#s-infuse .if-flag{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#e8c37a;border:1px dashed rgba(232,195,122,0.55);border-radius:999px;padding:3px 9px;white-space:nowrap;transition:opacity .25s ease}
+#if-scene:not([data-stage="0"]) .if-flag{opacity:0}
+#s-infuse .if-batch,#s-infuse .if-wo{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#9fcabd;border:1px dashed rgba(159,214,200,0.5);border-radius:999px;padding:2px 8px;white-space:nowrap;opacity:0;transition:opacity .3s ease}
+#if-scene[data-stage="2"] .if-batch,#if-scene[data-stage="3"] .if-batch{opacity:1}
+#if-scene[data-stage="2"] .if-sib,#if-scene[data-stage="3"] .if-sib{border-style:dashed}
+#s-infuse .if-wo{color:#07120f;background:#5fc2a8;border:1px solid #5fc2a8;font-weight:700}
+#if-scene[data-outcome="wo"] .if-wo{opacity:1}
+#if-spark{position:absolute;top:12px;right:18px;display:flex;align-items:flex-end;gap:3px;height:46px;opacity:0;transform:translateY(4px);transition:opacity .3s ease,transform .3s ease}
+#if-spark i{width:7px;background:#5d9d8a;border-radius:2px 2px 0 0}
+#if-spark .if-spark-cap{position:absolute;top:100%;right:0;margin-top:5px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#5d9d8a;white-space:nowrap}
+#if-scene[data-stage="2"] #if-spark,#if-scene[data-stage="3"] #if-spark{opacity:1;transform:none}
+#s-infuse .if-floor{height:10px;border-radius:8px;background:linear-gradient(180deg,rgba(159,214,200,0.1),rgba(159,214,200,0.02));margin-top:78px}
+#if-stack{display:flex;flex-direction:column;gap:10px}
+#s-infuse .if-card{background:#0b1a16;border:1px solid rgba(95,194,168,0.18);border-radius:13px;overflow:hidden}
+#s-infuse .if-cardbar{display:flex;align-items:center}
+#s-infuse .if-toggle{display:flex;align-items:center;gap:10px;flex:1;min-height:44px;padding:10px 14px;background:none;border:0;color:#e3f1ec;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-align:left}
+#s-infuse .if-toggle .msi{font-size:24px;color:#5fc2a8}
+#s-infuse .if-chev{margin-left:auto;transition:transform .25s ease;color:#5d9d8a}
+#s-infuse .if-card[data-open="1"] .if-chev{transform:rotate(180deg)}
+#s-infuse .if-proof{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#9fd6c8;text-decoration:none;border:1px solid rgba(95,194,168,0.3);border-radius:999px;padding:6px 11px;margin-right:12px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+#s-infuse .if-cardbody{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .35s ease,opacity .3s ease}
+#s-infuse .if-card[data-open="1"] .if-cardbody{grid-template-rows:1fr;opacity:1}
+#s-infuse .if-cardinner{overflow:hidden;min-height:0;padding:0 16px}
+#s-infuse .if-card[data-open="1"] .if-cardinner{padding:2px 16px 16px}
+#s-infuse .if-row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed rgba(159,214,200,0.15);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.03em}
+#s-infuse .if-row:last-child{border-bottom:0}
+#s-infuse .if-row b{color:#5d9d8a;font-weight:400;flex:none}
+#s-infuse .if-row span{color:#e3f1ec;text-align:right}
+#if-ticks{display:flex;align-items:flex-end;gap:2px;height:26px;margin:12px 0 8px}
+#if-ticks i{flex:1;background:#37564d;border-radius:1px}
+#if-rail{display:flex;gap:8px;list-style:none;margin:26px 0 0;padding:0}
+#if-rail li{flex:1;display:flex}
+#s-infuse .if-stop{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:56px;padding:9px 12px;border:1px solid rgba(95,194,168,0.25);border-radius:10px;background:transparent;color:#9fcabd;cursor:pointer;font-family:'JetBrains Mono',monospace;text-align:left}
+#s-infuse .if-stop .if-stop-n{font-size:10px;letter-spacing:0.1em;opacity:0.8}
+#s-infuse .if-stop .if-stop-name{font-size:12px;font-weight:700;letter-spacing:0.08em}
+#s-infuse .if-stop .if-stop-sub{font-size:9px;letter-spacing:0.06em;opacity:0.75}
+#s-infuse .if-stop[aria-current="step"]{background:#5fc2a8;border-color:#5fc2a8;color:#07120f}
+#if-track{height:3px;border-radius:2px;background:rgba(255,255,255,0.08);margin:10px 0 22px}
+#if-track-fill{height:100%;width:0;border-radius:2px;background:#5fc2a8;transition:width .3s ease}
+#if-advance{display:inline-flex;align-items:center;gap:9px;background:#5fc2a8;color:#07120f;border:0;border-radius:999px;padding:13px 22px;min-height:44px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:transform .15s ease}
+#if-advance:hover{transform:translateY(-2px)}
+#if-advance .msi{font-size:24px}
+#if-caption{margin-top:22px}
+#if-caption h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:500;letter-spacing:-0.3px;color:#e3f1ec;margin:0 0 8px}
+#if-caption p{font-size:14.5px;line-height:1.62;color:#b9cfc7;margin:0}
+#if-receipts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+#s-infuse .if-receipt{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#9fd6c8;background:rgba(95,194,168,0.08);border:1px solid rgba(95,194,168,0.35);border-radius:999px;padding:8px 12px;min-height:44px;cursor:pointer}
+#s-infuse .if-cite{outline:2px solid #9fd6c8;outline-offset:2px;animation:if-pulse .5s ease 2}
+@keyframes if-pulse{0%{box-shadow:0 0 0 0 rgba(159,214,200,0.5)}100%{box-shadow:0 0 0 9px rgba(159,214,200,0)}}
+#if-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+#if-approve{display:inline-flex;align-items:center;gap:8px;background:#5fc2a8;color:#07120f;border:0;border-radius:999px;padding:11px 18px;min-height:44px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer}
+#if-dismiss{background:transparent;color:#9fcabd;border:1px solid rgba(95,194,168,0.3);border-radius:999px;padding:11px 18px;min-height:44px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer}
+#if-outcome{font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.6;letter-spacing:0.04em;color:#9fd6c8;margin:10px 0 0}
+#s-infuse .if-note{font-size:12.5px;font-style:italic;color:#5d9d8a;margin-top:26px;line-height:1.6}
+#s-infuse .if-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#s-infuse button:focus-visible,#s-infuse a:focus-visible{outline:2px solid #9fd6c8;outline-offset:2px}
+@media (max-width:900px){
+  #s-infuse .if-grid{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  #if-rail{flex-wrap:wrap}
+  #if-rail li{flex:1 1 46%}
+  #s-infuse .if-addr{display:none}
+  #s-infuse .if-fx:nth-child(3) .if-addr,#if-fx-a42 .if-addr{display:block}
+}
+@media (prefers-reduced-motion: reduce){
+  #if-scene[data-stage="0"] #if-fx-a42{animation:none;opacity:0.45}
+  #s-infuse .if-addr,#s-infuse .if-cardbody,#if-track-fill,#if-spark,#s-infuse .if-batch,#s-infuse .if-wo,#s-infuse .if-chev,#if-advance{transition:none}
+  #s-infuse .if-cite{animation:none}
+  #if-advance:hover{transform:none}
+}
 </style>
 <script src="text-motion.js"></script>
 <script src="page-transition.js"></script>
@@ -138,11 +224,12 @@ summary::-webkit-details-marker{display:none}
             <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;color:var(--c-muted);transition:transform .2s;">expand_more</span>
           </summary>
           <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
-            <a href="enterprise-ai-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:#eaf6f1;"><div style="font-size:14px;font-weight:600;color:#0d5350;">Infusing Intelligence</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise AI · CORE platform</div></a>
-            <a href="smart-lighting-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
             <a href="dali-2-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">DALI-2 Lighting System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
-            <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CORE Insights</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
-            <a href="goals-driven-fintech-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Finance</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
+            <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Insights Dashboards</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="partitioning-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Spaces that change shape · WaveLinx</div></a>
+            <a href="enterprise-ai-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-bg2);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">Enterprise AI</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Conversational · explainable · predictive</div></a>
+            <a href="smart-lighting-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="goals-driven-fintech-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Fintech</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
             <a href="ctoc-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-bg2)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
             <div style="height:1px;background:var(--c-b2);margin:6px 4px;"></div>
             <a href="homepage-interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted);" style-hover="background:var(--c-bg2);color:var(--c-ink2)"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span> All work</a>
@@ -159,12 +246,13 @@ summary::-webkit-details-marker{display:none}
     <div class="cs-stagger" style="display:flex;flex-direction:column;">
       <a class="csm-sec" href="#s-overview" onClick="{{ closeMenu }}"><span>Overview</span><span class="csm-n">01</span></a>
       <a class="csm-sec" href="#s-users" onClick="{{ closeMenu }}"><span>The Users</span><span class="csm-n">02</span></a>
-      <a class="csm-sec" href="#s-search" onClick="{{ closeMenu }}"><span>Conversational AI</span><span class="csm-n">03</span></a>
-      <a class="csm-sec" href="#s-explain" onClick="{{ closeMenu }}"><span>Explainability</span><span class="csm-n">04</span></a>
-      <a class="csm-sec" href="#s-predict" onClick="{{ closeMenu }}"><span>Predictive Maintenance</span><span class="csm-n">05</span></a>
-      <a class="csm-sec" href="#s-optimize" onClick="{{ closeMenu }}"><span>Self-Learning</span><span class="csm-n">06</span></a>
-      <a class="csm-sec" href="#s-field" onClick="{{ closeMenu }}"><span>AI in the Field</span><span class="csm-n">07</span></a>
-      <a class="csm-sec" href="#s-outcomes" onClick="{{ closeMenu }}"><span>Outcomes</span><span class="csm-n">08</span></a>
+      <a class="csm-sec" href="#s-infuse" onClick="{{ closeMenu }}"><span>The Through-Line</span><span class="csm-n">03</span></a>
+      <a class="csm-sec" href="#s-search" onClick="{{ closeMenu }}"><span>Conversational AI</span><span class="csm-n">04</span></a>
+      <a class="csm-sec" href="#s-explain" onClick="{{ closeMenu }}"><span>Explainability</span><span class="csm-n">05</span></a>
+      <a class="csm-sec" href="#s-predict" onClick="{{ closeMenu }}"><span>Predictive Maintenance</span><span class="csm-n">06</span></a>
+      <a class="csm-sec" href="#s-optimize" onClick="{{ closeMenu }}"><span>Self-Learning</span><span class="csm-n">07</span></a>
+      <a class="csm-sec" href="#s-field" onClick="{{ closeMenu }}"><span>AI in the Field</span><span class="csm-n">08</span></a>
+      <a class="csm-sec" href="#s-outcomes" onClick="{{ closeMenu }}"><span>Outcomes</span><span class="csm-n">09</span></a>
     </div>
     <div class="csm-lbl" style="margin-top:26px;">Switch case study</div>
     <div class="cs-stagger" style="display:flex;flex-direction:column;">
@@ -181,6 +269,7 @@ summary::-webkit-details-marker{display:none}
   <nav class="cs-toc" aria-label="Sections" style="position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
     <a href="#s-overview" data-toc="s-overview" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Overview</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-users" data-toc="s-users" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Users</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
+    <a href="#s-infuse" data-toc="s-infuse" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Through-line</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-search" data-toc="s-search" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Conversational</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-explain" data-toc="s-explain" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Explainability</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
     <a href="#s-predict" data-toc="s-predict" style="display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end;"><span class="cs-toc-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;">Predictive</span><span class="cs-toc-dot" style="width:10px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .2s;"></span></a>
@@ -195,13 +284,12 @@ summary::-webkit-details-marker{display:none}
     <div style="position:absolute;bottom:-80px;left:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(95,194,168,0.10),transparent 70%);pointer-events:none;"></div>
     <div style="max-width:1240px;margin:0 auto;position:relative;">
       <div style="display:flex;align-items:center;gap:11px;margin-bottom:24px;animation:ai-up 0.7s ease both;">
-        <span style="width:30px;height:1.5px;background:#0d5350;"></span>
         <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#0d5350;">ENTERPRISE AI · IOT PLATFORM</span>
       </div>
       <h1 style="font-family:'Inter',sans-serif;font-size:clamp(42px,5.4vw,78px);font-weight:500;line-height:0.98;letter-spacing:-2.4px;color:var(--c-ink);max-width:1080px;animation:ai-up 0.8s ease 0.05s both;">INFUSING INTELLIGENCE<br/><span style="font-style:italic;font-weight:300;color:#0d5350;">into the Enterprise</span></h1>
       <p style="font-size:clamp(17px,1.7vw,21px);color:var(--c-body);line-height:1.6;max-width:660px;margin-top:26px;animation:ai-up 0.8s ease 0.12s both;">Embedding conversational and predictive AI into CORE, Cooper Lighting's cloud platform for managing connected lighting across enterprise buildings. Turning a wall of cryptic alarms into plain-language answers, and reactive maintenance into foresight.</p>
       <div style="display:grid;grid-template-columns:repeat(5,auto);gap:16px 44px;margin-top:40px;animation:ai-up 0.8s ease 0.2s both;width:max-content;max-width:100%;">
-        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Lead / Principal XD</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Lead Experience Designer</div></div>
         <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Platform</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">CORE · Web Cloud</div></div>
         <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Scope</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">AI strategy → delivery</div></div>
         <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Domain</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">Connected Lighting</div></div>
@@ -300,10 +388,109 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 3 · CONVERSATIONAL ════════ -->
+
+  <!-- ════════ 3 · THE THROUGH-LINE ════════ -->
+  <section id="s-infuse" style="padding:90px 40px;background:#07120f;color:#e3f1ec;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">03 · The Through-Line</div>
+      <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#e3f1ec;max-width:1000px;margin-bottom:22px;" data-reveal="1">FOLLOW ONE FAILING LIGHT <span style="font-style:italic;font-weight:300;color:#9fd6c8;">all the way to a decision.</span></h2>
+      <p style="font-size:16.5px;color:#b9cfc7;line-height:1.72;max-width:820px;" data-reveal="1">Intelligence was never bolted on here &mdash; it was infused into the same infrastructure, one layer at a time. DALI-2 taught the hardware to know itself. CORE Insights taught the building to observe itself. This platform taught the system to explain itself. Advance one real signal &mdash; a luminaire beginning to fail &mdash; and watch each layer add meaning the one below can&rsquo;t.</p>
+
+      <div id="if-scene" data-stage="0" data-outcome="">
+        <div class="if-grid">
+          <div>
+            <div id="if-corridor">
+              <div class="if-hud"><span>LEVEL 3 · WEST CORRIDOR</span><span id="if-hud-stage">SIGNAL · RAW</span></div>
+              <div class="if-room">
+                <div id="if-spark" aria-hidden="true"><i style="height:30%"></i><i style="height:32%"></i><i style="height:34%"></i><i style="height:33%"></i><i style="height:38%"></i><i style="height:42%"></i><i style="height:45%"></i><i style="height:44%"></i><i style="height:52%"></i><i style="height:58%"></i><i style="height:63%"></i><i style="height:70%"></i><i style="height:78%"></i><i style="height:88%"></i><span class="if-spark-cap">POWER DRAW · 14 DAYS</span></div>
+                <div id="if-fxrow">
+                  <div class="if-fx" id="if-fx-a40"><span class="if-addr">A40</span></div>
+                  <div class="if-fx if-sib" id="if-fx-a41"><span class="if-addr">A41</span><span class="if-batch">BATCH</span></div>
+                  <div class="if-fx" id="if-fx-a42"><span class="if-flag">UNSTABLE</span><span class="if-addr">A42 · LAMP FAILURE</span><span class="if-wo">WO-1042 · THURSDAY</span></div>
+                  <div class="if-fx" id="if-fx-a43"><span class="if-addr">A43</span></div>
+                  <div class="if-fx if-sib" id="if-fx-a44"><span class="if-addr">A44</span><span class="if-batch">BATCH</span></div>
+                  <div class="if-fx" id="if-fx-a45"><span class="if-addr">A45</span></div>
+                </div>
+                <div class="if-floor"></div>
+              </div>
+            </div>
+            <ol id="if-rail" aria-label="Signal journey">
+              <li><button type="button" class="if-stop" id="if-stop-0" data-n="0" aria-current="step"><span class="if-stop-n">00</span><span class="if-stop-name">RAW</span><span class="if-stop-sub">NO INTELLIGENCE</span></button></li>
+              <li><button type="button" class="if-stop" id="if-stop-1" data-n="1"><span class="if-stop-n">01</span><span class="if-stop-name">DEVICE</span><span class="if-stop-sub">DALI-2</span></button></li>
+              <li><button type="button" class="if-stop" id="if-stop-2" data-n="2"><span class="if-stop-n">02</span><span class="if-stop-name">NETWORK</span><span class="if-stop-sub">CORE INSIGHTS</span></button></li>
+              <li><button type="button" class="if-stop" id="if-stop-3" data-n="3"><span class="if-stop-n">03</span><span class="if-stop-name">DECISION</span><span class="if-stop-sub">ENTERPRISE AI</span></button></li>
+            </ol>
+            <div id="if-track"><div id="if-track-fill"></div></div>
+            <button id="if-advance" type="button"><span id="if-adv-label">Advance the signal</span><span class="msi" aria-hidden="true" id="if-adv-icon">arrow_upward</span></button>
+            <div id="if-caption" aria-live="off">
+              <h3 id="if-cap-title">A flicker, and nothing more.</h3>
+              <p id="if-cap-body">A luminaire on Level 3 begins to flicker. Without intelligence this is a complaint waiting to be filed &mdash; noticed on a night shift, fixed whenever someone walks the floor with a ladder. Advance the signal to see what DALI-2 makes of it.</p>
+            </div>
+          </div>
+          <div id="if-stack">
+            <div class="if-card" id="if-card-decision" data-open="0">
+              <div class="if-cardbar">
+                <button class="if-toggle" type="button" aria-expanded="false" aria-controls="if-body-decision"><span class="msi" aria-hidden="true">psychology</span>03 DECISION · ENTERPRISE AI<span class="msi if-chev" aria-hidden="true">expand_more</span></button>
+              </div>
+              <div class="if-cardbody" id="if-body-decision"><div class="if-cardinner">
+                <p style="font-size:13.5px;line-height:1.62;color:#b9cfc7;margin:8px 0 0;">A42&rsquo;s driver is degrading and will likely fail within weeks. Three fixtures from the same batch are on the same path. Replace all four in Thursday&rsquo;s maintenance window &mdash; before the corridor goes dark on a night shift.</p>
+                <div id="if-receipts">
+                  <button class="if-receipt" type="button" id="if-r1" data-cite="if-card-device" data-fx="if-fx-a42">STATUS FLAG · DEVICE</button>
+                  <button class="if-receipt" type="button" id="if-r2" data-cite="if-card-network" data-fx="if-spark">14-DAY TRACE · NETWORK</button>
+                  <button class="if-receipt" type="button" id="if-r3" data-cite="if-card-network" data-fx="if-fxrow">BATCH RECORD · NETWORK</button>
+                </div>
+                <div id="if-actions">
+                  <button id="if-approve" type="button">Create work order</button>
+                  <button id="if-dismiss" type="button">Dismiss</button>
+                </div>
+                <p id="if-outcome" hidden></p>
+              </div></div>
+            </div>
+            <div class="if-card" id="if-card-network" data-open="0">
+              <div class="if-cardbar">
+                <button class="if-toggle" type="button" aria-expanded="false" aria-controls="if-body-network"><span class="msi" aria-hidden="true">sensors</span>02 NETWORK · CORE INSIGHTS<span class="msi if-chev" aria-hidden="true">expand_more</span></button>
+                <a class="if-proof" href="core-insights-showcase.html">CASE STUDY <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+              </div>
+              <div class="if-cardbody" id="if-body-network"><div class="if-cardinner">
+                <div class="if-row"><b>SPACE</b><span>L3 WEST CORRIDOR · OCCUPIED ~18 H/DAY</span></div>
+                <div class="if-row"><b>TREND</b><span>POWER DRAW RISING, 14 DAYS</span></div>
+                <div class="if-row"><b>PATTERN</b><span>3 SIBLING DRIVERS · SAME BATCH · SAME DRIFT</span></div>
+              </div></div>
+            </div>
+            <div class="if-card" id="if-card-device" data-open="0">
+              <div class="if-cardbar">
+                <button class="if-toggle" type="button" aria-expanded="false" aria-controls="if-body-device"><span class="msi" aria-hidden="true">fingerprint</span>01 DEVICE · DALI-2<span class="msi if-chev" aria-hidden="true">expand_more</span></button>
+                <a class="if-proof" href="dali-2-showcase.html">CASE STUDY <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+              </div>
+              <div class="if-cardbody" id="if-body-device"><div class="if-cardinner">
+                <div class="if-row"><b>SHORT ADDRESS</b><span>A42</span></div>
+                <div class="if-row"><b>DEVICE</b><span>LED DRIVER · L3 WEST</span></div>
+                <div class="if-row"><b>STATUS</b><span>LAMP FAILURE — TRUE</span></div>
+                <div class="if-row"><b>EMERGENCY TEST</b><span>LAST PASS, 12 DAYS AGO</span></div>
+              </div></div>
+            </div>
+            <div class="if-card" id="if-card-raw" data-open="1">
+              <div class="if-cardbar">
+                <button class="if-toggle" type="button" aria-expanded="true" aria-controls="if-body-raw">RAW SIGNAL · L3 WEST CORRIDOR<span class="msi if-chev" aria-hidden="true">expand_more</span></button>
+              </div>
+              <div class="if-cardbody" id="if-body-raw"><div class="if-cardinner">
+                <div id="if-ticks" aria-hidden="true"><i style="height:52%"></i><i style="height:55%"></i><i style="height:50%"></i><i style="height:58%"></i><i style="height:54%"></i><i style="height:22%"></i><i style="height:60%"></i><i style="height:48%"></i><i style="height:18%"></i><i style="height:56%"></i><i style="height:53%"></i><i style="height:44%"></i><i style="height:12%"></i><i style="height:58%"></i><i style="height:50%"></i><i style="height:24%"></i><i style="height:55%"></i><i style="height:49%"></i><i style="height:57%"></i><i style="height:16%"></i><i style="height:52%"></i><i style="height:58%"></i><i style="height:20%"></i><i style="height:54%"></i></div>
+                <div class="if-row"><b>LIGHT OUTPUT</b><span>IRREGULAR</span></div>
+                <p style="font-size:12.5px;color:#5d9d8a;margin:10px 0 0;">No identity. No history. No meaning yet.</p>
+              </div></div>
+            </div>
+          </div>
+        </div>
+        <p class="if-note">Illustrative scenario. The data shapes are real &mdash; DALI-2 status reporting, CORE telemetry, AI remediation &mdash; the numbers stand in for live values.</p>
+        <div id="if-live" class="if-sr" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 4 · CONVERSATIONAL ════════ -->
   <section id="s-search" style="padding:90px 40px;background:#07120f;color:#e3f1ec;">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">03 · Conversational AI</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">04 · Conversational AI</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">ONE BAR TO <span style="font-style:italic;font-weight:300;color:#5fc2a8;">Ask the Building Anything</span></h2>
       <p style="font-size:16.5px;color:#9fcabd;line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">A single "Ask AI &amp; Search" bar sits at the top of every CORE screen. Below it, a row of one-tap intents, Today's Alarms, Critical Alarms, Deficient Devices, Longest Time Offline, turns the most common questions into instant queries. The same answer can be read three ways: as a floor plan, a building roll-up, or a table.</p>
       <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:40px;align-items:start;">
@@ -331,10 +518,10 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 4 · EXPLAINABILITY ════════ -->
+  <!-- ════════ 5 · EXPLAINABILITY ════════ -->
   <section id="s-explain" style="padding:90px 40px;background:var(--c-bg);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">04 · Explainability</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">05 · Explainability</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">EVERY ALARM CODE, <span style="font-style:italic;font-weight:300;color:#0d5350;">Translated to a Plan</span></h2>
       <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:14px;" data-reveal="1">The "Explain Alarms" feature is the heart of the work: pick any fault code and AI returns what it means in plain language plus a numbered remediation workflow, the same answer a senior specialist would give, available to anyone.</p>
       <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9b8fc0;letter-spacing:0.04em;margin-bottom:30px;" data-reveal="1">↓ TAP AN ALARM TYPE TO GENERATE ITS REMEDIATION</p>
@@ -379,10 +566,10 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 5 · PREDICTIVE ════════ -->
+  <!-- ════════ 6 · PREDICTIVE ════════ -->
   <section id="s-predict" style="padding:90px 40px;background:var(--c-bg2);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">05 · Predictive Maintenance</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">06 · Predictive Maintenance</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">FIX IT BEFORE <span style="font-style:italic;font-weight:300;color:#0d5350;">It Goes Dark</span></h2>
       <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">Predictive Maintenance flips the model from reactive to proactive. Each device card shows firmware status, install age, and an AI-estimated lifespan, "2 months remaining", with a one-tap recommendation. The companion "Longest Time Offline" view ranks devices by silence, so the worst actors surface first.</p>
       <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 15px 35px -19px rgba(13,83,80,0.26);margin-bottom:22px;" data-reveal="1">
@@ -390,7 +577,7 @@ summary::-webkit-details-marker{display:none}
       </div>
       <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:22px;align-items:stretch;">
         <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 15px 35px -19px rgba(13,83,80,0.26);" data-reveal="1">
-          <img src="assets/ai/offline-chart.jpg" alt="Longest time offline by device chart" style="width:100%;display:block;"/>
+          <img src="assets/ai/CloudAIDashboard.jpg" alt="Longest time offline by device chart" style="width:100%;display:block;"/>
         </div>
         <div style="display:flex;flex-direction:column;gap:14px;" data-reveal="1">
           <div style="background:#0e1a17;border-radius:14px;padding:24px 26px;flex:1;display:flex;flex-direction:column;justify-content:center;">
@@ -406,10 +593,10 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 6 · OPTIMIZATION ════════ -->
+  <!-- ════════ 7 · OPTIMIZATION ════════ -->
   <section id="s-optimize" style="padding:90px 40px;background:var(--c-bg);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">06 · Self-Learning Optimization</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">07 · Self-Learning Optimization</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">SET THE INTENT, <span style="font-style:italic;font-weight:300;color:#0d5350;">Let It Tune Itself</span></h2>
       <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:36px;" data-reveal="1">Rather than configuring hundreds of schedules by hand, a manager turns on Cooper Intelligence and picks a single goal. The system then tunes occupancy response, dimming, and schedules across the site to match, and keeps learning from how the building is actually used.</p>
       <div style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:40px;align-items:center;">
@@ -444,26 +631,30 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 7 · IN THE FIELD ════════ -->
+  <!-- ════════ 8 · IN THE FIELD ════════ -->
   <section id="s-field" style="padding:90px 40px;background:#07120f;color:#e3f1ec;">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">07 · AI in the Field</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5fc2a8;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">08 · AI in the Field</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">FROM A BRIEF TO <span style="font-style:italic;font-weight:300;color:#5fc2a8;">the Right Fixture</span></h2>
       <p style="font-size:16.5px;color:#9fcabd;line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">The same intelligence reaches sales and specification. A conversational "Fixture Recommendation" assistant turns a plain brief, "precise lighting for a grocery parking lot", into specific products, then connects to a searchable library of 5,000 IES files and an Area Wizard that auto-places fixtures on a real site map.</p>
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.2);box-shadow:0 20px 45px -22.5px rgba(0,0,0,0.45);margin-bottom:24px;" data-reveal="1">
-        <img src="assets/ai/fixture-ai-chat.jpg" alt="Select Fixture with conversational AI recommendation panel" style="width:100%;display:block;"/>
+      <div data-reveal="1" style="margin-bottom:24px;">
+        <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.2);box-shadow:0 20px 45px -22.5px rgba(0,0,0,0.45);margin-bottom:14px;">
+          <img src="assets/ai/fixture_recommendation.jpg" alt="Select Fixture with conversational AI recommendation panel" style="width:100%;display:block;"/>
+        </div>
+        <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Find Me a Fixture</div>
+        <p style="font-size:14px;color:#6fae9b;line-height:1.6;">A conversational AI window where the specifier describes the job in plain language, and the assistant recommends the matching fixture from the catalog.</p>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
         <div data-reveal="1">
           <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:0 15px 35px -20px rgba(0,0,0,0.45);margin-bottom:14px;">
-            <img src="assets/ai/ies-grid.jpg" alt="Searchable IES file library" style="width:100%;display:block;"/>
+            <img src="assets/ai/LA_FixtureAI.jpg" alt="Searchable IES file library" style="width:100%;display:block;"/>
           </div>
           <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Searchable IES Library</div>
           <p style="font-size:14px;color:#6fae9b;line-height:1.6;">5,000 photometric files, filtered by CCT, lumens, wattage and optics, multi-select and export in a click instead of digging through PDFs.</p>
         </div>
         <div data-reveal="1">
           <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:0 15px 35px -20px rgba(0,0,0,0.45);margin-bottom:14px;">
-            <img src="assets/ai/smart-layout.jpg" alt="Smart Layout Area Wizard auto-placing fixtures on a site map" style="width:100%;display:block;"/>
+            <img src="assets/ai/SmartBoundary.jpg" alt="Smart Layout Area Wizard auto-placing fixtures on a site map" style="width:100%;display:block;"/>
           </div>
           <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Smart Layout · Area Wizard</div>
           <p style="font-size:14px;color:#6fae9b;line-height:1.6;">Draw a boundary, set requirements, and AI auto-selects optics and places up to 20 fixtures to hit the target light level and uniformity.</p>
@@ -472,10 +663,10 @@ summary::-webkit-details-marker{display:none}
     </div>
   </section>
 
-  <!-- ════════ 8 · OUTCOMES ════════ -->
+  <!-- ════════ 9 · OUTCOMES ════════ -->
   <section id="s-outcomes" style="padding:96px 40px 110px;background:var(--c-bg2);">
     <div style="max-width:1240px;margin:0 auto;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">08 · Outcomes &amp; Reflection</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">09 · Outcomes &amp; Reflection</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:44px;" data-reveal="1">WHAT INTELLIGENCE <span style="font-style:italic;font-weight:300;color:#0d5350;">Actually Bought</span></h2>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#0e1a17;border-radius:18px;overflow:hidden;margin-bottom:54px;">
         <div style="padding:46px 34px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c1 }}%</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Less time spent decoding and triaging alarms</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">MEAN-TIME-TO-UNDERSTAND</div></div>
@@ -492,7 +683,7 @@ summary::-webkit-details-marker{display:none}
           <p style="font-size:15px;color:var(--c-body);line-height:1.7;">Confidence and provenance deserve to be first-class, showing <em>why</em> the AI predicted a failure, not just that it did. And the optimization loop should expose what it learned over time, so managers can trust the system to keep tuning without watching it.</p>
         </div>
       </div>
-      <div style="background:var(--c-surface);padding:30px 34px;" data-reveal="1">
+      <div style="background:var(--c-surface);padding:30px 34px;border-radius:14px;" data-reveal="1">
         <p style="font-family:'Inter',sans-serif;font-style:italic;font-weight:300;font-size:clamp(19px,2.1vw,26px);color:#16302a;line-height:1.5;letter-spacing:-0.3px;">"The goal was never to add AI to a dashboard. It was to make a 400-device building answer a question, and tell you what to do next, the way the best technician on the team would."</p>
       </div>
     </div>
@@ -529,7 +720,106 @@ class Component extends DCLogic {
   };
   _raf = {}; _obs = [];
 
-  componentDidMount() { setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.initScrollProgress(); }, 120); }
+  componentDidMount() { setTimeout(() => { this.initReveal(); this.initToc(); this.initCounters(); this.initScrollProgress(); try { this.initInfuse(); } catch (e) {} }, 120); }
+  componentDidUpdate() { try { this.applyInfuse(); } catch (e) {} }
+  applyInfuse() {
+    const $ = (id) => document.getElementById(id);
+    const sc = $('if-scene'); if (!sc || !this._sig) return;
+    const st = this._sig;
+    sc.setAttribute('data-stage', String(st.stage));
+    sc.setAttribute('data-outcome', st.outcome || '');
+    const KEYS = ['raw', 'device', 'network', 'decision'];
+    KEYS.forEach((k, i) => {
+      const card = $('if-card-' + k); if (!card) return;
+      card.hidden = i > st.stage;
+      card.setAttribute('data-open', st.open[i] ? '1' : '0');
+      const t = card.querySelector('.if-toggle'); if (t) t.setAttribute('aria-expanded', st.open[i] ? 'true' : 'false');
+    });
+    for (let i = 0; i < 4; i++) { const b = $('if-stop-' + i); if (b) { if (i === st.stage) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); } }
+    const fill = $('if-track-fill'); if (fill) fill.style.width = (st.stage / 3 * 100) + '%';
+    const hud = $('if-hud-stage'); if (hud) hud.textContent = 'SIGNAL · ' + ['RAW', 'DEVICE', 'NETWORK', 'DECISION'][st.stage];
+    const lbl = $('if-adv-label'); if (lbl) lbl.textContent = st.stage < 3 ? 'Advance the signal' : 'Replay from the flicker';
+    const ico = $('if-adv-icon'); if (ico) ico.textContent = st.stage < 3 ? 'arrow_upward' : 'restore';
+    const CAPS = [
+      ['A flicker, and nothing more.', 'A luminaire on Level 3 begins to flicker. Without intelligence this is a complaint waiting to be filed \u2014 noticed on a night shift, fixed whenever someone walks the floor with a ladder. Advance the signal to see what DALI-2 makes of it.'],
+      ['The hardware knows itself.', 'Every fixture here is an addressable DALI-2 device, so the flicker is no longer anonymous. Luminaire A42 reports its own fault, its location, and its last emergency-test result. Proven at North America\u2019s largest DALI-2 install.'],
+      ['The building observes itself.', 'The same lighting network doubles as a sensing grid. A42\u2019s fault lands inside weeks of telemetry: its power draw has been drifting, the corridor is occupied around the clock, and three sibling drivers from the same batch show the same signature. One fault becomes a pattern.'],
+      ['The system explains itself \u2014 you decide.', 'The top layer adds no new hardware. It adds explanation and foresight: the model brings receipts \u2014 the status flag, the trace, the batch record \u2014 and recommends a fix before failure. The decision stays with you.']
+    ];
+    const cap = CAPS[st.stage];
+    const ct = $('if-cap-title'); if (ct) ct.textContent = cap[0];
+    const cb = $('if-cap-body'); if (cb) cb.textContent = cap[1];
+    const act = $('if-actions'), out = $('if-outcome');
+    if (act && out) {
+      act.hidden = !!st.outcome; out.hidden = !st.outcome;
+      if (st.outcome === 'wo') out.innerHTML = '<span class="msi" aria-hidden="true" style="font-size:24px;vertical-align:-7px;">check</span> WO-1042 · SCHEDULED THURSDAY \u2014 your call, on the record.';
+      else if (st.outcome === 'dismissed') out.textContent = 'Recommendation dismissed. The model advised; you decided.';
+    }
+  }
+  initInfuse() {
+    try {
+      const $ = (id) => document.getElementById(id);
+      if (!$('if-scene')) return;
+      this._sig = { stage: 0, outcome: null, open: [true, false, false, false] };
+      const LIVE = [
+        'Stage 1 of 4, raw signal: a luminaire flickers with no identity.',
+        'Stage 2 of 4, device: DALI-2 gives the flicker a name and a fault status.',
+        'Stage 3 of 4, network: CORE Insights places the fault in a pattern.',
+        'Stage 4 of 4, decision: the AI explains and recommends \u2014 the decision is yours.'
+      ];
+      const announce = (m) => { const l = $('if-live'); if (l) l.textContent = m; };
+      const setStage = (n) => {
+        this._sig.stage = n;
+        this._sig.open = [0, 1, 2, 3].map((i) => i === n);
+        this.applyInfuse();
+        announce(LIVE[n]);
+      };
+      for (let i = 0; i < 4; i++) { const b = $('if-stop-' + i); if (b) b.addEventListener('click', () => setStage(parseInt(b.getAttribute('data-n'), 10))); }
+      const rail = $('if-rail');
+      if (rail) rail.addEventListener('keydown', (e) => {
+        let n = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = Math.min(3, this._sig.stage + 1);
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = Math.max(0, this._sig.stage - 1);
+        else if (e.key === 'Home') n = 0; else if (e.key === 'End') n = 3;
+        if (n === null) return;
+        e.preventDefault(); setStage(n); const b = $('if-stop-' + n); if (b) b.focus();
+      });
+      const adv = $('if-advance');
+      if (adv) adv.addEventListener('click', () => {
+        if (this._sig.stage < 3) { setStage(this._sig.stage + 1); }
+        else {
+          this._sig = { stage: 0, outcome: null, open: [true, false, false, false] };
+          this.applyInfuse(); announce('Replayed from the start.');
+          const b = $('if-stop-0'); if (b) b.focus();
+        }
+      });
+      const ap = $('if-approve');
+      if (ap) ap.addEventListener('click', () => { this._sig.outcome = 'wo'; this.applyInfuse(); announce('Work order WO-1042 created, scheduled Thursday.'); });
+      const dm = $('if-dismiss');
+      if (dm) dm.addEventListener('click', () => { this._sig.outcome = 'dismissed'; this.applyInfuse(); announce('Recommendation dismissed. No change made.'); });
+      ['raw', 'device', 'network', 'decision'].forEach((k, i) => {
+        const card = $('if-card-' + k); if (!card) return;
+        const t = card.querySelector('.if-toggle');
+        if (t) t.addEventListener('click', () => { this._sig.open[i] = !this._sig.open[i]; this.applyInfuse(); });
+      });
+      const KEYIDX = { 'if-card-raw': 0, 'if-card-device': 1, 'if-card-network': 2, 'if-card-decision': 3 };
+      document.querySelectorAll('#if-receipts .if-receipt').forEach((r) => {
+        const cite = () => {
+          const card = $(r.getAttribute('data-cite')); const fx = $(r.getAttribute('data-fx'));
+          if (card) { card.classList.add('if-cite'); const i = KEYIDX[card.id]; if (i != null && !this._sig.open[i]) { this._sig.open[i] = true; this.applyInfuse(); } }
+          if (fx) fx.classList.add('if-cite');
+        };
+        const uncite = () => {
+          const card = $(r.getAttribute('data-cite')); const fx = $(r.getAttribute('data-fx'));
+          if (card) card.classList.remove('if-cite'); if (fx) fx.classList.remove('if-cite');
+        };
+        r.addEventListener('mouseenter', cite); r.addEventListener('focus', cite); r.addEventListener('click', cite);
+        r.addEventListener('mouseleave', uncite); r.addEventListener('blur', uncite);
+      });
+      this.applyInfuse();
+    } catch (e) {}
+  }
+
   initScrollProgress() {
     if (document.getElementById('scroll-prog-bar')) return;
     const ac = '#0d5350', ac2 = '#5fc2a8';
@@ -580,7 +870,7 @@ class Component extends DCLogic {
 
   alarmData() {
     return {
-      floor: { img: 'assets/ai/CloudDashboard_07.jpg', title: 'Floor Plan', caption: "TODAY'S ALARMS · FLOOR PLAN VIEW", body: 'Alarms drop as colored pins onto the live floor plan, so an operator sees exactly where the trouble is. Tapping a pin opens the device with description and troubleshooting tips in place.' },
+      floor: { img: 'assets/ai/CloudDashboard_07_closup.jpg', title: 'Floor Plan', caption: "TODAY'S ALARMS · FLOOR PLAN VIEW", body: 'Alarms drop as colored pins onto the live floor plan, so an operator sees exactly where the trouble is. Tapping a pin opens the device with description and troubleshooting tips in place.' },
       bld: { img: 'assets/ai/CloudDashboard_08.jpg', title: 'By Building', caption: "TODAY'S ALARMS · BUILDING ROLL-UP", body: 'A portfolio view rolls alarms up by building and floor, so a manager overseeing many sites can spot the worst-affected location before drilling in.' },
       table: { img: 'assets/ai/CloudDashboardAI_11.jpg', title: 'Table', caption: "TODAY'S ALARMS · TABLE VIEW", body: 'The dense table is for triage at volume, sortable by time, source, type and floor, with paging through hundreds of events for the operator who wants the raw list.' },
     };
