@@ -143,6 +143,12 @@ body{margin:0}
 #architect #la-scroll{position:absolute;inset:0;z-index:0}
 #architect #la-sticky{position:absolute;inset:0}
 #architect #la-panel{position:absolute;top:20px;right:20px;width:min(320px,34vw);max-width:320px;z-index:6;pointer-events:auto}
+#architect #la-panel-head:focus-visible{outline:2px solid #b23a2e;outline-offset:-2px}
+#architect #la-panel.la-collapsed #la-panel-head{border-bottom-color:transparent !important}
+#architect #la-panel.la-collapsed #la-body{display:none}
+#architect #la-caret{transition:transform .2s ease}
+#architect #la-panel.la-collapsed #la-caret{transform:rotate(-90deg)}
+@media (prefers-reduced-motion:reduce){#architect #la-caret{transition:none}}
 /* laptop widths: the open panel would cover the plate's upper right and the rotated
    corners clip at the stage edge — dock the panel low and pull the plate in a touch */
 @media (max-width:1380px) and (min-width:861px){
@@ -556,11 +562,13 @@ body{margin:0}
       </div>
     </div>
         <div id="la-panel" data-reveal="1" style="border:1.5px solid #0a0a0a;background:#fbf5e6;box-shadow:7px 7px 0 rgba(10,8,4,0.16);">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-bottom:1.5px solid #0a0a0a;">
+          <button id="la-panel-head" type="button" aria-expanded="true" aria-controls="la-body" title="Drag to move · click to collapse" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border:none;border-bottom:1.5px solid #0a0a0a;background:transparent;width:100%;font:inherit;text-align:left;cursor:grab;">
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#0a0a0a;font-weight:700;">EXHIBIT B · PHOTOMETRIC SUMMARY</span>
             <span id="la-lum" style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:#8a2f23;border:1px solid rgba(10,8,4,0.35);padding:2px 8px;border-radius:999px;font-weight:700;white-space:nowrap;">16 LUMINAIRES</span>
             <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;color:#6b5d42;">3775 SWIFTDALE DR</span>
-          </div>
+            <span class="msi" id="la-caret" aria-hidden="true" style="font-size:18px;color:#0a0a0a;">expand_more</span>
+          </button>
+          <div id="la-body">
           <div style="display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid rgba(10,8,4,0.18);">
             <button id="la-recalc" type="button" title="Reset to the default layout" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#0a0a0a;color:#f4ead2;padding:6px 10px;font-weight:600;"><span class="msi" aria-hidden="true" style="font-size:24px;">restore</span> RESET</button>
             <button id="la-add" type="button" title="Add a luminaire" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;background:#fbf5e6;color:#3a3120;padding:6px 10px;border:1px solid rgba(10,8,4,0.3);font-weight:600;"><span class="msi" aria-hidden="true" style="font-size:24px;">add</span> ADD</button>
@@ -582,6 +590,7 @@ body{margin:0}
           <div style="display:flex;gap:7px;flex-wrap:wrap;padding:0 16px 14px;">
             <span id="la-count" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a3120;padding:4px 8px;border:1px solid rgba(10,8,4,0.3);">16 × GALN Galleon II</span>
             <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#3a3120;padding:4px 8px;border:1px solid rgba(10,8,4,0.3);">Stat Area 1</span>
+          </div>
           </div>
         </div>
       </div>
@@ -1682,6 +1691,68 @@ class Component extends DCLogic {
   }
 
   initLAInteract() {
+    // the summary window: click the head to collapse/expand; drag it to move while
+    // it overlays the map (when it stacks below the map on small screens it stays put)
+    const panel = document.getElementById('la-panel'), head = document.getElementById('la-panel-head'),
+          exhibit = document.getElementById('la-exhibit');
+    if (panel && head && exhibit && !head._laBound) {
+      head._laBound = true;
+      head.style.userSelect = 'none'; head.style.webkitUserSelect = 'none';
+      let drag = null, moved = false;
+      const overlaying = () => { try { return getComputedStyle(panel).position === 'absolute'; } catch (e) { return false; } };
+      // only claim touch gestures while the window floats over the map — when it
+      // stacks full-width in the flow, a finger on the head must still scroll the page
+      const syncTouch = () => { head.style.touchAction = overlaying() ? 'none' : ''; };
+      syncTouch();
+      this.on(window, 'resize', syncTouch);
+      // freeze the window where it visually sits so the drag is 1:1
+      const pin = () => {
+        const pr = panel.getBoundingClientRect(), sr = exhibit.getBoundingClientRect();
+        panel.style.left = (pr.left - sr.left) + 'px';
+        panel.style.top = (pr.top - sr.top) + 'px';
+        panel.style.right = 'auto'; panel.style.bottom = 'auto';
+        panel.style.animation = 'none'; panel.style.opacity = '1'; panel.style.transform = '';
+        panel.style.zIndex = '20';
+        panel.setAttribute('data-la-pinned', '');
+      };
+      this.on(head, 'pointerdown', (e) => {
+        if (e.button != null && e.button > 0) return;
+        moved = false; drag = { x: e.clientX, y: e.clientY };
+        try { head.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+      this.on(head, 'pointermove', (e) => {
+        if (!drag) return;
+        if (!moved) {
+          if (!overlaying() || Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 4) return;
+          moved = true; pin();
+          drag.l = parseFloat(panel.style.left) || 0; drag.t = parseFloat(panel.style.top) || 0;
+          drag.px = e.clientX; drag.py = e.clientY; head.style.cursor = 'grabbing';
+        }
+        const sr = exhibit.getBoundingClientRect();
+        let nl = drag.l + (e.clientX - drag.px), nt = drag.t + (e.clientY - drag.py);
+        nl = Math.max(2, Math.min(sr.width - panel.offsetWidth - 2, nl));
+        nt = Math.max(2, Math.min(sr.height - panel.offsetHeight - 2, nt));
+        panel.style.left = nl + 'px'; panel.style.top = nt + 'px';
+      });
+      const endDrag = (e) => {
+        if (!drag) return;
+        drag = null; head.style.cursor = 'grab';
+        try { head.releasePointerCapture(e.pointerId); } catch (_) {}
+        if (moved) {   // it was a drag — swallow the click so the window doesn't also collapse
+          const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault(); head.removeEventListener('click', swallow, true); };
+          head.addEventListener('click', swallow, true);
+          setTimeout(() => head.removeEventListener('click', swallow, true), 80);
+        }
+      };
+      this.on(head, 'pointerup', endDrag);
+      this.on(head, 'pointercancel', endDrag);
+      this.on(head, 'click', (e) => {
+        e.preventDefault();
+        const collapsed = panel.classList.toggle('la-collapsed');
+        head.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+    }
+
     const plate = document.getElementById('la-plate'), wrap = document.getElementById('la-plate-wrap');
     if (!plate || !wrap || !this._laFx) return;
     const COARSE = (window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches)) || (window.innerWidth || 9999) <= 760;
