@@ -765,7 +765,8 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
             <button id="la-panel-head" type="button" aria-expanded="true" aria-controls="la-body" title="Collapse / expand the summary" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:none;border-bottom:1px solid var(--la-bd-soft);background:transparent;width:100%;font:inherit;text-align:left;cursor:pointer;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--la-accent)"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
               <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.13em;color:var(--la-text-strong);font-weight:500;">PHOTOMETRIC SUMMARY</span>
-              <span id="la-caret" style="margin-left:auto;color:var(--la-dim);">▾</span>
+              <span id="la-lum" style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--la-accent);background:var(--la-soft-bg);border:1px solid var(--la-bd-soft2);padding:3px 9px;border-radius:999px;font-weight:600;white-space:nowrap;">16 LUMINAIRES</span>
+              <span id="la-caret" style="color:var(--la-dim);">▾</span>
             </button>
             <div id="la-body">
             <div style="display:flex;gap:7px;padding:13px 16px;">
@@ -1163,7 +1164,7 @@ class Component extends DCLogic {
     const INITS = [
       'initReveal', 'initHeroCanvas', 'buildHeroParallax', 'initHeroParallax',
       'initScrollReveal', 'buildLightArchitect', 'initLightArchitect', 'initLAInteract', 'initCounters',
-      'initNavScroll', 'initMarquee', 'initClock', 'initIso', 'initAegis', 'initToc', 'scrollToHash'
+      'initNavScroll', 'initMarquee', 'initClock', 'initIso', 'initAegis', 'initAnimGate', 'initToc', 'scrollToHash'
     ];
     // Re-runnable subset: skip one-shot page effects that would visibly repeat.
     const RE_INITS = INITS.filter(n => n !== 'scrollToHash');
@@ -1834,6 +1835,30 @@ class Component extends DCLogic {
 
   on(target, ev, fn, opts) { target.addEventListener(ev, fn, opts); this._listeners.push([target, ev, fn]); }
 
+  initAnimGate() {
+    // Offscreen CSS animations (building windows, hero orbs) still burn style
+    // recalc every frame — measured ~500ms per 5s on a throttled core while
+    // sitting at the top of the page. Pause them whenever their section is out
+    // of view; animation-play-state resumes seamlessly on re-entry.
+    if (!window.IntersectionObserver) return;
+    if (!document.getElementById('anim-gate-css')) {
+      const st = document.createElement('style');
+      st.id = 'anim-gate-css';
+      st.textContent = '.rb-anim-idle *{animation-play-state:paused !important;}';
+      document.head.appendChild(st);
+    }
+    const targets = [...document.querySelectorAll('section[id]')];
+    const isoStage = document.getElementById('iso-stage');   // the building often sits inside a much taller
+    if (isoStage) targets.push(isoStage);                    // section — gate the stage itself too
+    const secs = targets.filter(el => !el.dataset.animGate);
+    if (!secs.length) return;
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => e.target.classList.toggle('rb-anim-idle', !e.isIntersecting));
+    }, { rootMargin: '60px 0px 60px 0px' });
+    secs.forEach(el => { el.dataset.animGate = '1'; io.observe(el); });
+    this._obs.push(io);
+  }
+
   initClock() {
     if (this._clock) clearInterval(this._clock); // re-runnable: one live clock only
     const el = document.getElementById('hero-clock');
@@ -2013,6 +2038,8 @@ class Component extends DCLogic {
     const frame = (now) => {
       if (gen !== this._netGen) return;
       if (document.hidden) { this._netRaf = requestAnimationFrame(frame); return; }
+      const cr = canvas.getBoundingClientRect();
+      if (cr.bottom < -40 || cr.top > (window.innerHeight || 800) + 40) { this._netRaf = requestAnimationFrame(frame); return; }
       if (mx <= -9000 && (now - lastDraw) < 33) { this._netRaf = requestAnimationFrame(frame); return; }
       lastDraw = now || 0;
       draw(now);
@@ -2220,6 +2247,7 @@ class Component extends DCLogic {
       fl.innerHTML = f;
     }
     const cnt = document.getElementById('la-count'); if (cnt) cnt.textContent = fx.length + ' × GALN Galleon II';
+    const lum = document.getElementById('la-lum'); if (lum) lum.textContent = fx.length + (fx.length === 1 ? ' LUMINAIRE' : ' LUMINAIRES');
     this.laSyncDelete();
     // remember the layout (debounced so drags don't hammer storage)
     clearTimeout(this._laSaveT);
@@ -2443,6 +2471,7 @@ class Component extends DCLogic {
     const rig = document.getElementById('iso-rig');
     if (!rig || rig.dataset.built) return;
     rig.dataset.built = '1';
+    try {
     let seed = 0x51ed3; const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
     const ri = (a, b) => a + Math.floor(rnd() * (b - a + 1));
     const COOL = ['#d6eef2','#aad6de','#7fb6c2','#c3e3e8','#93c4ce'];
@@ -2479,9 +2508,10 @@ class Component extends DCLogic {
         const color = palette[ri(0, palette.length-1)];
         const prelit = rnd() < lit;
         const base = prelit ? (0.42 + rnd()*0.42) : (0.05 + rnd()*0.07);
-        // will-change only on desktop (where cells animate / react to the cursor);
-        // on mobile a permanent layer per cell is the perf killer, so omit it.
-        cell.style.cssText = 'border-radius:0.5px;background:' + color + ';opacity:' + base.toFixed(2) + (COARSE ? '' : ';will-change:opacity');
+        // No will-change here: ~1500 promoted cells blow Firefox's will-change
+        // budget (which silently disables backdrop-filter) and eat GPU memory on
+        // weak machines — the cursor-lighting repaints are tiny and cheap unpromoted.
+        cell.style.cssText = 'border-radius:0.5px;background:' + color + ';opacity:' + base.toFixed(2) + ';';
         if (!COARSE && prelit && rnd() < 0.45) {
           cell.style.animation = 'cityWin ' + (2.6 + rnd()*3).toFixed(2) + 's ease-in-out ' + (rnd()*4).toFixed(2) + 's infinite';
           cell.style.setProperty('--w0', base.toFixed(2));
@@ -2605,6 +2635,15 @@ class Component extends DCLogic {
         sp.style.cssText = 'position:absolute;left:' + (rnd()*100).toFixed(1) + '%;top:' + (rnd()*88).toFixed(1) + '%;width:' + sz + 'px;height:' + sz + 'px;border-radius:50%;background:rgba(159,233,216,' + (0.16 + rnd()*0.4).toFixed(2) + ');--w0:0.1;--w1:0.8;animation:cityWin ' + (2.4+rnd()*4).toFixed(2) + 's ease-in-out ' + (rnd()*5).toFixed(2) + 's infinite;';
         dust.appendChild(sp);
       }
+    }
+  } catch (e) {
+      // a half-built rig must stay rebuildable: clear the flag + partial DOM so
+      // the boot loader's self-heal (reinit) can construct it from scratch
+      delete rig.dataset.built;
+      rig.innerHTML = '';
+      this._isoCells = [];
+      this._isoHuds = [];
+      throw e;
     }
   }
 
@@ -2971,8 +3010,12 @@ class Component extends DCLogic {
     const nav = document.getElementById('int-nav');
     if (!nav) return;
     const h = () => {
+      // Firefox can silently skip backdrop-filter (software rendering, GPU
+      // blocklist, will-change budget) — the 82% glass then reads as a see-through
+      // bar with content bleeding into the nav. Give it a near-opaque bg instead.
+      const glassOk = !(window.CSS && CSS.supports && CSS.supports('-moz-appearance', 'none'));
       if (window.scrollY > 40) {
-        nav.style.background = 'color-mix(in srgb, var(--bg) 82%, transparent)';
+        nav.style.background = 'color-mix(in srgb, var(--bg) ' + (glassOk ? '82%' : '98%') + ', transparent)';
         nav.style.backdropFilter = 'blur(16px)';
         nav.style.borderBottomColor = 'var(--line)';
       } else {

@@ -38,6 +38,7 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="stylesheet" href="case-shot.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -240,7 +241,7 @@ summary::-webkit-details-marker{display:none}
 
       <!-- hero collage -->
       <div class="cs-hero-media" style="position:relative;height:478px;animation:pt-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.12s both;">
-        <div class="browser-frame" style="position:absolute;top:22px;left:0;right:0;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:0 20px 40px -14px rgba(20,30,40,0.26),0 4px 12px -6px rgba(20,30,40,0.13);border:1px solid var(--c-b2);">
+        <div class="browser-frame" style="position:absolute;top:22px;left:0;right:0;border-radius:11px;overflow:hidden;background:var(--c-surface);box-shadow:var(--cs-shot-shadow-hero);border:1px solid var(--c-b2);">
           <div style="height:30px;background:var(--c-line);display:flex;align-items:center;padding:0 13px;gap:6px;border-bottom:1px solid var(--c-b1);">
             <div style="width:9px;height:9px;border-radius:50%;background:#e06c5e;"></div><div style="width:9px;height:9px;border-radius:50%;background:#e0b94e;"></div><div style="width:9px;height:9px;border-radius:50%;background:#5bbd7a;"></div>
             <div style="margin-left:12px;flex:1;height:16px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 9px;"><span style="font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--c-muted);">wavelinx.app/partitioning · Rose Ballroom</span></div>
@@ -313,7 +314,7 @@ summary::-webkit-details-marker{display:none}
         </div>
       </div>
       <!-- presentation strip -->
-      <div data-reveal="1" style="margin-top:34px;border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 10px 25px -15px rgba(20,30,40,0.2);">
+      <div data-reveal="1" style="margin-top:34px;border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);">
         <img src="assets/part/slides.png" alt="UX/UI flows, what is partitioning" style="width:100%;display:block;"/>
       </div>
       <div style="margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-muted);text-align:center;">Concept framing presented at the 2023 User Advisory Group, from the real space to the model.</div>

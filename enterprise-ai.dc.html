@@ -38,6 +38,7 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="stylesheet" href="case-shot.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -113,6 +114,34 @@ summary::-webkit-details-marker{display:none}
 @media (min-width:881px){ #cs-menu{display:none !important} }
 /* square corners on all screenshot frames (any frame wrapping an <img>) */
 .cs div:has(> img){border-radius:0 !important}
+
+/* overview · three pillars */
+.eai-pillars{display:grid;grid-template-columns:repeat(3,1fr);background:#0e1a17;border-radius:16px;overflow:hidden}
+.eai-pillar{padding:38px 30px;border-right:1px solid rgba(255,255,255,0.08)}
+.eai-pillar:last-child{border-right:none}
+@media (max-width:880px){
+  .eai-pillars{grid-template-columns:1fr !important}
+  .eai-pillar{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);padding:28px 22px}
+  .eai-pillar:last-child{border-bottom:none}
+}
+@media (max-width:520px){
+  .eai-pillar{padding:24px 18px}
+  .eai-pillar-title{font-size:20px !important}
+}
+
+/* outcomes · metric band */
+.eai-outcomes{display:grid;grid-template-columns:repeat(3,1fr);background:#0e1a17;border-radius:18px;overflow:hidden;margin-bottom:54px}
+.eai-outcome{padding:46px 34px;text-align:center;border-right:1px solid rgba(255,255,255,0.08)}
+.eai-outcome:last-child{border-right:none}
+@media (max-width:880px){
+  .eai-outcomes{grid-template-columns:1fr !important}
+  .eai-outcome{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);padding:32px 22px}
+  .eai-outcome:last-child{border-bottom:none}
+}
+@media (max-width:520px){
+  .eai-outcome{padding:28px 18px}
+  .eai-outcome-num{font-size:44px !important;letter-spacing:-1.5px !important}
+}
 
 /* ── 03 · The Through-Line (Follow the Signal) ─────────────────────── */
 #s-infuse .if-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start;margin-top:44px}
@@ -296,7 +325,7 @@ summary::-webkit-details-marker{display:none}
         <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px;">Years</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2);">2026</div></div>
       </div>
       <div class="cs-hero-media" style="margin-top:52px;position:relative;animation:ai-up 1s cubic-bezier(0.22,0.61,0.36,1) 0.2s both;">
-        <div style="border-radius:15px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 25px 50px -22px rgba(13,83,80,0.33);background:var(--c-surface);">
+        <div style="border-radius:15px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow-hero);background:var(--c-surface);">
           <div style="height:40px;background:#0e1a17;display:flex;align-items:center;gap:8px;padding:0 16px;">
             <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;"></span>
             <span style="width:11px;height:11px;border-radius:50%;background:#febc2e;"></span>
@@ -346,10 +375,10 @@ summary::-webkit-details-marker{display:none}
           </div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#0e1a17;border-radius:16px;overflow:hidden;" data-reveal="1">
-        <div style="padding:38px 30px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 01</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Conversational</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Ask the building anything in plain language, alarms, devices, history, and get a direct answer.</div></div>
-        <div style="padding:38px 30px;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 02</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Explainable</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Every cryptic code becomes a plain-language cause and a numbered remediation workflow.</div></div>
-        <div style="padding:38px 30px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 03</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Predictive</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Surface devices nearing end-of-life and let the system self-optimize before anything fails.</div></div>
+      <div class="eai-pillars" data-reveal="1">
+        <div class="eai-pillar"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 01</div><div class="eai-pillar-title" style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Conversational</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Ask the building anything in plain language, alarms, devices, history, and get a direct answer.</div></div>
+        <div class="eai-pillar"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 02</div><div class="eai-pillar-title" style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Explainable</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Every cryptic code becomes a plain-language cause and a numbered remediation workflow.</div></div>
+        <div class="eai-pillar"><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-bottom:12px;">PILLAR 03</div><div class="eai-pillar-title" style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Predictive</div><div style="font-size:14px;color:#9fd6c8;margin-top:10px;line-height:1.55;">Surface devices nearing end-of-life and let the system self-optimize before anything fails.</div></div>
       </div>
     </div>
   </section>
@@ -376,7 +405,7 @@ summary::-webkit-details-marker{display:none}
           </div>
         </div>
         <div data-reveal="1" style="position:relative;">
-          <div style="border-radius:18px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 9px 20px -10px rgba(13,83,80,0.21);">
+          <div style="border-radius:18px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);">
             <img src="assets/ai/field-tech.jpg" alt="Field technician using a handheld in an electrical room" style="width:100%;display:block;"/>
           </div>
           <div style="position:absolute;bottom:16px;left:16px;right:16px;background:rgba(14,26,23,0.82);backdrop-filter:blur(6px);border-radius:11px;padding:13px 16px;">
@@ -509,7 +538,7 @@ summary::-webkit-details-marker{display:none}
           </div>
         </div>
         <div data-reveal="1">
-          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.22);box-shadow:0 20px 45px -22.5px rgba(0,0,0,0.45);background:var(--c-surface);">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.22);box-shadow:var(--cs-shot-shadow);background:var(--c-surface);">
             <img src="{{ alarmImg }}" alt="CORE alarm view" style="width:100%;display:block;"/>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7e739e;letter-spacing:0.05em;margin-top:14px;text-align:center;">{{ viewCaption }}</div>
@@ -572,11 +601,11 @@ summary::-webkit-details-marker{display:none}
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">06 · Predictive Maintenance</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:24px;" data-reveal="1">FIX IT BEFORE <span style="font-style:italic;font-weight:300;color:#0d5350;">It Goes Dark</span></h2>
       <p style="font-size:16.5px;color:var(--c-body);line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">Predictive Maintenance flips the model from reactive to proactive. Each device card shows firmware status, install age, and an AI-estimated lifespan, "2 months remaining", with a one-tap recommendation. The companion "Longest Time Offline" view ranks devices by silence, so the worst actors surface first.</p>
-      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 15px 35px -19px rgba(13,83,80,0.26);margin-bottom:22px;" data-reveal="1">
+      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);margin-bottom:22px;" data-reveal="1">
         <img src="assets/ai/CloudDashboard_66.jpg" alt="Predictive Maintenance device cards with lifespan and recommendation" style="width:100%;display:block;"/>
       </div>
       <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:22px;align-items:stretch;">
-        <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 15px 35px -19px rgba(13,83,80,0.26);" data-reveal="1">
+        <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);" data-reveal="1">
           <img src="assets/ai/CloudAIDashboard.jpg" alt="Longest time offline by device chart" style="width:100%;display:block;"/>
         </div>
         <div style="display:flex;flex-direction:column;gap:14px;" data-reveal="1">
@@ -622,7 +651,7 @@ summary::-webkit-details-marker{display:none}
           </div>
         </div>
         <div data-reveal="1">
-          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:0 15px 35px -19px rgba(13,83,80,0.26);">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);">
             <img src="assets/ai/CloudDashboard_67.jpg" alt="Optimize System screen with Use Cooper Intelligence toggle and templates" style="width:100%;display:block;"/>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#9b8fc0;letter-spacing:0.05em;margin-top:14px;text-align:center;">OPTIMIZE SYSTEM · CHOOSE A TEMPLATE TO LET AI AUTOMATE CONFIGURATION</div>
@@ -638,7 +667,7 @@ summary::-webkit-details-marker{display:none}
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:#fff;margin-bottom:24px;" data-reveal="1">FROM A BRIEF TO <span style="font-style:italic;font-weight:300;color:#5fc2a8;">the Right Fixture</span></h2>
       <p style="font-size:16.5px;color:#9fcabd;line-height:1.72;max-width:880px;margin-bottom:44px;" data-reveal="1">The same intelligence reaches sales and specification. A conversational "Fixture Recommendation" assistant turns a plain brief, "precise lighting for a grocery parking lot", into specific products, then connects to a searchable library of 5,000 IES files and an Area Wizard that auto-places fixtures on a real site map.</p>
       <div data-reveal="1" style="margin-bottom:24px;">
-        <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.2);box-shadow:0 20px 45px -22.5px rgba(0,0,0,0.45);margin-bottom:14px;">
+        <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.2);box-shadow:var(--cs-shot-shadow);margin-bottom:14px;">
           <img src="assets/ai/fixture_recommendation.jpg" alt="Select Fixture with conversational AI recommendation panel" style="width:100%;display:block;"/>
         </div>
         <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Find Me a Fixture</div>
@@ -646,14 +675,14 @@ summary::-webkit-details-marker{display:none}
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
         <div data-reveal="1">
-          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:0 15px 35px -20px rgba(0,0,0,0.45);margin-bottom:14px;">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:var(--cs-shot-shadow);margin-bottom:14px;">
             <img src="assets/ai/LA_FixtureAI.jpg" alt="Searchable IES file library" style="width:100%;display:block;"/>
           </div>
           <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Searchable IES Library</div>
           <p style="font-size:14px;color:#6fae9b;line-height:1.6;">5,000 photometric files, filtered by CCT, lumens, wattage and optics, multi-select and export in a click instead of digging through PDFs.</p>
         </div>
         <div data-reveal="1">
-          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:0 15px 35px -20px rgba(0,0,0,0.45);margin-bottom:14px;">
+          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(95,194,168,0.18);box-shadow:var(--cs-shot-shadow);margin-bottom:14px;">
             <img src="assets/ai/SmartBoundary.jpg" alt="Smart Layout Area Wizard auto-placing fixtures on a site map" style="width:100%;display:block;"/>
           </div>
           <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:5px;">Smart Layout · Area Wizard</div>
@@ -668,10 +697,10 @@ summary::-webkit-details-marker{display:none}
     <div style="max-width:1240px;margin:0 auto;">
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#0d5350;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;" data-reveal="1">09 · Outcomes &amp; Reflection</div>
       <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-1.4px;line-height:1.06;color:var(--c-ink);margin-bottom:44px;" data-reveal="1">WHAT INTELLIGENCE <span style="font-style:italic;font-weight:300;color:#0d5350;">Actually Bought</span></h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#0e1a17;border-radius:18px;overflow:hidden;margin-bottom:54px;">
-        <div style="padding:46px 34px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c1 }}%</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Less time spent decoding and triaging alarms</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">MEAN-TIME-TO-UNDERSTAND</div></div>
-        <div style="padding:46px 34px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c2 }}+</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Alarm codes turned into plain-language remediations</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">EXPLAINABILITY COVERAGE</div></div>
-        <div style="padding:46px 34px;text-align:center;"><div style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c3 }}</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Fixtures auto-placed per area by the Smart Layout wizard</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">DESIGN AUTOMATION</div></div>
+      <div class="eai-outcomes" data-reveal="1">
+        <div class="eai-outcome"><div class="eai-outcome-num" style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c1 }}%</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Less time spent decoding and triaging alarms</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">MEAN-TIME-TO-UNDERSTAND</div></div>
+        <div class="eai-outcome"><div class="eai-outcome-num" style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c2 }}+</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Alarm codes turned into plain-language remediations</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">EXPLAINABILITY COVERAGE</div></div>
+        <div class="eai-outcome"><div class="eai-outcome-num" style="font-family:'Inter',sans-serif;font-size:58px;font-weight:600;color:#5fc2a8;letter-spacing:-2px;">{{ c3 }}</div><div style="font-size:14.5px;color:#9fd6c8;margin-top:10px;line-height:1.5;">Fixtures auto-placed per area by the Smart Layout wizard</div><div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5d9d8a;letter-spacing:0.08em;margin-top:14px;">DESIGN AUTOMATION</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:50px;">
         <div data-reveal="1">

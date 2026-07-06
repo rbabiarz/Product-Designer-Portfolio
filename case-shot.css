@@ -1,0 +1,12 @@
+/* case-shot.css — shared, lighter shadows for case-study screenshot frames.
+   Link from *-showcase.html and *.dc.html case studies; reference via var() inline. */
+.cs {
+  --cs-shot-shadow: 0 0 0 1px rgba(10, 20, 30, 0.07), 0 6px 16px -10px rgba(10, 20, 30, 0.16);
+  --cs-shot-shadow-hero: 0 8px 18px -12px rgba(20, 30, 40, 0.12), 0 2px 5px -2px rgba(20, 30, 40, 0.07);
+  --cs-shot-shadow-win: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 20px -14px rgba(5, 12, 20, 0.2);
+  --cs-shot-shadow-device: 0 10px 24px -14px rgba(15, 16, 22, 0.16), 0 0 0 1px rgba(10, 20, 30, 0.08);
+}
+
+.cs .win {
+  box-shadow: var(--cs-shot-shadow-win);
+}
