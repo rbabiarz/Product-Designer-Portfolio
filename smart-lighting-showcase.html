@@ -71,7 +71,8 @@ body{margin:0}
 .mesh-tab{padding:9px 15px;border-radius:9px;border:1px solid var(--c-b3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:transparent;color:var(--c-body);transition:all .2s}
 .mesh-tab.is-on[data-tier="drop"]{background:#c0392b;border-color:#c0392b;color:#fff}
 .mesh-tab.is-on[data-tier="ship"]{background:#2e7d4f;border-color:#2e7d4f;color:#fff}
-.mesh-result{display:inline-block;padding:4px 11px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.06em}
+.mesh-result{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 11px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.06em;line-height:1}
+.mesh-result .msi{font-size:14px;font-variation-settings:'opsz' 20;vertical-align:0}
 .mesh-table-wrap{margin-top:56px;overflow-x:auto;border-radius:14px;border:1px solid var(--c-b3)}
 .mesh-table{width:100%;border-collapse:collapse;min-width:680px;font-size:14px}
 @media (max-width:980px){.mesh-grid{grid-template-columns:1fr;gap:32px}}
@@ -483,7 +484,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     { label:'P1 · NODE MAP', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P1 · Node Map, rebuilt live, drag a bulb onto the gateway', title:'Live mesh, drag-to-repeater', body:'A literal node graph, drag any device onto the Gateway to promote it to a repeater, with red nodes flagging low reliability. Powerful, but it asked homeowners to think like network engineers. The frame here is a working rebuild. Drag a flagged bulb onto the gateway, then press TEST.', load:'High, manual node selection' },
     { label:'P2 · CLUSTERS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P2 · Clusters, proximity-based grouping', title:'Proximity-based clusters', body:'Group devices by proximity to the hub into a hierarchical structure. Lighter than the node map, but it still surfaced repeaters and reliability as user-facing concepts.', load:'Medium, group-level decisions' },
     { label:'P3 · VIRTUAL GROUPS', result:'DROPPED', rb:'rgba(192,57,43,0.35)', rf:'#f2a99e', cap:'P3 · Virtual Groups, user-defined criteria', title:'User-defined virtual groups', body:'Let users build groups from criteria, location, function, usage. Flexible, but per-device decisions pushed commissioning time up rather than down.', load:'Medium, still per-device' },
-    { label:'P4 · AUTO SELECT', result:'SHIPPED <span class="msi" aria-hidden="true" style="font-size:24px;">check</span>', rb:'rgba(46,125,79,0.4)', rf:'#9fe9d8', cap:'P4 · Auto Select, the system decides, shipped', title:'The system decides', body:'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load:'Zero, one confirm tap' }
+    { label:'P4 · AUTO SELECT', result:'SHIPPED <span class="msi" aria-hidden="true">check</span>', rb:'rgba(46,125,79,0.4)', rf:'#9fe9d8', cap:'P4 · Auto Select, the system decides, shipped', title:'The system decides', body:'Auto Select scans the network and chooses the strongest repeaters itself, the user just confirms. The decision was removed entirely, validated by engineering\u2019s confidence in the selection algorithm.', load:'Zero, one confirm tap' }
   ];
   var meshTabs=document.querySelectorAll('.mesh-tab');
   var meshSwaps=document.querySelectorAll('[data-mesh-swap]');

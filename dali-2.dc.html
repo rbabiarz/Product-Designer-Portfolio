@@ -79,6 +79,15 @@ summary::-webkit-details-marker{display:none}
 @keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
 @keyframes cs-fade{from{opacity:0}to{opacity:1}}
 .cs section[id]{scroll-margin-top:84px}
+.dl-flow-grid{align-items:stretch}
+.dl-flow-hubs,.dl-flow-detail{min-height:450px}
+.dl-flow-detail{display:flex;flex-direction:column}
+.dl-flow-head{min-height:84px}
+.dl-flow-body{min-height:5.2em;margin-bottom:20px;max-width:440px;line-height:1.6;font-size:15px;color:#8a9ab5;flex-shrink:0}
+.dl-flow-progress{margin-bottom:20px;flex-shrink:0}
+.dl-flow-progress-meta{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px;min-height:2.8em;gap:12px}
+.dl-flow-buses{margin-bottom:8px;flex-shrink:0}
+.dl-flow-actions{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:18px;flex-shrink:0}
 .cs-toc a{min-height:24px;}
 .cs-toc a .cs-toc-label{opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
 .cs-toc:hover a .cs-toc-label{opacity:1;transform:none}
@@ -521,8 +530,8 @@ summary::-webkit-details-marker{display:none}
         </sc-for>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1.35fr;gap:16px;align-items:stretch;" data-reveal="1">
-        <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px;">
+      <div class="dl-flow-grid" style="display:grid;grid-template-columns:1fr 1.35fr;gap:16px;" data-reveal="1">
+        <div class="dl-flow-hubs" style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px;">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
             <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;letter-spacing:0.1em;text-transform:uppercase;">Discovered DALI Hubs</div>
             <div style="display:flex;align-items:center;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:#5fc2a8;animation:dl-blink 2s infinite;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#5fc2a8;">SCAN</span></div>
@@ -539,27 +548,27 @@ summary::-webkit-details-marker{display:none}
           </div>
         </div>
 
-        <div style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:26px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+        <div class="dl-flow-detail" style="background:#0b1016;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:26px;">
+          <div class="dl-flow-head" style="display:flex;align-items:flex-start;justify-content:space-between;">
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#5fc2a8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px;">{{ stepTag }}</div>
-              <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:500;letter-spacing:-0.5px;color:#fff;">{{ stepTitle }}</div>
+              <div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:500;letter-spacing:-0.5px;color:#fff;line-height:1.2;">{{ stepTitle }}</div>
             </div>
             <div style="text-align:right;flex-shrink:0;padding-left:16px;">
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7d8ca3;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">Remaining in WAC</div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:500;color:#7dd3c0;line-height:1;">{{ wacCount }}</div>
             </div>
           </div>
-          <p style="font-size:15px;color:#8a9ab5;line-height:1.6;margin-bottom:20px;max-width:440px;">{{ stepBody }}</p>
+          <p class="dl-flow-body">{{ stepBody }}</p>
 
-          <div style="margin-bottom:20px;">
+          <div class="dl-flow-progress">
             <div style="height:6px;border-radius:100px;background:#0e151e;overflow:hidden;border:1px solid rgba(255,255,255,0.05);">
               <div style="height:100%;width:{{ progressW }};background:linear-gradient(90deg,var(--c-accent),#5fc2a8);border-radius:100px;transition:width 0.6s cubic-bezier(0.22,0.61,0.36,1);"></div>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;">{{ progressLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd3c0;">{{ progressPct }}</span></div>
+            <div class="dl-flow-progress-meta"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7d8ca3;">{{ progressLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7dd3c0;flex-shrink:0;">{{ progressPct }}</span></div>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;">
+          <div class="dl-flow-buses" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
             <sc-for list="{{ buses }}" as="b" hint-placeholder-count="4">
               <div style="background:#0e151e;border:1px solid {{ b.border }};border-radius:10px;padding:13px 12px;transition:all 0.3s;">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7d8ca3;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px;">Bus {{ b.n }}</div>
@@ -569,7 +578,7 @@ summary::-webkit-details-marker{display:none}
             </sc-for>
           </div>
 
-          <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:18px;">
+          <div class="dl-flow-actions">
             <button onClick="{{ prevStep }}" style="padding:11px 18px;border-radius:9px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:#8a9ab5;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;" style-hover="border-color:rgba(255,255,255,0.25);color:#e8edf5">Back</button>
             <button onClick="{{ nextStep }}" style="flex:1;padding:11px 18px;border-radius:9px;border:none;background:var(--c-accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;" style-hover="filter:brightness(1.12)">{{ nextLabel }} <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></button>
           </div>

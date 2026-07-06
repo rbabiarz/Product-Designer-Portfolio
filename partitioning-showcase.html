@@ -55,6 +55,7 @@ body{margin:0}
 .win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
 .win-dot{width:11px;height:11px;border-radius:50%}
 .win img{width:100%;display:block}
+#subareas .win-area{max-width:70%;margin:0 auto}
 
 .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
 .band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:96px 40px}
@@ -139,7 +140,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   .cgrid{grid-template-columns:1fr 1fr!important}
   .gthumbs{grid-template-columns:1fr 1fr!important}
 }
-@media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}#subareas .gthumbs{grid-template-columns:1fr!important}#subareas .win-area{max-width:100%}}
 .navq:hover{color:var(--c-ink)}
 @media (max-width:680px){.navq{display:none}}
 </style>
@@ -351,23 +352,6 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- SHOWCASE: ITERATIONS -->
-  <div class="band band-sand" data-reveal="" id="iterations">
-    <div class="band-inner">
-      <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow">Design Iterations</div>
-        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Three versions to <em>one mental model</em></h2>
-        <p class="lead" style="max-width:760px;margin:18px auto 0">The IA converged left to right: from a technically-correct walls-first V1 users couldn't reason about, to a sub-areas-first hierarchy, to a consolidated wizard with live wall status.</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px" class="gthumbs">
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/v1-walls.png" alt="Version 1, walls listed as the primary object, later abandoned"></div><div class="band-cap cap-dark">V1 · walls first, abandoned</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/v2a-subareas.png" alt="Version 2A, sub-areas promoted to the primary list"></div><div class="band-cap cap-dark">V2A · sub-areas first</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/v2b-expand.png" alt="Version 2B, inline expand and collapse of each sub-area's devices"></div><div class="band-cap cap-dark">V2B · expand in place</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_007.jpg" alt="Shipped version, consolidated 3-step wizard with live wall status board"></div><div class="band-cap cap-dark">Shipped · wizard + status</div></div>
-      </div>
-    </div>
-  </div>
-
   <!-- THE FLOW (guided sequence) -->
   <section class="pad" id="flow">
     <div class="wrap-n center">
@@ -400,6 +384,32 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       </div>
     </div>
   </section>
+
+  <!-- SHOWCASE: SUB-AREA CONFIGURATION -->
+  <div class="band band-sand" data-reveal="" id="subareas">
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow">Sub-Area Configuration</div>
+        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Zones, devices, occupancy, <em>one rail per room</em></h2>
+        <p class="lead" style="max-width:760px;margin:18px auto 0">After the wizard, Configure Sub Areas fills each room: pick a sub-area on the left, and three tabs assign its lighting zones, devices, and occupancy sets from a shared unassigned pool, with batch select and an identify flash to confirm the physical fixture.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:22px" class="gthumbs">
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_014.jpg" alt="Sub Zones tab, four lighting zones selected for batch assignment into Sub Area D"></div><div class="band-cap cap-dark">Sub Zones · batch-assign the room&#8217;s zones</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_017.jpg" alt="Devices tab empty state, a 62-device unassigned pool grouped into CCIs and wallstations"></div><div class="band-cap cap-dark">Devices · the unassigned pool, grouped by type</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_019.jpg" alt="Devices tab with three chandeliers assigned to the sub-area, each carrying its zone label"></div><div class="band-cap cap-dark">Devices · assigned, each with its zone</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_021.jpg" alt="Occupancy Sets tab, two sets assigned to the room and two more queued for batch add"></div><div class="band-cap cap-dark">Occupancy Sets · the same grammar, per room</div></div>
+      </div>
+
+      <div style="margin-top:64px">
+        <div class="center" style="margin-bottom:30px">
+          <div class="eyebrow">The Assembled Area</div>
+          <p class="lead" style="max-width:760px;margin:14px auto 0">What configuration adds up to: one Rose Ballroom holding four zones, 54 devices, and eight sub-areas, with Sub Area A opened to its own share of 4 zones, 24 devices, and 4 occupancy sets. Walls and sub-areas stay one edit away.</p>
+        </div>
+        <div class="win win-area"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Area.jpg" alt="The Area screen for the partitioned Rose Ballroom: four zones in the area, the sub-areas list A through H with Sub Area A expanded to its own zones, devices and occupancy sets, and edit actions for walls and sub-areas"></div>
+        <div class="band-cap cap-dark">Area &middot; Rose Ballroom, partitioned, everything in its place</div>
+      </div>
+    </div>
+  </div>
 
   <!-- SHOWCASE: LIVE FLOOR PLAN -->
   <section class="pad">

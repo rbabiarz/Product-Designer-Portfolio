@@ -230,7 +230,7 @@
       pills: ['Leadership examples', 'Enterprise SaaS work', 'Defense industry projects'] }
   ];
 
-  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Defense sector work', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work'];
+  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Defense sector work', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work', 'Dashboards', 'IoT lighting', 'Mobile apps'];
   var WELCOME = "Hi — I'm the portfolio concierge. Tell me what you're hiring for or looking for, and I'll route you to the most relevant projects, skills, and case studies on this site.";
 
   /* ================= RETRIEVAL ================= */
@@ -543,7 +543,7 @@
   }
   function renderPills(list) {
     els.pills.innerHTML = '';
-    (list || DEFAULT_PILLS).slice(0, 6).forEach(function (label) {
+    (list || DEFAULT_PILLS).slice(0, 9).forEach(function (label) {
       var b = mk('button', 'font-size:11.5px;font-weight:600;padding:6px 11px;cursor:pointer;font-family:inherit;' + T.pill);
       b.type = 'button';
       b.textContent = label;
