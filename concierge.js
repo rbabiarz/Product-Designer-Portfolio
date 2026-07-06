@@ -163,9 +163,9 @@
 
   /* ================= INTENTS ================= */
   var INTENTS = [
-    { id: 'defense', kw: 'defense defence military tactical mission dominion aegis intercept secure clearance government battlespace c2 command',
-      reply: 'Defense-adjacent work runs through this portfolio: cyber threat operations, enterprise AI with human-in-the-loop patterns, and playable decision drills built on the thesis that the model brings receipts and you keep the decision.',
-      projects: ['ctoc', 'eai', 'aegis'],
+    { id: 'defense', kw: 'defense defence sector industry military tactical mission dominion aegis intercept secure clearance government battlespace c2 command games drills',
+      reply: 'Defense-adjacent work runs through this portfolio: playable decision drills on the homepage (AEGIS / Fusion Watch), the CTOC cyber-operations dashboard system, and enterprise AI with human-in-the-loop patterns — the thesis that the model brings receipts and you keep the decision.',
+      projects: ['aegis', 'ctoc', 'eai'],
       pills: ['Geospatial maps', 'Cyber operations dashboards', 'Systems thinking', 'Data visualization', 'Leadership examples'],
       tour: { name: 'Defense product designer tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
     { id: 'enterprise', kw: 'enterprise saas b2b business admin console platform complex workflows internal tools',
@@ -230,7 +230,7 @@
       pills: ['Leadership examples', 'Enterprise SaaS work', 'Defense industry projects'] }
   ];
 
-  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Lighting IoT work', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work'];
+  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Defense sector work', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work'];
   var WELCOME = "Hi — I'm the portfolio concierge. Tell me what you're hiring for or looking for, and I'll route you to the most relevant projects, skills, and case studies on this site.";
 
   /* ================= RETRIEVAL ================= */
