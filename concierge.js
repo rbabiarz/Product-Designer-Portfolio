@@ -350,13 +350,23 @@
     }
     document.body.appendChild(fab);
     els.fab = fab;
-    // keep clear of the cookie banner while it is up
-    function clearBanner() {
+    // one resolver for the bottom offset: clear the cookie banner while it is
+    // up, and on narrow screens clear the case-study view switcher pinned to
+    // the bottom centre (re-checked late because .dc pages render it via React)
+    function fitFab() {
+      var need = 18;
       var b = document.getElementById('rb-consent');
-      fab.style.bottom = b ? (b.getBoundingClientRect().height + 30) + 'px' : '18px';
+      if (b) need = Math.max(need, b.getBoundingClientRect().height + 30);
+      var pill = document.querySelector('.verpill, .cs-verpill');
+      if (pill && window.innerWidth <= 700) need = Math.max(need, 84);
+      fab.style.bottom = need + 'px';
     }
-    setTimeout(clearBanner, 600);
-    window.addEventListener('rb-consent', function () { setTimeout(clearBanner, 600); });
+    fitFab();
+    setTimeout(fitFab, 600);
+    setTimeout(fitFab, 2200);
+    window.addEventListener('load', fitFab);
+    window.addEventListener('resize', fitFab, { passive: true });
+    window.addEventListener('rb-consent', function () { setTimeout(fitFab, 600); });
 
     /* ---- shared shell (mini modal / panel are the same node, resized) ---- */
     var shell = mk('section', base + 'position:fixed;z-index:99991;display:none;flex-direction:column;overflow:hidden;' + T.panel + (reduce ? '' : 'transition:width .3s ease, height .3s ease, right .3s ease, bottom .3s ease, top .3s ease, opacity .3s ease;'));

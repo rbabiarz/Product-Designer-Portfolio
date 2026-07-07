@@ -134,6 +134,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .cs.dark .taxchip img{filter:invert(1) brightness(1.6) hue-rotate(120deg)}
 .taxchip span{font-size:11.5px;color:var(--c-body);line-height:1.3}
 
+.scale-split{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:28px 36px;align-items:center}
+.scale-copy{text-align:left}
+.scale-copy .lead{margin-left:0;margin-right:0}
+.scale-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 18px}
 @media (max-width:980px){
   nav.top .bar{padding:0 18px}
   .wrap,.wrap-n{padding:0 20px}
@@ -144,9 +148,14 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   .introgrid{grid-template-columns:1fr!important;gap:40px!important}
   .cgrid{grid-template-columns:1fr 1fr!important}
   .gthumbs{grid-template-columns:1fr 1fr!important}
+  #flow .gthumbs{grid-template-columns:1fr!important}
+  #lifecycle .gthumbs,#lifecycle .lifecycle-caps{grid-template-columns:1fr!important}
   .gtaxon{grid-template-columns:repeat(3,1fr)}
+  .scale-split{grid-template-columns:1fr;gap:24px}
+  .scale-copy{text-align:center}
+  .scale-copy .lead{margin-left:auto;margin-right:auto}
 }
-@media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}.gtaxon{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}.gtaxon{grid-template-columns:repeat(2,1fr)}.scale-stats{grid-template-columns:repeat(2,1fr)!important;gap:12px 14px}}
 .navq:hover{color:var(--c-ink)}
 @media (max-width:680px){.navq{display:none}}
 </style>
@@ -281,18 +290,20 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <div class="band band-teal" data-reveal="" id="scale">
     <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
     <div class="band-inner">
-      <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow" style="color:#9fe9d8">The Scale</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The numbers I was <em style="color:#9fe9d8">designing for</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">DALI-2's physical limits define the whole problem space. Every interaction had to hold from a single bus to a full hospital floor.</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:18px" class="cgrid">
-        <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">10,000+</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Devices per<br>hospital floor</div></div>
-        <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">24</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Buses<br>per floor</div></div>
-        <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">6</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">DALI hubs<br>per panel</div></div>
-        <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">128</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Fixtures<br>per bus</div></div>
-        <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">1,000<span style="font-size:.5em;color:#9fe9d8"> ft</span></div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Max bus<br>length</div></div>
-        <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">250</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Devices per hub<br>(per scan)</div></div>
+      <div class="scale-split">
+        <div class="scale-copy">
+          <div class="eyebrow" style="color:#9fe9d8">The Scale</div>
+          <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The numbers I was <em style="color:#9fe9d8">designing for</em></h2>
+          <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px 0 0">DALI-2's physical limits define the whole problem space. Every interaction had to hold from a single bus to a full hospital floor.</p>
+        </div>
+        <div class="scale-stats">
+          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">10,000+</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Devices per<br>hospital floor</div></div>
+          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">24</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Buses<br>per floor</div></div>
+          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">6</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">DALI hubs<br>per panel</div></div>
+          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">128</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Fixtures<br>per bus</div></div>
+          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">1,000<span style="font-size:.5em;color:#9fe9d8"> ft</span></div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Max bus<br>length</div></div>
+          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">250</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Devices per hub<br>(per scan)</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -372,7 +383,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   </section>
 
   <!-- HUB MANAGEMENT + FLOOR PLAN GRID -->
-  <section class="pad">
+  <section class="pad" id="lifecycle">
     <div class="wrap-n center">
       <div class="eyebrow" data-reveal="">Lifecycle</div>
       <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">The full lifecycle, <em>after launch</em></h2>
@@ -384,7 +395,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <div class="win" data-reveal="" data-d="1"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/LightingDevices_59.jpg" alt="Manage DALI-HUB_1, rescan in progress with buses flagged for new vs existing device counts"></div>
         <div class="win" data-reveal="" data-d="2"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/LightingDevices_102.jpg" alt="Manage DALI-HUB_1, new and existing devices on Bus 1 with ADD DEVICES action"></div>
       </div>
-      <div class="mono" data-reveal="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;font-size:11px;color:var(--c-muted);line-height:1.5;margin-top:14px;text-align:center">
+      <div class="mono lifecycle-caps" data-reveal="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;font-size:11px;color:var(--c-muted);line-height:1.5;margin-top:14px;text-align:center">
         <span>Manage Hub · Drivers 64, Wall Stations 23, Sensors 13, CCIs 2 per bus</span>
         <span>Find Devices · a confirm dialog guards a live hub before any rescan</span>
         <span>Add Devices · new vs existing, with a 5–8 min processing estimate</span>
@@ -434,7 +445,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <div class="taxchip"><img src="assets/dali/icons/rsp-dac-dimmable.svg" alt="RSP DAC dimmable icon"><span>RSP DAC · Dimmable</span></div>
         <div class="taxchip"><img src="assets/dali/icons/find-devices.svg" alt="Find devices icon"><span>Find Devices</span></div>
       </div>
-      <div class="win" data-reveal="" style="margin-top:24px;background:var(--c-surface)">
+      <div class="win" data-reveal="" style="margin-top:24px;background:var(--c-surface);border-radius:0">
         <img src="assets/dali/label.jpg" alt="Press-ready DALI-2 Lighting System hub hardware label, die-cut and spec-complete with test-mode instructions">
       </div>
       <p class="mono" data-reveal="" style="font-size:12px;color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px auto 0;text-align:center;font-style:italic">Press-ready WDH-D2-LV hub label, die-cut and spec-complete with test-mode instructions, created in Illustrator and shipped on the hardware.</p>

@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CORE Insights, Case Study · Robert Babiarz</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
-  <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
+  <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
+@media (max-width:560px){.cs-verpill .cs-vlbl{display:none}.cs-verpill a{padding:9px 14px !important;font-size:12.5px !important}}
+</style>
 <script src="./support.js"></script>
 
   <!-- SEO·OG·JSONLD (injected) -->
@@ -65,16 +67,41 @@ body{margin:0}
 .ci-hl{position:relative;display:inline-block;}
 .ci-hl > em{position:relative;z-index:1;}
 .ci-hl::before{content:"";position:absolute;left:-0.1em;right:-0.12em;bottom:0.04em;height:0.5em;z-index:0;pointer-events:none;background:linear-gradient(100deg,rgba(76,168,143,0) 1.5%,rgba(76,168,143,0.34) 5%,rgba(76,168,143,0.52) 48%,rgba(76,168,143,0.46) 93%,rgba(76,168,143,0) 99%);border-radius:42% 58% 55% 45% / 64% 40% 60% 36%;transform-origin:left center;transform:scaleX(0) rotate(-1deg);animation:ci-marker 0.62s cubic-bezier(.55,.08,.32,1) 0.95s forwards;}
+.ci-overview-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--c-b3);border:1px solid var(--c-b3);border-radius:16px;overflow:hidden;margin-bottom:40px}
+.ci-context-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--c-b3);border:1px solid var(--c-b3);border-radius:16px;overflow:hidden}
+.ci-tier-panel{display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:center;background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:20px;padding:40px;min-width:0;overflow:hidden}
+.ci-tier-media{display:flex;justify-content:center;align-items:center;min-height:440px;min-width:0}
+.ci-tier-browser{width:100%;max-width:620px;border-radius:12px;overflow:hidden;background:var(--c-surface);box-shadow:var(--cs-shot-shadow-hero);border:1px solid var(--c-b2)}
+.ci-tier-url-bar{margin-left:14px;flex:1;min-width:0;height:19px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;overflow:hidden}
+.ci-tier-url{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;display:block}
+.ci-tier-copy{min-width:0}
+.ci-tier-frame-scroll img{width:100%;max-width:100%;height:auto;display:block}
+.ci-usecases-shipped{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-width:0}
 @media (max-width:880px){
   .ci nav > div{padding:0 18px !important}
   .ci section{padding-left:18px !important;padding-right:18px !important}
   .ci [style*="grid-template-columns: 1.02fr 0.98fr"],
+  .ci [style*="grid-template-columns:1.02fr 0.98fr"],
   .ci [style*="grid-template-columns: 0.92fr 1.08fr"],
+  .ci [style*="grid-template-columns:0.92fr 1.08fr"],
   .ci [style*="grid-template-columns: 1.5fr 1fr"],
-  .ci [style*="grid-template-columns: 1.55fr 1fr"]{grid-template-columns:1fr !important;gap:30px !important}
+  .ci [style*="grid-template-columns:1.5fr 1fr"],
+  .ci [style*="grid-template-columns: 1.55fr 1fr"],
+  .ci [style*="grid-template-columns:1.55fr 1fr"]{grid-template-columns:1fr !important;gap:30px !important}
+  #s-tiers .ci-tier-panel{grid-template-columns:1fr!important;gap:28px!important;padding:22px 16px!important}
+  #s-tiers .ci-tier-media{min-height:0!important}
+  #s-tiers .ci-tier-copy h3{font-size:clamp(20px,5.5vw,26px)!important;letter-spacing:-0.5px!important}
+  #s-tiers .ci-tier-copy p,#s-tiers .ci-tier-copy span{font-size:15px!important;overflow-wrap:anywhere}
+  #s-tiers .ci-tier-frame-scroll{height:min(380px,62vw)!important}
   #s-model [style*="repeat(5, 1fr)"],#s-decisions [style*="repeat(3, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
-  #s-usecases [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important;gap:16px !important}
+  #s-model .ci-shipped{grid-template-columns:1fr!important}
+  #s-usecases [style*="grid-template-columns: 1fr 1fr"],
+  #s-usecases [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;gap:16px !important}
+  #s-usecases .ci-usecases-shipped{grid-template-columns:1fr!important;gap:28px!important}
+  #s-usecases .ci-usecases-shipped .ci-shipped-col{width:100%;min-width:0}
   #s-challenge .ci-shipped{grid-template-columns:1fr !important}
+  #s-overview .ci-overview-stats{grid-template-columns:1fr!important}
+  #s-context .ci-context-stats{grid-template-columns:1fr!important}
   .ci-hero-media{display:none !important}
   .ci-hero-media-m{display:flex !important}
   .ci section[style*="padding:84px"]{padding-top:60px !important;padding-bottom:64px !important}
@@ -341,7 +368,7 @@ summary::-webkit-details-marker{display:none}
         <p style="font-size:18px;color:var(--c-body);line-height:1.7;">As Experience Design Lead I owned the end-to-end UX from initial concept — the dashboard, the reporting suite, the floor-map visualization, and the on-premises to cloud migration path. This case study focuses on the navigation and data-comprehension challenge that was keeping facilities managers from extracting value from the platform.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--c-b3);border:1px solid var(--c-b3);border-radius:16px;overflow:hidden;margin-bottom:40px;" data-reveal="1">
+      <div class="ci-overview-stats" data-reveal="1">
         <div style="background:#0b1016;padding:44px 24px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,4.6vw,60px);font-weight:500;color:#fff;line-height:1;">5</div><div style="font-size:13.5px;color:#8a9ab5;margin-top:13px;line-height:1.45;">Hierarchy levels<br/>(Client → Space)</div></div>
         <div style="background:#0b1016;padding:44px 24px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,4.6vw,60px);font-weight:500;color:#fff;line-height:1;">21<span style="color:var(--c-teal2);">+</span></div><div style="font-size:13.5px;color:#8a9ab5;margin-top:13px;line-height:1.45;">Occupancy sensors<br/>per floor (avg)</div></div>
         <div style="background:#0b1016;padding:44px 24px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(40px,4.6vw,60px);font-weight:500;color:#fff;line-height:1;">∞</div><div style="font-size:13.5px;color:#8a9ab5;margin-top:13px;line-height:1.45;">Unlimited spaces<br/>per license</div></div>
@@ -373,7 +400,7 @@ summary::-webkit-details-marker{display:none}
         <p style="font-size:16px;color:var(--c-body);line-height:1.65;">Dedicated workspace-analytics vendors like VergeSense, Density, and SpaceIQ were gaining traction selling standalone sensor deployments. Cooper's sensors were already in the ceiling. The challenge was making the analytics layer as compelling as the purpose-built competitors, with an interface facilities managers would actually use day-to-day.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--c-b3);border:1px solid var(--c-b3);border-radius:16px;overflow:hidden;" data-reveal="1">
+      <div class="ci-context-stats" data-reveal="1">
         <div style="background:#0b1016;padding:40px 20px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.4vw,46px);font-weight:500;color:#fff;line-height:1;">$0</div><div style="font-size:13px;color:#8a9ab5;margin-top:12px;line-height:1.45;">Added hardware cost<br/>to customers</div></div>
         <div style="background:#0b1016;padding:40px 20px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.4vw,46px);font-weight:500;color:#fff;line-height:1;">4<span style="color:var(--c-teal2);">+</span></div><div style="font-size:13px;color:#8a9ab5;margin-top:12px;line-height:1.45;">Buildings managed from<br/>a single dashboard</div></div>
         <div style="background:#0b1016;padding:40px 20px;text-align:center;"><div style="font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.4vw,46px);font-weight:500;color:#fff;line-height:1;">310<span style="color:var(--c-teal2);">K</span></div><div style="font-size:13px;color:#8a9ab5;margin-top:12px;line-height:1.45;">Square feet tracked in<br/>reference deployment</div></div>
@@ -717,22 +744,22 @@ summary::-webkit-details-marker{display:none}
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:center;background:var(--c-bg2);border:1px solid var(--c-b1);border-radius:20px;padding:40px;">
+      <div class="ci-tier-panel">
         <!-- device frame -->
-        <div style="display:flex;justify-content:center;align-items:center;min-height:440px;">
-          <div style="width:100%;max-width:620px;border-radius:12px;overflow:hidden;background:var(--c-surface);box-shadow:var(--cs-shot-shadow-hero);border:1px solid var(--c-b2);">
-            <div style="height:36px;background:var(--c-line);display:flex;align-items:center;padding:0 14px;gap:7px;border-bottom:1px solid var(--c-b1);">
-              <div style="width:10px;height:10px;border-radius:50%;background:#e06c5e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#e0b94e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#5bbd7a;"></div>
-              <div style="margin-left:14px;flex:1;height:19px;background:var(--c-soft);border-radius:5px;display:flex;align-items:center;padding:0 10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);">{{ tierUrl }}</span></div>
+        <div class="ci-tier-media">
+          <div class="ci-tier-browser">
+            <div style="height:36px;background:var(--c-line);display:flex;align-items:center;padding:0 14px;gap:7px;border-bottom:1px solid var(--c-b1);min-width:0;">
+              <div style="width:10px;height:10px;border-radius:50%;background:#e06c5e;flex-shrink:0;"></div><div style="width:10px;height:10px;border-radius:50%;background:#e0b94e;flex-shrink:0;"></div><div style="width:10px;height:10px;border-radius:50%;background:#5bbd7a;flex-shrink:0;"></div>
+              <div class="ci-tier-url-bar"><span class="ci-tier-url">{{ tierUrl }}</span></div>
             </div>
-            <div class="ci-frame-scroll" tabindex="0" style="height:432px;overflow-y:auto;background:var(--c-surface);">
+            <div class="ci-tier-frame-scroll ci-frame-scroll" tabindex="0" style="height:432px;overflow-y:auto;background:var(--c-surface);">
               <img src="{{ tierImg }}" alt="{{ tierAlt }}" style="{{ tierImgStyle }}"/>
             </div>
           </div>
         </div>
 
         <!-- rationale -->
-        <div>
+        <div class="ci-tier-copy">
           <div style="display:inline-flex;align-items:center;padding:6px 13px;background:rgba(13,83,80,0.08);border:1px solid rgba(13,83,80,0.16);border-radius:100px;margin-bottom:18px;">
             <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-teal);letter-spacing:0.08em;text-transform:uppercase;">{{ tierTag }}</span>
           </div>
@@ -862,7 +889,7 @@ summary::-webkit-details-marker{display:none}
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-teal2);letter-spacing:0.12em;text-transform:uppercase;">Shipped to the field, the real screens</div>
           <div style="flex:1;height:1px;background:rgba(255,255,255,0.1);"></div>
         </div>
-        <div class="ci-shipped" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <div class="ci-shipped ci-usecases-shipped">
 
           <div class="ci-shipped-col" style="display:flex;flex-direction:column;gap:12px;">
             <div class="ci-screen" style="border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:var(--cs-shot-shadow);background:#0e151e;">
@@ -947,8 +974,8 @@ summary::-webkit-details-marker{display:none}
 
 </div>
 
-  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6a60;padding:0 10px 0 12px;">Version</span>
+  <div class="cs-verpill" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
+    <span class="cs-vlbl" style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6a60;padding:0 10px 0 12px;">Version</span>
     <a href="core-insights-showcase.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#534f48;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Quick tour</a>
     <a href="core-insights.dc.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#ffffff;background:#0d5350;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Deep dive</a>
   </div>

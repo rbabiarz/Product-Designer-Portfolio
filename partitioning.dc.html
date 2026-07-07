@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dynamic Space Partitioning, Case Study · Robert Babiarz</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
-  <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
+  <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
+@media (max-width:560px){.cs-verpill .cs-vlbl{display:none}.cs-verpill a{padding:9px 14px !important;font-size:12.5px !important}}
+</style>
 <script src="./support.js"></script>
 
   <!-- SEO·OG·JSONLD (injected) -->
@@ -571,8 +573,8 @@ summary::-webkit-details-marker{display:none}
 
 </div>
 
-  <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6a60;padding:0 10px 0 12px;">Version</span>
+  <div class="cs-verpill" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,252,245,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(10,8,4,0.12);box-shadow:0 18px 44px -16px rgba(10,20,30,.5);font-family:'DM Sans',sans-serif;">
+    <span class="cs-vlbl" style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6a60;padding:0 10px 0 12px;">Version</span>
     <a href="partitioning-showcase.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#534f48;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Quick tour</a>
     <a href="partitioning.dc.html" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#ffffff;background:#0d5350;text-decoration:none;padding:9px 17px;border-radius:999px;white-space:nowrap;">Deep dive</a>
   </div>

@@ -101,7 +101,8 @@ body{margin:0}
 .case-body{padding:20px 22px 24px}
 
 nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
-nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto}
+nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;min-width:0;gap:12px}
+.nav-actions{display:flex;align-items:center;gap:12px;min-width:0;flex-shrink:1;justify-content:flex-end}
 .brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
 .brand:hover{color:var(--c-ink)}
 .iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
@@ -142,7 +143,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   .cases{grid-template-columns:1fr}
   .introgrid{grid-template-columns:1fr!important;gap:40px!important}
   .cgrid{grid-template-columns:1fr 1fr!important}
-  .gthumbs{grid-template-columns:1fr 1fr!important}
+  .gthumbs{grid-template-columns:1fr!important;gap:28px!important}
+  .gthumbs > .win,.gthumbs > div{min-width:0;width:100%}
 }
 @media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}}
 .navq:hover{color:var(--c-ink)}
@@ -157,6 +159,31 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .shot-seg .sw{width:9px;height:9px;border-radius:50%;border:1px solid rgba(128,128,128,0.45)}
 .shot-seg .sw.l{background:#fffcf5}
 .shot-seg .sw.d{background:#0e1014;border-color:rgba(255,255,255,0.3)}
+@media (max-width:760px){
+  .nav-actions{gap:8px}
+  .cs-switch{flex-shrink:0}
+  .cs-switch>summary{min-width:0;max-width:none;width:36px;height:36px;padding:0;justify-content:center;gap:0}
+  .cs-switch .cs-sw-cur,.cs-switch .cs-sw-lbl{display:none}
+  .iconbtn{flex-shrink:0;width:36px;height:36px}
+  .shot-ctl{flex-shrink:0}
+  nav.top,.nav-actions .cs-switch>summary{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet-portal .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:1 !important;background:var(--c-surface) !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet-portal .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet-portal .cs-sheet>a{padding:14px 14px !important}
+  .cs.dark .cs-sheet-portal .cs-sheet::before{background:rgba(255,255,255,0.18)}
+}
+.cs-sheet-portal{position:fixed;inset:0;z-index:99992;pointer-events:none;font-family:'DM Sans',-apple-system,sans-serif;background:transparent!important;min-height:0!important;overflow:visible!important;color:inherit}
+.cs-sheet-portal>*{pointer-events:auto}
+.cs-sheet-portal .cs-sheet-backdrop{position:fixed;inset:0;margin:0;padding:0;border:0;appearance:none;-webkit-appearance:none;background:transparent;background-color:rgba(10,8,4,0.42)!important;opacity:1;z-index:0;cursor:default;animation:cs-fade .36s ease}
+.cs.dark .cs-sheet-portal .cs-sheet-backdrop{background-color:rgba(10,8,4,0.42)!important}
+.cs-sheet a.cs-allwork{display:flex;align-items:center;gap:8px}
+body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;pointer-events:none}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+@media (max-width:600px){
+  .shot-btn-txt{display:none}
+  .shot-seg button{padding:8px 10px;gap:0}
+}
 @media (max-width:760px){.shot-lbl{display:none}}
 </style>
 
@@ -196,18 +223,18 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>
         Robert Babiarz
       </a>
-      <div style="display:flex;align-items:center;gap:12px">
+      <div class="nav-actions">
         <div class="shot-ctl">
           <span class="shot-lbl">Screenshots</span>
           <div class="shot-seg" role="group" aria-label="Screenshot theme">
-            <button type="button" id="shotL"><span class="sw l"></span>Light</button>
-            <button type="button" id="shotD"><span class="sw d"></span>Dark</button>
+            <button type="button" id="shotL" aria-label="Light screenshot theme"><span class="sw l"></span><span class="shot-btn-txt">Light</span></button>
+            <button type="button" id="shotD" aria-label="Dark screenshot theme"><span class="sw d"></span><span class="shot-btn-txt">Dark</span></button>
           </div>
         </div>
         <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="display:inline-flex;align-items:center;font-size:10.5px;letter-spacing:.08em;color:var(--c-accent);font-weight:700;text-decoration:none">CONTACT</a>
         <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
         <details class="cs-switch">
-          <summary>
+          <summary aria-label="Switch case study: CTOC Dashboard System">
             <span class="cs-sw-lbl">Case study</span>
             <span class="cs-sw-cur">CTOC Dashboard System</span>
             <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;">expand_more</span>
@@ -402,11 +429,62 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   var btn=document.getElementById('themeBtn');
   var SUN='<span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span>';
   var MOON='<span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span>';
-  function applyTheme(d){ root.classList.toggle('dark',d); btn.innerHTML=d?SUN:MOON; try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){} }
+  function applyTheme(d){
+    root.classList.toggle('dark',d);
+    btn.innerHTML=d?SUN:MOON;
+    var portal=document.querySelector('.cs-sheet-portal');
+    if(portal) portal.classList.toggle('dark',d);
+    try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){}
+  }
   var stored=null; try{stored=localStorage.getItem('rba-int-dark');}catch(e){}
   applyTheme(stored==='true'||stored==='1');
   btn.addEventListener('click',function(){ applyTheme(!root.classList.contains('dark')); });
-  document.querySelectorAll('details.cs-switch').forEach(function(d){ document.addEventListener('click', function(e){ if(d.open && !d.contains(e.target)) d.removeAttribute('open'); }); });
+  document.querySelectorAll('details.cs-switch').forEach(function(d){
+    var sheet = d.querySelector('.cs-sheet');
+    var portal = null;
+    var backdrop = null;
+    var mq = window.matchMedia('(max-width:760px)');
+    function isMobile(){ return mq.matches; }
+    function restoreSheet(){
+      if (portal){
+        if (sheet && sheet.parentNode !== d) d.appendChild(sheet);
+        portal.remove();
+        portal = null;
+        backdrop = null;
+      }
+      document.body.classList.remove('cs-sheet-open');
+      document.body.style.overflow = '';
+    }
+    function mountSheet(){
+      if (!isMobile() || !d.open || !sheet || portal) return;
+      portal = document.createElement('div');
+      portal.className = 'cs cs-sheet-portal' + (root.classList.contains('dark') ? ' dark' : '');
+      backdrop = document.createElement('div');
+      backdrop.className = 'cs-sheet-backdrop';
+      backdrop.setAttribute('role', 'button');
+      backdrop.setAttribute('tabindex', '-1');
+      backdrop.setAttribute('aria-label', 'Close case study menu');
+      portal.appendChild(backdrop);
+      portal.appendChild(sheet);
+      document.body.appendChild(portal);
+      document.body.classList.add('cs-sheet-open');
+      document.body.style.overflow = 'hidden';
+      backdrop.addEventListener('click', function(){ d.removeAttribute('open'); });
+    }
+    d.addEventListener('toggle', function(){
+      if (d.open && isMobile()) mountSheet();
+      else restoreSheet();
+    });
+    mq.addEventListener('change', function(){
+      if (d.open && isMobile()) mountSheet();
+      else restoreSheet();
+    });
+    document.addEventListener('click', function(e){
+      if (!d.open) return;
+      if (d.contains(e.target) || (sheet && sheet.contains(e.target)) || e.target === backdrop) return;
+      d.removeAttribute('open');
+    });
+  });
 
   var revealedAny=false;
   function reveal(el){ el.classList.add('in'); setTimeout(function(){ el.style.transition='none'; el.style.opacity='1'; el.style.transform='none'; }, 850); }

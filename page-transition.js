@@ -281,6 +281,9 @@
     var t = null;
     function update() {
       label.textContent = window.innerWidth + ' \u00d7 ' + window.innerHeight + ' px';
+      // on phones the bottom strip belongs to the case-study switcher and the
+      // concierge button — the readout is decoration and yields entirely
+      p.style.display = window.innerWidth <= 700 ? 'none' : 'flex';
       pct();
     }
     window.addEventListener('resize', function () {
