@@ -576,6 +576,25 @@ class Component extends DCLogic {
         mark();
       }
     };
+    // DOM-mutation heal guardian — reacts to the root event (a marked interactive
+    // node being replaced by the DC streaming render under slow/variable bandwidth)
+    // and re-wires, so recovery no longer races the boot reveal or the React update
+    // timeline. Only reinits when verify() actually fails; routine DOM churn just
+    // resets a cheap 180ms debounce. See homepage-interactive.dc.html for the full rationale.
+    try {
+      const guardian = new MutationObserver(() => {
+        if (!this._bootMarks || !window.__homeBoot) return;
+        clearTimeout(this._guardT);
+        this._guardT = setTimeout(() => {
+          try {
+            const v = window.__homeBoot.verify();
+            if (!v.ok && !(v.failed.length === 1 && v.failed[0] === 'pending')) window.__homeBoot.reinit();
+          } catch (e) {}
+        }, 180);
+      });
+      guardian.observe(document.body, { childList: true, subtree: true });
+      (this._obs = this._obs || []).push(guardian);
+    } catch (e) {}
   }
 
   // Floating case-file preview: the same previews/p-*.png tiles the other homepages
@@ -1232,6 +1251,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     clearTimeout(this._laSaveT);
+    clearTimeout(this._guardT);
     (this._t || []).forEach(clearTimeout);
     if (this._bldgRaf) cancelAnimationFrame(this._bldgRaf);
     if (this._archRaf) cancelAnimationFrame(this._archRaf);

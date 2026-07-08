@@ -474,7 +474,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <p style="font-size:13.5px;color:var(--c-body);line-height:1.55;margin-top:8px">This page opened as a local file, and the prototype (an exported Expo app) only runs from an actual server. It works fully at the live link below.</p>
         <div class="mono" style="font-size:10px;color:var(--c-muted2);letter-spacing:0.05em;margin-top:14px;line-height:1.6">LOCAL ALTERNATIVE &middot; RUN <code style="background:var(--c-b1);padding:1px 5px;border-radius:4px">python3 -m http.server</code> FROM THE PROJECT FOLDER, THEN RELOAD</div>
       </div>
-      <a id="fintech-proto-openlink" href="Fintech-Platform/" target="_blank" rel="noopener noreferrer" class="mono" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-accent);text-decoration:none;border:1px solid var(--c-b3);border-radius:999px;padding:11px 20px;transition:border-color .2s" onmouseover="this.style.borderColor='var(--c-accent)'" onmouseout="this.style.borderColor='var(--c-b3)'">Open prototype in a new tab <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span></a>
+      <a id="fintech-proto-openlink" href="Fintech-Platform/" target="_blank" rel="noopener noreferrer" class="mono" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:0.06em;color:var(--c-accent);text-decoration:none;border:1px solid var(--c-b3);border-radius:999px;padding:11px 20px;transition:border-color .2s" onmouseover="this.style.borderColor='var(--c-accent)'" onmouseout="this.style.borderColor='var(--c-b3)'"><span style="text-transform:uppercase">Open prototype in a new tab</span> <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span></a>
     </div>
   </section>
 
@@ -553,7 +553,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       var fb=document.getElementById('fintech-proto-fallback');
       if(shell) shell.style.display='none';
       if(fb) fb.style.display='block';
-      if(openLink){ openLink.href='https://robertbabiarz.com/goals-driven-fintech-showcase.html'; openLink.innerHTML='View the live prototype <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span>'; }
+      if(openLink){ openLink.href='https://robertbabiarz.com/goals-driven-fintech-showcase.html'; openLink.innerHTML='<span style="text-transform:uppercase">View the live prototype</span> <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span>'; }
       return;
     }
     var src=frame.getAttribute('data-src');

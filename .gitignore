@@ -18,6 +18,10 @@ ehthumbs.db
 node_modules/
 npm-debug.log*
 
+# Expo web export — static font/image bundles (paths include node_modules segments)
+!Fintech-Platform/assets/
+!Fintech-Platform/assets/**
+
 # local & secrets (added by scaffold, 2026-06-28)
 CLAUDE.local.md
 .claude/settings.local.json

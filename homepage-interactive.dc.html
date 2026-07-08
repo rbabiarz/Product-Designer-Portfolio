@@ -1209,6 +1209,33 @@ class Component extends DCLogic {
         RE_INITS.forEach(runInit); mark();
       }
     };
+    // DOM-mutation heal guardian — the load-bearing robustness fix.
+    // The imperative inits wire listeners/rAF to specific nodes; under slow or
+    // variable bandwidth the DC streaming render can replace those nodes at any
+    // time, and a replacement that isn't followed by a timely React re-render
+    // (componentDidUpdate) would otherwise strand every interaction on a
+    // detached node — dead previews, a frozen 3D rig, unresponsive Light
+    // Architect — until a manual refresh (which only works because the cache
+    // makes the reload fast enough to dodge the race). This observer reacts to
+    // the ROOT event itself — a marked interactive node losing its place in the
+    // live DOM — and re-wires, so recovery no longer races the boot reveal or
+    // the React update timeline. It only does real work when verify() actually
+    // fails (a node was replaced); routine DOM churn just resets a cheap 180ms
+    // debounce, so steady-state cost is negligible.
+    try {
+      const guardian = new MutationObserver(() => {
+        if (!this._bootMarks || !window.__homeBoot) return;
+        clearTimeout(this._guardT);
+        this._guardT = setTimeout(() => {
+          try {
+            const v = window.__homeBoot.verify();
+            if (!v.ok && !(v.failed.length === 1 && v.failed[0] === 'pending')) window.__homeBoot.reinit();
+          } catch (e) {}
+        }, 180);
+      });
+      guardian.observe(document.body, { childList: true, subtree: true });
+      this._obs.push(guardian);
+    } catch (e) {}
     this.initScrollProgress();
     // Safety net: never let entrance-animated hero content stay invisible if the
     // CSS animation timeline fails to start (e.g. non-compositing context).
@@ -1826,6 +1853,8 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     clearTimeout(this._laSaveT);
+    clearTimeout(this._guardT);
+    clearTimeout(this._healT);
     if (this._raf) cancelAnimationFrame(this._raf);
     if (this._heroRaf) cancelAnimationFrame(this._heroRaf);
     if (this._netRaf) cancelAnimationFrame(this._netRaf);
