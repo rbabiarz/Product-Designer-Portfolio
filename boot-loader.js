@@ -23,6 +23,19 @@
   var firstVisit = true;
   try { firstVisit = sessionStorage.getItem('rb-booted') !== '1'; } catch (e) {}
 
+  // One-time warm reload. The homepage's interactivity is wired imperatively to
+  // DOM nodes that the DC streaming render replaces during load; on a slow or
+  // variable first (cold-cache) load that wiring can be left stranded on detached
+  // nodes — dead preview hovers, a frozen 3D rig, unresponsive Light Architect —
+  // which is why a manual refresh has always fixed it (the warm cache makes the
+  // reload fast enough to skip the race). We do that refresh automatically, exactly
+  // once per session: the first cold visit loads and caches React, the runtime,
+  // fonts and scripts; then reveal() reloads once, and the reloaded page comes up
+  // fast from cache and fully interactive. Guarded so it can never loop.
+  var WARM_KEY = 'rb-warm-reloaded-v1';
+  var warmed = false;
+  try { warmed = sessionStorage.getItem(WARM_KEY) === '1'; } catch (e) {}
+
   var CAP_MS = 12000;      // absolute ceiling: never hold the page longer than this
   var t0 = Date.now();
   function elapsed() { return Date.now() - t0; }
@@ -174,6 +187,16 @@
     revealed = true;
     if (timer) clearTimeout(timer);
     try { sessionStorage.setItem('rb-booted', '1'); } catch (e) {}
+    // First cold visit finished loading (scripts/React/fonts now cached): reload
+    // once so the page comes up from the warm cache, fast enough to be fully
+    // interactive. Keep the overlay up across the reload so the pre-reload state is
+    // never shown. Only reload if the guard flag actually persisted — otherwise
+    // (e.g. sessionStorage blocked) we must NOT reload, to avoid an infinite loop.
+    if (firstVisit && !warmed) {
+      var flagged = false;
+      try { sessionStorage.setItem(WARM_KEY, '1'); flagged = sessionStorage.getItem(WARM_KEY) === '1'; } catch (e) { flagged = false; }
+      if (flagged) { try { location.reload(); return; } catch (e) {} }
+    }
     document.documentElement.style.overflow = '';
     if (!wrap) return;
     if (reduce) { wrap.remove(); wrap = null; return; }
