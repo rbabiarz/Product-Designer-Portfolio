@@ -109,6 +109,26 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .stat-n{font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#5fc4b6;letter-spacing:-1px;line-height:1}
 .stat-l{font-size:13.5px;color:#cdd6e0;margin-top:9px;line-height:1.5}
 .stat-k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#7d93a8;letter-spacing:0.08em;margin-top:11px}
+/* stat-strip micro-visuals — the strip is navy in both themes, so colors are the dark-surface pair */
+.sv{margin-top:14px}
+.sv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:#7d93a8;display:flex;justify-content:space-between;gap:8px;margin:7px 0 4px}
+.sv-track{position:relative;height:8px;border-radius:4px;background:rgba(255,255,255,0.07)}
+.sv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a9ab5}
+.sv-fill.on{background:#5fc4b6}
+.sv-dots{display:flex;gap:4px;align-items:center;min-height:8px}
+.sv-dot{width:8px;height:8px;border-radius:50%;background:#5fc4b6;flex:0 0 auto}
+.sv-dot.dim{background:#8a9ab5;opacity:.62}
+.sv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:#7d93a8;margin-top:8px;line-height:1.5}
+/* onboarding sequence rail */
+.ob{max-width:560px;margin:38px auto 0}
+.ob-row{display:flex;gap:6px;justify-content:center}
+.ob-cell{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:7px}
+.ob-dot{width:10px;height:10px;border-radius:50%;background:#8a8578}
+.ob-dot.on{background:var(--c-accent)}
+.cs.dark .ob-dot{background:#8a9ab5}.cs.dark .ob-dot.on{background:var(--c-accent)}
+.ob-n{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.05em;color:var(--c-muted)}
+.ob-w{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.03em;color:var(--c-muted);white-space:nowrap}
+.ob-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:14px;text-align:center;line-height:1.7}
 
 table.cmp{width:100%;border-collapse:collapse;min-width:760px;font-size:13.5px}
 table.cmp th{text-align:left;padding:14px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em;color:var(--c-muted);text-transform:uppercase;font-weight:500}
@@ -326,10 +346,22 @@ table.cmp td{padding:14px 14px;color:var(--c-body);border-top:1px solid var(--c-
       </div>
 
       <div class="stat-strip" data-reveal="" id="stats">
-        <div><div class="stat-n" data-count="165" data-suffix="M">0</div><div class="stat-l">U.S. adults in the addressable market (TAM)</div><div class="stat-k">MARKET SIZING</div></div>
+        <div><div class="stat-n" data-count="165" data-suffix="M">0</div><div class="stat-l">U.S. adults in the addressable market (TAM)</div><div class="stat-k">MARKET SIZING</div>
+          <div class="sv" role="img" aria-label="Market sizing drawn to one scale: the total addressable market is 165 million U.S. adults; the serviceable market earning 40 thousand to 250 thousand dollars is 90 million.">
+            <div class="sv-lbl" aria-hidden="true"><span>TAM</span><span>165M</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill" style="width:100%"></div></div>
+            <div class="sv-lbl" aria-hidden="true"><span>SAM</span><span>90M</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:54.5%"></div></div>
+            <div class="sv-note" aria-hidden="true">TO ONE SCALE · MILLIONS OF U.S. ADULTS</div>
+          </div></div>
         <div><div class="stat-n" data-count="90" data-suffix="M">0</div><div class="stat-l">Serviceable market earning $40K–$250K</div><div class="stat-k">SAM</div></div>
         <div><div class="stat-n" data-count="5">0</div><div class="stat-l">Incumbent PFM archetypes benchmarked</div><div class="stat-k">COMPETITIVE SCOPE</div></div>
-        <div><div class="stat-n" data-count="7" data-prefix="3–">0</div><div class="stat-l">Financial accounts the average person juggles</div><div class="stat-k">USER REALITY</div></div>
+        <div><div class="stat-n" data-count="7" data-prefix="3–">0</div><div class="stat-l">Financial accounts the average person juggles</div><div class="stat-k">USER REALITY</div>
+          <div class="sv" role="img" aria-label="Three to seven financial accounts drawn one to one: three solid dots mark the low end of the range; muted dots extend it to seven.">
+            <div class="sv-lbl" aria-hidden="true"><span>ACCOUNTS</span><span>3 TO 7</span></div>
+            <div class="sv-dots" aria-hidden="true"><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot dim"></span><span class="sv-dot dim"></span><span class="sv-dot dim"></span><span class="sv-dot dim"></span></div>
+            <div class="sv-note" aria-hidden="true">COUNTED 1:1 · SOLID 3 · MUTED EXTEND TO 7</div>
+          </div></div>
       </div>
       <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:14px">FIGURES ARE DESK-RESEARCH ESTIMATES FRAMING A CONCEPT, NOT VALIDATED PRODUCT METRICS.</div>
     </div>
@@ -520,6 +552,20 @@ table.cmp td{padding:14px 14px;color:var(--c-body);border-top:1px solid var(--c-
         <div><div class="mount"><img class="phone" src="fintech/fintech-04.png" alt="Dashboard reveal" style="width:200px;height:433px"></div><div style="text-align:center;margin-top:12px"><div class="mono" style="font-size:10px;color:var(--c-accent)">08 · REVEAL</div><div style="font-size:13px;color:var(--c-body);margin-top:3px">Your dashboard, ready</div></div></div>
       </div>
 
+      <div class="ob" data-reveal="" role="img" aria-label="The eight onboarding screens drawn one to one. The four screens shown above sit at positions 1 (value), 3 (tone), 6 (connect), and 8 (reveal). The account-link ask does not arrive until screen 6, and the flow closes on the dashboard payoff at screen 8.">
+        <div class="ob-row" aria-hidden="true">
+          <div class="ob-cell"><span class="ob-dot on"></span><span class="ob-n">01</span><span class="ob-w">VALUE</span></div>
+          <div class="ob-cell"><span class="ob-dot"></span><span class="ob-n">02</span></div>
+          <div class="ob-cell"><span class="ob-dot on"></span><span class="ob-n">03</span><span class="ob-w">TONE</span></div>
+          <div class="ob-cell"><span class="ob-dot"></span><span class="ob-n">04</span></div>
+          <div class="ob-cell"><span class="ob-dot"></span><span class="ob-n">05</span></div>
+          <div class="ob-cell"><span class="ob-dot on"></span><span class="ob-n">06</span><span class="ob-w">CONNECT</span></div>
+          <div class="ob-cell"><span class="ob-dot"></span><span class="ob-n">07</span></div>
+          <div class="ob-cell"><span class="ob-dot on"></span><span class="ob-n">08</span><span class="ob-w">REVEAL</span></div>
+        </div>
+        <div class="ob-note" aria-hidden="true">8 SCREENS DRAWN 1:1 · TEAL = SHOWN ABOVE (01 · 03 · 06 · 08) · THE ASK WAITS UNTIL 06 · PAYOFF AT 08</div>
+      </div>
+
       <div class="grid-3" data-reveal="" style="margin-top:44px">
         <div class="card" style="padding:24px"><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Values before asks</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">The first three screens sell the philosophy, connection, transparency, compassion, so linking an account feels earned, not extracted.</p></div>
         <div class="card" style="padding:24px"><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Trust signals at the ask</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">The linking screen states it plainly: 256-bit encryption, read-only access, CFPB §1033 compliant, surfaced exactly when hesitation peaks.</p></div>
@@ -568,7 +614,13 @@ table.cmp td{padding:14px 14px;color:var(--c-body);border-top:1px solid var(--c-
           <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:130px;height:26px;background:#0f1116;border-radius:0 0 16px 16px;z-index:2;pointer-events:none"></div>
           <iframe id="fintech-proto-frame" data-src="Fintech-Platform/" title="Goals-Driven Finance, interactive prototype" allow="clipboard-write; fullscreen" style="display:block;width:100%;height:740px;border:0;border-radius:36px;background:#fffcf5"></iframe>
         </div>
-        <a href="Fintech-Platform/" target="_blank" rel="noopener noreferrer" class="mono" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-accent);text-decoration:none;border:1px solid var(--c-b3);border-radius:999px;padding:11px 20px;transition:background .2s,border-color .2s" onmouseover="this.style.background='var(--c-bg3)';this.style.borderColor='var(--c-accent)'" onmouseout="this.style.background='transparent';this.style.borderColor='var(--c-b3)'">Open prototype in a new tab <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span></a>
+        <div id="fintech-proto-fallback" class="card" style="display:none;width:min(390px,92vw);padding:26px 24px;text-align:center;">
+          <span class="msi" aria-hidden="true" style="font-size:28px;color:var(--c-muted2)">info</span>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink);margin-top:12px">This build needs a real web server</div>
+          <p style="font-size:13.5px;color:var(--c-body);line-height:1.55;margin-top:8px">This page opened as a local file, and the prototype (an exported Expo app) only runs from an actual server. It works fully at the live link below.</p>
+          <div class="mono" style="font-size:10px;color:var(--c-muted2);letter-spacing:0.05em;margin-top:14px;line-height:1.6">LOCAL ALTERNATIVE &middot; RUN <code style="background:var(--c-b1);padding:1px 5px;border-radius:4px">python3 -m http.server</code> FROM THE PROJECT FOLDER, THEN RELOAD</div>
+        </div>
+        <a id="fintech-proto-openlink" href="Fintech-Platform/" target="_blank" rel="noopener noreferrer" class="mono" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-accent);text-decoration:none;border:1px solid var(--c-b3);border-radius:999px;padding:11px 20px;transition:background .2s,border-color .2s" onmouseover="this.style.background='var(--c-bg3)';this.style.borderColor='var(--c-accent)'" onmouseout="this.style.background='transparent';this.style.borderColor='var(--c-b3)'">Open prototype in a new tab <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span></a>
       </div>
     </div>
   </section>
@@ -673,6 +725,18 @@ table.cmp td{padding:14px 14px;color:var(--c-body);border-top:1px solid var(--c-
     var shell=document.getElementById('fintech-proto-shell');
     var section=document.getElementById('prototype');
     if(!frame||!shell||!section) return;
+    var openLink=document.getElementById('fintech-proto-openlink');
+    if(location.protocol==='file:'){
+      // the exported Expo build calls history.replaceState with its baked-in absolute
+      // base path, which the browser refuses under a null file:// origin, so the app
+      // never mounts, opening it in a new tab hits the same crash. Skip loading it and
+      // point straight at the live, server-hosted copy instead.
+      var fb=document.getElementById('fintech-proto-fallback');
+      shell.style.display='none';
+      if(fb) fb.style.display='block';
+      if(openLink){ openLink.href='https://robertbabiarz.com/goals-driven-fintech.html'; openLink.innerHTML='View the live prototype <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span>'; }
+      return;
+    }
     var src=frame.getAttribute('data-src');
     if(!src) return;
     var loaded=false;

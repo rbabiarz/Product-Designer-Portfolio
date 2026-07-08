@@ -104,6 +104,39 @@ body{margin:0}
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .res-n{font-family:'Inter',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
 .res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
+.mv{margin-top:16px;max-width:230px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
+.mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
+.mv-fill.on{background:var(--c-accent)}
+.cs.dark .mv-fill{background:#8a9ab5}.cs.dark .mv-fill.on{background:var(--c-accent)}
+.mv-dots{display:flex;gap:4px;align-items:center;min-height:8px}
+.mv-dot{width:8px;height:8px;border-radius:50%;background:#8a8578;flex:0 0 auto}
+.mv-dot.dim{opacity:.4}
+.mv-dot.on{background:var(--c-accent)}
+.cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px;line-height:1.5}
+.mv-steps{display:flex;gap:3px}
+.mv-step{flex:1;height:20px;border-radius:4px}
+.mv-step:nth-child(1){background:#5c988e}.mv-step:nth-child(2){background:#3d7d72}.mv-step:nth-child(3){background:#24685e}
+.cs.dark .mv-step:nth-child(1){background:#3f8776}.cs.dark .mv-step:nth-child(2){background:#4fa38c}.cs.dark .mv-step:nth-child(3){background:#5fc2a8}
+.mv-steplbl{display:flex;gap:3px;margin-top:5px}
+.mv-steplbl span{flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.03em;color:var(--c-muted);text-align:center}
+.mv-seg24{display:flex;gap:2px}
+.mv-seg24 span{flex:1;height:8px;border-radius:2px;background:var(--c-accent)}
+/* device-distribution strip on the navy band (band is fixed-dark in both themes) */
+.dbx{max-width:860px;margin:0 auto 40px}
+.dbx-bar{display:flex;gap:2px;height:16px}
+.dbx-seg{border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;color:#0b1016}
+.dbx-seg.rep{background:#7dd3c0}
+.dbx-seg.std{background:#8a9ab5}
+.dbx-lbl{display:flex;justify-content:space-between;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:rgba(255,255,255,.62);margin:14px 0 6px}
+.dbx-dots{display:flex;gap:4px;align-items:center;flex-wrap:wrap;min-height:8px}
+.dbx-dot{width:8px;height:8px;border-radius:50%;background:#7dd3c0;flex:0 0 auto}
+.dbx-legend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;color:rgba(255,255,255,.62)}
+.dbx-legend b{color:#fff;font-weight:600}
+.dbx-sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.dbx-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:rgba(255,255,255,.5);margin-top:10px;text-align:center;line-height:1.6}
 
 .appr{display:flex;flex-direction:column;gap:0}
 .appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
@@ -377,6 +410,16 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
           <div class="eyebrow" style="color:#9fe9d8">Device Distribution at Scale</div>
           <p class="lead" style="color:#c7d5e8;max-width:720px;margin:14px auto 0">The same logical map scales from a 32-device condo to a 247-device estate, groups, subnets, and repeaters assigned automatically. Example: <strong style="color:#fff">247 devices, 66 repeaters, 22 subnets created.</strong></p>
         </div>
+        <div class="dbx" role="img" aria-label="The 247-device estate example drawn as one bar: 66 devices auto-promoted to repeaters and 181 left standard, the 181 derived from the stated figures; below, one dot per subnet marks the 22 subnets the system created automatically">
+          <div class="dbx-bar" aria-hidden="true">
+            <div class="dbx-seg rep" style="flex:66"></div>
+            <div class="dbx-seg std" style="flex:181">STANDARD · 181</div>
+          </div>
+          <div class="dbx-lbl" aria-hidden="true"><span>SUBNETS CREATED</span><span>22</span></div>
+          <div class="dbx-dots" aria-hidden="true"><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span></div>
+          <div class="dbx-legend" aria-hidden="true"><span><span class="dbx-sw" style="background:#7dd3c0"></span>REPEATERS <b>66</b></span><span><span class="dbx-sw" style="background:#8a9ab5"></span>STANDARD <b>181</b></span><span><span class="dbx-sw" style="background:#7dd3c0;border-radius:50%"></span>SUBNETS <b>22</b></span></div>
+          <div class="dbx-note">ESTATE EXAMPLE · 247 DEVICES = 66 REPEATERS + 181 STANDARD (181 DERIVED FROM THE STATED FIGURES) · ONE DOT PER SUBNET</div>
+        </div>
         <div style="border-radius:14px;overflow:hidden;box-shadow:var(--cs-shot-shadow);background:#fff;padding:18px">
           <img src="assets/sl/floorplans.jpg" alt="Device distribution across floor plans" style="width:100%;display:block">
         </div>
@@ -410,10 +453,30 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Scope of the system</h2>
       </div>
       <div class="results" id="stats">
-        <div data-reveal=""><div class="res-n"><span data-count="247">0</span></div><div class="res-l">Devices at estate scale, one map</div></div>
-        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="1">0</span>-tap</div><div class="res-l">To everything you use daily</div></div>
-        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="3">0</span></div><div class="res-l">User tiers, resident, power user, manager</div></div>
-        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="24">0</span>h</div><div class="res-l">Circadian rhythm, fully automatic</div></div>
+        <div data-reveal=""><div class="res-n"><span data-count="247">0</span></div><div class="res-l">Devices at estate scale, one map</div>
+          <div class="mv" role="img" aria-label="Drawn to one scale: a 32-device condo and a 247-device estate, both on the same map">
+            <div class="mv-lbl" aria-hidden="true"><span>CONDO</span><span>32</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill" style="width:13%"></div></div>
+            <div class="mv-lbl" aria-hidden="true"><span>ESTATE</span><span>247</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note">TO ONE SCALE · SAME MAP AT BOTH SIZES</div>
+          </div></div>
+        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="1">0</span>-tap</div><div class="res-l">To everything you use daily</div>
+          <div class="mv" role="img" aria-label="One tap reaches everything used daily">
+            <div class="mv-lbl" aria-hidden="true"><span>DAILY ESSENTIALS</span><span>1 TAP</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span></div>
+          </div></div>
+        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="3">0</span></div><div class="res-l">User tiers, resident, power user, manager</div>
+          <div class="mv" role="img" aria-label="Three user tiers: resident, power user, property manager">
+            <div class="mv-steps" aria-hidden="true"><span class="mv-step"></span><span class="mv-step"></span><span class="mv-step"></span></div>
+            <div class="mv-steplbl" aria-hidden="true"><span>RESIDENT</span><span>POWER</span><span>MANAGER</span></div>
+          </div></div>
+        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="24">0</span>h</div><div class="res-l">Circadian rhythm, fully automatic</div>
+          <div class="mv" role="img" aria-label="The circadian rhythm runs automatically through all 24 hours of the day, one segment per hour">
+            <div class="mv-lbl" aria-hidden="true"><span>AUTOMATIC</span><span>24 OF 24 H</span></div>
+            <div class="mv-seg24" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="mv-lbl" aria-hidden="true" style="margin-top:4px"><span>0H</span><span>24H</span></div>
+          </div></div>
       </div>
       <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">SELF-DIRECTED CONCEPT, NOT VALIDATED PRODUCT METRICS.</div>
     </div>

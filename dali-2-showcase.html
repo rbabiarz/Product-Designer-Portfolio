@@ -81,6 +81,39 @@ body{margin:0}
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .res-n{font-family:'Inter',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
 .res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
+.mv{margin-top:16px;max-width:230px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
+.mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
+.mv-fill.on{background:var(--c-accent)}
+.cs.dark .mv-fill{background:#8a9ab5}.cs.dark .mv-fill.on{background:var(--c-accent)}
+.mv-dots{display:flex;gap:4px;align-items:center;flex-wrap:wrap;min-height:8px}
+.mv-dot{width:8px;height:8px;border-radius:50%;background:#8a8578;flex:0 0 auto}
+.mv-dot.on{background:var(--c-accent)}
+.cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px;line-height:1.5}
+.tl{max-width:860px;margin:40px auto 6px}
+.tl-row{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:center;margin-top:10px}
+.tl-k{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:var(--c-muted);text-align:right;line-height:1.4}
+.tl-track{position:relative;display:flex;gap:2px;height:16px}
+.tl-seg{flex:1;background:#8a8578;border-radius:2px}
+.cs.dark .tl-seg{background:#8a9ab5}
+.tl-seg.sc{background:rgba(13,83,80,0.30)}
+.cs.dark .tl-seg.sc{background:rgba(95,194,168,0.30)}
+.tl-work{flex:1;background:var(--c-accent);border-radius:4px;display:flex;align-items:center;padding:0 12px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;white-space:nowrap;overflow:hidden}
+.cs.dark .tl-work{color:#0b1016}
+.tl-axis{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--c-muted);margin-top:6px}
+.tl-note{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;color:var(--c-muted);margin-top:14px;text-align:center;line-height:1.7}
+@media (max-width:620px){.tl-row{grid-template-columns:1fr;gap:5px}.tl-k{text-align:left}}
+.bc{max-width:860px;margin:28px auto 0}
+.bc-bar{display:flex;gap:2px;height:26px}
+.bc-seg{background:var(--c-accent);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;white-space:nowrap;overflow:hidden}
+.cs.dark .bc-seg{color:#0b1016}
+.bc-seg.free{background:var(--c-b1);color:var(--c-muted)}
+.bc-legend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;color:var(--c-muted)}
+.bc-legend b{color:var(--c-ink);font-weight:600}
+.bc-sw{display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--c-accent);margin-right:5px;vertical-align:-1px}
+.bc-sw.free{background:var(--c-b2)}
 
 .appr{display:flex;flex-direction:column;gap:0}
 .appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
@@ -362,6 +395,13 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">One modal, the <em>whole app behind it</em></h2>
         <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px auto 0">The actual V1 screen sat on top of a frozen interface for 10 to 27.5 minutes per hub. V2 deleted this blocking state entirely.</p>
       </div>
+      <div class="tl" data-reveal="" role="img" aria-label="One controller drawn to one time scale. V1: the interface locked for ten hub scans of 27.5 minutes each, about 4 hours 35 minutes idle. V2: the technician keeps working the whole time while the same scans run in the background.">
+        <div class="tl-row"><div class="tl-k">V1 · UI LOCKED<br>10 HUBS × 27.5 MIN</div><div class="tl-track" aria-hidden="true"><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div></div></div>
+        <div class="tl-row"><div class="tl-k">V2 · TECHNICIAN</div><div class="tl-track" aria-hidden="true"><div class="tl-work">KEEPS WORKING · UI NEVER BLOCKS</div></div></div>
+        <div class="tl-row"><div class="tl-k">V2 · SCANS, BACKGROUND</div><div class="tl-track" aria-hidden="true"><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div></div></div>
+        <div class="tl-row" aria-hidden="true"><div></div><div class="tl-axis"><span>0</span><span>4 H 35 MIN</span></div></div>
+        <div class="tl-note" aria-hidden="true">ONE CONTROLLER · WORST CASE DERIVED FROM THE STATED FIGURES (10 HUBS × 27.5 MIN)<br>GRAY = LOCKED · TEAL = WORKING · PALE = SCAN RUNNING BEHIND THE UI</div>
+      </div>
       <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center" class="introgrid">
         <div class="win" data-reveal="" style="background:var(--c-surface)">
           <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">v1 · processing… adding dali hub and devices to wac</span></div>
@@ -399,6 +439,17 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <span>Manage Hub · Drivers 64, Wall Stations 23, Sensors 13, CCIs 2 per bus</span>
         <span>Find Devices · a confirm dialog guards a live hub before any rescan</span>
         <span>Add Devices · new vs existing, with a 5–8 min processing estimate</span>
+      </div>
+      <div class="bc" data-reveal="" role="img" aria-label="One 128-slot DALI bus: 64 drivers, 23 wall stations, 13 sensors, 2 contact inputs, and 26 slots free">
+        <div class="bc-bar" aria-hidden="true">
+          <div class="bc-seg" style="flex:64">DRIVERS · 64</div>
+          <div class="bc-seg" style="flex:23">WS · 23</div>
+          <div class="bc-seg" style="flex:13"></div>
+          <div class="bc-seg" style="flex:2"></div>
+          <div class="bc-seg free" style="flex:26">FREE · 26</div>
+        </div>
+        <div class="bc-legend" aria-hidden="true"><span><span class="bc-sw"></span>DRIVERS <b>64</b></span><span><span class="bc-sw"></span>WALL STATIONS <b>23</b></span><span><span class="bc-sw"></span>SENSORS <b>13</b></span><span><span class="bc-sw"></span>CCI <b>2</b></span><span><span class="bc-sw free"></span>FREE <b>26</b></span></div>
+        <div class="mv-note" style="text-align:center">ONE BUS AGAINST THE 128-DEVICE PROTOCOL CEILING · 102 USED, TOTAL DERIVED FROM THE STATED COUNTS</div>
       </div>
     </div>
   </section>
@@ -479,10 +530,31 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Scope of the work</h2>
       </div>
       <div class="results" id="stats">
-        <div data-reveal=""><div class="res-n"><span data-count="10000">0</span>+</div><div class="res-l">Devices at full hospital scale</div></div>
-        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="12">0</span>/12</div><div class="res-l">QA regression scenarios passed</div></div>
-        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="200">0</span>+</div><div class="res-l">Device types validated across 4 buses</div></div>
-        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="15">0</span></div><div class="res-l">Device-type icons in the custom set</div></div>
+        <div data-reveal=""><div class="res-n"><span data-count="10000">0</span>+</div><div class="res-l">Devices at full hospital scale</div>
+          <div class="mv" role="img" aria-label="To one scale: the legacy screens assumed 30 to 50 devices; a DALI-2 hospital floor brings ten thousand or more">
+            <div class="mv-lbl" aria-hidden="true"><span>LEGACY UI</span><span>30–50</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill" style="width:0.5%;min-width:2px"></div></div>
+            <div class="mv-lbl" aria-hidden="true"><span>DALI-2 FLOOR</span><span>10,000+</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note">TO ONE SCALE · 200×+ THE LEGACY ASSUMPTION</div>
+          </div></div>
+        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="12">0</span>/12</div><div class="res-l">QA regression scenarios passed</div>
+          <div class="mv" role="img" aria-label="Twelve of twelve QA regression scenarios passed">
+            <div class="mv-lbl" aria-hidden="true"><span>SCENARIOS</span><span>12 OF 12 PASSED</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span></div>
+          </div></div>
+        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="200">0</span>+</div><div class="res-l">Device types validated across 4 buses</div>
+          <div class="mv" role="img" aria-label="Validation ran on all four DALI buses">
+            <div class="mv-lbl" aria-hidden="true"><span>COVERAGE</span><span>ALL 4 BUSES</span></div>
+            <div style="display:flex;gap:2px" aria-hidden="true"><div style="flex:1;height:8px;border-radius:2px;background:var(--c-accent)"></div><div style="flex:1;height:8px;border-radius:2px;background:var(--c-accent)"></div><div style="flex:1;height:8px;border-radius:2px;background:var(--c-accent)"></div><div style="flex:1;height:8px;border-radius:2px;background:var(--c-accent)"></div></div>
+            <div class="mv-steplbl" aria-hidden="true" style="display:flex;gap:2px;margin-top:4px"><span style="flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--c-muted);text-align:center">BUS 1</span><span style="flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--c-muted);text-align:center">BUS 2</span><span style="flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--c-muted);text-align:center">BUS 3</span><span style="flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--c-muted);text-align:center">BUS 4</span></div>
+          </div></div>
+        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="15">0</span></div><div class="res-l">Device-type icons in the custom set</div>
+          <div class="mv" role="img" aria-label="Fifteen device-type icons in the custom set">
+            <div class="mv-lbl" aria-hidden="true"><span>ICON SET</span><span>15 TYPES</span></div>
+            <div class="mv-dots" style="max-width:70px" aria-hidden="true"><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span></div>
+            <div class="mv-note">DRAWN ON THE TWO-WIRE BUS MOTIF</div>
+          </div></div>
       </div>
       <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">COOPER LIGHTING · SIGNIFY · INDUSTRY-FIRST DALI-2 COMMISSIONING · FIRST RELEASE SHIPPED.</div>
     </div>

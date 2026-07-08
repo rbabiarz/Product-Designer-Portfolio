@@ -81,6 +81,20 @@ body{margin:0}
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .res-n{font-family:'Inter',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
 .res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
+.mv{margin-top:16px;max-width:230px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
+.mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
+.mv-fill.on{background:var(--c-accent)}
+.cs.dark .mv-fill{background:#8a9ab5}.cs.dark .mv-fill.on{background:var(--c-accent)}
+.mv-dots{display:flex;gap:4px;align-items:center;min-height:8px}
+.mv-dot{width:8px;height:8px;border-radius:50%;background:#8a8578;flex:0 0 auto}
+.mv-dot.dim{opacity:.4}
+.mv-dot.on{background:var(--c-accent)}
+.cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px}
+.mv-steplbl{display:flex;gap:3px;margin-top:5px}
+.mv-steplbl span{flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.03em;color:var(--c-muted);text-align:center}
 
 .appr{display:flex;flex-direction:column;gap:0}
 .appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
@@ -374,10 +388,29 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">What intelligence bought</h2>
       </div>
       <div class="results" id="stats">
-        <div data-reveal=""><div class="res-n"><span data-count="3">0</span></div><div class="res-l">Pillars: conversational, explainable, predictive</div></div>
-        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="14">0</span>+</div><div class="res-l">Alarm codes turned into plain-language remediations</div></div>
-        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="5000">0</span></div><div class="res-l">IES photometric files made searchable</div></div>
-        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="20">0</span></div><div class="res-l">Fixtures auto-placed per area by Smart Layout</div></div>
+        <div data-reveal=""><div class="res-n"><span data-count="3">0</span></div><div class="res-l">Pillars: conversational, explainable, predictive</div>
+          <div class="mv" role="img" aria-label="Three pillars, one segment each: conversational, explainable, predictive">
+            <div style="display:flex;gap:2px" aria-hidden="true"><div style="flex:1;height:8px;border-radius:2px;background:var(--c-accent)"></div><div style="flex:1;height:8px;border-radius:2px;background:var(--c-accent)"></div><div style="flex:1;height:8px;border-radius:2px;background:var(--c-accent)"></div></div>
+            <div class="mv-steplbl" aria-hidden="true"><span>CONVERSATIONAL</span><span>EXPLAINABLE</span><span>PREDICTIVE</span></div>
+          </div></div>
+        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="14">0</span>+</div><div class="res-l">Alarm codes turned into plain-language remediations</div>
+          <div class="mv" role="img" aria-label="Fourteen-plus alarm codes translated into plain-language remediations; one dot per code, fourteen drawn">
+            <div class="mv-lbl" aria-hidden="true"><span>ALARM CODES</span><span>14+ TRANSLATED</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span></div>
+            <div class="mv-note">ONE DOT PER CODE · 14 DRAWN</div>
+          </div></div>
+        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="5000">0</span></div><div class="res-l">IES photometric files made searchable</div>
+          <div class="mv" role="img" aria-label="The full library of five thousand IES photometric files is searchable, with filtering and one-click export">
+            <div class="mv-lbl" aria-hidden="true"><span>IES LIBRARY</span><span>5,000 FILES</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note">FULL LIBRARY SEARCHABLE · ONE-CLICK EXPORT</div>
+          </div></div>
+        <div data-reveal="" data-d="3"><div class="res-n"><span data-count="20">0</span></div><div class="res-l">Fixtures auto-placed per area by Smart Layout</div>
+          <div class="mv" role="img" aria-label="Smart Layout auto-places up to twenty fixtures per area; one dot per fixture">
+            <div class="mv-lbl" aria-hidden="true"><span>AUTO-PLACED</span><span>UP TO 20</span></div>
+            <div class="mv-dots" style="flex-wrap:wrap;max-width:116px" aria-hidden="true"><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span></div>
+            <div class="mv-note">ONE DOT PER FIXTURE</div>
+          </div></div>
       </div>
       <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">SHIPPED CORE AI WORK · COOPER LIGHTING · 2026.</div>
     </div>

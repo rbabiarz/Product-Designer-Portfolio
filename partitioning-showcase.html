@@ -83,6 +83,31 @@ body{margin:0}
 .res-n{font-family:'Inter',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
 .res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
 
+.mv{margin-top:16px;max-width:230px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
+.mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
+.mv-fill.on{background:var(--c-accent)}
+.cs.dark .mv-fill{background:#8a9ab5}.cs.dark .mv-fill.on{background:var(--c-accent)}
+.mv-dots{display:flex;gap:4px;align-items:center;min-height:8px}
+.mv-dot{width:8px;height:8px;border-radius:50%;background:#8a8578;flex:0 0 auto}
+.mv-dot.dim{opacity:.4}
+.mv-dot.on{background:var(--c-accent)}
+.cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px}
+.tl{max-width:860px;margin:40px auto 6px}
+.tl-row{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:center;margin-top:10px}
+.tl-k{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:var(--c-muted);text-align:right;line-height:1.4}
+.tl-track{position:relative;display:flex;gap:2px;height:16px}
+.tl-seg{flex:1;background:#8a8578;border-radius:2px}
+.cs.dark .tl-seg{background:#8a9ab5}
+.tl-seg.on{background:var(--c-accent)}
+.cs.dark .tl-seg.on{background:var(--c-accent)}
+.tl-work{flex:1;background:var(--c-accent);border-radius:4px;display:flex;align-items:center;padding:0 12px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;white-space:nowrap;overflow:hidden}
+.cs.dark .tl-work{color:#0b1016}
+.tl-note{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;color:var(--c-muted);margin-top:14px;text-align:center;line-height:1.7}
+@media (max-width:620px){.tl-row{grid-template-columns:1fr;gap:5px}.tl-k{text-align:left}}
+
 .appr{display:flex;flex-direction:column;gap:0}
 .appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
 .appr-row:last-child{border-bottom:1px solid var(--c-b2)}
@@ -252,6 +277,11 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <div><div class="meta-k">Sample space</div><div class="meta-v">Rose Ballroom · 8 sub-areas</div></div>
           </div>
         </div>
+      </div>
+      <div class="tl" data-reveal="" role="img" aria-label="One venue across one day, from the brief: one room hosting a 400-person gala in the morning, then five breakout sessions in the afternoon. Block widths are not to time scale.">
+        <div class="tl-row"><div class="tl-k">MORNING</div><div class="tl-track" aria-hidden="true"><div class="tl-work">1 ROOM · 400-PERSON GALA</div></div></div>
+        <div class="tl-row"><div class="tl-k">AFTERNOON<br>5 BREAKOUT SESSIONS</div><div class="tl-track" aria-hidden="true"><div class="tl-seg on"></div><div class="tl-seg on"></div><div class="tl-seg on"></div><div class="tl-seg on"></div><div class="tl-seg on"></div></div></div>
+        <div class="tl-note" aria-hidden="true">ONE VENUE, ONE DAY, FROM THE BRIEF · 1 GALA → 5 BREAKOUTS · BLOCK WIDTHS NOT TO TIME SCALE</div>
       </div>
     </div>
   </section>
@@ -426,9 +456,27 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       </div>
       <div class="results" style="margin-top:44px">
         <div data-reveal=""><div class="res-n">1st</div><div class="res-l">Mobile partitioning UX in connected commercial lighting</div></div>
-        <div data-reveal="" data-d="1"><div class="res-n">40–60<span style="font-size:.55em">%</span></div><div class="res-l">Reduction in on-site commissioning time, cited by field teams</div></div>
-        <div data-reveal="" data-d="2"><div class="res-n">~90<span style="font-size:.55em">%</span></div><div class="res-l">Fewer API calls on partition-area detail pages</div></div>
-        <div data-reveal="" data-d="3"><div class="res-n">11+</div><div class="res-l">Critical usability issues resolved before build</div></div>
+        <div data-reveal="" data-d="1"><div class="res-n">40–60<span style="font-size:.55em">%</span></div><div class="res-l">Reduction in on-site commissioning time, cited by field teams</div>
+          <div class="mv" role="img" aria-label="On-site commissioning time indexed to a baseline of 100 before; the 40 to 60 percent reduction cited by field teams leaves roughly 40 to 60 after">
+            <div class="mv-lbl" aria-hidden="true"><span>BASELINE</span><span>100</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill" style="width:100%"></div></div>
+            <div class="mv-lbl" aria-hidden="true"><span>AFTER</span><span>40–60</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:40%;border-radius:0"></div><div class="mv-fill on" style="left:40%;width:20%;opacity:.32"></div></div>
+            <div class="mv-note">INDEXED · SOLID 40, PALE TO 60 · REMAINING TIME DERIVED FROM THE STATED 40–60%</div>
+          </div></div>
+        <div data-reveal="" data-d="2"><div class="res-n">~90<span style="font-size:.55em">%</span></div><div class="res-l">Fewer API calls on partition-area detail pages</div>
+          <div class="mv" role="img" aria-label="API calls on partition-area detail pages indexed to a baseline of 100 before and roughly 10 after, the stated 90 percent reduction">
+            <div class="mv-lbl" aria-hidden="true"><span>BEFORE</span><span>100</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill" style="width:100%"></div></div>
+            <div class="mv-lbl" aria-hidden="true"><span>AFTER</span><span>~10</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:10%"></div></div>
+            <div class="mv-note">INDEXED · AFTER ~10, DERIVED FROM THE STATED ~90% FEWER</div>
+          </div></div>
+        <div data-reveal="" data-d="3"><div class="res-n">11+</div><div class="res-l">Critical usability issues resolved before build</div>
+          <div class="mv" role="img" aria-label="Eleven or more critical usability issues resolved before build, one dot per issue">
+            <div class="mv-lbl" aria-hidden="true"><span>ISSUES</span><span>11+ BEFORE BUILD</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span></div>
+          </div></div>
       </div>
       <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">WAVELINX CORE · COOPER LIGHTING / SIGNIFY · INDUSTRY-FIRST MOBILE PARTITIONING UX, VALIDATED AT UAG 2023 · METRICS FROM UAG SESSION DATA, ENGINEERING DOCS &amp; FIELD INTERVIEWS.</div>
     </div>
