@@ -20,6 +20,7 @@ PAGES = {
     'dali-2.dc.html': 'DALI-2 case study',
     'smart-lighting.dc.html': 'Smart Lighting case study',
     'goals-driven-fintech.html': 'Goals-Driven Fintech case study',
+    'aegis-gims.html': 'AEGIS GIMS case study',
     'ctoc-case-study.dc.html': 'CTOC case study',
     'enterprise-ai.dc.html': 'Enterprise AI case study',
     'partitioning.dc.html': 'Partitioning case study',

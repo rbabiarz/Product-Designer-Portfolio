@@ -65,3 +65,14 @@ Append-only record of meaningful choices. Newest at top.
 - **Decision:** `#070b12` canvas, teal accent (`#4ca88f`/`#7dd3c0`), one color block per viewport,
   a light architect mirror. No stoplight colors as status.
 - **Consequences:** Strong, coherent read; requires discipline on accent usage and contrast.
+
+## ADR — AEGIS GIMS enters the portfolio as case study 08
+- **Status:** Accepted
+- **Context:** The interview-design-solution repo carries a complete, on-brand case study
+  (same palette/type as this site) plus two live builds (v1 take-home, v2 AEGIS-GIMS).
+- **Decision:** Re-author into the site's two-page convention (showcase shell from CTOC, deep-dive
+  shell from Goals-Driven Fintech); embed the v2 build as the live prototype and link the v1
+  take-home; number it 08 everywhere; splice the footer chain CTOC → GIMS → Fintech.
+- **Consequences:** One more registry entry to maintain in switchers/homepages/work/concierge;
+  the prototype iframe is the site's only external-origin embed (rbabiarz.github.io), labeled
+  honestly as the one thing that needs a connection.

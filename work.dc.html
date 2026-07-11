@@ -256,6 +256,11 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <div class="wc-veil"></div>
       <div class="wc-num">07</div>
     </a>
+    <a class="wcard" data-i="7" href="aegis-gims-showcase.html">
+      <img src="previews/thumb-gims.png?v=2" alt="AEGIS GIMS"/>
+      <div class="wc-veil"></div>
+      <div class="wc-num">08</div>
+    </a>
 
   </div>
 
@@ -275,6 +280,7 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
           <button class="wk-dot" data-d="4" aria-label="Go to 5"></button>
           <button class="wk-dot" data-d="5" aria-label="Go to 6"></button>
           <button class="wk-dot" data-d="6" aria-label="Go to 7"></button>
+          <button class="wk-dot" data-d="7" aria-label="Go to 8"></button>
         </div>
       </div>
       <button class="wk-arrow" onClick="{{ next }}" aria-label="Next"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></button>
@@ -330,6 +336,12 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
         <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">An enterprise cyber-operations command center, 13 interlocking dashboards that fuse fragmented threat signals into one coherent, trustworthy operating picture.</p>
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Enterprise Cyber</div>
       </div>
+<div class="wdetail" data-i="7">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Defence C2</span><span class="wk-chip">Geospatial Intelligence</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">AEGIS GIMS</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">A filter-first geospatial command interface: the operator defines the ground they own, and entry into that ground becomes the alert. Fully interactive, live in the browser.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">Defence C2 · Geospatial</div>
+      </div>
 
 
     </div>
@@ -346,6 +358,7 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <a class="wk-idx-row" data-i="4" data-img="previews/thumb-smart.png?v=2" href="smart-lighting-showcase.html"><span class="wk-idx-num">05</span><span class="wk-idx-title">Smart Lighting Mobile App</span><span class="wk-idx-meta">Consumer IoT · Mobile</span><span class="wk-idx-arrow">↗</span></a>
       <a class="wk-idx-row" data-i="5" data-img="previews/thumb-fintech.png?v=2" href="goals-driven-fintech-showcase.html"><span class="wk-idx-num">06</span><span class="wk-idx-title">Goals-Driven Fintech</span><span class="wk-idx-meta">Fintech · Open Banking</span><span class="wk-idx-arrow">↗</span></a>
       <a class="wk-idx-row" data-i="6" data-img="previews/thumb-ctoc.png?v=2" href="ctoc-showcase.html"><span class="wk-idx-num">07</span><span class="wk-idx-title">CTOC Dashboard System</span><span class="wk-idx-meta">Enterprise Cyber · 13 Dashboards</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="7" data-img="previews/thumb-gims.png?v=2" href="aegis-gims-showcase.html"><span class="wk-idx-num">08</span><span class="wk-idx-title">AEGIS GIMS</span><span class="wk-idx-meta">Defence C2 · Geospatial</span><span class="wk-idx-arrow">↗</span></a>
     </div>
     <div id="wk-idx-reveal" style="position:fixed;top:0;left:0;width:340px;height:226px;border-radius:12px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 30px 70px rgba(0,0,0,0.5);pointer-events:none;opacity:0;z-index:60;transition:opacity .3s ease;will-change:transform;background:var(--bg3);"><img alt="" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"/></div>
   </div>
@@ -373,7 +386,7 @@ class Component extends DCLogic {
   state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'), menuOpen: false };
   _ev = [];
   active = 0;
-  count = 7;
+  count = 8;
   mode = 'flow';
 
   on(t, e, fn, o) { t.addEventListener(e, fn, o); this._ev.push([t, e, fn, o]); }
@@ -450,7 +463,7 @@ class Component extends DCLogic {
       d.classList.toggle('on', Number(d.getAttribute('data-d')) === this.active);
     });
     const cta = document.getElementById('wk-cta');
-    const links = ['dali-2-showcase.html','core-insights-showcase.html','partitioning-showcase.html','enterprise-ai-showcase.html','smart-lighting-showcase.html','goals-driven-fintech-showcase.html','ctoc-showcase.html'];
+    const links = ['dali-2-showcase.html','core-insights-showcase.html','partitioning-showcase.html','enterprise-ai-showcase.html','smart-lighting-showcase.html','goals-driven-fintech-showcase.html','ctoc-showcase.html','aegis-gims-showcase.html'];
     if (cta && links[this.active]) cta.setAttribute('href', links[this.active]);
   }
 

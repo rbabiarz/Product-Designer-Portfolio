@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="page-transition.js"></script>
+<title>AEGIS GIMS, Filter-First Geospatial C2 (Showcase) · Robert Babiarz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="case-shot.css">
+<style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0}
+.cs{
+  --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-body:#534f48;--c-muted:#6e6a60;--c-muted2:#9a9486;
+  --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;--c-teal:#0d5350;--c-sand:#efe6d4;
+  --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
+  --c-navbg:rgba(255,252,245,0.84);
+}
+.cs.dark{
+  --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
+  --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;--c-teal:#0c3d3a;--c-sand:#1a2230;
+  --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
+  --c-navbg:rgba(11,16,22,0.82);
+  color-scheme:dark;
+}
+.cs{background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;overflow-x:clip}
+::selection{background:#0d5350;color:#fff}
+.mono{font-family:'JetBrains Mono',monospace}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:-0.025em;line-height:1.04}
+.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--c-accent)}
+@keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+[data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+[data-reveal].in{opacity:1;transform:none}
+[data-reveal][data-d="1"]{transition-delay:.08s}[data-reveal][data-d="2"]{transition-delay:.16s}[data-reveal][data-d="3"]{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}[class*="float"]{animation:none!important}}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.wrap-n{max-width:880px;margin:0 auto;padding:0 40px}
+.pad{padding:120px 0}
+.lead{font-size:clamp(16px,1.5vw,18px);color:var(--c-body);line-height:1.78}
+.sec-h{font-size:clamp(32px,4.6vw,58px);letter-spacing:-1.6px;color:var(--c-ink);line-height:1.02}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+
+/* browser-window framed dashboard */
+.win{border-radius:0;overflow:hidden;background:#0e1622}
+.win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
+.win-dot{width:11px;height:11px;border-radius:50%}
+.win img{width:100%;display:block}
+.gthumbs .win img{aspect-ratio:16/10;object-fit:cover;object-position:top center}
+
+/* full-bleed showcase band */
+.band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
+.band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:96px 40px}
+.band .glow{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:1}
+.band-navy{background:linear-gradient(165deg,#13315a 0%,#0F2A4A 55%,#0a2038 100%)}
+.band-teal{background:linear-gradient(165deg,#0f5f5b 0%,#0d5350 55%,#0a423f 100%)}
+.band-sand{background:linear-gradient(165deg,#efe7d6 0%,#e7dcc4 100%)}
+.cs.dark .band-sand{background:linear-gradient(165deg,#1c2430 0%,#141b25 100%)}
+.band-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-top:22px}
+.cap-light{color:rgba(255,255,255,.62)}
+.cap-dark{color:var(--c-muted)}
+
+.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 26px}
+.meta-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);margin-bottom:11px}
+.meta-v{font-size:15px;color:var(--c-ink2);line-height:1.7}
+.meta-v.stack > span{display:block}
+
+.btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:#fff;background:var(--c-accent);text-decoration:none;padding:15px 26px;border-radius:999px;transition:transform .2s,box-shadow .2s;box-shadow:0 12px 26px -10px rgba(13,83,80,.6)}
+.btn-primary:hover{transform:translateY(-2px)}
+.cs.dark .btn-primary{color:#06201d}
+
+.card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
+.tag{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:0.05em;color:var(--c-accent);text-transform:uppercase}
+
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.res-n{font-family:'Inter',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
+.res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
+.mv{margin-top:16px;max-width:230px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
+.mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
+.mv-fill.on{background:var(--c-accent)}
+.cs.dark .mv-fill{background:#8a9ab5}.cs.dark .mv-fill.on{background:var(--c-accent)}
+.mv-dots{display:flex;gap:4px;align-items:center;flex-wrap:wrap;min-height:8px}
+.mv-dot{width:8px;height:8px;border-radius:50%;background:#8a8578;flex:0 0 auto}
+.mv-dot.dim{opacity:.4}
+.mv-dot.on{background:var(--c-accent)}
+.cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px;line-height:1.5}
+.gims-chip{position:absolute;top:-16px;right:-14px;background:#0b1016;border:1px solid rgba(255,157,102,0.38);border-radius:11px;padding:11px 15px;box-shadow:0 9px 20px -8px rgba(11,16,22,0.5);z-index:3;animation:cs-float2 8s ease-in-out infinite}
+@media (max-width:1060px){.gims-chip{right:8px}}
+@media (max-width:560px){.gims-chip{top:-10px;padding:9px 12px}.gims-chip .mono:nth-child(2){font-size:18px}}
+@keyframes gims-blink{0%,100%{opacity:1}50%{opacity:0.25}}
+.gims-blink{animation:gims-blink 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.gims-blink{animation:none}.gims-chip{animation:none}}
+.mv-dots .mv-dot{transition:opacity .25s cubic-bezier(0.25,1,0.5,1),box-shadow .25s cubic-bezier(0.25,1,0.5,1)}
+.mv-dots:hover .mv-dot:not(.on){opacity:.35}
+.mv-dots:hover .mv-dot.on{box-shadow:0 0 0 3px color-mix(in srgb,var(--c-accent) 28%,transparent)}
+.mv-steps{display:flex;gap:3px}
+.mv-step{flex:1;height:20px;border-radius:4px}
+.mv-step:nth-child(1){background:#7fb3aa}.mv-step:nth-child(2){background:#5c988e}.mv-step:nth-child(3){background:#3d7d72}.mv-step:nth-child(4){background:#24685e}.mv-step:nth-child(5){background:#0d5350}
+.cs.dark .mv-step:nth-child(1){background:#2f6b5f}.cs.dark .mv-step:nth-child(2){background:#3f8776}.cs.dark .mv-step:nth-child(3){background:#4fa38c}.cs.dark .mv-step:nth-child(4){background:#5fc2a8}.cs.dark .mv-step:nth-child(5){background:#7dd3c0}
+.mv-steplbl{display:flex;gap:3px;margin-top:5px}
+.mv-steplbl span{flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.03em;color:var(--c-muted);text-align:center}
+.mv-steps.s3 .mv-step:nth-child(1){background:#5c988e}.mv-steps.s3 .mv-step:nth-child(2){background:#3d7d72}.mv-steps.s3 .mv-step:nth-child(3){background:#0d5350}
+.cs.dark .mv-steps.s3 .mv-step:nth-child(1){background:#3f8776}.cs.dark .mv-steps.s3 .mv-step:nth-child(2){background:#4fa38c}.cs.dark .mv-steps.s3 .mv-step:nth-child(3){background:#7dd3c0}
+.mv-steps.flat .mv-step{background:var(--c-accent)}
+.cs.dark .mv-steps.flat .mv-step{background:var(--c-accent)}
+
+.appr{display:flex;flex-direction:column;gap:0}
+.appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
+.appr-row:last-child{border-bottom:1px solid var(--c-b2)}
+.appr-n{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-accent);min-width:34px;padding-top:3px}
+.appr-h{font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;letter-spacing:-.01em}
+.appr-p{font-size:14.5px;color:var(--c-body);line-height:1.65}
+
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.case-card{display:block;text-decoration:none;border-radius:18px;overflow:hidden;border:1px solid var(--c-b2);background:var(--c-surface);transition:transform .25s,box-shadow .25s}
+.case-card:hover{transform:translateY(-5px);box-shadow:0 26px 50px -22px rgba(10,20,30,.34)}
+.case-thumb{aspect-ratio:16/11;width:100%;object-fit:cover;display:block;background:var(--c-card)}
+.case-body{padding:20px 22px 24px}
+
+nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
+nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;min-width:0;gap:12px}
+.nav-actions{display:flex;align-items:center;gap:12px;min-width:0;flex-shrink:1;justify-content:flex-end}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand:hover{color:var(--c-ink)}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
+.iconbtn:hover{background:var(--c-card)}
+.cs-switch{position:relative}
+.cs-switch>summary{display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);list-style:none;user-select:none}
+.cs-switch>summary::-webkit-details-marker{display:none}
+.cs-switch .cs-sw-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase}
+.cs-switch .cs-sw-cur{font-size:13px;font-weight:600;color:var(--c-accent)}
+.cs-switch .cs-chev{color:var(--c-muted);transition:transform .2s}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+.cs-sheet{position:absolute;top:calc(100% + 8px);right:0;min-width:272px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,.4);padding:7px;z-index:300}
+.cs-sheet a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;transition:background .15s}
+.cs-sheet a:hover{background:var(--c-bg2)}
+.cs-sheet a.cur{background:var(--c-card)}
+.cs-sheet a .t{display:block;font-size:14px;font-weight:600;color:var(--c-ink2)}
+.cs-sheet a.cur .t{color:var(--c-accent)}
+.cs-sheet a .s{display:block;font-size:12px;color:var(--c-muted);margin-top:2px}
+.cs-sheet .cs-div{height:1px;background:var(--c-b2);margin:6px 4px}
+.cs-sheet a.cs-allwork{font-size:13px;color:var(--c-muted)}
+.cs-sheet a.cs-allwork:hover{color:var(--c-ink2)}
+@media (max-width:560px){.cs-switch .cs-sw-lbl{display:none}}
+
+.verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill a:hover{color:var(--c-ink)}
+.verpill a.on{background:var(--c-accent);color:#fff}
+.cs.dark .verpill a.on{color:#06201d}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+
+@media (max-width:980px){
+  nav.top .bar{padding:0 18px}
+  .wrap,.wrap-n{padding:0 20px}
+  .pad{padding:80px 0}
+  .band-inner{padding:64px 20px}
+  .results{grid-template-columns:1fr 1fr;gap:34px 20px}
+  .cases{grid-template-columns:1fr}
+  .introgrid{grid-template-columns:1fr!important;gap:40px!important}
+  .cgrid{grid-template-columns:1fr 1fr!important}
+  .gthumbs{grid-template-columns:1fr!important;gap:28px!important}
+  .gthumbs > .win,.gthumbs > div{min-width:0;width:100%}
+}
+@media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}}
+.navq:hover{color:var(--c-ink)}
+@media (max-width:680px){.navq{display:none}}
+.shot-ctl{display:flex;align-items:center;gap:8px}
+.shot-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase}
+.shot-seg{display:inline-flex;border:1px solid var(--c-b4);border-radius:9px;overflow:hidden}
+.shot-seg button{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;padding:6px 11px;border:0;background:transparent;color:var(--c-muted);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .18s,color .18s}
+.shot-seg button+button{border-left:1px solid var(--c-b4)}
+.shot-seg button:hover{color:var(--c-ink)}
+.shot-seg button.on{background:var(--c-ink);color:var(--c-bg)}
+.shot-seg .sw{width:9px;height:9px;border-radius:50%;border:1px solid rgba(128,128,128,0.45)}
+.shot-seg .sw.l{background:#fffcf5}
+.shot-seg .sw.d{background:#0e1014;border-color:rgba(255,255,255,0.3)}
+@media (max-width:760px){
+  .nav-actions{gap:8px}
+  .cs-switch{flex-shrink:0}
+  .cs-switch>summary{min-width:0;max-width:none;width:36px;height:36px;padding:0;justify-content:center;gap:0}
+  .cs-switch .cs-sw-cur,.cs-switch .cs-sw-lbl{display:none}
+  .iconbtn{flex-shrink:0;width:36px;height:36px}
+  .shot-ctl{flex-shrink:0}
+  nav.top,.nav-actions .cs-switch>summary{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet-portal .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:1 !important;background:var(--c-surface) !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet-portal .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet-portal .cs-sheet>a{padding:14px 14px !important}
+  .cs.dark .cs-sheet-portal .cs-sheet::before{background:rgba(255,255,255,0.18)}
+}
+.cs-sheet-portal{position:fixed;inset:0;z-index:99992;pointer-events:none;font-family:'DM Sans',-apple-system,sans-serif;background:transparent!important;min-height:0!important;overflow:visible!important;color:inherit}
+.cs-sheet-portal>*{pointer-events:auto}
+.cs-sheet-portal .cs-sheet-backdrop{position:fixed;inset:0;margin:0;padding:0;border:0;appearance:none;-webkit-appearance:none;background:transparent;background-color:rgba(10,8,4,0.42)!important;opacity:1;z-index:0;cursor:default;animation:cs-fade .36s ease}
+.cs.dark .cs-sheet-portal .cs-sheet-backdrop{background-color:rgba(10,8,4,0.42)!important}
+.cs-sheet a.cs-allwork{display:flex;align-items:center;gap:8px}
+body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;pointer-events:none}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+@media (max-width:600px){
+  .shot-btn-txt{display:none}
+  .shot-seg button{padding:8px 10px;gap:0}
+}
+@media (max-width:760px){.shot-lbl{display:none}}
+</style>
+
+  <!-- SEO·OG·JSONLD (injected) -->
+  <meta name="description" content="AEGIS GIMS — a filter-first geospatial C2 concept by Robert Babiarz: the operator defines the ground they own and entry into it becomes the alert. Zone-as-filter interaction, edge-first architecture, and a live interactive common operating picture.">
+  <meta name="author" content="Robert Babiarz">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://robertbabiarz.com/aegis-gims.html">
+  <meta name="theme-color" content="#070b12">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Robert Babiarz — Product Designer">
+  <meta property="og:title" content="AEGIS GIMS, Filter-First Geospatial C2 (Showcase) · Robert Babiarz">
+  <meta property="og:description" content="AEGIS GIMS — a filter-first geospatial C2 concept by Robert Babiarz: the operator defines the ground they own and entry into it becomes the alert. Zone-as-filter interaction, edge-first architecture, and a live interactive common operating picture.">
+  <meta property="og:url" content="https://robertbabiarz.com/aegis-gims-showcase.html">
+  <meta property="og:image" content="https://robertbabiarz.com/previews/p-gims.png">
+  <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AEGIS GIMS, Filter-First Geospatial C2 (Showcase) · Robert Babiarz">
+  <meta name="twitter:description" content="AEGIS GIMS — a filter-first geospatial C2 concept by Robert Babiarz: the operator defines the ground they own and entry into it becomes the alert. Zone-as-filter interaction, edge-first architecture, and a live interactive common operating picture.">
+  <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-gims.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"AEGIS GIMS, Filter-First Geospatial C2 (Showcase) \u00b7 Robert Babiarz","headline":"AEGIS GIMS, Filter-First Geospatial C2 (Showcase) \u00b7 Robert Babiarz","description":"AEGIS GIMS \u2014 a filter-first geospatial C2 concept by Robert Babiarz: the operator defines the ground they own and entry into it becomes the alert.","url":"https://robertbabiarz.com/aegis-gims-showcase.html","image":"https://robertbabiarz.com/previews/p-gims.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Design Systems, Data Visualization, Dashboard Design, Information Architecture, Interaction Design, User Research, Usability Testing, Prototyping, Figma, Accessibility, WCAG 2.2","isPartOf":{"@type":"WebSite","name":"Robert Babiarz \u2014 Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
+  <script src="/analytics.js" defer></script>
+  <script src="cursor.js" defer></script>
+<script src="cookie-banner.js" defer></script>
+<script src="search-index.js" defer></script>
+<script src="concierge.js" defer></script>
+</head>
+<body>
+<div class="cs" id="top">
+
+  <nav class="top">
+    <div class="bar">
+      <a class="brand" href="homepage-interactive.dc.html">
+        <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>
+        Robert Babiarz
+      </a>
+      <div class="nav-actions">
+        <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="display:inline-flex;align-items:center;font-size:10.5px;letter-spacing:.08em;color:var(--c-accent);font-weight:700;text-decoration:none">CONTACT</a>
+        <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
+        <details class="cs-switch">
+          <summary aria-label="Switch case study: AEGIS GIMS">
+            <span class="cs-sw-lbl">Case study</span>
+            <span class="cs-sw-cur">AEGIS GIMS</span>
+            <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;">expand_more</span>
+          </summary>
+          <div class="cs-sheet">
+            <a href="dali-2-showcase.html"><span class="t">DALI-2 Lighting System</span><span class="s">Commissioning at hospital scale</span></a>
+            <a href="core-insights-showcase.html"><span class="t">Insights Dashboards</span><span class="s">Operational intelligence · IoT</span></a>
+            <a href="partitioning-showcase.html"><span class="t">Dynamic Space Partitioning</span><span class="s">Spaces that change shape · WaveLinx</span></a>
+            <a href="enterprise-ai-showcase.html"><span class="t">Enterprise AI</span><span class="s">Conversational · explainable · predictive</span></a>
+            <a href="smart-lighting-showcase.html"><span class="t">Smart Lighting Mobile App</span><span class="s">Consumer IoT · enterprise depth</span></a>
+            <a href="goals-driven-fintech-showcase.html"><span class="t">Goals-Driven Fintech</span><span class="s">Self-directed fintech</span></a>
+            <a href="ctoc-showcase.html"><span class="t">CTOC Dashboard System</span><span class="s">Enterprise cyber · 13 dashboards</span></a>
+            <a href="aegis-gims-showcase.html" class="cur"><span class="t">AEGIS GIMS</span><span class="s">Filter-first geospatial C2</span></a>
+            <div class="cs-div"></div>
+            <a href="homepage-interactive.dc.html" class="cs-allwork"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span> All work</a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section style="position:relative;overflow:hidden;padding:84px 0 0">
+    <div class="wrap center" style="position:relative;z-index:2">
+      <div class="eyebrow" data-reveal="">Self-Directed · Defence C2 · Geospatial Intelligence</div>
+      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.4vw,88px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:16ch">Detecting the one vehicle <em>that matters</em></h1>
+      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:780px;margin-top:28px;color:var(--c-ink2)">A geospatial command interface that turns a map of everything into a single answerable question: has the enemy entered my zone? Handed the brief as a design problem, answered with a working hypothesis: filter the map down to the ground that matters. Then built to find out whether it holds.</p>
+      <div data-reveal="" data-d="3" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px">
+        <a class="btn-primary" href="aegis-gims.html">Read the full case study <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+        <a href="#prototype" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">Try the live prototype</a>
+      </div>
+    </div>
+
+    <div class="band band-navy" data-reveal="" style="margin-top:64px">
+      <div class="glow" style="width:560px;height:560px;top:-160px;right:8%;background:rgba(255,157,102,.14)"></div>
+      <div class="glow" style="width:420px;height:420px;bottom:-160px;left:4%;background:rgba(125,211,192,.13)"></div>
+      <div class="band-inner">
+        <div style="position:relative;max-width:980px;margin:0 auto">
+          <div class="win" style="animation:cs-float 8s ease-in-out infinite">
+            <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">aegis gims · common operating picture · v1.0-rc</span></div>
+            <img src="assets/gims/proto-hero.jpg" alt="AEGIS GIMS common operating picture, a named area of interest drawn over Route Crimson with everything outside it dimmed to context">
+          </div>
+          <div class="gims-chip" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span class="gims-blink" style="width:6px;height:6px;border-radius:50%;background:#ff9d66;flex:none"></span><span class="mono" style="font-size:9px;color:#ff9d66;letter-spacing:0.1em">NAI CRIMSON · LIVE</span></div>
+            <div class="mono" style="font-size:22px;font-weight:500;color:#e8edf5;line-height:1">12 → 1</div>
+            <div style="font-size:10px;color:#8a9ab5;margin-top:3px;font-family:'DM Sans',sans-serif">tracks, down to the one that matters</div>
+          </div>
+        </div>
+        <div class="band-cap cap-light">The common operating picture: an NAI drawn over Route Crimson, everything outside it dimmed to context</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO + META -->
+  <section class="pad" style="padding:104px 0">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start" class="introgrid">
+        <div>
+          <div class="eyebrow" data-reveal="">The Brief</div>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">"Build us a map that <em>shows enemy vehicles</em>"</h2>
+          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">That's roughly how the requirement arrives, from leadership, through a contract, with a lot left unsaid. From those words the obvious build almost designs itself: a map, a search box, every track rendered. It demos beautifully, and under pressure it's noise.</p>
+          <p class="lead" data-reveal="" data-d="2">The answer: let the operator define the ground they own, draw it or type its coordinates, and make that area the filter. Entry into it becomes the alert.</p>
+        </div>
+        <div class="card" data-reveal="" data-d="1" style="padding:34px">
+          
+          <div class="meta-grid">
+            <div><div class="meta-k">Role</div><div class="meta-v">Concept · UX · Prototype</div></div>
+            <div><div class="meta-k">Context</div><div class="meta-v stack"><span>Design problem</span><span>→ working build</span></div></div>
+            <div><div class="meta-k">Domain</div><div class="meta-v stack"><span>Geospatial intelligence</span><span>Tactical C2</span></div></div>
+            <div><div class="meta-k">Status</div><div class="meta-v">Live interactive build</div></div>
+            <div><div class="meta-k">Surfaces</div><div class="meta-v stack"><span>Vehicle laptop</span><span>HQ workstation</span></div></div>
+            <div><div class="meta-k">Stack</div><div class="meta-v">React COP · Next.js</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGE / CONSTRAINTS -->
+  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">The Conditions</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Four constraints that <em>reshape every decision</em></h2>
+      <p class="lead" data-reveal="" data-d="2">The catch is the conditions this thing actually runs in. I wrote them down before designing anything.</p>
+    </div>
+    <div class="wrap" style="margin-top:54px">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px" class="cgrid">
+        <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">CONSTRAINT 01</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Air-gapped, no public internet</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Geofencing, alerting and inference all have to run locally, on the edge, with comms that drop.</div></div>
+        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">CONSTRAINT 02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Updates take months, by hand</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">A fix can mean someone flying to a classified site to install it. You design to get it right the first time.</div></div>
+        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">CONSTRAINT 03</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Users are hard to reach</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Real operators sit in classified spaces, maybe thirty verbal minutes, no devices in the room. You reason your way to the answer.</div></div>
+        <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">CONSTRAINT 04</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Two screens, one product</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">A laptop in a vehicle in the desert, and a workstation at headquarters. The picture has to stay legible in both.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE TRAP -->
+  <section class="pad">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center" class="introgrid">
+        <div>
+          <div class="eyebrow" data-reveal="">The Trap</div>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">It shows everything. <em>That's the problem.</em></h2>
+          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:20px">Built literally, the map answers "where is everything?", friendly patrols, civilian traffic, maritime contacts, air tracks, sensors, all live at once. In a quiet office you can scan it. In a command vehicle on a bad link, mid-task, it's noise. The operator becomes a search engine for their own battlespace.</p>
+          <div class="mv" data-reveal="" data-d="2" style="max-width:none" role="img" aria-label="In the scenario, twelve tracks are on screen and one of them is the job">
+            <div class="mv-lbl" aria-hidden="true"><span>TRACKS ON SCREEN</span><span>12 · ONE WAS THE JOB</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot on"></span></div>
+            <div class="mv-note" style="color:var(--c-muted)">SCENARIO FACT, DRAWN 1:1 · TEAL = THE HOSTILE COLUMN</div>
+          </div>
+        </div>
+        <div class="win" data-reveal="" data-d="1">
+          <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">view · everything</span></div>
+          <img src="assets/gims/proto-everything.jpg" alt="The map showing every track at once, comprehensive and almost unusable under pressure">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE REFRAME -->
+  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">The Reframe</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">One operator owns <em>one stretch of ground</em></h2>
+      <p class="lead" data-reveal="" data-d="2">A single soldier is responsible for one segment of a route. Their job isn't to survey the whole theatre, it's to notice the moment something hostile crosses into their ground, and tell leadership, fast.</p>
+    </div>
+    <div class="wrap" style="margin-top:48px">
+      <div class="card" data-reveal="" style="max-width:860px;margin:0 auto;padding:38px 42px;background:#0a0a0a;border-color:transparent">
+        <div class="mono" style="font-size:10px;color:#d4a036;letter-spacing:.12em;margin-bottom:14px">JOB TO BE DONE</div>
+        <p style="font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(19px,2.2vw,25px);line-height:1.5;color:#f3f1ea;letter-spacing:-0.3px">When an enemy vehicle enters the ground I'm responsible for, <em style="font-style:normal;color:#ff9d66">alert me</em> and help me <em style="font-style:normal;color:#ff9d66">report it up the chain</em>, without making me hunt for it.</p>
+      </div>
+      <div data-reveal="" data-d="1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:860px;margin:18px auto 0" class="cgrid">
+        <div class="card" style="padding:20px 22px"><div class="mono" style="font-size:9.5px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:7px">A PLACE</div><div style="font-size:14.5px;color:var(--c-body);line-height:1.5">The zone, the ground the operator owns.</div></div>
+        <div class="card" style="padding:20px 22px"><div class="mono" style="font-size:9.5px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:7px">AN EVENT</div><div style="font-size:14.5px;color:var(--c-body);line-height:1.5">Entry, a hostile track crossing the boundary.</div></div>
+        <div class="card" style="padding:20px 22px"><div class="mono" style="font-size:9.5px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:7px">AN ACTION</div><div style="font-size:14.5px;color:var(--c-body);line-height:1.5">Report up, one tap, structured, to higher.</div></div>
+      </div>
+      <p class="lead" data-reveal="" data-d="2" style="text-align:center;max-width:720px;margin:28px auto 0">The interface should be built out of exactly those three things, and nothing else by default.</p>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="pad">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
+        <div>
+          <div class="eyebrow" data-reveal="">The Mechanism</div>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">The zone is <em>the interface</em></h2>
+          <p class="lead" data-reveal="" data-d="2">Asked how I'd solve it, I didn't reach for a better map. I reached for a filter: stop presenting the whole battlespace, let the operator declare the area that matters, and let everything else fall to context.</p>
+        </div>
+        <div class="appr">
+          <div class="appr-row" data-reveal=""><div class="appr-n">01</div><div><div class="appr-h">Draw the area</div><div class="appr-p">Sketch the zone straight onto the map, rectangle, circle, or triangle, then drag its handles to reshape it. The shape you draw becomes the live filter.</div></div></div>
+          <div class="appr-row" data-reveal="" data-d="1"><div class="appr-n">02</div><div><div class="appr-h">Or define it by coordinate</div><div class="appr-p">Tasking often arrives as grid references. Type a lat/long and a radius and the zone snaps into place. Drawing is for the HQ workstation; coordinates are for the field.</div></div></div>
+          <div class="appr-row" data-reveal="" data-d="2"><div class="appr-n">03</div><div><div class="appr-h">Entry is the alert</div><div class="appr-p">A hostile track crossing the boundary fires the event, SEV-1, with the one-tap action the job actually needs: report up the chain.</div></div></div>
+          <div class="appr-row" data-reveal="" data-d="3"><div class="appr-n">04</div><div><div class="appr-h">Triage in place</div><div class="appr-p">Selecting a track opens its assessment, kinematics, reporting, and an AI threat score with a recommended action. The model assists the judgement; it never makes the call.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WALKTHROUGH BAND -->
+  <div class="band band-teal" data-reveal="">
+    <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow" style="color:#9fe9d8">The Walkthrough</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Define the ground, <em style="color:#9fe9d8">catch the crossing</em></h2>
+        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">Two ways into the same filter, and what happens the moment a hostile column crosses the line.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/gims/proto-coord.jpg" alt="Defining the zone by coordinates: name, type, priority, classification, and trigger rules"></div><div class="band-cap cap-light">Coordinate entry · when the grid reference is already known</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/gims/proto-filtered.jpg" alt="Signal view with the SEV-1 alert as HOSTILE-7 enters NAI CRIMSON"></div><div class="band-cap cap-light">Crossing the line is the event · SEV-1, HOSTILE-7 → NAI CRIMSON</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/gims/proto-ai.jpg" alt="Track assessment panel with AI threat score and recommended action"></div><div class="band-cap cap-light">One click to the "so what" · the model assists, never decides</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVERYTHING VS SIGNAL -->
+  <div class="band band-sand" data-reveal="">
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow">Everything ↔ Signal</div>
+        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The same battlespace, <em>before and after the filter</em></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="gthumbs">
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/gims/proto-everything.jpg" alt="Everything view, twelve tracks competing for attention"></div><div class="band-cap cap-dark">EVERYTHING · 12 tracks competing for attention</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/gims/proto-filtered.jpg" alt="Signal view, filtered to the zone"></div><div class="band-cap cap-dark">SIGNAL · filtered to the zone. What's left is the job</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFF THE GRID -->
+  <div class="band band-navy" data-reveal="">
+    <div class="glow" style="width:480px;height:480px;top:-140px;right:6%;background:rgba(125,211,192,.12)"></div>
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow" style="color:#9fe9d8">Off the Grid</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">No internet. No cloud. <em style="color:#9fe9d8">It still has to work.</em></h2>
+        <p class="lead" style="color:#bfe7df;max-width:760px;margin:18px auto 0">The honest question for any feature: does it still function when the network doesn't? For the zone filter, the answer has to be yes.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="cgrid">
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px"><div class="mono" style="font-size:9.5px;color:#9fe9d8;letter-spacing:.1em;margin-bottom:10px">MAPS · PRE-STAGED</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Reading from disk, not a tile server</div><p style="font-size:13.5px;color:#c6d2dd;line-height:1.6">Map packs, elevation and imagery load before the device leaves the wire. Panning, zooming, and drawing a zone need no connection.</p></div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px"><div class="mono" style="font-size:9.5px;color:#9fe9d8;letter-spacing:.1em;margin-bottom:10px">ALERTING · ON-DEVICE</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">A geometry test at the edge</div><p style="font-size:13.5px;color:#c6d2dd;line-height:1.6">"Is this track inside my zone?" runs locally every update, and the threat model is an on-device build. Both fire with the antenna unplugged.</p></div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px"><div class="mono" style="font-size:9.5px;color:#9fe9d8;letter-spacing:.1em;margin-bottom:10px">REPORT-UP · QUEUED</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Over the comms net you already have</div><p style="font-size:13.5px;color:#c6d2dd;line-height:1.6">One tap composes a structured contact report and hands it to the datalink. If no bearer is live, it queues and sends on next contact.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE PROTOTYPE -->
+  <section class="pad" id="prototype">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">Live · Interactive Prototype</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 18px">Try it. <em>The whole argument, live.</em></h2>
+      <p class="lead" data-reveal="" data-d="2" style="margin-bottom:14px">Draw a zone over the route, or define it by coordinates. Toggle Everything ↔ Signal. Press play and watch the column enter. Click any track for its assessment.</p>
+    </div>
+    <div class="wrap" data-reveal="" style="margin-top:34px">
+      <div class="win" style="max-width:1100px;margin:0 auto">
+        <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">aegis gims · live build · rbabiarz.github.io</span></div>
+        <div style="position:relative;background:#0b1310">
+          <div id="gims-proto-loading" aria-hidden="true" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;background:#0b1310;z-index:0">
+            <span style="display:inline-flex;align-items:center;gap:8px"><span class="gims-blink" style="width:6px;height:6px;border-radius:50%;background:#7dd3c0;flex:none"></span><span class="mono" style="font-size:11px;letter-spacing:.08em;color:#7dd3c0">ESTABLISHING LINK · RBABIARZ.GITHUB.IO</span></span>
+            <span class="mono" style="font-size:9.5px;letter-spacing:.06em;color:#8a9ab5;max-width:46ch;line-height:1.7">NO CONNECTION? THE SCREENS ABOVE TELL THE WHOLE STORY, AND THE FULL-SCREEN LINK BELOW WILL WORK ONCE YOU'RE BACK ON ONE.</span>
+          </div>
+          <iframe id="gims-proto-frame" data-src="https://rbabiarz.github.io/AEGIS-GIMS/" title="AEGIS GIMS, live interactive common operating picture" loading="lazy" style="display:block;position:relative;z-index:1;width:100%;height:min(720px,72vw);border:0"></iframe>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:22px">
+        <a href="https://rbabiarz.github.io/AEGIS-GIMS/" target="_blank" rel="noopener noreferrer" class="mono" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-accent);text-decoration:none;border:1px solid var(--c-b3);border-radius:999px;padding:11px 20px">Open full-screen <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span></a>
+        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:.06em;text-align:center">FULLY INTERACTIVE · ALL DATA FICTIONAL AND UNCLASSIFIED · LOADS LIVE FROM RBABIARZ.GITHUB.IO, THE ONE THING ON THIS PAGE THAT NEEDS A CONNECTION</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:60px">
+        <div class="eyebrow" data-reveal="">By the Numbers</div>
+        <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Designed against <em>targets</em></h2>
+      </div>
+      <div class="results" id="stats">
+        <div data-reveal=""><div class="res-n">&lt;2s</div><div class="res-l">Target time-to-detect: boundary crossing to operator notified</div>
+          <div class="mv" role="img" aria-label="Design target: under two seconds from boundary crossing to notification, evaluated on-device">
+            <div class="mv-lbl" aria-hidden="true"><span>GEOFENCE EVAL</span><span>ON-DEVICE</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note" style="color:var(--c-muted)">DESIGN TARGET · NOT A FIELD MEASUREMENT</div>
+          </div></div>
+        <div data-reveal="" data-d="1"><div class="res-n"><span data-count="1">0</span></div><div class="res-l">Tap from alert to transmitted contact report</div>
+          <div class="mv" role="img" aria-label="One tap from alert to transmitted contact report">
+            <div class="mv-lbl" aria-hidden="true"><span>REPORT UP</span><span>1 TAP</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span></div>
+            <div class="mv-note" style="color:var(--c-muted)">QUEUES IF THE BEARER IS DOWN</div>
+          </div></div>
+        <div data-reveal="" data-d="2"><div class="res-n"><span data-count="100">0</span>%</div><div class="res-l">Core flow functional with no link: define → alert → report</div>
+          <div class="mv" role="img" aria-label="Design target: the core flow stays one hundred percent functional with no connectivity">
+            <div class="mv-lbl" aria-hidden="true"><span>OFFLINE CONTINUITY</span><span>100%</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note" style="color:var(--c-muted)">DESIGN TARGET · CONNECTIVITY IS A BONUS, NEVER A DEPENDENCY</div>
+          </div></div>
+        <div data-reveal="" data-d="3"><div class="res-n">12→1</div><div class="res-l">Tracks on screen → the one that was the job</div>
+          <div class="mv" role="img" aria-label="Twelve tracks on screen reduced to the one that matters">
+            <div class="mv-lbl" aria-hidden="true"><span>SIGNAL VIEW</span><span>THE JOB</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot"></span><span class="mv-dot on"></span></div>
+            <div class="mv-note" style="color:var(--c-muted)">SCENARIO FACT, DRAWN 1:1</div>
+          </div></div>
+      </div>
+      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted);letter-spacing:.06em;margin-top:34px;text-align:center">DESIGN TARGETS FROM THE SPEC, NOT FIELD MEASUREMENTS · SELF-DIRECTED CONCEPT · NEXT STAGE: USER TESTING, INTERNALLY AND IN THE FIELD</div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section style="padding:30px 0 110px">
+    <div class="wrap-n center">
+      <svg data-reveal="" width="40" height="40" viewBox="0 0 24 24" fill="var(--c-accent)" style="margin-bottom:18px;opacity:.5" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+      <p class="lead" data-reveal="" data-d="1" style="font-family:'Inter',sans-serif;font-size:clamp(20px,2.4vw,29px);font-weight:300;font-style:italic;color:var(--c-ink2);line-height:1.5;letter-spacing:-0.4px;max-width:820px;margin:0 auto">"Comprehensiveness without prioritisation is indistinguishable from overload. The cheapest way to cut operator load isn't a better map, it's a smaller question."</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:42px 40px 64px;background:var(--c-bg);border-top:1px solid var(--c-b1);min-height:198px;">
+    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+      <div>
+        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
+        <a href="goals-driven-fintech-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Goals-Driven Finance <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
+      <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
+    </div>
+  </footer>
+
+  <!-- VERSION TOGGLE -->
+  <div class="verpill">
+    <span class="vlbl">Version</span>
+    <a href="aegis-gims-showcase.html" class="on">Quick tour</a>
+    <a href="aegis-gims.html">Deep dive</a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('top');
+  var btn=document.getElementById('themeBtn');
+  var SUN='<span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span>';
+  var MOON='<span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span>';
+  function applyTheme(d){
+    root.classList.toggle('dark',d);
+    btn.innerHTML=d?SUN:MOON;
+    var portal=document.querySelector('.cs-sheet-portal');
+    if(portal) portal.classList.toggle('dark',d);
+    try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){}
+  }
+  var stored=null; try{stored=localStorage.getItem('rba-int-dark');}catch(e){}
+  applyTheme(stored==='true'||stored==='1');
+  btn.addEventListener('click',function(){ applyTheme(!root.classList.contains('dark')); });
+  document.querySelectorAll('details.cs-switch').forEach(function(d){
+    var sheet = d.querySelector('.cs-sheet');
+    var portal = null;
+    var backdrop = null;
+    var mq = window.matchMedia('(max-width:760px)');
+    function isMobile(){ return mq.matches; }
+    function restoreSheet(){
+      if (portal){
+        if (sheet && sheet.parentNode !== d) d.appendChild(sheet);
+        portal.remove();
+        portal = null;
+        backdrop = null;
+      }
+      document.body.classList.remove('cs-sheet-open');
+      document.body.style.overflow = '';
+    }
+    function mountSheet(){
+      if (!isMobile() || !d.open || !sheet || portal) return;
+      portal = document.createElement('div');
+      portal.className = 'cs cs-sheet-portal' + (root.classList.contains('dark') ? ' dark' : '');
+      backdrop = document.createElement('div');
+      backdrop.className = 'cs-sheet-backdrop';
+      backdrop.setAttribute('role', 'button');
+      backdrop.setAttribute('tabindex', '-1');
+      backdrop.setAttribute('aria-label', 'Close case study menu');
+      portal.appendChild(backdrop);
+      portal.appendChild(sheet);
+      document.body.appendChild(portal);
+      document.body.classList.add('cs-sheet-open');
+      document.body.style.overflow = 'hidden';
+      backdrop.addEventListener('click', function(){ d.removeAttribute('open'); });
+    }
+    d.addEventListener('toggle', function(){
+      if (d.open && isMobile()) mountSheet();
+      else restoreSheet();
+    });
+    mq.addEventListener('change', function(){
+      if (d.open && isMobile()) mountSheet();
+      else restoreSheet();
+    });
+    document.addEventListener('click', function(e){
+      if (!d.open) return;
+      if (d.contains(e.target) || (sheet && sheet.contains(e.target)) || e.target === backdrop) return;
+      d.removeAttribute('open');
+    });
+  });
+
+  var revealedAny=false;
+  function reveal(el){ el.classList.add('in'); setTimeout(function(){ el.style.transition='none'; el.style.opacity='1'; el.style.transform='none'; }, 850); }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revealedAny=true; reveal(e.target); io.unobserve(e.target);} }); },{threshold:0.1,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+
+  var counted=false;
+  var statsEl=document.getElementById('stats');
+  function runCounters(){
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var target=parseFloat(el.getAttribute('data-count'));
+      var t0=Date.now(),dur=1400;
+      (function tick(){ var p=Math.min(1,(Date.now()-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=Math.round(target*e); if(p<1) requestAnimationFrame(tick); })();
+    });
+  }
+  if(statsEl){ var co=new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!counted){counted=true;runCounters();co.disconnect();} },{threshold:0.3}); co.observe(statsEl); }
+  setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } if(!counted){ counted=true; runCounters(); } },1000);
+})();
+
+(function(){
+  var frame=document.getElementById('gims-proto-frame');
+  var section=document.getElementById('prototype');
+  if(!frame||!section) return;
+  var src=frame.getAttribute('data-src');
+  if(!src) return;
+  var loaded=false;
+  var lbl=document.getElementById('gims-proto-loading');
+  frame.addEventListener('load', function(){ if(lbl) lbl.style.display='none'; });
+  function loadProto(){
+    if(loaded||frame.getAttribute('src')) return;
+    loaded=true;
+    // probe first: an unreachable iframe still fires load on the browser's error
+    // page, which would hide the honest offline message beneath it
+    fetch(src,{mode:'no-cors',cache:'no-store'}).then(function(){ frame.setAttribute('src', src); }).catch(function(){ loaded=false; });
+  }
+  window.addEventListener('online', loadProto);
+  try{console.log('%cAEGIS GIMS%c UNCLASSIFIED // PORTFOLIO \u00b7 you read the trace, not just the number. The full build: https://rbabiarz.github.io/AEGIS-GIMS/','font-family:monospace;font-weight:700;color:#0d5350;','color:inherit;');}catch(e){}
+  if('IntersectionObserver' in window){
+    var pio=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ loadProto(); pio.disconnect(); } },{threshold:0.08,rootMargin:'160px 0px'});
+    pio.observe(section);
+  } else { loadProto(); }
+  if(location.hash==='#prototype') setTimeout(loadProto, 0);
+})();
+</script>
+
+</body></html>

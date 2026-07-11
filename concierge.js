@@ -103,6 +103,13 @@
       kw: 'fintech finance bank banking open banking payments regulated money goals savings prd ai assisted claude cursor github clickable build walkthrough',
       links: [{ label: 'Quick tour', href: 'goals-driven-fintech-showcase.html' }, { label: 'Product walkthrough', href: 'fintech-walkthrough.html' }]
     },
+    gims: {
+      title: 'AEGIS GIMS', org: 'Defence C2 · Geospatial', thumb: 'previews/thumb-gims.png?v=2',
+      blurb: 'A filter-first geospatial command interface: the operator defines the ground they own, draw it or type its coordinates, and entry into that ground becomes the alert. Born as a design problem, built as a live interactive common operating picture.',
+      tags: ['Defence C2', 'Geospatial', 'Live prototype'], read: '4 min tour · 10 min deep dive',
+      kw: 'geospatial c2 command control map zone filter nai geofence gis cop common operating picture defence defense military tactical track alert boundary coordinate grid edge offline air-gapped gims aegis',
+      links: [{ label: 'Quick tour', href: 'aegis-gims-showcase.html' }, { label: 'Deep dive', href: 'aegis-gims.html' }]
+    },
     ctoc: {
       title: 'CTOC Dashboard System', org: 'Enterprise cyber · 13 dashboards', thumb: 'previews/thumb-ctoc.png?v=2',
       blurb: 'A cyber threat-operations center: 13 coordinated dashboards on one dark, token-driven design system — SOC workflows, threat feeds, and dense data visualization.',
@@ -165,7 +172,7 @@
   var INTENTS = [
     { id: 'defense', kw: 'defense defence sector industry military tactical mission dominion aegis intercept secure clearance government battlespace c2 command games drills',
       reply: 'Defense-adjacent work runs through this portfolio: playable decision drills on the homepage (AEGIS / Fusion Watch), the CTOC cyber-operations dashboard system, and enterprise AI with human-in-the-loop patterns — the thesis that the model brings receipts and you keep the decision.',
-      projects: ['aegis', 'ctoc', 'eai'],
+      projects: ['gims', 'aegis', 'ctoc', 'eai'],
       pills: ['Geospatial maps', 'Cyber operations dashboards', 'Systems thinking', 'Data visualization', 'Leadership examples'],
       tour: { name: 'Defense product designer tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
     { id: 'enterprise', kw: 'enterprise saas b2b business admin console platform complex workflows internal tools',
@@ -182,7 +189,7 @@
       pills: ['Design systems experience', 'Enterprise SaaS work', 'Consumer mobile work'] },
     { id: 'geo', kw: 'map maps mapping geospatial gis satellite spatial location floor plan plans site geo',
       reply: 'Three live examples: Light Architect, a photometric planner over satellite imagery you can operate right on the homepage, the occupancy floor maps at the heart of CORE Insights, and the live floor-plan simulator in Dynamic Space Partitioning.',
-      projects: ['la', 'insights', 'partitioning', 'aegis'],
+      projects: ['gims', 'la', 'insights', 'partitioning'],
       pills: ['Defense industry projects', 'Data visualization', 'Interactive prototypes'] },
     { id: 'leadership', kw: 'leadership lead led leading team teams cross-functional crossfunctional mentor stakeholders strategy strategic executive principal staff head senior seniority',
       reply: "Leadership evidence lives on the About page — cross-functional delivery on North America's largest DALI-2 install, three patent applications, and the career arc from IoT to defense-adjacent AI.",
@@ -210,7 +217,7 @@
       pills: ['Enterprise SaaS work', 'Cyber operations', 'Geospatial and mapping work'] },
     { id: 'ai', kw: 'ai artificial intelligence ml machine learning llm agent agentic copilot automation genai',
       reply: 'AI work in two registers: the Application of AI case study on trust and human-in-the-loop enterprise UX, and the AI-assisted build behind Goals-Driven Finance. This concierge is part of that story too — a working retrieval assistant designed and shipped into the portfolio itself.',
-      projects: ['eai', 'fintech', 'aegis'],
+      projects: ['eai', 'gims', 'fintech'],
       pills: ['Defense industry projects', 'Enterprise SaaS work', 'Interactive prototypes'] },
     { id: 'process', kw: 'process research discovery usability testing methods wireframes artifacts prototype prototypes prototyping interaction how you work',
       reply: 'Every case study ships in two depths — a quick tour of outcomes and a deep dive with the process, decisions, and discarded alternatives. The deep dives are where the research and rationale live.',
