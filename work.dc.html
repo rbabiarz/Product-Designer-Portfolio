@@ -416,9 +416,9 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
     <!-- visibility is JS-driven via display: the template layer drops bare `hidden` -->
     <div id="wk-poll-card" role="dialog" aria-labelledby="wk-poll-title" style="display:none;">
       <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--ac);margin-bottom:6px;">Live poll</div>
-      <h3 id="wk-poll-title" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;letter-spacing:-0.015em;color:var(--fg);margin:0 0 6px;">Which carousel do you like best?</h3>
-      <p style="font-size:12px;line-height:1.55;color:var(--fg2);margin:0 0 4px;">Try all three from the switcher above, then vote. One vote per browser; the tally is anonymous and runs across every visitor.</p>
-      <div id="wk-poll-opts" role="group" aria-label="Carousel styles"></div>
+      <h3 id="wk-poll-title" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;letter-spacing:-0.015em;color:var(--fg);margin:0 0 6px;">Which style do you like best?</h3>
+      <p style="font-size:12px;line-height:1.55;color:var(--fg2);margin:0 0 4px;">Try all four from the switcher above, then vote. One vote per browser; the tally is anonymous and runs across every visitor.</p>
+      <div id="wk-poll-opts" role="group" aria-label="Browse styles"></div>
       <div id="wk-poll-foot" aria-live="polite" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.04em;color:var(--fg2);margin-top:11px;min-height:15px;">Results appear after you vote.</div>
     </div>
     <button id="wk-poll-fab" type="button" aria-expanded="false" aria-controls="wk-poll-card">
@@ -784,12 +784,14 @@ class Component extends DCLogic {
     const GLYPH = {
       coverflow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="8" y="5" width="8" height="14" rx="1.5"/><path d="M5 8v8M19 8v8" stroke-linecap="round"/></svg>',
       fan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(16 12 18)"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(-16 12 18)"/></svg>',
-      index: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 6h10M4 12h16M4 18h12" stroke-linecap="round"/></svg>'
+      index: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 6h10M4 12h16M4 18h12" stroke-linecap="round"/></svg>',
+      lobby: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>'
     };
     const OPTS = [
       { id: 'coverflow', label: 'Coverflow' },
       { id: 'fan', label: 'Fan' },
-      { id: 'index', label: 'Index' }
+      { id: 'index', label: 'Index' },
+      { id: 'lobby', label: 'Lobby' }
     ];
     let voted = null;
     try { voted = (JSON.parse(localStorage.getItem(FLAG) || 'null') || {}).opt || null; } catch (e) {}
