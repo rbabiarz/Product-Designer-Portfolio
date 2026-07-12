@@ -66,15 +66,13 @@
     { id: 'gbr', name: 'GBR-RADAR-07', short: 'GBR-07', aff: 'sensor', domain: 'sensor', speed: '—', cls: 'SECRET', threat: 0,
       path: [[612, 232]], report: 'Ground-based radar, sector NE.', rec: '—' },
     { id: 'ais', name: 'COASTAL-AIS-12', short: 'AIS-12', aff: 'sensor', domain: 'sensor', speed: '—', cls: 'PROT-B', threat: 0,
-      path: [[602, 120]], report: 'Coastal AIS receiver.', rec: '—' },
-    { id: 'fob', name: 'FOB ANVIL', short: 'FOB ANVIL', aff: 'friendly', domain: 'infra', speed: '—', cls: 'SECRET', threat: 0,
-      path: [[150, 420]], report: 'Forward operating base, friendly.', rec: '—' }
+      path: [[602, 120]], report: 'Coastal AIS receiver.', rec: '—' }
   ];
 
   var AMBIENT = [
     { id: 'adz', shape: 'rect', x: 60, y: 16, w: 330, h: 64, name: 'AIR DEFENCE — NORTH', color: '#d63b75', alert: false },
     { id: 'mez', shape: 'rect', x: 452, y: 14, w: 178, h: 96, name: 'MARITIME EXCLUSION', color: '#e64d3c', alert: false },
-    { id: 'svz', shape: 'circle', cx: 150, cy: 420, r: 58, name: 'SURVEILLANCE — FOB', color: '#8b6fd9', alert: false }
+    { id: 'svz', shape: 'circle', cx: 150, cy: 420, r: 58, name: 'SURVEILLANCE — SECTOR SW', color: '#8b6fd9', alert: false }
   ];
 
   /* ── state ── */

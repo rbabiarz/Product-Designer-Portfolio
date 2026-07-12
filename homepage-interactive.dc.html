@@ -1699,11 +1699,16 @@ class Component extends DCLogic {
     };
 
     let last = 0;
-    const loop = (now) => {
-      this._agRaf = requestAnimationFrame(loop);
-      if (document.hidden) { last = now; return; }
+    const agAsleep = () => {
+      if (document.hidden) return true;
       const r = stage.getBoundingClientRect();
-      if (r.bottom < -40 || r.top > (window.innerHeight || 800) + 40) { last = now; return; }
+      return r.bottom < -40 || r.top > (window.innerHeight || 800) + 40;
+    };
+    const loop = (now) => {
+      // sleep instead of idle-ticking at display rate while the watch floor is
+      // off-screen or the tab is hidden; the kicks below resume the loop
+      if (agAsleep()) { this._agRaf = null; last = 0; return; }
+      this._agRaf = requestAnimationFrame(loop);
       let dt = last ? (now - last) / 1000 : 0; last = now; if (dt > 0.05) dt = 0.05;
       if (G.paused) { render(); return; }
       if (G.mode === 'playing') updatePlay(dt); else updateAttract(dt);
@@ -1842,6 +1847,9 @@ class Component extends DCLogic {
     if (modeSel && modeSel.value === 'arctic') setArctic(true);
     else if (modeSel && RULES[modeSel.value] && this._agMode !== modeSel.value) setMode(modeSel.value);
     this._agRaf = requestAnimationFrame(loop);
+    const agKick = () => { if (this._agRaf == null && !agAsleep()) { last = 0; this._agRaf = requestAnimationFrame(loop); } };
+    this.on(window, 'scroll', agKick, { passive: true });
+    this.on(document, 'visibilitychange', agKick);
   }
   componentDidUpdate() {
     // A structural re-render (counter setState, menu/theme toggles, late data)
@@ -2084,9 +2092,9 @@ class Component extends DCLogic {
     // (the ambient drift is slow enough that half-rate is imperceptible and halves the cost).
     const frame = (now) => {
       if (gen !== this._netGen) return;
-      if (document.hidden) { this._netRaf = requestAnimationFrame(frame); return; }
       const cr = canvas.getBoundingClientRect();
-      if (cr.bottom < -40 || cr.top > (window.innerHeight || 800) + 40) { this._netRaf = requestAnimationFrame(frame); return; }
+      // sleep (no reschedule) while hidden or scrolled away; the kicks below resume
+      if (document.hidden || cr.bottom < -40 || cr.top > (window.innerHeight || 800) + 40) { this._netRaf = null; return; }
       if (mx <= -9000 && (now - lastDraw) < 33) { this._netRaf = requestAnimationFrame(frame); return; }
       lastDraw = now || 0;
       draw(now);
@@ -2094,6 +2102,13 @@ class Component extends DCLogic {
     };
     if (reduce) { draw(0); return; }   // static field, no loop, for reduced-motion users
     this._netRaf = requestAnimationFrame(frame);
+    const netKick = () => {
+      if (gen !== this._netGen || this._netRaf != null || document.hidden) return;
+      const cr = canvas.getBoundingClientRect();
+      if (cr.bottom >= -40 && cr.top <= (window.innerHeight || 800) + 40) this._netRaf = requestAnimationFrame(frame);
+    };
+    this.on(window, 'scroll', netKick, { passive: true });
+    this.on(document, 'visibilitychange', netKick);
   }
 
   initScrollReveal() {
@@ -2144,8 +2159,9 @@ class Component extends DCLogic {
           i.el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
         }
       });
-      // stop the loop once everything has landed
-      if (items.every(i => i.appear >= 1)) { this._tmRaf = null; return; }
+      // sleep whenever nothing is actively animating — below-fold items re-kick
+      // via the entrance observer, so the loop only runs during actual reveals
+      if (!items.some(i => i.seen && i.appear < 1)) { this._tmRaf = null; return; }
       this._tmRaf = requestAnimationFrame(loop);
     };
     this._tmRaf = requestAnimationFrame(loop);
@@ -3043,14 +3059,19 @@ class Component extends DCLogic {
       // Past it the layers are invisible, so writing transforms every frame just
       // forces the compositor to re-layerize the whole tree on each scroll frame
       // (the dominant remaining cost on mobile). Freeze them once scrolled away.
-      if (inHero) {
-        const mx = px - 0.5, my = py - 0.5;
-        layers.forEach((L) => { if (!L.el) return; L.el.style.transform = 'translate3d(' + (-mx * L.m).toFixed(1) + 'px,' + (-sy * L.s - my * L.m).toFixed(1) + 'px,0)'; });
-        if (ctx) this.drawMesh(ctx, W, H, dt, mx, my);
-      }
+      if (!inHero) { this._hpRaf = null; return; }   // sleep past the hero; kicks resume
+      const mx = px - 0.5, my = py - 0.5;
+      layers.forEach((L) => { if (!L.el) return; L.el.style.transform = 'translate3d(' + (-mx * L.m).toFixed(1) + 'px,' + (-sy * L.s - my * L.m).toFixed(1) + 'px,0)'; });
+      if (ctx) this.drawMesh(ctx, W, H, dt, mx, my);
       this._hpRaf = requestAnimationFrame(loop);
     };
     this._hpRaf = requestAnimationFrame(loop);
+    const hpKick = () => {
+      if (gen !== this._hpGen || this._hpRaf != null || document.hidden) return;
+      if ((window.scrollY || window.pageYOffset || 0) < window.innerHeight * 1.3) { last = performance.now(); this._hpRaf = requestAnimationFrame(loop); }
+    };
+    this.on(window, 'scroll', hpKick, { passive: true });
+    this.on(document, 'visibilitychange', hpKick);
   }
 
   initNavScroll() {
@@ -3090,7 +3111,11 @@ class Component extends DCLogic {
     this.on(window, 'resize', measure);
     let p = 0, last = 0, scrolling = false;
     const render = () => { track.style.transform = 'translate3d(' + (p - half).toFixed(2) + 'px,0,0)'; }; // rightward
+    const mqOff = () => { const r = wrap.getBoundingClientRect(); return r.bottom < 0 || r.top > (window.innerHeight || 800); };
     const loop = (now) => {
+      // sleep while the strip is off-screen or the tab is hidden; the scroll
+      // settle timer below (and visibilitychange) restart the drift
+      if (document.hidden || mqOff()) { this._mqRaf = null; last = 0; return; }
       if (!last) last = now;
       const dt = Math.min(0.05, (now - last) / 1000); last = now;
       if (!scrolling) {                            // only drift while the page is still
@@ -3102,6 +3127,7 @@ class Component extends DCLogic {
     };
     const start = () => { if (this._mqRaf == null) { last = 0; this._mqRaf = requestAnimationFrame(loop); } };
     const stop = () => { if (this._mqRaf != null) { cancelAnimationFrame(this._mqRaf); this._mqRaf = null; } };
+    this.on(document, 'visibilitychange', () => { if (!document.hidden) start(); });
     // pause the auto-drift while the user scrolls the page; resume shortly after they stop
     this.on(window, 'scroll', () => {
       scrolling = true; last = 0;
