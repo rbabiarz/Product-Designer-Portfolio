@@ -110,7 +110,7 @@
    "recently viewed" rail (localStorage — no invented jackpots or metrics). */
 .wk-lb-hero{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line2);min-height:clamp(240px,30vw,330px);display:flex;align-items:flex-end;box-shadow:0 34px 80px -30px rgba(0,0,0,0.6);}
 .wk-lb-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;}
-.wk-lb-hero .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,10,18,0.88) 0%,rgba(4,10,18,0.55) 46%,rgba(4,10,18,0.12) 100%);}
+.wk-lb-hero .veil{position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,10,18,0.82) 0%,rgba(4,10,18,0) 55%),linear-gradient(90deg,rgba(4,10,18,0.88) 0%,rgba(4,10,18,0.55) 46%,rgba(4,10,18,0.12) 100%);}
 .wk-lb-hero .in{position:relative;z-index:1;padding:clamp(18px,3vw,34px);max-width:560px;}
 .wk-lb-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ac2);margin-bottom:10px;}
 .wk-lb-hero h2{font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(24px,3.2vw,40px);letter-spacing:-0.03em;line-height:1.05;color:#f2f6fb;margin-bottom:9px;}
@@ -139,7 +139,13 @@
 .wk-lb-badge{position:absolute;top:10px;left:10px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.09em;color:#f2f6fb;background:rgba(4,10,18,0.72);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:4px 9px;}
 .wk-lb-badge.new{background:var(--ac);border-color:var(--ac);color:var(--bg);right:10px;left:auto;}
 @media (prefers-reduced-motion:reduce){.wk-lb-tile,.wk-lb-play{transition:none;}.wk-lb-tile:hover{transform:none;}}
-@media (max-width:640px){#wk-lobby{padding:14px 16px 48px !important;}}
+@media (max-width:640px){#wk-lobby{padding:14px 16px 48px !important;} .wk-lb-hero img{filter:blur(7px) saturate(1.15) brightness(0.75);transform:scale(1.08);} .wk-lb-hero .veil{background:linear-gradient(0deg,rgba(4,10,18,0.85) 0%,rgba(4,10,18,0.25) 60%),linear-gradient(90deg,rgba(4,10,18,0.92) 0%,rgba(4,10,18,0.7) 50%,rgba(4,10,18,0.3) 100%);}}
+/* narrow screens: the four-mode toggle collapses to icon-only buttons
+   (each keeps its aria-label; 24px icons stay comfortably tappable) */
+@media (max-width:700px){
+  .wk-modelbl{display:none;}
+  .wk-modebtn{padding:10px 12px;gap:0;min-height:44px;}
+}
 @media (min-width:861px){ #wk-menu{display:none !important} }
 @media (max-width:560px){
   .wk-title{font-size:32px !important}
@@ -244,10 +250,10 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <h1 style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(24px,2.8vw,36px);letter-spacing:-0.03em;line-height:1;color:var(--fg);margin:0;">Browse the case studies</h1>
     </div>
     <div class="wk-modetoggle" role="tablist" aria-label="Carousel style">
-      <button class="wk-modebtn on" data-mode="flow" role="tab" aria-label="Coverflow view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="8" y="5" width="8" height="14" rx="1.5"/><path d="M5 8v8M19 8v8" stroke-linecap="round"/></svg>Coverflow</button>
-      <button class="wk-modebtn" data-mode="fan" role="tab" aria-label="Fan view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(16 12 18)"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(-16 12 18)"/></svg>Fan</button>
-      <button class="wk-modebtn" data-mode="index" role="tab" aria-label="Index view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h10M4 12h16M4 18h12" stroke-linecap="round"/></svg>Index</button>
-            <button class="wk-modebtn" data-mode="lobby" role="tab" aria-label="Lobby view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Lobby</button>
+      <button class="wk-modebtn on" data-mode="flow" role="tab" aria-label="Coverflow view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="8" y="5" width="8" height="14" rx="1.5"/><path d="M5 8v8M19 8v8" stroke-linecap="round"/></svg><span class="wk-modelbl">Coverflow</span></button>
+      <button class="wk-modebtn" data-mode="fan" role="tab" aria-label="Fan view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(16 12 18)"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(-16 12 18)"/></svg><span class="wk-modelbl">Fan</span></button>
+      <button class="wk-modebtn" data-mode="index" role="tab" aria-label="Index view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h10M4 12h16M4 18h12" stroke-linecap="round"/></svg><span class="wk-modelbl">Index</span></button>
+            <button class="wk-modebtn" data-mode="lobby" role="tab" aria-label="Lobby view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="wk-modelbl">Lobby</span></button>
     </div>
     <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--fg2);letter-spacing:0.04em;text-align:right;line-height:1.7;">
       <div>Drag · scroll · arrow keys</div>
@@ -748,6 +754,29 @@ class Component extends DCLogic {
     const optsEl = document.getElementById('wk-poll-opts');
     const foot = document.getElementById('wk-poll-foot');
     if (!fab || !card || !optsEl || !foot) return;
+
+    // The site-wide concierge FAB (concierge.js) owns the bottom-right
+    // corner and lifts itself over the consent banner, so don't guess its
+    // height — read its live box and stack the poll directly above it.
+    // Falls back to the corner when the concierge is absent or hidden.
+    const wrap = document.getElementById('wk-poll');
+    const fitPoll = () => {
+      if (!wrap) return;
+      let b = 16;
+      const ai = document.getElementById('rb-ai-fab');
+      if (ai) {
+        const r = ai.getBoundingClientRect();
+        if (r.height > 0) b = Math.max(b, Math.round(window.innerHeight - r.top) + 12);
+      }
+      wrap.style.bottom = b + 'px';
+    };
+    fitPoll();
+    // concierge injects async and re-fits itself at 600/2200ms — land after it
+    setTimeout(fitPoll, 700);
+    setTimeout(fitPoll, 2400);
+    window.addEventListener('load', fitPoll);
+    window.addEventListener('resize', fitPoll, { passive: true });
+    window.addEventListener('rb-consent', () => setTimeout(fitPoll, 700));
 
     const API = 'https://abacus.jasoncameron.dev';
     const NS = 'robertbabiarz-com', PRE = 'wk-poll-';
