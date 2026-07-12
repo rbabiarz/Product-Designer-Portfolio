@@ -1341,10 +1341,14 @@ class Component extends DCLogic {
     };
 
     let last = 0;
-    const loop = (now) => {
-      this._agRaf = requestAnimationFrame(loop);
+    const agAsleep = () => {
+      if (document.hidden) return true;
       const r = stage.getBoundingClientRect();
-      if (r.bottom < -40 || r.top > (window.innerHeight || 800) + 40) { last = now; return; }
+      return r.bottom < -40 || r.top > (window.innerHeight || 800) + 40;
+    };
+    const loop = (now) => {
+      if (agAsleep()) { this._agRaf = null; last = 0; return; }
+      this._agRaf = requestAnimationFrame(loop);
       let dt = last ? (now - last) / 1000 : 0; last = now; if (dt > 0.05) dt = 0.05;
       if (G.paused) { render(); return; }
       if (G.mode === 'playing') updatePlay(dt); else updateAttract(dt);
@@ -1483,8 +1487,10 @@ class Component extends DCLogic {
     if (modeSel && modeSel.value === 'arctic') setArctic(true);
     else if (modeSel && RULES[modeSel.value] && this._agMode !== modeSel.value) setMode(modeSel.value);
     this._agRaf = requestAnimationFrame(loop);
+    const agKick = () => { if (this._agRaf == null && !agAsleep()) { last = 0; this._agRaf = requestAnimationFrame(loop); } };
+    this.on(window, 'scroll', agKick, { passive: true });
+    this.on(document, 'visibilitychange', agKick);
   }
-
 
   componentDidUpdate() {
     // A structural re-render (counter setState, menu/theme toggles, late data)

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Selected Work, Robert Babiarz</title>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,play_arrow,refresh,remove,restore,star&display=block" rel="stylesheet">
   <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}</style>
 <script src="./support.js"></script>
 
@@ -104,6 +104,42 @@
   .wk-detailwrap{min-height:230px !important}
   .wk-arrow{width:46px;height:46px}
 }
+/* ── lobby mode (consumer game-lobby / casino-lobby presentation) ──
+   Patterns: PS5-style focus rail with ambient art bleed behind the featured
+   banner; casino-lobby category chips, badge-carrying tiles, and an honest
+   "recently viewed" rail (localStorage — no invented jackpots or metrics). */
+.wk-lb-hero{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line2);min-height:clamp(240px,30vw,330px);display:flex;align-items:flex-end;box-shadow:0 34px 80px -30px rgba(0,0,0,0.6);}
+.wk-lb-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;}
+.wk-lb-hero .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,10,18,0.88) 0%,rgba(4,10,18,0.55) 46%,rgba(4,10,18,0.12) 100%);}
+.wk-lb-hero .in{position:relative;z-index:1;padding:clamp(18px,3vw,34px);max-width:560px;}
+.wk-lb-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ac2);margin-bottom:10px;}
+.wk-lb-hero h2{font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(24px,3.2vw,40px);letter-spacing:-0.03em;line-height:1.05;color:#f2f6fb;margin-bottom:9px;}
+.wk-lb-hero p{font-size:13.5px;line-height:1.55;color:rgba(235,242,250,0.82);margin-bottom:16px;}
+.wk-lb-play{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bg);background:var(--ac2);border-radius:999px;padding:12px 22px;min-height:44px;text-decoration:none;transition:transform .2s,box-shadow .2s;}
+.wk-lb-play:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(76,168,143,0.4);}
+.wk-lb-play:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+.wk-lb-chips{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 6px;}
+.wk-lb-chip{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--fg2);background:transparent;border:1px solid var(--line2);border-radius:999px;padding:10px 15px;min-height:40px;cursor:pointer;transition:color .15s,border-color .15s,background .15s;}
+.wk-lb-chip[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:var(--bg);}
+.wk-lb-chip:not([aria-pressed="true"]):hover{border-color:var(--ac2);color:var(--fg);}
+.wk-lb-chip:focus-visible{outline:2px solid var(--ac2);outline-offset:2px;}
+.wk-lb-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--fg2);margin:20px 0 12px;}
+.wk-lb-recent{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;}
+.wk-lb-recent a{flex:0 0 150px;border-radius:10px;overflow:hidden;border:1px solid var(--line2);position:relative;display:block;}
+.wk-lb-recent img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top center;display:block;}
+.wk-lb-recent a:focus-visible{outline:2px solid var(--ac2);outline-offset:2px;}
+.wk-lb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px;}
+.wk-lb-tile{position:relative;display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line2);background:var(--bg3);text-decoration:none;transition:transform .25s,border-color .25s,box-shadow .25s;}
+.wk-lb-tile:hover,.wk-lb-tile:focus-visible{transform:translateY(-4px);border-color:var(--ac2);box-shadow:0 18px 44px -18px rgba(0,0,0,0.65),0 0 0 1px var(--ac2);}
+.wk-lb-tile:focus-visible{outline:2px solid var(--ac2);outline-offset:3px;}
+.wk-lb-tile img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top center;display:block;}
+.wk-lb-tile .meta{padding:11px 13px;border-top:1px solid var(--line);}
+.wk-lb-tile .t{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;letter-spacing:-0.01em;color:var(--fg);margin-bottom:3px;}
+.wk-lb-tile .m{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--fg2);}
+.wk-lb-badge{position:absolute;top:10px;left:10px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.09em;color:#f2f6fb;background:rgba(4,10,18,0.72);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:4px 9px;}
+.wk-lb-badge.new{background:var(--ac);border-color:var(--ac);color:var(--bg);right:10px;left:auto;}
+@media (prefers-reduced-motion:reduce){.wk-lb-tile,.wk-lb-play{transition:none;}.wk-lb-tile:hover{transform:none;}}
+@media (max-width:640px){#wk-lobby{padding:14px 16px 48px !important;}}
 @media (min-width:861px){ #wk-menu{display:none !important} }
 @media (max-width:560px){
   .wk-title{font-size:32px !important}
@@ -211,6 +247,7 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <button class="wk-modebtn on" data-mode="flow" role="tab" aria-label="Coverflow view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="8" y="5" width="8" height="14" rx="1.5"/><path d="M5 8v8M19 8v8" stroke-linecap="round"/></svg>Coverflow</button>
       <button class="wk-modebtn" data-mode="fan" role="tab" aria-label="Fan view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(16 12 18)"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(-16 12 18)"/></svg>Fan</button>
       <button class="wk-modebtn" data-mode="index" role="tab" aria-label="Index view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h10M4 12h16M4 18h12" stroke-linecap="round"/></svg>Index</button>
+            <button class="wk-modebtn" data-mode="lobby" role="tab" aria-label="Lobby view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Lobby</button>
     </div>
     <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--fg2);letter-spacing:0.04em;text-align:right;line-height:1.7;">
       <div>Drag · scroll · arrow keys</div>
@@ -348,6 +385,11 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
 
   </div>
 
+  <!-- ═══ LOBBY (consumer game-lobby presentation; built by buildLobby()) ═══ -->
+  <div id="wk-lobby" style="display:none;position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
+    <div style="max-width:1200px;margin:0 auto;"></div>
+  </div>
+
   <!-- ═══ INDEX (editorial type wall) ═══ -->
   <div id="wk-index" style="display:none;position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
     <div style="max-width:1200px;margin:0 auto;border-top:1px solid var(--line);">
@@ -474,11 +516,147 @@ class Component extends DCLogic {
     const stage = document.getElementById('wk-stage');
     const ui = document.getElementById('wk-carousel-ui');
     const idx = document.getElementById('wk-index');
-    const isIndex = m === 'index';
-    if (stage) stage.style.display = isIndex ? 'none' : '';
-    if (ui) ui.style.display = isIndex ? 'none' : '';
+    const lb = document.getElementById('wk-lobby');
+    const isIndex = m === 'index', isLobby = m === 'lobby';
+    if (stage) stage.style.display = (isIndex || isLobby) ? 'none' : '';
+    if (ui) ui.style.display = (isIndex || isLobby) ? 'none' : '';
     if (idx) idx.style.display = isIndex ? 'block' : 'none';
-    if (!isIndex) this.layout(true);
+    if (lb) lb.style.display = isLobby ? 'block' : 'none';
+    if (isLobby) this.buildLobby();
+    if (!isIndex && !isLobby) this.layout(true);
+  }
+
+  // ── lobby mode: consumer game-lobby presentation of the same case studies.
+  // Patterns researched from PS5 (a focused tile feeds an ambient hero) and
+  // mobile / casino lobbies (category chips, badge tiles, recently-viewed
+  // rail). Data comes from the existing index rows + detail blocks — one
+  // source of truth, nothing duplicated.
+  buildLobby() {
+    const wrap = document.querySelector('#wk-lobby > div');
+    if (!wrap || wrap.dataset.built) { this.lobbyFeature(this._lbFeat || 0); return; }
+    wrap.dataset.built = '1';
+    const CATS = { 0: 'iot', 1: 'iot', 2: 'iot', 3: 'ai', 4: 'iot', 5: 'fintech', 6: 'cyber', 7: 'ai' };
+    const CATL = { iot: 'IoT & Lighting', ai: 'AI & Defence', cyber: 'Cyber', fintech: 'Fintech' };
+    const rows = [...document.querySelectorAll('.wk-idx-row')];
+    const items = rows.map((r) => {
+      const i = Number(r.getAttribute('data-i'));
+      const det = document.querySelector('.wdetail[data-i="' + i + '"]');
+      return {
+        i, href: r.getAttribute('href'), img: r.getAttribute('data-img'),
+        num: r.querySelector('.wk-idx-num').textContent,
+        title: r.querySelector('.wk-idx-title').textContent,
+        meta: r.querySelector('.wk-idx-meta').textContent,
+        blurb: det ? ((det.querySelector('p') || {}).textContent || '') : '',
+        cat: CATS[i] || 'iot'
+      };
+    });
+    this._lbItems = items;
+    let recent = [];
+    try { recent = JSON.parse(localStorage.getItem('rb-wk-recent') || '[]').filter((n) => items.some((x) => x.i === n)); } catch (e) {}
+    this._lbFeat = recent.length ? recent[0] : 0;
+
+    // featured hero — the focused title's art bleeds behind the banner
+    const hero = document.createElement('div');
+    hero.className = 'wk-lb-hero';
+    hero.innerHTML = '<img id="wk-lb-hero-img" src="" alt=""/><div class="veil"></div>' +
+      '<div class="in"><div class="wk-lb-eyebrow" id="wk-lb-hero-eyebrow"></div>' +
+      '<h2 id="wk-lb-hero-title"></h2><p id="wk-lb-hero-blurb"></p>' +
+      '<a class="wk-lb-play" id="wk-lb-play" href="#"><span class="msi" aria-hidden="true" style="font-size:24px;">play_arrow</span>Enter the case study</a></div>';
+    wrap.appendChild(hero);
+
+    // category chips (casino-lobby intent filters)
+    const chips = document.createElement('div');
+    chips.className = 'wk-lb-chips';
+    chips.setAttribute('role', 'group');
+    chips.setAttribute('aria-label', 'Filter case studies by category');
+    const cats = ['all'].concat([...new Set(items.map((x) => x.cat))]);
+    cats.forEach((c) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'wk-lb-chip';
+      b.setAttribute('aria-pressed', String(c === 'all'));
+      b.textContent = c === 'all' ? 'All titles' : CATL[c];
+      b.addEventListener('click', () => {
+        chips.querySelectorAll('.wk-lb-chip').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+        b.setAttribute('aria-pressed', 'true');
+        wrap.querySelectorAll('.wk-lb-tile').forEach((t) => {
+          t.style.display = (c === 'all' || t.getAttribute('data-cat') === c) ? '' : 'none';
+        });
+      });
+      chips.appendChild(b);
+    });
+    wrap.appendChild(chips);
+
+    // recently-viewed rail — only if this visitor actually has history
+    if (recent.length) {
+      const lbl = document.createElement('div');
+      lbl.className = 'wk-lb-label';
+      lbl.textContent = 'Recently viewed';
+      wrap.appendChild(lbl);
+      const rail = document.createElement('div');
+      rail.className = 'wk-lb-recent';
+      recent.slice(0, 4).forEach((n) => {
+        const it = items.find((x) => x.i === n);
+        if (!it) return;
+        const a = document.createElement('a');
+        a.href = it.href;
+        a.setAttribute('aria-label', 'Resume ' + it.title);
+        a.innerHTML = '<img src="' + it.img + '" alt=""/>';
+        a.addEventListener('click', () => this.lobbyVisit(it.i));
+        rail.appendChild(a);
+      });
+      wrap.appendChild(rail);
+    }
+
+    // all-titles grid
+    const gl = document.createElement('div');
+    gl.className = 'wk-lb-label';
+    gl.textContent = 'All titles';
+    wrap.appendChild(gl);
+    const grid = document.createElement('div');
+    grid.className = 'wk-lb-grid';
+    const newest = Math.max.apply(null, items.map((x) => x.i));
+    items.forEach((it) => {
+      const a = document.createElement('a');
+      a.className = 'wk-lb-tile';
+      a.href = it.href;
+      a.setAttribute('data-cat', it.cat);
+      a.setAttribute('aria-label', it.title + ' — ' + it.meta);
+      a.innerHTML = '<img src="' + it.img + '" alt=""/>' +
+        '<span class="wk-lb-badge">CASE ' + it.num + '</span>' +
+        (it.i === newest ? '<span class="wk-lb-badge new">NEW</span>' : '') +
+        '<div class="meta"><div class="t">' + it.title + '</div><div class="m">' + it.meta + '</div></div>';
+      const feat = () => this.lobbyFeature(it.i);
+      a.addEventListener('mouseenter', feat);
+      a.addEventListener('focus', feat);
+      a.addEventListener('click', () => this.lobbyVisit(it.i));
+      grid.appendChild(a);
+    });
+    wrap.appendChild(grid);
+    document.getElementById('wk-lb-play').addEventListener('click', () => this.lobbyVisit(this._lbFeat));
+    this.lobbyFeature(this._lbFeat);
+  }
+
+  // the focused tile feeds the hero, PS5-style
+  lobbyFeature(i) {
+    const it = (this._lbItems || []).find((x) => x.i === i);
+    if (!it) return;
+    this._lbFeat = i;
+    const img = document.getElementById('wk-lb-hero-img');
+    if (!img) return;
+    img.src = it.img;
+    document.getElementById('wk-lb-hero-eyebrow').textContent = 'Featured · Case ' + it.num + ' · ' + it.meta;
+    document.getElementById('wk-lb-hero-title').textContent = it.title;
+    document.getElementById('wk-lb-hero-blurb').textContent = it.blurb;
+    document.getElementById('wk-lb-play').setAttribute('href', it.href);
+  }
+
+  lobbyVisit(i) {
+    try {
+      const cur = JSON.parse(localStorage.getItem('rb-wk-recent') || '[]').filter((n) => n !== i);
+      cur.unshift(i);
+      localStorage.setItem('rb-wk-recent', JSON.stringify(cur.slice(0, 6)));
+    } catch (e) {}
   }
 
   go(i) {

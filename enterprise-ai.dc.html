@@ -88,8 +88,8 @@ summary::-webkit-details-marker{display:none}
   .cs h2{font-size:27px !important}
   .cs [style*="repeat(6, 1fr)"],.cs [style*="repeat(4, 1fr)"],.cs [style*="repeat(2, 1fr)"]{grid-template-columns:repeat(2,1fr) !important}
 }
-.cs-burger{display:none;width:40px;height:40px;border:1px solid rgba(10,8,4,0.14);border-radius:9px;background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
-.cs-burger span{display:block;width:18px;height:2px;background:#0d5350;border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.cs-burger{display:none;width:40px;height:40px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.cs-burger span{display:block;width:18px;height:2px;background:var(--c-accent);border-radius:2px;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .2s}
 .menu-open .cs-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .menu-open .cs-burger span:nth-child(2){opacity:0}
 .menu-open .cs-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -250,7 +250,7 @@ summary::-webkit-details-marker{display:none}
         <details class="cs-switch" style="position:relative;">
           <summary style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);">
             <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;">Case study</span>
-            <span style="font-size:13px;font-weight:600;color:#0d5350;">Enterprise AI</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent);">Enterprise AI</span>
             <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;color:var(--c-muted);transition:transform .2s;">expand_more</span>
           </summary>
           <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,0.4);padding:7px;z-index:300;">
@@ -728,7 +728,7 @@ summary::-webkit-details-marker{display:none}
         </div>
       </div>
       <div style="background:var(--c-surface);padding:30px 34px;border-radius:14px;" data-reveal="1">
-        <p style="font-family:'Inter',sans-serif;font-style:italic;font-weight:300;font-size:clamp(19px,2.1vw,26px);color:#16302a;line-height:1.5;letter-spacing:-0.3px;">"The goal was never to add AI to a dashboard. It was to make a 400-device building answer a question, and tell you what to do next, the way the best technician on the team would."</p>
+        <p style="font-family:'Inter',sans-serif;font-style:italic;font-weight:300;font-size:clamp(19px,2.1vw,26px);color:var(--c-ink2);line-height:1.5;letter-spacing:-0.3px;">"The goal was never to add AI to a dashboard. It was to make a 400-device building answer a question, and tell you what to do next, the way the best technician on the team would."</p>
       </div>
     </div>
   </section>
