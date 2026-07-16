@@ -110,7 +110,7 @@
     },
     {
       id: 'preferences', label: 'Preferences', on: true,
-      info: 'Remembers device-local settings: dark or light theme, your chosen homepage layout, AEGIS drill modes and best scores, Light Architect fixtures, and whether you’ve voted in the work-page poll. Stored only on this device, never transmitted. Turning this off clears the saved settings and stops new ones from being saved.'
+      info: 'Remembers device-local settings: dark or light theme, your chosen homepage layout, AEGIS drill modes and best scores, Light ARchitect fixtures, and whether you’ve voted in the work-page poll. Stored only on this device, never transmitted. Turning this off clears the saved settings and stops new ones from being saved.'
     },
     {
       id: 'analytics', label: 'Analytics', on: false,

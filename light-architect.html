@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="page-transition.js"></script>
+<title>Light ARchitect, AI Photometric Design · Robert Babiarz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,bolt,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,grid_view,info,light_mode,mail,menu,open_in_new,picture_as_pdf,play_arrow,refresh,remove,restore,search,star,view_list&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="case-shot.css">
+<style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
+img[src^="assets/la/"],img[src^="assets/ai/"]{height:auto}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0}
+.cs{
+  --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-body:#534f48;--c-muted:#6e6a60;--c-muted2:#9a9486;
+  --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;
+  --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
+  --c-navbg:rgba(255,252,245,0.84);
+}
+.cs.dark{
+  --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
+  --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;
+  --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
+  --c-navbg:rgba(11,16,22,0.82);
+  color-scheme:dark;
+}
+.cs{background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;overflow-x:clip}
+::selection{background:#0d5350;color:#fff}
+.mono{font-family:'JetBrains Mono',monospace}
+.cs a:focus-visible,.cs button:focus-visible,.cs summary:focus-visible,.cs select:focus-visible,.cs input:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:-0.02em;line-height:1.06}
+.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--c-accent)}
+@keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+[data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}.hero-float{animation:none!important}}
+
+/* sections + side toc */
+.cs section[id]{scroll-margin-top:80px}
+.toc{position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:11px;align-items:flex-end}
+.toc a{display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end}
+.toc .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.toc:hover .lbl{opacity:1;transform:none}
+.toc .dot{width:9px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .25s}
+.toc a[data-on] .lbl{opacity:1;color:var(--c-accent)}
+.toc a[data-on] .dot{background:var(--c-accent);width:22px}
+@media (max-width:1180px){.toc{display:none}}
+
+.wrap{max-width:1240px;margin:0 auto}
+.pad{padding:92px 40px}
+.lead{font-size:clamp(16px,1.5vw,17.5px);color:var(--c-body);line-height:1.75}
+.sec-h{font-size:clamp(30px,4vw,50px);letter-spacing:-1.3px;color:var(--c-ink)}
+.card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
+
+/* hero */
+.hero-sec{position:relative;overflow:hidden;padding:74px 40px 86px}
+.hero-blob{position:absolute;border-radius:50%;pointer-events:none}
+.hero-blob-a{top:-140px;right:-90px;width:540px;height:540px;background:radial-gradient(circle,rgba(200,240,108,.10),transparent 68%)}
+.hero-blob-b{bottom:-80px;left:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(15,42,74,.08),transparent 70%)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;position:relative}
+.hero-title{font-size:clamp(34px,4.9vw,68px);line-height:1.02;letter-spacing:-2.2px;overflow-wrap:break-word}
+.hero-title em{display:block;margin-top:.14em;font-size:clamp(24px,4.2vw,42px);letter-spacing:-.04em;line-height:1.08}
+.hero-lead{font-size:clamp(17px,1.6vw,20px);max-width:500px;margin-top:26px}
+.hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:38px;width:100%;max-width:520px}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
+nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand:hover{color:var(--c-ink)}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
+.iconbtn:hover{background:var(--c-card)}
+.cs-switch{position:relative}
+.cs-switch summary{list-style:none;display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface)}
+.cs-switch summary::-webkit-details-marker{display:none}
+.cs-switch .cs-chev{transition:transform .2s}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+.cs-sheet a:hover{background:var(--c-bg2)}
+
+/* stat strip */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--c-navy);border-radius:18px;overflow:hidden}
+.stat-strip>div{padding:34px 26px;border-right:1px solid rgba(255,255,255,.08)}
+.stat-strip>div:last-child{border-right:none}
+.stat-n{font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#5fc4b6;letter-spacing:-1px;line-height:1}
+.stat-l{font-size:13.5px;color:#cdd6e0;margin-top:9px;line-height:1.5}
+.stat-k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#7d93a8;letter-spacing:0.08em;margin-top:11px}
+.sv{margin-top:14px}
+.sv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:#7d93a8;display:flex;justify-content:space-between;gap:8px;margin:7px 0 4px}
+.sv-track{position:relative;height:8px;border-radius:4px;background:rgba(255,255,255,0.07)}
+.sv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a9ab5}
+.sv-fill.on{background:#5fc4b6}
+.sv-dots{display:flex;gap:4px;align-items:center;min-height:8px;flex-wrap:wrap}
+.sv-dot{width:8px;height:8px;border-radius:50%;background:#5fc4b6;flex:0 0 auto}
+.sv-dot.dim{background:#8a9ab5;opacity:.62}
+.sv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:#7d93a8;margin-top:8px;line-height:1.5}
+
+/* mobile menu */
+.burger{display:none;width:40px;height:40px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{width:18px;height:2px;background:var(--c-accent);border-radius:2px;transition:transform .3s,opacity .2s}
+.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .burger span:nth-child(2){opacity:0}
+.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#mob{position:fixed;inset:0;z-index:75;background:var(--c-bg);display:flex;flex-direction:column;padding:84px 26px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .3s,visibility .3s;pointer-events:none}
+.menu-open #mob{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#mob a{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--c-ink);text-decoration:none;padding:13px 2px;border-bottom:1px solid var(--c-b2)}
+#mob a .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-muted)}
+
+@media (max-width:980px){
+  nav.top .bar{padding:0 18px}
+  .pad{padding:60px 18px}
+  .hero-sec{padding:52px 18px 44px}
+  .hero-blob-a{width:300px;height:300px;top:-70px;right:-50px}
+  .hero-blob-b{width:220px;height:220px;left:-40px}
+  .hero-grid{grid-template-columns:1fr!important;gap:40px!important}
+  .hero-meta{max-width:none}
+  .hero-lead{max-width:none}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr!important}
+  .hero-float{display:none!important}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .las-goals{grid-template-columns:1fr!important}
+}
+@media (min-width:981px){.burger{display:none}#mob{display:none}}
+@media (max-width:980px){.burger{display:flex}}
+@media (max-width:560px){
+  .cs h1:not(.hero-title){font-size:40px!important;letter-spacing:-1.6px!important}
+  .hero-sec{padding:40px 16px 36px}
+  .hero-sec .hero-title{font-size:clamp(28px,8.5vw,38px)!important;letter-spacing:-1.35px!important;line-height:1.04!important}
+  .hero-sec .hero-title em{font-size:clamp(20px,6.2vw,28px);margin-top:.18em}
+  .hero-meta{grid-template-columns:1fr 1fr;gap:14px 16px}
+  .stat-strip{grid-template-columns:1fr}
+  .las-cands{grid-template-columns:1fr!important}
+  .las-ies-cards{grid-template-columns:1fr 1fr!important}
+}
+@media (max-width:400px){
+  .hero-meta{grid-template-columns:1fr}
+}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.shot{border-radius:0;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);background:#0e1622}
+.shot img{width:100%;display:block}
+.shot-cap{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:.06em;margin-top:10px;text-align:center;text-transform:uppercase}
+/* AR-era phone render trio */
+.phone-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:860px;margin:0 auto}
+.phone-trio figure{margin:0}
+.phone-trio img{width:100%;display:block;border-radius:22px;border:1px solid var(--c-b3)}
+.phone-trio figcaption{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted);text-align:center;margin-top:12px}
+@media (max-width:980px){
+  .phone-trio{grid-template-columns:1fr;max-width:min(260px,68vw);gap:28px}
+}
+
+/* optic-rule table */
+.optic-table{width:100%;border-collapse:collapse;font-size:14px}
+.optic-table th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--c-b3)}
+.optic-table td{padding:13px 14px;border-bottom:1px solid var(--c-b2);color:var(--c-body);line-height:1.55;vertical-align:top}
+.optic-table td:first-child{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--c-accent);white-space:nowrap}
+.tbl-scroll{overflow-x:auto;border:1px solid var(--c-b2);border-radius:14px;background:var(--c-surface)}
+
+/* ═══ la-sims widget styles (shared by the three interactives) ═══ */
+.las-card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px;padding:22px}
+.las-stage{position:relative;background:#0a0f18;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.07)}
+.las-plate{position:relative;aspect-ratio:24/16}
+/* refine verb rail + in-stage info dialog (mirrors the homepage map verbs) */
+.las-verbs .las-btn{display:inline-flex;align-items:center;gap:7px}
+#las-b-info{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(8,10,8,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#las-b-info[hidden]{display:none}
+.las-info-card{max-width:420px;max-height:100%;overflow:auto;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;padding:16px 18px;box-shadow:0 22px 54px -20px rgba(20,30,40,.4)}
+.las-info-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.las-info-eyebrow{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-accent)}
+.las-info-close{width:28px;height:28px;border-radius:8px;border:1px solid var(--c-b3);background:transparent;color:var(--c-muted);font-size:14px;line-height:1;cursor:pointer}
+.las-info-close:hover{color:var(--c-ink)}
+.las-info-h{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-muted);margin:12px 0 6px}
+.las-info-row{display:flex;gap:10px;font-size:12.5px;line-height:1.5;color:var(--c-body);margin-bottom:6px}
+.las-info-k{flex:none;width:66px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--c-accent)}
+.las-heat{position:absolute;inset:0;gap:1px;padding:1px}
+.las-heat>div{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:rgba(255,255,255,.9);text-shadow:0 1px 2px rgba(0,0,0,.55);border-radius:1px;min-width:0;overflow:hidden}
+.las-fx{position:absolute;inset:0}
+.las-pole{position:absolute;width:22px;height:22px;transform:translate(-50%,-50%);border-radius:50%;background:#e9f6b8;border:2px solid #0a0f18;box-shadow:0 0 12px rgba(200,240,108,.75),0 0 26px rgba(200,240,108,.3);cursor:grab;padding:0}
+.las-pole::before{content:'';position:absolute;inset:-12px}/* ≥44px hit target */
+.las-pole.on{outline:2px solid #fff;outline-offset:2px}
+.las-pole.pin{border-color:#e0907e}
+.las-pole:disabled{cursor:default;opacity:.85}
+.las-pole:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.las-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.las-chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--c-ink2);background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:8px;padding:8px 11px}
+.las-chip b{color:var(--c-accent);font-weight:700}
+.las-status{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;margin-top:12px;line-height:1.6}
+.las-status.ok{color:var(--c-accent)}
+.las-status.below{color:#b0604f}
+.cs.dark .las-status.below{color:#e0907e}
+.las-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.las-btn{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;color:var(--c-ink2);background:transparent;border:1px solid var(--c-b4);border-radius:999px;padding:11px 18px;min-height:44px;cursor:pointer;transition:background .15s,color .15s}
+.las-btn:hover{background:var(--c-card)}
+.las-btn:disabled{opacity:.45;cursor:default}
+.las-btn.pri{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
+.cs.dark .las-btn.pri{color:#06201d}
+.las-note{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--c-muted);margin-top:14px;line-height:1.7;text-transform:uppercase}
+.las-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-accent);letter-spacing:.05em}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* B: goal controls */
+.las-goals{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0}
+.las-goal label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-bottom:8px}
+.las-goal select,.las-goal input[type="range"]{width:100%;min-height:44px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--c-ink);background:var(--c-bg2);border:1px solid var(--c-b3);border-radius:9px;padding:0 10px;accent-color:var(--c-accent)}
+.las-goal .las-pin{display:flex;align-items:center;gap:9px;min-height:44px;font-size:14px;color:var(--c-body)}
+.las-goal .las-pin input{width:19px;height:19px;accent-color:var(--c-accent)}
+.las-bchips{display:flex;flex-wrap:wrap;gap:10px}
+.las-bchip{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;color:var(--c-body);background:transparent;border:1px solid var(--c-b4);border-radius:999px;padding:11px 16px;min-height:44px;cursor:pointer}
+.las-bchip[aria-pressed="true"]{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
+.cs.dark .las-bchip[aria-pressed="true"]{color:#06201d}
+.las-prog{position:relative;height:10px;border-radius:5px;background:var(--c-b1);margin-top:16px;overflow:hidden}
+.las-prog i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--c-accent);border-radius:5px;transition:width .45s cubic-bezier(.2,.7,.3,1)}
+@media (prefers-reduced-motion:reduce){.las-prog i{transition:none}}
+.las-stagelbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-top:8px;min-height:1.4em}
+.las-cands{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.las-cand{text-align:left;background:var(--c-bg2);border:1px solid var(--c-b3);border-radius:12px;padding:14px 15px;cursor:pointer;display:flex;flex-direction:column;gap:7px}
+.las-cand.on{border-color:var(--c-accent);box-shadow:0 0 0 1px var(--c-accent)}
+.las-cand-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-ink2);font-weight:700}
+.las-cand-m{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--c-muted);line-height:1.6}
+.las-cand-s{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em}
+.las-cand-s.ok{color:var(--c-accent)}
+.las-cand-s.below{color:#b0604f}
+.cs.dark .las-cand-s.below{color:#e0907e}
+.las-rank{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:var(--c-accent);margin-top:12px;min-height:1.4em}
+/* C: IES filter demo */
+.las-ies-filters{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+@media (max-width:980px){.las-ies-filters{grid-template-columns:1fr 1fr}}
+.las-ies-count{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.06em;color:var(--c-accent);margin-bottom:14px;min-height:1.4em}
+.las-ies-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.las-ies-card{background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.las-ies-name{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--c-ink2);letter-spacing:.02em}
+.las-ies-spec{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);line-height:1.6}
+.las-ies-fam{font-size:12px;color:var(--c-body)}
+.las-ies-locked{grid-column:1/-1;font-size:14.5px;color:var(--c-muted);border:1.5px dashed var(--c-b4);border-radius:12px;padding:26px;text-align:center;line-height:1.6}
+
+.verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill a:hover{color:var(--c-ink)}
+.verpill a.on{background:var(--c-accent);color:#fff}
+.verpill a.vdemo{width:38px;height:38px;padding:0;display:inline-flex;align-items:center;justify-content:center;color:var(--c-accent)}
+.verpill a.vdemo:hover{background:var(--c-card);color:var(--c-accent)}
+.cs.dark .verpill a.on{color:#06201d}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+</style>
+
+  <!-- SEO·OG·JSONLD -->
+  <meta name="description" content="Light ARchitect deep dive — six years designing Cooper Lighting's AI photometric platform: AR origins, satellite-imagery design, a 5,000-file IES library, AI autolayout with ranked candidates, optics intelligence, and three US patents. With three working in-page simulations.">
+  <meta name="author" content="Robert Babiarz">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://robertbabiarz.com/light-architect.html">
+  <meta name="theme-color" content="#070b12">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Robert Babiarz — Product Designer">
+  <meta property="og:title" content="Light ARchitect, AI Photometric Design · Robert Babiarz">
+  <meta property="og:description" content="Light ARchitect deep dive — six years designing Cooper Lighting's AI photometric platform: AR origins, satellite design, AI autolayout, optics intelligence, and three US patents. With three working simulations.">
+  <meta property="og:url" content="https://robertbabiarz.com/light-architect.html">
+  <meta property="og:image" content="https://robertbabiarz.com/previews/p-la.png">
+  <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Light ARchitect, AI Photometric Design · Robert Babiarz">
+  <meta name="twitter:description" content="Light ARchitect deep dive — six years designing Cooper Lighting's AI photometric platform: AR origins, satellite design, AI autolayout, optics intelligence, and three US patents.">
+  <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-la.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Light ARchitect, AI Photometric Design · Robert Babiarz","headline":"Light ARchitect, AI Photometric Design · Robert Babiarz","description":"Light ARchitect — Cooper Lighting's AI photometric design platform: satellite-imagery lighting layouts, AI autolayout, a 5,000-file IES library, AR visualization, and three US patents.","url":"https://robertbabiarz.com/light-architect.html","image":"https://robertbabiarz.com/previews/p-la.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, AI Design, Photometric Design, Lighting Design, SaaS, Augmented Reality, Patents, Design Systems","isPartOf":{"@type":"WebSite","name":"Robert Babiarz — Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
+  <script src="/analytics.js" defer></script>
+  <script src="cursor.js" defer></script>
+<script src="cookie-banner.js" defer></script>
+<script src="colophon.js" defer></script>
+<script src="search-index.js" defer></script>
+<script src="concierge.js" defer></script>
+<script src="la-sims.js" defer></script>
+</head>
+<body>
+<div class="cs" id="top">
+
+  <!-- NAV -->
+  <nav class="top">
+    <div class="bar">
+      <a class="brand" href="homepage-interactive.dc.html">
+        <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
+        <details class="cs-switch">
+          <summary>
+            <span class="mono" style="font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent)">Light ARchitect</span>
+            <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;color:var(--c-muted);">expand_more</span>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 11px 27px -10px rgba(20,30,40,0.26);padding:7px;z-index:300">
+            <a href="dali-2-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">DALI-2 Lighting System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Insights Dashboards</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="partitioning-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Spaces that change shape · WaveLinx</div></a>
+            <a href="enterprise-ai-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Enterprise AI</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Conversational · explainable · predictive</div></a>
+            <a href="smart-lighting-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="light-architect-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-card);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">Light ARchitect</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">AI photometric design · 3 US patents</div></a>
+            <a href="goals-driven-fintech-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Fintech</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
+            <a href="ctoc-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <a href="aegis-gims-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">AEGIS GIMS</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Filter-first geospatial C2</div></a>
+            <a href="parlay-gaming-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Parlay Games iGaming</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">50+ games · brand · web · promos</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px"></div>
+            <a href="homepage-interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted)">← All work</a>
+          </div>
+        </details>
+        <button class="burger" id="burger" aria-label="Menu" aria-controls="mob" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mob">
+    <div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted);margin-bottom:6px">Sections</div>
+    <a href="#overview" data-m=""><span>Overview</span><span class="n">01</span></a>
+    <a href="#problem" data-m=""><span>The Problem</span><span class="n">02</span></a>
+    <a href="#evolution" data-m=""><span>Four Eras</span><span class="n">03</span></a>
+    <a href="#users" data-m=""><span>Four Users</span><span class="n">04</span></a>
+    <a href="#satellite" data-m=""><span>Spatial Trust</span><span class="n">05</span></a>
+    <a href="#sandbox" data-m=""><span>Try It · Sandbox</span><span class="n">06</span></a>
+    <a href="#library" data-m=""><span>IES Library</span><span class="n">07</span></a>
+    <a href="#autolayout" data-m=""><span>AI AutoLayout</span><span class="n">08</span></a>
+    <a href="#optics" data-m=""><span>Optics Intelligence</span><span class="n">09</span></a>
+    <a href="#sports" data-m=""><span>Sports Templates</span><span class="n">10</span></a>
+    <a href="#outcomes" data-m=""><span>Outcomes &amp; Patents</span><span class="n">11</span></a>
+  </div>
+
+  <!-- SIDE TOC -->
+  <nav class="toc" aria-label="Sections">
+    <a href="#overview" data-toc="overview"><span class="lbl">Overview</span><span class="dot"></span></a>
+    <a href="#problem" data-toc="problem"><span class="lbl">The problem</span><span class="dot"></span></a>
+    <a href="#evolution" data-toc="evolution"><span class="lbl">Four eras</span><span class="dot"></span></a>
+    <a href="#users" data-toc="users"><span class="lbl">Four users</span><span class="dot"></span></a>
+    <a href="#satellite" data-toc="satellite"><span class="lbl">Spatial trust</span><span class="dot"></span></a>
+    <a href="#sandbox" data-toc="sandbox"><span class="lbl">Sandbox</span><span class="dot"></span></a>
+    <a href="#library" data-toc="library"><span class="lbl">IES library</span><span class="dot"></span></a>
+    <a href="#autolayout" data-toc="autolayout"><span class="lbl">AI autolayout</span><span class="dot"></span></a>
+    <a href="#optics" data-toc="optics"><span class="lbl">Optics</span><span class="dot"></span></a>
+    <a href="#sports" data-toc="sports"><span class="lbl">Sports</span><span class="dot"></span></a>
+    <a href="#outcomes" data-toc="outcomes"><span class="lbl">Outcomes</span><span class="dot"></span></a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-sec">
+    <div class="hero-blob hero-blob-a"></div>
+    <div class="hero-blob hero-blob-b"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <h1 class="hero-title" data-reveal="">Light ARchitect <br><em>the tool that designs light</em></h1>
+        <p class="lead hero-lead" data-reveal="">Six years turning a specialist's craft into a product: from one of commercial lighting's first AR apps, to a satellite-imagery design platform, to AI that proposes compliant layouts and lets the human keep the call. Three of its interaction models became US patents.</p>
+        <div class="hero-meta" data-reveal="">
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Lead Experience Designer</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Company</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Cooper Lighting / Signify · 2019–2025</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Platform</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">iOS AR · Web · AI</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Domain</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Commercial lighting design</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Scale</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">5,000+ curated IES files</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">In this page</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">3 working simulations</div></div>
+        </div>
+      </div>
+      <div class="hero-float" data-reveal="" style="display:flex;justify-content:center">
+        <div class="hero-float" style="animation:cs-float 6s ease-in-out infinite">
+          <div class="shot" style="box-shadow:var(--cs-shot-shadow-hero)">
+            <img width="1440" height="1024" fetchpriority="high" decoding="async" src="assets/la/welcome-fcgrid.jpg" alt="Light ARchitect welcome card over a live footcandle-grid design, listing features and the product's own customer stories: layout in 10 minutes, deal closed in a day" style="width:100%;max-width:620px;display:block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 OVERVIEW -->
+  <section id="overview" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">01 · Overview</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">A specialist's craft, <em>put in everyone's browser.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">Light ARchitect is Cooper Lighting's free design tool for commercial lighting: search an address, draw the site on live satellite imagery, place or auto-generate fixtures, and get standards-grade photometrics with a spec-ready PDF. It runs in the browser and on iOS, where it began as an AR app. The product's own onboarding cites its customers' stories: a layout in 10 minutes, a deal closed in a day.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">I led experience design across the product's whole arc — AR, the satellite web platform, and the AI autolayout system. The numbers below are the honest ones: patents are public record; the workflow compression is representative, not a measured benchmark.</p>
+      <div class="stat-strip" data-reveal="">
+        <div>
+          <div class="stat-n">3</div>
+          <div class="stat-l">US patents on the product's interaction models, co-inventor</div>
+          <div class="sv" role="img" aria-label="Three US patents plus one pending, drawn one dot per patent">
+            <div class="sv-lbl" aria-hidden="true"><span>PATENTS</span><span>+1 PENDING</span></div>
+            <div class="sv-dots" aria-hidden="true"><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot dim"></span></div>
+            <div class="sv-note">PUBLIC RECORD · ASSIGNED TO SIGNIFY</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">6 yrs</div>
+          <div class="stat-l">One product, four eras: AR, maps, AI, indoor</div>
+          <div class="sv" role="img" aria-label="Six years on one product across four platform eras">
+            <div class="sv-lbl" aria-hidden="true"><span>2019–2025</span><span>4 ERAS</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">COOPER LIGHTING SOLUTIONS / SIGNIFY</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">5,000+</div>
+          <div class="stat-l">Curated IES files in the product library</div>
+          <div class="sv" role="img" aria-label="More than five thousand curated IES files, distilled from a two hundred fifty thousand file catalog">
+            <div class="sv-lbl" aria-hidden="true"><span>IES LIBRARY</span><span>CURATED</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">FROM A 250,000+ FILE MANUFACTURER CATALOG</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">Minutes</div>
+          <div class="stat-l">For a layout that once took an expert days</div>
+          <div class="sv" role="img" aria-label="A workflow of two to five expert days compressed to a single session">
+            <div class="sv-lbl" aria-hidden="true"><span>PER DESIGN</span><span>WAS 2–5 DAYS</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:8%"></div></div>
+            <div class="sv-note">REPRESENTATIVE COMPRESSION · NOT A MEASURED BENCHMARK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 THE PROBLEM -->
+  <section id="problem" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">02 · The Problem</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Photometric expertise <em>was the bottleneck.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:26px">The patent that came out of this work states the problem plainly:</p>
+      <blockquote data-reveal="" style="max-width:860px;border-left:3px solid var(--c-accent);padding:6px 0 6px 24px;margin-bottom:14px">
+        <p style="font-family:'Inter',sans-serif;font-style:italic;font-weight:300;font-size:clamp(17px,1.9vw,22px);line-height:1.55;color:var(--c-ink2)">"Lighting design for an outdoor area such as a sports field typically involves examining the outdoor area, and based on desired illuminance, determining type and specification of light fixtures, locations of light poles, light pole heights, orientations of the light fixtures, etc. and estimating the expected illuminance. The process of outdoor area lighting design is typically time consuming."</p>
+        <cite class="mono" style="display:block;font-size:10.5px;letter-spacing:.08em;color:var(--c-muted);margin-top:12px;font-style:normal">— US 2023/0281351, TEMPLATE-BASED LIGHTING DESIGN · BACKGROUND (PUBLIC RECORD)</cite>
+      </blockquote>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">Behind "time consuming" sit three structural walls. Every one of them is a design problem, not an engineering problem — because the physics already worked; it was the people who were locked out.</p>
+      <div class="grid-3">
+        <div data-reveal="" class="card" style="padding:26px 28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">WALL 01</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Expertise</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">IES file formats, uniformity ratios, optic taxonomies, light-loss factors. The literacy lives in a small pool of specialists; everyone else queues.</p></div>
+        <div data-reveal="" class="card" style="padding:26px 28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">WALL 02</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Time</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">A parking lot could consume days: site visit, manual modelling, spec selection, review loops. Sales conversations stalled on drawings.</p></div>
+        <div data-reveal="" style="background:var(--c-navy);border-radius:18px;padding:26px 28px"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.1em;margin-bottom:9px">WALL 03</div><div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Scale vs accuracy</div><p style="font-size:14px;color:#c6d2dd;line-height:1.6">A 250,000+ file photometric catalog. The right fixture-optic-mounting combination existed; finding it was its own expert task.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 EVOLUTION -->
+  <section id="evolution" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">03 · Product Evolution</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Four eras, <em>one through-line.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">The product grew by moving the design surface closer to the person who needed it: first the jobsite camera, then the satellite map, then an AI that drafts the layout for you. Each era kept the last one's promise — the numbers stay defensible.</p>
+      <div class="grid-4" style="margin-bottom:44px">
+        <div data-reveal="" style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">ERA 01 · 2019–22</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">AR on the jobsite</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">Among the first AR apps in commercial lighting: stand on site, place a virtual fixture, see the light in context.</p></div>
+        <div data-reveal="" style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">ERA 02 · 2022–24</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Satellite web platform</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">Boundaries, measurement, live photometric calculation, and the curated IES library — design from anywhere.</p></div>
+        <div data-reveal="" style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">ERA 03 · 2024–25</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">AI AutoLayout</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">Draw the boundary, state the goals; the system proposes ranked candidate layouts you refine — never a black box.</p></div>
+        <div data-reveal="" style="background:var(--c-navy);border:1px solid transparent;border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.1em;margin-bottom:9px">ERA 04 · CURRENT</div><div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Indoor &amp; sports</div><p style="font-size:14px;color:#c6d2dd;line-height:1.6">High-bay grids for warehouses and data centres; moveable-pole sports retrofits. I owned the UX definition for both expansions.</p></div>
+      </div>
+      <div class="grid-2" style="align-items:center">
+        <div class="phone-trio" data-reveal="">
+          <figure><img width="640" height="1757" loading="lazy" decoding="async" src="assets/la/render-newsite.jpg" alt="AR-era mobile view starting a new outdoor site design"><figcaption>New site</figcaption></figure>
+          <figure><img width="640" height="1743" loading="lazy" decoding="async" src="assets/la/render-sports.jpg" alt="AR-era mobile view adding a sports lighting pole"><figcaption>Add a pole</figcaption></figure>
+          <figure><img width="640" height="2429" loading="lazy" decoding="async" src="assets/la/render-wallmount.jpg" alt="AR-era mobile view placing a wall-mounted fixture on a building"><figcaption>Wall mount</figcaption></figure>
+        </div>
+        <div data-reveal="">
+          <div class="shot"><img width="1280" height="910" loading="lazy" decoding="async" src="assets/la/whatsnew-tools.jpg" alt="What's New panel over the satellite design surface, introducing measurement, site plan, and sports design tools"></div>
+          <div class="shot-cap">The roadmap, visible in-product · measure, site plan, sports design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 FOUR USERS -->
+  <section id="users" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">04 · The Users</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Four users, <em>one surface.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">The research insight that shaped everything: experts resent oversimplification, and novices drown in depth. The lighting designer wants the light-loss factor exposed; the sales agent wants a client-ready picture before the meeting ends. Same tool, opposite tolerances.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">Progressive disclosure became the architecture, not a pattern: defaults that produce a defensible design with no configuration, and an "advanced" layer that exposes every parameter the specialist expects to find — grid size, LLF, uniformity targets — exactly where they expect to find it.</p>
+      <div class="grid-3" style="margin-bottom:14px">
+        <div data-reveal="" class="card" style="padding:24px 26px"><div style="font-size:15.5px;font-weight:700;color:var(--c-ink2);margin-bottom:6px;font-family:'Inter',sans-serif">Lighting designer</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Deep photometric expertise. Uses the platform to move faster without giving up control of a single variable.</p></div>
+        <div data-reveal="" class="card" style="padding:24px 26px"><div style="font-size:15.5px;font-weight:700;color:var(--c-ink2);margin-bottom:6px;font-family:'Inter',sans-serif">Electrical contractor</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Validates fixture counts and placement for bids. Field-first; needs the numbers to survive an inspector's questions.</p></div>
+        <div data-reveal="" class="card" style="padding:24px 26px"><div style="font-size:15.5px;font-weight:700;color:var(--c-ink2);margin-bottom:6px;font-family:'Inter',sans-serif">Lighting agent / sales</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Needs a compelling, correct concept during the conversation, not a week after it.</p></div>
+      </div>
+      <div class="grid-2" style="align-items:start">
+        <div data-reveal="" class="card" style="padding:24px 26px"><div style="font-size:15.5px;font-weight:700;color:var(--c-ink2);margin-bottom:6px;font-family:'Inter',sans-serif">Facility manager</div><p style="font-size:13.5px;color:var(--c-body);line-height:1.6">Retrofits: parking lots, warehouses, yards. Wall packs, energy targets, and a PDF for procurement.</p></div>
+        <div data-reveal="">
+          <div class="shot"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/projects-lobby.jpg" alt="Light ARchitect projects lobby listing saved site designs"></div>
+          <div class="shot-cap">The project lobby · every user's front door</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 SPATIAL TRUST -->
+  <section id="satellite" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">05 · Spatial Trust</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Designing spaces <em>you've never stood in.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">Moving design from the jobsite camera to a bird's-eye satellite view traded presence for reach — and made scale fidelity the trust currency. The boundary tool uses familiar polygon drawing; the measure tool answers in feet or meters; a site plan can be uploaded and aligned to the imagery. If the on-screen tape measure disagrees with the one in the truck, the product is dead. It doesn't.</p>
+      <div class="grid-3">
+        <div data-reveal=""><div class="shot"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/boundary-draw.jpg" alt="Boundary polygon drawn point by point over a satellite view of a commercial site"></div><div class="shot-cap">The boundary is the brief · drawn on the real lot</div></div>
+        <div data-reveal=""><div class="shot"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/photoar-interior.jpg" alt="PhotoAR mode placing a virtual pendant luminaire in a photo of a real lobby, with rotate, scale, and brightness controls"></div><div class="shot-cap">PhotoAR · the fixture dropped into a photo of the real room</div></div>
+        <div data-reveal=""><div class="shot"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/calc-advanced.jpg" alt="Advanced calculation settings exposing uniformity ratio, light loss factor, and grid size"></div><div class="shot-cap">Advanced calculate · the expert layer, exactly where experts look</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 INTERACTIVE A — SANDBOX -->
+  <section id="sandbox" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">06 · Try It · The Photometric Sandbox</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Move a pole. <em>Watch the standard react.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:32px">This is the core loop of the product, rebuilt in-page: sixteen luminaires on a parking plate, a live footcandle grid, and the IES RP-8-22 basic test (≥ 0.2 fc maintained minimum, ≤ 20:1 max:min uniformity) judging every edit. Drag a pole, click empty ground to add one, double-click to remove. Keyboard: Tab to a luminaire, arrow keys move it, Delete removes it.</p>
+
+      <div class="las-card" data-reveal="" id="las-a">
+        <div class="las-stage">
+          <div class="las-plate">
+            <div class="las-heat" aria-hidden="true"></div>
+            <div class="las-fx" role="group" aria-label="Luminaires. Tab to a luminaire; arrow keys move it one grid cell; Delete removes it."></div>
+          </div>
+        </div>
+        <div class="las-metrics" aria-hidden="true">
+          <span class="las-chip">AVG <b data-m="avg">0.00</b> FC</span>
+          <span class="las-chip">MAX <b data-m="max">0.00</b> FC</span>
+          <span class="las-chip">MIN <b data-m="min">0.0</b> FC</span>
+          <span class="las-chip">AVG:MIN <b data-m="avgmin">0.0</b>:1</span>
+          <span class="las-chip">MAX:MIN <b data-m="maxmin">0.0</b>:1</span>
+          <span class="las-chip las-count">16 × GALN Galleon II</span>
+        </div>
+        <div class="las-status" data-m="ies" role="status"></div>
+        <div class="las-btns">
+          <button type="button" class="las-btn pri" data-act="add">Add luminaire</button>
+          <button type="button" class="las-btn" data-act="del" disabled>Delete selected</button>
+          <button type="button" class="las-btn" data-act="reset">Reset layout</button>
+        </div>
+        <div class="las-live sr-only" aria-live="polite"></div>
+        <div class="las-note">In-page simulation · simplified falloff model calibrated to a representative RP-8-22 parking design · the shipped product computes from real IES photometry</div>
+      </div>
+
+      <details data-reveal="" style="max-width:860px;margin-top:26px;border:1px solid var(--c-b2);border-radius:14px;background:var(--c-surface)">
+        <summary style="cursor:pointer;padding:16px 20px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--c-ink2)">How to read the photometric map</summary>
+        <div style="padding:0 20px 18px;font-size:14px;color:var(--c-body);line-height:1.7">
+          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">AVG</strong> — mean illuminance across the stat area. RP-8-22 is driven by the minimum, not the average; a compliant lot typically averages 1–3 fc.</p>
+          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MAX</strong> — the brightest cell, directly under a pole. Peaks several times the average are normal; uniformity is judged by MAX:MIN, not MAX alone.</p>
+          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MIN</strong> — the darkest cell, the design's weak point. IES RP-8-22 requires ≥ 0.2 fc maintained at grade for parking lots and drive aisles.</p>
+          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MAX:MIN</strong> — uniformity. RP-8-22 allows up to 20:1 for parking lots; lower is more uniform. <strong style="color:var(--c-ink2)">AVG:MIN</strong> is the ratio commercial design guides judge; the shipped product reports both.</p>
+          <p>Targets follow IES RP-8-22 basic requirements for parking lots at grade (not security lighting); transaction areas call for 0.9 fc pre-curfew / 0.2 post at 15:1, and project specifics may set different criteria.</p>
+        </div>
+      </details>
+
+      <div class="grid-2" data-reveal="" style="margin-top:32px;align-items:start">
+        <div>
+          <div class="shot"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/photometric-summary.jpg" alt="The shipped photometric summary: average, max, min, avg:min and max:min per stat area with GET PDF and WHERE TO BUY actions"></div>
+          <div class="shot-cap">The shipped equivalent · per-area summary, PDF export, where to buy</div>
+        </div>
+        <div style="padding-top:8px">
+          <p class="lead" style="margin-bottom:14px">The real product runs this loop against genuine IES photometry — every fixture's measured light distribution — and then does the thing the demo can't: exports a photometric summary a spec reviewer will accept, per stat area, with a bill-of-materials path to purchase.</p>
+          <p class="lead">That pairing was deliberate everywhere: play first, then the receipt. The interface invites experimentation precisely because the math underneath refuses to flatter you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 IES LIBRARY + INTERACTIVE C -->
+  <section id="library" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">07 · The IES Library</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Filter, <em>don't browse.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">The research told us experts think criteria-first: they don't flip through a catalog, they eliminate everything that doesn't match the job. So the library never renders unfiltered. Pick the application and the optic, and 5,000 curated files collapse to the shortlist — rendered with virtualized lists so even the widest filter stays instant.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:32px">Where no perfect file existed, the AI era added another answer: specify the parameters, receive the photometry — replacing hour-long catalog hunts for edge-case configurations.</p>
+
+      <div class="las-card" data-reveal="" id="las-c" style="margin-bottom:32px">
+        <div class="las-ies-count" role="status">5,000 FILES · 0 LOADED</div>
+        <div class="las-ies-filters">
+          <div class="las-goal"><label for="las-f-app">Application</label>
+            <select id="las-f-app" data-f="app"><option value="">Choose…</option><option>Parking</option><option>Roadway</option><option>Wall</option><option>Sports</option></select></div>
+          <div class="las-goal"><label for="las-f-optic">Optic</label>
+            <select id="las-f-optic" data-f="optic"><option value="">Choose…</option><option>T3</option><option>T4</option><option>5WQ</option><option>5MQ</option><option>SL3</option><option>SL4</option></select></div>
+          <div class="las-goal"><label for="las-f-cct">CCT</label>
+            <select id="las-f-cct" data-f="cct"><option value="">Any</option><option>3000K</option><option>4000K</option><option>5000K</option></select></div>
+          <div class="las-goal"><label for="las-f-lm">Lumens</label>
+            <select id="las-f-lm" data-f="lm"><option value="">Any</option><option value="4-8k">4,000–8,000</option><option value="8-16k">8,000–16,000</option><option value="16k+">16,000+</option></select></div>
+        </div>
+        <div class="las-ies-cards"></div>
+        <div class="las-live sr-only" aria-live="polite"></div>
+        <div class="las-note las-ies-note" hidden>Representative catalog data · the filter-before-load pattern as shipped, files simulated</div>
+      </div>
+
+      <div data-reveal="">
+        <div class="shot" id="la-ies-screen"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/ies-library.jpg" alt="The shipped IES library headed 5,000 IES Files with 10 selected: CCT, lumens, power and optics filters down the left, IES cards with PDF downloads in the grid"></div>
+        <div class="shot-cap" id="la-ies-screen-cap">The shipped library, rebuilt as a working screen · filter, search, select, download · 5,000 files, none browsed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 INTERACTIVE B — AI AUTOLAYOUT -->
+  <section id="autolayout" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">08 · Try It · AI AutoLayout</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">The AI proposes. <em>You keep the decision.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">The hardest design problem in the product wasn't the solver — it was the feedback loop. Probabilistic output has to meet a hard photometric standard, in front of users who range from "just light it" to "show me every constraint." The shipped answer was a two-stage model: minimal inputs first (boundary, pole count, a uniformity target), then progressive refinement of the generated result.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:32px">Two details mattered as much as the algorithm. Staged progress with honest labels — <span class="mono" style="font-size:13px">generating · calculating · solving</span> — because silent compute reads as broken compute. And ranked <em>candidates</em> rather than one answer, because experts iterate; a single output invites distrust, three invite judgement.</p>
+
+      <div class="las-card" data-reveal="" id="las-b">
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-bottom:10px">Step 1 · Boundary</div>
+        <div class="las-bchips" role="group" aria-label="Choose a boundary preset">
+          <button type="button" class="las-bchip" data-bound="rect" aria-pressed="true">Rectangular lot</button>
+          <button type="button" class="las-bchip" data-bound="lshape" aria-pressed="false">L-shaped lot</button>
+          <button type="button" class="las-bchip" data-bound="excl" aria-pressed="false">Lot + building</button>
+        </div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin:18px 0 10px">Step 2 · Goals</div>
+        <div class="las-goals">
+          <div class="las-goal">
+            <label for="las-poles">Poles · <span data-out="poles">6 poles</span></label>
+            <input id="las-poles" data-in="poles" type="range" min="4" max="10" value="6" step="1">
+          </div>
+          <div class="las-goal">
+            <label for="las-uni">Uniformity target (max:min)</label>
+            <select id="las-uni" data-in="uni"><option value="20">20:1 · RP-8-22 basic</option><option value="15">15:1 · transaction areas</option><option value="10">10:1 · premium</option></select>
+          </div>
+          <div class="las-goal">
+            <label for="las-pin">Pre-pin a pole</label>
+            <span class="las-pin"><input id="las-pin" data-in="pin" type="checkbox"> Keep one pole fixed at an existing base</span>
+          </div>
+        </div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin:4px 0 10px">Minimum held at 0.2 fc · RP-8-22 basic (locked)</div>
+        <div class="las-btns" style="margin-top:6px">
+          <button type="button" class="las-btn pri" data-act="generate">Generate layouts</button>
+          <button type="button" class="las-btn" data-act="rerank" disabled>Re-rank my edit</button>
+        </div>
+        <div class="las-prog" role="progressbar" aria-label="Generation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden><i></i></div>
+        <div class="las-stagelbl las-stage-label"><span class="las-stage"></span></div>
+        <div class="las-cands" role="radiogroup" aria-label="Candidate layouts, ranked" hidden></div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin:20px 0 10px">Step 4 · Refine — drag, add, or delete poles, then re-rank</div>
+        <div class="las-stage">
+          <div class="las-plate">
+            <div class="las-heat" aria-hidden="true"></div>
+            <div class="las-fx" role="group" aria-label="Generated poles. Tab to a pole; arrow keys move it; Delete removes it; the metrics update live."></div>
+            <div id="las-b-info" role="dialog" aria-modal="true" aria-label="How to refine the generated layout" hidden>
+              <div class="las-info-card">
+                <div class="las-info-top"><span class="mono las-info-eyebrow">Refine the layout</span><button type="button" class="las-info-close" aria-label="Close info">✕</button></div>
+                <div class="las-info-h">Manual tweaks</div>
+                <div class="las-info-row"><span class="las-info-k">DRAG</span><span>Move a pole; it snaps to the calculation grid and stays inside the boundary.</span></div>
+                <div class="las-info-row"><span class="las-info-k">ADD</span><span>Drops a pole into the nearest free grid cell. Clicking an empty spot on the plate does the same, where you clicked.</span></div>
+                <div class="las-info-row"><span class="las-info-k">DELETE</span><span>Removes the selected pole. On the keyboard, Delete removes the focused pole.</span></div>
+                <div class="las-info-row"><span class="las-info-k">KEYS</span><span>Tab to a pole; arrow keys move it one grid cell at a time.</span></div>
+                <div class="las-info-h">Read the numbers</div>
+                <div class="las-info-row"><span class="las-info-k">AVG / MIN</span><span>Mean and darkest footcandle cell inside the boundary.</span></div>
+                <div class="las-info-row"><span class="las-info-k">MAX:MIN</span><span>Uniformity against the target you set in step 2.</span></div>
+                <div class="las-info-row"><span class="las-info-k">RE-RANK</span><span>Scores your edited layout against the three generated candidates.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="las-btns las-verbs" style="margin-top:12px" role="group" aria-label="Manual tweaks">
+          <button type="button" class="las-btn" data-act="addpole" disabled title="Add a pole to the layout"><span class="msi" aria-hidden="true" style="font-size:18px;">add</span> Add pole</button>
+          <button type="button" class="las-btn" data-act="delpole" disabled title="Select a pole to delete it" aria-label="Delete the selected pole"><span class="msi" aria-hidden="true" style="font-size:18px;">delete</span> Delete</button>
+          <button type="button" class="las-btn" data-act="lasinfo" aria-haspopup="dialog" aria-controls="las-b-info" aria-expanded="false" title="How to refine the layout"><span class="msi" aria-hidden="true" style="font-size:18px;">info</span> Info</button>
+        </div>
+        <div class="las-metrics" aria-hidden="true">
+          <span class="las-chip">AVG <b data-m="avg">0.00</b> FC</span>
+          <span class="las-chip">MAX <b data-m="max">0.00</b> FC</span>
+          <span class="las-chip">MIN <b data-m="min">0.0</b> FC</span>
+          <span class="las-chip">AVG:MIN <b data-m="avgmin">0.0</b>:1</span>
+          <span class="las-chip">MAX:MIN <b data-m="maxmin">0.0</b>:1</span>
+        </div>
+        <div class="las-status" data-m="ies" role="status"></div>
+        <div class="las-rank" role="status"></div>
+        <div class="las-live sr-only" aria-live="polite"></div>
+        <div class="las-note">Simulation · heuristic candidates scored by the in-page footcandle model · the shipped system used constrained optimization with a learned feedback loop · interaction model as filed in US 2024/0249035</div>
+      </div>
+      <div class="grid-2" data-reveal="" style="align-items:center;background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px;padding:26px;gap:26px;margin-top:44px">
+        <div>
+          <div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">Where it went next</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7">The IES library and layout intelligence later moved into CORE, Cooper's cloud platform, as Fixture Recommendation and Smart Layout — AI reaching the sales desk and the spec sheet. That chapter is the <a href="enterprise-ai.dc.html" style="color:var(--c-accent);text-decoration:underline;text-underline-offset:3px">Enterprise AI case study</a>.</p>
+        </div>
+        <div>
+          <div class="shot"><img width="1600" height="927" loading="lazy" decoding="async" src="assets/ai/SmartBoundary2.jpg" alt="Smart Layout boundary editor in CORE with layout-assistant goals for optics, CCT, illuminance and uniformity"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 OPTICS INTELLIGENCE -->
+  <section id="optics" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">09 · Optics Intelligence</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Encode the jargon, <em>so users state intent.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">Optic distributions are where photometric expertise gets densest — and where the AI earned its keep. Rather than asking users to know the taxonomy, the system encodes the strategy: which distribution suits a high mounting height, what a boundary corner needs, when spill control outranks coverage. The user states the goal; the ruleset picks the glass.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:32px">Spill light is a preference ladder, not a switch — the system tries the strictest tier that has real photometry available for the chosen model, and degrades gracefully instead of failing. Wall packs joined poles as first-class citizens with their own wattage and context rules, and up to three fixture models can mix in one design with per-model optic validation.</p>
+      <div class="tbl-scroll" data-reveal="">
+        <table class="optic-table">
+          <caption class="sr-only">Optic selection rules encoded in the autolayout system</caption>
+          <thead><tr><th scope="col">Optic</th><th scope="col">Use case</th><th scope="col">Rule the system encodes</th></tr></thead>
+          <tbody>
+            <tr><td>5NQ</td><td>High-mount fixtures</td><td>Preferred at tall mounting heights — a narrower vertical throw that keeps tall poles from wasting light past the target plane.</td></tr>
+            <tr><td>5WQ → 5MQ</td><td>Area coverage</td><td>Wide first; if the average target isn't met, the medium beam is recommended as the fallback — the choice explained, not silent.</td></tr>
+            <tr><td>SLL / SLR</td><td>Boundary corners</td><td>Side-throw optics triggered by boundary geometry when a corner angle closes tighter than ~120°.</td></tr>
+            <tr><td>SL3 / SL4</td><td>Spill control</td><td>The spill-light ladder: strictest tier first for perimeter and corner positions, relaxing tier by tier only when no compliant file exists.</td></tr>
+            <tr><td>T3 / T4</td><td>Wall packs</td><td>Context-driven: narrower back-of-building throw when walls light alone, wider forward throw when they work alongside poles.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mono" data-reveal="" style="font-size:9.5px;color:var(--c-muted);letter-spacing:.06em;margin-top:14px;text-transform:uppercase">Optic codes are public catalog nomenclature · rules paraphrased at a descriptive level</div>
+    </div>
+  </section>
+
+  <!-- 10 SPORTS -->
+  <section id="sports" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">10 · Sports Templates</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">A pre-engineered field, <em>aligned in one gesture.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">Sports lighting is the most codified corner of the domain: sanctioned foot-candle classes, pole counts, mounting heights per sport and level of play. That codification is exactly what makes it template-able — drop a baseball, softball, football, soccer, or tennis template on the satellite view, rotate it onto the real field, choose the fc class, done. This interaction model is US 2023/0281351. The current evolution extends it to retrofits: moveable poles, for fields where the concrete bases already exist.</p>
+      <div class="grid-2">
+        <div data-reveal=""><div class="shot"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/sports-complex.jpg" alt="A multi-field baseball complex on satellite imagery with lighting templates applied to several fields"></div><div class="shot-cap">A whole complex · template per field, one session</div></div>
+        <div data-reveal=""><div class="shot"><img width="1440" height="1024" loading="lazy" decoding="async" src="assets/la/sports-template.jpg" alt="Sports template configuration: fixture selection, rotation, foot-candle class, pole count, and field size"></div><div class="shot-cap">Template controls · fc class, poles, rotation, size</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 RUN AS A PRODUCT -->
+
+  <!-- 11 OUTCOMES & REFLECTION -->
+  <section id="outcomes" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">11 · Outcomes, Patents &amp; Reflection</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:960px;margin:16px 0 22px">Interaction design <em>that became IP.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:900px;margin-bottom:40px">The clearest outcome is public record: three US patents on how this product lets people design light — the satellite design surface, the sports templates, and the guided boundary-to-layout flow — co-inventor, assigned to Signify, with a fourth application pending. On the About page's ledger this work carries the company's <span class="mono" style="font-size:13px">Light ARchitect · $6M+</span> figure.</p>
+      <div class="grid-3" data-reveal="" style="margin-bottom:44px">
+        <div class="card" style="padding:26px 28px;display:flex;flex-direction:column;gap:9px">
+          <div class="mono" style="font-size:11px;letter-spacing:.08em;color:var(--c-accent)">US 2024/0249035</div>
+          <div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:600;color:var(--c-ink2)">Lighting design of a new outdoor site</div>
+          <p style="font-size:13.5px;color:var(--c-body);line-height:1.6;flex:1">Place and aim luminaire models over a live satellite view — the design surface itself.</p>
+          <a href="https://patents.google.com/patent/US20240249035A1/en" target="_blank" rel="noopener" class="mono" style="font-size:11px;letter-spacing:.06em;color:var(--c-accent);text-decoration:none;text-transform:uppercase">Google Patents <span class="msi" aria-hidden="true" style="font-size:15px;">arrow_outward</span></a>
+        </div>
+        <div class="card" style="padding:26px 28px;display:flex;flex-direction:column;gap:9px">
+          <div class="mono" style="font-size:11px;letter-spacing:.08em;color:var(--c-accent)">US 2023/0281351</div>
+          <div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:600;color:var(--c-ink2)">Template-based lighting design</div>
+          <p style="font-size:13.5px;color:var(--c-body);line-height:1.6;flex:1">One-tap sports templates aligned over satellite imagery, fc classes pre-engineered.</p>
+          <a href="https://patents.google.com/patent/US20230281351A1/en" target="_blank" rel="noopener" class="mono" style="font-size:11px;letter-spacing:.06em;color:var(--c-accent);text-decoration:none;text-transform:uppercase">Google Patents <span class="msi" aria-hidden="true" style="font-size:15px;">arrow_outward</span></a>
+        </div>
+        <div class="card" style="padding:26px 28px;display:flex;flex-direction:column;gap:9px">
+          <div class="mono" style="font-size:11px;letter-spacing:.08em;color:var(--c-accent)">US 2026/0057124</div>
+          <div style="font-family:'Inter',sans-serif;font-size:17px;font-weight:600;color:var(--c-ink2)">Guided lighting design</div>
+          <p style="font-size:13.5px;color:var(--c-body);line-height:1.6;flex:1">The guided boundary-to-layout flow that turns a drawn shape into a compliant plan.</p>
+          <a href="https://patents.google.com/patent/US20260057124A1/en" target="_blank" rel="noopener" class="mono" style="font-size:11px;letter-spacing:.06em;color:var(--c-accent);text-decoration:none;text-transform:uppercase">Google Patents <span class="msi" aria-hidden="true" style="font-size:15px;">arrow_outward</span></a>
+        </div>
+      </div>
+      <div class="grid-2" style="gap:48px;max-width:1040px;margin-bottom:50px">
+        <div data-reveal="">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:14px">WHAT WORKED</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7">Designing the feedback loop, not just the output — staged progress, ranked candidates, refinement — is what made the AI trustworthy to experts. Domain research done as identity work (how a photometric specialist thinks, not just what they click) produced the patterns that lasted: criteria-first filtering, progressive disclosure, receipts beside every simulation. And treating interaction design as patentable IP changed how the whole organization valued the discipline.</p>
+        </div>
+        <div data-reveal="">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:14px">WHAT I'D PUSH FURTHER</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7">Instrument real workflow-time telemetry, so "days to minutes" becomes a measured claim instead of a representative one. Benchmark usability formally across all four user types, not just the loudest two. And get the indoor expansion into users' hands earlier — the warehouse grid problem is more tractable than the outdoor one, and it waited longer than it needed to.</p>
+        </div>
+      </div>
+      <p class="lead" data-reveal="" style="max-width:900px;margin-bottom:14px">The through-line to the rest of this portfolio is direct: a system that computes, ranks, and explains, in front of a person who keeps the decision. Light ARchitect is where that thesis was earned — on parking lots and ballfields, before it ever met a threat feed.</p>
+      <div data-reveal="" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+        <a href="enterprise-ai-showcase.html" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:14px 22px;border:1px solid var(--c-b4);border-radius:999px">Where it led: Enterprise AI <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:42px 40px 64px;background:var(--c-bg);border-top:1px solid var(--c-b1);min-height:198px;">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+      <div>
+        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
+        <a href="enterprise-ai-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Enterprise AI <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
+      <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
+    </div>
+  </footer>
+
+  <!-- VERSION TOGGLE -->
+  <div class="verpill">
+    <span class="vlbl">Version</span>
+    <a href="light-architect-showcase.html">Quick tour</a>
+    <a href="light-architect.html" class="on">Deep dive</a>
+    <a href="#sandbox" class="vdemo" aria-label="Jump into the interactive demo" title="Interactive demo"><span class="msi" aria-hidden="true" style="font-size:20px;">play_arrow</span></a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('top');
+  // theme
+  var btn=document.getElementById('themeBtn');
+  var SUN='<span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span>';
+  var MOON='<span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span>';
+  function applyTheme(d){ root.classList.toggle('dark',d); btn.innerHTML=d?SUN:MOON; try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){} }
+  var stored=null; try{stored=localStorage.getItem('rba-int-dark');}catch(e){}
+  applyTheme(stored==='true'||stored==='1');
+  btn.addEventListener('click',function(){ applyTheme(!root.classList.contains('dark')); });
+
+  // mobile menu
+  var burger=document.getElementById('burger');
+  burger.addEventListener('click',function(){ var open=root.classList.toggle('menu-open'); burger.setAttribute('aria-expanded', open?'true':'false'); });
+  document.querySelectorAll('#mob a').forEach(function(a){ a.addEventListener('click',function(){ root.classList.remove('menu-open'); }); });
+
+  // reveal
+  var revealedAny=false;
+  function reveal(el){ el.classList.add('in'); el.style.opacity='1'; el.style.transform='none'; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revealedAny=true; reveal(e.target); io.unobserve(e.target);} }); },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+
+  // fallback: if IntersectionObserver never fires, guarantee content is visible.
+  setTimeout(function(){
+    if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); }
+  },1000);
+
+  try{console.log('%cLIGHT ARCHITECT%c six years, three patents, light designed in minutes. Quick tour: light-architect-showcase.html','font-family:monospace;font-weight:700;color:#0d5350;','color:inherit;');}catch(e){}
+
+  // scrollspy
+  var tocLinks=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=tocLinks.map(function(a){ return document.getElementById(a.getAttribute('data-toc')); });
+  var so=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        tocLinks.forEach(function(l){ l.removeAttribute('data-on'); });
+        var i=secs.indexOf(e.target);
+        if(i>=0) tocLinks[i].setAttribute('data-on','');
+      }
+    });
+  },{threshold:0.4,rootMargin:'-20% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) so.observe(s); });
+})();
+</script>
+
+</body></html>

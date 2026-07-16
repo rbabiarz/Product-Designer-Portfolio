@@ -110,6 +110,13 @@
       kw: 'geospatial c2 command control map zone filter nai geofence gis cop common operating picture defence defense military tactical track alert boundary coordinate grid edge offline air-gapped gims aegis',
       links: [{ label: 'Quick tour', href: 'aegis-gims-showcase.html' }, { label: 'Deep dive', href: 'aegis-gims.html' }]
     },
+    parlay: {
+      title: 'Parlay Games iGaming', org: 'iGaming · 50+ Games', thumb: 'previews/thumb-parlay.png?v=2',
+      blurb: 'Two decades of design for the patent holder in online bingo: 50+ real-money games across Java, Flash, HTML and mobile, brand and logo systems, player sites, localized promotions at production volume, and the HouseEdge operator console.',
+      tags: ['iGaming', 'Game design', 'Brand systems'], read: '4 min tour · 10 min deep dive',
+      kw: 'igaming gaming casino bingo slots keno gambling betting wager parlay games game art skins sprites logo logos brand identity promotions marketing banners localization multilingual word dragon back office houseedge operator regulated real-money lightwave 3d flash java html5',
+      links: [{ label: 'Quick tour', href: 'parlay-gaming-showcase.html' }, { label: 'Deep dive', href: 'parlay-gaming.html' }]
+    },
     ctoc: {
       title: 'CTOC Dashboard System', org: 'Enterprise cyber · 13 dashboards', thumb: 'previews/thumb-ctoc.png?v=2',
       blurb: 'A cyber threat-operations center: 13 coordinated dashboards on one dark, token-driven design system — SOC workflows, threat feeds, and dense data visualization.',
@@ -132,11 +139,11 @@
       links: [{ label: 'Quick tour', href: 'partitioning-showcase.html' }, { label: 'Deep dive', href: 'partitioning.dc.html' }]
     },
     la: {
-      title: 'Light Architect', org: 'Interactive photometric planner', thumb: null,
-      blurb: 'A live photometric site planner on the homepage — drag fixtures over satellite imagery and watch footcandle grids and isolux contours recompute in real time.',
-      tags: ['Geospatial', 'Interactive', 'Simulation'], read: '2 min, hands-on',
-      kw: 'map maps geospatial satellite site plan photometric lighting simulation interactive footcandle isolux spatial gis location',
-      links: [{ label: 'Try it on the homepage', href: 'homepage-interactive.dc.html#la-stage' }]
+      title: 'Light ARchitect', org: 'AI photometric design · Cooper Lighting', thumb: 'previews/thumb-la.png?v=2',
+      blurb: "Cooper Lighting's AI photometric design platform — six years from AR app to satellite-imagery layouts with AI autolayout, a 5,000-file IES library, and three US patents on the interaction models.",
+      tags: ['AI Design', 'Geospatial', 'SaaS'], read: '4 min tour · 10 min deep dive',
+      kw: 'light architect archi ar autolayout auto-layout ai layout ies photometric footcandle fixture luminaire satellite site plan map maps geospatial spatial gis location patent patents saas cooper lighting design simulation interactive',
+      links: [{ label: 'Quick tour', href: 'light-architect-showcase.html' }, { label: 'Deep dive', href: 'light-architect.html' }, { label: 'Try the mini planner', href: 'homepage-interactive.dc.html#la-stage' }]
     },
     aegis: {
       title: 'AEGIS Decision Drills', org: 'Playable classification games', thumb: null,
@@ -175,6 +182,10 @@
       projects: ['gims', 'aegis', 'ctoc', 'eai'],
       pills: ['Geospatial maps', 'Cyber operations dashboards', 'Systems thinking', 'Data visualization', 'Leadership examples'],
       tour: { name: 'Defense product designer tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
+    { id: 'gaming', kw: 'igaming gaming casino bingo slots keno gambling betting wager sportsbook parlay game games art skins promotions player retention',
+      reply: 'Two decades of regulated iGaming at Parlay Games sit under the newer work: 50+ real-money games, the brands and websites they lived on, promotions at production volume, and the HouseEdge operator console. It is where the high-consequence design habits on this site started.',
+      projects: ['parlay', 'smart', 'fintech'],
+      pills: ['Game and brand work', 'Web design work', 'Mobile apps', 'Defense sector work'] },
     { id: 'enterprise', kw: 'enterprise saas b2b business admin console platform complex workflows internal tools',
       reply: 'The enterprise SaaS work centers on dense, operational surfaces — analytics platforms, a 13-dashboard cyber suite, and AI woven into enterprise workflows.',
       projects: ['insights', 'ctoc', 'eai'],
@@ -188,7 +199,7 @@
       projects: ['insights', 'ctoc', 'smart'],
       pills: ['Design systems experience', 'Enterprise SaaS work', 'Consumer mobile work'] },
     { id: 'geo', kw: 'map maps mapping geospatial gis satellite spatial location floor plan plans site geo',
-      reply: 'Three live examples: Light Architect, a photometric planner over satellite imagery you can operate right on the homepage, the occupancy floor maps at the heart of CORE Insights, and the live floor-plan simulator in Dynamic Space Partitioning.',
+      reply: 'Geospatial runs deep here: Light ARchitect, an AI photometric planner over satellite imagery with its own full case study, plus a live mini planner on the homepage, AEGIS GIMS filter-first C2 mapping, the occupancy floor maps in CORE Insights, and the Partitioning floor simulator.',
       projects: ['gims', 'la', 'insights', 'partitioning'],
       pills: ['Defense industry projects', 'Data visualization', 'Interactive prototypes'] },
     { id: 'leadership', kw: 'leadership lead led leading team teams cross-functional crossfunctional mentor stakeholders strategy strategic executive principal staff head senior seniority',
@@ -197,7 +208,7 @@
       pills: ['Patents', 'Enterprise SaaS work', 'Resume'] },
     { id: 'iot', kw: 'iot connected hardware devices device sensor sensors embedded lighting luminaire smart building',
       reply: 'Connected-lighting IoT is the origin story: platform analytics, a first-of-its-kind healthcare commissioning system, dynamic space partitioning with operable walls, and a consumer mobile app.',
-      projects: ['insights', 'dali', 'partitioning', 'smart'],
+      projects: ['insights', 'dali', 'la', 'partitioning', 'smart'],
       pills: ['Enterprise SaaS work', 'Consumer mobile work', 'Geospatial and mapping work'] },
     { id: 'mobile', kw: 'mobile ios android phone app consumer apps native',
       reply: 'The consumer mobile work is the Smart Lighting App — onboarding, scenes, and control designed for non-technical households on iOS and Android.',
@@ -217,7 +228,7 @@
       pills: ['Enterprise SaaS work', 'Cyber operations', 'Geospatial and mapping work'] },
     { id: 'ai', kw: 'ai artificial intelligence ml machine learning llm agent agentic copilot automation genai',
       reply: 'AI work in two registers: the Application of AI case study on trust and human-in-the-loop enterprise UX, and the AI-assisted build behind Goals-Driven Finance. This concierge is part of that story too — a working retrieval assistant designed and shipped into the portfolio itself.',
-      projects: ['eai', 'gims', 'fintech'],
+      projects: ['eai', 'la', 'gims', 'fintech'],
       pills: ['Defense industry projects', 'Enterprise SaaS work', 'Interactive prototypes'] },
     { id: 'process', kw: 'process research discovery usability testing methods wireframes artifacts prototype prototypes prototyping interaction how you work',
       reply: 'Every case study ships in two depths — a quick tour of outcomes and a deep dive with the process, decisions, and discarded alternatives. The deep dives are where the research and rationale live.',

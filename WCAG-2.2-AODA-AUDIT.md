@@ -53,7 +53,7 @@ Legend — ✅ Pass · ⚠️ Partial / needs review · ❌ Fail · ➖ Not appl
 ### Operable
 | SC | Level | Status | Notes |
 |---|---|---|---|
-| 2.1.1 Keyboard | A | ❌ | **Light Architect** planner (add/move/remove luminaires) and the **3-D building** rotation have **no keyboard path** (no `tabindex`/key handlers/`role`). AEGIS games **are** keyboard-operable; Hot-Desking desks are real `<button>`s. |
+| 2.1.1 Keyboard | A | ❌ | **Light ARchitect** planner (add/move/remove luminaires) and the **3-D building** rotation have **no keyboard path** (no `tabindex`/key handlers/`role`). AEGIS games **are** keyboard-operable; Hot-Desking desks are real `<button>`s. |
 | 2.1.2 No Keyboard Trap | A | ✅ | — |
 | 2.1.4 Character Key Shortcuts | AA | ✅ | Game `j/k/l` keys are bound to the **focused game stage only** (`this.on(stage,'keydown')`), satisfying the focus-scoped exception. |
 | 2.2.1 Timing Adjustable | A | ✅ | Game timing is essential to the activity (exception applies). |
@@ -70,7 +70,7 @@ Legend — ✅ Pass · ⚠️ Partial / needs review · ❌ Fail · ➖ Not appl
 | 2.5.1 Pointer Gestures | A | ✅ | Interactions are single-pointer (no path/multipoint required). |
 | 2.5.2 Pointer Cancellation | A | ✅ | — |
 | 2.5.3 Label in Name | A | ✅ | — |
-| 2.5.7 Dragging Movements | AA 🆕 | ❌ | **Light Architect** repositioning is **drag-only** with no single-pointer alternative (add-by-click exists; move/reposition does not). |
+| 2.5.7 Dragging Movements | AA 🆕 | ❌ | **Light ARchitect** repositioning is **drag-only** with no single-pointer alternative (add-by-click exists; move/reposition does not). |
 | 2.5.8 Target Size (Minimum) | AA 🆕 | ❌ | **Open:** aegis-di-prototype LAYERS checkboxes render <24 px. (Case-study TOC links were fixed this engagement.) |
 
 ### Understandable
@@ -106,7 +106,7 @@ Legend — ✅ Pass · ⚠️ Partial / needs review · ❌ Fail · ➖ Not appl
 ### P1 — WCAG 2.2 AA (new criteria) + reflow
 4. **Reflow — ctoc-dashboard.html** (1.4.10). Remove `width=1440`; use `width=device-width`. (Dense dashboard may need a responsive/scroll-container pass or a documented "desktop-only demo" notice.)
 5. **Target size — aegis-di-prototype LAYERS checkboxes** (2.5.8). Enlarge hit area to ≥24×24 px.
-6. **Dragging movements — Light Architect** (2.5.7) **and keyboard — Light Architect + 3-D building** (2.1.1). Add a single-pointer/keyboard alternative: arrow-key nudge + "Add light / Remove" buttons; arrow-key rotate for the building. *(Single fix closes both 2.5.7 and 2.1.1 for this widget.)*
+6. **Dragging movements — Light ARchitect** (2.5.7) **and keyboard — Light ARchitect + 3-D building** (2.1.1). Add a single-pointer/keyboard alternative: arrow-key nudge + "Add light / Remove" buttons; arrow-key rotate for the building. *(Single fix closes both 2.5.7 and 2.1.1 for this widget.)*
 
 ### P2 — Structural & best-practice
 7. **Skip link + `<main>` landmark — site-wide** (2.4.1). Add a visually-hidden "Skip to content" link and wrap primary content in `<main id="main">`.
@@ -157,7 +157,7 @@ Legend — ✅ Pass · ⚠️ Partial / needs review · ❌ Fail · ➖ Not appl
 ---
 
 ## 6. Bottom line
-The portfolio is in good automated shape — most pages pass WCAG 2.2 AA scanning outright. To claim **AODA (WCAG 2.0 AA) conformance** the P0 list (unlabeled select, two `lang` attributes, three contrast fixes) must close. To claim **WCAG 2.2 AA** the P1 list adds reflow, target-size, and — most substantively — a **keyboard/non-drag path for the Light Architect** (2.1.1 + 2.5.7), which is the single biggest piece of real engineering in this audit. Everything in P0–P1 is fixable; P2 raises the floor from "passes tools" to "works with a screen reader and a keyboard."
+The portfolio is in good automated shape — most pages pass WCAG 2.2 AA scanning outright. To claim **AODA (WCAG 2.0 AA) conformance** the P0 list (unlabeled select, two `lang` attributes, three contrast fixes) must close. To claim **WCAG 2.2 AA** the P1 list adds reflow, target-size, and — most substantively — a **keyboard/non-drag path for the Light ARchitect** (2.1.1 + 2.5.7), which is the single biggest piece of real engineering in this audit. Everything in P0–P1 is fixable; P2 raises the floor from "passes tools" to "works with a screen reader and a keyboard."
 
 ---
 

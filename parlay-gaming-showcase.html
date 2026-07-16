@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="page-transition.js"></script>
+<title>Parlay Games, iGaming at Production Scale (Showcase) · Robert Babiarz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="case-shot.css">
+<style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}img[src^="assets/parlay/"]{height:auto}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0}
+.cs{
+  --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-body:#534f48;--c-muted:#6e6a60;--c-muted2:#9a9486;
+  --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;--c-teal:#0d5350;--c-sand:#efe6d4;
+  --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
+  --c-navbg:rgba(255,252,245,0.84);
+}
+.cs.dark{
+  --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
+  --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;--c-teal:#0c3d3a;--c-sand:#1a2230;
+  --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
+  --c-navbg:rgba(11,16,22,0.82);
+  color-scheme:dark;
+}
+.cs{background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;overflow-x:clip}
+::selection{background:#0d5350;color:#fff}
+.mono{font-family:'JetBrains Mono',monospace}
+.cs a:focus-visible,.cs button:focus-visible,.cs summary:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:-0.025em;line-height:1.04}
+.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--c-accent)}
+@keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+[data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+[data-reveal].in{opacity:1;transform:none}
+[data-reveal][data-d="1"]{transition-delay:.08s}[data-reveal][data-d="2"]{transition-delay:.16s}[data-reveal][data-d="3"]{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}[class*="float"]{animation:none!important}.win{animation:none!important}}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.wrap-n{max-width:880px;margin:0 auto;padding:0 40px}
+.pad{padding:120px 0}
+.lead{font-size:clamp(16px,1.5vw,18px);color:var(--c-body);line-height:1.78}
+.sec-h{font-size:clamp(32px,4.6vw,58px);letter-spacing:-1.6px;color:var(--c-ink);line-height:1.02}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+
+/* browser-window framed screen */
+.win{border-radius:0;overflow:hidden;background:#0e1622}
+.win-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#13202f;border-bottom:1px solid rgba(255,255,255,.06)}
+.win-dot{width:11px;height:11px;border-radius:50%}
+.win img{width:100%;display:block}
+.win-1x{width:fit-content;max-width:100%;margin-inline:auto}
+.win-1x img{width:auto;max-width:100%;height:auto}
+
+/* full-bleed showcase band */
+.band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
+.band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:96px 40px}
+.band .glow{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:1}
+.band-navy{background:linear-gradient(165deg,#13315a 0%,#0F2A4A 55%,#0a2038 100%)}
+.band-teal{background:linear-gradient(165deg,#0f5f5b 0%,#0d5350 55%,#0a423f 100%)}
+.band-sand{background:linear-gradient(165deg,#efe7d6 0%,#e7dcc4 100%)}
+.cs.dark .band-sand{background:linear-gradient(165deg,#1c2430 0%,#141b25 100%)}
+.band-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-top:22px}
+.cap-light{color:rgba(255,255,255,.62)}
+.cap-dark{color:var(--c-muted)}
+.band-sand .cap-dark{color:var(--c-body)}
+.band-teal .cap-light{color:rgba(255,255,255,.78)}
+
+.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 26px}
+.meta-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);margin-bottom:11px}
+.meta-v{font-size:15px;color:var(--c-ink2);line-height:1.7}
+.meta-v.stack > span{display:block}
+
+.btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:#fff;background:var(--c-accent);text-decoration:none;padding:15px 26px;border-radius:999px;transition:transform .2s,box-shadow .2s;box-shadow:0 12px 26px -10px rgba(13,83,80,.6)}
+.btn-primary:hover{transform:translateY(-2px)}
+.cs.dark .btn-primary{color:#06201d}
+
+.card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
+
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.res-n{font-family:'Inter',sans-serif;font-size:clamp(44px,5.6vw,74px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
+.res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
+.mv{margin-top:16px;max-width:230px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
+.mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
+.mv-fill.on{background:var(--c-accent)}
+.cs.dark .mv-fill{background:#8a9ab5}.cs.dark .mv-fill.on{background:var(--c-accent)}
+.mv-dots{display:flex;gap:4px;align-items:center;flex-wrap:wrap;min-height:8px}
+.mv-dot{width:8px;height:8px;border-radius:50%;background:#8a8578;flex:0 0 auto}
+.mv-dot.dim{opacity:.4}
+.mv-dot.on{background:var(--c-accent)}
+.cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px;line-height:1.5}
+.mv-dots .mv-dot{transition:opacity .25s cubic-bezier(0.25,1,0.5,1),box-shadow .25s cubic-bezier(0.25,1,0.5,1)}
+.mv-dots:hover .mv-dot:not(.on){opacity:.35}
+.mv-dots:hover .mv-dot.on{box-shadow:0 0 0 3px color-mix(in srgb,var(--c-accent) 28%,transparent)}
+
+.parlay-chip{position:absolute;top:-16px;right:-14px;background:#0b1016;border:1px solid rgba(183,138,255,0.4);border-radius:11px;padding:11px 15px;box-shadow:0 9px 20px -8px rgba(11,16,22,0.5);z-index:3;animation:cs-float 8s ease-in-out infinite}
+@media (max-width:1060px){.parlay-chip{right:8px}}
+@media (max-width:560px){.parlay-chip{top:-10px;padding:9px 12px}.parlay-chip .mono:nth-child(2){font-size:18px}}
+@keyframes parlay-blink{0%,100%{opacity:1}50%{opacity:0.25}}
+.parlay-blink{animation:parlay-blink 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.parlay-blink{animation:none}.parlay-chip{animation:none}}
+
+.appr{display:flex;flex-direction:column;gap:0}
+.appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
+.appr-row:last-child{border-bottom:1px solid var(--c-b2)}
+.appr-n{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-accent);min-width:34px;padding-top:3px}
+.appr-h{font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;letter-spacing:-.01em}
+.appr-p{font-size:14.5px;color:var(--c-body);line-height:1.65}
+
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+/* natural-ratio gallery (no crop; siblings share source ratios) */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pgrid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+/* promo banner wall — cap at production 1×; shrink on narrow viewports */
+.promo-wall{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;justify-items:center}
+.promo-wall img{width:auto;max-width:100%;height:auto;display:block;border-radius:0}
+.promo-strips{display:grid;grid-template-columns:1fr;gap:14px;max-width:696px;margin:14px auto 0;justify-items:center}
+.promo-strips img{width:auto;max-width:100%;height:auto;display:block}
+/* logo wall */
+.logo-wall{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.logo-cell{background:var(--c-surface);border:1px solid var(--c-b2);padding:26px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.logo-cell img{max-width:100%;height:auto;display:block}
+/* player-avatar set — one caricature per card, sliced from the 7×4 sprite via background-position */
+.avset{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px}
+.avchip{background:#fff;border:1px solid var(--c-b2);border-radius:16px;padding:12px;box-shadow:0 1px 2px rgba(10,8,4,0.05)}
+.avface{width:100%;aspect-ratio:1;background-image:url(assets/parlay/avatars-grid.jpg);background-repeat:no-repeat;background-size:700% 400%}
+
+nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
+nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;min-width:0;gap:12px}
+.nav-actions{display:flex;align-items:center;gap:12px;min-width:0;flex-shrink:1;justify-content:flex-end}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand:hover{color:var(--c-ink)}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
+.iconbtn:hover{background:var(--c-card)}
+.cs-switch{position:relative}
+.cs-switch>summary{display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);list-style:none;user-select:none}
+.cs-switch>summary::-webkit-details-marker{display:none}
+.cs-switch .cs-sw-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase}
+.cs-switch .cs-sw-cur{font-size:13px;font-weight:600;color:var(--c-accent)}
+.cs-switch .cs-chev{color:var(--c-muted);transition:transform .2s}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+.cs-sheet{position:absolute;top:calc(100% + 8px);right:0;min-width:272px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,.4);padding:7px;z-index:300}
+.cs-sheet a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;transition:background .15s}
+.cs-sheet a:hover{background:var(--c-bg2)}
+.cs-sheet a.cur{background:var(--c-card)}
+.cs-sheet a .t{display:block;font-size:14px;font-weight:600;color:var(--c-ink2)}
+.cs-sheet a.cur .t{color:var(--c-accent)}
+.cs-sheet a .s{display:block;font-size:12px;color:var(--c-muted);margin-top:2px}
+.cs-sheet .cs-div{height:1px;background:var(--c-b2);margin:6px 4px}
+.cs-sheet a.cs-allwork{font-size:13px;color:var(--c-muted)}
+.cs-sheet a.cs-allwork:hover{color:var(--c-ink2)}
+@media (max-width:560px){.cs-switch .cs-sw-lbl{display:none}}
+
+.verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill a:hover{color:var(--c-ink)}
+.verpill a.on{background:var(--c-accent);color:#fff}
+.cs.dark .verpill a.on{color:#06201d}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+
+@media (max-width:980px){
+  nav.top .bar{padding:0 18px}
+  .wrap,.wrap-n{padding:0 20px}
+  .pad{padding:80px 0}
+  .band-inner{padding:64px 20px}
+  .results{grid-template-columns:1fr 1fr;gap:34px 20px}
+  .introgrid{grid-template-columns:1fr!important;gap:40px!important}
+  .cgrid{grid-template-columns:1fr 1fr!important}
+  .pgrid{grid-template-columns:1fr!important;gap:28px!important}
+  .pgrid2{grid-template-columns:1fr!important;gap:28px!important}
+  .logo-wall{grid-template-columns:1fr}
+  .promo-wall{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){.cgrid{grid-template-columns:1fr!important}.results{grid-template-columns:1fr 1fr}.promo-wall{grid-template-columns:1fr}}
+.navq:hover{color:var(--c-ink)}
+@media (max-width:680px){.navq{display:none}}
+@media (max-width:760px){
+  .nav-actions{gap:8px}
+  .cs-switch{flex-shrink:0}
+  .cs-switch>summary{min-width:0;max-width:none;width:36px;height:36px;padding:0;justify-content:center;gap:0}
+  .cs-switch .cs-sw-cur,.cs-switch .cs-sw-lbl{display:none}
+  .iconbtn{flex-shrink:0;width:36px;height:36px}
+  nav.top,.nav-actions .cs-switch>summary{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+  .cs-sheet-portal .cs-sheet{position:fixed !important;top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;min-width:0 !important;width:auto !important;border:none !important;border-radius:20px 20px 0 0 !important;box-shadow:0 -18px 50px -10px rgba(20,30,40,0.45) !important;padding:6px 12px calc(20px + env(safe-area-inset-bottom)) !important;max-height:80vh;overflow-y:auto;z-index:1 !important;background:var(--c-surface) !important;animation:cs-sheet-up .36s cubic-bezier(0.22,0.61,0.36,1)}
+  .cs-sheet-portal .cs-sheet::before{content:'';display:block;width:38px;height:4px;border-radius:99px;background:rgba(10,8,4,0.16);margin:5px auto 12px}
+  .cs-sheet-portal .cs-sheet>a{padding:14px 14px !important}
+  .cs.dark .cs-sheet-portal .cs-sheet::before{background:rgba(255,255,255,0.18)}
+}
+.cs-sheet-portal{position:fixed;inset:0;z-index:99992;pointer-events:none;font-family:'DM Sans',-apple-system,sans-serif;background:transparent!important;min-height:0!important;overflow:visible!important;color:inherit}
+.cs-sheet-portal>*{pointer-events:auto}
+.cs-sheet-portal .cs-sheet-backdrop{position:fixed;inset:0;margin:0;padding:0;border:0;appearance:none;-webkit-appearance:none;background:transparent;background-color:rgba(10,8,4,0.42)!important;opacity:1;z-index:0;cursor:default;animation:cs-fade .36s ease}
+.cs.dark .cs-sheet-portal .cs-sheet-backdrop{background-color:rgba(10,8,4,0.42)!important}
+.cs-sheet a.cs-allwork{display:flex;align-items:center;gap:8px}
+body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;pointer-events:none}
+@keyframes cs-sheet-up{from{transform:translateY(102%)}to{transform:none}}
+@keyframes cs-fade{from{opacity:0}to{opacity:1}}
+</style>
+
+  <!-- SEO·OG·JSONLD -->
+  <meta name="description" content="Parlay Games — two decades of iGaming design by Robert Babiarz: 50+ real-money games, brand and logo systems, player-facing web platforms, localized promotions at production volume, operator back office, and Lightwave 3D casino imagery.">
+  <meta name="author" content="Robert Babiarz">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://robertbabiarz.com/parlay-gaming.html">
+  <meta name="theme-color" content="#070b12">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Robert Babiarz — Product Designer">
+  <meta property="og:title" content="Parlay Games, iGaming at Production Scale (Showcase) · Robert Babiarz">
+  <meta property="og:description" content="Parlay Games — two decades of iGaming design by Robert Babiarz: 50+ real-money games, brand and logo systems, player-facing web platforms, localized promotions at production volume, operator back office, and Lightwave 3D casino imagery.">
+  <meta property="og:url" content="https://robertbabiarz.com/parlay-gaming-showcase.html">
+  <meta property="og:image" content="https://robertbabiarz.com/previews/p-parlay.png">
+  <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Parlay Games, iGaming at Production Scale (Showcase) · Robert Babiarz">
+  <meta name="twitter:description" content="Parlay Games — two decades of iGaming design by Robert Babiarz: 50+ real-money games, brand and logo systems, player-facing web platforms, localized promotions at production volume, operator back office, and Lightwave 3D casino imagery.">
+  <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-parlay.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Parlay Games, iGaming at Production Scale (Showcase) · Robert Babiarz","headline":"Parlay Games, iGaming at Production Scale (Showcase) · Robert Babiarz","description":"Parlay Games — two decades of iGaming design by Robert Babiarz: 50+ real-money games, brand systems, web platforms, promotions, back office, and 3D imagery.","url":"https://robertbabiarz.com/parlay-gaming-showcase.html","image":"https://robertbabiarz.com/previews/p-parlay.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Game Design, iGaming, Brand Identity, Logo Design, Web Design, Promotions, Design Systems","isPartOf":{"@type":"WebSite","name":"Robert Babiarz — Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
+  <script src="/analytics.js" defer></script>
+  <script src="cursor.js" defer></script>
+<script src="cookie-banner.js" defer></script>
+<script src="colophon.js" defer></script>
+<script src="search-index.js" defer></script>
+<script src="concierge.js" defer></script>
+</head>
+<body>
+<div class="cs" id="top">
+
+  <nav class="top">
+    <div class="bar">
+      <a class="brand" href="homepage-interactive.dc.html">
+        <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>
+        Robert Babiarz
+      </a>
+      <div class="nav-actions">
+        <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="display:inline-flex;align-items:center;font-size:10.5px;letter-spacing:.08em;color:var(--c-accent);font-weight:700;text-decoration:none">CONTACT</a>
+        <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
+        <details class="cs-switch">
+          <summary aria-label="Switch case study: Parlay Games iGaming">
+            <span class="cs-sw-lbl">Case study</span>
+            <span class="cs-sw-cur">Parlay Games</span>
+            <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;">expand_more</span>
+          </summary>
+          <div class="cs-sheet">
+            <a href="dali-2-showcase.html"><span class="t">DALI-2 Lighting System</span><span class="s">Commissioning at hospital scale</span></a>
+            <a href="core-insights-showcase.html"><span class="t">Insights Dashboards</span><span class="s">Operational intelligence · IoT</span></a>
+            <a href="partitioning-showcase.html"><span class="t">Dynamic Space Partitioning</span><span class="s">Spaces that change shape · WaveLinx</span></a>
+            <a href="enterprise-ai-showcase.html"><span class="t">Enterprise AI</span><span class="s">Conversational · explainable · predictive</span></a>
+            <a href="smart-lighting-showcase.html"><span class="t">Smart Lighting Mobile App</span><span class="s">Consumer IoT · enterprise depth</span></a>
+            <a href="light-architect-showcase.html"><span class="t">Light ARchitect</span><span class="s">AI photometric design · 3 US patents</span></a>
+            <a href="goals-driven-fintech-showcase.html"><span class="t">Goals-Driven Fintech</span><span class="s">Self-directed fintech</span></a>
+            <a href="ctoc-showcase.html"><span class="t">CTOC Dashboard System</span><span class="s">Enterprise cyber · 13 dashboards</span></a>
+            <a href="aegis-gims-showcase.html"><span class="t">AEGIS GIMS</span><span class="s">Filter-first geospatial C2</span></a>
+            <a href="parlay-gaming-showcase.html" class="cur"><span class="t">Parlay Games iGaming</span><span class="s">50+ games · brand · web · promos</span></a>
+            <div class="cs-div"></div>
+            <a href="homepage-interactive.dc.html" class="cs-allwork"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span> All work</a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section style="position:relative;overflow:hidden;padding:84px 0 0">
+    <div class="wrap center" style="position:relative;z-index:2">
+      <div class="eyebrow" data-reveal="">iGaming · Parlay Games · 2000–2020</div>
+      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.4vw,88px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:16ch">50+ games. 9 markets. <em>One design seat.</em></h1>
+      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:780px;margin-top:28px;color:var(--c-ink2)">Two decades of UI, game art, brand, web, and operator tooling for Parlay Games, the patent holder and world leader in online bingo. As the runtime moved from Java to Flash to HTML to mobile, the work moved with it, and every screen still had to earn its keep on a real-money floor.</p>
+      <div data-reveal="" data-d="3" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px">
+        <a class="btn-primary" href="parlay-gaming.html">Read the full case study <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+        <a href="#games" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See the games</a>
+      </div>
+    </div>
+
+    <div class="band band-navy" data-reveal="" style="margin-top:64px">
+      <div class="glow" style="width:560px;height:560px;top:-160px;right:8%;background:rgba(183,138,255,.14)"></div>
+      <div class="glow" style="width:420px;height:420px;bottom:-160px;left:4%;background:rgba(125,211,192,.13)"></div>
+      <div class="band-inner">
+        <div style="position:relative;max-width:min(100%,1600px);width:fit-content;margin:0 auto">
+          <div class="win win-1x" style="animation:cs-float 8s ease-in-out infinite;max-width:min(100%,1600px)">
+            <div class="win-bar" aria-hidden="true"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">this is your bingo · 90-ball desktop client · live floor</span></div>
+            <img width="1600" height="1184" fetchpriority="high" decoding="async" src="assets/parlay/bingo-desktop.jpg" alt="The 90-ball bingo desktop client: ball caller, called-number board, Million Dollar Bingo ticket rail, live chat, and purchasable strip tickets">
+          </div>
+          <div class="parlay-chip" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span class="parlay-blink" style="width:6px;height:6px;border-radius:50%;background:#b78aff;flex:none"></span><span class="mono" style="font-size:9px;color:#b78aff;letter-spacing:0.1em">PARLAY NETWORK · LIVE FLOOR</span></div>
+            <div class="mono" style="font-size:22px;font-weight:500;color:#e8edf5;line-height:1">$2B / yr</div>
+            <div style="font-size:10px;color:#8a9ab5;margin-top:3px;font-family:'DM Sans',sans-serif">wagered across the network, company figure</div>
+          </div>
+        </div>
+        <div class="band-cap cap-light">The 90-ball desktop client: caller, board, ticket rail, chat. Every element skinnable per operator brand</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO + META -->
+  <section class="pad" style="padding:104px 0">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start" class="introgrid">
+        <div>
+          <div class="eyebrow" data-reveal="">The Platform</div>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">A B2B network where <em>every pixel was billable</em></h2>
+          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">Parlay Games didn't run one bingo site. It ran the platform behind 70+ operator brands in nine regulated markets, and every one of them needed games, a brand, a website, promotions, and an operator console. That whole surface was the design job.</p>
+          <p class="lead" data-reveal="" data-d="2">One rule governed all of it: the games had to perform on minimum-spec machines, over real-world connections, with real money on the table. Craft that doesn't survive those conditions doesn't ship.</p>
+        </div>
+        <div class="card" data-reveal="" data-d="1" style="padding:34px">
+          <div class="meta-grid">
+            <div><div class="meta-k">Role</div><div class="meta-v">UI/UX · Game Art · Brand</div></div>
+            <div><div class="meta-k">Company</div><div class="meta-v stack"><span>Parlay Games Inc.</span><span>2000–2020</span></div></div>
+            <div><div class="meta-k">Domain</div><div class="meta-v stack"><span>Regulated iGaming</span><span>Online bingo · casino</span></div></div>
+            <div><div class="meta-k">Runtimes</div><div class="meta-v">Java → Flash → HTML → mobile</div></div>
+            <div><div class="meta-k">Surfaces</div><div class="meta-v stack"><span>Game clients · player sites</span><span>Back office · marketing</span></div></div>
+            <div><div class="meta-k">Scale</div><div class="meta-v">50+ games · 70+ operator brands</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BY THE NUMBERS -->
+  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1);padding:96px 0">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:60px">
+        <div class="eyebrow" data-reveal="">The Floor the Work Shipped Into</div>
+        <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Company figures, <em>for scale</em></h2>
+      </div>
+      <div class="results" id="stats">
+        <div data-reveal=""><div class="res-n">$2B</div><div class="res-l">USD wagered per year across the network</div>
+          <div class="mv" role="img" aria-label="Two billion US dollars wagered per year across the Parlay network, a company figure">
+            <div class="mv-lbl" aria-hidden="true"><span>WAGERED / YR</span><span>NETWORK-WIDE</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note" style="color:var(--c-muted)">PARLAY-ERA COMPANY FIGURE</div>
+          </div></div>
+        <div data-reveal="" data-d="1"><div class="res-n">2.8M</div><div class="res-l">Players online, served through 70+ operator clients</div>
+          <div class="mv" role="img" aria-label="2.8 million players online across more than seventy business-to-business operator clients">
+            <div class="mv-lbl" aria-hidden="true"><span>PLAYERS ONLINE</span><span>70+ B2B CLIENTS</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note" style="color:var(--c-muted)">PARLAY-ERA COMPANY FIGURE</div>
+          </div></div>
+        <div data-reveal="" data-d="2"><div class="res-n">50+</div><div class="res-l">Games designed and shipped: bingo, slots, keno, casino, word games</div>
+          <div class="mv" role="img" aria-label="More than fifty games designed and shipped">
+            <div class="mv-lbl" aria-hidden="true"><span>GAMES SHIPPED</span><span>ALL RUNTIMES</span></div>
+            <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
+            <div class="mv-note" style="color:var(--c-muted)">JAVA · FLASH · HTML · IOS &amp; ANDROID</div>
+          </div></div>
+        <div data-reveal="" data-d="3"><div class="res-n">9</div><div class="res-l">Regulated markets: UK, Spain, Italy, Kenya, Denmark, US, Brazil, Bahamas, Canada</div>
+          <div class="mv" role="img" aria-label="Nine regulated markets, drawn one dot per market">
+            <div class="mv-lbl" aria-hidden="true"><span>MARKETS</span><span>9 · DRAWN 1:1</span></div>
+            <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span></div>
+            <div class="mv-note" style="color:var(--c-muted)">EACH UNDER ITS OWN REGULATOR, KYC/AML AND RESPONSIBLE-GAMING RULES</div>
+          </div></div>
+      </div>
+      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted);letter-spacing:.06em;margin-top:34px;text-align:center">PLATFORM FIGURES FROM THE PARLAY ERA · THE FLOOR THE DESIGN WORK SHIPPED INTO, NOT METRICS CLAIMED FOR ONE SCREEN</div>
+    </div>
+  </section>
+
+  <!-- THE GAMES -->
+  <section class="pad" id="games">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
+        <div>
+          <div class="eyebrow" data-reveal="">The Games</div>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">Bingo is <em>a system,</em> not a card</h2>
+          <p class="lead" data-reveal="" data-d="2">75, 80, and 90-ball variants, buy and auto-buy flows, jackpot rails, chat, win states, all of it tuned so a player glancing between three cards never loses the thread. The same game logic shipped to desktop, iPad, and mobile web without losing its shape.</p>
+        </div>
+        <div class="appr">
+          <div class="appr-row" data-reveal=""><div class="appr-n">01</div><div><div class="appr-h">The buy is the funnel</div><div class="appr-p">Ticket selection, price, prize, and countdown live in one modal. Auto-buy sets games, tickets, max price, and max loss, self-imposed limits as a first-class control.</div></div></div>
+          <div class="appr-row" data-reveal="" data-d="1"><div class="appr-n">02</div><div><div class="appr-h">State you can read at a glance</div><div class="appr-p">WINNER, 1 TO GO, 2 TO GO. Card states are ranked and color-coded so the player's eye lands on the card that's closest, not the loudest.</div></div></div>
+          <div class="appr-row" data-reveal="" data-d="2"><div class="appr-n">03</div><div><div class="appr-h">Minimum spec is the spec</div><div class="appr-p">Every asset budget assumed the worst machine on the floor. Games were optimized to perform on minimum performance standards, because a dropped frame in a live game costs trust.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOTS BAND -->
+  <div class="band band-teal" data-reveal="">
+    <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow" style="color:#9fe9d8">Slots &amp; Casino</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Full titles, <em style="color:#9fe9d8">art to paytable</em></h2>
+        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">Hollywood Reels, 7s Ablaze, BonBon Blast, Bushwacks, Keno. Theme, symbols, reels, bonus rounds, and pay tables, designed as one coherent piece per title.</p>
+      </div>
+      <div class="pgrid">
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="800" height="531" loading="lazy" decoding="async" src="assets/parlay/slots-hollywood.jpg" alt="Hollywood Reels main slot screen with movie-themed symbols framed by film strips"></div><div class="band-cap cap-light">Hollywood Reels · five reels, movie-set staging</div></div>
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1200" height="909" loading="lazy" decoding="async" src="assets/parlay/slots-7s.jpg" alt="7s Ablaze three-reel slot in a casino cabinet frame with coin-level payout diagram"></div><div class="band-cap cap-light">7s Ablaze · classic 3-reel, cabinet chrome and all</div></div>
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="800" height="600" loading="lazy" decoding="async" src="assets/parlay/slots-bonbon.jpg" alt="BonBon Blast slot screen with candy symbols over a candy-land backdrop"></div><div class="band-cap cap-light">BonBon Blast · same rigor, different world</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRAND / LOGOS -->
+  <section class="pad" id="brand">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:54px">
+        <div class="eyebrow" data-reveal="">Brand &amp; Identity</div>
+        <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Logos that arrive <em>with a system</em></h2>
+        <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px auto 0">Marks for games, operators, and standalone brand commissions, each shipped as a kit: color and mono lockups, palettes, type specimens, mascots with pose sheets. The brand had to survive a game client, a website header, a promo banner, and print.</p>
+      </div>
+      <div class="logo-wall" data-reveal="">
+        <div class="logo-cell"><img width="596" height="335" loading="lazy" decoding="async" src="assets/parlay/logo-powwow-mascot.jpg" alt="Pow Wow Bingo logo lockup with the eagle mascot rising behind the wordmark, drum, and bingo balls"></div>
+        <div class="logo-cell"><img width="1000" height="302" loading="lazy" decoding="async" src="assets/parlay/logo-titanium-light.jpg" alt="Titanium Gaming logo: TG monogram in a square frame beside a condensed all-caps wordmark"></div>
+        <div class="logo-cell"><img width="1080" height="793" loading="lazy" decoding="async" src="assets/parlay/logo-chatterbox.jpg" alt="ChatterBox logo: a blue 3D cube speech bubble with CB initials beside a two-tone wordmark"></div>
+        <div class="logo-cell"><img width="800" height="508" loading="lazy" decoding="async" src="assets/parlay/mascot-eagle.jpg" alt="Pow Wow Bingo eagle mascot character sheet in two full-color poses"></div>
+      </div>
+      <div class="grid2" data-reveal="" data-d="1" style="margin-top:18px">
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1600" height="1344" loading="lazy" decoding="async" src="assets/parlay/brand-radiobingo.jpg" alt="Radio Bingo style guide: gradient radio-wave bingo-ball mark in multiple lockups, palette swatches, and a Squada One type specimen"></div><div class="band-cap cap-dark">Radio Bingo · lockups, one-color versions, palette, type specimen</div></div>
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1224" height="1584" loading="lazy" decoding="async" src="assets/parlay/brand-keto.jpg" alt="Keto Konnection style-guide page with logo grids on light and dark, hex palette chips, and business-card mockups"></div><div class="band-cap cap-dark">Keto Konnection · the full kit down to business cards</div></div>
+      </div>
+      <div data-reveal="" style="margin-top:18px">
+        <div class="avset" role="img" aria-label="Twenty-eight animal caricature player avatars recovered from the roughly forty-avatar set, drawn in a bold-outline cartoon style">
+          <div class="avchip"><div class="avface" style="background-position:0% 0%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:16.667% 0%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:33.333% 0%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:50% 0%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:66.667% 0%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:83.333% 0%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:100% 0%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:0% 33.333%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:16.667% 33.333%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:33.333% 33.333%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:50% 33.333%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:66.667% 33.333%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:83.333% 33.333%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:100% 33.333%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:0% 66.667%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:16.667% 66.667%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:33.333% 66.667%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:50% 66.667%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:66.667% 66.667%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:83.333% 66.667%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:100% 66.667%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:0% 100%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:16.667% 100%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:33.333% 100%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:50% 100%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:66.667% 100%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:83.333% 100%"></div></div>
+          <div class="avchip"><div class="avface" style="background-position:100% 100%"></div></div>
+        </div>
+        <div class="band-cap cap-dark" style="text-align:center">Player identity · 28 recovered from the roughly 40-avatar caricature set, drawn one at a time</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEB PLATFORMS -->
+  <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)" id="web">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:54px">
+        <div class="eyebrow" data-reveal="">Player-Facing Web</div>
+        <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Where the player <em>actually lives</em></h2>
+        <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px auto 0">Casino landing pages, a social bingo platform with profiles, friends and achievements, and the unglamorous part that pays for everything: deposit flows that work in every market's currency, language, and payment rail.</p>
+      </div>
+      <div class="pgrid2" data-reveal="">
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1200" height="985" loading="lazy" decoding="async" src="assets/parlay/web-victory.jpg" alt="Victory Gamez casino landing page: Canada's Online Casino headline beside a two-thousand-dollar deposit-bonus signup form"></div><div class="band-cap cap-dark">Victory Gamez · the landing page is the pitch</div></div>
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1200" height="1400" loading="lazy" decoding="async" src="assets/parlay/web-wonder-profile.jpg" alt="Wonder Bingo social profile dashboard with balance, activity feed, friends grid, gifts, and achievements"></div><div class="band-cap cap-dark">Wonder Bingo · a full social layer for real-money bingo</div></div>
+      </div>
+      <div data-reveal="" data-d="1" style="margin-top:18px">
+        <div class="win win-1x"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1600" height="1640" loading="lazy" decoding="async" src="assets/parlay/web-rb-deposit.jpg" alt="Radio Bingo deposit flow side by side in desktop and mobile: saved card payment, amount slider with preset chips, promotion code, and billing address"></div>
+        <div class="band-cap cap-dark">Radio Bingo cashier · desktop and mobile, one flow, with payment rails per market</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMOTIONS BAND -->
+  <div class="band band-navy" data-reveal="" id="promos">
+    <div class="glow" style="width:480px;height:480px;top:-140px;right:6%;background:rgba(183,138,255,.13)"></div>
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow" style="color:#b78aff">Promotions</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">A year-round calendar, <em style="color:#b78aff">in three sizes</em></h2>
+        <p class="lead" style="color:#c9d3e2;max-width:760px;margin:18px auto 0">Three fixed production sizes, every season, every market. Swedish national day, Brazilian payment holidays, Valentine's, Halloween. Concept, illustration, and copy, shipped to a year-round marketing calendar.</p>
+      </div>
+      <div style="max-width:800px;margin:0 auto 14px"><img width="800" height="311" loading="lazy" decoding="async" src="assets/parlay/promo-festival.jpg" alt="Festival Bingo hero banner: celebrating players and confetti with a Play Now button"></div>
+      <div class="promo-wall">
+        <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-summer.jpg" alt="Summer deposit bonus promo in a dense colorful doodle-illustration style">
+        <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-sweden.jpg" alt="Swedish national day promo with hot-air balloons in Swedish flag colors, copy in Swedish">
+        <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-tomatino.jpg" alt="La Tomatino chat prizes promo with painterly splattered tomatoes">
+        <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-getaway.jpg" alt="Grand Getaway bingo tournament promo with cartoon airplane and luggage">
+        <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-aprilfools.jpg" alt="April Fools deposit bonus promo with an upside-down jester">
+        <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-sunnyside.jpg" alt="Sunny Side Up bingo tournament promo with two illustrated fried eggs">
+      </div>
+      <div class="promo-strips">
+        <img width="696" height="153" loading="lazy" decoding="async" src="assets/parlay/promo-treasure.jpg" alt="Trolling for Treasure slot tournament strip banner with an underwater treasure scene">
+        <img width="696" height="153" loading="lazy" decoding="async" src="assets/parlay/promo-countdown.jpg" alt="Holiday Countdown bingo strip banner in a red Christmas style">
+        <img width="696" height="153" loading="lazy" decoding="async" src="assets/parlay/promo-bemine.jpg" alt="Be Mine Bingo Valentine's strip banner with a cartoon cupid and stitched heart">
+      </div>
+      <div class="band-cap cap-light">Shipped promo art at the three production sizes · Swedish localization shown; Portuguese ran in Brazil</div>
+    </div>
+  </div>
+
+  <!-- BACK OFFICE -->
+  <section class="pad" id="backoffice">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
+        <div>
+          <div class="eyebrow" data-reveal="">The Back Office</div>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">The tools <em>operators ran on</em></h2>
+          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">HouseEdge, the operator console behind every brand on the network: player management, fraud and deposit limits, game plug-in installs, analytics, foreign exchange. Enterprise tooling, a career before I designed it for lighting networks and security operations.</p>
+          <p class="lead" data-reveal="" data-d="2">This is the same product shape as a SOC console: dense tables, limits and thresholds, exports, roles. The domain changed later. The discipline didn't.</p>
+        </div>
+        <div>
+          <div data-reveal="">
+            <div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1200" height="760" loading="lazy" decoding="async" src="assets/parlay/bo-analytics.jpg" alt="HouseEdge social game analytics: a diverging bar chart of coin and chip credits and debits per day"></div>
+            <div class="band-cap cap-dark">Game economy analytics · credits and debits, day by day</div>
+          </div>
+          <div data-reveal="" data-d="1" style="margin-top:18px">
+            <div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1200" height="745" loading="lazy" decoding="async" src="assets/parlay/bo-plugins.jpg" alt="HouseEdge plugin manager listing installable and installed game and service plug-ins with version numbers"></div>
+            <div class="band-cap cap-dark">Plugin manager · games installed per operator, like apps</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D BAND -->
+  <div class="band band-sand" data-reveal="" id="threed">
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow">3D Imagery</div>
+        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The casino floor, <em>modelled from scratch</em></h2>
+        <p class="lead" style="max-width:720px;margin:18px auto 0">Slot banks, table pits, and in-game cabinet backgrounds, modelled and rendered in Lightwave 3D with textures built in Illustrator and Photoshop. Stock imagery, except we were the stock.</p>
+      </div>
+      <div class="pgrid">
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="962" height="772" loading="lazy" decoding="async" src="assets/parlay/3d-slotbank.jpg" alt="3D-rendered row of slot machines with red upholstered stools"></div><div class="band-cap cap-dark">Slot bank · rendered cabinet by cabinet</div></div>
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="958" height="768" loading="lazy" decoding="async" src="assets/parlay/3d-floor.jpg" alt="3D-rendered casino floor overview with slots, roulette, and blackjack tables"></div><div class="band-cap cap-dark">Floor overview · the whole room, one render</div></div>
+        <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="960" height="772" loading="lazy" decoding="async" src="assets/parlay/3d-videopoker.jpg" alt="3D-rendered row of video poker machines with detailed pay tables"></div><div class="band-cap cap-dark">Video poker row · pay tables legible in the render</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT CARRIED FORWARD -->
+  <section class="pad">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">What Carried Forward</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Regulated, real-money, real-time. <em>Sound familiar?</em></h2>
+      <p class="lead" data-reveal="" data-d="2" style="margin-bottom:14px">Twenty years of designing for a platform where money moved, regulators watched, and the worst machine on the floor set the budget. That's the discipline the later work stands on: IoT lighting networks, security operations, defence C2. Different floor, same stakes.</p>
+      <div data-reveal="" data-d="3" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px">
+        <a class="btn-primary" href="parlay-gaming.html">Read the deep dive <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:42px 40px 64px;background:var(--c-bg);border-top:1px solid var(--c-b1);min-height:198px;">
+    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+      <div>
+        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
+        <a href="goals-driven-fintech-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Goals-Driven Finance <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
+      <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
+    </div>
+  </footer>
+
+  <!-- VERSION TOGGLE -->
+  <div class="verpill">
+    <span class="vlbl">Version</span>
+    <a href="parlay-gaming-showcase.html" class="on">Quick tour</a>
+    <a href="parlay-gaming.html">Deep dive</a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('top');
+  var btn=document.getElementById('themeBtn');
+  var SUN='<span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span>';
+  var MOON='<span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span>';
+  function applyTheme(d){
+    root.classList.toggle('dark',d);
+    btn.innerHTML=d?SUN:MOON;
+    var portal=document.querySelector('.cs-sheet-portal');
+    if(portal) portal.classList.toggle('dark',d);
+    try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){}
+  }
+  var stored=null; try{stored=localStorage.getItem('rba-int-dark');}catch(e){}
+  applyTheme(stored==='true'||stored==='1');
+  btn.addEventListener('click',function(){ applyTheme(!root.classList.contains('dark')); });
+  document.querySelectorAll('details.cs-switch').forEach(function(d){
+    var sheet = d.querySelector('.cs-sheet');
+    var portal = null;
+    var backdrop = null;
+    var mq = window.matchMedia('(max-width:760px)');
+    function isMobile(){ return mq.matches; }
+    function restoreSheet(){
+      if (portal){
+        if (sheet && sheet.parentNode !== d) d.appendChild(sheet);
+        portal.remove();
+        portal = null;
+        backdrop = null;
+      }
+      document.body.classList.remove('cs-sheet-open');
+      document.body.style.overflow = '';
+    }
+    function mountSheet(){
+      if (!isMobile() || !d.open || !sheet || portal) return;
+      portal = document.createElement('div');
+      portal.className = 'cs cs-sheet-portal' + (root.classList.contains('dark') ? ' dark' : '');
+      backdrop = document.createElement('div');
+      backdrop.className = 'cs-sheet-backdrop';
+      backdrop.setAttribute('role', 'button');
+      backdrop.setAttribute('tabindex', '-1');
+      backdrop.setAttribute('aria-label', 'Close case study menu');
+      portal.appendChild(backdrop);
+      portal.appendChild(sheet);
+      document.body.appendChild(portal);
+      document.body.classList.add('cs-sheet-open');
+      document.body.style.overflow = 'hidden';
+      backdrop.addEventListener('click', function(){ d.removeAttribute('open'); });
+    }
+    d.addEventListener('toggle', function(){
+      if (d.open && isMobile()) mountSheet();
+      else restoreSheet();
+    });
+    mq.addEventListener('change', function(){
+      if (d.open && isMobile()) mountSheet();
+      else restoreSheet();
+    });
+    document.addEventListener('click', function(e){
+      if (!d.open) return;
+      if (d.contains(e.target) || (sheet && sheet.contains(e.target)) || e.target === backdrop) return;
+      d.removeAttribute('open');
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && d.open) d.removeAttribute('open');
+    });
+  });
+
+  var revealedAny=false;
+  function reveal(el){ el.classList.add('in'); setTimeout(function(){ el.style.transition='none'; el.style.opacity='1'; el.style.transform='none'; }, 850); }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revealedAny=true; reveal(e.target); io.unobserve(e.target);} }); },{threshold:0.1,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  setTimeout(function(){ if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); } },1000);
+  try{console.log('%cPARLAY GAMES%c the chapter before the defence work · 50+ games, one design seat. Deep dive: parlay-gaming.html','font-family:monospace;font-weight:700;color:#0d5350;','color:inherit;');}catch(e){}
+})();
+</script>
+
+</body></html>

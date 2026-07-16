@@ -6,7 +6,7 @@ read, fast, as a credible **defense-AI** product designer. A list of past jobs d
 the work has to *prove* the thesis through interaction.
 
 ## Product in one line
-Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light Architect, DALI-2, CORE Insights).
+Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
 
 ## Why now
 Defense / dual-use teams hire for judgment under uncertainty and systems thinking. The

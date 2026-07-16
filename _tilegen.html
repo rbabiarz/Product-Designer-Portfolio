@@ -57,6 +57,16 @@ body{background:#05070c;padding:24px;display:flex;flex-direction:column;gap:24px
 .ln{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;
   border:1.5px solid color-mix(in srgb,var(--ac) 42%,#39455a);background:#0a0f18}
 .ln.on{background:var(--ac);border-color:var(--ac);box-shadow:0 0 13px var(--ac),0 0 26px color-mix(in srgb,var(--ac) 42%,transparent)}
+/* ---------- BINGO CARD (PARLAY) ---------- */
+.bng{position:absolute;top:88px;right:92px;width:400px;height:400px;transform:rotate(-14deg) skewX(-6deg);
+  display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);gap:9px;
+  filter:drop-shadow(0 26px 54px rgba(0,0,0,.55))}
+.bng i{border-radius:9px;border:1.5px solid color-mix(in srgb,var(--ac) 30%,#39455a);background:#0a0f18;display:flex;align-items:center;justify-content:center}
+.bng i.dab::after{content:'';width:60%;height:60%;border-radius:50%;background:var(--ac);box-shadow:0 0 14px var(--ac),0 0 30px color-mix(in srgb,var(--ac) 42%,transparent)}
+.bng i.dab.dim::after{background:color-mix(in srgb,var(--ac) 40%,#0a0f18);box-shadow:none}
+.bngball{position:absolute;top:396px;right:452px;width:88px;height:88px;border-radius:50%;border:2px solid var(--ac);background:#0a0f18;
+  display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:600;color:var(--ac);
+  box-shadow:0 0 22px color-mix(in srgb,var(--ac) 45%,transparent);transform:rotate(-8deg)}
 .dtag{position:absolute;top:66px;right:70px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.14em;
   text-transform:uppercase;color:color-mix(in srgb,var(--ac) 86%,#fff);display:flex;align-items:center;gap:10px}
 .dtag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac)}
@@ -113,6 +123,21 @@ body{background:#05070c;padding:24px;display:flex;flex-direction:column;gap:24px
 .part{position:absolute;top:120px;right:80px;width:452px;height:300px;transform:rotate(-1.5deg);filter:drop-shadow(0 24px 52px rgba(0,0,0,.5))}
 .part .r{position:absolute;border:1.5px solid color-mix(in srgb,var(--ac) 28%,#2a3646);border-radius:5px;background:color-mix(in srgb,var(--ac) 4%,transparent)}
 .part .r.hi{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 15%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--ac) 32%,transparent)}
+/* ---------- FOOTCANDLE GRID (LIGHT ARCHITECT) ---------- */
+.fg{position:absolute;top:112px;right:76px;width:474px;height:322px;transform:rotate(-10deg) skewX(-5deg);
+  border:1.5px solid color-mix(in srgb,var(--ac) 38%,transparent);border-radius:5px;padding:10px;
+  background:linear-gradient(color-mix(in srgb,var(--ac) 5%,transparent),transparent),#0a0f18;
+  box-shadow:0 24px 54px rgba(0,0,0,.55),inset 0 0 60px color-mix(in srgb,var(--ac) 6%,transparent);
+  display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(8,1fr);gap:5px}
+.fg i{border-radius:2.5px;background:color-mix(in srgb,var(--ac) calc(var(--v)*1%),#0c1622);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.fg .fx{position:absolute;width:17px;height:17px;border-radius:50%;transform:translate(-50%,-50%);
+  background:var(--ac);border:2px solid #0a0f18;box-shadow:0 0 16px var(--ac),0 0 34px color-mix(in srgb,var(--ac) 45%,transparent)}
+.fg .iso{position:absolute;width:172px;height:120px;transform:translate(-50%,-50%);border-radius:50%;
+  border:1.5px dashed color-mix(in srgb,var(--ac) 62%,transparent)}
+.fgtag{position:absolute;top:452px;right:120px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.12em;
+  text-transform:uppercase;color:color-mix(in srgb,var(--ac) 86%,#fff);display:flex;align-items:center;gap:10px}
+.fgtag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac)}
 /* ---------- OG / SOCIAL 1200x630 ---------- */
 .og{height:630px}
 .og .motif{transform:scale(.78);transform-origin:top right}
@@ -132,9 +157,11 @@ const TILES=[
  {i:'03',key:'partitioning',ac:'#5ecf9e',domain:'Connected Spaces · WaveLinx',title:'Dynamic Space Partitioning',org:'WaveLinx · Cooper Lighting',motif:'partition'},
  {i:'04',key:'ai',ac:'#a78bfa',domain:'Enterprise · AI',title:'Enterprise AI',org:'Conversational · Explainable · Predictive',motif:'neural'},
  {i:'05',key:'smart',ac:'#f0a878',domain:'Consumer IoT · Mobile',title:'Smart Lighting Mobile App',org:'iOS & Android',motif:'phone'},
- {i:'06',key:'fintech',ac:'#6ea8ff',domain:'Fintech · Open Banking',title:'Goals-Driven Fintech',org:'Interactive prototype',motif:'gauge'},
- {i:'07',key:'ctoc',ac:'#7dd3c0',domain:'Enterprise Cyber Ops',title:'CTOC Dashboard System',org:'13 interlocking dashboards',motif:'radar'},
- {i:'08',key:'gims',ac:'#ff9d66',domain:'Defence C2 · Geospatial',title:'AEGIS GIMS',org:'Filter-first common operating picture',motif:'recon'},
+ {i:'06',key:'la',ac:'#c8f06c',domain:'AI Photometric Design · SaaS',title:'Light ARchitect',org:'Cooper Lighting · 3 US patents',motif:'footgrid'},
+ {i:'07',key:'fintech',ac:'#6ea8ff',domain:'Fintech · Open Banking',title:'Goals-Driven Fintech',org:'Interactive prototype',motif:'gauge'},
+ {i:'08',key:'ctoc',ac:'#7dd3c0',domain:'Enterprise Cyber Ops',title:'CTOC Dashboard System',org:'13 interlocking dashboards',motif:'radar'},
+ {i:'09',key:'gims',ac:'#ff9d66',domain:'Defence C2 · Geospatial',title:'AEGIS GIMS',org:'Filter-first common operating picture',motif:'recon'},
+ {i:'10',key:'parlay',ac:'#b78aff',domain:'iGaming · Regulated',title:'Parlay Games iGaming',org:'50+ games · brand · web · promos',motif:'bingo'},
 ];
 function heatplate(){ // deterministic occupancy heat
  let cells='';const hot=new Set([15,16,27,28,29,39,40,52,53,64]);
@@ -171,7 +198,22 @@ function neural(){const L1=[[40,50],[40,120],[40,190],[40,260]],L2=[[200,85],[20
 function partition(){const rects=[[2,2,40,56,0],[44,2,54,26,0],[44,30,32,28,1],[78,30,20,28,0],[2,60,24,38,0],[28,60,42,38,0],[72,60,26,18,0],[72,80,26,18,0]];
  let r='';rects.forEach(([x,y,w,h,hi])=>r+=`<div class="r ${hi?'hi':''}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></div>`);
  return `<div class="part">${r}</div>`;}
-const M={heatplate,bus,phone,gauge,radar,recon,neural,partition};
+function bingo(){ // 5x5 card, one dabbed diagonal win line + scatter, called ball beside it
+ const line=new Set([0,6,12,18,24]),scatter=new Set([3,9,16,21]);let c='';
+ for(let i=0;i<25;i++){c+=`<i class="${line.has(i)?'dab':scatter.has(i)?'dab dim':''}"></i>`;}
+ return `<div class="bng">${c}</div><div class="bngball">B12</div>`;}
+function footgrid(){ // deterministic footcandle grid: 3 luminaires, inverse-square-ish falloff, one isolux ring
+ const FX=[[2.5,2],[6,4.8],[9.5,2.3]]; // fixture positions in cell space (12x8)
+ let cells='';
+ for(let r=0;r<8;r++)for(let c=0;c<12;c++){
+   let v=4;FX.forEach(([fx,fy])=>{const d2=(c-fx)*(c-fx)+(r-fy)*(r-fy);v+=88/(1+d2*0.55);});
+   cells+=`<i style="--v:${Math.min(92,Math.round(v))}"></i>`;}
+ // fixture dots + iso ring placed in % of the plate (padding-adjusted)
+ const pos=FX.map(([c,r])=>[( (c+0.5)/12*100 ).toFixed(1),(( r+0.5)/8*100 ).toFixed(1)]);
+ let d='';pos.forEach(([x,y])=>d+=`<div class="fx" style="left:${x}%;top:${y}%"></div>`);
+ d+=`<div class="iso" style="left:${pos[1][0]}%;top:${pos[1][1]}%"></div>`;
+ return `<div class="fg">${cells}${d}</div><div class="fgtag">AVG 2.1 FC · MAX:MIN 4.8:1</div>`;}
+const M={heatplate,bus,phone,gauge,radar,recon,neural,partition,bingo,footgrid};
 document.getElementById('stage').innerHTML=TILES.map(t=>`
  <div>
  <div class="cap">${t.key} · previews/p-${t.key}.png · 1200×800</div>

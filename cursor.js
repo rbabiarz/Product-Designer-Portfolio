@@ -1,7 +1,8 @@
 /* rb-cursor — custom cursor for the homepage variants.
-   Two-and-a-half states: default (dot + trailing ring), active (over any
-   interactive element, incl. the long-dormant [data-cursor] hooks), and
-   move (near a Light Architect luminaire — directional arrows).
+   States: default (accent dot + trailing ring), active (over any interactive
+   element, incl. the long-dormant [data-cursor] hooks), plate (over the
+   Light Architect photometric map — the cursor turns white), and move (over
+   a luminaire — stays white and shows directional arrows).
    Pointer-fine devices only; the trailing lag is dropped under
    prefers-reduced-motion; the native cursor is restored on touch/kbd. */
 (function () {
@@ -44,8 +45,10 @@
       '#rb-cur-ring .rb-a-b{bottom:1px;left:50%;transform:translateX(-50%)}' +
       'html.rb-cur-active #rb-cur-dot{width:4px;height:4px}' +
       'html.rb-cur-active #rb-cur-ring{width:42px;height:42px;opacity:.9;background:color-mix(in srgb,' + accent + ' 12%, transparent)}' +
-      'html.rb-cur-move #rb-cur-dot{width:4px;height:4px}' +
-      'html.rb-cur-move #rb-cur-ring{width:46px;height:46px;opacity:1}' +
+      'html.rb-cur-plate #rb-cur-dot{background:#fff;box-shadow:0 0 5px rgba(0,0,0,0.45)}' +
+      'html.rb-cur-plate #rb-cur-ring{border-color:#fff;opacity:.85;background:transparent;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.4))}' +
+      'html.rb-cur-move #rb-cur-dot{width:4px;height:4px;background:#fff;box-shadow:0 0 5px rgba(0,0,0,0.45)}' +
+      'html.rb-cur-move #rb-cur-ring{width:46px;height:46px;opacity:1;border-color:#fff;background:transparent;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.4))}' +
       'html.rb-cur-move #rb-cur-ring .rb-cur-a{opacity:.95}' +
       'html.rb-cur-hidden #rb-cur-dot, html.rb-cur-hidden #rb-cur-ring{opacity:0}';
     document.head.appendChild(css);
@@ -61,24 +64,26 @@
     var mx = -100, my = -100, rx = -100, ry = -100, raf = null, shown = false;
     var ACTIVE_SEL = 'a,button,[role="button"],summary,select,input,label,[data-cursor],.la-tb';
 
-    function nearLuminaire(x, y) {
-      // move affordance only while the pointer is over the photometric plate
+    function probe(x, y) {
+      // over the photometric plate the cursor turns white; near a luminaire
+      // it stays white and gains the directional move arrows
       var plate = document.getElementById('la-plate');
-      if (!plate) return false;
+      if (!plate) return { plate: false, move: false };
       var pr = plate.getBoundingClientRect();
-      if (x < pr.left || x > pr.right || y < pr.top || y > pr.bottom) return false;
+      if (x < pr.left || x > pr.right || y < pr.top || y > pr.bottom) return { plate: false, move: false };
       var fx = document.querySelectorAll('.la-fx');
       for (var i = 0; i < fx.length; i++) {
         var r = fx[i].getBoundingClientRect();
-        if (x >= r.left - 12 && x <= r.right + 12 && y >= r.top - 12 && y <= r.bottom + 12) return true;
+        if (x >= r.left - 12 && x <= r.right + 12 && y >= r.top - 12 && y <= r.bottom + 12) return { plate: true, move: true };
       }
-      return false;
+      return { plate: true, move: false };
     }
 
     function setState(t, x, y) {
-      var move = nearLuminaire(x, y);
-      var active = !move && t && t.closest && !!t.closest(ACTIVE_SEL);
-      root.classList.toggle('rb-cur-move', move);
+      var p = probe(x, y);
+      var active = !p.move && !p.plate && t && t.closest && !!t.closest(ACTIVE_SEL);
+      root.classList.toggle('rb-cur-plate', p.plate && !p.move);
+      root.classList.toggle('rb-cur-move', p.move);
       root.classList.toggle('rb-cur-active', active);
     }
 

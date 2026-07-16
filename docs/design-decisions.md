@@ -76,3 +76,39 @@ Append-only record of meaningful choices. Newest at top.
 - **Consequences:** One more registry entry to maintain in switchers/homepages/work/concierge;
   the prototype iframe is the site's only external-origin embed (rbabiarz.github.io), labeled
   honestly as the one thing that needs a connection.
+
+## ADR — Parlay Games iGaming enters the portfolio as case study 09
+- **Date:** 2026-07-12
+- **Status:** Accepted
+- **Context:** The pre-IoT career chapter (a decade of iGaming at Parlay Games) existed only as a
+  Figma case study; the site's narrative jumps from nothing to connected lighting. The material is
+  breadth-heavy (logos, game art, web platforms, promos, back office, 3D), unlike the site's
+  depth-first case studies.
+- **Decision:** Re-author into the two-page convention (showcase + deep-dive shells) as an
+  image-led "range under production constraints" story; extract all imagery and copy from the
+  Figma source; number it 09 everywhere; label company-level figures ($2B wagered/yr, 2.8M
+  players, 70 clients) as Parlay-era context, not design metrics. Name it "Parlay Games"
+  (source-accurate); reconciling the About page's "Parlay Gaming" is logged in open-questions.
+- **Consequences:** First case study with no interactive prototype — the proof is production
+  volume and range, stated honestly; adds ~20 optimized images to assets/parlay/.
+
+## ADR — Light ARchitect enters the portfolio as case study 06
+- **Date:** 2026-07-12
+- **Status:** Accepted
+- **Context:** The flagship of the Cooper tenure (six years, three published US patents, the
+  About page's $6M+ line) had no case study while the homepage carried a "coming soon" pill on
+  its Light ARchitect scene. Sources are mixed-sensitivity: an older self-authored case study and
+  Confluence/Jira exports (context only), public patents, the public cooperlighting.com page, and
+  a 301-screen product export library.
+- **Decision:** Insert as case study 06 (after Smart Lighting), renumbering 06–09 → 07–10 across
+  all surfaces rather than appending — the lighting arc reads chronologically. Two-page pair on
+  the newest (plain-HTML) shells; the deep dive carries three in-page simulations sharing one
+  footcandle engine (la-sims.js), each honesty-labeled and keyboard-operable. All copy written
+  fresh: no ticket ids, colleague names, internal system names, or Confluence/Jira sentences;
+  patents are the only verbatim source. Product name standardized to "Light ARchitect" in visible
+  copy site-wide (CSS vars, ids, and file paths unchanged). The homepage pill was promoted to a
+  case-study link, and the work-index carousel clamp was corrected (count 8 → 10; card 10 had
+  been unreachable).
+- **Consequences:** Every case list is now 10 deep; the CORE/Enterprise-AI pages keep canonical
+  ownership of the "5,000 IES searchable / 20 auto-placed in CORE" framing (this case cross-links
+  instead of restating); adds ~24 optimized images to assets/la/ and a lime `footgrid` tile motif.

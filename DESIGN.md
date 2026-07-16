@@ -2,7 +2,7 @@
 
 The complete design-system reference for Robert Babiarz's senior product-design portfolio: the
 north star, principles, and **every token, style, component, and motion** actually shipped across
-the self-contained `.html` / `.dc.html` prototypes (AEGIS, CTOC, Light Architect, DALI-2, CORE
+the self-contained `.html` / `.dc.html` prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE
 Insights).
 
 > **Source of truth.** Live values come from [`tokens.css`](./tokens.css) (foundational scale),
@@ -182,7 +182,7 @@ Motion explains a state change or directs attention — never decoration.
 | Surface | Keyframes |
 |---|---|
 | Hero / global | `rise`, `fade-up` (line-by-line entrance), `hero-hl-draw` (highlight underline, `cubic-bezier(.62,0,.34,1)`), `clarity-focus` (8s blur-in loop), `scrolldot`, `marquee` (+ scroll counter-motion), `hl-swipe`, `blink` |
-| Isometric / Light Architect | `cityFloat`, `cityWin`, `cityBeacon`, `laPulse`, `laBeam`, `laScan` |
+| Isometric / Light ARchitect | `cityFloat`, `cityWin`, `cityBeacon`, `laPulse`, `laBeam`, `laScan` |
 | Dossier | `dossier-up` (section entrance), `dossier-blink` (status dot) |
 | Retro | `rt-pwr` (VT323 power-on), `rt-in` (boot stagger), `rt-flicker` (phosphor), `rt-scan` (drifting beam), `rt-blink` (cursor) |
 | CTOC | `pulse` / `pulse-red` (live & critical dots), `highlight` (new feed item), `fade`, `slidein` (drawer) |
@@ -253,7 +253,7 @@ Stage `position:relative`, `height:min(70vh,620px)` (78vh mobile), radius 16, ra
   `position:absolute`**, not viewport-fixed, so it survives transformed host ancestors; stage framed
   into view on open (**ADR-004**); closes on ✕/Esc/backdrop.
 
-### Light Architect (interactive photometric scene)
+### Light ARchitect (interactive photometric scene)
 Draggable fixture markers (`.la-fx` 18×7, lime border, glow on `.on`/hover, 44×44 touch target,
 focus ring); pill hint popup (`#la-hint` glass+blur, accent dot); isometric ground plane
 (`rotateX(74deg)` + radial mask); floating telemetry HUD (`cityFloat`, `pointer-events:none`);
@@ -284,13 +284,13 @@ severity. Color always paired with shape/label.
 · **≤860** nav→burger, 2-col→1, TOC hidden · **861–1080** 3-col→2 · **≥1181** TOC rail appears.
 
 **Theming** — `:root` = dark; `.light` re-declares the same `--bg/--fg/--ac/--line`. Toggle persists
-`localStorage['rba-int-dark']`; dark default. Light Architect has its own `--la-*` set.
+`localStorage['rba-int-dark']`; dark default. Light ARchitect has its own `--la-*` set.
 
 **Homepage variants** — VIEW switcher swaps Interactive (primary) / Dossier / Retro; writes
 `localStorage['rb-home-variant']`; on load `home-variants.js` silently `location.replace()`s to the
 saved variant (preserving the hash). `index.html` redirects into Interactive.
 
-**States** — AEGIS attract→playing→game-over (+paused with modal); Light Architect empty→hint→recompute;
+**States** — AEGIS attract→playing→game-over (+paused with modal); Light ARchitect empty→hint→recompute;
 always design empty/loading/error and the longest-content case (truncate where bounded).
 
 **Robustness** — isolated `try/catch` inits (one failure can't cascade; missing nodes fail silently);

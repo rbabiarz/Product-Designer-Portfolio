@@ -26,7 +26,7 @@ JS modules (`support.js`, `text-motion.js`, `page-transition.js`, `a11y.js`, `ho
 
 CSS-variable override, no duplicated styles: `:root` defines the **dark** palette; a `.light` class
 on the root re-declares the same `--bg/--fg/--ac/--line` tokens. The nav theme toggle flips the class
-and persists `localStorage['rba-int-dark']`; **dark is the default**. The Light Architect scene gets
+and persists `localStorage['rba-int-dark']`; **dark is the default**. The Light ARchitect scene gets
 its own `--la-*` set (light default, dark override under `#int-root:not(.light)`). Dossier and Retro
 are single-theme surfaces with their own palettes.
 
@@ -59,7 +59,7 @@ Motion explains a state change or directs attention — never decoration. Tokens
 - **Hero / global:** `rise` + `fade-up` (line-by-line hero entrance), `hero-hl-draw` (highlight
   underline scaleX, `cubic-bezier(.62,0,.34,1)`), `clarity-focus` (8s blur-in loop on a hero word),
   `scrolldot` (scroll cue), `marquee` (keyword loop with scroll counter-motion).
-- **Isometric building / Light Architect:** `cityFloat`, `cityWin`, `cityBeacon`, `laPulse`,
+- **Isometric building / Light ARchitect:** `cityFloat`, `cityWin`, `cityBeacon`, `laPulse`,
   `laBeam`, `laScan`.
 - **Dossier:** `dossier-up` (section entrance), `dossier-blink` (status dot).
 - **Retro:** `rt-pwr` (VT323 power-on), `rt-in` (boot-log stagger), `rt-flicker` (phosphor),
@@ -90,7 +90,7 @@ Every motion path gates on it:
 Design every state, not just the happy path:
 - **AEGIS state machine:** attract → playing → game-over, plus a paused state while the scoring
   modal is open. HUD/receipt opacity-gate per state.
-- **Light Architect:** empty plate → place-fixtures hint → live recompute; degrades if imagery is absent.
+- **Light ARchitect:** empty plate → place-fixtures hint → live recompute; degrades if imagery is absent.
 - **Empty / loading / error:** show what precedes data, during, and on failure; never a blank frame.
 - **Longest content:** labels, names, and tables must hold their longest real value (truncate with
   `text-overflow: ellipsis` where bounded).

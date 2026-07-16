@@ -89,6 +89,25 @@ body{margin:0;background:#040806}
 .la-info-row{display:flex;gap:12px;align-items:baseline;font-size:12px;line-height:1.55;color:#9af0c2;margin-bottom:7px;}
 .la-info-row strong{color:#cdffe2;}
 .la-info-k{flex:none;width:52px;font-size:11px;font-weight:700;letter-spacing:0.02em;color:#cdffe2;}
+/* phone: site HUD + toolbar stay at top, stacked with gap so RESET never covers the label */
+@media (max-width:640px){
+  #la-stage .la-chrome-top{
+    position:absolute;top:0;left:0;right:0;z-index:5;
+    display:flex;flex-direction:column;align-items:stretch;gap:10px;
+    padding:10px;pointer-events:none;
+  }
+  #la-stage .la-hud-site{
+    position:static !important;top:auto !important;left:auto !important;right:auto !important;
+    font-size:10px !important;line-height:1.4 !important;letter-spacing:0.06em !important;
+  }
+  #la-stage .la-toolbar{
+    position:static !important;top:auto !important;right:auto !important;
+    justify-content:flex-start !important;gap:6px !important;pointer-events:auto;
+  }
+  #la-stage .la-toolbar .la-tb{padding:6px 9px;font-size:9px;}
+  #la-stage .la-toolbar .la-tb .msi{font-size:18px !important;}
+  #la-stage .la-hud-hint{left:10px !important;right:10px !important;bottom:10px !important;font-size:10px !important;letter-spacing:0.06em !important;}
+}
 /* ════ AEGIS · FUSION WATCH (ported) ════ */
 /* ── AEGIS · FUSION WATCH mini-game ── */
 #ag-stage:focus-visible{box-shadow:0 0 0 2px rgba(108,240,164,0.55),0 30px 80px -40px rgba(0,0,0,0.8);}
@@ -166,6 +185,7 @@ body{margin:0;background:#040806}
 <script src="a11y.js"></script>
 <script src="cursor.js" defer></script>
 <script src="cookie-banner.js" defer></script>
+<script src="colophon.js" defer></script>
 <script src="search-index.js" defer></script>
 <script src="concierge.js" defer></script>
 </helmet>
@@ -206,7 +226,7 @@ body{margin:0;background:#040806}
     <div class="rt-boot" style="font-size:13px;line-height:1.85;color:#3f9e69;letter-spacing:0.04em;margin-bottom:34px;">
       <div>[ 09:50:01 ] POST OK · 64K HIGH MEMORY AREA · PHOSPHOR CRT DETECTED</div>
       <div>[ 09:50:02 ] MOUNTING SUBJECT FILE <span style="color:#6cf0a4;">RB-2026</span> · HIGH-CONSEQUENCE UX · OK</div>
-      <div>[ 09:50:03 ] LOADING PORTFOLIO.SYS · 7 CASE FILES · 3 PATENTS (+1 PENDING)</div>
+      <div>[ 09:50:03 ] LOADING PORTFOLIO.SYS · 10 CASE FILES · 3 PATENTS (+1 PENDING)</div>
       <div>[ 09:50:04 ] STATUS: <span style="color:#ffb454;">OPEN TO ASSIGNMENT</span> READY.</div>
     </div>
 
@@ -215,7 +235,7 @@ body{margin:0;background:#040806}
       <div style="font-size:13px;letter-spacing:0.1em;color:#3f9e69;margin-bottom:14px;">C:\USERS\ROBERT&gt; <span id="rt-type" data-text="whoami --full" style="color:#6cf0a4;">whoami --full</span><span style="display:inline-block;width:9px;height:17px;background:#6cf0a4;margin-left:3px;vertical-align:-2px;animation:rt-blink 1.05s steps(1) infinite;box-shadow:0 0 8px rgba(108,240,164,0.8);"></span></div>
       <h1 style="font-family:'VT323',monospace;font-weight:400;font-size:clamp(60px,13vw,168px);line-height:0.82;letter-spacing:0.01em;color:#cdffe2;text-shadow:0 0 16px rgba(108,240,164,0.5),0 0 3px rgba(108,240,164,0.9);margin:6px 0 0;animation:rt-pwr 0.9s cubic-bezier(.2,.8,.2,1) both;transform-origin:center;">ROBERT BABIARZ</h1>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:22px;">
-        <p style="font-size:15px;line-height:1.7;color:#6cf0a4;max-width:680px;">&gt; I make complex systems feel effortless. High-consequence UX across networked cyber-physical IoT, regulated real-money platforms, AR field tooling, Enterprise SaaS &amp; B2B, earning design a founding voice inside engineering-first teams.</p>
+        <p style="font-size:15px;line-height:1.7;color:#6cf0a4;max-width:680px;">&gt; Senior product designer, builder, and inventor shipping high-consequence UX across cyber-physical IoT, regulated real-money platforms, AR field tooling, and enterprise B2B SaaS. I work in highly collaborative, engineering-first teams where UX is the bridge, the shared language that keeps product, design, and build aligned, and where design earns a founding voice.</p>
         <div style="font-size:12px;line-height:1.9;color:#3f9e69;letter-spacing:0.06em;text-align:right;white-space:nowrap;">
           <div>LOC&nbsp;&nbsp;<span style="color:#6cf0a4;">GREATER TORONTO AREA</span></div>
           <div>ROLE&nbsp;<span style="color:#6cf0a4;">SR. PRODUCT DESIGNER</span></div>
@@ -257,7 +277,7 @@ body{margin:0;background:#040806}
     <section data-screen-label="Retro work directory" style="margin-top:54px;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:8px;">
         <div style="font-size:14px;letter-spacing:0.08em;color:#cdffe2;">C:\&gt; <span style="color:#ffb454;">DIR</span> /WORK /CASE-FILES</div>
-        <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">8 FILE(S) · 0 DIR(S) · SELECT TO OPEN</div>
+        <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">10 FILE(S) · 0 DIR(S) · SELECT TO OPEN</div>
       </div>
       <div style="border-top:1px solid rgba(108,240,164,0.28);border-bottom:1px solid rgba(108,240,164,0.28);">
 
@@ -291,22 +311,34 @@ body{margin:0;background:#040806}
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[LIVE] CONSUMER IOT</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
-        <a class="rt-file" href="goals-driven-fintech-showcase.html" data-preview="previews/thumb-fintech.png?v=2" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
+        <a class="rt-file" href="light-architect-showcase.html" data-preview="previews/thumb-la.png?v=2" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
           <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">06</span>
+          <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">LIGHT_ARCHITECT.case</span>
+          <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[LIVE] AI PHOTOMETRICS</span>
+          <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
+        </a>
+        <a class="rt-file" href="goals-driven-fintech-showcase.html" data-preview="previews/thumb-fintech.png?v=2" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
+          <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">07</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">GOALS_FINTECH.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[LIVE] OPEN BANKING</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
         <a class="rt-file" href="ctoc-showcase.html" data-preview="previews/thumb-ctoc.png?v=2" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
-          <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">07</span>
+          <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">08</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">CTOC_DASHBOARDS.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[LIVE] CYBER OPS</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
         <a class="rt-file" href="aegis-gims-showcase.html" data-preview="previews/thumb-gims.png?v=2" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
-          <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">08</span>
+          <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">09</span>
           <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">AEGIS_GIMS.case</span>
           <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[LIVE] GEO C2</span>
+          <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
+        </a>
+        <a class="rt-file" href="parlay-gaming-showcase.html" data-preview="previews/thumb-parlay.png?v=2" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
+          <span class="rt-fnum" style="font-size:13px;color:#3f9e69;transition:color .2s;">10</span>
+          <span class="rt-fname" style="font-family:'VT323',monospace;font-size:30px;line-height:1;color:#9af0c2;letter-spacing:0.02em;transition:color .2s,text-shadow .2s;">PARLAY_GAMES.case</span>
+          <span class="rt-hide-sm" style="font-size:11px;letter-spacing:0.08em;color:#3f9e69;text-align:right;">[LIVE] IGAMING</span>
           <span class="rt-fopen" style="font-size:13px;opacity:0.35;transition:opacity .2s,color .2s;">&gt;</span>
         </a>
       </div>
@@ -318,22 +350,24 @@ body{margin:0;background:#040806}
         <div style="font-size:14px;letter-spacing:0.08em;color:#cdffe2;">C:\&gt; <span style="color:#ffb454;">PLOT</span> PHOTOMETRY.VEC --site=PARKING-LOT-MISSISSAUGA</div>
         <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">LIVE FOOTCANDLE GRID</div>
       </div>
-      <p style="font-size:13px;line-height:1.7;color:#6cf0a4;max-width:680px;margin-bottom:12px;">&gt; A browser-based photometric planner: drop fixtures on any address, footcandle grids, isolux contours &amp; spec-ready PDFs, all computed from satellite imagery. This build is live: drag a fixture, click the grid to add one, double-click to delete.</p>
+      <p style="font-size:13px;line-height:1.7;color:#6cf0a4;max-width:680px;margin-bottom:12px;">&gt; A browser-based photometric planner: drop fixtures on any address, footcandle grids &amp; spec-ready PDFs, all computed from satellite imagery. This build is live: drag a fixture, click the grid to add one, double-click to delete.</p>
       <div id="lightarch" style="position:relative;border:1px solid rgba(108,240,164,0.3);overflow:hidden;background:#030605;">
         <div id="la-stage" style="position:relative;height:clamp(420px,58vh,560px);overflow:hidden;">
           <!-- plotter grid backdrop -->
           <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(108,240,164,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(108,240,164,0.05) 1px,transparent 1px);background-size:34px 34px;pointer-events:none;"></div>
           <!-- HUD -->
-          <div style="position:absolute;top:14px;left:16px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;text-shadow:0 0 6px rgba(108,240,164,0.5);z-index:4;">SITE: PARKING LOT, MISSISSAUGA, ON · <span id="la-count">16 × GALN GALLEON II</span></div>
-          <div class="rt-hide-sm" style="position:absolute;bottom:12px;right:16px;font-size:11px;letter-spacing:0.1em;color:#3f9e69;pointer-events:none;z-index:4;">ILLUMINANCE (FC) · LLF 0.912</div>
-          <div style="position:absolute;bottom:12px;left:16px;display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;z-index:4;"><span style="width:7px;height:7px;border-radius:50%;background:#6cf0a4;box-shadow:0 0 8px 2px rgba(108,240,164,0.8);animation:rt-blink 1.6s steps(1) infinite;"></span><span id="la-hint-line">DRAG FIXTURE · CLICK GRID = ADD · DBL-CLICK = DELETE</span></div>
+          <div class="la-chrome-top">
+          <div class="la-hud-site" style="position:absolute;top:14px;left:16px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;text-shadow:0 0 6px rgba(108,240,164,0.5);z-index:4;">SITE: PARKING LOT, MISSISSAUGA, ON · <span id="la-count">16 × GALN GALLEON II</span></div>
           <!-- toolbar -->
-          <div style="position:absolute;top:36px;right:12px;z-index:5;display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;">
+          <div class="la-toolbar" style="position:absolute;top:36px;right:12px;z-index:5;display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;">
             <button id="la-recalc" type="button" title="Reset to the default layout" class="la-tb" style="background:#6cf0a4;color:#04130b;border:1px solid #6cf0a4;"><span class="msi" aria-hidden="true" style="font-size:24px;">restore</span> RESET</button>
             <button id="la-add" type="button" title="Add a luminaire to the map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);"><span class="msi" aria-hidden="true" style="font-size:24px;">add</span> ADD</button>
             <button id="la-del" type="button" disabled title="Select a luminaire to delete it" aria-label="Delete the selected luminaire" class="la-tb" style="background:rgba(255,180,84,0.1);color:#ffb454;border:1px solid rgba(255,180,84,0.4);"><span class="msi" aria-hidden="true" style="font-size:24px;">delete</span> DELETE</button>
             <button id="la-info-btn" type="button" aria-haspopup="dialog" aria-controls="la-info" aria-expanded="false" title="How to read the photometric map" class="la-tb" style="background:rgba(108,240,164,0.08);color:#cdffe2;border:1px solid rgba(108,240,164,0.35);"><span class="msi" aria-hidden="true" style="font-size:24px;">info</span> INFO</button>
           </div>
+          </div>
+          <div class="rt-hide-sm" style="position:absolute;bottom:12px;right:16px;font-size:11px;letter-spacing:0.1em;color:#3f9e69;pointer-events:none;z-index:4;">ILLUMINANCE (FC) · LLF 0.912</div>
+          <div class="la-hud-hint" style="position:absolute;bottom:12px;left:16px;display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;pointer-events:none;z-index:4;"><span style="width:7px;height:7px;border-radius:50%;background:#6cf0a4;box-shadow:0 0 8px 2px rgba(108,240,164,0.8);animation:rt-blink 1.6s steps(1) infinite;"></span><span id="la-hint-line">DRAG FIXTURE · CLICK GRID = ADD · DBL-CLICK = DELETE</span></div>
           <!-- footcandle plate -->
           <div id="la-plate-wrap" style="position:absolute;left:50%;top:54%;width:min(860px,86%);height:min(400px,62%);transform:translate(-50%,-50%);z-index:2;">
             <div id="la-plate" role="application" aria-label="Interactive lighting layout — drag, add (click), or remove (double-click) luminaires to recompute the illuminance grid" style="position:absolute;inset:0;">
@@ -357,7 +391,7 @@ body{margin:0;background:#040806}
               <div class="la-info-row"><span class="la-info-k">MAX</span><span>The brightest cell, directly under a pole. Peaks several times the average are normal in a parking lot — uniformity is judged by MAX:MIN, not by MAX alone.</span></div>
               <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. IES RP-8-22 requires <strong>≥ 0.2 fc</strong> maintained at grade for parking lots and drive aisles.</span></div>
               <div class="la-info-row"><span class="la-info-k">MAX:MIN</span><span>Uniformity: maximum ÷ minimum. IES RP-8-22 allows up to <strong>20:1</strong> for parking lots — lower is more uniform.</span></div>
-      <div class="la-info-row"><span class="la-info-k">AVG:MIN</span><span>Average ÷ minimum — the uniformity commercial design guides judge; the shipped Light Architect reports both ratios.</span></div>
+      <div class="la-info-row"><span class="la-info-k">AVG:MIN</span><span>Average ÷ minimum — the uniformity commercial design guides judge; the shipped Light ARchitect reports both ratios.</span></div>
       <div class="la-info-row"><span class="la-info-k">RP-8-22</span><span>Basic requirements, parking lots at grade (not security lighting): all lots &amp; drive aisles <strong>0.2 fc</strong> min at <strong>20:1</strong>; transaction areas <strong>0.9 fc</strong> pre-curfew / <strong>0.2</strong> post at <strong>15:1</strong>. Chosen over IES RP-6-20 (sports fields) and the Lighting Handbook dealer-lot tables because this site is an open customer parking lot at grade.</span></div>
               <div class="la-info-h">Why it matters</div>
               <p style="font-size:11.5px;line-height:1.6;color:#3f9e69;margin:0;">Targets follow IES RP-8-22, basic requirements for parking lots at grade (not security lighting): ≥ 0.2 fc maintained minimum and ≤ 20:1 max:min uniformity. Transaction areas call for 0.9 fc pre-curfew / 0.2 post-curfew at 15:1, and project specifics may necessitate different criteria. Values compute live — move a fixture and watch MAX:MIN respond.</p>

@@ -1,0 +1,1730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Deep Dive — every design & product document · Robert Babiarz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#070b12;--bg2:#0c121e;--bg3:#121a28;--fg:#e9eef7;--fg2:#8593a8;--line:rgba(255,255,255,0.08);--line2:rgba(255,255,255,0.15);--ac:#4ca88f;--ac2:#7dd3c0;}
+.light{--bg:#fffcf5;--bg2:#f7f2e6;--bg3:#ebe6d6;--fg:#0a0a0a;--fg2:#595959;--line:rgba(0,0,0,0.09);--line2:rgba(0,0,0,0.16);--ac:#0d5350;--ac2:#4ca88f;}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;font-size:15px;line-height:1.65;}
+.mono{font-family:'JetBrains Mono',monospace;}
+header.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;padding:14px 22px;background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+header.top h1{font-size:15px;font-weight:600;letter-spacing:-0.01em;}
+header.top .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ac2);}
+#filter{margin-left:auto;background:var(--bg2);border:1px solid var(--line2);border-radius:999px;color:var(--fg);font:inherit;font-size:13px;padding:9px 16px;min-width:min(280px,50vw);}
+#filter:focus-visible{outline:2px solid var(--ac2);outline-offset:2px;}
+#theme{background:transparent;border:1px solid var(--line2);border-radius:999px;color:var(--fg2);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.06em;padding:9px 14px;cursor:pointer;min-height:40px;}
+#theme:hover{color:var(--fg);border-color:var(--ac2);}
+.layout{display:flex;max-width:1400px;margin:0 auto;align-items:flex-start;}
+nav.toc{position:sticky;top:64px;flex:0 0 280px;max-height:calc(100vh - 64px);overflow-y:auto;padding:22px 10px 60px 22px;scrollbar-width:thin;}
+nav.toc .toc-g{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ac);margin:18px 0 6px;}
+nav.toc a{display:block;font-size:12.5px;color:var(--fg2);text-decoration:none;padding:4px 8px;border-radius:6px;border-left:2px solid transparent;}
+nav.toc a:hover{color:var(--fg);background:var(--bg2);}
+nav.toc a.on{color:var(--ac2);border-left-color:var(--ac2);}
+main{flex:1;min-width:0;padding:26px 34px 120px;border-left:1px solid var(--line);}
+section.doc{margin-bottom:34px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);padding:26px 30px;scroll-margin-top:80px;}
+.doc-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px;}
+.doc-head h2{font-size:20px;font-weight:600;letter-spacing:-0.02em;}
+.doc-meta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--fg2);}
+.doc h2,.doc h3,.doc h4,.doc h5{margin:20px 0 8px;line-height:1.25;letter-spacing:-0.015em;}
+.doc h3{font-size:16.5px}.doc h4{font-size:14.5px}.doc h5{font-size:13px;color:var(--fg2)}
+.doc p{margin:8px 0;color:var(--fg);max-width:76ch;}
+.doc p .note{color:var(--fg2)}
+.doc ul,.doc ol{margin:8px 0 8px 22px;max-width:74ch;}
+.doc li{margin:4px 0;}
+.doc code{font-family:'JetBrains Mono',monospace;font-size:0.85em;background:var(--bg3);border:1px solid var(--line);border-radius:5px;padding:1px 5px;}
+.doc pre{background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+.doc pre code{background:none;border:none;padding:0;font-size:12px;line-height:1.6;display:block;white-space:pre;}
+.doc blockquote{border-left:3px solid var(--ac);padding:2px 0 2px 14px;margin:10px 0;color:var(--fg2);}
+.doc hr{border:none;border-top:1px solid var(--line);margin:18px 0;}
+.doc a{color:var(--ac2);text-underline-offset:3px;}
+.tbl{overflow-x:auto;margin:12px 0;}
+.doc table{border-collapse:collapse;font-size:13px;min-width:340px;}
+.doc th,.doc td{border:1px solid var(--line);padding:7px 11px;text-align:left;vertical-align:top;}
+.doc th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg2);background:var(--bg3);}
+.doc td.tk{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ac2);white-space:nowrap;}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line2);vertical-align:-2px;margin-right:8px;}
+.note{color:var(--fg2);font-size:13px;font-style:italic;}
+#none{display:none;padding:40px;text-align:center;color:var(--fg2);}
+@media (max-width:900px){
+  nav.toc{display:none;}
+  main{border-left:none;padding:18px 16px 90px;}
+  section.doc{padding:18px 16px;}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="k">// Deep dive</span>
+  <h1>Every design &amp; product document, one page</h1>
+  <span class="doc-meta mono">42 documents · 17,106 words · generated by build-deep-dive.py</span>
+  <input id="filter" type="search" placeholder="Filter documents… (title, path, or content)" aria-label="Filter documents">
+  <button id="theme" type="button" aria-pressed="false">LIGHT MODE</button>
+</header>
+<div class="layout">
+  <nav class="toc" aria-label="Documents"><div class="toc-g">Overview</div>
+<a href="#readme-md">README.md</a>
+<a href="#claude-md">CLAUDE.md</a>
+<a href="#design-md">DESIGN.md</a>
+<a href="#product-md">PRODUCT.md</a>
+<div class="toc-g">Product docs</div>
+<a href="#docs-brief-md">brief.md</a>
+<a href="#docs-product-requirements-md">product-requirements.md</a>
+<a href="#docs-personas-md">personas.md</a>
+<a href="#docs-information-architecture-md">information-architecture.md</a>
+<a href="#docs-success-metrics-md">success-metrics.md</a>
+<a href="#docs-constraints-md">constraints.md</a>
+<a href="#docs-design-decisions-md">design-decisions.md</a>
+<a href="#docs-open-questions-md">open-questions.md</a>
+<a href="#docs-changelog-md">changelog.md</a>
+<div class="toc-g">Features</div>
+<a href="#docs-features-aegis-gims-md">aegis-gims.md</a>
+<a href="#docs-features-parlay-gaming-md">parlay-gaming.md</a>
+<a href="#docs-features-light-architect-md">light-architect.md</a>
+<div class="toc-g">Design system</div>
+<a href="#design-system-foundations-md">foundations.md</a>
+<a href="#design-system-components-md">components.md</a>
+<a href="#design-system-patterns-md">patterns.md</a>
+<a href="#design-system-usage-guidelines-md">usage-guidelines.md</a>
+<div class="toc-g">Design tokens</div>
+<a href="#design-tokens-json">design-tokens.json</a>
+<a href="#tokens-primitives-json">primitives.json</a>
+<a href="#tokens-semantic-json">semantic.json</a>
+<a href="#tokens-themes-dark-json">dark.json</a>
+<a href="#tokens-themes-light-json">light.json</a>
+<div class="toc-g">Rules &amp; governance</div>
+<a href="#claude-rules-design-system-md">design-system.md</a>
+<a href="#claude-rules-accessibility-md">accessibility.md</a>
+<a href="#claude-rules-code-style-md">code-style.md</a>
+<a href="#claude-rules-content-voice-md">content-voice.md</a>
+<div class="toc-g">Audits</div>
+<a href="#wcag-2-2-aoda-audit-md">WCAG-2.2-AODA-AUDIT.md</a>
+<a href="#performance-audit-md">PERFORMANCE-AUDIT.md</a>
+<a href="#seo-md">SEO.md</a>
+<div class="toc-g">Reference &amp; research</div>
+<a href="#reference-brand-guidelines-md">guidelines.md</a>
+<a href="#reference-research-synthesis-md">synthesis.md</a>
+<a href="#reference-flows-parlay-gaming-flow-md">flow.md</a>
+<a href="#reference-flows-light-architect-flow-md">flow.md</a>
+<div class="toc-g">Runtime components</div>
+<a href="#src-components-readme-md">README.md</a>
+<div class="toc-g">Tooling</div>
+<a href="#claude-agents-researcher-md">researcher.md</a>
+<a href="#claude-agents-design-critic-md">design-critic.md</a>
+<a href="#claude-agents-implementer-md">implementer.md</a>
+<a href="#claude-commands-new-case-study-md">new-case-study.md</a>
+<a href="#claude-commands-audit-tokens-md">audit-tokens.md</a></nav>
+  <main>
+    <div id="none">No documents match that filter.</div>
+    <section class="doc" id="readme-md" data-group="Overview"><div class="doc-head"><h2>README.md</h2><span class="doc-meta">README.md · 621 words</span></div><h2>Robert Babiarz — Product Designer Portfolio</h2>
+<p>A static product design portfolio built as self-contained HTML pages rendered client-side by a lightweight DesignCode (DC) runtime — <strong>no build step, no server, no backend.</strong></p>
+<p><strong>Live site:</strong> https://robertbabiarz.com/</p>
+<hr>
+<h3>How it runs</h3>
+<p>Every page is a normal <code>.html</code> file. The <code>.dc.html</code> pages embed their markup inside an <code>&lt;x-dc&gt;</code> template; <a href="support.js"><code>support.js</code></a> parses that inline markup and renders it with React at load time. React/ReactDOM are loaded from the unpkg CDN over HTTPS — the <strong>only</strong> external runtime dependency. There is no DesignCode server: the self-refresh <code>fetch</code> in the runtime is best-effort and non-fatal, so the pages render purely from the static files. This means the site works as-is on any static host, including GitHub Pages.</p>
+<blockquote>
+<p>An internet connection is needed on first load for the React CDN and Google Fonts.</p>
+<p>Fonts fall back to system fonts if unreachable.</p>
+</blockquote>
+<hr>
+<h3>Site structure</h3>
+<pre><code>
+index.html                      → redirects to the primary homepage (GitHub Pages entry)
+
+homepage-interactive.dc.html    PRIMARY homepage
+homepage-dossier.dc.html          alt homepage — &quot;classified case-file&quot; theme
+homepage-retro.dc.html            alt homepage — CRT terminal theme
+home-variants.js                  the VIEW switcher; remembers the chosen homepage
+
+about.dc.html                     bio + experience
+work.dc.html                      project index
+*-showcase.html / *.dc.html       case studies (AEGIS, CTOC, CORE Insights, DALI-2, …)
+
+Shared runtime &amp; styling
+  support.js  page-transition.js  a11y.js  text-motion.js
+  tokens.css  styles.css  colors_and_type.css
+
+Design system &amp; project context (docs only — not loaded at runtime)
+  DESIGN.md                       design philosophy, palette, principles
+  design-system/                  foundations · components · patterns · usage-guidelines
+  design-tokens.json  tokens/      portable mirror of the live CSS tokens
+  docs/                           brief, PRD, decisions, personas, IA, metrics
+  reference/                      research, brand, moodboards, flows
+  .claude/                        rules, agents, commands for AI-assisted work
+</code></pre>
+<h4>The homepage variant switcher</h4>
+<p>The three homepages are interchangeable. The &quot;VIEW&quot; control sets <code>localStorage[&quot;rb-home-variant&quot;]</code>; on the next visit, <a href="home-variants.js"><code>home-variants.js</code></a> routes the viewer to their chosen variant. <code>index.html</code> redirects into the Interactive homepage, where this logic then takes over — which is why <code>index.html</code> redirects rather than duplicating the homepage. The dark/light toggle persists separately in <code>localStorage[&quot;rba-int-dark&quot;]</code>.</p>
+<hr>
+<h3>Design system</h3>
+<p>The visual system has two layers, documented in <a href="DESIGN.md"><code>DESIGN.md</code></a> and <a href="design-system/"><code>design-system/</code></a>:</p>
+<ol>
+<li><strong>A shared foundational scale</strong> — type, spacing, radius, shadow, transitions, and brand color</li>
+<p>cards — in <a href="tokens.css"><code>tokens.css</code></a> (the SOC/CTOC dashboard skin in <code>styles.css</code> builds on it).</p>
+<li><strong>Per-surface color palettes</strong> layered on top — Interactive (dark-first with a <code>.light</code></li>
+<p>&quot;architect&quot; mirror), Dossier (cream/classified-red), Retro (CRT phosphor), and CTOC (severity scale) — declared inline in each prototype&#x27;s <code>:root</code> / <code>.light</code>.</p>
+</ol>
+<p><a href="design-tokens.json"><code>design-tokens.json</code></a> and <a href="tokens/"><code>tokens/</code></a> are a portable mirror of both layers (not consumed at runtime). House rules: reference <code>var(--…)</code> tokens (never hardcode), one accent per screen, meaning never rides on hue alone, WCAG 2.2 AA / AODA, and every animation gates on <code>prefers-reduced-motion</code>. Details in <a href="design-system/usage-guidelines.md"><code>design-system/usage-guidelines.md</code></a>.</p>
+<hr>
+<h3>Deploying to GitHub Pages</h3>
+<ol>
+<li><strong>Create a repo</strong> and push these files to the <code>main</code> branch (see below).</li>
+<li>In the repo: <strong>Settings → Pages → Build and deployment</strong></li>
+</ol>
+<ul>
+<li><strong>Source:</strong> <em>Deploy from a branch</em></li>
+<li><strong>Branch:</strong> <code>main</code>  •  <strong>Folder:</strong> <code>/ (root)</code>  •  <strong>Save</strong></li>
+</ul>
+<ol>
+<li>Wait ~1 minute, then open <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/</code>.</li>
+</ol>
+<p><code>.nojekyll</code> is included so GitHub serves every file verbatim (no Jekyll processing). All internal links are <strong>relative</strong>, so the site works correctly under the <code>/&lt;repo-name&gt;/</code> project-page path.</p>
+<h4>Push from this folder</h4>
+<pre><code>
+git init
+git add -A
+git commit -m &quot;Portfolio site&quot;
+git branch -M main
+git remote add origin https://github.com/&lt;your-username&gt;/&lt;repo-name&gt;.git
+git push -u origin main
+</code></pre>
+<h4>Optional: custom domain</h4>
+<p>Add a <code>CNAME</code> file containing your bare domain (e.g. <code>robertbabiarz.com</code>) and configure your DNS per GitHub&#x27;s instructions, then set the domain under Settings → Pages.</p>
+<hr>
+<h3>Notes</h3>
+<ul>
+<li>Page filenames are kebab-case (e.g. <code>homepage-interactive.dc.html</code>); all internal links are</li>
+<p>relative. The public entry URL is just the repo root, so visitors don&#x27;t see the inner filenames unless deep-linking.</p>
+</ul></section>
+<section class="doc" id="claude-md" data-group="Overview"><div class="doc-head"><h2>CLAUDE.md</h2><span class="doc-meta">CLAUDE.md · 382 words</span></div><h2>Product Designer Portfolio</h2>
+<blockquote>
+<p>Robert Babiarz&#x27;s senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+</blockquote>
+<p>This file is the entry point for context. Read it first, then follow the links.</p>
+<h3>What this project is</h3>
+<p>Robert Babiarz&#x27;s senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<p>Owner / lead designer: Robert Babiarz · Live: https://robertbabiarz.com/</p>
+<h3>How it runs (the load-bearing fact)</h3>
+<p>Self-contained HTML — single-file pages with inline CSS/JS, no build step and no server. <code>.dc.html</code> pages embed markup in an <code>&lt;x-dc&gt;</code> template that <code>support.js</code> renders with React (loaded from the unpkg CDN). Icons via Material Symbols from the MUI kit (<code>&lt;span class=&quot;msi&quot; aria-hidden=&quot;true&quot;&gt;icon_name&lt;/span&gt;</code>; subsetted Google Fonts link + <code>.msi</code> class in each page&#x27;s head). No build, no server, no backend — every page opens directly in a browser and deploys to any static host (GitHub Pages). The only runtime dependency is the React CDN + Google Fonts; both degrade gracefully offline.</p>
+<h3>How to work in this repo</h3>
+<ul>
+<li><strong>Design philosophy &amp; principles</strong> live in <a href="./DESIGN.md"><code>DESIGN.md</code></a>. Honor them.</li>
+<li><strong>Rules</strong> Claude must follow are in <a href="./.claude/rules/"><code>.claude/rules/</code></a>:</li>
+<p>design-system, accessibility, code-style, content-voice.</p>
+<li><strong>Design tokens</strong> are the source of truth for visual values. The live CSS variables</li>
+<p>ship in <code>tokens.css</code> / <code>styles.css</code>; the portable mirror is <a href="./design-tokens.json"><code>design-tokens.json</code></a> and the three-tier split in <a href="./tokens/"><code>tokens/</code></a>. Never hardcode a hex/px/radius in prototype code — reference a CSS custom property (<code>var(--bg)</code>, <code>var(--ac2)</code>).</p>
+<li><strong>Design-system docs</strong> describe foundations, components, and patterns in</li>
+<p><a href="./design-system/"><code>design-system/</code></a> (the live CSS reference is <code>design-system/colors_and_type.css</code>).</p>
+<li><strong>Product context</strong> (brief, PRD, decisions, personas, IA) lives in <a href="./docs/"><code>docs/</code></a>.</li>
+<li><strong>Inspiration &amp; research</strong> live in <a href="./reference/"><code>reference/</code></a>.</li>
+</ul>
+<h3>Conventions</h3>
+<ul>
+<li>Prototypes are single-file <code>.html</code> / <code>.dc.html</code> (markup + inline CSS/JS). Shared runtime</li>
+<p>modules (<code>support.js</code>, <code>a11y.js</code>, <code>text-motion.js</code>, <code>page-transition.js</code>, <code>home-variants.js</code>, <code>colophon.js</code>) live at the repo root; documented in <a href="./src/components/"><code>src/components/</code></a>.</p>
+<li>Icons: Material Symbols via <code>&lt;span class=&quot;msi&quot; aria-hidden=&quot;true&quot;&gt;icon_name&lt;/span&gt;</code> (MUI for Figma kit is the source of truth) — never hand-author SVG paths.</li>
+<li>Status/meaning never rides on hue alone; never use saturated red/amber/stoplight-green</li>
+<p>as status (see <a href="./DESIGN.md"><code>DESIGN.md</code></a>).</p>
+<li>Decisions get logged in <a href="./docs/design-decisions.md"><code>docs/design-decisions.md</code></a> (ADR style);</li>
+<p>open threads in <a href="./docs/open-questions.md"><code>docs/open-questions.md</code></a>.</p>
+</ul>
+<h3>Personal / machine-local context</h3>
+<p>See <a href="./CLAUDE.local.md"><code>CLAUDE.local.md</code></a> — gitignored, for machine-specific notes.</p></section>
+<section class="doc" id="design-md" data-group="Overview"><div class="doc-head"><h2>DESIGN.md</h2><span class="doc-meta">DESIGN.md · 2,302 words</span></div><h2>Design — Product Designer Portfolio</h2>
+<p>The complete design-system reference for Robert Babiarz&#x27;s senior product-design portfolio: the north star, principles, and <strong>every token, style, component, and motion</strong> actually shipped across the self-contained <code>.html</code> / <code>.dc.html</code> prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<blockquote>
+<p><strong>Source of truth.</strong> Live values come from <a href="./tokens.css"><code>tokens.css</code></a> (foundational scale),</p>
+<p><a href="./styles.css"><code>styles.css</code></a> (SOC/CTOC skin), and the per-surface <code>:root</code> / <code>.light</code> blocks inline</p>
+<p>in each prototype. <a href="./design-tokens.json"><code>design-tokens.json</code></a> + <a href="./tokens/"><code>tokens/</code></a> are a</p>
+<p>portable mirror. The split-by-concern version of this doc lives in</p>
+<p><a href="./design-system/"><code>design-system/</code></a>. <strong>Reference <code>var(--…)</code> tokens — never hardcode a hex/px.</strong></p>
+</blockquote>
+<h3>Contents</h3>
+<ol>
+<li><a href="#1--north-star--principles">North star &amp; principles</a></li>
+<li><a href="#2--color">Color</a></li>
+<li><a href="#3--typography">Typography</a></li>
+<li><a href="#4--spacing-radius-elevation">Spacing, radius, elevation</a></li>
+<li><a href="#5--motion">Motion</a></li>
+<li><a href="#6--components">Components</a></li>
+<li><a href="#7--patterns">Patterns</a></li>
+<li><a href="#8--accessibility">Accessibility</a></li>
+<li><a href="#9--build--tokens">Build &amp; tokens</a></li>
+</ol>
+<hr>
+<h3>1 · North star &amp; principles</h3>
+<blockquote>
+<p>**Prove senior product-design judgment by <em>showing it working</em>, not asserting it.** Systems</p>
+<p>thinking, real states, accessible craft. Where the work is decision-support (AEGIS), the thesis</p>
+<p>carries through: the model brings receipts, the operator keeps the decision.</p>
+</blockquote>
+<ol>
+<li><strong>Read the trace, not the number.</strong> Show evidence and sources, not just a verdict.</li>
+<li><strong>Systems, not screens.</strong> Every value traces to a token; design the empty / loading / error /</li>
+<p>longest-content state, not just the happy path.</p>
+<li><strong>One idea per view; one accent per screen.</strong> If a screen needs a legend, it&#x27;s doing too much.</li>
+<li><strong>Meaning survives without color.</strong> Never signal status by hue alone; no saturated</li>
+<p>red / amber / stoplight-green as status. Coral is the strongest risk signal.</p>
+<li><strong>Accessible by default</strong> — WCAG 2.2 AA / AODA (see <code>WCAG-2.2-AODA-AUDIT.md</code>).</li>
+<li><strong>Motion with intent.</strong> Animate to explain a state change; gate every animation on</li>
+<p><code>prefers-reduced-motion</code>.</p>
+<li><strong>Robust by construction.</strong> Self-contained, no build; isolated inits; overlays anchored to their</li>
+<p>stage so they survive transformed host wrappers.</p>
+</ol>
+<hr>
+<h3>2 · Color</h3>
+<p>The system is <strong>two layers</strong>: a shared foundational palette/scale (<code>tokens.css</code>) and a color skin layered per page family. One accent per screen; one color block per viewport; meaning never rides on hue alone.</p>
+<h4>2.1 Surface palettes (per page family)</h4>
+<p><strong>Interactive</strong> — primary homepage, About, Work, case studies. Dark default + <code>.light</code> &quot;architect&quot; mirror.</p>
+<div class="tbl"><table><thead><tr><th>Role</th><th><code>:root</code> (dark)</th><th><code>.light</code></th></tr></thead><tbody>
+<tr><td><code>--bg</code> canvas</td><td><code>#070b12</code></td><td><code>#fffcf5</code></td></tr>
+<tr><td><code>--bg2</code> surface</td><td><code>#0c121e</code></td><td><code>#f7f2e6</code></td></tr>
+<tr><td><code>--bg3</code> raised</td><td><code>#121a28</code></td><td><code>#ebe6d6</code></td></tr>
+<tr><td><code>--fg</code> text</td><td><code>#e9eef7</code></td><td><code>#0a0a0a</code></td></tr>
+<tr><td><code>--fg2</code> muted</td><td><code>#8593a8</code></td><td><code>#595959</code></td></tr>
+<tr><td><code>--fg3</code> subtle</td><td><code>#97a3b8</code></td><td><code>#5e5e5e</code></td></tr>
+<tr><td><code>--line</code> hairline</td><td><code>rgba(255,255,255,.08)</code></td><td><code>rgba(0,0,0,.09)</code></td></tr>
+<tr><td><code>--line2</code> strong</td><td><code>rgba(255,255,255,.15)</code></td><td><code>rgba(0,0,0,.16)</code></td></tr>
+<tr><td><code>--ac</code> accent</td><td><code>#4ca88f</code></td><td><code>#0d5350</code></td></tr>
+<tr><td><code>--ac2</code> accent bright</td><td><code>#7dd3c0</code></td><td><code>#4ca88f</code></td></tr>
+<tr><td><code>--grid</code></td><td><code>rgba(76,168,143,.045)</code></td><td><code>rgba(13,83,80,.05)</code></td></tr>
+</tbody></table></div>
+<p><strong>Dossier</strong> (classified case-file): bg <code>#f4ead2</code> · ink <code>#0a0a0a</code> · accent <code>#b23a2e</code> · status <code>#1c6b39</code>. <strong>Retro</strong> (CRT terminal): bg <code>#040806</code> · phosphor <code>#6cf0a4</code> · bright <code>#cdffe2</code> · dim <code>#3f9e69</code> · amber <code>#ffb454</code>.</p>
+<h4>2.2 Foundational palette (<code>tokens.css</code>)</h4>
+<p><strong>Gray ramp:</strong> <code>900 #101828</code> · <code>800 #1d2939</code> · <code>700 #344054</code> · <code>600 #475467</code> · <code>500 #667085</code> · <code>400 #98a2b3</code> · <code>300 #d0d5dd</code> · <code>200 #e4e7ec</code> · <code>100 #f2f4f7</code> · <code>50 #f9fafb</code>.</p>
+<p><strong>Light surfaces:</strong> canvas <code>#fffcf5</code> · surface-soft <code>#faf5e8</code> · surface-card <code>#f5f0e0</code> · surface-strong <code>#ebe6d6</code> · surface-dark <code>#1a2825</code> · surface-dark-elevated <code>#243532</code> · hairline <code>#d4d4d4</code>.</p>
+<p><strong>Text:</strong> ink <code>#0a0a0a</code> · body-strong <code>#1a1a1a</code> · body <code>#2a2a2a</code> · muted <code>#595959</code> · muted-soft <code>#636363</code> · on-primary/on-dark <code>#ffffff</code>.</p>
+<h4>2.3 Brand color cards (used sparingly, one block per viewport)</h4>
+<div class="tbl"><table><thead><tr><th>Card</th><th>BG</th><th>On-text</th></tr></thead><tbody>
+<tr><td>pink</td><td><code>#d63b75</code></td><td><code>#ffffff</code></td></tr>
+<tr><td>teal</td><td><code>#0d5350</code></td><td><code>#ffffff</code></td></tr>
+<tr><td>lavender</td><td><code>#8b6fd9</code></td><td><code>#ffffff</code></td></tr>
+<tr><td>peach</td><td><code>#ff9d66</code></td><td><code>#0a0a0a</code></td></tr>
+<tr><td>ochre</td><td><code>#d4a036</code></td><td><code>#0a0a0a</code></td></tr>
+<tr><td>mint</td><td><code>#4ca88f</code></td><td><code>#ffffff</code></td></tr>
+<tr><td>coral</td><td><code>#e64d3c</code></td><td><code>#ffffff</code></td></tr>
+</tbody></table></div>
+<h4>2.4 Status &amp; severity</h4>
+<p><code>tokens.css</code> defines Untitled-UI semantic colors (success <code>#15803d</code>, warning <code>#d97706</code>, error <code>#dc2626</code>, info <code>#3b82f6</code>, each with <code>-bg</code>/<code>-text</code>). <strong>Portfolio surfaces avoid these as status</strong> (no stoplight signaling). The <strong>CTOC/SOC dashboard</strong> is the one domain-appropriate place that uses a severity scale — always paired with a square/label, re-tinted for dark:</p>
+<div class="tbl"><table><thead><tr><th>Severity</th><th>Color</th><th>Source token</th></tr></thead><tbody>
+<tr><td>critical</td><td><code>#b91c1c</code></td><td><code>--sev-critical</code></td></tr>
+<tr><td>high</td><td><code>#e64d3c</code></td><td>brand-coral</td></tr>
+<tr><td>medium</td><td><code>#d4a036</code></td><td>brand-ochre</td></tr>
+<tr><td>low</td><td><code>#1570ef</code></td><td>primary-blue</td></tr>
+<tr><td>resolved</td><td><code>#15803d</code></td><td>success</td></tr>
+<tr><td>info</td><td><code>#595959</code></td><td>muted</td></tr>
+</tbody></table></div>
+<blockquote>
+<p><strong>Rule:</strong> coral <code>#e64d3c</code> is the strongest risk signal on portfolio surfaces. Pair every signal</p>
+<p>with text/shape/icon. The CTOC dark theme (<code>--data-theme=&quot;dark&quot;</code>, canvas <code>#0b0f14</code>, ink <code>#f3f1ea</code>)</p>
+<p>re-declares every severity background.</p>
+</blockquote>
+<hr>
+<h3>3 · Typography</h3>
+<p><strong>Families:</strong> Inter (<code>--font-display</code>, headings) · DM Sans (<code>--font-body</code>, prose) · JetBrains Mono (HUD/system labels; <code>tokens.css</code> default is <code>&#x27;SF Mono&#x27;</code>) · VT323 (retro CRT only).</p>
+<p><strong>Display scale</strong> (<code>tokens.css</code>, shrinks at ≤767px):</p>
+<div class="tbl"><table><thead><tr><th>Token</th><th>Size → mobile</th><th>Weight</th><th>Line-height</th><th>Tracking</th></tr></thead><tbody>
+<tr><td>display-xl</td><td>72 → 36px</td><td>500</td><td>1.25</td><td>−1.44px</td></tr>
+<tr><td>display-lg</td><td>60 → 32px</td><td>500</td><td>1.2</td><td>−1.2px</td></tr>
+<tr><td>display-md</td><td>48 → 28px</td><td>500</td><td>1.25</td><td>−0.96px</td></tr>
+<tr><td>display-sm</td><td>36 → 24px</td><td>500</td><td>1.22</td><td>−0.72px</td></tr>
+<tr><td>display-xs</td><td>30px</td><td>500</td><td>1.27</td><td>0</td></tr>
+</tbody></table></div>
+<p><strong>Text scale:</strong> text-xl 24/1.33 · lg 20/1.5 · md 18/1.56 · <strong>sm 16/1.5 (body default)</strong> · xs 14/1.43 · xxs 12/1.5.</p>
+<p><strong>Prototype hero <code>clamp()</code>s:</strong> interactive <code>clamp(40px, 7.4vw, 118px)</code>; retro VT323 <code>clamp(60px, 13vw, 168px)</code>.</p>
+<p><strong>Conventions:</strong> mono labels are UPPERCASE, <code>letter-spacing 0.04–0.14em</code>; numeric readouts use <code>font-variant-numeric: tabular-nums</code>; headings <code>letter-spacing −0.02 to −0.04em</code>.</p>
+<hr>
+<h3>4 · Spacing, radius, elevation</h3>
+<p><strong>Spacing</strong> (<code>--spacing-*</code>): <code>none 0 · xxs 2 · xs 4 · sm 8 · md 12 · lg 16 · xl 20 · 2xl 24 · 3xl 32 · 4xl 48 · 5xl 64 · 6xl 96 · 7xl 128px</code>, with <code>--spacing-section 96px</code>. Section H-padding ~<code>44px</code> desktop → <code>16–20px</code> mobile.</p>
+<p><strong>Radius</strong> (<code>--rounded-*</code>): <code>2 · 4 · 6 · 8 · 12 · 16 · 20 · 24 · 28px</code>, plus <code>pill 9999px</code>, <code>full 50%</code>. In practice: <strong>pill for all CTAs</strong>, <code>10–16px</code> cards/stages, <code>2–4px</code> dense dashboard chips.</p>
+<p><strong>Elevation.</strong> Light ramp (<code>tokens.css</code>):</p>
+<div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody>
+<tr><td>xs</td><td><code>0 1px 2px rgba(16,24,40,.05)</code></td></tr>
+<tr><td>sm</td><td><code>0 1px 3px rgba(16,24,40,.1), 0 1px 2px rgba(16,24,40,.06)</code></td></tr>
+<tr><td>md</td><td><code>0 4px 8px -2px rgba(16,24,40,.1), 0 2px 4px -2px rgba(16,24,40,.06)</code></td></tr>
+<tr><td>lg</td><td><code>0 12px 16px -4px rgba(16,24,40,.08), 0 4px 6px -2px rgba(16,24,40,.03)</code></td></tr>
+<tr><td>xl</td><td><code>0 20px 24px -4px rgba(16,24,40,.08), 0 8px 8px -4px rgba(16,24,40,.03)</code></td></tr>
+<tr><td>2xl</td><td><code>0 24px 48px -12px rgba(16,24,40,.18)</code></td></tr>
+<tr><td>3xl</td><td><code>0 32px 64px -12px rgba(16,24,40,.14)</code></td></tr>
+</tbody></table></div>
+<p>Dark surfaces use long, soft shadows — e.g. cards/stages <code>0 30px 80px -40px rgba(0,0,0,.8)</code>. One raised layer per context.</p>
+<p><strong>Transitions:</strong> <code>--transition-fast 150ms</code> · <code>--transition-base 250ms</code> · <code>--transition-slow 350ms</code> (all <code>ease</code>). Micro-interactions 0.12–0.22s; entrances 0.34–0.9s.</p>
+<p><strong>Icons:</strong> Lucide only — <code>&lt;i data-lucide=&quot;name&quot;&gt;&lt;/i&gt;</code>. Never hand-author SVG paths.</p>
+<hr>
+<h3>5 · Motion</h3>
+<p>Motion explains a state change or directs attention — never decoration.</p>
+<p><strong>Keyframe inventory (by surface):</strong></p>
+<div class="tbl"><table><thead><tr><th>Surface</th><th>Keyframes</th></tr></thead><tbody>
+<tr><td>Hero / global</td><td><code>rise</code>, <code>fade-up</code> (line-by-line entrance), <code>hero-hl-draw</code> (highlight underline, <code>cubic-bezier(.62,0,.34,1)</code>), <code>clarity-focus</code> (8s blur-in loop), <code>scrolldot</code>, <code>marquee</code> (+ scroll counter-motion), <code>hl-swipe</code>, <code>blink</code></td></tr>
+<tr><td>Isometric / Light ARchitect</td><td><code>cityFloat</code>, <code>cityWin</code>, <code>cityBeacon</code>, <code>laPulse</code>, <code>laBeam</code>, <code>laScan</code></td></tr>
+<tr><td>Dossier</td><td><code>dossier-up</code> (section entrance), <code>dossier-blink</code> (status dot)</td></tr>
+<tr><td>Retro</td><td><code>rt-pwr</code> (VT323 power-on), <code>rt-in</code> (boot stagger), <code>rt-flicker</code> (phosphor), <code>rt-scan</code> (drifting beam), <code>rt-blink</code> (cursor)</td></tr>
+<tr><td>CTOC</td><td><code>pulse</code> / <code>pulse-red</code> (live &amp; critical dots), <code>highlight</code> (new feed item), <code>fade</code>, <code>slidein</code> (drawer)</td></tr>
+</tbody></table></div>
+<p><strong>Scroll engine (<code>text-motion.js</code>):</strong> reveals headings on entry (rise ~38px), velocity-aware drift (±22px) and skew (±2.4°), marquee counter-drift; settles to <code>transform:none</code>; <code>MutationObserver</code> re-registers new DOM.</p>
+<p><strong>Page transitions (<code>page-transition.js</code>):</strong> isometric-block CSS mask grows/shrinks across navigations (<code>cubic-bezier(.76,0,.24,1)</code>; entrance ~980ms, exit ~660ms); one-time first-visit intro counter (~1650ms).</p>
+<h4><code>prefers-reduced-motion</code> contract (required)</h4>
+<ul>
+<li><code>text-motion.js</code> / <code>page-transition.js</code> early-return or jump to final state.</li>
+<li><code>a11y.js</code> injects a global rule forcing animation/transition ≈0ms and <code>scroll-behavior:auto</code>.</li>
+<li>Per-file media queries kill AEGIS button transitions and <strong>remove the retro CRT flicker/scan</strong></li>
+<p>(<code>display:none</code>), snapping boot/power-on to final state.</p>
+<li><strong>Add <code>@media (prefers-reduced-motion: reduce)</code> to every new animated component.</strong></li>
+</ul>
+<hr>
+<h3>6 · Components</h3>
+<p>Realized <strong>inline</strong> per page (no build, no component library). Every interactive element has a visible <code>:focus-visible</code> ring (<code>outline 2–3px solid</code> accent, offset 2–3px).</p>
+<h4>Navigation &amp; chrome</h4>
+<ul>
+<li><strong>Top nav / header</strong> — sticky; logo (RB box 34×34, radius 8, border <code>--line2</code>), section links</li>
+<p>(Inter 13/600, tracking 0.04em), theme toggle, VIEW switcher, burger. Height <strong>72px</strong> (60 ≤860px); blurs on scroll. Logo links <code>#top</code>.</p>
+<li><strong>Mobile burger menu</strong> — full-viewport overlay (<code>fixed; inset:0; z-index:95</code>) ≤860px; 3-line→X</li>
+<p>morph (0.32s); <strong>real <code>&lt;a&gt;</code> links</strong> with staggered fade-up; <code>aria-expanded</code> toggled.</p>
+<li><strong>VIEW switcher</strong> — native <code>&lt;details&gt;/&lt;summary&gt;</code> sheet (min-width 252, <code>--bg2</code>, border <code>--line2</code>)</li>
+<p>listing Interactive/Dossier/Retro; each row <code>data-home-variant</code> → <code>localStorage[&#x27;rb-home-variant&#x27;]</code>.</p>
+<li><strong>Theme toggle</strong> — 40×40, border <code>--line</code>, radius 8; sun/moon Lucide; writes</li>
+<p><code>localStorage[&#x27;rba-int-dark&#x27;]</code>; <code>aria-label</code> present.</p>
+<li><strong>Section TOC rail</strong> (≥1181px) — fixed right dots (10×2px <code>--fg3</code>); active widens to 22px, turns</li>
+<p><code>--ac</code>; labels fade in on hover; <code>scroll-margin-top 92px</code>.</p>
+<li><strong>Footer</strong> — top hairline, padding 28×44, flex wrap, mono 11px, links <code>--fg2</code>→<code>--fg</code>.</li>
+<li><strong>Scroll-progress bar</strong> (About) — fixed top, 3px, <code>linear-gradient(90deg,--ac,--ac2)</code>, JS width.</li>
+</ul>
+<h4>Actions</h4>
+<ul>
+<li><strong>Pill CTA</strong> — all CTAs pill (999px). Primary: filled accent, mono 12–15/700, tracking 0.08em,</li>
+<p>pad ~13–15×24–28; hover <code>translateY(-2px)</code> + accent shadow; active <code>translateY(1px)</code>; focus-visible accent ring. Secondary/ghost: 1.5px border, transparent, tinted hover.</p>
+<li><strong>Verb buttons</strong> (AEGIS CLEAR/HOLD/TAG) — equal-flex, min-height 54px (60 mobile), radius 10,</li>
+<p>fill <code>rgba(12,18,28,.82)</code>, color-coded top border (blue/amber/red); success/error flash (teal/coral); keys J/K/L; outcomes via <code>#ag-live</code> (<code>aria-live=&quot;polite&quot;</code>); <code>-webkit-tap-highlight-color:transparent</code>.</p>
+<li><strong>Dashboard <code>.btn</code></strong> (CTOC) — mono 11px uppercase, radius 3; <code>--primary</code>/<code>--danger</code>/<code>--ghost</code>/<code>--xs</code>/<code>--active</code>.</li>
+</ul>
+<h4>Content blocks</h4>
+<ul>
+<li><strong>Project card</strong> (Work coverflow) — <code>&lt;a&gt;</code>, aspect 3/2, radius 14, border <code>--line2</code>, bg <code>--bg3</code>;</li>
+<p>center focused vs side (<code>data-state=&quot;side&quot;</code>) scaled/rotated/blurred + veil; 0.62s <code>cubic-bezier(.2,.85,.25,1)</code>.</p>
+<li><strong>Case-study hero card</strong> — device collage + chrome dots + floating live chip (<code>ci-float</code> 6s) + vignette.</li>
+<li><strong>Stat / metric block</strong> — dark fill <code>#0b1016</code>, number mono <code>clamp(32–60px)</code>/500, label mono 10px uppercase, tabular nums.</li>
+<li><strong>Spec / stakeholder table</strong> — 2-col grid (<code>0.34fr 0.66fr</code>), radius 14, hairline rows, mono header; stacks ≤880px.</li>
+<li><strong>Badges / eyebrows / chips</strong> — eyebrow mono 11px uppercase tracking 0.14em accent; pulse-dot eyebrow</li>
+<p>(<code>ct-pulse</code>); tag chip pill mono 10.5px border <code>--line</code>; inline highlight <code>.ci-hl</code> (<code>ci-marker</code> sweep).</p>
+</ul>
+<h4>AEGIS Fusion Watch (interactive classification game — all 3 homepages)</h4>
+<p>Stage <code>position:relative</code>, <code>height:min(70vh,620px)</code> (78vh mobile), radius 16, radial field, <code>role=&quot;application&quot; tabindex=&quot;0&quot;</code>. Z-order: hud 4 · receipt 4–5 · rail 5 · overlay 6 · modal 200.</p>
+<ul>
+<li><strong>HUD rail</strong> SCORE/COMBO/ACC/LIVES/BEST (mono 11px uppercase).</li>
+<li><strong>Receipt panel</strong> (<code>#ag-receipt</code>) track id, AI assessment, confidence bar, source pips</li>
+<p>(<code>.cor</code>/<code>.con</code>/<code>.off</code>), dissent; <code>position:absolute</code> to stage (mobile → bottom strip), <code>pointer-events:none</code>.</p>
+<li><strong>Verb rail</strong> (above) · <strong>State overlay</strong> (<code>#ag-screen</code>: attract / game-over).</li>
+<li><strong>Scoring modal</strong> (<code>#ag-info</code>, <code>role=&quot;dialog&quot; aria-modal=&quot;true&quot;</code>) — **anchored to the stage with</li>
+<p><code>position:absolute</code><strong>, not viewport-fixed, so it survives transformed host ancestors; stage framed into view on open (</strong>ADR-004**); closes on ✕/Esc/backdrop.</p>
+</ul>
+<h4>Light ARchitect (interactive photometric scene)</h4>
+<p>Draggable fixture markers (<code>.la-fx</code> 18×7, lime border, glow on <code>.on</code>/hover, 44×44 touch target, focus ring); pill hint popup (<code>#la-hint</code> glass+blur, accent dot); isometric ground plane (<code>rotateX(74deg)</code> + radial mask); floating telemetry HUD (<code>cityFloat</code>, <code>pointer-events:none</code>); recalc button. Themed via <code>--la-*</code> (light default, dark under <code>#int-root:not(.light)</code>).</p>
+<h4>CTOC / SOC dashboard (<code>styles.css</code>)</h4>
+<p>Utilitarian skin on the foundational tokens: <code>.panel</code>, <code>.kpis</code> strip, <code>.sev</code> severity pill, <code>.tag</code>, <code>.tbl</code> tables (sticky mono headers, hover rows, tabular nums), <code>.kc</code> kill-chain, <code>.mitre</code> tactics grid, <code>.map</code> asset graph (nodes/edges/pulse), <code>.timeline</code>, <code>.drawer</code> (slide-in detail), <code>.heat</code> heatmap, <code>.bar-row</code>, <code>.feed</code> (new-item highlight), and a <code>data-theme=&quot;dark&quot;</code> variant re-tinting all severity. Color always paired with shape/label.</p>
+<h4>Surface-specific</h4>
+<ul>
+<li><strong>Dossier</strong> — CONFIDENTIAL file header (red badge + blinking dot), Subject ID card (photo</li>
+<p>placeholder, offset hard shadow, rotated VERIFIED stamp), <strong>redacted text</strong> (black bar → hover reveal).</p>
+<li><strong>Retro</strong> — CRT scanline/vignette/phosphor-flicker/drifting-scan overlays (z9000–9002), VT323</li>
+<p>power-on heading, boot log, <code>C:\&gt;</code> prompt with blinking block cursor, DIR-style listing.</p>
+</ul>
+<hr>
+<h3>7 · Patterns</h3>
+<p><strong>Layout</strong> — <code>min-height:100vh</code>; centered wrapper (~1180–1480px); hero often <code>100vh</code>; section anchors <code>scroll-margin-top:92px</code>. Grids: <code>1fr 1fr</code>, <code>repeat(3,1fr)</code>, <code>repeat(4,1fr)</code>, <code>repeat(6,1fr)</code> (KPI), <code>repeat(auto-fit,minmax(160px,1fr))</code>.</p>
+<p><strong>Breakpoints (px):</strong> <strong>≤520</strong> hero floor + grids→1 · <strong>≤760</strong> AEGIS mobile (stage 78vh, receipt→bottom) · <strong>≤860</strong> nav→burger, 2-col→1, TOC hidden · <strong>861–1080</strong> 3-col→2 · <strong>≥1181</strong> TOC rail appears.</p>
+<p><strong>Theming</strong> — <code>:root</code> = dark; <code>.light</code> re-declares the same <code>--bg/--fg/--ac/--line</code>. Toggle persists <code>localStorage[&#x27;rba-int-dark&#x27;]</code>; dark default. Light ARchitect has its own <code>--la-*</code> set.</p>
+<p><strong>Homepage variants</strong> — VIEW switcher swaps Interactive (primary) / Dossier / Retro; writes <code>localStorage[&#x27;rb-home-variant&#x27;]</code>; on load <code>home-variants.js</code> silently <code>location.replace()</code>s to the saved variant (preserving the hash). <code>index.html</code> redirects into Interactive.</p>
+<p><strong>States</strong> — AEGIS attract→playing→game-over (+paused with modal); Light ARchitect empty→hint→recompute; always design empty/loading/error and the longest-content case (truncate where bounded).</p>
+<p><strong>Robustness</strong> — isolated <code>try/catch</code> inits (one failure can&#x27;t cascade; missing nodes fail silently); in-stage overlays use <code>position:absolute</code> to a positioned stage (not viewport <code>fixed</code>) so a transformed host can&#x27;t push them off-screen (ADR-004); skip link first; guarded <code>localStorage</code>.</p>
+<hr>
+<h3>8 · Accessibility</h3>
+<p>Target <strong>WCAG 2.2 AA / AODA</strong> (audit: <code>WCAG-2.2-AODA-AUDIT.md</code>).</p>
+<ul>
+<li>Text contrast ≥ 4.5:1 (≥ 3:1 large/UI). Dark <code>#e9eef7</code> on <code>#070b12</code> and the light mirror are both AA.</li>
+<li>Every control keyboard-reachable with a visible <code>:focus-visible</code> ring (3px accent). Games expose</li>
+<p>keys <strong>and</strong> on-screen buttons; a skip link (<code>a11y.js</code>) is the first focusable element.</p>
+<li>Hit targets ≥ 44×44px.</li>
+<li><code>prefers-reduced-motion</code> respected everywhere (see §5).</li>
+<li>Meaning survives without color; label all controls; <code>aria-live</code> for score/state; meaningful alt text.</li>
+</ul>
+<hr>
+<h3>9 · Build &amp; tokens</h3>
+<p>Self-contained <code>.html</code> / <code>.dc.html</code> — inline CSS/JS, only declared CDN deps (React, fonts), no build, no server. <code>.dc.html</code> markup lives in <code>&lt;x-dc&gt;</code> and renders via <code>support.js</code>. Shared modules: <code>support.js</code>, <code>home-variants.js</code>, <code>page-transition.js</code>, <code>text-motion.js</code>, <code>a11y.js</code>.</p>
+<p><strong>Token sources:</strong> <a href="./tokens.css"><code>tokens.css</code></a> (foundational scale) · <a href="./styles.css"><code>styles.css</code></a> (CTOC skin) · per-page <code>:root</code>/<code>.light</code>. <strong>Mirror:</strong> <a href="./design-tokens.json"><code>design-tokens.json</code></a> + <a href="./tokens/"><code>tokens/</code></a> (<code>primitives</code> → <code>semantic</code> → <code>themes/{dark,light}</code>). Modular docs: <a href="./design-system/"><code>design-system/</code></a>. Decisions: <a href="./docs/design-decisions.md"><code>docs/design-decisions.md</code></a>.</p></section>
+<section class="doc" id="product-md" data-group="Overview"><div class="doc-head"><h2>PRODUCT.md</h2><span class="doc-meta">PRODUCT.md · 373 words</span></div><h2>PRODUCT.md — Product Designer Portfolio</h2>
+<blockquote>
+<p>Synthesized from the repo&#x27;s own context (CLAUDE.md, DESIGN.md, <code>.claude/rules/*</code>,</p>
+<p>docs/brief.md) — the canonical sources; when they conflict with this file, they win.</p>
+</blockquote>
+<h3>Register</h3>
+<p><strong>Brand</strong> — this is a portfolio: the design IS the product. Every page is itself the evidence of senior product-design judgment. (Interactive prototypes inside case studies run in product register: they simulate real tools and are judged as tools.)</p>
+<h3>Users &amp; purpose</h3>
+<p>Hiring managers, design leaders, and program leads in defense, enterprise SaaS, and IoT, deciding in minutes whether Robert Babiarz is worth an interview. They arrive skeptical of portfolio theater; the site must let them <em>operate</em> the work — live prototypes, playable drills, real interaction — not read claims about it.</p>
+<p><strong>Desired outcome:</strong> the visitor forms the judgment &quot;this person designs working systems, not pictures of systems,&quot; then reaches the resume/contact with intent.</p>
+<h3>Brand personality</h3>
+<p>Clear, calm, evidence-led. Defense-literate without cosplay. Confident, never hype. Thesis line: <strong>&quot;the model brings receipts, you keep the decision.&quot;</strong></p>
+<ul>
+<li>Lead with outcomes; verbs first (&quot;Take the watch&quot;, &quot;Read the trace&quot;).</li>
+<li>Mono for system/HUD labels, sans for prose.</li>
+<li>Claims need backing; where a number isn&#x27;t real, the page says what it represents.</li>
+</ul>
+<h3>Anti-references</h3>
+<ul>
+<li>Portfolio-template minimalism (hero platitude + card grid + logo wall).</li>
+<li>Defense cosplay: stolen-valor aesthetics, fake classification theater without the</li>
+<p>UNCLASSIFIED//PORTFOLIO honesty tag, invented metrics.</p>
+<li>Stoplight status colors; meaning riding on hue alone.</li>
+<li>Hype copy (&quot;revolutionary&quot;, &quot;cutting-edge&quot;), lorem ipsum, single-perfect-row tables.</li>
+</ul>
+<h3>Accessibility</h3>
+<p>WCAG 2.2 AA / AODA is part of done (standing audit in <code>WCAG-2.2-AODA-AUDIT.md</code>): 4.5:1 body text, visible focus, keyboard paths everywhere, 44×44 hit targets, <code>prefers-reduced-motion</code> gates on all motion, meaning survives without color.</p>
+<h3>Strategic design principles</h3>
+<p>See DESIGN.md §1 (north star). Summary: show it working; systems not screens; one idea per view, one accent per screen; read the trace, not the number; robust by construction (self-contained pages, no build step, isolated inits).</p>
+<h3>Identity note</h3>
+<p>The site&#x27;s committed identity — DM Sans / Inter / JetBrains Mono, the <code>#fffcf5</code>/<code>#070b12</code> surfaces, teal accent family, eyebrow + numbered-section grammar on case studies — is shipping brand system, deliberately consistent across 16+ pages. Identity-preservation wins over greenfield reflex rules for all existing-surface work.</p></section>
+<section class="doc" id="docs-brief-md" data-group="Product docs"><div class="doc-head"><h2>brief.md</h2><span class="doc-meta">docs/brief.md · 192 words</span></div><h2>Brief — Product Designer Portfolio</h2>
+<h3>Problem</h3>
+<p>A senior product designer with deep connected-lighting / IoT-security experience needs to be read, fast, as a credible <strong>defense-AI</strong> product designer. A list of past jobs doesn&#x27;t do it; the work has to <em>prove</em> the thesis through interaction.</p>
+<h3>Product in one line</h3>
+<p>Robert Babiarz&#x27;s senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<h3>Why now</h3>
+<p>Defense / dual-use teams hire for judgment under uncertainty and systems thinking. The connected-lighting → defense-AI bridge is real (sensor fusion, provisioning, SOC surfaces) but only convincing when shown working.</p>
+<h3>Target users</h3>
+<p>Pointer: <a href="./personas.md"><code>personas.md</code></a>. Primary: defense/dual-use program leads &amp; hiring managers. Secondary: design leaders and recruiters skimming for craft + systems depth.</p>
+<h3>Success looks like</h3>
+<p>Pointer: <a href="./success-metrics.md"><code>success-metrics.md</code></a>. A reviewer reaches &quot;this person can own defense product surfaces&quot; within one case study, and reaches out.</p>
+<h3>Out of scope</h3>
+<ul>
+<li>Not a build-tooling showcase (the no-build constraint is a feature, not a gap).</li>
+<li>Not a generic agency portfolio; every piece serves the defense-AI narrative.</li>
+<li>No fabricated metrics or classified specifics.</li>
+</ul></section>
+<section class="doc" id="docs-product-requirements-md" data-group="Product docs"><div class="doc-head"><h2>product-requirements.md</h2><span class="doc-meta">docs/product-requirements.md · 234 words</span></div><h2>Product requirements — Product Designer Portfolio</h2>
+<h3>Overview</h3>
+<p>Robert Babiarz&#x27;s senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<h3>Goals &amp; non-goals</h3>
+<ul>
+<li><strong>Goals:</strong> prove the connected-lighting → defense-AI thesis through interactive prototypes;</li>
+<p>hold WCAG 2.2 AA / AODA; load and deploy anywhere static with no build.</p>
+<li><strong>Non-goals:</strong> a CMS/backend; build tooling; fabricated data; color-only signaling.</li>
+</ul>
+<h3>User stories</h3>
+<ul>
+<li>As a <strong>program lead</strong>, I want to see judgment-under-uncertainty made playable, so I can</li>
+<p>gauge product thinking, not just visuals.</p>
+<li>As a <strong>design leader</strong>, I want to see a real design system + states, so I trust the craft.</li>
+<li>As a <strong>recruiter</strong>, I want the value in one scroll, so I can route the candidate quickly.</li>
+</ul>
+<h3>Functional requirements</h3>
+<div class="tbl"><table><thead><tr><th>#</th><th>Requirement</th><th>Priority</th></tr></thead><tbody>
+<tr><td>1</td><td>Three switchable homepage variants (Interactive / Dossier / Retro) behind a VIEW switcher</td><td>P0</td></tr>
+<tr><td>2</td><td>Interactive proofs: AEGIS Fusion Watch, Light ARchitect, CTOC, CORE Insights</td><td>P0</td></tr>
+<tr><td>3</td><td>Keyboard + screen-reader paths for every interaction (incl. games)</td><td>P0</td></tr>
+<tr><td>4</td><td>Dark-first theme with a light architect mirror; one accent per screen</td><td>P0</td></tr>
+<tr><td>5</td><td>Works offline-after-load; deploys to GitHub Pages</td><td>P1</td></tr>
+</tbody></table></div>
+<h3>Constraints</h3>
+<p>See <a href="./constraints.md"><code>constraints.md</code></a>. ## Open questions See <a href="./open-questions.md"><code>open-questions.md</code></a>.</p></section>
+<section class="doc" id="docs-personas-md" data-group="Product docs"><div class="doc-head"><h2>personas.md</h2><span class="doc-meta">docs/personas.md · 111 words</span></div><h2>Personas</h2>
+<h3>Primary — Defense / dual-use program lead (hiring)</h3>
+<ul>
+<li><strong>Role / context:</strong> evaluating a senior product designer for security / defense surfaces.</li>
+<li><strong>Goals:</strong> see judgment under uncertainty, systems thinking, and shippable craft.</li>
+<li><strong>Frustrations:</strong> portfolios of pretty screens with no flow, no states, no rationale.</li>
+<li><strong>Success feels like:</strong> &quot;this person could own our operator-facing product.&quot;</li>
+</ul>
+<h3>Secondary — Design leader / recruiter</h3>
+<ul>
+<li><strong>Role / context:</strong> skimming many candidates, limited time.</li>
+<li><strong>Goals:</strong> confirm real design-system depth and accessibility discipline, fast.</li>
+<li><strong>Frustrations:</strong> having to dig for the &quot;why&quot;; inaccessible demos.</li>
+<li><strong>Success feels like:</strong> value clear in one scroll; an easy reason to reach out.</li>
+</ul></section>
+<section class="doc" id="docs-information-architecture-md" data-group="Product docs"><div class="doc-head"><h2>information-architecture.md</h2><span class="doc-meta">docs/information-architecture.md · 126 words</span></div><h2>Information architecture</h2>
+<h3>Sitemap / navigation</h3>
+<ul>
+<li><code>index.html</code> → primary homepage (GitHub Pages entry / redirect)</li>
+<li><strong>Homepage</strong> (VIEW switcher — <code>home-variants.js</code>)</li>
+<li>Interactive (primary) · Dossier · Retro</li>
+<li><strong>Work</strong> (<code>Work.dc.html</code>) — project index</li>
+<li><strong>About</strong> (<code>About.dc.html</code>) — bio + experience</li>
+<li><strong>Case studies / showcases:</strong> AEGIS (DI / GIMS), CTOC, CORE Insights, DALI-2,</li>
+<p>Enterprise AI, Goals-driven fintech, Partitioning, Smart Lighting</p>
+</ul>
+<h3>Key objects &amp; relationships</h3>
+<ul>
+<li><strong>Homepage variant</strong> — a full read of the same narrative (Interactive / Dossier / Retro).</li>
+<li><strong>Case study</strong> — a project with a thesis, an interactive proof, and supporting states.</li>
+<li><strong>Interactive proof</strong> — the playable/▶ artifact embedded in a case (e.g. AEGIS Fusion Watch).</li>
+<li><strong>Shared runtime</strong> — <code>support.js</code> et al., consumed by every <code>.dc.html</code> page.</li>
+</ul></section>
+<section class="doc" id="docs-success-metrics-md" data-group="Product docs"><div class="doc-head"><h2>success-metrics.md</h2><span class="doc-meta">docs/success-metrics.md · 90 words</span></div><h2>Success metrics</h2>
+<div class="tbl"><table><thead><tr><th>Metric</th><th>Definition</th><th>Target</th><th>Source</th></tr></thead><tbody>
+<tr><td>Reach-out rate</td><td>Visitors who contact after a case study</td><td>(set)</td><td>inbound</td></tr>
+<tr><td>Case-study depth</td><td>Reach an interactive proof &amp; engage it</td><td>majority</td><td>analytics/observation</td></tr>
+<tr><td>Time-to-thesis</td><td>Seconds to &quot;I get the defense-AI angle&quot;</td><td>&lt; 60s</td><td>usability read</td></tr>
+</tbody></table></div>
+<h3>Guardrail metrics (must not get worse)</h3>
+<ul>
+<li>WCAG 2.2 AA / AODA compliance (<code>WCAG-2.2-AODA-AUDIT.md</code>).</li>
+<li>First-load performance on a mid-tier phone.</li>
+<li>No color-only meaning; reduced-motion respected.</li>
+</ul></section>
+<section class="doc" id="docs-constraints-md" data-group="Product docs"><div class="doc-head"><h2>constraints.md</h2><span class="doc-meta">docs/constraints.md · 92 words</span></div><h2>Constraints</h2>
+<ul>
+<li><strong>Technical:</strong> no build, no server, no backend. Single-file HTML; React + fonts via CDN;</li>
+<p>must work offline-after-load and deploy to any static host (GitHub Pages).</p>
+<li><strong>Brand:</strong> dark-first defense aesthetic; monochrome base + one accent per screen; the</li>
+<p>connected-lighting → defense-AI narrative is the through-line.</p>
+<li><strong>Platform:</strong> modern browsers, mobile → wide; prototypes may be embedded in host wrappers</li>
+<p>that carry a <code>transform</code> (don&#x27;t rely on viewport-fixed positioning).</p>
+<li><strong>Legal / compliance:</strong> WCAG 2.2 AA / AODA. No classified specifics; no fabricated metrics.</li>
+<li><strong>Timeline / resourcing:</strong> solo designer-builder.</li>
+</ul></section>
+<section class="doc" id="docs-design-decisions-md" data-group="Product docs"><div class="doc-head"><h2>design-decisions.md</h2><span class="doc-meta">docs/design-decisions.md · 1,083 words</span></div><h2>Design decisions (ADR log) — Product Designer Portfolio</h2>
+<p>Append-only record of meaningful choices. Newest at top.</p>
+<h3>ADR-006 — No homepage reader poll; cross-visitor state stays keyless</h3>
+<ul>
+<li><strong>Date:</strong> 2026-07-03</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> A &quot;which homepage did you like best?&quot; poll was scaffolded (<code>poll.js</code> +</li>
+<p>Firebase Firestore config) but never enabled. It required a real backend and a vendor account, contradicting ADR-002&#x27;s no-build / no-backend stance, and it asked visitors a question the VIEW switcher already answers behaviorally.</p>
+<li><strong>Decision:</strong> Remove the homepage poll and all Firebase scaffolding</li>
+<p>(<code>poll.js</code>, <code>firebase-config.js</code>, <code>firebase.json</code>, <code>firestore.rules</code>). The work-page carousel poll stays — its tally uses a keyless public counter (Abacus), which fits the static-host architecture.</p>
+<li><strong>Consequences:</strong> No homepage vote data; variant preference is inferred from the saved</li>
+<p>VIEW choice instead. If a poll returns someday, it should use a keyless store, not a vendor backend. Recoverable from git history (<code>ce08e02</code>).</p>
+</ul>
+<h3>ADR-005 — The dropped P1 node map ships as a live simulation, not a screenshot</h3>
+<ul>
+<li><strong>Date:</strong> 2026-07-03</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> The Smart Lighting mesh section showed four proposals as static screenshots. P1</li>
+<p>(drag-to-repeater node map) is the strongest demonstration of interaction craft, and the portfolio thesis is interactive, code-level prototypes — a screenshot undersells it.</p>
+<li><strong>Decision:</strong> Rebuild the P1 screen as a working sim (<code>mesh-sim.js</code>, shared by both smart-lighting</li>
+<p>pages via <code>[data-mesh-sim]</code>): distance-based signal model, drag-a-bulb-onto-the-gateway promotion, TEST sweep that reveals marginal devices with where-to-work guidance, and AUTO SELECT that performs the shipped P4 behavior — making the P1→P4 argument playable. Low reliability is coral <strong>plus</strong> a &quot;!&quot; badge and dashed links (never hue alone); full keyboard path (arrows/Enter/T/R) with <code>aria-live</code> announcements; sim state survives <code>.dc</code> re-renders.</p>
+<li><strong>Consequences:</strong> One more shared runtime module to maintain; the P2/P3/P4 tabs remain</li>
+<p>screenshots layered above the sim (which goes inert while covered). Fixing pointer delivery surfaced a site-wide bug: the page-transition overlay stayed hit-testable during its entrance animation — it is now <code>pointer-events:none</code> except during the deliberate exit cover.</p>
+</ul>
+<h3>ADR-004 — In-game overlays anchor to their stage, not the viewport</h3>
+<ul>
+<li><strong>Date:</strong> 2026-06-28</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> The AEGIS &quot;how scoring works&quot; popup used <code>position:fixed</code>; inside a host wrapper</li>
+<p>with a <code>transform</code>, fixed resolves against that ancestor, so on mobile it flew off-screen.</p>
+<li><strong>Decision:</strong> Anchor in-game overlays with <code>position:absolute</code> to the game stage and frame the</li>
+<p>stage into view on open.</p>
+<li><strong>Consequences:</strong> Robust in any embed; dim is stage-scoped rather than full-page (acceptable).</li>
+</ul>
+<h3>ADR-003 — Three switchable homepage variants</h3>
+<ul>
+<li><strong>Date:</strong> 2026-06-28</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> One homepage can&#x27;t serve both the &quot;interactive proof&quot; and &quot;classified dossier&quot; reads.</li>
+<li><strong>Decision:</strong> Ship Interactive (primary), Dossier, and Retro variants behind a VIEW switcher</li>
+<p>(<code>home-variants.js</code>) that remembers the choice.</p>
+<li><strong>Consequences:</strong> More surface to maintain; each variant must stay token- and a11y-consistent.</li>
+</ul>
+<h3>ADR-002 — No-build, self-contained HTML via the DC runtime</h3>
+<ul>
+<li><strong>Date:</strong> 2026-06-28</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> Portability and longevity beat tooling for a portfolio.</li>
+<li><strong>Decision:</strong> Single-file pages; <code>.dc.html</code> rendered by <code>support.js</code> (React via CDN). No server.</li>
+<li><strong>Consequences:</strong> Deploys anywhere static; first load needs the CDN; degrades gracefully.</li>
+</ul>
+<h3>ADR-001 — Dark-first defense aesthetic, monochrome + one accent</h3>
+<ul>
+<li><strong>Date:</strong> 2026-06-28</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> The work is SOC / defense; meaning must not ride on hue.</li>
+<li><strong>Decision:</strong> <code>#070b12</code> canvas, teal accent (<code>#4ca88f</code>/<code>#7dd3c0</code>), one color block per viewport,</li>
+<p>a light architect mirror. No stoplight colors as status.</p>
+<li><strong>Consequences:</strong> Strong, coherent read; requires discipline on accent usage and contrast.</li>
+</ul>
+<h3>ADR — AEGIS GIMS enters the portfolio as case study 08</h3>
+<ul>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> The interview-design-solution repo carries a complete, on-brand case study</li>
+<p>(same palette/type as this site) plus two live builds (v1 take-home, v2 AEGIS-GIMS).</p>
+<li><strong>Decision:</strong> Re-author into the site&#x27;s two-page convention (showcase shell from CTOC, deep-dive</li>
+<p>shell from Goals-Driven Fintech); embed the v2 build as the live prototype and link the v1 take-home; number it 08 everywhere; splice the footer chain CTOC → GIMS → Fintech.</p>
+<li><strong>Consequences:</strong> One more registry entry to maintain in switchers/homepages/work/concierge;</li>
+<p>the prototype iframe is the site&#x27;s only external-origin embed (rbabiarz.github.io), labeled honestly as the one thing that needs a connection.</p>
+</ul>
+<h3>ADR — Parlay Games iGaming enters the portfolio as case study 09</h3>
+<ul>
+<li><strong>Date:</strong> 2026-07-12</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> The pre-IoT career chapter (a decade of iGaming at Parlay Games) existed only as a</li>
+<p>Figma case study; the site&#x27;s narrative jumps from nothing to connected lighting. The material is breadth-heavy (logos, game art, web platforms, promos, back office, 3D), unlike the site&#x27;s depth-first case studies.</p>
+<li><strong>Decision:</strong> Re-author into the two-page convention (showcase + deep-dive shells) as an</li>
+<p>image-led &quot;range under production constraints&quot; story; extract all imagery and copy from the Figma source; number it 09 everywhere; label company-level figures ($2B wagered/yr, 2.8M players, 70 clients) as Parlay-era context, not design metrics. Name it &quot;Parlay Games&quot; (source-accurate); reconciling the About page&#x27;s &quot;Parlay Gaming&quot; is logged in open-questions.</p>
+<li><strong>Consequences:</strong> First case study with no interactive prototype — the proof is production</li>
+<p>volume and range, stated honestly; adds ~20 optimized images to assets/parlay/.</p>
+</ul>
+<h3>ADR — Light ARchitect enters the portfolio as case study 06</h3>
+<ul>
+<li><strong>Date:</strong> 2026-07-12</li>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Context:</strong> The flagship of the Cooper tenure (six years, three published US patents, the</li>
+<p>About page&#x27;s $6M+ line) had no case study while the homepage carried a &quot;coming soon&quot; pill on its Light ARchitect scene. Sources are mixed-sensitivity: an older self-authored case study and Confluence/Jira exports (context only), public patents, the public cooperlighting.com page, and a 301-screen product export library.</p>
+<li><strong>Decision:</strong> Insert as case study 06 (after Smart Lighting), renumbering 06–09 → 07–10 across</li>
+<p>all surfaces rather than appending — the lighting arc reads chronologically. Two-page pair on the newest (plain-HTML) shells; the deep dive carries three in-page simulations sharing one footcandle engine (la-sims.js), each honesty-labeled and keyboard-operable. All copy written fresh: no ticket ids, colleague names, internal system names, or Confluence/Jira sentences; patents are the only verbatim source. Product name standardized to &quot;Light ARchitect&quot; in visible copy site-wide (CSS vars, ids, and file paths unchanged). The homepage pill was promoted to a case-study link, and the work-index carousel clamp was corrected (count 8 → 10; card 10 had been unreachable).</p>
+<li><strong>Consequences:</strong> Every case list is now 10 deep; the CORE/Enterprise-AI pages keep canonical</li>
+<p>ownership of the &quot;5,000 IES searchable / 20 auto-placed in CORE&quot; framing (this case cross-links instead of restating); adds ~24 optimized images to assets/la/ and a lime <code>footgrid</code> tile motif.</p>
+</ul></section>
+<section class="doc" id="docs-open-questions-md" data-group="Product docs"><div class="doc-head"><h2>open-questions.md</h2><span class="doc-meta">docs/open-questions.md · 156 words</span></div><h2>Open questions</h2>
+<div class="tbl"><table><thead><tr><th>#</th><th>Question</th><th>Owner</th><th>Status</th></tr></thead><tbody>
+<tr><td>1</td><td>Which homepage variant should be the default first impression?</td><td>Robert Babiarz</td><td>Open</td></tr>
+<tr><td>2</td><td>Do we need a low-bandwidth / no-JS fallback read of each case study?</td><td>Robert Babiarz</td><td>Open</td></tr>
+<tr><td>3</td><td>Naming: the About page&#x27;s Spotstudios card says &quot;Parlay Gaming&quot;; the Parlay case study (#09) and its Figma source say &quot;Parlay Games&quot;. Reconcile to one.</td><td>Robert Babiarz</td><td>Open</td></tr>
+</tbody></table></div>
+<h3>Light ARchitect case study (2026-07-12)</h3>
+<ul>
+<li>The dossier and retro homepages&#x27; Light ARchitect scenes still link only to cooperlighting.com</li>
+<p>(no in-scene case-study link like the interactive homepage&#x27;s promoted pill). The case study is reachable there via the 10-row file lists; add scene-level links if wanted.</p>
+<li>Older case-study material (v2/v3/v4 HTML + 301-screen library) remains outside the repo on</li>
+<p>~/Desktop/Portfolio — source of truth for any future section additions.</p>
+</ul></section>
+<section class="doc" id="docs-changelog-md" data-group="Product docs"><div class="doc-head"><h2>changelog.md</h2><span class="doc-meta">docs/changelog.md · 427 words</span></div><h2>Changelog — Product Designer Portfolio</h2>
+<h3>2026-06-28</h3>
+<ul>
+<li>Product-design &quot;deep dive&quot; structure scaffolded into the repo (docs, tokens, design-system,</li>
+<p>.claude rules/agents/commands, reference). Existing prototypes untouched.</p>
+</ul>
+<h3>2026-07-10</h3>
+<ul>
+<li>AEGIS GIMS case study added end to end: quick tour + deep dive pages on the shared case-study</li>
+<p>shells, live v2 prototype embed, preview tile (recon motif), and registration across switchers, all three homepages, the work index, the concierge, search index, and sitemap. Copy carried over verbatim from the interview-design-solution repo; all metrics labeled as design targets.</p>
+</ul>
+<h3>2026-07-12</h3>
+<ul>
+<li>Parlay Games iGaming case study (#09) added end to end: quick tour + deep dive pages built from</li>
+<p>the prior Figma case study (copy, stats, and imagery extracted from it), preview tile, and registration across switchers, all three homepages, the work index (including lobby mode), the concierge, search index, and sitemap. Company-level figures labeled as Parlay-era context.</p>
+<li>Light ARchitect case study (#06) inserted after Smart Lighting, renumbering 06–09 → 07–10 across</li>
+<p>every surface (work index/carousel/lobby, all three homepages, 18 case-page switchers). Quick tour + deep dive built from the sanitized older case study, public patents, and the 301-screen export library; the deep dive ships three working simulations (photometric sandbox, AI AutoLayout two-stage loop, IES filter-before-load), all keyboard-operable and reduced-motion safe. Homepage &quot;Case study coming soon&quot; pill promoted to a live link; product name corrected to &quot;Light ARchitect&quot; in visible copy site-wide; work-index carousel count fixed (card 10 was previously unreachable). No Jira/Confluence text, ticket ids, or internal system names carried over — patents are the only verbatim source.</p>
+</ul>
+<h3>2026-07-14</h3>
+<ul>
+<li>Light ARchitect case study scoped to released features only: ISO-contour and admin-platform</li>
+<p>content removed from both pages (quick tour photometrics band and &quot;Run as a product&quot; section; deep dive &quot;Run as a Product&quot; section, super-admin persona, and ISO shot — sections renumbered to 11, users reframed as four). The CORE &quot;where it went next&quot; cross-link moved into the AI AutoLayout section. Six now-unreferenced screenshots deleted from assets/la/; retro homepage and concierge copy updated; search index regenerated. AutoLayout demo generators also rewritten grid-true (poles snap to footcandle cell centres; no randomness).</p>
+</ul>
+<h3>2026-07-16</h3>
+<ul>
+<li>Site colophon added to every page: a build-record strip above the page end showing site</li>
+<p>founding date, real GitHub Pages deployment count and last-deploy date, a derived version number (generation · case studies · commits), last-updated date, the toolchain, and the zero-build / AI-paired architecture story. Rendered by <code>colophon.js</code>, generated from git history and the GitHub deployments API by <code>build-colophon.py</code> — every stat derived, none typed. Regenerate per release alongside the search index.</p>
+</ul></section>
+<section class="doc" id="docs-features-aegis-gims-md" data-group="Features"><div class="doc-head"><h2>aegis-gims.md</h2><span class="doc-meta">docs/features/aegis-gims.md · 233 words</span></div><h2>AEGIS GIMS — Filter-First Geospatial C2</h2>
+<p><strong>User:</strong> program lead / design leader evaluating defence-C2 product-design depth; secondary, the in-vehicle operator and HQ watch officer the concept serves.</p>
+<p><strong>Thesis:</strong> the operator defines the ground they own, draw it or type its coordinates, and entry into that ground becomes the alert. A zone filter is the smallest mechanism that serves the job (&quot;when an enemy vehicle enters the ground I&#x27;m responsible for, alert me and help me report it up the chain, without making me hunt for it&quot;).</p>
+<p><strong>What the interaction proves:</strong> the filter-first design hypothesis holds as a working system — draw/coordinate zone entry, Everything ↔ Signal filtering, entry-fires-the-alert with one-tap report-up, AI-assisted triage that never makes the call, all designed edge-first (air-gapped).</p>
+<p><strong>Scope:</strong> two portfolio pages (quick tour <code>aegis-gims-showcase.html</code>, deep dive <code>aegis-gims.html</code>), live v2 build embedded from rbabiarz.github.io/AEGIS-GIMS, preview tile, full site registration (switchers, homepages, work page, concierge, search index, sitemap).</p>
+<p><strong>States:</strong> everything/signal views, no-filter empty state, zone edit mode (view-only by default), alert toast + report-up modal (sent/queued), offline (maps from disk, alerting on-device, report queues), GPS-denied fallback. All metrics on the pages are design targets, labeled as such.</p>
+<p><strong>Source:</strong> github.com/rbabiarz/interview-design-solution (v1 React prototype; the case study frames this as a design problem + solution; no interview/take-home framing on the public pages) · live v2 build rbabiarz.github.io/AEGIS-GIMS. The v1 prototype is embedded natively in aegis-gims.html via aegis-gims-proto.js (dependency-free port, no iframe).</p></section>
+<section class="doc" id="docs-features-parlay-gaming-md" data-group="Features"><div class="doc-head"><h2>parlay-gaming.md</h2><span class="doc-meta">docs/features/parlay-gaming.md · 314 words</span></div><h2>Parlay Games — iGaming at Production Volume</h2>
+<p><strong>User:</strong> hiring manager / design leader gauging range and production discipline; the case proves the &quot;one designer across a whole platform surface&quot; claim behind the connected-lighting → defense narrative (the career chapter <em>before</em> IoT).</p>
+<p><strong>Thesis:</strong> breadth under real constraints. One designer shipping game art, brand systems, player sites, promotions, and operator tooling for a live real-money platform — where every asset had to perform on minimum-spec machines, in nine markets, on whatever runtime the era offered (Java → Flash → HTML → mobile).</p>
+<p><strong>What the pages prove:</strong> the work is real and at volume — logo systems with palettes and type specimens (Pow Wow Bingo, Titanium Gaming, Keto Konnection, Radio Bingo, Chatter Box, Sports Plays Poker), a 40-avatar caricature set, bingo/keno/slots game screens (75/80/90-ball buy flows, Hollywood Reels, 7s Ablaze, BonBon Blast, Bushwacks, Word Dragon), the Wonder Bingo social platform, Radio Bingo banking flows, the parlaygames.com corporate site, seasonal promo banners at three fixed production sizes with localization, back-office financial/management tooling, and Lightwave 3D casino imagery.</p>
+<p><strong>Scope:</strong> two portfolio pages (quick tour <code>parlay-gaming-showcase.html</code>, deep dive <code>parlay-gaming.html</code>), preview tile, full site registration (switchers, homepages, work page, concierge, search index, sitemap). Case study #09.</p>
+<p><strong>States:</strong> image-led showcase pages — loading (lazy below fold), missing-image alt text, reduced motion; no live embeds in v1 of these pages.</p>
+<p><strong>Source:</strong> the prior Figma case study (Claude-Design-Portfolio, node 31-2698) — copy, stats, and all imagery extracted from it. Headline figures ($2B USD wagered per year, 2.8M players online, 70 clients, 50+ games, world leader in online bingo across UK/Spain/Italy/Kenya/Denmark/US/Brazil/ Bahamas/Canada) are Parlay-era company figures from that case study, labeled as such on-page — they are platform outcomes the design work served, not metrics claimed for a single design.</p>
+<p><strong>Naming:</strong> &quot;Parlay Games&quot; throughout (matches the source case study; the About page&#x27;s Spotstudios card currently says &quot;Parlay Gaming&quot; — logged in open-questions to reconcile).</p></section>
+<section class="doc" id="docs-features-light-architect-md" data-group="Features"><div class="doc-head"><h2>light-architect.md</h2><span class="doc-meta">docs/features/light-architect.md · 229 words</span></div><h2>Light ARchitect — AI Photometric Design, Six Years Deep</h2>
+<p><strong>User:</strong> hiring manager / design leader gauging whether the &quot;designs AI-assisted, high-consequence tools&quot; claim has a shipped, verifiable flagship behind it; the case is the origin story of the portfolio&#x27;s thesis (the model brings receipts, you keep the decision) — earned on parking lots and ballfields before it met a threat feed.</p>
+<p><strong>Thesis:</strong> a specialist&#x27;s craft turned into a product without softening the math. Six years (2019–2025) across four eras — AR on the jobsite, satellite-imagery web design, AI autolayout with ranked candidates, indoor/sports expansion — with three published US patents on the interaction models (co-inventor, assigned to Signify) and a fourth pending. Every simplification is backed by real photometry: RP-8-22 targets, both uniformity ratios, spec-ready PDF output.</p>
+<p><strong>What the pages prove:</strong> the quick tour shows the shipped product on real satellite sites — fixtures carrying full specs, the 5,000-file curated IES library (visible in the product&#x27;s own UI), sports templates, AR-era renders — with every representative number footnoted honestly. The deep dive adds three working in-page simulations: a photometric sandbox (live footcandle grid judged by RP-8-22, keyboard-operable), an AI AutoLayout demo (boundary → goals → staged progress → three ranked candidates → hand refinement + re-rank), and a filter-before-load IES library demo. Confidentiality held: no internal ticket ids, systems, or names; patents are the only verbatim source quoted.</p></section>
+<section class="doc" id="design-system-foundations-md" data-group="Design system"><div class="doc-head"><h2>foundations.md</h2><span class="doc-meta">design-system/foundations.md · 761 words</span></div><h2>Foundations</h2>
+<p>The visual primitives of the Product Designer Portfolio. Two layers:</p>
+<ol>
+<li><strong>A shared foundational scale</strong> — type, spacing, radius, shadow, transitions, and the brand</li>
+<p>color cards — defined in <a href="../tokens.css"><code>tokens.css</code></a> (Untitled-UI-derived, light-first). The SOC/CTOC dashboard skin in <a href="../styles.css"><code>styles.css</code></a> builds on it.</p>
+<li><strong>Per-surface color palettes</strong> layered on top, one per page family — declared inline in each</li>
+<p>prototype&#x27;s <code>:root</code> / <code>.light</code>. The portable mirror of both layers is <a href="../design-tokens.json"><code>design-tokens.json</code></a> / <a href="../tokens/"><code>tokens/</code></a>.</p>
+</ol>
+<blockquote>
+<p>Reference CSS custom properties (<code>var(--bg)</code>, <code>var(--ac2)</code>, <code>var(--spacing-lg)</code>); never</p>
+<p>hardcode a raw hex/px in component code.</p>
+</blockquote>
+<hr>
+<h3>Color</h3>
+<h4>Foundational namespaces</h4>
+<ul>
+<li>**<code>--color-<em></code> / <code>--spacing-</em></code> / <code>--rounded-<em></code> / <code>--shadow-</em></code>** — the Untitled-UI scale in</li>
+<p><code>tokens.css</code>. Light-first (<code>--color-canvas:#fffcf5</code>, full gray ramp 50→900). Used by the case-study/dashboard pages.</p>
+<li><strong><code>--bg/--fg/--ac/--line</code></strong> — the homepage/case-study surface palette, dark-first with a</li>
+<p><code>.light</code> mirror (below).</p>
+</ul>
+<h4>Surface palettes (one accent per screen, one color block per viewport)</h4>
+<div class="tbl"><table><thead><tr><th>Surface</th><th>Canvas</th><th>Text</th><th>Accent</th><th>Use</th></tr></thead><tbody>
+<tr><td><strong>Interactive — dark</strong> (default)</td><td><code>--bg #070b12</code> → <code>--bg3 #121a28</code></td><td><code>--fg #e9eef7</code> / <code>--fg2 #8593a8</code> / <code>--fg3 #97a3b8</code></td><td><code>--ac #4ca88f</code> / <code>--ac2 #7dd3c0</code></td><td>Primary homepage, About, Work, case studies</td></tr>
+<tr><td><strong>Interactive — light</strong> (<code>.light</code>)</td><td><code>#fffcf5</code> → <code>#ebe6d6</code></td><td><code>#0a0a0a</code> / <code>#595959</code> / <code>#5e5e5e</code></td><td><code>#0d5350</code> / <code>#4ca88f</code></td><td>Light &quot;architect&quot; mirror</td></tr>
+<tr><td><strong>Dossier</strong></td><td><code>#f4ead2</code> (cream)</td><td><code>#0a0a0a</code></td><td><code>#b23a2e</code> (classified red) · <code>#1c6b39</code> status</td><td>&quot;Classified case-file&quot; homepage variant</td></tr>
+<tr><td><strong>Retro</strong></td><td><code>#040806</code></td><td><code>#6cf0a4</code> / bright <code>#cdffe2</code> / dim <code>#3f9e69</code></td><td><code>#6cf0a4</code> phosphor · <code>#ffb454</code> amber</td><td>&quot;CRT terminal&quot; homepage variant</td></tr>
+<tr><td><strong>CTOC (SOC)</strong></td><td><code>#fffefa</code> / dark <code>#0b0f14</code></td><td><code>--color-ink</code></td><td>severity scale (below)</td><td>SOC/threat-ops dashboard</td></tr>
+</tbody></table></div>
+<p>Hairlines: <code>--line rgba(255,255,255,.08)</code> / <code>--line2 …,.15)</code> on dark; <code>rgba(0,0,0,.09 / .16)</code> on light.</p>
+<h4>Brand color cards (<code>tokens.css</code>) — used sparingly</h4>
+<p><code>pink #d63b75</code> · <code>teal #0d5350</code> · <code>lavender #8b6fd9</code> · <code>peach #ff9d66</code> · <code>ochre #d4a036</code> · <code>mint #4ca88f</code> · <code>coral #e64d3c</code>. Each ships a paired <code>--color-on-*</code> text color for AA contrast (peach/ochre take ink <code>#0a0a0a</code>; the rest take white).</p>
+<h4>Severity (CTOC only) — never hue alone</h4>
+<p><code>critical #b91c1c</code> · <code>high #e64d3c</code> · <code>medium #d4a036</code> · <code>low #1570ef</code> · <code>resolved #15803d</code>. Always paired with a square/label/icon and re-tinted for the dark dashboard theme.</p>
+<blockquote>
+<p><strong>Rule:</strong> meaning never rides on hue alone, and the portfolio surfaces never use a saturated</p>
+<p>red/amber/stoplight-green <em>as status</em>. Coral <code>#e64d3c</code> is the strongest risk signal. The CTOC</p>
+<p>severity scale is the one domain-appropriate exception — and even there, color is paired with shape.</p>
+</blockquote>
+<hr>
+<h3>Typography</h3>
+<p><strong>Families:</strong> Inter (<code>--font-display</code>, headings), DM Sans (<code>--font-body</code>, prose), JetBrains Mono (<code>--font-mono</code>, HUD/system labels), VT323 (retro CRT only).</p>
+<p><strong>Display scale</strong> (<code>tokens.css</code>, shrinks at ≤767px):</p>
+<div class="tbl"><table><thead><tr><th>Token</th><th>Size → mobile</th><th>Weight</th><th>Line-height</th><th>Tracking</th></tr></thead><tbody>
+<tr><td>display-xl</td><td>72 → 36px</td><td>500</td><td>1.25</td><td>−1.44px</td></tr>
+<tr><td>display-lg</td><td>60 → 32px</td><td>500</td><td>1.2</td><td>−1.2px</td></tr>
+<tr><td>display-md</td><td>48 → 28px</td><td>500</td><td>1.25</td><td>−0.96px</td></tr>
+<tr><td>display-sm</td><td>36 → 24px</td><td>500</td><td>1.22</td><td>−0.72px</td></tr>
+<tr><td>display-xs</td><td>30px</td><td>500</td><td>1.27</td><td>0</td></tr>
+</tbody></table></div>
+<p><strong>Text scale:</strong> text-xl 24 · lg 20 · md 18 · <strong>sm 16 (body default)</strong> · xs 14 · xxs 12px.</p>
+<p><strong>Prototype heroes</strong> use <code>clamp()</code> beyond the static scale: interactive hero <code>clamp(40px, 7.4vw, 118px)</code>; retro VT323 <code>clamp(60px, 13vw, 168px)</code>.</p>
+<p><strong>Conventions:</strong> mono labels are UPPERCASE with <code>letter-spacing: 0.04–0.14em</code>; numeric readouts use <code>font-variant-numeric: tabular-nums</code>.</p>
+<hr>
+<h3>Spacing &amp; layout</h3>
+<p>Base scale (<code>--spacing-*</code>): 2 · 4 · 8 · 12 · 16 · 20 · 24 · 32 · 48 · 64 · 96 · 128px, with a <code>--spacing-section: 96px</code> rhythm. Section horizontal padding is typically <code>44px</code> (desktop), collapsing to <code>~16–20px</code> on mobile. Common grids: <code>1fr 1fr</code>, <code>repeat(3,1fr)</code>, <code>repeat(4,1fr)</code>, <code>repeat(6,1fr)</code> (KPI strip), and <code>repeat(auto-fit, minmax(160px,1fr))</code>. See <a href="./patterns.md"><code>patterns.md</code></a> for breakpoints.</p>
+<hr>
+<h3>Radius</h3>
+<p>Full scale (<code>--rounded-*</code>): 2 · 4 · 6 · 8 · 12 · 16 · 20 · 24 · 28px, plus <code>pill 9999px</code> and <code>full 50%</code>. In practice: <strong>pill (999px) for all CTAs</strong>, <code>10–16px</code> for cards/stages/game panels, <code>2–4px</code> for dense dashboard chips.</p>
+<hr>
+<h3>Elevation</h3>
+<p>Light surfaces use the <code>--shadow-xs…3xl</code> ramp (<code>rgba(16,24,40,…)</code>). Dark surfaces use long, soft shadows — e.g. cards/stages <code>0 30px 80px -40px rgba(0,0,0,0.8)</code>. Use elevation sparingly; one raised layer per context.</p>
+<hr>
+<h3>Motion tokens</h3>
+<p>Transitions: <code>--transition-fast 150ms</code> · <code>--transition-base 250ms</code> · <code>--transition-slow 350ms</code> (all <code>ease</code>). Micro-interactions commonly run 0.12–0.22s; entrances 0.34–0.9s. Full motion inventory and the <code>prefers-reduced-motion</code> contract live in <a href="./patterns.md"><code>patterns.md</code></a>.</p>
+<hr>
+<h3>Iconography</h3>
+<p>Lucide only — <code>&lt;i data-lucide=&quot;name&quot;&gt;&lt;/i&gt;</code>. Never hand-author SVG paths. Icon-only controls carry an <code>aria-label</code>.</p></section>
+<section class="doc" id="design-system-components-md" data-group="Design system"><div class="doc-head"><h2>components.md</h2><span class="doc-meta">design-system/components.md · 1,031 words</span></div><h2>Components</h2>
+<p>Inventory of the reusable UI actually shipped across the prototypes, with variants, states, and the tokens each uses. Components are realized <strong>inline</strong> in the page that uses them (no build, no component library); this file documents their contract. Cross-cutting motion and layout live in <a href="./patterns.md"><code>patterns.md</code></a>.</p>
+<p>States legend: ● implemented · ○ n/a. Every interactive element exposes a visible <code>:focus-visible</code> ring (<code>outline: 2–3px solid</code> accent, <code>outline-offset: 2–3px</code>).</p>
+<hr>
+<h3>Navigation &amp; chrome</h3>
+<h4>Top nav / header</h4>
+<p>Sticky bar; logo (RB box, 34×34, radius 8, border <code>--line2</code>), section links, theme toggle, VIEW switcher, mobile burger. Height <strong>72px</strong> (60px ≤860px). Links Inter 13/600, tracking 0.04em; background goes blurred/translucent on scroll. Logo is a real link to <code>#top</code>. States: default ● · hover ● · focus-visible ● · scrolled ●.</p>
+<h4>Mobile burger menu</h4>
+<p>Full-viewport overlay (<code>position:fixed; inset:0; z-index:95</code>), shown ≤860px. Three-line → X morph (<code>transform</code> on spans, 0.32s). Links are <strong>real <code>&lt;a&gt;</code> tags</strong> (work without JS), staggered fade-up entrance. Closed = opacity 0 / visibility hidden / pointer-events none; open = <code>.menu-open</code>. <code>aria-expanded</code> toggled on the trigger.</p>
+<h4>VIEW switcher (homepage variant selector)</h4>
+<p>Native <code>&lt;details&gt;/&lt;summary&gt;</code>; opens a sheet (min-width 252px, <code>--bg2</code>, border <code>--line2</code>, soft shadow) listing Interactive / Dossier / Retro. Each row has <code>data-home-variant</code>; selection writes <code>localStorage[&#x27;rb-home-variant&#x27;]</code>. Mono 10.5px label. No custom ARIA needed (native disclosure).</p>
+<h4>Theme toggle</h4>
+<p>40×40 button, border <code>--line</code>, radius 8; sun/moon Lucide glyph by mode. Writes <code>localStorage[&#x27;rba-int-dark&#x27;]</code>. <code>aria-label</code> present; hover shifts border to <code>--line2</code>.</p>
+<h4>Section TOC rail (desktop ≥1181px)</h4>
+<p>Fixed right-edge dot nav. Dot 10×2px <code>--fg3</code>; on rail-hover labels fade in (mono 10px, uppercase); active dot widens to 22px and turns <code>--ac</code>, label <code>--ac</code>. <code>aria-label=&quot;Sections&quot;</code>; links use <code>scroll-margin-top: 92px</code>. Hidden on mobile.</p>
+<h4>Footer</h4>
+<p>Top hairline <code>--line</code>, padding 28×44; flex space-between, wraps. Mono 11px; links <code>--fg2</code> → <code>--fg</code> on hover (0.15s).</p>
+<h4>Scroll-progress bar (About)</h4>
+<p>Fixed top, height 3px, <code>linear-gradient(90deg, --ac, --ac2)</code>; width set by JS, <code>transition: width .1s linear</code>.</p>
+<hr>
+<h3>Actions</h3>
+<h4>Pill CTA (primary / secondary)</h4>
+<p>All CTAs are <strong>pill-shaped (999px)</strong>. Primary: filled accent (<code>--ac</code> / surface accent), mono 12–15/700, tracking 0.08em, padding ~13–15×24–28. Hover lifts (<code>translateY(-2px)</code> + soft accent shadow); active <code>translateY(1px)</code>; focus-visible <code>outline 2px</code> accent, offset 3. Secondary/ghost: 1.5px border, transparent fill, tinted hover. States: default ● hover ● active ● focus-visible ● · disabled ○ (rare).</p>
+<h4>Verb buttons (AEGIS rail — CLEAR / HOLD / TAG)</h4>
+<p>Equal-flex, min-height 54px (60 mobile), radius 10. Fill <code>rgba(12,18,28,.82)</code>, border <code>rgba(255,255,255,.12)</code>. Color-coded top border (clear=blue, hold=amber, tag=red). Hover brightens; active <code>translateY(1px)</code>; success flash <code>.ag-flash-ok</code> (teal), error flash <code>.ag-flash-bad</code> (coral); focus-visible teal ring. <code>-webkit-tap-highlight-color: transparent</code>. Keys J/K/L; descriptive <code>aria-label</code>s; outcomes announced via <code>#ag-live</code> (<code>aria-live=&quot;polite&quot;</code>).</p>
+<h4>Dashboard buttons (CTOC, <code>styles.css</code>)</h4>
+<p><code>.btn</code> mono 11px uppercase, radius 3, with <code>--primary</code> (ink fill), <code>--danger</code> (critical fill), <code>--ghost</code>, <code>--xs</code>, <code>--active</code> variants. Hover/focus contrast verified AA (see comments in <code>styles.css</code>).</p>
+<hr>
+<h3>Content blocks</h3>
+<h4>Project card (Work coverflow)</h4>
+<p>Clickable <code>&lt;a&gt;</code>, aspect 3/2, radius 14, border <code>--line2</code>, bg <code>--bg3</code>, big soft shadow. Center (focused) = full scale/opacity; side (<code>data-state=&quot;side&quot;</code>) = scaled/rotated/blurred with a veil gradient. Transition 0.62s <code>cubic-bezier(.2,.85,.25,1)</code>. Badge hidden ≤560px.</p>
+<h4>Case-study hero card (CORE Insights)</h4>
+<p>Device collage (browser chrome + phone), floating &quot;live&quot; chip (<code>ci-float</code> 6s), vignette. Desktop uses absolute/perspective layout; mobile switches to a flex stack. Images carry alt text; the chip is <code>aria-hidden</code>.</p>
+<h4>Stat / metric block</h4>
+<p>Grid cells, dark fill <code>#0b1016</code>, centered. Number mono <code>clamp(32–60px)</code>/500; label mono 10px uppercase, tracking 0.12em. Tabular numerals.</p>
+<h4>Spec / stakeholder table (case studies)</h4>
+<p>2-col grid (<code>0.34fr 0.66fr</code> or <code>0.3fr 0.7fr</code>), radius 14, hairline row separators, mono uppercase header. Stacks to 1 column ≤880px.</p>
+<h4>Badges / eyebrows / chips</h4>
+<p>Section eyebrow: mono 11px uppercase, tracking 0.14em, accent color (e.g. <code>01 · Project Overview</code>). Pulse-dot eyebrow (CTOC) adds a <code>ct-pulse</code> ring. Tag chip: pill, mono 10.5px, border <code>--line</code>. Inline highlight (<code>.ci-hl</code>): hand-drawn marker sweep behind <code>&lt;em&gt;</code> (<code>ci-marker</code>, scaleX 0→1).</p>
+<hr>
+<h3>AEGIS Fusion Watch (interactive classification game)</h3>
+<p>Embedded on all three homepages. Stage: <code>position:relative</code>, <code>height: min(70vh,620px)</code> (78vh mobile), radius 16, radial-gradient field, <code>role=&quot;application&quot; tabindex=&quot;0&quot;</code> with a full <code>aria-label</code>. Stacking: hud z4 · receipt z4–5 · rail z5 · state overlay z6 · info modal z200.</p>
+<ul>
+<li><strong>HUD rail</strong> (top): SCORE / COMBO / ACC / LIVES / BEST, mono 11px uppercase; active values brighten.</li>
+<li><strong>Receipt panel</strong> (<code>#ag-receipt</code>): track id, AI assessment, confidence bar, source pips</li>
+<p>(<code>.cor</code> correct / <code>.con</code> conflict / <code>.off</code> offline-stripe), dissent line. <code>position:absolute</code> to the stage (mobile: repositioned to a bottom strip). Opacity-gated; <code>pointer-events:none</code>.</p>
+<li><strong>Verb rail</strong>: the CLEAR/HOLD/TAG buttons (above).</li>
+<li><strong>State overlay</strong> (<code>#ag-screen</code>): attract / game-over; eyebrow + title + sub + pill start button.</li>
+<li><strong>Scoring info modal</strong> (<code>#ag-info</code>): <code>role=&quot;dialog&quot; aria-modal=&quot;true&quot;</code>; **anchored to the stage</li>
+<p>with <code>position:absolute</code>** (not viewport-fixed) so it survives transformed host ancestors, and the stage is framed into view on open (see ADR-004). Closes via ✕, Esc, or backdrop click.</p>
+</ul>
+<p>States: attract ● · playing ● · game-over ● · paused (modal open) ● · graceful no-canvas fallback ●.</p>
+<hr>
+<h3>Light ARchitect (interactive photometric scene)</h3>
+<p>Draggable fixture markers (<code>.la-fx</code>, 18×7, lime border, glow on <code>.on</code>/hover; 44×44 touch target; focus-visible ring). Pill hint popup (<code>#la-hint</code>, glass + blur, mono, accent dot), isometric ground plane (<code>rotateX(74deg)</code> + radial mask), floating telemetry HUD labels (<code>cityFloat</code>, <code>pointer-events:none</code>), recalc button. Themed via <code>--la-*</code> vars (light default; dark override under <code>#int-root:not(.light)</code>).</p>
+<hr>
+<h3>CTOC / SOC dashboard (styles.css)</h3>
+<p>A utilitarian skin on the foundational tokens, with its own component set: <code>.panel</code> (head/body), <code>.kpis</code> strip, <code>.sev</code> severity pill, <code>.tag</code>, <code>.tbl</code> data tables (sticky mono headers, hover rows, tabular nums), <code>.kc</code> kill-chain stages, <code>.mitre</code> tactics grid, <code>.map</code> asset graph (nodes/edges/pulse), <code>.timeline</code>, <code>.drawer</code> (slide-in detail), <code>.heat</code> heatmap, <code>.bar-row</code>, <code>.feed</code> (new-item highlight), and a <code>data-theme=&quot;dark&quot;</code> variant that re-tints every severity background. All severity is paired with a square/label — never hue alone.</p>
+<hr>
+<h3>Surface-specific components</h3>
+<ul>
+<li><strong>Dossier:</strong> CONFIDENTIAL file header (red badge + blinking status dot), Subject ID card (photo</li>
+<p>placeholder, offset hard shadow, rotated VERIFIED stamp), <strong>redacted text</strong> (black bar → reveals on hover), case-file list rows.</p>
+<li><strong>Retro:</strong> CRT scanline/vignette/phosphor-flicker/drifting-scan overlays (z9000–9002), VT323</li>
+<p>power-on heading (<code>rt-pwr</code>), boot log, <code>C:\&gt;</code> command prompt with blinking block cursor, DIR-style directory listing.</p>
+</ul>
+<blockquote>
+<p>Reduced-motion note: the retro CRT flicker and scan-beam are <strong>removed</strong> (<code>display:none</code>) under</p>
+<p><code>prefers-reduced-motion</code>; the boot/power-on jumps to its final state. See <a href="./patterns.md"><code>patterns.md</code></a>.</p>
+</blockquote></section>
+<section class="doc" id="design-system-patterns-md" data-group="Design system"><div class="doc-head"><h2>patterns.md</h2><span class="doc-meta">design-system/patterns.md · 736 words</span></div><h2>Patterns</h2>
+<p>Composed, cross-cutting solutions: layout, theming, the homepage variant system, motion (and the reduced-motion contract), states, and robustness. Grounded in the shipped prototypes and the shared JS modules (<code>support.js</code>, <code>text-motion.js</code>, <code>page-transition.js</code>, <code>a11y.js</code>, <code>home-variants.js</code>).</p>
+<hr>
+<h3>Layout</h3>
+<ul>
+<li><strong>Page scaffold:</strong> <code>min-height:100vh</code>, max-width wrapper (~1180–1480px) centered; hero often</li>
+<p><code>min-height:100vh</code>, section padding <code>44px</code> desktop → <code>16–20px</code> mobile; section anchors carry <code>scroll-margin-top: 92px</code> so deep links clear the sticky nav.</p>
+<li><strong>Grids:</strong> <code>1fr 1fr</code>, <code>repeat(3,1fr)</code>, <code>repeat(4,1fr)</code>, <code>repeat(6,1fr)</code> (KPI), and</li>
+<p><code>repeat(auto-fit, minmax(160px,1fr))</code>.</p>
+<li><strong>Breakpoints (px):</strong></li>
+<li><strong>≤520</strong> — hero clamp floor; multi-col grids collapse to 1.</li>
+<li><strong>≤760</strong> — AEGIS game mobile layout (<code>#ag-stage</code> 78vh; receipt moves to a bottom strip).</li>
+<li><strong>≤860</strong> — desktop nav hidden / burger shown; 2-col → 1-col; section TOC hidden.</li>
+<li><strong>861–1080</strong> — 3-col grids step down to 2.</li>
+<li><strong>≥1181</strong> — section TOC rail appears.</li>
+</ul>
+<hr>
+<h3>Theming (dark / light)</h3>
+<p>CSS-variable override, no duplicated styles: <code>:root</code> defines the <strong>dark</strong> palette; a <code>.light</code> class on the root re-declares the same <code>--bg/--fg/--ac/--line</code> tokens. The nav theme toggle flips the class and persists <code>localStorage[&#x27;rba-int-dark&#x27;]</code>; <strong>dark is the default</strong>. The Light ARchitect scene gets its own <code>--la-*</code> set (light default, dark override under <code>#int-root:not(.light)</code>). Dossier and Retro are single-theme surfaces with their own palettes.</p>
+<hr>
+<h3>Homepage variants</h3>
+<p>Three interchangeable full reads of the same portfolio, swapped by the VIEW switcher (<code>home-variants.js</code>):</p>
+<div class="tbl"><table><thead><tr><th>Variant</th><th>File</th><th>Tone</th></tr></thead><tbody>
+<tr><td><strong>Interactive</strong> (primary)</td><td><code>homepage-interactive.dc.html</code></td><td>Analytical, teal-accented, live demos</td></tr>
+<tr><td><strong>Dossier</strong></td><td><code>homepage-dossier.dc.html</code></td><td>Classified case-file — cream paper, red stamp, redaction</td></tr>
+<tr><td><strong>Retro</strong></td><td><code>homepage-retro.dc.html</code></td><td>CRT terminal / &quot;RB-OS&quot; — phosphor green, <code>C:\&gt;</code> prompt</td></tr>
+</tbody></table></div>
+<p>Selection writes <code>localStorage[&#x27;rb-home-variant&#x27;]</code>; on load, if the saved variant differs from the current file, <code>home-variants.js</code> silently <code>location.replace()</code>s to it (preserving the hash). Case studies, About, and Work are shared across variants. <code>index.html</code> redirects into Interactive, where this logic takes over.</p>
+<hr>
+<h3>Motion</h3>
+<p>Motion explains a state change or directs attention — never decoration. Tokens: 150/250/350ms <code>ease</code>; micro-interactions 0.12–0.22s; entrances 0.34–0.9s.</p>
+<p><strong>Keyframe inventory (by surface):</strong></p>
+<ul>
+<li><strong>Hero / global:</strong> <code>rise</code> + <code>fade-up</code> (line-by-line hero entrance), <code>hero-hl-draw</code> (highlight</li>
+<p>underline scaleX, <code>cubic-bezier(.62,0,.34,1)</code>), <code>clarity-focus</code> (8s blur-in loop on a hero word), <code>scrolldot</code> (scroll cue), <code>marquee</code> (keyword loop with scroll counter-motion).</p>
+<li><strong>Isometric building / Light ARchitect:</strong> <code>cityFloat</code>, <code>cityWin</code>, <code>cityBeacon</code>, <code>laPulse</code>,</li>
+<p><code>laBeam</code>, <code>laScan</code>.</p>
+<li><strong>Dossier:</strong> <code>dossier-up</code> (section entrance), <code>dossier-blink</code> (status dot).</li>
+<li><strong>Retro:</strong> <code>rt-pwr</code> (VT323 power-on), <code>rt-in</code> (boot-log stagger), <code>rt-flicker</code> (phosphor),</li>
+<p><code>rt-scan</code> (drifting beam), <code>rt-blink</code> (cursor).</p>
+<li><strong>CTOC:</strong> <code>pulse</code> / <code>pulse-red</code> (live &amp; critical dots), <code>highlight</code> (new feed item),</li>
+<p><code>fade</code>/<code>slidein</code> (drawer).</p>
+</ul>
+<p><strong>Scroll behaviour (<code>text-motion.js</code>):</strong> an IntersectionObserver-style engine reveals headings on entry (rise ~38px), adds velocity-aware drift (±22px) and skew (±2.4°), and counter-drifts the marquee. Settles to <code>transform:none</code>. A <code>MutationObserver</code> re-registers new DOM.</p>
+<p><strong>Page transitions (<code>page-transition.js</code>):</strong> an isometric-block CSS mask grows/shrinks across navigations (<code>cubic-bezier(.76,0,.24,1)</code>; entrance ~980ms, exit ~660ms); first visit shows a one-time intro counter (~1650ms).</p>
+<h4><code>prefers-reduced-motion</code> contract (required)</h4>
+<p>Every motion path gates on it:</p>
+<ul>
+<li><code>text-motion.js</code> and <code>page-transition.js</code> <strong>early-return</strong> / jump to final state.</li>
+<li><code>a11y.js</code> injects a global rule forcing animation/transition durations to ~0 and <code>scroll-behavior:auto</code>.</li>
+<li>Per-file media queries kill AEGIS button transitions and <strong>remove the retro CRT flicker/scan</strong></li>
+<p>(<code>display:none</code>), snapping boot/power-on to final state.</p>
+<li>Add <code>@media (prefers-reduced-motion: reduce)</code> to any new animated component.</li>
+</ul>
+<hr>
+<h3>State patterns</h3>
+<p>Design every state, not just the happy path:</p>
+<ul>
+<li><strong>AEGIS state machine:</strong> attract → playing → game-over, plus a paused state while the scoring</li>
+<p>modal is open. HUD/receipt opacity-gate per state.</p>
+<li><strong>Light ARchitect:</strong> empty plate → place-fixtures hint → live recompute; degrades if imagery is absent.</li>
+<li><strong>Empty / loading / error:</strong> show what precedes data, during, and on failure; never a blank frame.</li>
+<li><strong>Longest content:</strong> labels, names, and tables must hold their longest real value (truncate with</li>
+<p><code>text-overflow: ellipsis</code> where bounded).</p>
+</ul>
+<hr>
+<h3>Robustness (embed- and failure-safe)</h3>
+<ul>
+<li><strong>Isolated init:</strong> each enhancement runs in its own <code>try/catch</code>; one failing init (canvas, missing</li>
+<p>node) must not abort the rest. Missing elements fail silently, the page still renders.</p>
+<li><strong>Overlays anchor to their stage:</strong> in-stage overlays use <code>position:absolute</code> relative to a</li>
+<p>positioned stage rather than viewport <code>fixed</code>, so a transformed host ancestor can&#x27;t push them off-screen (ADR-004). Body-level overlays (page transition, mobile menu) use <code>fixed</code> deliberately.</p>
+<li><strong>Focus management:</strong> a skip link (<code>a11y.js</code>) is the first focusable element; <code>:focus-visible</code></li>
+<p>rings (3px accent) on all controls; the scoring modal moves focus to its close button on open.</p>
+<li><strong>Persistence guards:</strong> all <code>localStorage</code> access is wrapped; failure is non-fatal.</li>
+</ul></section>
+<section class="doc" id="design-system-usage-guidelines-md" data-group="Design system"><div class="doc-head"><h2>usage-guidelines.md</h2><span class="doc-meta">design-system/usage-guidelines.md · 345 words</span></div><h2>Usage guidelines</h2>
+<p>Do / don&#x27;t for applying the system. Grounded in the shipped prototypes and <a href="../.claude/rules/"><code>../.claude/rules/</code></a>.</p>
+<h3>Tokens</h3>
+<ul>
+<li><strong>Do</strong> reference CSS custom properties (<code>var(--bg)</code>, <code>var(--ac2)</code>, <code>var(--spacing-lg)</code>,</li>
+<p><code>var(--rounded-pill)</code>). <strong>Don&#x27;t</strong> hardcode a raw hex/px in component code — if a value is missing, add a token at the right layer (foundation scale in <code>tokens.css</code>, or a surface role inline).</p>
+<li><strong>Do</strong> keep the foundational scale (type/space/radius/shadow) and the per-surface color palette</li>
+<p>separate. <strong>Don&#x27;t</strong> invent a new accent per component.</p>
+</ul>
+<h3>Color &amp; meaning</h3>
+<ul>
+<li><strong>Do</strong> keep <strong>one accent per screen</strong> and <strong>one color block per viewport</strong>.</li>
+<li><strong>Do</strong> make meaning survive without color — pair every signal with text, shape, or icon.</li>
+<li><strong>Don&#x27;t</strong> use saturated red / amber / stoplight-green <em>as status</em> on portfolio surfaces. Coral</li>
+<p><code>#e64d3c</code> is the strongest risk signal. The CTOC severity scale is the one domain exception, and even there color is paired with a square/label.</p>
+</ul>
+<h3>Type &amp; layout</h3>
+<ul>
+<li><strong>Do</strong> use Inter for headings, DM Sans for prose, JetBrains Mono for HUD/labels (UPPERCASE +</li>
+<p>tracking), VT323 for retro only. <strong>Do</strong> use tabular nums for readouts.</p>
+<li><strong>Do</strong> hold the type and spacing scale; <strong>don&#x27;t</strong> introduce off-scale sizes.</li>
+</ul>
+<h3>Components &amp; states</h3>
+<ul>
+<li><strong>Do</strong> reuse an existing pattern before authoring a new one; CTAs are always pill-shaped.</li>
+<li><strong>Do</strong> design empty / loading / error / longest-content states, not just the happy path.</li>
+<li><strong>Don&#x27;t</strong> ship an interaction without a keyboard path and a visible <code>:focus-visible</code> ring.</li>
+</ul>
+<h3>Motion</h3>
+<ul>
+<li><strong>Do</strong> animate to explain a state change or direct attention. <strong>Do</strong> add</li>
+<p><code>@media (prefers-reduced-motion: reduce)</code> to every animated component (gate or remove the motion).</p>
+<li><strong>Don&#x27;t</strong> add decorative motion, or motion that can&#x27;t degrade.</li>
+</ul>
+<h3>Robustness (no-build, embeddable)</h3>
+<ul>
+<li><strong>Do</strong> keep prototypes self-contained: inline CSS/JS, only declared CDN deps, no build step.</li>
+<li><strong>Do</strong> anchor in-stage overlays to their stage (<code>position:absolute</code>), not the viewport — they may</li>
+<p>render inside a transformed host wrapper.</p>
+<li><strong>Do</strong> wrap each init in <code>try/catch</code> and guard <code>localStorage</code>; <strong>don&#x27;t</strong> let one failure cascade.</li>
+<li><strong>Do</strong> use Lucide icons (<code>&lt;i data-lucide=&quot;…&quot;&gt;</code>); <strong>don&#x27;t</strong> hand-author SVG paths.</li>
+</ul></section>
+<section class="doc" id="design-tokens-json" data-group="Design tokens"><div class="doc-head"><h2>design-tokens.json</h2><span class="doc-meta">design-tokens.json · 618 words</span></div><p class="note">Portable mirror of the LIVE design tokens. Source of truth is tokens.css (foundational scale, light-first, Untitled-UI-derived) plus the per-surface palettes declared inline in each prototype&#x27;s :root/.light. This file documents both layers; it is not consumed at runtime.</p><div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td class="tk">foundation.font.display</td><td><code>&#x27;Inter&#x27;, -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, Roboto, sans-serif</code></td></tr>
+<tr><td class="tk">foundation.font.body</td><td><code>&#x27;DM Sans&#x27;, -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, Roboto, sans-serif</code></td></tr>
+<tr><td class="tk">foundation.font.mono</td><td><code>&#x27;JetBrains Mono&#x27;, &#x27;SF Mono&#x27;, &#x27;Roboto Mono&#x27;, ui-monospace, monospace</code></td></tr>
+<tr><td class="tk">foundation.font.retro</td><td><code>&#x27;VT323&#x27;, monospace</code></td></tr>
+<tr><td class="tk">foundation.type.display.xl.size</td><td><code>72px</code></td></tr>
+<tr><td class="tk">foundation.type.display.xl.weight</td><td><code>500</code></td></tr>
+<tr><td class="tk">foundation.type.display.xl.lineHeight</td><td><code>1.25</code></td></tr>
+<tr><td class="tk">foundation.type.display.xl.tracking</td><td><code>-1.44px</code></td></tr>
+<tr><td class="tk">foundation.type.display.xl.mobile</td><td><code>36px</code></td></tr>
+<tr><td class="tk">foundation.type.display.lg.size</td><td><code>60px</code></td></tr>
+<tr><td class="tk">foundation.type.display.lg.weight</td><td><code>500</code></td></tr>
+<tr><td class="tk">foundation.type.display.lg.lineHeight</td><td><code>1.2</code></td></tr>
+<tr><td class="tk">foundation.type.display.lg.tracking</td><td><code>-1.2px</code></td></tr>
+<tr><td class="tk">foundation.type.display.lg.mobile</td><td><code>32px</code></td></tr>
+<tr><td class="tk">foundation.type.display.md.size</td><td><code>48px</code></td></tr>
+<tr><td class="tk">foundation.type.display.md.weight</td><td><code>500</code></td></tr>
+<tr><td class="tk">foundation.type.display.md.lineHeight</td><td><code>1.25</code></td></tr>
+<tr><td class="tk">foundation.type.display.md.tracking</td><td><code>-0.96px</code></td></tr>
+<tr><td class="tk">foundation.type.display.md.mobile</td><td><code>28px</code></td></tr>
+<tr><td class="tk">foundation.type.display.sm.size</td><td><code>36px</code></td></tr>
+<tr><td class="tk">foundation.type.display.sm.weight</td><td><code>500</code></td></tr>
+<tr><td class="tk">foundation.type.display.sm.lineHeight</td><td><code>1.22</code></td></tr>
+<tr><td class="tk">foundation.type.display.sm.tracking</td><td><code>-0.72px</code></td></tr>
+<tr><td class="tk">foundation.type.display.sm.mobile</td><td><code>24px</code></td></tr>
+<tr><td class="tk">foundation.type.display.xs.size</td><td><code>30px</code></td></tr>
+<tr><td class="tk">foundation.type.display.xs.weight</td><td><code>500</code></td></tr>
+<tr><td class="tk">foundation.type.display.xs.lineHeight</td><td><code>1.27</code></td></tr>
+<tr><td class="tk">foundation.type.display.xs.tracking</td><td><code>0</code></td></tr>
+<tr><td class="tk">foundation.type.text.xl.size</td><td><code>24px</code></td></tr>
+<tr><td class="tk">foundation.type.text.xl.lineHeight</td><td><code>1.33</code></td></tr>
+<tr><td class="tk">foundation.type.text.lg.size</td><td><code>20px</code></td></tr>
+<tr><td class="tk">foundation.type.text.lg.lineHeight</td><td><code>1.5</code></td></tr>
+<tr><td class="tk">foundation.type.text.md.size</td><td><code>18px</code></td></tr>
+<tr><td class="tk">foundation.type.text.md.lineHeight</td><td><code>1.56</code></td></tr>
+<tr><td class="tk">foundation.type.text.sm.size</td><td><code>16px</code></td></tr>
+<tr><td class="tk">foundation.type.text.sm.lineHeight</td><td><code>1.5</code></td></tr>
+<tr><td class="tk">foundation.type.text.xs.size</td><td><code>14px</code></td></tr>
+<tr><td class="tk">foundation.type.text.xs.lineHeight</td><td><code>1.43</code></td></tr>
+<tr><td class="tk">foundation.type.text.xxs.size</td><td><code>12px</code></td></tr>
+<tr><td class="tk">foundation.type.text.xxs.lineHeight</td><td><code>1.5</code></td></tr>
+<tr><td class="tk">foundation.type.hero_clamp.interactive</td><td><code>clamp(40px, 7.4vw, 118px)</code></td></tr>
+<tr><td class="tk">foundation.type.hero_clamp.retro_vt323</td><td><code>clamp(60px, 13vw, 168px)</code></td></tr>
+<tr><td class="tk">foundation.space.none</td><td><code>0</code></td></tr>
+<tr><td class="tk">foundation.space.xxs</td><td><code>2px</code></td></tr>
+<tr><td class="tk">foundation.space.xs</td><td><code>4px</code></td></tr>
+<tr><td class="tk">foundation.space.sm</td><td><code>8px</code></td></tr>
+<tr><td class="tk">foundation.space.md</td><td><code>12px</code></td></tr>
+<tr><td class="tk">foundation.space.lg</td><td><code>16px</code></td></tr>
+<tr><td class="tk">foundation.space.xl</td><td><code>20px</code></td></tr>
+<tr><td class="tk">foundation.space.2xl</td><td><code>24px</code></td></tr>
+<tr><td class="tk">foundation.space.3xl</td><td><code>32px</code></td></tr>
+<tr><td class="tk">foundation.space.4xl</td><td><code>48px</code></td></tr>
+<tr><td class="tk">foundation.space.5xl</td><td><code>64px</code></td></tr>
+<tr><td class="tk">foundation.space.6xl</td><td><code>96px</code></td></tr>
+<tr><td class="tk">foundation.space.7xl</td><td><code>128px</code></td></tr>
+<tr><td class="tk">foundation.space.section</td><td><code>96px</code></td></tr>
+<tr><td class="tk">foundation.radius.none</td><td><code>0</code></td></tr>
+<tr><td class="tk">foundation.radius.xxs</td><td><code>2px</code></td></tr>
+<tr><td class="tk">foundation.radius.xs</td><td><code>4px</code></td></tr>
+<tr><td class="tk">foundation.radius.sm</td><td><code>6px</code></td></tr>
+<tr><td class="tk">foundation.radius.md</td><td><code>8px</code></td></tr>
+<tr><td class="tk">foundation.radius.lg</td><td><code>12px</code></td></tr>
+<tr><td class="tk">foundation.radius.xl</td><td><code>16px</code></td></tr>
+<tr><td class="tk">foundation.radius.2xl</td><td><code>20px</code></td></tr>
+<tr><td class="tk">foundation.radius.3xl</td><td><code>24px</code></td></tr>
+<tr><td class="tk">foundation.radius.4xl</td><td><code>28px</code></td></tr>
+<tr><td class="tk">foundation.radius.pill</td><td><code>9999px</code></td></tr>
+<tr><td class="tk">foundation.radius.full</td><td><code>50%</code></td></tr>
+<tr><td class="tk">foundation.shadow.xs</td><td><code>0 1px 2px rgba(16,24,40,0.05)</code></td></tr>
+<tr><td class="tk">foundation.shadow.sm</td><td><code>0 1px 3px rgba(16,24,40,0.1), 0 1px 2px rgba(16,24,40,0.06)</code></td></tr>
+<tr><td class="tk">foundation.shadow.md</td><td><code>0 4px 8px -2px rgba(16,24,40,0.1), 0 2px 4px -2px rgba(16,24,40,0.06)</code></td></tr>
+<tr><td class="tk">foundation.shadow.lg</td><td><code>0 12px 16px -4px rgba(16,24,40,0.08), 0 4px 6px -2px rgba(16,24,40,0.03)</code></td></tr>
+<tr><td class="tk">foundation.shadow.xl</td><td><code>0 20px 24px -4px rgba(16,24,40,0.08), 0 8px 8px -4px rgba(16,24,40,0.03)</code></td></tr>
+<tr><td class="tk">foundation.shadow.2xl</td><td><code>0 24px 48px -12px rgba(16,24,40,0.18)</code></td></tr>
+<tr><td class="tk">foundation.shadow.3xl</td><td><code>0 32px 64px -12px rgba(16,24,40,0.14)</code></td></tr>
+<tr><td class="tk">foundation.shadow.dark_card</td><td><code>0 30px 80px -40px rgba(0,0,0,0.8)</code></td></tr>
+<tr><td class="tk">foundation.transition.fast</td><td><code>150ms ease</code></td></tr>
+<tr><td class="tk">foundation.transition.base</td><td><code>250ms ease</code></td></tr>
+<tr><td class="tk">foundation.transition.slow</td><td><code>350ms ease</code></td></tr>
+<tr><td class="tk">foundation.brand.pink.bg</td><td><span class="sw" style="background:#d63b75"></span><code>#d63b75</code></td></tr>
+<tr><td class="tk">foundation.brand.pink.on</td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td></tr>
+<tr><td class="tk">foundation.brand.teal.bg</td><td><span class="sw" style="background:#0d5350"></span><code>#0d5350</code></td></tr>
+<tr><td class="tk">foundation.brand.teal.on</td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td></tr>
+<tr><td class="tk">foundation.brand.lavender.bg</td><td><span class="sw" style="background:#8b6fd9"></span><code>#8b6fd9</code></td></tr>
+<tr><td class="tk">foundation.brand.lavender.on</td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td></tr>
+<tr><td class="tk">foundation.brand.peach.bg</td><td><span class="sw" style="background:#ff9d66"></span><code>#ff9d66</code></td></tr>
+<tr><td class="tk">foundation.brand.peach.on</td><td><span class="sw" style="background:#0a0a0a"></span><code>#0a0a0a</code></td></tr>
+<tr><td class="tk">foundation.brand.ochre.bg</td><td><span class="sw" style="background:#d4a036"></span><code>#d4a036</code></td></tr>
+<tr><td class="tk">foundation.brand.ochre.on</td><td><span class="sw" style="background:#0a0a0a"></span><code>#0a0a0a</code></td></tr>
+<tr><td class="tk">foundation.brand.mint.bg</td><td><span class="sw" style="background:#4ca88f"></span><code>#4ca88f</code></td></tr>
+<tr><td class="tk">foundation.brand.mint.on</td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td></tr>
+<tr><td class="tk">foundation.brand.coral.bg</td><td><span class="sw" style="background:#e64d3c"></span><code>#e64d3c</code></td></tr>
+<tr><td class="tk">foundation.brand.coral.on</td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.bg</td><td><span class="sw" style="background:#070b12"></span><code>#070b12</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.bg2</td><td><span class="sw" style="background:#0c121e"></span><code>#0c121e</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.bg3</td><td><span class="sw" style="background:#121a28"></span><code>#121a28</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.fg</td><td><span class="sw" style="background:#e9eef7"></span><code>#e9eef7</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.fg2</td><td><span class="sw" style="background:#8593a8"></span><code>#8593a8</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.fg3</td><td><span class="sw" style="background:#97a3b8"></span><code>#97a3b8</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.line</td><td><code>rgba(255,255,255,0.08)</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.line2</td><td><code>rgba(255,255,255,0.15)</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.ac</td><td><span class="sw" style="background:#4ca88f"></span><code>#4ca88f</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.ac2</td><td><span class="sw" style="background:#7dd3c0"></span><code>#7dd3c0</code></td></tr>
+<tr><td class="tk">surfaces.interactive.dark.grid</td><td><code>rgba(76,168,143,0.045)</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.bg</td><td><span class="sw" style="background:#fffcf5"></span><code>#fffcf5</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.bg2</td><td><span class="sw" style="background:#f7f2e6"></span><code>#f7f2e6</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.bg3</td><td><span class="sw" style="background:#ebe6d6"></span><code>#ebe6d6</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.fg</td><td><span class="sw" style="background:#0a0a0a"></span><code>#0a0a0a</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.fg2</td><td><span class="sw" style="background:#595959"></span><code>#595959</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.fg3</td><td><span class="sw" style="background:#5e5e5e"></span><code>#5e5e5e</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.line</td><td><code>rgba(0,0,0,0.09)</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.line2</td><td><code>rgba(0,0,0,0.16)</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.ac</td><td><span class="sw" style="background:#0d5350"></span><code>#0d5350</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.ac2</td><td><span class="sw" style="background:#4ca88f"></span><code>#4ca88f</code></td></tr>
+<tr><td class="tk">surfaces.interactive.light.grid</td><td><code>rgba(13,83,80,0.05)</code></td></tr>
+<tr><td class="tk">surfaces.dossier.bg</td><td><span class="sw" style="background:#f4ead2"></span><code>#f4ead2</code></td></tr>
+<tr><td class="tk">surfaces.dossier.ink</td><td><span class="sw" style="background:#0a0a0a"></span><code>#0a0a0a</code></td></tr>
+<tr><td class="tk">surfaces.dossier.accent</td><td><span class="sw" style="background:#b23a2e"></span><code>#b23a2e</code></td></tr>
+<tr><td class="tk">surfaces.dossier.status</td><td><span class="sw" style="background:#1c6b39"></span><code>#1c6b39</code></td></tr>
+<tr><td class="tk">surfaces.retro.bg</td><td><span class="sw" style="background:#040806"></span><code>#040806</code></td></tr>
+<tr><td class="tk">surfaces.retro.phosphor</td><td><span class="sw" style="background:#6cf0a4"></span><code>#6cf0a4</code></td></tr>
+<tr><td class="tk">surfaces.retro.phosphor_bright</td><td><span class="sw" style="background:#cdffe2"></span><code>#cdffe2</code></td></tr>
+<tr><td class="tk">surfaces.retro.phosphor_dim</td><td><span class="sw" style="background:#3f9e69"></span><code>#3f9e69</code></td></tr>
+<tr><td class="tk">surfaces.retro.amber</td><td><span class="sw" style="background:#ffb454"></span><code>#ffb454</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.critical</td><td><span class="sw" style="background:#b91c1c"></span><code>#b91c1c</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.high</td><td><span class="sw" style="background:#e64d3c"></span><code>#e64d3c</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.medium</td><td><span class="sw" style="background:#d4a036"></span><code>#d4a036</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.low</td><td><span class="sw" style="background:#1570ef"></span><code>#1570ef</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.resolved</td><td><span class="sw" style="background:#15803d"></span><code>#15803d</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.info</td><td><span class="sw" style="background:#595959"></span><code>#595959</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.dark_canvas</td><td><span class="sw" style="background:#0b0f14"></span><code>#0b0f14</code></td></tr>
+<tr><td class="tk">surfaces.ctoc.dark_ink</td><td><span class="sw" style="background:#f3f1ea"></span><code>#f3f1ea</code></td></tr></tbody></table></div></section>
+<section class="doc" id="tokens-primitives-json" data-group="Design tokens"><div class="doc-head"><h2>primitives.json</h2><span class="doc-meta">tokens/primitives.json · 149 words</span></div><p class="note">Raw values — no semantic meaning. Mirrors the real hexes/scale used in tokens.css and the per-surface inline palettes. Referenced by semantic.json and themes/.</p><div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td class="tk">palette.ink.900</td><td><span class="sw" style="background:#070b12"></span><code>#070b12</code></td></tr>
+<tr><td class="tk">palette.ink.800</td><td><span class="sw" style="background:#0c121e"></span><code>#0c121e</code></td></tr>
+<tr><td class="tk">palette.ink.700</td><td><span class="sw" style="background:#121a28"></span><code>#121a28</code></td></tr>
+<tr><td class="tk">palette.slate.100</td><td><span class="sw" style="background:#e9eef7"></span><code>#e9eef7</code></td></tr>
+<tr><td class="tk">palette.slate.300</td><td><span class="sw" style="background:#97a3b8"></span><code>#97a3b8</code></td></tr>
+<tr><td class="tk">palette.slate.400</td><td><span class="sw" style="background:#8593a8"></span><code>#8593a8</code></td></tr>
+<tr><td class="tk">palette.slate.900</td><td><span class="sw" style="background:#0a0a0a"></span><code>#0a0a0a</code></td></tr>
+<tr><td class="tk">palette.paper.50</td><td><span class="sw" style="background:#fffcf5"></span><code>#fffcf5</code></td></tr>
+<tr><td class="tk">palette.paper.100</td><td><span class="sw" style="background:#f7f2e6"></span><code>#f7f2e6</code></td></tr>
+<tr><td class="tk">palette.paper.200</td><td><span class="sw" style="background:#ebe6d6"></span><code>#ebe6d6</code></td></tr>
+<tr><td class="tk">palette.paper.dossier</td><td><span class="sw" style="background:#f4ead2"></span><code>#f4ead2</code></td></tr>
+<tr><td class="tk">palette.teal.300</td><td><span class="sw" style="background:#7dd3c0"></span><code>#7dd3c0</code></td></tr>
+<tr><td class="tk">palette.teal.500</td><td><span class="sw" style="background:#4ca88f"></span><code>#4ca88f</code></td></tr>
+<tr><td class="tk">palette.teal.700</td><td><span class="sw" style="background:#0d5350"></span><code>#0d5350</code></td></tr>
+<tr><td class="tk">palette.phosphor.bright</td><td><span class="sw" style="background:#cdffe2"></span><code>#cdffe2</code></td></tr>
+<tr><td class="tk">palette.phosphor.base</td><td><span class="sw" style="background:#6cf0a4"></span><code>#6cf0a4</code></td></tr>
+<tr><td class="tk">palette.phosphor.dim</td><td><span class="sw" style="background:#3f9e69"></span><code>#3f9e69</code></td></tr>
+<tr><td class="tk">palette.phosphor.bg</td><td><span class="sw" style="background:#040806"></span><code>#040806</code></td></tr>
+<tr><td class="tk">palette.signal.coral</td><td><span class="sw" style="background:#e64d3c"></span><code>#e64d3c</code></td></tr>
+<tr><td class="tk">palette.signal.ochre</td><td><span class="sw" style="background:#d4a036"></span><code>#d4a036</code></td></tr>
+<tr><td class="tk">palette.signal.lavender</td><td><span class="sw" style="background:#8b6fd9"></span><code>#8b6fd9</code></td></tr>
+<tr><td class="tk">palette.signal.peach</td><td><span class="sw" style="background:#ff9d66"></span><code>#ff9d66</code></td></tr>
+<tr><td class="tk">palette.signal.pink</td><td><span class="sw" style="background:#d63b75"></span><code>#d63b75</code></td></tr>
+<tr><td class="tk">palette.signal.classified</td><td><span class="sw" style="background:#b23a2e"></span><code>#b23a2e</code></td></tr>
+<tr><td class="tk">palette.severity.critical</td><td><span class="sw" style="background:#b91c1c"></span><code>#b91c1c</code></td></tr>
+<tr><td class="tk">palette.severity.high</td><td><span class="sw" style="background:#e64d3c"></span><code>#e64d3c</code></td></tr>
+<tr><td class="tk">palette.severity.medium</td><td><span class="sw" style="background:#d4a036"></span><code>#d4a036</code></td></tr>
+<tr><td class="tk">palette.severity.low</td><td><span class="sw" style="background:#1570ef"></span><code>#1570ef</code></td></tr>
+<tr><td class="tk">palette.severity.resolved</td><td><span class="sw" style="background:#15803d"></span><code>#15803d</code></td></tr>
+<tr><td class="tk">space.xxs</td><td><code>2px</code></td></tr>
+<tr><td class="tk">space.xs</td><td><code>4px</code></td></tr>
+<tr><td class="tk">space.sm</td><td><code>8px</code></td></tr>
+<tr><td class="tk">space.md</td><td><code>12px</code></td></tr>
+<tr><td class="tk">space.lg</td><td><code>16px</code></td></tr>
+<tr><td class="tk">space.xl</td><td><code>20px</code></td></tr>
+<tr><td class="tk">space.2xl</td><td><code>24px</code></td></tr>
+<tr><td class="tk">space.3xl</td><td><code>32px</code></td></tr>
+<tr><td class="tk">space.4xl</td><td><code>48px</code></td></tr>
+<tr><td class="tk">space.5xl</td><td><code>64px</code></td></tr>
+<tr><td class="tk">space.6xl</td><td><code>96px</code></td></tr>
+<tr><td class="tk">space.7xl</td><td><code>128px</code></td></tr>
+<tr><td class="tk">radius.xxs</td><td><code>2px</code></td></tr>
+<tr><td class="tk">radius.xs</td><td><code>4px</code></td></tr>
+<tr><td class="tk">radius.sm</td><td><code>6px</code></td></tr>
+<tr><td class="tk">radius.md</td><td><code>8px</code></td></tr>
+<tr><td class="tk">radius.lg</td><td><code>12px</code></td></tr>
+<tr><td class="tk">radius.xl</td><td><code>16px</code></td></tr>
+<tr><td class="tk">radius.2xl</td><td><code>20px</code></td></tr>
+<tr><td class="tk">radius.pill</td><td><code>9999px</code></td></tr>
+<tr><td class="tk">radius.full</td><td><code>50%</code></td></tr>
+<tr><td class="tk">font.display</td><td><code>Inter</code></td></tr>
+<tr><td class="tk">font.body</td><td><code>DM Sans</code></td></tr>
+<tr><td class="tk">font.mono</td><td><code>JetBrains Mono</code></td></tr>
+<tr><td class="tk">font.retro</td><td><code>VT323</code></td></tr></tbody></table></div></section>
+<section class="doc" id="tokens-semantic-json" data-group="Design tokens"><div class="doc-head"><h2>semantic.json</h2><span class="doc-meta">tokens/semantic.json · 106 words</span></div><p class="note">Role-based aliases for the PRIMARY (interactive) surface, matching the live --bg/--fg/--ac CSS custom properties. UI references the CSS vars; this maps them to primitives. Other surfaces (dossier/retro/ctoc) declare their own roles inline — see design-tokens.json &gt; surfaces.</p><div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td class="tk">color.bg.default.role</td><td><code>--bg</code></td></tr>
+<tr><td class="tk">color.bg.default.ref</td><td><code>{palette.ink.900}</code></td></tr>
+<tr><td class="tk">color.bg.raised.role</td><td><code>--bg2</code></td></tr>
+<tr><td class="tk">color.bg.raised.ref</td><td><code>{palette.ink.800}</code></td></tr>
+<tr><td class="tk">color.bg.overlay.role</td><td><code>--bg3</code></td></tr>
+<tr><td class="tk">color.bg.overlay.ref</td><td><code>{palette.ink.700}</code></td></tr>
+<tr><td class="tk">color.fg.default.role</td><td><code>--fg</code></td></tr>
+<tr><td class="tk">color.fg.default.ref</td><td><code>{palette.slate.100}</code></td></tr>
+<tr><td class="tk">color.fg.muted.role</td><td><code>--fg2</code></td></tr>
+<tr><td class="tk">color.fg.muted.ref</td><td><code>{palette.slate.400}</code></td></tr>
+<tr><td class="tk">color.fg.subtle.role</td><td><code>--fg3</code></td></tr>
+<tr><td class="tk">color.fg.subtle.ref</td><td><code>{palette.slate.300}</code></td></tr>
+<tr><td class="tk">color.line.default.role</td><td><code>--line</code></td></tr>
+<tr><td class="tk">color.line.default.ref</td><td><code>rgba(255,255,255,0.08)</code></td></tr>
+<tr><td class="tk">color.line.strong.role</td><td><code>--line2</code></td></tr>
+<tr><td class="tk">color.line.strong.ref</td><td><code>rgba(255,255,255,0.15)</code></td></tr>
+<tr><td class="tk">color.accent.default.role</td><td><code>--ac</code></td></tr>
+<tr><td class="tk">color.accent.default.ref</td><td><code>{palette.teal.500}</code></td></tr>
+<tr><td class="tk">color.accent.bright.role</td><td><code>--ac2</code></td></tr>
+<tr><td class="tk">color.accent.bright.ref</td><td><code>{palette.teal.300}</code></td></tr>
+<tr><td class="tk">color.risk.max.role</td><td><code>n/a</code></td></tr>
+<tr><td class="tk">color.risk.max.ref</td><td><code>{palette.signal.coral}</code></td></tr></tbody></table></div></section>
+<section class="doc" id="tokens-themes-dark-json" data-group="Design tokens"><div class="doc-head"><h2>dark.json</h2><span class="doc-meta">tokens/themes/dark.json · 44 words</span></div><p class="note">Interactive surface — DARK theme (default). Matches :root in the homepage/case-study prototypes.</p><div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td class="tk">selector</td><td><code>:root  (also #int-root:not(.light))</code></td></tr>
+<tr><td class="tk">color.bg</td><td><span class="sw" style="background:#070b12"></span><code>#070b12</code></td></tr>
+<tr><td class="tk">color.bg2</td><td><span class="sw" style="background:#0c121e"></span><code>#0c121e</code></td></tr>
+<tr><td class="tk">color.bg3</td><td><span class="sw" style="background:#121a28"></span><code>#121a28</code></td></tr>
+<tr><td class="tk">color.fg</td><td><span class="sw" style="background:#e9eef7"></span><code>#e9eef7</code></td></tr>
+<tr><td class="tk">color.fg2</td><td><span class="sw" style="background:#8593a8"></span><code>#8593a8</code></td></tr>
+<tr><td class="tk">color.fg3</td><td><span class="sw" style="background:#97a3b8"></span><code>#97a3b8</code></td></tr>
+<tr><td class="tk">color.line</td><td><code>rgba(255,255,255,0.08)</code></td></tr>
+<tr><td class="tk">color.line2</td><td><code>rgba(255,255,255,0.15)</code></td></tr>
+<tr><td class="tk">color.ac</td><td><span class="sw" style="background:#4ca88f"></span><code>#4ca88f</code></td></tr>
+<tr><td class="tk">color.ac2</td><td><span class="sw" style="background:#7dd3c0"></span><code>#7dd3c0</code></td></tr>
+<tr><td class="tk">color.grid</td><td><code>rgba(76,168,143,0.045)</code></td></tr></tbody></table></div></section>
+<section class="doc" id="tokens-themes-light-json" data-group="Design tokens"><div class="doc-head"><h2>light.json</h2><span class="doc-meta">tokens/themes/light.json · 44 words</span></div><p class="note">Interactive surface — LIGHT &#x27;architect&#x27; theme. Matches .light in the prototypes. Persisted via localStorage[&#x27;rba-int-dark&#x27;].</p><div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td class="tk">selector</td><td><code>.light</code></td></tr>
+<tr><td class="tk">color.bg</td><td><span class="sw" style="background:#fffcf5"></span><code>#fffcf5</code></td></tr>
+<tr><td class="tk">color.bg2</td><td><span class="sw" style="background:#f7f2e6"></span><code>#f7f2e6</code></td></tr>
+<tr><td class="tk">color.bg3</td><td><span class="sw" style="background:#ebe6d6"></span><code>#ebe6d6</code></td></tr>
+<tr><td class="tk">color.fg</td><td><span class="sw" style="background:#0a0a0a"></span><code>#0a0a0a</code></td></tr>
+<tr><td class="tk">color.fg2</td><td><span class="sw" style="background:#595959"></span><code>#595959</code></td></tr>
+<tr><td class="tk">color.fg3</td><td><span class="sw" style="background:#5e5e5e"></span><code>#5e5e5e</code></td></tr>
+<tr><td class="tk">color.line</td><td><code>rgba(0,0,0,0.09)</code></td></tr>
+<tr><td class="tk">color.line2</td><td><code>rgba(0,0,0,0.16)</code></td></tr>
+<tr><td class="tk">color.ac</td><td><span class="sw" style="background:#0d5350"></span><code>#0d5350</code></td></tr>
+<tr><td class="tk">color.ac2</td><td><span class="sw" style="background:#4ca88f"></span><code>#4ca88f</code></td></tr>
+<tr><td class="tk">color.grid</td><td><code>rgba(13,83,80,0.05)</code></td></tr></tbody></table></div></section>
+<section class="doc" id="claude-rules-design-system-md" data-group="Rules &amp; governance"><div class="doc-head"><h2>design-system.md</h2><span class="doc-meta">.claude/rules/design-system.md · 143 words</span></div><h2>Rule: Design system</h2>
+<ul>
+<li><strong>Never hardcode visual values in prototype code.</strong> Reference a CSS custom property</li>
+<p>(<code>var(--bg)</code>, <code>var(--fg2)</code>, <code>var(--ac2)</code>, the spacing/radius vars). The portable mirror is <code>design-tokens.json</code> / <code>tokens/semantic.json</code>; the live source is <code>tokens.css</code> / <code>styles.css</code> / <code>design-system/colors_and_type.css</code>.</p>
+<li>If a needed token doesn&#x27;t exist, add it at the right tier (primitive → semantic) rather</li>
+<p>than inlining a raw hex/px.</p>
+<li><strong>One color block per viewport. One accent per screen.</strong> Accent is <code>--ac</code> / <code>--ac2</code></li>
+<p>(teal family). <code>accent-magenta</code>-class brand colors are for at most one emphasis per screen.</p>
+<li><strong>Status never rides on hue alone</strong>, and never uses saturated red / amber / stoplight-green.</li>
+<p>Coral <code>#e64d3c</code> is the strongest risk signal; pair every signal with text or shape.</p>
+<li>Reuse existing patterns before inventing new ones; new components follow the variant/state</li>
+<p>model in <code>design-system/components.md</code>.</p>
+<li>Naming: semantic over literal (<code>--ac2</code>/<code>fg.muted</code>, not <code>--teal-300</code>).</li>
+</ul></section>
+<section class="doc" id="claude-rules-accessibility-md" data-group="Rules &amp; governance"><div class="doc-head"><h2>accessibility.md</h2><span class="doc-meta">.claude/rules/accessibility.md · 122 words</span></div><h2>Rule: Accessibility</h2>
+<p>Target <strong>WCAG 2.2 AA / AODA</strong>. A standing audit lives in <code>WCAG-2.2-AODA-AUDIT.md</code> — keep it current.</p>
+<ul>
+<li>Text contrast ≥ 4.5:1 (≥ 3:1 for large text and UI/graphical elements). The dark theme</li>
+<p>(<code>#e9eef7</code> on <code>#070b12</code>) and light theme are both AA — don&#x27;t regress them.</p>
+<li>Every interactive element is keyboard reachable with a <strong>visible focus state</strong></li>
+<p>(<code>:focus-visible</code>); games/canvases expose a real control path (keys + on-screen buttons).</p>
+<li>Hit targets ≥ 44×44px (the AEGIS verb rail, nav, switchers).</li>
+<li>Respect <code>prefers-reduced-motion</code> — the marquee, reveal, parallax, and game motion all gate on it.</li>
+<li><strong>Meaning survives without color.</strong> Pair color with text/icon/shape; no color-only status.</li>
+<li>Label all controls; <code>aria-live</code> for score/state announcements; images carry meaningful alt text.</li>
+</ul></section>
+<section class="doc" id="claude-rules-code-style-md" data-group="Rules &amp; governance"><div class="doc-head"><h2>code-style.md</h2><span class="doc-meta">.claude/rules/code-style.md · 225 words</span></div><h2>Rule: Code style</h2>
+<ul>
+<li><strong>Stack:</strong> Self-contained HTML — single-file pages with inline CSS/JS, no build step and no server. <code>.dc.html</code> pages embed markup in an <code>&lt;x-dc&gt;</code> template that <code>support.js</code> renders with React (loaded from the unpkg CDN). Icons via Material Symbols from the MUI design kit (<code>&lt;span class=&quot;msi&quot; aria-hidden=&quot;true&quot;&gt;icon_name&lt;/span&gt;</code>).</li>
+<li><strong>Self-contained single files:</strong> all CSS and JS inline; only declared CDN deps (React,</li>
+<p>fonts) at the top. No build step — edit the file, refresh the browser.</p>
+<li><strong>Icons:</strong> Material Symbols (MUI kit): <code>&lt;span class=&quot;msi&quot; aria-hidden=&quot;true&quot;&gt;icon_name&lt;/span&gt;</code> — subsetted font link + <code>.msi</code> class live in each page&#x27;s <code>&lt;head&gt;</code>; add new names to the <code>icon_names=</code> list when introducing an icon. Icon-only controls keep an <code>aria-label</code>. Never write custom SVG paths unless asked.</li>
+<li><strong>Navigation / screens:</strong> JS <code>showSection()</code>-style toggles for multi-screen simulation;</li>
+<p><code>.dc.html</code> markup lives inside the <code>&lt;x-dc&gt;</code> template.</p>
+<li><strong>Tokens over literals:</strong> reference <code>var(--…)</code>; no raw hex/px in component code.</li>
+<li><strong>Shared runtime modules</strong> (<code>support.js</code>, <code>a11y.js</code>, <code>text-motion.js</code>, <code>page-transition.js</code>,</li>
+<p><code>home-variants.js</code>, <code>colophon.js</code>) stay at the repo root and must keep the site working with no server. <code>colophon.js</code> is generated by <code>build-colophon.py</code> — regenerate, never hand-edit.</p>
+<li><strong>Robust in embeds:</strong> prototypes render inside host wrappers that may carry a <code>transform</code>;</li>
+<p>avoid relying on viewport-fixed positioning where an ancestor transform can break it (anchor overlays to their stage). Run isolated inits so one failure can&#x27;t abort the rest.</p>
+</ul></section>
+<section class="doc" id="claude-rules-content-voice-md" data-group="Rules &amp; governance"><div class="doc-head"><h2>content-voice.md</h2><span class="doc-meta">.claude/rules/content-voice.md · 109 words</span></div><h2>Rule: Content &amp; voice</h2>
+<p>The voice for the Product Designer Portfolio.</p>
+<ul>
+<li><strong>Tone:</strong> clear, calm, evidence-led. Defense-literate without cosplay. Confident, never hype.</li>
+<li><strong>Thesis line:</strong> &quot;the model brings receipts, you keep the decision.&quot; Lead with outcomes,</li>
+<p>not features.</p>
+<li><strong>Person:</strong> address the reader as &quot;you&quot;; name the work plainly (AEGIS, CTOC, Light ARchitect).</li>
+<li><strong>Microcopy:</strong> lead with the verb (&quot;Take the watch&quot;, &quot;Read the trace&quot;). Mono for system/HUD</li>
+<p>labels, sans for prose.</p>
+<li><strong>Claims need backing.</strong> Tie outcomes to evidence; don&#x27;t invent metrics. Where a number</li>
+<p>isn&#x27;t real, say what it represents.</p>
+<li><strong>Errors / empty states:</strong> say what happened and the next step; never blame the user.</li>
+</ul></section>
+<section class="doc" id="wcag-2-2-aoda-audit-md" data-group="Audits"><div class="doc-head"><h2>WCAG-2.2-AODA-AUDIT.md</h2><span class="doc-meta">WCAG-2.2-AODA-AUDIT.md · 2,319 words</span></div><h2>WCAG 2.2 AA &amp; AODA Accessibility Audit</h2>
+<p><strong>Site:</strong> Robert Babiarz — Defence / Product-Design Portfolio <strong>Date:</strong> 2026-06-27 <strong>Pages audited:</strong> 27 (12 <code>.dc.html</code> + 15 <code>.html</code>) <strong>Tooling:</strong> axe-core 4.10.2 (headless Chrome, cache-disabled, same-origin iframes traversed) · static source analysis · manual review</p>
+<hr>
+<h3>1. Executive summary</h3>
+<div class="tbl"><table><thead><tr><th>Standard</th><th>Technical reference</th><th>Verdict</th></tr></thead><tbody>
+<tr><td><strong>AODA</strong> (Ontario IASR, Info &amp; Comms Standard)</td><td><strong>WCAG 2.0 Level AA</strong></td><td><strong>Substantially conformant on primary pages; not fully conformant site-wide</strong> — open items: 2 pages missing <code>lang</code>, contrast on the GIMS prototype + 1 case-study card, an unlabeled <code>&lt;select&gt;</code>.</td></tr>
+<tr><td><strong>WCAG 2.2 Level AA</strong></td><td>WCAG 2.2 (Oct 2023)</td><td><strong>Not fully conformant</strong> — additionally: dragging-movements (2.5.7), target-size (2.5.8), reflow (1.4.10), keyboard operability of two interactive widgets (2.1.1).</td></tr>
+</tbody></table></div>
+<p><strong>Automated result:</strong> <strong>23 of 27 pages pass</strong> the WCAG 2.2 A+AA automated scan with <strong>zero</strong> violations. 17 automated issues remain, concentrated on <strong>4 pages</strong>. The bulk of the site&#x27;s earlier automated debt (contrast, titles, target-size, keyboard-scrollable regions, reduced-motion) was remediated earlier in this engagement.</p>
+<p><strong>The honest caveat:</strong> automated tooling reliably catches only ~30–50% of WCAG criteria. A &quot;pass&quot; on the axe scan is necessary, not sufficient. The manual findings in §4 (keyboard, dragging, canvas semantics, reflow) are the load-bearing gaps and do <strong>not</strong> show up in the automated count.</p>
+<hr>
+<h3>2. Method &amp; coverage</h3>
+<ul>
+<li><strong>Automated:</strong> axe-core 4.10.2 run on each page at 1440×1300, network cache disabled, tags <code>wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22a, wcag22aa</code>. React/Babel demo pages given 3 s to hydrate; render confirmed (non-blank) before scanning.</li>
+<li><strong>Static analysis:</strong> every page&#x27;s source scanned for <code>lang</code>, viewport/reflow lock, skip links, focus-removal (<code>outline:none</code>), landmark elements, <code>&lt;iframe&gt;</code> titles, and <code>&lt;img&gt;</code> alt.</li>
+<li><strong>Manual:</strong> keyboard operation, drag alternatives, single-key-shortcut scoping, motion/<code>prefers-reduced-motion</code>, and canvas/AT exposure reviewed by reading source and driving the pages.</li>
+<li><strong>Not covered (recommend human/AT pass):</strong> real screen-reader walkthrough (NVDA/VoiceOver), 200% zoom + 400% reflow on every page, text-spacing override, and cognitive-load review.</li>
+</ul>
+<hr>
+<h3>3. Conformance by WCAG 2.2 success criterion</h3>
+<p>Legend — ✅ Pass · ⚠️ Partial / needs review · ❌ Fail · ➖ Not applicable · 🆕 new in 2.2</p>
+<h4>Perceivable</h4>
+<div class="tbl"><table><thead><tr><th>SC</th><th>Level</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+<tr><td>1.1.1 Non-text Content</td><td>A</td><td>⚠️</td><td><code>&lt;img&gt;</code> mostly have alt; <strong>1 stray image missing alt</strong> (enterprise-ai.dc.html). Canvas demos (games, 3D building, heat-map) have <strong>no text alternative</strong> for AT.</td></tr>
+<tr><td>1.2.1–1.2.5 Time-based media</td><td>A/AA</td><td>➖</td><td>No real audio/video. The &quot;fintech walkthrough&quot; is a CSS/JS animation, not media.</td></tr>
+<tr><td>1.3.1 Info &amp; Relationships</td><td>A</td><td>✅</td><td><code>dt</code>/<code>dd</code> now wrapped in <code>&lt;dl&gt;</code> (was failing on demo pages). Headings/lists semantic.</td></tr>
+<tr><td>1.3.2 Meaningful Sequence</td><td>A</td><td>✅</td><td>DOM order matches visual order.</td></tr>
+<tr><td>1.3.4 Orientation</td><td>AA</td><td>✅</td><td>No orientation lock.</td></tr>
+<tr><td>1.3.5 Identify Input Purpose</td><td>AA</td><td>➖</td><td>No personal-data input fields.</td></tr>
+<tr><td>1.4.1 Use of Color</td><td>A</td><td>✅</td><td>Affiliation/severity carried by <strong>glyph + text</strong>, not hue alone.</td></tr>
+<tr><td>1.4.3 Contrast (Minimum)</td><td>AA</td><td>❌</td><td><strong>Open:</strong> aegis-gims &amp; aegis-gims-standalone (6 each: <code>#5f726c</code>/<code>#727c79</code> on <code>#16211f</code>, 3.2–3.8); dali-2.dc.html (1: <code>#6e6a60</code> on card <code>#e7e4df</code>, 4.25).</td></tr>
+<tr><td>1.4.4 Resize Text</td><td>AA</td><td>⚠️</td><td>Fails where viewport is width-locked (see 1.4.10).</td></tr>
+<tr><td>1.4.5 Images of Text</td><td>AA</td><td>✅</td><td>Live text throughout.</td></tr>
+<tr><td>1.4.10 Reflow</td><td>AA</td><td>❌</td><td><strong>ctoc-dashboard.html declares <code>&lt;meta viewport content=&quot;width=1440&quot;&gt;</code></strong> → forced horizontal scroll on narrow screens. aegis-di-prototype &amp; aegis-gims are desktop-grid dashboards likely to 2-D-scroll at 320 px.</td></tr>
+<tr><td>1.4.11 Non-text Contrast</td><td>AA</td><td>⚠️</td><td>UI-component/graphic contrast (focus rings, chart strokes, heat-map cells) not exhaustively verified.</td></tr>
+<tr><td>1.4.12 Text Spacing</td><td>AA</td><td>⚠️</td><td>No obvious clipping; not formally tested with the 1.5×/2× override.</td></tr>
+<tr><td>1.4.13 Content on Hover or Focus</td><td>AA</td><td>⚠️</td><td>TOC labels reveal on hover; game info popup. Verify dismissible + hoverable + persistent.</td></tr>
+</tbody></table></div>
+<h4>Operable</h4>
+<div class="tbl"><table><thead><tr><th>SC</th><th>Level</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+<tr><td>2.1.1 Keyboard</td><td>A</td><td>❌</td><td><strong>Light ARchitect</strong> planner (add/move/remove luminaires) and the <strong>3-D building</strong> rotation have <strong>no keyboard path</strong> (no <code>tabindex</code>/key handlers/<code>role</code>). AEGIS games <strong>are</strong> keyboard-operable; Hot-Desking desks are real <code>&lt;button&gt;</code>s.</td></tr>
+<tr><td>2.1.2 No Keyboard Trap</td><td>A</td><td>✅</td><td>—</td></tr>
+<tr><td>2.1.4 Character Key Shortcuts</td><td>AA</td><td>✅</td><td>Game <code>j/k/l</code> keys are bound to the <strong>focused game stage only</strong> (<code>this.on(stage,&#x27;keydown&#x27;)</code>), satisfying the focus-scoped exception.</td></tr>
+<tr><td>2.2.1 Timing Adjustable</td><td>A</td><td>✅</td><td>Game timing is essential to the activity (exception applies).</td></tr>
+<tr><td>2.2.2 Pause, Stop, Hide</td><td>A</td><td>⚠️</td><td>Auto-motion (retro CRT flicker/scan, parallax, auto-playing fintech walkthrough) has <strong>no explicit pause control</strong> for users who have <strong>not</strong> set reduced-motion.</td></tr>
+<tr><td>2.3.1 Three Flashes</td><td>A</td><td>⚠️</td><td>Retro phosphor flicker (~5.5 Hz) is very low-contrast (likely sub-threshold) and is now disabled under <code>prefers-reduced-motion</code>; recommend a formal flash-analysis to confirm.</td></tr>
+<tr><td>2.4.1 Bypass Blocks</td><td>A</td><td>⚠️</td><td><strong>No skip link and no <code>&lt;main&gt;</code> landmark on any page</strong> (0/27). Most pages have <code>&lt;nav&gt;</code> + headings (partial mitigation), but add skip-to-content + <code>&lt;main&gt;</code>.</td></tr>
+<tr><td>2.4.2 Page Titled</td><td>A</td><td>✅</td><td>All 27 pages now have a <code>&lt;title&gt;</code> (two were added this engagement).</td></tr>
+<tr><td>2.4.3 Focus Order</td><td>A</td><td>✅</td><td>—</td></tr>
+<tr><td>2.4.4 Link Purpose (In Context)</td><td>A</td><td>✅</td><td>—</td></tr>
+<tr><td>2.4.5 Multiple Ways</td><td>AA</td><td>✅</td><td>Global nav + in-page TOC on case studies.</td></tr>
+<tr><td>2.4.6 Headings and Labels</td><td>AA</td><td>✅</td><td>—</td></tr>
+<tr><td>2.4.7 Focus Visible</td><td>AA</td><td>⚠️</td><td>Homepages use <code>:focus-visible</code>. <strong>aegis-gims / -standalone set <code>outline:none</code></strong> without a clear replacement — verify a visible indicator remains.</td></tr>
+<tr><td>2.4.11 Focus Not Obscured (Min)</td><td>AA 🆕</td><td>⚠️</td><td>Sticky top navs could overlap a focused control when tabbing; not verified per-page.</td></tr>
+<tr><td>2.5.1 Pointer Gestures</td><td>A</td><td>✅</td><td>Interactions are single-pointer (no path/multipoint required).</td></tr>
+<tr><td>2.5.2 Pointer Cancellation</td><td>A</td><td>✅</td><td>—</td></tr>
+<tr><td>2.5.3 Label in Name</td><td>A</td><td>✅</td><td>—</td></tr>
+<tr><td>2.5.7 Dragging Movements</td><td>AA 🆕</td><td>❌</td><td><strong>Light ARchitect</strong> repositioning is <strong>drag-only</strong> with no single-pointer alternative (add-by-click exists; move/reposition does not).</td></tr>
+<tr><td>2.5.8 Target Size (Minimum)</td><td>AA 🆕</td><td>❌</td><td><strong>Open:</strong> aegis-di-prototype LAYERS checkboxes render &lt;24 px. (Case-study TOC links were fixed this engagement.)</td></tr>
+</tbody></table></div>
+<h4>Understandable</h4>
+<div class="tbl"><table><thead><tr><th>SC</th><th>Level</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+<tr><td>3.1.1 Language of Page</td><td>A</td><td>❌</td><td><strong><code>&lt;html lang&gt;</code> missing on 2 pages:</strong> ctoc-case-study.dc.html, homepage-retro.dc.html.</td></tr>
+<tr><td>3.1.2 Language of Parts</td><td>AA</td><td>✅</td><td>English throughout.</td></tr>
+<tr><td>3.2.1 / 3.2.2 On Focus / On Input</td><td>A</td><td>✅</td><td>No context change on focus/input.</td></tr>
+<tr><td>3.2.3 / 3.2.4 Consistent Nav / ID</td><td>AA</td><td>✅</td><td>—</td></tr>
+<tr><td>3.2.6 Consistent Help</td><td>A 🆕</td><td>➖</td><td>No persistent help mechanism.</td></tr>
+<tr><td>3.3.1–3.3.4 Forms / errors</td><td>A/AA</td><td>➖</td><td>No real form-submission/validation flows.</td></tr>
+<tr><td>3.3.2 Labels or Instructions</td><td>A</td><td>⚠️</td><td>GIMS <code>&lt;select&gt;</code> has no label (see 4.1.2).</td></tr>
+<tr><td>3.3.7 Redundant Entry</td><td>A 🆕</td><td>➖</td><td>—</td></tr>
+<tr><td>3.3.8 Accessible Authentication (Min)</td><td>AA 🆕</td><td>➖</td><td>No authentication.</td></tr>
+</tbody></table></div>
+<h4>Robust</h4>
+<div class="tbl"><table><thead><tr><th>SC</th><th>Level</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+<tr><td>4.1.2 Name, Role, Value</td><td>A</td><td>❌</td><td><strong>aegis-gims <code>&lt;select&gt;</code> has no accessible name</strong> (axe <em>critical</em> <code>select-name</code>). Canvas widgets expose limited role/value to AT. Most other controls now named.</td></tr>
+<tr><td>4.1.3 Status Messages</td><td>AA</td><td>⚠️</td><td>AEGIS game uses <code>aria-live</code>; Light-Architect summary &amp; Hot-Desking updates likely lack a live region.</td></tr>
+</tbody></table></div>
+<p><em>(4.1.1 Parsing was removed in WCAG 2.2.)</em></p>
+<hr>
+<h3>4. Findings &amp; remediation — by priority</h3>
+<h4>P0 — Blocks AODA / WCAG 2.0 AA (fix first)</h4>
+<ol>
+<li><strong>Unlabeled <code>&lt;select&gt;</code> — <code>aegis-gims.html</code>, <code>aegis-gims-standalone.html</code></strong> (4.1.2, <em>critical</em>). Add <code>aria-label</code> (or a <code>&lt;label&gt;</code>).</li>
+<li><strong><code>&lt;html lang&gt;</code> missing — ctoc-case-study.dc.html, homepage-retro.dc.html</strong> (3.1.1). Add <code>lang=&quot;en&quot;</code>.</li>
+<li><strong>Contrast — aegis-gims ×2 (12 instances) + dali-2.dc.html (1)</strong> (1.4.3). Darken <code>#5f726c</code>/<code>#727c79</code> on <code>#16211f</code>; nudge <code>#6e6a60</code>→~<code>#646058</code> on the <code>#e7e4df</code> card.</li>
+</ol>
+<h4>P1 — WCAG 2.2 AA (new criteria) + reflow</h4>
+<ol>
+<li><strong>Reflow — ctoc-dashboard.html</strong> (1.4.10). Remove <code>width=1440</code>; use <code>width=device-width</code>. (Dense dashboard may need a responsive/scroll-container pass or a documented &quot;desktop-only demo&quot; notice.)</li>
+<li><strong>Target size — aegis-di-prototype LAYERS checkboxes</strong> (2.5.8). Enlarge hit area to ≥24×24 px.</li>
+<li><strong>Dragging movements — Light ARchitect</strong> (2.5.7) <strong>and keyboard — Light ARchitect + 3-D building</strong> (2.1.1). Add a single-pointer/keyboard alternative: arrow-key nudge + &quot;Add light / Remove&quot; buttons; arrow-key rotate for the building. <em>(Single fix closes both 2.5.7 and 2.1.1 for this widget.)</em></li>
+</ol>
+<h4>P2 — Structural &amp; best-practice</h4>
+<ol>
+<li><strong>Skip link + <code>&lt;main&gt;</code> landmark — site-wide</strong> (2.4.1). Add a visually-hidden &quot;Skip to content&quot; link and wrap primary content in <code>&lt;main id=&quot;main&quot;&gt;</code>.</li>
+<li><strong>Focus indicator — aegis-gims</strong> (2.4.7). Ensure <code>outline:none</code> is paired with a visible <code>:focus-visible</code> style.</li>
+<li><strong>Pause control for auto-motion</strong> (2.2.2) — fintech walkthrough autoplay + retro CRT for non-reduced-motion users.</li>
+<li><strong>Canvas alternatives</strong> (1.1.1 / 4.1.2 / 4.1.3) — add <code>aria-label</code>/off-screen text summaries and <code>aria-live</code> to the game/building/heat-map/Hot-Desking widgets.</li>
+<li><strong><code>&lt;img&gt;</code> alt — enterprise-ai.dc.html</strong> (1.1.1) — supply alt text.</li>
+</ol>
+<h4>Latent (not auto-flagged — single rendered state only)</h4>
+<ul>
+<li><strong>aegis-di-prototype secondary screens</strong> (Triage, Entity, Assessment…): the global chip/violet/CSS fixes already apply, but a few per-screen <code>div→dl</code> and inline timestamp colors will surface the same <code>dlitem</code>/contrast issues if a reviewer navigates into them.</li>
+</ul>
+<hr>
+<h3>5. Per-page status (automated WCAG 2.2 A+AA)</h3>
+<div class="tbl"><table><thead><tr><th>Page</th><th>Result</th></tr></thead><tbody>
+<tr><td>about.dc.html</td><td>✅ clean</td></tr>
+<tr><td>aegis-di.dc.html</td><td>✅ clean</td></tr>
+<tr><td>aegis-di-prototype.html</td><td>❌ target-size ×2</td></tr>
+<tr><td>aegis-gims.html</td><td>❌ contrast ×6, select-name ×1</td></tr>
+<tr><td>aegis-gims-standalone.html</td><td>❌ contrast ×6, select-name ×1</td></tr>
+<tr><td>aegis-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>core-insights.dc.html</td><td>✅ clean</td></tr>
+<tr><td>core-insights-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>ctoc-case-study.dc.html</td><td>✅ clean (but <code>lang</code> missing — §4.2)</td></tr>
+<tr><td>ctoc-dashboard.html</td><td>✅ clean (but reflow lock — §4.4)</td></tr>
+<tr><td>ctoc-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>dali-2.dc.html</td><td>❌ contrast ×1</td></tr>
+<tr><td>dali-2-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>enterprise-ai.dc.html</td><td>✅ clean (1 <code>&lt;img&gt;</code> alt — §4.11)</td></tr>
+<tr><td>enterprise-ai-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>fintech-walkthrough.html</td><td>✅ clean</td></tr>
+<tr><td>goals-driven-fintech.html</td><td>✅ clean</td></tr>
+<tr><td>goals-driven-fintech-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>homepage-dossier.dc.html</td><td>✅ clean</td></tr>
+<tr><td>homepage-interactive.dc.html</td><td>✅ clean</td></tr>
+<tr><td>homepage-retro.dc.html</td><td>✅ clean (but <code>lang</code> missing — §4.2)</td></tr>
+<tr><td>index.html</td><td>✅ clean</td></tr>
+<tr><td>partitioning.dc.html</td><td>✅ clean</td></tr>
+<tr><td>partitioning-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>smart-lighting.dc.html</td><td>✅ clean</td></tr>
+<tr><td>smart-lighting-showcase.html</td><td>✅ clean</td></tr>
+<tr><td>work.dc.html</td><td>✅ clean</td></tr>
+</tbody></table></div>
+<p><strong>Automated totals:</strong> 17 violations · 4 pages affected · 23/27 pages clean.</p>
+<hr>
+<h3>6. Bottom line</h3>
+<p>The portfolio is in good automated shape — most pages pass WCAG 2.2 AA scanning outright. To claim <strong>AODA (WCAG 2.0 AA) conformance</strong> the P0 list (unlabeled select, two <code>lang</code> attributes, three contrast fixes) must close. To claim <strong>WCAG 2.2 AA</strong> the P1 list adds reflow, target-size, and — most substantively — a <strong>keyboard/non-drag path for the Light ARchitect</strong> (2.1.1 + 2.5.7), which is the single biggest piece of real engineering in this audit. Everything in P0–P1 is fixable; P2 raises the floor from &quot;passes tools&quot; to &quot;works with a screen reader and a keyboard.&quot;</p>
+<hr>
+<h3>7. Addendum — cookie consent banner + settings dialog (2026-07-03)</h3>
+<p><code>cookie-banner.js</code> (loaded site-wide) gained a second layer: a preference-center dialog. Reviewed on all three homepage themes at build time:</p>
+<ul>
+<li><strong>Dialog semantics (4.1.2):</strong> <code>role=&quot;dialog&quot;</code> + <code>aria-modal=&quot;true&quot;</code> + <code>aria-labelledby</code>; focus moves into the dialog on open and returns to the invoking button on close.</li>
+<li><strong>Keyboard (2.1.1 / 2.1.2):</strong> full path — Tab is trapped inside the dialog, Escape closes, toggles are real <code>&lt;button role=&quot;switch&quot; aria-checked&gt;</code> elements operable with Enter/Space; no focus trap persists after close.</li>
+<li><strong>Expand/collapse (4.1.2):</strong> per-category info uses <code>aria-expanded</code> + <code>aria-controls</code>; panels toggle the <code>hidden</code> attribute.</li>
+<li><strong>Meaning without color (1.4.1):</strong> every switch pairs the track with a mono ON/OFF text label and knob position; &quot;ALWAYS ON&quot; is text, not a color chip.</li>
+<li><strong>Target size (2.5.8):</strong> switch and expand rows are ≥44px tall hit areas.</li>
+<li><strong>Reduced motion (2.3.3):</strong> banner slide and switch transitions are gated on <code>prefers-reduced-motion</code>.</li>
+<li><strong>Residual risk:</strong> dialog copy relies on the page&#x27;s theme palette; the muted text tokens were chosen to stay ≥4.5:1 on each theme&#x27;s card surface, but the next full axe sweep should include the dialog open state on all three homepages.</li>
+</ul>
+<h3>8. Addendum — mesh node-map simulation (2026-07-03)</h3>
+<p><code>mesh-sim.js</code> replaces the static P1 screenshot on both smart-lighting pages with an interactive drag-to-repeater simulation. Reviewed at build time:</p>
+<ul>
+<li><strong>Keyboard (2.1.1):</strong> the map is a single focusable <code>role=&quot;application&quot;</code> stop with an instruction label; arrow keys cycle devices, Enter promotes, T tests, R resets — the full drag interaction has a keyboard equivalent.</li>
+<li><strong>Status messages (4.1.3):</strong> promotion/test/reset outcomes announce via the visible <code>role=&quot;status&quot;</code> toast plus a visually-hidden <code>aria-live</code> region for device-by-device selection feedback.</li>
+<li><strong>Meaning without color (1.4.1):</strong> low-reliability devices pair coral with a &quot;!&quot; badge and dashed link lines; repeaters are a filled shape; the legend carries counts as text.</li>
+<li><strong>Reduced motion (2.3.3):</strong> the TEST radar sweep and node snap-back transitions gate on <code>prefers-reduced-motion</code>.</li>
+<li><strong>Pointer gestures (2.5.7):</strong> dragging is path-based, but the keyboard path and AUTO SELECT provide non-drag equivalents for the same outcomes.</li>
+<li><strong>Known limitation:</strong> individual node hit targets are ~20–27px inside the phone frame (below 24×24 target-size guidance); the keyboard path is the documented alternative, consistent with the site&#x27;s other games.</li>
+<li><strong>Site-wide fix:</strong> the page-transition overlay (<code>#rb-pt</code>) was hit-testable during its entrance animation, intercepting the first ~1.5s of pointer input on every page; it is now <code>pointer-events:none</code> except while deliberately covering for navigation.</li>
+</ul></section>
+<section class="doc" id="performance-audit-md" data-group="Audits"><div class="doc-head"><h2>PERFORMANCE-AUDIT.md</h2><span class="doc-meta">PERFORMANCE-AUDIT.md · 1,859 words</span></div><h2>Homepage Performance Audit — Interactive · Dossier · Retro</h2>
+<blockquote>
+<p>Deep-dive into render/animation performance of the three homepage variants, cross-checked against</p>
+<p>the recent accessibility work (the <code>a11y.js</code> reduced-motion kill-switch and the ADR-004</p>
+<p>stage-anchored AEGIS popup). Method: full code audit of each page + shared JS, plus **live runtime</p>
+<p>measurement** (Playwright/Chromium, idle window, normal vs <code>prefers-reduced-motion</code>).</p>
+<p>Date: 2026-06-28.</p>
+</blockquote>
+<h3>Measured evidence (idle, no interaction, 2s window)</h3>
+<div class="tbl"><table><thead><tr><th>Page</th><th>mode</th><th>rAF callbacks/s (idle)</th><th>running infinite CSS anims</th><th>long tasks</th></tr></thead><tbody>
+<tr><td>interactive</td><td>normal</td><td><strong>964</strong></td><td>175</td><td>0</td></tr>
+<tr><td>interactive</td><td>reduced-motion</td><td><strong>360</strong></td><td><strong>0</strong></td><td>0</td></tr>
+<tr><td>dossier</td><td>normal</td><td><strong>240</strong></td><td>168</td><td>0</td></tr>
+<tr><td>dossier</td><td>reduced-motion</td><td><strong>121</strong></td><td><strong>0</strong></td><td>0</td></tr>
+<tr><td>retro</td><td>normal</td><td><strong>362</strong></td><td>7</td><td>0</td></tr>
+<tr><td>retro</td><td>reduced-motion</td><td><strong>362</strong> (unchanged)</td><td><strong>0</strong></td><td>0</td></tr>
+</tbody></table></div>
+<p><strong>Reading the numbers.</strong> ~60 rAF/s = one loop. Interactive runs <strong>~16 loops every frame while idle</strong>; all three keep loops running with the page completely still. Reduced-motion zeroes the <strong>CSS</strong> animations on every page (the <code>a11y.js</code> global rule works — see ✓G1) but only partly reduces the <strong>JS</strong> loops, and on <strong>retro it changes nothing</strong> — the canvas loops paint every frame regardless. No long tasks while idle (each frame is individually &lt;50ms), so the cost is <strong>sustained CPU/GPU/ battery drain</strong>, not single-frame jank.</p>
+<hr>
+<h3>What&#x27;s already correct (don&#x27;t regress)</h3>
+<ul>
+<li><strong>✓G1 — Global reduced-motion kill-switch.</strong> <code>a11y.js:40-43</code> injects</li>
+<p><code>@media (prefers-reduced-motion: reduce){ <em>,</em>::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important } }</code>. Verified to take every infinite CSS animation (175 / 168 / 7) to <strong>0</strong>. This is the load-bearing a11y motion fix.</p>
+<li><strong>✓G2 — DPR capped at 2</strong> on every canvas (<code>Math.min(devicePixelRatio||1, 2)</code>) — interactive, dossier, retro.</li>
+<li><strong>✓G3 — Clean teardown.</strong> Interactive/dossier <code>componentWillUnmount</code> cancels all rAFs and removes listeners; observers tracked and disconnected.</li>
+<li><strong>✓G4 — AEGIS off-screen pause</strong> (interactive/dossier/retro) — the game loop bails on <code>getBoundingClientRect</code> when the stage is out of view.</li>
+<li><strong>✓G5 — Retro CRT overlays are clean</strong> — flicker animates <code>opacity</code>, scan animates <code>transform</code> (composite only), and reduced-motion <code>display:none</code>s them. Not a hotspot.</li>
+<li><strong>✓G6 — ADR-004 AEGIS popup</strong> is <code>display:none</code> until opened; no idle perf cost; the <code>position:absolute</code> fix introduced no regression.</li>
+<li><strong>✓G7 — LA parallax (dossier) self-stops</strong> when settled and re-kicks on scroll — the model pattern other loops should copy.</li>
+</ul>
+<hr>
+<h3>Cross-cutting findings (all three pages)</h3>
+<div class="tbl"><table><thead><tr><th>ID</th><th>Severity</th><th>Finding</th><th>Fix</th><th>Status</th></tr></thead><tbody>
+<tr><td><strong>X1</strong></td><td><strong>P0</strong></td><td><strong>No tab-visibility pause anywhere.</strong> <code>grep</code> confirms zero <code>visibilitychange</code>/<code>document.hidden</code> in any homepage or shared module. Every persistent rAF loop keeps scheduling in a backgrounded/occluded/secondary-monitor tab.</td><td>Add one <code>visibilitychange</code> listener per page that cancels rAFs on <code>document.hidden</code> and re-arms on return (reset <code>last=0</code> to avoid dt spike). Or a <code>if(document.hidden){reArm();return;}</code> guard atop each loop.</td><td>applied (heavy loops)</td></tr>
+<tr><td><strong>X2</strong></td><td><strong>P0</strong></td><td><strong>JS rAF loops ignore <code>prefers-reduced-motion</code>.</strong> Measured reduced-motion rAF/s: 360 / 121 / <strong>362</strong>. Canvas loops keep clearing+repainting every frame though nothing moves. (CSS is handled by ✓G1; JS is not.)</td><td>For canvases that are <em>static</em> under reduced-motion (retro building/architect, interactive hero contour), paint once and <strong>stop re-arming</strong> rAF. AEGIS: render one static attract frame, don&#x27;t loop.</td><td>applied (retro, interactive)</td></tr>
+<tr><td><strong>X3</strong></td><td><strong>P1</strong></td><td><strong>Idle rAF is very high</strong> (964 / 240 / 362). Several loops never idle-stop — they skip <em>work</em> off-screen but keep scheduling, and some (hero contour, retro canvases, text-motion) do full work forever even when nothing changes.</td><td>Idle-stop when state has settled; re-arm from a <code>{passive:true}</code> scroll/pointer listener or IntersectionObserver.</td><td>partial</td></tr>
+<tr><td><strong>X4</strong></td><td><strong>P1</strong></td><td><strong><code>text-motion.js</code> loop runs forever on all 3 pages</strong> — polls <code>pageYOffset</code> + <code>getBoundingClientRect</code> every frame, never idle-stops, no visibility pause, reads-then-writes in one pass (thrash), MutationObserver on the whole <code>documentElement</code> subtree (never disconnected).</td><td>Drive from a passive <code>scroll</code> listener + idle-stop; split reads-before-writes; scope observer to <code>#dc-root</code>/<code>body</code>; <code>document.hidden</code> gate.</td><td>applied</td></tr>
+</tbody></table></div>
+<hr>
+<h3>Per-page findings</h3>
+<h4>Interactive (<code>homepage-interactive.dc.html</code>) — heaviest page</h4>
+<div class="tbl"><table><thead><tr><th>ID</th><th>Sev</th><th>Finding (file:line)</th><th>Fix</th><th>Status</th></tr></thead><tbody>
+<tr><td>I1</td><td><strong>P0</strong></td><td><code>initHeroCanvas</code> (≈1598-1693): full-viewport marching-squares contour solved <strong>every frame forever</strong> — no reduced-motion check at all, no idle/visibility pause. Single biggest always-on cost.</td><td>Add reduced-motion paint-once-and-stop; <code>document.hidden</code> guard; half-rate when pointer idle.</td><td>applied</td></tr>
+<tr><td>I2</td><td>P1</td><td><code>.hero-clarity</code> <code>clarity-focus</code> (33-34): animates <code>filter:blur()</code> <strong>and</strong> <code>letter-spacing</code> 8s infinite (paint+layout) + permanent <code>will-change:filter</code>. (✓G1 stops it under reduced-motion; full cost at normal.)</td><td>Drop <code>letter-spacing</code> from keyframes; make it a one-shot or <code>opacity</code>-only; remove <code>will-change</code>.</td><td>recommended</td></tr>
+<tr><td>I3</td><td>P1</td><td>Permanent <code>will-change</code> on ~10 large/fixed nodes (34, 252, 334-408) + <code>will-change:opacity</code> on <strong>every</strong> desktop iso cell (2027) → layer explosion / GPU memory.</td><td>Apply <code>will-change</code> transiently (JS, only while animating/in-view); drop per-cell hint.</td><td>recommended</td></tr>
+<tr><td>I4</td><td>P1</td><td>Animated <code>backdrop-filter</code> on the fixed nav, toggled on scroll (260, 2529); <code>blur(12-14px)</code> on LA glass layers that are <strong>translated every frame</strong> (631/660/672).</td><td>Remove <code>backdrop-filter</code> from nav transition; solid/<code>color-mix</code> fill on moving LA layers.</td><td>recommended</td></tr>
+<tr><td>I5</td><td>P2</td><td><code>initScrollProgress</code> (993-1006) reads <code>scrollHeight</code> + <code>getBoundingClientRect</code> in the scroll handler then writes 3 styles (thrash); resize handler not passive.</td><td>Cache geometry; recompute on resize only; rAF-batch writes.</td><td>recommended</td></tr>
+<tr><td>I6</td><td>P2</td><td><code>initLightArchitect</code> scroll listener is capture-phase, <strong>not</strong> <code>{passive:true}</code> (1959).</td><td>Pass <code>{passive:true, capture:true}</code>.</td><td>recommended</td></tr>
+<tr><td>I7</td><td>P2</td><td>AEGIS loop renders every frame while paused (modal open) and on attract.</td><td>Render once when paused; reduce attract cadence.</td><td>recommended</td></tr>
+</tbody></table></div>
+<h4>Dossier (<code>homepage-dossier.dc.html</code>)</h4>
+<div class="tbl"><table><thead><tr><th>ID</th><th>Sev</th><th>Finding (file:line)</th><th>Fix</th><th>Status</th></tr></thead><tbody>
+<tr><td>D1</td><td><strong>P0</strong></td><td><code>initIso</code> loop (1563-1607): writes <code>opacity</code> <strong>and <code>box-shadow</code></strong> to hundreds of iso cells <strong>every frame</strong>; never idle-stops; no visibility pause. <code>box-shadow</code> is a paint property → continuous repaint of 3D-transformed layers. (Reduced-motion ✓ early-returns.)</td><td>Skip the per-cell write when its bucketed value is unchanged (cache last string); idle-stop when cells settle; <code>document.hidden</code> + off-screen guard (copy LA&#x27;s self-stop).</td><td>applied (cache + idle + visibility)</td></tr>
+<tr><td>D2</td><td>P1</td><td>AEGIS loop: off-screen ✓ but no tab-hidden pause; <code>getBoundingClientRect</code> every frame (1064).</td><td><code>document.hidden</code> guard; IntersectionObserver <code>onScreen</code> flag instead of per-frame rect.</td><td>recommended</td></tr>
+<tr><td>D3</td><td>P1</td><td>LA scroll listener capture, not passive (1346); resize handlers not passive and run unthrottled <code>refresh()</code> (per-cell <code>getBoundingClientRect</code>) (1347/1561).</td><td><code>{passive:true}</code>; rAF-debounce refresh/compute.</td><td>recommended</td></tr>
+<tr><td>D4</td><td>P2</td><td>Permanent <code>will-change</code> on <code>.la-layer</code>, <code>#iso-rig</code>, and <strong>every</strong> iso cell (79/316/1380).</td><td>Drop per-cell hint; keep only on the few transformed parents.</td><td>recommended</td></tr>
+<tr><td>D5</td><td>P2</td><td><code>laPulse</code> animates <code>box-shadow</code> (425-428); <code>backdrop-filter</code> on parallaxed HUD chips (322/327/332) re-blur every frame.</td><td><code>laPulse</code> → <code>transform:scale</code>+<code>opacity</code> ring; solid bg on moving HUD chips.</td><td>recommended</td></tr>
+</tbody></table></div>
+<h4>Retro (<code>homepage-retro.dc.html</code>)</h4>
+<div class="tbl"><table><thead><tr><th>ID</th><th>Sev</th><th>Finding (file:line)</th><th>Fix</th><th>Status</th></tr></thead><tbody>
+<tr><td>R1</td><td><strong>P0</strong></td><td><code>initArch</code> (949-987) <strong>and</strong> <code>initBldg</code> (901-914): redraw <code>shadowBlur</code> canvas scenes <strong>every frame forever</strong> — no off-screen pause, no tab pause, and <strong>keep painting under reduced-motion</strong> (only the rotation/scan increment is gated). <code>shadowBlur</code> is the most expensive 2D-canvas op. This is why retro is 362 rAF/s even under reduced-motion.</td><td>Under reduced-motion paint once and <strong>stop</strong>; <code>document.hidden</code> + off-screen guard; building is drag-interactive so repaint on <code>pointermove</code>, not in a loop.</td><td>applied</td></tr>
+<tr><td>R2</td><td>P1</td><td>AEGIS attract loop runs forever when visible; no tab-hidden pause.</td><td><code>document.hidden</code> guard; idle attract after N seconds.</td><td>applied (visibility)</td></tr>
+<tr><td>R3</td><td>P1</td><td><code>pointermove</code> on <code>window</code> non-passive, registered globally for the whole session (916).</td><td>Bind on <code>pointerdown</code>/remove on <code>pointerup</code>, or <code>{passive:true}</code>.</td><td>recommended</td></tr>
+<tr><td>R4</td><td>P2</td><td>Canvas <code>resize</code> handlers not debounced/rAF-batched (424/888/940).</td><td>Debounce resize.</td><td>recommended</td></tr>
+<tr><td>✓</td><td>—</td><td>CRT overlays (scanlines/vignette/flicker/scan) are composite-only and reduced-motion-gated — <strong>clean</strong> (see ✓G5).</td><td>—</td><td>pass</td></tr>
+</tbody></table></div>
+<h4>Shared JS</h4>
+<div class="tbl"><table><thead><tr><th>ID</th><th>Sev</th><th>Finding (file:line)</th><th>Fix</th><th>Status</th></tr></thead><tbody>
+<tr><td>S1</td><td>P1</td><td><code>text-motion.js</code> loop (53-90): forever loop, polls scroll, reads+writes in one pass, observer on whole <code>documentElement</code>. (= X4)</td><td>passive scroll-driven + idle-stop; reads-before-writes; scope observer; visibility gate.</td><td>applied</td></tr>
+<tr><td>S2</td><td>P2</td><td><code>page-transition.js</code> animates <code>mask-size</code> (main-thread, not composite) but one-shot per nav.</td><td>Optional: animate <code>transform:scale</code> on a fixed mask.</td><td>recommended</td></tr>
+<tr><td>✓</td><td>—</td><td><code>a11y.js</code> global reduced-motion rule (✓G1); WAAPI/observer hygiene otherwise sound.</td><td>—</td><td>pass</td></tr>
+</tbody></table></div>
+<hr>
+<h3>Fix plan (priority order)</h3>
+<ol>
+<li><strong>X4/S1 — <code>text-motion.js</code></strong> (shared, all 3, lowest risk): idle-stop + passive scroll + visibility + reads-before-writes. ✅ applied &amp; verified.</li>
+<li><strong>R1/X2 — retro <code>initBldg</code>/<code>initArch</code></strong>: reduced-motion paint-once-and-stop + <code>document.hidden</code>/off-screen guard. ✅ applied &amp; verified (retro reduced-motion rAF → near 0).</li>
+<li><strong>I1/X2 — interactive <code>initHeroCanvas</code></strong>: reduced-motion paint-once + <code>document.hidden</code> guard. ✅ applied &amp; verified.</li>
+<li><strong>D1 — dossier <code>initIso</code></strong>: cache box-shadow write + idle-stop + visibility. ✅ applied &amp; verified.</li>
+<li><strong>I2/I3/I4, D2-D5, R3-R4, I5-I7, S2</strong> — documented above with exact fixes; lower-risk-to-defer, recommended as follow-ups (do not require the canvas-loop surgery and can be batched).</li>
+</ol>
+<h3>Verified results (after fixes — re-measured, same harness)</h3>
+<p>Idle rAF callbacks/sec (lower = less wasted CPU/GPU while the page sits still):</p>
+<div class="tbl"><table><thead><tr><th>Page</th><th>normal: before → after</th><th>reduced-motion: before → after</th></tr></thead><tbody>
+<tr><td>interactive</td><td>964 → <strong>605</strong> (−37%)</td><td>360 → <strong>121</strong> (−66%)</td></tr>
+<tr><td>dossier</td><td>240 → <strong>121</strong> (−50%)</td><td>121 → 121</td></tr>
+<tr><td>retro</td><td>362 → <strong>241</strong> (−33%)</td><td><strong>362 → 121</strong> (−67%)</td></tr>
+</tbody></table></div>
+<ul>
+<li><strong>Reduced-motion is now uniform at ~121/s on all three</strong> (was 360 / 121 / 362). Motion-sensitive</li>
+<p>users no longer pay for the heavy <code>shadowBlur</code>/contour/<code>box-shadow</code> canvas loops — those now paint once and stop. This is the headline accessibility-↔-performance win.</p>
+<li><strong>Zero console / page errors</strong> across all three pages in both motion modes after every change.</li>
+<li>Post-interaction idle (<code>reIdle</code>) falls further once loops re-settle (e.g. retro reduced → 121,</li>
+<p>interactive reduced → 40), confirming the idle-stop + <code>kick()</code> re-arm works.</p>
+</ul>
+<h4>Fixes applied (verified)</h4>
+<ul>
+<li><strong><code>text-motion.js</code></strong> (shared): reads-before-writes; idle-stop re-armed by passive scroll/resize;</li>
+<p><code>visibilitychange</code> pause; observer scoped to <code>&lt;body&gt;</code>. (X4/S1)</p>
+<li><strong>retro <code>initBldg</code> + <code>initArch</code></strong>: <code>paint()</code>+idle-stopping <code>step()</code>; under reduced-motion paint</li>
+<p>once and don&#x27;t re-arm; off-screen + <code>document.hidden</code> pause. (R1/X2)</p>
+<li><strong>interactive <code>initHeroCanvas</code></strong>: reduced-motion paints one static frame; <code>document.hidden</code> pause;</li>
+<p>~30 fps throttle when the pointer is idle. (I1/X2)</p>
+<li><strong>interactive <code>initIso</code> + dossier <code>initIso</code></strong>: per-cell <code>box-shadow</code> cached (write-on-change);</li>
+<p>idle-stop when hover/drag/spin/cells settle; off-screen + <code>document.hidden</code> pause. (D1 + interactive iso)</p>
+<li><strong>interactive <code>initReveal</code></strong> (reveal card): idle-stop when no row hovered and the card has settled. (I7-adjacent)</li>
+<li><strong>interactive + retro AEGIS loops</strong>: <code>document.hidden</code> guard. (D2/R2 partial)</li>
+<li><strong>Interactive 3D-building first-reveal demo removed</strong> (the ~3s auto floor-detail spotlight on</li>
+<p>scroll-in) per request — hover-to-inspect behaviour preserved.</p>
+</ul>
+<h4>Remaining (documented, recommended follow-ups — not applied)</h4>
+<p>I2/I3/I4 (clarity-focus blur+letter-spacing, permanent <code>will-change</code>, nav/LA <code>backdrop-filter</code>), D3-D5, R3-R4, I5/I6, S2, and stopping the AEGIS attract loop fully under reduced-motion. These are lower-risk-to-defer and don&#x27;t require further canvas-loop surgery; each has its exact fix above.</p></section>
+<section class="doc" id="seo-md" data-group="Audits"><div class="doc-head"><h2>SEO.md</h2><span class="doc-meta">SEO.md · 672 words</span></div><h2>SEO, Discoverability &amp; Analytics — robertbabiarz.com</h2>
+<p>Goal: make this portfolio easy to <strong>search and find</strong> — and to rank — for both <strong>full-time roles</strong> and <strong>freelance / contract</strong> product-design work. This doc records what&#x27;s now implemented in the repo and the few manual steps only you can finish.</p>
+<hr>
+<h3>1. What&#x27;s implemented (shipped in this repo)</h3>
+<p>Applied to <strong>all 27 HTML pages</strong> via a standard, idempotent <code>&lt;head&gt;</code> block:</p>
+<div class="tbl"><table><thead><tr><th>Avenue</th><th>Detail</th></tr></thead><tbody>
+<tr><td><strong>Meta descriptions</strong></td><td>Unique, keyword-rich, per page (was: 1 page had one).</td></tr>
+<tr><td><strong>Open Graph</strong></td><td><code>og:title/description/url/image/type/site_name/locale</code> — controls how LinkedIn / Slack / iMessage render a shared link.</td></tr>
+<tr><td><strong>Twitter/X cards</strong></td><td><code>summary_large_image</code> with image.</td></tr>
+<tr><td><strong>Canonical URLs</strong></td><td>Absolute, self-canonical. Duplicate consolidation: <code>homepage-dossier</code>/<code>homepage-retro</code> → <code>homepage-interactive</code>; every <code>*-showcase.html</code> → its <code>.dc.html</code> &quot;Standard&quot; counterpart (so two presentations of one case study don&#x27;t split ranking signal).</td></tr>
+<tr><td><strong>JSON-LD structured data</strong></td><td><code>Person</code> (name, jobTitle, knowsAbout, sameAs→LinkedIn, address, <code>seeks</code>=availability) on key pages; <code>WebSite</code> on the homepage; <code>ProfilePage</code> on About; <code>CreativeWork</code> on each case study with you as <code>author</code>. Validated as parseable JSON.</td></tr>
+<tr><td><strong>robots.txt</strong></td><td>Allows all, points to the sitemap.</td></tr>
+<tr><td><strong>sitemap.xml</strong></td><td>12 canonical URLs (homepage, About, Work, the case studies), priorities + lastmod.</td></tr>
+<tr><td><strong><code>robots</code> meta</strong></td><td><code>index, follow, max-image-preview:large</code> on real pages; <code>noindex, follow</code> on embedded prototypes (<code><em>-prototype</code>, <code></em>-gims*</code>, <code>ctoc-dashboard</code>, <code>fintech-walkthrough</code>) so thin/duplicate demos don&#x27;t dilute the site.</td></tr>
+<tr><td><strong>Analytics (GA4)</strong></td><td><code>analytics.js</code> — privacy-conscious loader (<code>anonymize_ip</code>, honors Do-Not-Track). <strong>Self-disabled until you add your Measurement ID</strong>, so nothing ships broken.</td></tr>
+<tr><td><strong>PWA / icons</strong></td><td><code>site.webmanifest</code>, <code>theme-color</code>, icon link.</td></tr>
+</tbody></table></div>
+<p>Already strong (kept): fast Core-Web-Vitals (the idle-stop/perf work), <code>lang=&quot;en&quot;</code>, WCAG 2.2 / AODA accessibility, semantic <code>&lt;main&gt;</code> + skip link, real alt text — all of which are ranking factors, and accessibility keywords (WCAG 2.2, ARIA) are explicitly weighted by recruiter ATS in 2026.</p>
+<hr>
+<h3>2. Keyword strategy</h3>
+<p>Targets woven into titles, descriptions, <code>knowsAbout</code>, and copy:</p>
+<ul>
+<li><strong>Role / intent:</strong> senior product designer, product designer for hire, freelance product</li>
+<p>designer, contract UX designer, available for full-time and freelance/contract work.</p>
+<li><strong>Craft (what recruiters/ATS match):</strong> UX design, UI design, <strong>design systems</strong>, **data</li>
+<p>visualization<strong>, </strong>dashboard design<strong>, information architecture, interaction design, user research, usability testing, </strong>prototyping, Figma<strong>, </strong>accessibility / WCAG 2.2**, design tokens.</p>
+<li><strong>Domain (your differentiation, low-competition long-tail):</strong> cybersecurity / <strong>SOC dashboard</strong></li>
+<p>UX, threat-operations UX, defense-technology UX, <strong>connected lighting / IoT</strong> UX, fintech UX, enterprise SaaS, B2B product design, AR field tooling, operator interfaces.</p>
+<li><strong>Location:</strong> Greater Toronto Area, Mississauga, Ontario, Canada (local + &quot;remote&quot; intent).</li>
+</ul>
+<p>Long-tail is the lever for a personal site: &quot;SOC dashboard designer&quot;, &quot;connected-lighting UX designer&quot;, &quot;defense product designer Toronto&quot; are winnable; &quot;product designer&quot; alone is not.</p>
+<hr>
+<h3>3. Manual next steps (only you can do these)</h3>
+<ol>
+<li><strong>Analytics: done</strong> — GA4 property live (<code>G-SLLBGG5375</code> in <a href="analytics.js"><code>analytics.js</code></a>),</li>
+<p>consent-gated behind the cookie banner. Next: link the property to Search Console (GA Admin → Product links).</p>
+<li><strong>Google Search Console</strong> (search.google.com/search-console) — add <code>robertbabiarz.com</code>, verify</li>
+<p>(DNS TXT or the GA tag), <strong>submit <code>https://robertbabiarz.com/sitemap.xml</code></strong>. Repeat at <strong>Bing Webmaster Tools</strong>. Watch the Page-Indexing report weekly.</p>
+<li><strong>Validate</strong> the structured data at search.google.com/test/rich-results and the cards at the</li>
+<p>LinkedIn Post Inspector + opengraph.xyz.</p>
+<li><strong>A dedicated 1200×630 OG image</strong> — right now pages reuse case-study previews. A branded</li>
+<p>&quot;Robert Babiarz · Senior Product Designer · open to full-time &amp; freelance&quot; banner lifts share CTR.</p>
+<li><strong>LinkedIn</strong> is the #1 inbound channel for both FT and freelance — put the same keywords in your</li>
+<p><strong>headline</strong> and link this site; recruiters who find the profile click through to the portfolio.</p>
+<li><strong>Backlinks / profiles</strong> (authority + discovery): Dribbble, Behance, Read.cv / Contra (freelance),</li>
+<p>Wellfound/AngelList (startup FT), Toptal/Upwork (contract), Bench/Polywork. Each links here.</p>
+<li><strong>A &quot;Hire / Availability&quot; page or section</strong> stating &quot;available for full-time and freelance/contract,</li>
+<p>remote or GTA&quot; with a clear contact CTA — strong for both intent and conversion.</p>
+</ol>
+<p>Sources behind these choices: Google&#x27;s 2026 structured-data + Core-Web-Vitals guidance, and recruiter/ATS keyword research (User Research, Design Systems, Prototyping, Figma, WCAG 2.2). See the chat for links.</p></section>
+<section class="doc" id="reference-brand-guidelines-md" data-group="Reference &amp; research"><div class="doc-head"><h2>guidelines.md</h2><span class="doc-meta">reference/brand/guidelines.md · 45 words</span></div><h2>Brand guidelines</h2>
+<ul>
+<li><strong>Identity:</strong> Robert Babiarz — senior product designer; defense-AI through-line.</li>
+<li><strong>Typography:</strong> Inter / DM Sans (prose), JetBrains Mono (system/HUD). System fallbacks.</li>
+<li><strong>Color:</strong> dark-first defense palette mapped to product tokens (see <code>../../DESIGN.md</code>).</li>
+<li><strong>Voice:</strong> see <code>../../.claude/rules/content-voice.md</code> — calm, evidence-led, no hype.</li>
+</ul></section>
+<section class="doc" id="reference-research-synthesis-md" data-group="Reference &amp; research"><div class="doc-head"><h2>synthesis.md</h2><span class="doc-meta">reference/research/synthesis.md · 61 words</span></div><h2>Research synthesis</h2>
+<h3>Method</h3>
+<p>What was reviewed (defense / dual-use product surfaces, SOC dashboards, sensor-fusion UIs) and when.</p>
+<h3>Themes</h3>
+<ol>
+<li><strong>Operators distrust verdicts without provenance</strong> — evidence and dissent beat a lone confidence number.</li>
+</ol>
+<h3>Implications for design</h3>
+<ul>
+<li>Show sources and the dissent, not just the score (the AEGIS thesis).</li>
+<li>Separate observation from recommendation; flag unverified claims.</li>
+</ul></section>
+<section class="doc" id="reference-flows-parlay-gaming-flow-md" data-group="Reference &amp; research"><div class="doc-head"><h2>flow.md</h2><span class="doc-meta">reference/flows/parlay-gaming/flow.md · 145 words</span></div><h2>Parlay Games iGaming — reading flow (case study 09)</h2>
+<p>Image-led narrative pages; no interactive prototype in v1. The &quot;flow&quot; is the reading path.</p>
+<p><strong>Entry:</strong> homepage work rows (09) / work index / lobby tile / concierge card / case-study switcher on any sibling page / search.</p>
+<p><strong>Quick tour (parlay-gaming-showcase.html):</strong> platform context + Parlay-era figures → game design (bingo, keno, slots) → brand &amp; logo systems → player-facing web platforms → promotions at volume → back office → 3D imagery → what carried forward. Exit: deep-dive CTA, next-case footer, switcher.</p>
+<p><strong>Deep dive (parlay-gaming.html):</strong> adds the era/runtime constraint story (Java → Flash → HTML → mobile), player research, min-spec performance discipline, localization mechanics; TOC-driven. Exit: next-case footer chain, switcher, work index.</p>
+<p><strong>Failure/edge states:</strong> images lazy-load with meaningful alt text; reduced-motion honored; no external embeds, so the pages are fully offline-capable like the rest of the site.</p></section>
+<section class="doc" id="reference-flows-light-architect-flow-md" data-group="Reference &amp; research"><div class="doc-head"><h2>flow.md</h2><span class="doc-meta">reference/flows/light-architect/flow.md · 233 words</span></div><h2>Light ARchitect — reading flow (case study 06)</h2>
+<p>Image-led narrative plus three working in-page simulations on the deep dive.</p>
+<p><strong>Entry:</strong> homepage work rows (06) / the homepage Light ARchitect scene&#x27;s &quot;Read the case study&quot; pill (promoted from &quot;coming soon&quot;) / work index &amp; lobby tile / concierge card (Quick tour · Deep dive · Try the mini planner) / case-study switcher on any sibling page / search.</p>
+<p><strong>Quick tour (light-architect-showcase.html):</strong> hero on a real satellite design → the specialist-bottleneck problem → the design surface (boundaries, measure) → defensible photometrics (summary, advanced calc) → IES library → sports templates → AR origins + photo mode → honest numbers → patent strip → CORE hand-off. Exit: deep-dive CTA, next-case footer (→ Enterprise AI), switcher.</p>
+<p><strong>Deep dive (light-architect.html):</strong> 11 TOC-driven sections; the three interactives are the spine — 06 photometric sandbox (drag/keyboard poles vs RP-8-22), 07 IES filter-before-load demo, 08 AI AutoLayout two-stage loop (boundary → goals → staged progress → ranked candidates → refine → re-rank). Every simulation carries an honesty label; the shipped product&#x27;s screenshots sit beside each demo as the receipt. Exit: next-case footer (→ Enterprise AI), switcher, work index.</p>
+<p><strong>Failure/edge states:</strong> widgets init isolated (one failure can&#x27;t kill the page); keyboard paths on all three interactives (roving tabindex, arrow-key movement, Delete); reduced-motion renders progress/counters instantly with no autonomous animation; images lazy-load with factual alt text; no external embeds — fully offline-capable.</p></section>
+<section class="doc" id="src-components-readme-md" data-group="Runtime components"><div class="doc-head"><h2>README.md</h2><span class="doc-meta">src/components/README.md · 143 words</span></div><h2>Components &amp; shared modules</h2>
+<p>This portfolio is built as <strong>single-file <code>.html</code> / <code>.dc.html</code> prototypes</strong> — most &quot;components&quot; live inline in the page that uses them, and their contracts are documented in <a href="../../design-system/components.md"><code>../../design-system/components.md</code></a>.</p>
+<p>Shared, reused runtime modules live at the <strong>repo root</strong> and are the closest thing to a component library here:</p>
+<ul>
+<li><code>support.js</code> — the DesignCode (DC) runtime: parses <code>&lt;x-dc&gt;</code> markup and renders with React.</li>
+<li><code>home-variants.js</code> — the homepage VIEW switcher (remembers the choice).</li>
+<li><code>page-transition.js</code> · <code>text-motion.js</code> · <code>a11y.js</code> — transitions, type motion, a11y helpers.</li>
+<li><code>colophon.js</code> — the site-wide build record injected at the bottom of every page. GENERATED</li>
+<p>by <code>build-colophon.py</code> (git history + GitHub Pages API); never edit by hand — regenerate before a release.</p>
+</ul>
+<p>Use <code>primitives/</code> and <code>patterns/</code> here only for genuinely extracted, shared component code. Conventions: inline-first, <code>var(--…)</code> tokens, Lucide icons, no build — see <a href="../../.claude/rules/code-style.md"><code>../../.claude/rules/code-style.md</code></a>.</p></section>
+<section class="doc" id="claude-agents-researcher-md" data-group="Tooling"><div class="doc-head"><h2>researcher.md</h2><span class="doc-meta">.claude/agents/researcher.md · 29 words</span></div><h2>Agent: Researcher</h2>
+<p>Gathers and synthesizes defense / dual-use product patterns and prior art into <code>reference/research/synthesis.md</code>. Cites primary sources; separates observation from recommendation; flags where a claim is unverified.</p></section>
+<section class="doc" id="claude-agents-design-critic-md" data-group="Tooling"><div class="doc-head"><h2>design-critic.md</h2><span class="doc-meta">.claude/agents/design-critic.md · 35 words</span></div><h2>Agent: Design critic</h2>
+<p>Reviews UI against <code>DESIGN.md</code> principles and <code>.claude/rules/</code>. Returns concrete, prioritized critique (hierarchy, spacing, contrast, one-accent-per-screen, meaning-without-color, consistency, copy), each tied to a principle or rule, with a suggested fix referencing tokens.</p></section>
+<section class="doc" id="claude-agents-implementer-md" data-group="Tooling"><div class="doc-head"><h2>implementer.md</h2><span class="doc-meta">.claude/agents/implementer.md · 33 words</span></div><h2>Agent: Implementer</h2>
+<p>Turns approved designs into single-file <code>.html</code> / <code>.dc.html</code> prototypes — inline CSS/JS, <code>var(--…)</code> tokens, Lucide icons, no build step — following <code>.claude/rules/code-style.md</code> and <code>design-system/components.md</code>. Keeps everything working with no server.</p></section>
+<section class="doc" id="claude-commands-new-case-study-md" data-group="Tooling"><div class="doc-head"><h2>new-case-study.md</h2><span class="doc-meta">.claude/commands/new-case-study.md · 81 words</span></div><h2>/new-case-study</h2>
+<p>Kick off a new portfolio case study / interactive prototype.</p>
+<p>Steps:</p>
+<ol>
+<li>Ask for the project name and the one-line outcome it proves.</li>
+<li>Create <code>docs/features/&lt;slug&gt;.md</code> capturing: the user (program lead / design leader),</li>
+<p>the thesis, what the interaction proves, scope, and all required states.</p>
+<li>Add an entry to <code>docs/open-questions.md</code> and a row to <code>docs/changelog.md</code>.</li>
+<li>Stub a flow in <code>reference/flows/&lt;slug&gt;/</code>.</li>
+<li>Propose on-system patterns from <code>design-system/components.md</code>, using <code>var(--…)</code> tokens,</li>
+<p>Lucide icons, and a single accent per screen.</p>
+</ol></section>
+<section class="doc" id="claude-commands-audit-tokens-md" data-group="Tooling"><div class="doc-head"><h2>audit-tokens.md</h2><span class="doc-meta">.claude/commands/audit-tokens.md · 53 words</span></div><h2>/audit-tokens</h2>
+<p>Scan the <code>.html</code> / <code>.dc.html</code> prototypes for hardcoded visual values — raw hex colors, px spacing, raw font sizes — that should reference a CSS custom property. Report each with the suggested token from <code>tokens/semantic.json</code> / <code>tokens.css</code>, and flag any missing token to add. Ignore values inside <code>:root</code>/<code>.light</code> token definitions themselves.</p></section>
+  </main>
+</div>
+<script>
+(function () {
+  'use strict';
+  /* theme (shared key with the rest of the site's standalone pages) */
+  var btn = document.getElementById('theme');
+  function setLight(on) {
+    document.body.classList.toggle('light', on);
+    btn.textContent = on ? 'DARK MODE' : 'LIGHT MODE';
+    btn.setAttribute('aria-pressed', String(on));
+    try { localStorage.setItem('rb-deepdive-light', on ? '1' : '0'); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('rb-deepdive-light'); } catch (e) {}
+  setLight(saved === '1');
+  btn.addEventListener('click', function () { setLight(!document.body.classList.contains('light')); });
+
+  /* filter: matches title, path, group, or body text */
+  var input = document.getElementById('filter');
+  var docs = [].slice.call(document.querySelectorAll('section.doc'));
+  var links = [].slice.call(document.querySelectorAll('nav.toc a'));
+  var groups = [].slice.call(document.querySelectorAll('nav.toc .toc-g'));
+  var none = document.getElementById('none');
+  input.addEventListener('input', function () {
+    var q = input.value.trim().toLowerCase();
+    var any = false;
+    docs.forEach(function (d, i) {
+      var hit = !q || d.textContent.toLowerCase().indexOf(q) !== -1 || d.getAttribute('data-group').toLowerCase().indexOf(q) !== -1;
+      d.style.display = hit ? '' : 'none';
+      if (links[i]) links[i].style.display = hit ? '' : 'none';
+      if (hit) any = true;
+    });
+    groups.forEach(function (g) {
+      var el = g.nextElementSibling, vis = false;
+      while (el && !el.classList.contains('toc-g')) { if (el.style.display !== 'none') vis = true; el = el.nextElementSibling; }
+      g.style.display = vis ? '' : 'none';
+    });
+    none.style.display = any ? 'none' : 'block';
+  });
+
+  /* scroll spy */
+  if ('IntersectionObserver' in window) {
+    var byId = {};
+    links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    var cur = null;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) {
+          if (cur) cur.classList.remove('on');
+          cur = byId[e.target.id];
+          if (cur) { cur.classList.add('on'); }
+        }
+      });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    docs.forEach(function (d) { io.observe(d); });
+  }
+})();
+</script>
+<script src="colophon.js" defer></script>
+</body>
+</html>

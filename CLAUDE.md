@@ -1,11 +1,11 @@
 # Product Designer Portfolio
 
-> Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light Architect, DALI-2, CORE Insights).
+> Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
 
 This file is the entry point for context. Read it first, then follow the links.
 
 ## What this project is
-Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light Architect, DALI-2, CORE Insights).
+Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
 
 Owner / lead designer: Robert Babiarz · Live: https://robertbabiarz.com/
 
@@ -32,7 +32,7 @@ the React CDN + Google Fonts; both degrade gracefully offline.
 ## Conventions
 - Prototypes are single-file `.html` / `.dc.html` (markup + inline CSS/JS). Shared runtime
   modules (`support.js`, `a11y.js`, `text-motion.js`, `page-transition.js`,
-  `home-variants.js`) live at the repo root; documented in [`src/components/`](./src/components/).
+  `home-variants.js`, `colophon.js`) live at the repo root; documented in [`src/components/`](./src/components/).
 - Icons: Material Symbols via `<span class="msi" aria-hidden="true">icon_name</span>` (MUI for Figma kit is the source of truth) — never hand-author SVG paths.
 - Status/meaning never rides on hue alone; never use saturated red/amber/stoplight-green
   as status (see [`DESIGN.md`](./DESIGN.md)).

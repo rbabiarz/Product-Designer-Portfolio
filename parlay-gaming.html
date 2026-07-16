@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="page-transition.js"></script>
+<title>Parlay Games, iGaming at Production Scale · Robert Babiarz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="case-shot.css">
+<style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
+img[src^="assets/parlay/"]{height:auto}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0}
+.cs{
+  --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-body:#534f48;--c-muted:#6e6a60;--c-muted2:#9a9486;
+  --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;
+  --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
+  --c-navbg:rgba(255,252,245,0.84);
+}
+.cs.dark{
+  --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
+  --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;
+  --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
+  --c-navbg:rgba(11,16,22,0.82);
+  color-scheme:dark;
+}
+.cs{background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;overflow-x:clip}
+::selection{background:#0d5350;color:#fff}
+.mono{font-family:'JetBrains Mono',monospace}
+.cs a:focus-visible,.cs button:focus-visible,.cs summary:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:-0.02em;line-height:1.06}
+.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--c-accent)}
+@keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+[data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}.hero-float{animation:none!important}}
+
+/* sections + side toc */
+.cs section[id]{scroll-margin-top:80px}
+.toc{position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:11px;align-items:flex-end}
+.toc a{display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end}
+.toc .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.toc:hover .lbl{opacity:1;transform:none}
+.toc .dot{width:9px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .25s}
+.toc a[data-on] .lbl{opacity:1;color:var(--c-accent)}
+.toc a[data-on] .dot{background:var(--c-accent);width:22px}
+@media (max-width:1180px){.toc{display:none}}
+
+/* iPhone device frame */
+.mount{display:inline-block;position:relative;padding:10px;border-radius:50px;
+  background:linear-gradient(135deg,#56585d 0%,#202225 16%,#0a0b0c 50%,#202225 84%,#56585d 100%);
+  box-shadow:0 0 0 1.5px #050506, 0 17px 33px -13px rgba(10,20,30,0.4), inset 0 1.5px 2px rgba(255,255,255,.42), inset 0 -1.5px 2px rgba(255,255,255,.16);}
+.mount::after{content:'';position:absolute;left:-2.5px;top:15%;width:2.5px;height:31%;border-radius:3px 0 0 3px;
+  background:linear-gradient(#191b1e 0 13%,transparent 13% 30%,#191b1e 30% 62%,transparent 62% 71%,#191b1e 71% 100%);}
+.mount::before{content:'';position:absolute;right:-2.5px;top:30%;width:2.5px;height:13%;border-radius:0 3px 3px 0;background:#191b1e;}
+.phone{width:234px;height:507px;display:block;border-radius:42px;background:#000;object-fit:cover;object-position:center top;}
+.phone-cap{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--c-muted);text-transform:uppercase;text-align:center;margin-top:16px}
+
+.wrap{max-width:1240px;margin:0 auto}
+.pad{padding:92px 40px}
+.lead{font-size:clamp(16px,1.5vw,17.5px);color:var(--c-body);line-height:1.75}
+.sec-h{font-size:clamp(30px,4vw,50px);letter-spacing:-1.3px;color:var(--c-ink)}
+.card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
+
+/* hero */
+.hero-sec{position:relative;overflow:hidden;padding:74px 40px 86px}
+.hero-blob{position:absolute;border-radius:50%;pointer-events:none}
+.hero-blob-a{top:-140px;right:-90px;width:540px;height:540px;background:radial-gradient(circle,rgba(122,90,190,.12),transparent 68%)}
+.hero-blob-b{bottom:-80px;left:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(15,42,74,.08),transparent 70%)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;position:relative}
+.hero-title{font-size:clamp(34px,4.9vw,68px);line-height:1.02;letter-spacing:-2.2px;overflow-wrap:break-word}
+.hero-title em{display:block;margin-top:.14em;font-size:clamp(24px,4.2vw,42px);letter-spacing:-.04em;line-height:1.08}
+.hero-lead{font-size:clamp(17px,1.6vw,20px);max-width:500px;margin-top:26px}
+.hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:38px;width:100%;max-width:520px}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
+nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand:hover{color:var(--c-ink)}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
+.iconbtn:hover{background:var(--c-card)}
+.cs-switch{position:relative}
+.cs-switch summary{list-style:none;display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface)}
+.cs-switch summary::-webkit-details-marker{display:none}
+.cs-switch .cs-chev{transition:transform .2s}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+.cs-sheet a:hover{background:var(--c-bg2)}
+
+/* stat strip */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--c-navy);border-radius:18px;overflow:hidden}
+.stat-strip>div{padding:34px 26px;border-right:1px solid rgba(255,255,255,.08)}
+.stat-strip>div:last-child{border-right:none}
+.stat-n{font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#5fc4b6;letter-spacing:-1px;line-height:1}
+.stat-l{font-size:13.5px;color:#cdd6e0;margin-top:9px;line-height:1.5}
+.stat-k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#7d93a8;letter-spacing:0.08em;margin-top:11px}
+/* stat-strip micro-visuals — the strip is navy in both themes, so colors are the dark-surface pair */
+.sv{margin-top:14px}
+.sv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:#7d93a8;display:flex;justify-content:space-between;gap:8px;margin:7px 0 4px}
+.sv-track{position:relative;height:8px;border-radius:4px;background:rgba(255,255,255,0.07)}
+.sv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a9ab5}
+.sv-fill.on{background:#5fc4b6}
+.sv-dots{display:flex;gap:4px;align-items:center;min-height:8px;flex-wrap:wrap}
+.sv-dot{width:8px;height:8px;border-radius:50%;background:#5fc4b6;flex:0 0 auto}
+.sv-dot.dim{background:#8a9ab5;opacity:.62}
+.sv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:#7d93a8;margin-top:8px;line-height:1.5}
+
+/* mobile menu */
+.burger{display:none;width:40px;height:40px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{width:18px;height:2px;background:var(--c-accent);border-radius:2px;transition:transform .3s,opacity .2s}
+.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .burger span:nth-child(2){opacity:0}
+.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#mob{position:fixed;inset:0;z-index:75;background:var(--c-bg);display:flex;flex-direction:column;padding:84px 26px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .3s,visibility .3s;pointer-events:none}
+.menu-open #mob{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#mob a{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--c-ink);text-decoration:none;padding:13px 2px;border-bottom:1px solid var(--c-b2)}
+#mob a .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-muted)}
+
+@media (max-width:980px){
+  nav.top .bar{padding:0 18px}
+  .pad{padding:60px 18px}
+  .hero-sec{padding:52px 18px 44px}
+  .hero-blob-a{width:300px;height:300px;top:-70px;right:-50px}
+  .hero-blob-b{width:220px;height:220px;left:-40px}
+  .hero-grid{grid-template-columns:1fr!important;gap:40px!important}
+  .hero-meta{max-width:none}
+  .hero-lead{max-width:none}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr!important}
+  .hero-float{display:none!important}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .scroll-x{overflow-x:auto}
+}
+@media (min-width:981px){.burger{display:none}#mob{display:none}}
+@media (max-width:980px){.burger{display:flex}}
+@media (max-width:560px){
+  .cs h1:not(.hero-title){font-size:40px!important;letter-spacing:-1.6px!important}
+  .hero-sec{padding:40px 16px 36px}
+  .hero-sec .hero-title{font-size:clamp(28px,8.5vw,38px)!important;letter-spacing:-1.35px!important;line-height:1.04!important}
+  .hero-sec .hero-title em{font-size:clamp(20px,6.2vw,28px);margin-top:.18em}
+  .hero-meta{grid-template-columns:1fr 1fr;gap:14px 16px}
+  .stat-strip{grid-template-columns:1fr}
+}
+@media (max-width:400px){
+  .hero-meta{grid-template-columns:1fr}
+}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.scroll-x{border:1px solid var(--c-b3);border-radius:14px;overflow:hidden;overflow-x:auto}
+.shot{border-radius:0;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);background:#0e1622}
+.shot img{width:100%;display:block}
+.shot-cap{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:.06em;margin-top:10px;text-align:center;text-transform:uppercase}
+/* promo ads: never larger than production 1×; still shrink on narrow viewports */
+#promos .shot{width:fit-content;max-width:100%;margin-inline:auto}
+#promos .shot img{width:auto;max-width:100%;height:auto}
+/* 3D gallery: same 1× cap (roulette / fire-ice and peers) */
+#threed .shot{width:fit-content;max-width:100%;margin-inline:auto}
+#threed .shot img{width:auto;max-width:100%;height:auto}
+/* shared 1× shot frame (cashier composite, etc.) */
+.shot-1x{width:fit-content;max-width:100%;margin-inline:auto}
+.shot-1x img{width:auto;max-width:100%;height:auto}
+/* level-map window: an ambient pan reveals the full-height artwork; the travel
+   distance is percentage-based so it holds at any rendered width */
+.lvlscroll{height:100%;min-height:560px;overflow:hidden;container-type:size}
+.lvlscroll img{animation:lvl-pan 26s ease-in-out infinite alternate}
+.lvlscroll:hover img,.lvlscroll:focus-within img{animation-play-state:paused}
+@keyframes lvl-pan{from{transform:translateY(0)}to{transform:translateY(calc(-100% + 100cqh))}}
+@media (prefers-reduced-motion:reduce){.lvlscroll{overflow-y:auto;-webkit-overflow-scrolling:touch}.lvlscroll img{animation:none}}
+/* player-avatar set — one caricature per card, sliced from the 7×4 sprite via background-position */
+.avset{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.avchip{background:#fff;border:1px solid var(--c-b2);border-radius:16px;padding:11px;box-shadow:0 1px 2px rgba(10,8,4,0.05)}
+.avface{width:100%;aspect-ratio:1;background-image:url(assets/parlay/avatars-grid.jpg);background-repeat:no-repeat;background-size:700% 400%}
+.verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill a:hover{color:var(--c-ink)}
+.verpill a.on{background:var(--c-accent);color:#fff}
+.cs.dark .verpill a.on{color:#06201d}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+</style>
+
+  <!-- SEO·OG·JSONLD -->
+  <meta name="description" content="Parlay Games deep dive — two decades of iGaming design by Robert Babiarz: 50+ real-money games across Java, Flash, HTML and mobile, brand systems, player platforms, localized promotions, the HouseEdge operator console, and the discipline that carried into IoT and defence work.">
+  <meta name="author" content="Robert Babiarz">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://robertbabiarz.com/parlay-gaming.html">
+  <meta name="theme-color" content="#070b12">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Robert Babiarz — Product Designer">
+  <meta property="og:title" content="Parlay Games, iGaming at Production Scale · Robert Babiarz">
+  <meta property="og:description" content="Parlay Games deep dive — two decades of iGaming design by Robert Babiarz: 50+ real-money games across Java, Flash, HTML and mobile, brand systems, player platforms, localized promotions, and the HouseEdge operator console.">
+  <meta property="og:url" content="https://robertbabiarz.com/parlay-gaming.html">
+  <meta property="og:image" content="https://robertbabiarz.com/previews/p-parlay.png">
+  <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Parlay Games, iGaming at Production Scale · Robert Babiarz">
+  <meta name="twitter:description" content="Parlay Games deep dive — two decades of iGaming design by Robert Babiarz: 50+ real-money games across Java, Flash, HTML and mobile, brand systems, player platforms, localized promotions, and the HouseEdge operator console.">
+  <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-parlay.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Parlay Games, iGaming at Production Scale · Robert Babiarz","headline":"Parlay Games, iGaming at Production Scale · Robert Babiarz","description":"Parlay Games — two decades of iGaming design by Robert Babiarz: 50+ real-money games, brand systems, web platforms, promotions, back office, and 3D imagery.","url":"https://robertbabiarz.com/parlay-gaming.html","image":"https://robertbabiarz.com/previews/p-parlay.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, UX Design, UI Design, Game Design, iGaming, Brand Identity, Logo Design, Web Design, Promotions, Design Systems","isPartOf":{"@type":"WebSite","name":"Robert Babiarz — Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
+  <script src="/analytics.js" defer></script>
+  <script src="cursor.js" defer></script>
+<script src="cookie-banner.js" defer></script>
+<script src="colophon.js" defer></script>
+<script src="search-index.js" defer></script>
+<script src="concierge.js" defer></script>
+</head>
+<body>
+<div class="cs" id="top">
+
+  <!-- NAV -->
+  <nav class="top">
+    <div class="bar">
+      <a class="brand" href="homepage-interactive.dc.html">
+        <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
+        <details class="cs-switch">
+          <summary>
+            <span class="mono" style="font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent)">Parlay Games</span>
+            <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;color:var(--c-muted);">expand_more</span>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 11px 27px -10px rgba(20,30,40,0.26);padding:7px;z-index:300">
+            <a href="dali-2-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">DALI-2 Lighting System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Insights Dashboards</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="partitioning-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Spaces that change shape · WaveLinx</div></a>
+            <a href="enterprise-ai-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Enterprise AI</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Conversational · explainable · predictive</div></a>
+            <a href="smart-lighting-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="light-architect-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Light ARchitect</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">AI photometric design · 3 US patents</div></a>
+            <a href="goals-driven-fintech-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Fintech</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
+            <a href="ctoc-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <a href="aegis-gims-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">AEGIS GIMS</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Filter-first geospatial C2</div></a>
+            <a href="parlay-gaming-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-card);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">Parlay Games iGaming</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">50+ games · brand · web · promos</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px"></div>
+            <a href="homepage-interactive.dc.html" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted)">← All work</a>
+          </div>
+        </details>
+        <button class="burger" id="burger" aria-label="Menu" aria-controls="mob" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mob">
+    <div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted);margin-bottom:6px">Sections</div>
+    <a href="#brief" data-m=""><span>The Platform</span><span class="n">01</span></a>
+    <a href="#scope" data-m=""><span>One Seat</span><span class="n">02</span></a>
+    <a href="#games" data-m=""><span>The Games</span><span class="n">03</span></a>
+    <a href="#research" data-m=""><span>Research &amp; Flows</span><span class="n">04</span></a>
+    <a href="#brand" data-m=""><span>Brand Systems</span><span class="n">05</span></a>
+    <a href="#skinning" data-m=""><span>Global Skinning</span><span class="n">06</span></a>
+    <a href="#web" data-m=""><span>Web Platforms</span><span class="n">07</span></a>
+    <a href="#promos" data-m=""><span>Promotions</span><span class="n">08</span></a>
+    <a href="#backoffice" data-m=""><span>Back Office</span><span class="n">09</span></a>
+    <a href="#threed" data-m=""><span>3D Pipeline</span><span class="n">10</span></a>
+    <a href="#carried" data-m=""><span>What Carried Forward</span><span class="n">11</span></a>
+  </div>
+
+  <!-- SIDE TOC -->
+  <nav class="toc" aria-label="Sections">
+    <a href="#brief" data-toc="brief"><span class="lbl">The platform</span><span class="dot"></span></a>
+    <a href="#scope" data-toc="scope"><span class="lbl">One seat</span><span class="dot"></span></a>
+    <a href="#games" data-toc="games"><span class="lbl">The games</span><span class="dot"></span></a>
+    <a href="#research" data-toc="research"><span class="lbl">Research &amp; flows</span><span class="dot"></span></a>
+    <a href="#brand" data-toc="brand"><span class="lbl">Brand systems</span><span class="dot"></span></a>
+    <a href="#skinning" data-toc="skinning"><span class="lbl">Global skinning</span><span class="dot"></span></a>
+    <a href="#web" data-toc="web"><span class="lbl">Web platforms</span><span class="dot"></span></a>
+    <a href="#promos" data-toc="promos"><span class="lbl">Promotions</span><span class="dot"></span></a>
+    <a href="#backoffice" data-toc="backoffice"><span class="lbl">Back office</span><span class="dot"></span></a>
+    <a href="#threed" data-toc="threed"><span class="lbl">3D pipeline</span><span class="dot"></span></a>
+    <a href="#carried" data-toc="carried"><span class="lbl">Carried forward</span><span class="dot"></span></a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-sec">
+    <div class="hero-blob hero-blob-a"></div>
+    <div class="hero-blob hero-blob-b"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <h1 class="hero-title" data-reveal="">Parlay Games <br><em>iGaming at production scale</em></h1>
+        <p class="lead hero-lead" data-reveal="">Two decades designing for the patent holder and world leader in online bingo: 50+ games, the brands they wore, the sites they lived on, the promotions that filled them, and the console operators ran them from. This is the chapter before the IoT and defence work, and the reason that work looks the way it does.</p>
+        <div class="hero-meta" data-reveal="">
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">UI/UX · Game Art · Brand</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Company</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Parlay Games Inc. · 2000–2020</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Domain</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Regulated real-money iGaming</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Runtimes</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Java → Flash → HTML → mobile</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Scale</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">50+ games · 70+ brands</div></div>
+        </div>
+      </div>
+      <div class="hero-float" data-reveal="" style="display:flex;justify-content:center">
+        <div class="hero-float" style="animation:cs-float 6s ease-in-out infinite">
+          <div class="shot" style="box-shadow:var(--cs-shot-shadow-hero)">
+            <img width="1600" height="1184" fetchpriority="high" decoding="async" src="assets/parlay/bingo-desktop.jpg" alt="The 90-ball bingo desktop client: ball caller, called-number board, ticket rail, and live chat" style="width:100%;max-width:620px;display:block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 THE PLATFORM -->
+  <section id="brief" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">01 · The Platform</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">One platform, <em>seventy casino brands.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">Parlay Games didn't run a bingo site. It built and licensed the platform that other operators ran their bingo sites on: the games, the wallet, the chat, the promotions engine, the back office. Every operator brand needed its own look on the same machinery, in its own language, under its own regulator.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">The figures below are the company's, not mine. They're here because they set the design constraints: nothing ships slow, nothing ships confusing, and nothing ships that a regulator can't audit.</p>
+      <div class="stat-strip" data-reveal="">
+        <div>
+          <div class="stat-n">$2B</div>
+          <div class="stat-l">USD wagered per year across the network</div>
+          <div class="sv" role="img" aria-label="Two billion dollars wagered per year, a Parlay-era company figure">
+            <div class="sv-lbl" aria-hidden="true"><span>WAGERED / YR</span><span>NETWORK</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">COMPANY FIGURE · PARLAY ERA</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">2.8M</div>
+          <div class="stat-l">Players online across 70+ operator clients</div>
+          <div class="sv" role="img" aria-label="2.8 million players online across more than seventy operator clients">
+            <div class="sv-lbl" aria-hidden="true"><span>PLAYERS</span><span>70+ B2B CLIENTS</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">COMPANY FIGURE · PARLAY ERA</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">50+</div>
+          <div class="stat-l">Games shipped: bingo, slots, keno, casino, word games</div>
+          <div class="sv" role="img" aria-label="More than fifty games shipped across four runtimes">
+            <div class="sv-lbl" aria-hidden="true"><span>GAMES</span><span>4 RUNTIMES</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">JAVA · FLASH · HTML · IOS &amp; ANDROID</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">9</div>
+          <div class="stat-l">Regulated markets, each with its own rules and language</div>
+          <div class="sv" role="img" aria-label="Nine regulated markets, drawn one dot per market">
+            <div class="sv-lbl" aria-hidden="true"><span>MARKETS</span><span>DRAWN 1:1</span></div>
+            <div class="sv-dots" aria-hidden="true"><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span></div>
+            <div class="sv-note">UK · SPAIN · ITALY · KENYA · DENMARK · US · BRAZIL · BAHAMAS · CANADA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 ONE SEAT -->
+  <section id="scope" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">02 · One Seat, the Whole Surface</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">When the team is small, <em>the job is everything.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">Game design, brand identity, logos, website design, game skins, sounds, promotions, sprites, animation, 3D, wireframes, user flows, GUI, research, prototyping, marketing, print, video, photography, custom fonts, documentation. That's not a services list, it's what one design seat covered as the platform grew, in whatever tool the era demanded, from Lightwave 3D to After Effects to hand-tuned sprite sheets.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">The through-line was the runtime treadmill. Java applets gave way to Flash, Flash to HTML, HTML to native mobile, and each move meant rebuilding the same games without losing the players who paid for them. Being early on each transition was survival, not fashion.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px" class="grid-4">
+        <div data-reveal="" style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">ERA 01</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Java</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">Applet clients in the browser. Tiny asset budgets, every kilobyte argued over.</p></div>
+        <div data-reveal="" style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">ERA 02</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">Flash</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">Animation, sound, and personality arrive. Sprites, motion design, dynamic text, multi-lingual builds.</p></div>
+        <div data-reveal="" style="background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:9px">ERA 03</div><div style="font-size:16px;font-weight:700;color:var(--c-ink2);margin-bottom:7px;font-family:'Inter',sans-serif">HTML</div><p style="font-size:14px;color:var(--c-body);line-height:1.6">The open web, and with it JSON-driven theming: one client, every operator's skin.</p></div>
+        <div data-reveal="" style="background:var(--c-navy);border:1px solid transparent;border-radius:14px;padding:24px 26px"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.1em;margin-bottom:9px">ERA 04</div><div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">iOS &amp; Android</div><p style="font-size:14px;color:#c6d2dd;line-height:1.6">The same games in a pocket. Touch targets, portrait layouts, and app-store rules join the constraint list.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 THE GAMES -->
+  <section id="games" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">03 · The Games</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Bingo is a live system. <em>Slots are staged worlds.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">A bingo client is closer to a trading floor than to a card game: a caller, a board, a ticket market with a countdown, live chat, and win states that have to be legible across three purchased cards at once. Slots are the opposite discipline, one theme carried from logo through symbols to bonus round and pay table.</p>
+
+      <div class="grid-2" style="align-items:center;margin-bottom:44px">
+        <div data-reveal="" class="shot"><img width="1600" height="1184" loading="lazy" decoding="async" src="assets/parlay/bingo-desktop.jpg" alt="This is Your Bingo 90-ball desktop client: caller at 90, called-number board, Million Dollar Bingo ticket selector, chat, and strip tickets"></div>
+        <div>
+          <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin-bottom:10px">3.1 · THE DESKTOP CLIENT</div>
+          <h3 data-reveal="" style="font-family:'Inter',sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.5px;color:var(--c-ink);margin-bottom:12px">Six things happening at once, one legible screen.</h3>
+          <p data-reveal="" style="font-size:15px;color:var(--c-body);line-height:1.62">The 90-ball client runs the caller, the board, a jackpot ticket rail, general chat, and the player's own cards simultaneously. The hierarchy rule: the ball being called and the card closest to winning always read first. Everything else waits its turn.</p>
+        </div>
+      </div>
+
+      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;margin:44px 0 10px">3.2 · SLOTS, KENO, AND A WORD GAME</div>
+      <h3 data-reveal="" style="font-family:'Inter',sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.5px;color:var(--c-ink);margin-bottom:22px">Full titles, art direction to pay table.</h3>
+      <div class="grid-2" data-reveal="" style="margin-bottom:14px">
+        <div><div class="shot"><img width="1200" height="909" loading="lazy" decoding="async" src="assets/parlay/slots-7s.jpg" alt="7s Ablaze three-reel slot in a casino cabinet frame with coin-level payout diagram"></div><div class="shot-cap">7s Ablaze · classic 3-reel, cabinet chrome and all</div></div>
+        <div><div class="shot"><img width="800" height="659" loading="lazy" decoding="async" src="assets/parlay/slots-bushwacks.jpg" alt="Bushwacks jungle-themed slot: cartoon monster banner above the five-reel game screen"></div><div class="shot-cap">Bushwacks · five reels of cartoon monsters</div></div>
+      </div>
+      <div class="grid-2" data-reveal="" style="margin-bottom:44px">
+        <div><div class="shot"><img width="995" height="669" loading="lazy" decoding="async" src="assets/parlay/keno.jpg" alt="Classic Keno screen: 1 to 80 number board with drawn balls, quick pick, payout table, and game-speed slider"></div><div class="shot-cap">Keno · 80 numbers, a speed slider, and restraint</div></div>
+        <div style="display:flex;gap:14px;justify-content:center;align-items:flex-start;flex-wrap:wrap">
+          <div style="text-align:center"><span class="mount" style="padding:8px;border-radius:38px"><img class="phone" style="width:170px;height:auto;aspect-ratio:368/656;border-radius:30px;object-fit:contain" width="368" height="656" loading="lazy" decoding="async" src="assets/parlay/wd-splash.jpg" alt="Word Dragon splash screen: glossy letter-dice logo over a letter-tile sunburst"></span></div>
+          <div style="text-align:center"><span class="mount" style="padding:8px;border-radius:38px"><img class="phone" style="width:170px;height:auto;aspect-ratio:368/656;border-radius:30px;object-fit:contain" width="368" height="656" loading="lazy" decoding="async" src="assets/parlay/wd-guess.jpg" alt="Word Dragon guessing screen with hidden answer tiles, letter tray, and power-up buttons"></span></div>
+          <div class="phone-cap" style="flex-basis:100%">Word Dragon · a native mobile word game, splash to power-up shop</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 RESEARCH & FLOWS -->
+  <section id="research" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">04 · Research &amp; Flows</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Player evidence, <em>then the architecture.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Game economics weren't guessed. A 2007 industry survey by Arrow Games and Bazaar &amp; Novelty, run across six Ontario bingo centres, asked players what they actually preferred: 81% wanted a single winner in a low-pot game over a split, and hall players averaged 3.26 visits a week while playing online bingo only 0.42 times, the gap the product existed to close. Flows were drawn before screens: the whole client mapped as an information architecture, from loading to cashier.</p>
+      <div class="grid-2" style="align-items:start">
+        <div data-reveal=""><div class="shot" style="background:var(--c-surface)"><img width="921" height="1200" loading="lazy" decoding="async" src="assets/parlay/research-survey.jpg" alt="Scanned page of the 2007 player research report: study introduction and pot-sharing preference results"></div><div class="shot-cap">2007 industry player research · Arrow Games / Bazaar &amp; Novelty, six Ontario centres</div></div>
+        <div style="display:grid;gap:14px">
+          <div data-reveal=""><div class="shot" style="background:var(--c-surface);padding:18px"><img width="1200" height="599" loading="lazy" decoding="async" src="assets/parlay/flow-client.jpg" alt="Front-End Bingo Model information-architecture diagram mapping loading, login, registration, play selection, bingo stream, and cashier"></div><div class="shot-cap">The client as a flow · loading to cashier, one map</div></div>
+          <div data-reveal=""><div class="shot" style="background:var(--c-surface);padding:18px"><img width="1200" height="907" loading="lazy" decoding="async" src="assets/parlay/flow-download.jpg" alt="Front-End Bingo Download flow diagram with grey wireframe insets of loading and login states"></div><div class="shot-cap">Download client flow · wireframes inline with the map</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 BRAND SYSTEMS -->
+  <section id="brand" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">05 · Brand Systems</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Every brand arrived <em>as a system.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Pow Wow Bingo, Titanium Gaming, Radio Bingo, and Sports Plays Poker for the games and operators; Keto Konnection and ChatterBox as brand commissions from the same seat. Each shipped as a kit: color and mono lockups, palette chips, type specimens, and where the game needed one, a mascot with a full pose sheet and a roughly 40-avatar player identity set.</p>
+      <div data-reveal="" class="shot" style="margin-bottom:14px"><img width="1800" height="400" loading="lazy" decoding="async" src="assets/parlay/powwow-banner.jpg" alt="Pow Wow Bingo promotional banner: full-color logo and eagle mascot with angled level-map screenshots on a teal water background"></div>
+      <div class="grid-3" data-reveal="" style="margin-bottom:14px">
+        <div><div class="shot" style="background:var(--c-surface)"><img width="596" height="335" loading="lazy" decoding="async" src="assets/parlay/logo-powwow.jpg" alt="Pow Wow Bingo logo: orange bubble lettering with a medicine-wheel O, drum, and bingo balls"></div><div class="shot-cap">Pow Wow Bingo · primary lockup</div></div>
+        <div><div class="shot" style="background:var(--c-surface)"><img width="800" height="508" loading="lazy" decoding="async" src="assets/parlay/mascot-eagle.jpg" alt="Eagle mascot character sheet in two full-color poses"></div><div class="shot-cap">Mascot pose sheet · drawn for reuse</div></div>
+        <div><div class="shot" style="background:var(--c-surface)"><img width="1000" height="302" loading="lazy" decoding="async" src="assets/parlay/logo-titanium-light.jpg" alt="Titanium Gaming logo in navy and steel blue: TG monogram beside a condensed wordmark"></div><div class="shot-cap">Titanium Gaming · monogram and wordmark</div></div>
+      </div>
+      <div class="grid-2" data-reveal="" style="margin-bottom:14px">
+        <div><div class="shot" style="background:var(--c-surface)"><img width="1600" height="1344" loading="lazy" decoding="async" src="assets/parlay/brand-radiobingo.jpg" alt="Radio Bingo style guide: gradient radio-wave mark in lockups on black and white, palette swatches, and type specimen"></div><div class="shot-cap">Radio Bingo · the full guide, lockups to type specimen</div></div>
+        <div><div class="shot" style="background:var(--c-surface)"><img width="1224" height="1584" loading="lazy" decoding="async" src="assets/parlay/brand-keto.jpg" alt="Keto Konnection style guide with logo grids, hex palette chips, glyphs, and business-card mockups"></div><div class="shot-cap">Keto Konnection · down to the business cards</div></div>
+      </div>
+      <div class="grid-2" data-reveal="" style="align-items:stretch">
+        <div>
+          <div class="avset" role="img" aria-label="Twenty-eight animal caricature player avatars recovered from the roughly forty-avatar set, drawn in a bold-outline cartoon style">
+            <div class="avchip"><div class="avface" style="background-position:0% 0%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:16.667% 0%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:33.333% 0%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:50% 0%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:66.667% 0%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:83.333% 0%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:100% 0%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:0% 33.333%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:16.667% 33.333%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:33.333% 33.333%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:50% 33.333%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:66.667% 33.333%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:83.333% 33.333%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:100% 33.333%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:0% 66.667%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:16.667% 66.667%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:33.333% 66.667%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:50% 66.667%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:66.667% 66.667%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:83.333% 66.667%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:100% 66.667%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:0% 100%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:16.667% 100%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:33.333% 100%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:50% 100%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:66.667% 100%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:83.333% 100%"></div></div>
+            <div class="avchip"><div class="avface" style="background-position:100% 100%"></div></div>
+          </div>
+          <div class="shot-cap">Player avatars · 28 of roughly 40, one style, one hand</div>
+          <p class="lead" data-reveal="" style="margin-top:22px">The avatar set is the quiet tell of the era: nearly forty distinct animals, one consistent outline weight, drawn one at a time. Player identity in a chat-driven game is brand work too.</p>
+        </div>
+        <div style="display:flex;justify-content:center;align-self:stretch"><div style="width:100%;max-width:420px;height:100%;display:flex;flex-direction:column"><div class="shot lvlscroll" tabindex="0" aria-label="Level world map, panning through the full artwork; scrollable when reduced motion is on" style="flex:1"><img width="560" height="2146" loading="lazy" decoding="async" src="assets/parlay/levels-map.jpg" alt="Full-height level-select world map scrolling from a tutorial hut through 43 levels across grassland, underwater, and mountain zones"></div><div class="shot-cap">Level world map · all 43 levels, panning the full run (hover to pause)</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 GLOBAL SKINNING -->
+  <section id="skinning" class="pad" style="background:var(--c-navy);color:#e8edf3">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="" style="color:#9fe9d8">06 · Global Skinning</div>
+      <h2 class="sec-h" data-reveal="" style="color:#fff;max-width:900px;margin:16px 0 22px">One client. <em style="color:#9fe9d8">Seventy faces.</em></h2>
+      <p class="lead" data-reveal="" style="color:#aeb9c5;max-width:860px;margin-bottom:36px">Seventy operator brands can't each get a hand-built game. The answer was a themable client: every visual attribute of the HTML5 bingo client, loader, nav, balances, buttons, type, exposed as a documented JSON spec that a designer could fill per brand. Write the theme, ship the brand. It's the same design-token thinking that runs my later design-systems work, years earlier and with money on it.</p>
+      <div class="grid-2" style="align-items:start">
+        <div data-reveal=""><div class="shot" style="border-color:rgba(255,255,255,.14)"><img width="900" height="857" loading="lazy" decoding="async" src="assets/parlay/theme-spec.jpg" alt="The bingo client theme documentation: a markdown spec of JSON theme keys beside the plain-text attribute list"></div><div class="shot-cap" style="color:#7d93a8">The theme spec · every skinnable attribute, documented</div></div>
+        <div>
+          <div data-reveal="" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;margin-bottom:14px"><div class="mono" style="font-size:9.5px;color:#9fe9d8;letter-spacing:.1em;margin-bottom:9px">WHY IT MATTERED</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Brand delivery became configuration, not a rebuild.</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">A new operator's bingo client went from an art project to a theme file: loader, logo, bar colors, text attributes, button states. The game logic never forked.</p></div>
+          <div data-reveal="" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px"><div class="mono" style="font-size:9.5px;color:#9fe9d8;letter-spacing:.1em;margin-bottom:9px">THE THROUGH-LINE</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Tokens before tokens.</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">Name the attribute, document it, let the value vary per deployment. Swap "operator skin" for "design token" and it's the same discipline that later structured Keystone and this site.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 WEB PLATFORMS -->
+  <section id="web" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">07 · Web Platforms</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Landing pages sell. <em>Cashiers keep the lights on.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">The player-facing web ran from casino landing pages through a full social platform, Wonder Bingo, with profiles, friends, gifts, and achievements, to the flows nobody screenshots: deposits. Brazil needed Boleto and a CPF field with Portuguese payment-proof rules; the UK needed cards and wallets. The cashier had to feel as designed as the games.</p>
+      <div class="grid-2" data-reveal="" style="margin-bottom:14px">
+        <div><div class="shot"><img width="1200" height="985" loading="lazy" decoding="async" src="assets/parlay/web-victory.jpg" alt="Victory Gamez landing page: Canada's Online Casino headline with a two-thousand-dollar deposit-bonus signup form"></div><div class="shot-cap">Victory Gamez · the pitch above the fold</div></div>
+        <div><div class="shot"><img width="1200" height="1400" loading="lazy" decoding="async" src="assets/parlay/web-wonder-lobby.jpg" alt="Wonder Bingo 75-ball lobby listing game rooms with card price, grand prize, progressive jackpot, and countdowns"></div><div class="shot-cap">Wonder Bingo lobby · a market of rooms, priced and timed</div></div>
+      </div>
+      <div class="grid-2" data-reveal="" style="align-items:start;margin-bottom:14px">
+        <div><div class="shot"><img width="1200" height="1400" loading="lazy" decoding="async" src="assets/parlay/web-wonder-profile.jpg" alt="Wonder Bingo social profile: balance, activity feed, friends grid, gifts, achievements, and who's online"></div><div class="shot-cap">Wonder Bingo profile · the social layer, dated 2010 on-screen</div></div>
+        <div>
+          <p class="lead" data-reveal="">Wonder Bingo carried a full social graph, activity feed, friends, gifts, achievements, a who's-online strip, early for real-money play. The wheel-spin ladder rewarded consecutive days without touching the wallet.</p>
+        </div>
+      </div>
+      <div data-reveal="" style="margin-bottom:14px"><div class="shot shot-1x"><img width="1600" height="1640" loading="lazy" decoding="async" src="assets/parlay/web-rb-deposit.jpg" alt="Radio Bingo card deposit flow shown in desktop and mobile: saved MasterCard, amount slider with preset chips, promotion code, billing address"></div><div class="shot-cap">Radio Bingo cashier · one flow, desktop and mobile, per-market payment rails</div></div>
+    </div>
+  </section>
+
+  <!-- 08 PROMOTIONS -->
+  <section id="promos" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">08 · Promotions</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">A year-round calendar, <em>in three sizes.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Hero banner, 490 by 295, 696 by 153. Those three production sizes carried the entire marketing calendar: tournaments, deposit bonuses, seasonal events, chat prizes. Concept, illustration, and copy per campaign, localized per market, Swedish national day for Sweden, Portuguese flows for Brazil, and shipped year-round. Volume is its own craft: the style could flex from painterly to cartoon to type-led, but the offer always read in one glance.</p>
+      <div class="shot" data-reveal="" style="max-width:800px;margin:0 auto 14px"><img width="800" height="311" loading="lazy" decoding="async" src="assets/parlay/promo-festival.jpg" alt="Festival Bingo hero banner: celebrating players and confetti with a Play Now button"></div>
+      <div class="grid-3" data-reveal="" style="gap:14px;margin-bottom:14px">
+        <div class="shot"><img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-summer.jpg" alt="Summer deposit bonus promo in a dense doodle-illustration style"></div>
+        <div class="shot"><img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-sweden.jpg" alt="Swedish national day promo with hot-air balloons in flag colors, copy in Swedish"></div>
+        <div class="shot"><img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-tomatino.jpg" alt="La Tomatino chat prizes promo with painterly splattered tomatoes"></div>
+        <div class="shot"><img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-getaway.jpg" alt="Grand Getaway bingo tournament promo with cartoon airplane and luggage"></div>
+        <div class="shot"><img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-aprilfools.jpg" alt="April Fools deposit bonus promo with an upside-down jester"></div>
+        <div class="shot"><img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-sunnyside.jpg" alt="Sunny Side Up bingo tournament promo with two illustrated fried eggs"></div>
+      </div>
+      <div style="display:grid;gap:14px;max-width:696px;margin:0 auto" data-reveal="">
+        <div class="shot"><img width="696" height="153" loading="lazy" decoding="async" src="assets/parlay/promo-treasure.jpg" alt="Trolling for Treasure slot tournament strip banner with an underwater treasure chest"></div>
+        <div class="shot"><img width="696" height="153" loading="lazy" decoding="async" src="assets/parlay/promo-countdown.jpg" alt="Holiday Countdown bingo strip banner with split-flap lettering"></div>
+        <div class="shot"><img width="696" height="153" loading="lazy" decoding="async" src="assets/parlay/promo-bemine.jpg" alt="Be Mine Bingo Valentine's strip banner with a cartoon cupid"></div>
+      </div>
+      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted);letter-spacing:.06em;margin-top:26px;text-align:center">SHIPPED PROMO ART AT THE THREE PRODUCTION SIZES · LOCALIZED CAMPAIGNS SHOWN AS THEY RAN</div>
+    </div>
+  </section>
+
+  <!-- 09 BACK OFFICE -->
+  <section id="backoffice" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">09 · The Back Office</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">HouseEdge: <em>the operator's cockpit.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Behind every brand sat the same console: player management, fraud and deposit limits, plugin installs per operator, game-economy analytics, foreign exchange. Dense tables, thresholds, exports, roles. If that sounds like the SOC dashboards elsewhere on this site, that's the point, this is where that muscle got built.</p>
+      <div class="grid-2" data-reveal="" style="margin-bottom:14px">
+        <div><div class="shot"><img width="1200" height="760" loading="lazy" decoding="async" src="assets/parlay/bo-analytics.jpg" alt="HouseEdge social game analytics: diverging bar chart of coin and chip credits and debits per day"></div><div class="shot-cap">Game economy analytics · credits vs debits, daily</div></div>
+        <div><div class="shot"><img width="1200" height="745" loading="lazy" decoding="async" src="assets/parlay/bo-plugins.jpg" alt="HouseEdge plugin manager with tables of installable and installed game and service plug-ins"></div><div class="shot-cap">Plugin manager · a game catalog per operator</div></div>
+      </div>
+      <div class="grid-2" data-reveal="">
+        <div><div class="shot"><img width="800" height="497" loading="lazy" decoding="async" src="assets/parlay/bo-settings.jpg" alt="HouseEdge system settings with fraud-protection deposit, wager, and loss limits and website control toggles"></div><div class="shot-cap">Fraud &amp; limits · deposit, wager, loss thresholds per site</div></div>
+        <div><div class="shot"><img width="800" height="507" loading="lazy" decoding="async" src="assets/parlay/bo-dashboard.jpg" alt="HouseEdge social dashboard with four charts: daily active users, registrations, games per hour, unique players per hour"></div><div class="shot-cap">Social dashboard · DAU, registrations, games per hour</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 3D PIPELINE -->
+  <section id="threed" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">10 · The 3D Pipeline</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">When stock didn't exist, <em>we rendered it.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Casino floors, slot banks, table pits, and the in-game cabinet backgrounds the video poker titles ran on, all modelled and rendered in Lightwave 3D, with illustration and texture maps built in Illustrator and Photoshop. The pay tables are legible inside the renders because players read them there.</p>
+      <div class="grid-2" data-reveal="" style="margin-bottom:14px">
+        <div><div class="shot"><img width="962" height="772" loading="lazy" decoding="async" src="assets/parlay/3d-slotbank.jpg" alt="3D-rendered row of slot machines with red upholstered stools"></div><div class="shot-cap">Slot bank · rendered cabinet by cabinet</div></div>
+        <div><div class="shot"><img width="958" height="768" loading="lazy" decoding="async" src="assets/parlay/3d-floor.jpg" alt="3D-rendered casino floor with slot banks, roulette, and blackjack tables"></div><div class="shot-cap">The floor · one scene, slots and tables</div></div>
+      </div>
+      <div class="grid-3" data-reveal="">
+        <div><div class="shot"><img width="960" height="772" loading="lazy" decoding="async" src="assets/parlay/3d-videopoker.jpg" alt="3D-rendered row of video poker machines with legible pay tables"></div><div class="shot-cap">Video poker row</div></div>
+        <div><div class="shot"><img width="600" height="475" loading="lazy" decoding="async" src="assets/parlay/3d-roulette.jpg" alt="3D-rendered roulette table background with wheel and betting layout"></div><div class="shot-cap">Roulette game background</div></div>
+        <div><div class="shot"><img width="600" height="475" loading="lazy" decoding="async" src="assets/parlay/3d-fireice.jpg" alt="Fire and Ice slot machine background with blank reels for compositing"></div><div class="shot-cap">Fire &amp; Ice cabinet · blank reels for compositing</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 WHAT CARRIED FORWARD -->
+  <section id="carried" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">11 · What Carried Forward</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:960px;margin:16px 0 22px">The floor changed. <em>The stakes didn't.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:900px;margin-bottom:14px">Twenty years in regulated real-money gaming teaches habits that transfer whole: design for the worst machine on the floor, document every skinnable attribute, treat limits and audit trails as first-class UI, ship on a calendar that doesn't slip, and never let a screen be confusing when money is moving. Those habits went on to shape connected-lighting security at Cooper, SOC dashboards, and the defence C2 work elsewhere on this site.</p>
+      <p class="lead" data-reveal="" style="max-width:900px">The domains look unrelated. The job is the same: high-consequence systems, operated live, by people who need the interface to tell the truth fast.</p>
+      <div data-reveal="" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+        <a href="aegis-gims-showcase.html" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:14px 22px;border:1px solid var(--c-b4);border-radius:999px">Where it led: AEGIS GIMS <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:42px 40px 64px;background:var(--c-bg);border-top:1px solid var(--c-b1);min-height:198px;">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+      <div>
+        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Another case study</div>
+        <a href="goals-driven-fintech-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Goals-Driven Finance <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
+      <a href="homepage-interactive.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
+    </div>
+  </footer>
+
+  <!-- VERSION TOGGLE -->
+  <div class="verpill">
+    <span class="vlbl">Version</span>
+    <a href="parlay-gaming-showcase.html">Quick tour</a>
+    <a href="parlay-gaming.html" class="on">Deep dive</a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('top');
+  // theme
+  var btn=document.getElementById('themeBtn');
+  var SUN='<span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span>';
+  var MOON='<span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span>';
+  function applyTheme(d){ root.classList.toggle('dark',d); btn.innerHTML=d?SUN:MOON; try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){} }
+  var stored=null; try{stored=localStorage.getItem('rba-int-dark');}catch(e){}
+  applyTheme(stored==='true'||stored==='1');
+  btn.addEventListener('click',function(){ applyTheme(!root.classList.contains('dark')); });
+
+  // mobile menu
+  var burger=document.getElementById('burger');
+  burger.addEventListener('click',function(){ var open=root.classList.toggle('menu-open'); burger.setAttribute('aria-expanded', open?'true':'false'); });
+  document.querySelectorAll('#mob a').forEach(function(a){ a.addEventListener('click',function(){ root.classList.remove('menu-open'); }); });
+
+  // reveal
+  var revealedAny=false;
+  function reveal(el){ el.classList.add('in'); el.style.opacity='1'; el.style.transform='none'; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revealedAny=true; reveal(e.target); io.unobserve(e.target);} }); },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+
+  // fallback: if IntersectionObserver never fires (e.g. offscreen/iframe render),
+  // guarantee content is visible.
+  setTimeout(function(){
+    if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); }
+  },1000);
+
+  try{console.log('%cPARLAY GAMES%c the chapter before the defence work · 50+ games, one design seat.','font-family:monospace;font-weight:700;color:#0d5350;','color:inherit;');}catch(e){}
+
+  // scrollspy
+  var tocLinks=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=tocLinks.map(function(a){ return document.getElementById(a.getAttribute('data-toc')); });
+  var so=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        tocLinks.forEach(function(l){ l.removeAttribute('data-on'); });
+        var i=secs.indexOf(e.target);
+        if(i>=0) tocLinks[i].setAttribute('data-on','');
+      }
+    });
+  },{threshold:0.4,rootMargin:'-20% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) so.observe(s); });
+})();
+</script>
+
+</body></html>

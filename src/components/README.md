@@ -10,6 +10,9 @@ library here:
 - `support.js` — the DesignCode (DC) runtime: parses `<x-dc>` markup and renders with React.
 - `home-variants.js` — the homepage VIEW switcher (remembers the choice).
 - `page-transition.js` · `text-motion.js` · `a11y.js` — transitions, type motion, a11y helpers.
+- `colophon.js` — the site-wide build record injected at the bottom of every page. GENERATED
+  by `build-colophon.py` (git history + GitHub Pages API); never edit by hand — regenerate
+  before a release.
 
 Use `primitives/` and `patterns/` here only for genuinely extracted, shared component code.
 Conventions: inline-first, `var(--…)` tokens, Lucide icons, no build — see

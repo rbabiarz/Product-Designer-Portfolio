@@ -117,7 +117,7 @@ States: attract ● · playing ● · game-over ● · paused (modal open) ● �
 
 ---
 
-## Light Architect (interactive photometric scene)
+## Light ARchitect (interactive photometric scene)
 
 Draggable fixture markers (`.la-fx`, 18×7, lime border, glow on `.on`/hover; 44×44 touch target;
 focus-visible ring). Pill hint popup (`#la-hint`, glass + blur, mono, accent dot), isometric ground
