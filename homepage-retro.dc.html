@@ -387,14 +387,14 @@ body{margin:0;background:#040806}
               <div style="font-family:'VT323',monospace;font-size:30px;line-height:0.95;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);margin-bottom:10px;">LIGHT THE SITE,<br/>KEEP IT EVEN.</div>
               <p style="font-size:12px;line-height:1.6;color:#9af0c2;margin:0;">Every cell shows calculated illuminance in foot-candles (fc) — the light your GALN Galleon II area luminaires land on Stat Area 1, after a 0.912 light-loss factor. Drag a luminaire, click empty grid to add one, double-click to remove it; the field recomputes live.</p>
               <div class="la-info-h">Read the numbers</div>
-              <div class="la-info-row"><span class="la-info-k">AVG</span><span>Mean illuminance across the stat area. RP-8-22 is driven by the minimum, not the average — a compliant lot typically averages <strong>1–3 fc</strong>.</span></div>
+              <div class="la-info-row"><span class="la-info-k">AVG</span><span>Mean illuminance across the stat area. The target is driven by the minimum, not the average — a compliant lot typically averages <strong>1–3 fc</strong>.</span></div>
               <div class="la-info-row"><span class="la-info-k">MAX</span><span>The brightest cell, directly under a pole. Peaks several times the average are normal in a parking lot — uniformity is judged by MAX:MIN, not by MAX alone.</span></div>
-              <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. IES RP-8-22 requires <strong>≥ 0.2 fc</strong> maintained at grade for parking lots and drive aisles.</span></div>
-              <div class="la-info-row"><span class="la-info-k">MAX:MIN</span><span>Uniformity: maximum ÷ minimum. IES RP-8-22 allows up to <strong>20:1</strong> for parking lots — lower is more uniform.</span></div>
+              <div class="la-info-row"><span class="la-info-k">MIN</span><span>The darkest cell — the design's weak point. The design target holds <strong>≥ 0.2 fc</strong> maintained at grade for parking lots and drive aisles.</span></div>
+              <div class="la-info-row"><span class="la-info-k">MAX:MIN</span><span>Uniformity: maximum ÷ minimum. The basic parking target allows up to <strong>20:1</strong> — lower is more uniform.</span></div>
       <div class="la-info-row"><span class="la-info-k">AVG:MIN</span><span>Average ÷ minimum — the uniformity commercial design guides judge; the shipped Light ARchitect reports both ratios.</span></div>
-      <div class="la-info-row"><span class="la-info-k">RP-8-22</span><span>Basic requirements, parking lots at grade (not security lighting): all lots &amp; drive aisles <strong>0.2 fc</strong> min at <strong>20:1</strong>; transaction areas <strong>0.9 fc</strong> pre-curfew / <strong>0.2</strong> post at <strong>15:1</strong>. Chosen over IES RP-6-20 (sports fields) and the Lighting Handbook dealer-lot tables because this site is an open customer parking lot at grade.</span></div>
+      <div class="la-info-row"><span class="la-info-k">TARGETS</span><span>Basic requirements for an open customer parking lot at grade (not security lighting): all lots &amp; drive aisles <strong>0.2 fc</strong> min at <strong>20:1</strong>; transaction areas <strong>0.9 fc</strong> pre-curfew / <strong>0.2</strong> post at <strong>15:1</strong>.</span></div>
               <div class="la-info-h">Why it matters</div>
-              <p style="font-size:11.5px;line-height:1.6;color:#3f9e69;margin:0;">Targets follow IES RP-8-22, basic requirements for parking lots at grade (not security lighting): ≥ 0.2 fc maintained minimum and ≤ 20:1 max:min uniformity. Transaction areas call for 0.9 fc pre-curfew / 0.2 post-curfew at 15:1, and project specifics may necessitate different criteria. Values compute live — move a fixture and watch MAX:MIN respond.</p>
+              <p style="font-size:11.5px;line-height:1.6;color:#3f9e69;margin:0;">Targets are basic parking-lot requirements at grade (not security lighting): ≥ 0.2 fc maintained minimum and ≤ 20:1 max:min uniformity. Transaction areas call for 0.9 fc pre-curfew / 0.2 post-curfew at 15:1, and project specifics may necessitate different criteria. Values compute live — move a fixture and watch MAX:MIN respond.</p>
             </div>
           </div>
         </div>
@@ -1447,8 +1447,8 @@ class Component extends DCLogic {
       E.push(e); // each luminaire keeps full output wherever it sits; stats still read the interior stat area only
       inside.push(edge > 0.14);
     }
-    // calibrate once against the DEFAULT pole grid — a representative IES RP-8-22
-    // basic parking design; Galleon II throw widened 30% with per-pole peak preserved (~2 fc avg, ~2:1 max:min) so fewer poles still meet the standard — and
+    // calibrate once against the DEFAULT pole grid — a representative
+    // basic parking design; Galleon II throw widened 30% with per-pole peak preserved (~2 fc avg, ~2:1 max:min) so fewer poles still meet the target — and
     // hold the scale fixed, so user edits genuinely move the numbers.
     if (this._laK == null) {
       const D = (this._laDefault && this._laDefault.length) ? this._laDefault : fx;
@@ -1471,7 +1471,7 @@ class Component extends DCLogic {
       if (inside[i]) { if (fc < fcMin) fcMin = fc; if (fc > fcMax) fcMax = fc; fcSum += fc; fcN++; }
     }
     this.tintHeat();
-    // IES RP-8-22 (parking lots, basic requirements — not security lighting):
+    // basic parking-lot targets (not security lighting):
     // maintained minimum >= 0.2 fc at grade, uniformity max:min <= 20:1.
     const fcAvg = fcSum / (fcN || 1), maxmin = fcMin > 0.01 ? fcMax / fcMin : 0;
     const set = (id, val, dec) => { const el = document.getElementById(id); if (el) el.textContent = val.toFixed(dec); };
@@ -1480,7 +1480,7 @@ class Component extends DCLogic {
     const ies = document.getElementById('la-ies');
     if (ies) {
       const okMin = fcMin >= 0.2, okUni = maxmin > 0 && maxmin <= 20;
-      ies.textContent = (okMin && okUni ? 'MEETS IES RP-8-22 BASIC' : 'BELOW IES RP-8-22 BASIC') +
+      ies.textContent = (okMin && okUni ? 'MEETS BASIC TARGET' : 'BELOW BASIC TARGET') +
         ' · MIN ' + fcMin.toFixed(1) + (okMin ? ' FC ≥ 0.2' : ' FC < 0.2') +
         ' · MAX:MIN ' + maxmin.toFixed(1) + (okUni ? ':1 ≤ 20:1' : ':1 > 20:1');
       ies.style.color = (okMin && okUni) ? '#6cf0a4' : '#ffb454';

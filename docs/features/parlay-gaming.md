@@ -21,8 +21,17 @@ Lightwave 3D casino imagery.
 `parlay-gaming.html`), preview tile, full site registration (switchers, homepages, work page,
 concierge, search index, sitemap). Case study #09.
 
+**Interactive (added 2026-07-16):** the deep dive ships "Parlay Reels" — a fully working 5×3,
+5-payline demo slot (section 04, `parlay-slot.js`) using the recovered avatar set as symbols.
+Real math: uniform reel strips published in the paytable, CSPRNG stops, RTP 96.04% exact by
+full reel enumeration, cross-checked over 10M simulated spins (hit ≈1 in 4.1, free spins ≈1 in 211). Deliberately ethical and annotated via a
+"Design notes" toggle: no LDW celebrations, no engineered near-misses, no autoplay/stop button,
+truthful sound, session ledger + 50-spin reality check (Dixon et al.; Kassinove & Schare;
+Harrigan; Ladouceur & Sévigny). Keyboard-first (space spins), aria-live results, reduced-motion
+instant settle.
+
 **States:** image-led showcase pages — loading (lazy below fold), missing-image alt text, reduced
-motion; no live embeds in v1 of these pages.
+motion; the slot demo degrades to a static explanation without JavaScript.
 
 **Source:** the prior Figma case study (Claude-Design-Portfolio, node 31-2698) — copy, stats, and
 all imagery extracted from it. Headline figures ($2B USD wagered per year, 2.8M players online,

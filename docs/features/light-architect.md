@@ -9,13 +9,13 @@ ballfields before it met a threat feed.
 (2019–2025) across four eras — AR on the jobsite, satellite-imagery web design, AI autolayout with
 ranked candidates, indoor/sports expansion — with three published US patents on the interaction
 models (co-inventor, assigned to Signify) and a fourth pending. Every simplification is backed by
-real photometry: RP-8-22 targets, both uniformity ratios, spec-ready PDF output.
+real photometry: recommended-practice parking targets, both uniformity ratios, spec-ready PDF output.
 
 **What the pages prove:** the quick tour shows the shipped product on real satellite sites —
 fixtures carrying full specs, the 5,000-file curated IES library (visible in the product's own UI),
 sports templates, AR-era renders — with every representative number
 footnoted honestly. The deep dive adds three working in-page simulations: a photometric sandbox
-(live footcandle grid judged by RP-8-22, keyboard-operable), an AI AutoLayout demo (boundary →
+(live footcandle grid judged against basic parking targets, keyboard-operable), an AI AutoLayout demo (boundary →
 goals → staged progress → three ranked candidates → hand refinement + re-rank), and a
 filter-before-load IES library demo. Confidentiality held: no internal ticket ids, systems, or
 names; patents are the only verbatim source quoted.

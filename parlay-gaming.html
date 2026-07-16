@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="page-transition.js"></script>
 <title>Parlay Games, iGaming at Production Scale · Robert Babiarz</title>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,autorenew,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star,volume_off,volume_up&display=block" rel="stylesheet">
   <link rel="stylesheet" href="case-shot.css">
 <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
 img[src^="assets/parlay/"]{height:auto}
@@ -180,6 +180,93 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .avset{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
 .avchip{background:#fff;border:1px solid var(--c-b2);border-radius:16px;padding:11px;box-shadow:0 1px 2px rgba(10,8,4,0.05)}
 .avface{width:100%;aspect-ratio:1;background-image:url(assets/parlay/avatars-grid.jpg);background-repeat:no-repeat;background-size:700% 400%}
+/* Parlay Reels — the honest slot demo (#slot). Cabinet chrome is deliberately
+   physical (white paper reels in both themes, like the .avchip cards); the
+   surrounding section styling stays token-driven. */
+.cs{--psl-ac:#9fe9d8} /* the section's lime-teal accent; also used by the pre-existing skinning section */
+.psl-cab{max-width:840px;margin:0 auto;background:#101826;border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.6)}
+.psl-cab button:focus-visible{outline:2px solid var(--psl-ac);outline-offset:2px}
+.psl-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 18px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08)}
+.psl-logo{font-family:'Inter',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.02em;color:#fff}
+.psl-logo em{color:var(--psl-ac);font-style:italic}
+.psl-demo{display:block;font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:400;font-style:normal;letter-spacing:.14em;color:#7d93a8;margin-top:2px}
+.psl-chips{display:flex;gap:6px;flex-wrap:wrap}
+.psl-chips span{font-size:9px;letter-spacing:.08em;color:#9fb3c8;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px 9px}
+.psl-tools{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.psl-tool{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#dfe8f2;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:10px 16px;min-height:44px;cursor:pointer;transition:background .2s}
+.psl-tool:hover{background:rgba(255,255,255,.15)}
+.psl-tool[aria-pressed="true"]{background:var(--psl-ac);color:#0a1c30;border-color:transparent}
+.psl-ico{padding:10px 12px}
+.psl-ico .msi{font-size:20px;vertical-align:middle}
+.psl-stagepos{position:relative;padding:20px 18px 10px}
+.psl-banner{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:4;background:var(--psl-ac);color:#0a1c30;font-size:10px;font-weight:700;letter-spacing:.12em;border-radius:0 0 10px 10px;padding:6px 14px;white-space:nowrap}
+.psl-window{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.psl-reel{overflow:hidden;border-radius:10px;background:#fff;aspect-ratio:1/3;position:relative;transition:box-shadow .3s}
+.psl-reel.chase{box-shadow:0 0 0 2px var(--psl-ac),0 0 26px rgba(159,233,216,.55)}
+.psl-strip{display:block;will-change:transform}
+.psl-sym{position:relative;width:100%;aspect-ratio:1;background:#fff;border-bottom:1px solid #ece7db;display:flex;align-items:center;justify-content:center}
+.psl-face{display:block;width:76%;aspect-ratio:1;background-image:url(assets/parlay/avatars-grid.jpg);background-repeat:no-repeat;background-size:700% 400%;transition:opacity .25s,filter .25s}
+.psl-tag{position:absolute;bottom:5%;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:700;letter-spacing:.1em;background:#0F2A4A;color:var(--psl-ac);border-radius:999px;padding:2px 7px;white-space:nowrap}
+.psl-tag-s{background:#0d5350;color:#fff}
+.psl-sym.hit::after{content:"";position:absolute;inset:3%;border:3px double #0d5350;border-radius:10px;box-shadow:0 0 14px rgba(13,83,80,.35)}
+.psl-sym.dim .psl-face{opacity:.28;filter:grayscale(.75)}
+.psl-badge{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);z-index:4;background:#0d5350;color:#fff;font-size:10.5px;letter-spacing:.1em;border-radius:999px;padding:7px 16px;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis}
+.psl-overlay{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;background:rgba(7,12,20,.85);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.psl-overlay[hidden]{display:none}
+.psl-big{text-align:center;padding:28px;max-width:440px}
+.psl-big-t{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(24px,3.6vw,38px);letter-spacing:-.02em;color:var(--psl-ac)}
+.psl-big-t.psl-rc{color:#e0907e}
+.psl-big-n{font-size:clamp(26px,4.2vw,44px);font-weight:700;color:#fff;margin:8px 0 14px}
+.psl-big-s{font-size:14px;color:#aeb9c5;line-height:1.65;margin:12px 0 18px}
+.psl-big-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.psl-bar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:16px 18px;border-top:1px solid rgba(255,255,255,.08)}
+.psl-k{display:block;font-size:8.5px;letter-spacing:.13em;color:#7d93a8;margin-bottom:4px}
+.psl-v{font-size:16px;font-weight:700;color:#fff}
+.psl-v.on{color:var(--psl-ac)}
+.psl-v.ldw{color:#b9c4cf}
+.psl-net{font-size:10px;color:#e0907e;margin-left:8px;letter-spacing:.06em}
+.psl-total{font-size:9.5px;color:#7d93a8;display:block;margin-top:4px;letter-spacing:.06em}
+.psl-step{display:flex;align-items:center;gap:10px}
+.psl-stepbtn{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:20px;line-height:1;cursor:pointer;transition:background .2s}
+.psl-stepbtn:hover{background:rgba(255,255,255,.15)}
+.psl-go{margin-left:auto;display:flex;align-items:center;gap:14px}
+.psl-spin{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;width:86px;height:86px;border-radius:50%;background:var(--psl-ac);color:#0a1c30;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:800;font-size:12px;letter-spacing:.06em;box-shadow:0 16px 32px -12px rgba(159,233,216,.45);transition:transform .15s,opacity .2s}
+.psl-spin:hover{transform:scale(1.045)}
+.psl-spin .msi{font-size:26px}
+.psl-spin.busy{opacity:.55;cursor:default}
+.psl-spin.busy .msi{animation:psl-rot 1.1s linear infinite}
+@keyframes psl-rot{to{transform:rotate(360deg)}}
+.psl-ledger{padding:0 18px 16px;font-size:9.5px;letter-spacing:.08em;color:#7d93a8;line-height:1.7}
+.psl-notes{max-width:840px;margin:26px auto 0}
+.psl-notes-h{font-size:9.5px;letter-spacing:.12em;color:var(--psl-ac);margin-bottom:14px}
+.psl-notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.psl-note{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;font-size:12.5px;color:#aeb9c5;line-height:1.62;transition:border-color .4s,box-shadow .4s}
+.psl-note strong{display:block;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;margin-bottom:6px}
+.psl-note.hit{border-color:var(--psl-ac);box-shadow:0 0 0 1px var(--psl-ac)}
+.psl-fallback{max-width:840px;margin:0 auto;padding:36px 24px;text-align:center;border:1px dashed rgba(255,255,255,.25);border-radius:20px;color:#aeb9c5;font-size:14px}
+.psl-dlg{border:none;border-radius:18px;padding:0;max-width:660px;width:calc(100% - 40px);max-height:84vh;background:var(--c-surface);color:var(--c-ink);box-shadow:0 40px 90px -30px rgba(0,0,0,.5)}
+.psl-dlg::backdrop{background:rgba(7,12,20,.62)}
+.psl-dlg-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--c-b2);font-family:'Inter',sans-serif;font-weight:700;color:var(--c-ink)}
+.psl-dlg .psl-tool{color:var(--c-ink2);background:var(--c-card);border-color:var(--c-b3)}
+.psl-dlg-b{padding:6px 20px 26px;overflow-y:auto;max-height:calc(84vh - 64px)}
+.psl-dlg-b h4{font-family:'Inter',sans-serif;font-size:13.5px;margin:22px 0 10px;color:var(--c-ink)}
+.psl-dim{font-size:8.5px;color:var(--c-muted);letter-spacing:.08em;font-weight:400}
+.psl-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.psl-tbl th,.psl-tbl td{padding:7px 8px;border-bottom:1px solid var(--c-b1);text-align:left;color:var(--c-body)}
+.psl-tbl th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase}
+.psl-dlg .psl-sym{width:42px;height:42px;aspect-ratio:auto;display:inline-flex;vertical-align:middle;border:1px solid var(--c-b2);border-bottom:1px solid var(--c-b2);border-radius:9px;margin-right:8px}
+.psl-dlg .psl-tag{font-size:6.5px;padding:1px 5px}
+.psl-payname{font-weight:600;color:var(--c-ink2)}
+.psl-spec{display:flex;gap:14px;align-items:center;margin:10px 0}
+.psl-spec p{font-size:13px;color:var(--c-body);line-height:1.58}
+.psl-minis{display:flex;gap:12px;flex-wrap:wrap}
+.psl-mini{display:grid;grid-template-columns:repeat(5,14px);grid-auto-rows:14px;gap:2px;background:var(--c-card);padding:8px;border-radius:8px}
+.psl-mini i{background:var(--c-b3);border-radius:3px}
+.psl-mini i.on{background:var(--c-accent)}
+.psl-math{font-size:10px;line-height:1.9;letter-spacing:.06em;color:var(--c-muted);background:var(--c-card);border-radius:10px;padding:12px 14px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion:reduce){.psl-strip{transition:none!important}.psl-spin.busy .msi{animation:none}.psl-reel.chase{box-shadow:none}}
+@media (max-width:720px){.psl-stagepos{padding:14px 10px 8px}.psl-window{gap:4px}.psl-bar{gap:14px;padding:14px 12px}.psl-spin{width:74px;height:74px}.psl-go{width:100%;justify-content:flex-end}.psl-notegrid{grid-template-columns:1fr}.psl-tools{margin-left:0}}
 .verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
 .verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
 .verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
@@ -216,6 +303,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 <script src="colophon.js" defer></script>
 <script src="search-index.js" defer></script>
 <script src="concierge.js" defer></script>
+<script src="parlay-slot.js" defer></script>
 </head>
 <body>
 <div class="cs" id="top">
@@ -260,14 +348,15 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <a href="#brief" data-m=""><span>The Platform</span><span class="n">01</span></a>
     <a href="#scope" data-m=""><span>One Seat</span><span class="n">02</span></a>
     <a href="#games" data-m=""><span>The Games</span><span class="n">03</span></a>
-    <a href="#research" data-m=""><span>Research &amp; Flows</span><span class="n">04</span></a>
-    <a href="#brand" data-m=""><span>Brand Systems</span><span class="n">05</span></a>
-    <a href="#skinning" data-m=""><span>Global Skinning</span><span class="n">06</span></a>
-    <a href="#web" data-m=""><span>Web Platforms</span><span class="n">07</span></a>
-    <a href="#promos" data-m=""><span>Promotions</span><span class="n">08</span></a>
-    <a href="#backoffice" data-m=""><span>Back Office</span><span class="n">09</span></a>
-    <a href="#threed" data-m=""><span>3D Pipeline</span><span class="n">10</span></a>
-    <a href="#carried" data-m=""><span>What Carried Forward</span><span class="n">11</span></a>
+    <a href="#slot" data-m=""><span>Try It &middot; The Slot</span><span class="n">04</span></a>
+    <a href="#research" data-m=""><span>Research &amp; Flows</span><span class="n">05</span></a>
+    <a href="#brand" data-m=""><span>Brand Systems</span><span class="n">06</span></a>
+    <a href="#skinning" data-m=""><span>Global Skinning</span><span class="n">07</span></a>
+    <a href="#web" data-m=""><span>Web Platforms</span><span class="n">08</span></a>
+    <a href="#promos" data-m=""><span>Promotions</span><span class="n">09</span></a>
+    <a href="#backoffice" data-m=""><span>Back Office</span><span class="n">10</span></a>
+    <a href="#threed" data-m=""><span>3D Pipeline</span><span class="n">11</span></a>
+    <a href="#carried" data-m=""><span>What Carried Forward</span><span class="n">12</span></a>
   </div>
 
   <!-- SIDE TOC -->
@@ -275,6 +364,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <a href="#brief" data-toc="brief"><span class="lbl">The platform</span><span class="dot"></span></a>
     <a href="#scope" data-toc="scope"><span class="lbl">One seat</span><span class="dot"></span></a>
     <a href="#games" data-toc="games"><span class="lbl">The games</span><span class="dot"></span></a>
+    <a href="#slot" data-toc="slot"><span class="lbl">Try it &middot; the slot</span><span class="dot"></span></a>
     <a href="#research" data-toc="research"><span class="lbl">Research &amp; flows</span><span class="dot"></span></a>
     <a href="#brand" data-toc="brand"><span class="lbl">Brand systems</span><span class="dot"></span></a>
     <a href="#skinning" data-toc="skinning"><span class="lbl">Global skinning</span><span class="dot"></span></a>
@@ -408,10 +498,25 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- 04 RESEARCH & FLOWS -->
+  <!-- 04 TRY IT · THE SLOT -->
+  <section id="slot" class="pad" style="background:var(--c-navy);color:#e8edf3">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="" style="color:var(--psl-ac)">04 · Try It · Spin the Reels</div>
+      <h2 class="sec-h" data-reveal="" style="color:#fff;max-width:900px;margin:16px 0 22px">Five reels, five lines, <em style="color:var(--psl-ac)">nothing rigged.</em></h2>
+      <p class="lead" data-reveal="" style="color:#aeb9c5;max-width:860px;margin-bottom:14px">The slots above shipped as staged worlds — this one runs right here, built for the case study with the platform's own avatar set as symbols. Five reels, three rows, five fixed paylines; a wild cardinal on reels 2–4; an owl scatter that pays anywhere and opens free spins at triple wins. Stops come from a cryptographic RNG over uniform reel strips whose exact composition is printed in the paytable — nothing is weighted, nudged, or staged.</p>
+      <p class="lead" data-reveal="" style="color:#aeb9c5;max-width:860px;margin-bottom:40px">It's also an argument. The research literature documents the tricks slots use to keep people playing — celebrated losses, engineered near-misses, weighted reels, autoplay. This machine leaves them out and labels the gaps: switch on <strong style="color:#fff">Design notes</strong> and it annotates itself.</p>
+      <div id="psl" data-reveal="">
+        <div class="psl-fallback">The slot demo needs JavaScript to run. Nothing else depends on it — the case study continues below.</div>
+      </div>
+      <div class="mono" data-reveal="" style="font-size:9px;letter-spacing:.08em;color:#7d93a8;max-width:840px;margin:18px auto 0;line-height:1.9">DEMO · NO REAL MONEY · STOPS FROM CRYPTO.GETRANDOMVALUES OVER PUBLISHED UNIFORM STRIPS · RTP 96.04% (EXACT, FULL REEL ENUMERATION) CROSS-CHECKED OVER 10,000,000 SIMULATED SPINS · HIT ≈ 1 IN 4.1 · FREE SPINS ≈ 1 IN 211 · MAX OBSERVED 508× BET · SPACE BAR SPINS · REDUCED-MOTION SHOWS RESULTS INSTANTLY</div>
+    </div>
+  </section>
+
+
+  <!-- 05 RESEARCH & FLOWS -->
   <section id="research" class="pad" style="background:var(--c-bg)">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="">04 · Research &amp; Flows</div>
+      <div class="eyebrow" data-reveal="">05 · Research &amp; Flows</div>
       <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Player evidence, <em>then the architecture.</em></h2>
       <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Game economics weren't guessed. A 2007 industry survey by Arrow Games and Bazaar &amp; Novelty, run across six Ontario bingo centres, asked players what they actually preferred: 81% wanted a single winner in a low-pot game over a split, and hall players averaged 3.26 visits a week while playing online bingo only 0.42 times, the gap the product existed to close. Flows were drawn before screens: the whole client mapped as an information architecture, from loading to cashier.</p>
       <div class="grid-2" style="align-items:start">
@@ -424,10 +529,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- 05 BRAND SYSTEMS -->
+  <!-- 06 BRAND SYSTEMS -->
   <section id="brand" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="">05 · Brand Systems</div>
+      <div class="eyebrow" data-reveal="">06 · Brand Systems</div>
       <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Every brand arrived <em>as a system.</em></h2>
       <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Pow Wow Bingo, Titanium Gaming, Radio Bingo, and Sports Plays Poker for the games and operators; Keto Konnection and ChatterBox as brand commissions from the same seat. Each shipped as a kit: color and mono lockups, palette chips, type specimens, and where the game needed one, a mascot with a full pose sheet and a roughly 40-avatar player identity set.</p>
       <div data-reveal="" class="shot" style="margin-bottom:14px"><img width="1800" height="400" loading="lazy" decoding="async" src="assets/parlay/powwow-banner.jpg" alt="Pow Wow Bingo promotional banner: full-color logo and eagle mascot with angled level-map screenshots on a teal water background"></div>
@@ -480,26 +585,26 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- 06 GLOBAL SKINNING -->
+  <!-- 07 GLOBAL SKINNING -->
   <section id="skinning" class="pad" style="background:var(--c-navy);color:#e8edf3">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="" style="color:#9fe9d8">06 · Global Skinning</div>
-      <h2 class="sec-h" data-reveal="" style="color:#fff;max-width:900px;margin:16px 0 22px">One client. <em style="color:#9fe9d8">Seventy faces.</em></h2>
+      <div class="eyebrow" data-reveal="" style="color:var(--psl-ac)">07 · Global Skinning</div>
+      <h2 class="sec-h" data-reveal="" style="color:#fff;max-width:900px;margin:16px 0 22px">One client. <em style="color:var(--psl-ac)">Seventy faces.</em></h2>
       <p class="lead" data-reveal="" style="color:#aeb9c5;max-width:860px;margin-bottom:36px">Seventy operator brands can't each get a hand-built game. The answer was a themable client: every visual attribute of the HTML5 bingo client, loader, nav, balances, buttons, type, exposed as a documented JSON spec that a designer could fill per brand. Write the theme, ship the brand. It's the same design-token thinking that runs my later design-systems work, years earlier and with money on it.</p>
       <div class="grid-2" style="align-items:start">
         <div data-reveal=""><div class="shot" style="border-color:rgba(255,255,255,.14)"><img width="900" height="857" loading="lazy" decoding="async" src="assets/parlay/theme-spec.jpg" alt="The bingo client theme documentation: a markdown spec of JSON theme keys beside the plain-text attribute list"></div><div class="shot-cap" style="color:#7d93a8">The theme spec · every skinnable attribute, documented</div></div>
         <div>
-          <div data-reveal="" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;margin-bottom:14px"><div class="mono" style="font-size:9.5px;color:#9fe9d8;letter-spacing:.1em;margin-bottom:9px">WHY IT MATTERED</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Brand delivery became configuration, not a rebuild.</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">A new operator's bingo client went from an art project to a theme file: loader, logo, bar colors, text attributes, button states. The game logic never forked.</p></div>
-          <div data-reveal="" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px"><div class="mono" style="font-size:9.5px;color:#9fe9d8;letter-spacing:.1em;margin-bottom:9px">THE THROUGH-LINE</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Tokens before tokens.</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">Name the attribute, document it, let the value vary per deployment. Swap "operator skin" for "design token" and it's the same discipline that later structured Keystone and this site.</p></div>
+          <div data-reveal="" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;margin-bottom:14px"><div class="mono" style="font-size:9.5px;color:var(--psl-ac);letter-spacing:.1em;margin-bottom:9px">WHY IT MATTERED</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Brand delivery became configuration, not a rebuild.</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">A new operator's bingo client went from an art project to a theme file: loader, logo, bar colors, text attributes, button states. The game logic never forked.</p></div>
+          <div data-reveal="" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px"><div class="mono" style="font-size:9.5px;color:var(--psl-ac);letter-spacing:.1em;margin-bottom:9px">THE THROUGH-LINE</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:7px;font-family:'Inter',sans-serif">Tokens before tokens.</div><p style="font-size:13.5px;color:#aeb9c5;line-height:1.6">Name the attribute, document it, let the value vary per deployment. Swap "operator skin" for "design token" and it's the same discipline that later structured Keystone and this site.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 07 WEB PLATFORMS -->
+  <!-- 08 WEB PLATFORMS -->
   <section id="web" class="pad" style="background:var(--c-bg)">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="">07 · Web Platforms</div>
+      <div class="eyebrow" data-reveal="">08 · Web Platforms</div>
       <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Landing pages sell. <em>Cashiers keep the lights on.</em></h2>
       <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">The player-facing web ran from casino landing pages through a full social platform, Wonder Bingo, with profiles, friends, gifts, and achievements, to the flows nobody screenshots: deposits. Brazil needed Boleto and a CPF field with Portuguese payment-proof rules; the UK needed cards and wallets. The cashier had to feel as designed as the games.</p>
       <div class="grid-2" data-reveal="" style="margin-bottom:14px">
@@ -516,10 +621,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- 08 PROMOTIONS -->
+  <!-- 09 PROMOTIONS -->
   <section id="promos" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="">08 · Promotions</div>
+      <div class="eyebrow" data-reveal="">09 · Promotions</div>
       <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">A year-round calendar, <em>in three sizes.</em></h2>
       <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Hero banner, 490 by 295, 696 by 153. Those three production sizes carried the entire marketing calendar: tournaments, deposit bonuses, seasonal events, chat prizes. Concept, illustration, and copy per campaign, localized per market, Swedish national day for Sweden, Portuguese flows for Brazil, and shipped year-round. Volume is its own craft: the style could flex from painterly to cartoon to type-led, but the offer always read in one glance.</p>
       <div class="shot" data-reveal="" style="max-width:800px;margin:0 auto 14px"><img width="800" height="311" loading="lazy" decoding="async" src="assets/parlay/promo-festival.jpg" alt="Festival Bingo hero banner: celebrating players and confetti with a Play Now button"></div>
@@ -540,10 +645,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- 09 BACK OFFICE -->
+  <!-- 10 BACK OFFICE -->
   <section id="backoffice" class="pad" style="background:var(--c-bg)">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="">09 · The Back Office</div>
+      <div class="eyebrow" data-reveal="">10 · The Back Office</div>
       <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">HouseEdge: <em>the operator's cockpit.</em></h2>
       <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Behind every brand sat the same console: player management, fraud and deposit limits, plugin installs per operator, game-economy analytics, foreign exchange. Dense tables, thresholds, exports, roles. If that sounds like the SOC dashboards elsewhere on this site, that's the point, this is where that muscle got built.</p>
       <div class="grid-2" data-reveal="" style="margin-bottom:14px">
@@ -557,10 +662,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- 10 3D PIPELINE -->
+  <!-- 11 3D PIPELINE -->
   <section id="threed" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="">10 · The 3D Pipeline</div>
+      <div class="eyebrow" data-reveal="">11 · The 3D Pipeline</div>
       <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">When stock didn't exist, <em>we rendered it.</em></h2>
       <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:36px">Casino floors, slot banks, table pits, and the in-game cabinet backgrounds the video poker titles ran on, all modelled and rendered in Lightwave 3D, with illustration and texture maps built in Illustrator and Photoshop. The pay tables are legible inside the renders because players read them there.</p>
       <div class="grid-2" data-reveal="" style="margin-bottom:14px">
@@ -575,10 +680,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- 11 WHAT CARRIED FORWARD -->
+  <!-- 12 WHAT CARRIED FORWARD -->
   <section id="carried" class="pad" style="background:var(--c-bg)">
     <div class="wrap">
-      <div class="eyebrow" data-reveal="">11 · What Carried Forward</div>
+      <div class="eyebrow" data-reveal="">12 · What Carried Forward</div>
       <h2 class="sec-h" data-reveal="" style="max-width:960px;margin:16px 0 22px">The floor changed. <em>The stakes didn't.</em></h2>
       <p class="lead" data-reveal="" style="max-width:900px;margin-bottom:14px">Twenty years in regulated real-money gaming teaches habits that transfer whole: design for the worst machine on the floor, document every skinnable attribute, treat limits and audit trails as first-class UI, ship on a calendar that doesn't slip, and never let a screen be confusing when money is moving. Those habits went on to shape connected-lighting security at Cooper, SOC dashboards, and the defence C2 work elsewhere on this site.</p>
       <p class="lead" data-reveal="" style="max-width:900px">The domains look unrelated. The job is the same: high-consequence systems, operated live, by people who need the interface to tell the truth fast.</p>

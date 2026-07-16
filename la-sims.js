@@ -1,11 +1,11 @@
 /* la-sims.js — the three Light ARchitect deep-dive interactives.
-   A: photometric sandbox (drag/add/remove luminaires, live RP-8-22 readout)
+   A: photometric sandbox (drag/add/remove luminaires, live pass/fail readout)
    B: AI AutoLayout demo (boundary → goals → ranked candidates → refine)
    C: IES filter-before-load demo (the library never renders unfiltered)
 
    The footcandle engine is the same simplified-falloff model as the homepage
    Light ARchitect scene (inverse-square-style contribution, calibrated once
-   against a representative RP-8-22 basic parking design at ~2 fc average),
+   against a representative basic parking design at ~2 fc average),
    honestly labeled in-page as a simulation: the shipped product computes from
    real IES photometry. Vanilla JS, no dependencies; each init is isolated so
    one failure can't kill the others. Keyboard paths and reduced-motion are
@@ -92,7 +92,7 @@
     var okMin = m.min >= 0.2, okUni = m.maxmin > 0 && m.maxmin <= lim;
     return {
       pass: okMin && okUni,
-      text: (okMin && okUni ? 'MEETS IES RP-8-22 BASIC' : 'BELOW IES RP-8-22 BASIC') +
+      text: (okMin && okUni ? 'MEETS BASIC TARGET' : 'BELOW BASIC TARGET') +
         ' · MIN ' + m.min.toFixed(1) + (okMin ? ' FC ≥ 0.2' : ' FC < 0.2') +
         ' · MAX:MIN ' + m.maxmin.toFixed(1) + (okUni ? ':1 ≤ ' + lim + ':1' : ':1 > ' + lim + ':1')
     };
@@ -152,7 +152,7 @@
       layer.innerHTML = html;
       if (count) count.textContent = fx.length + ' × GALN Galleon II';
       if (delBtn) delBtn.disabled = !(sel >= 0 && fx.length > 1);
-      if (announceMsg !== false) announce(live, (announceMsg || '') + ' Average ' + m.avg.toFixed(2) + ' foot-candles, max to min ' + m.maxmin.toFixed(1) + ' to 1. ' + (st.pass ? 'Meets' : 'Below') + ' RP-8-22 basic.');
+      if (announceMsg !== false) announce(live, (announceMsg || '') + ' Average ' + m.avg.toFixed(2) + ' foot-candles, max to min ' + m.maxmin.toFixed(1) + ' to 1. ' + (st.pass ? 'Meets' : 'Below') + ' the basic target.');
     }
 
     function plateXY(ev) {

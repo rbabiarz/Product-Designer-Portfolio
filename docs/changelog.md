@@ -41,3 +41,14 @@
   zero-build / AI-paired architecture story. Rendered by `colophon.js`, generated from git
   history and the GitHub deployments API by `build-colophon.py` — every stat derived, none
   typed. Regenerate per release alongside the search index.
+- Parlay deep dive gains "Parlay Reels" (section 04 · Try It): a fully interactive, honest 5×3
+  five-payline demo slot built on the case study's recovered avatar set — wild, scatter, free
+  spins ×3, turbo, paytable dialog publishing the uniform reel-strip composition, and math
+  exact by full reel enumeration, cross-checked over 10,000,000 simulated spins (RTP 96.04%,
+  hit ≈1 in 4.1, free spins ≈1 in 211).
+  Researched against 2025-26 slot conventions (Pragmatic/NetEnt/Hacksaw-era UI anatomy, win
+  presentation, RG surfaces; Mobbin has no real iGaming — nearest analogs noted in-session).
+  Ethically inverted by design and annotated in-game: no LDW celebrations, no engineered
+  near-misses, no autoplay or stop button, truthful sound, session ledger + 50-spin reality
+  check, each annotation citing the research (Dixon et al.; Kassinove & Schare; Clark et al.;
+  Harrigan; Ladouceur & Sévigny). Engine in `parlay-slot.js`; sections renumbered 04-11 → 05-12.

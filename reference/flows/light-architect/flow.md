@@ -13,7 +13,7 @@ honest numbers → patent strip → CORE hand-off. Exit: deep-dive CTA, next-cas
 (→ Enterprise AI), switcher.
 
 **Deep dive (light-architect.html):** 11 TOC-driven sections; the three interactives are the
-spine — 06 photometric sandbox (drag/keyboard poles vs RP-8-22), 07 IES filter-before-load demo,
+spine — 06 photometric sandbox (drag/keyboard poles vs the basic parking target), 07 IES filter-before-load demo,
 08 AI AutoLayout two-stage loop (boundary → goals → staged progress → ranked candidates → refine →
 re-rank). Every simulation carries an honesty label; the shipped product's screenshots sit beside
 each demo as the receipt. Exit: next-case footer (→ Enterprise AI), switcher, work index.

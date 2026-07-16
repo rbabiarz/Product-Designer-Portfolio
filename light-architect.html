@@ -511,7 +511,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div class="wrap">
       <div class="eyebrow" data-reveal="">06 · Try It · The Photometric Sandbox</div>
       <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Move a pole. <em>Watch the standard react.</em></h2>
-      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:32px">This is the core loop of the product, rebuilt in-page: sixteen luminaires on a parking plate, a live footcandle grid, and the IES RP-8-22 basic test (≥ 0.2 fc maintained minimum, ≤ 20:1 max:min uniformity) judging every edit. Drag a pole, click empty ground to add one, double-click to remove. Keyboard: Tab to a luminaire, arrow keys move it, Delete removes it.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:32px">This is the core loop of the product, rebuilt in-page: sixteen luminaires on a parking plate, a live footcandle grid, and the basic parking-lot test (≥ 0.2 fc maintained minimum, ≤ 20:1 max:min uniformity) judging every edit. Drag a pole, click empty ground to add one, double-click to remove. Keyboard: Tab to a luminaire, arrow keys move it, Delete removes it.</p>
 
       <div class="las-card" data-reveal="" id="las-a">
         <div class="las-stage">
@@ -535,17 +535,17 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
           <button type="button" class="las-btn" data-act="reset">Reset layout</button>
         </div>
         <div class="las-live sr-only" aria-live="polite"></div>
-        <div class="las-note">In-page simulation · simplified falloff model calibrated to a representative RP-8-22 parking design · the shipped product computes from real IES photometry</div>
+        <div class="las-note">In-page simulation · simplified falloff model calibrated to a representative basic parking design · the shipped product computes from real IES photometry</div>
       </div>
 
       <details data-reveal="" style="max-width:860px;margin-top:26px;border:1px solid var(--c-b2);border-radius:14px;background:var(--c-surface)">
         <summary style="cursor:pointer;padding:16px 20px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--c-ink2)">How to read the photometric map</summary>
         <div style="padding:0 20px 18px;font-size:14px;color:var(--c-body);line-height:1.7">
-          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">AVG</strong> — mean illuminance across the stat area. RP-8-22 is driven by the minimum, not the average; a compliant lot typically averages 1–3 fc.</p>
+          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">AVG</strong> — mean illuminance across the stat area. The target is driven by the minimum, not the average; a compliant lot typically averages 1–3 fc.</p>
           <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MAX</strong> — the brightest cell, directly under a pole. Peaks several times the average are normal; uniformity is judged by MAX:MIN, not MAX alone.</p>
-          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MIN</strong> — the darkest cell, the design's weak point. IES RP-8-22 requires ≥ 0.2 fc maintained at grade for parking lots and drive aisles.</p>
-          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MAX:MIN</strong> — uniformity. RP-8-22 allows up to 20:1 for parking lots; lower is more uniform. <strong style="color:var(--c-ink2)">AVG:MIN</strong> is the ratio commercial design guides judge; the shipped product reports both.</p>
-          <p>Targets follow IES RP-8-22 basic requirements for parking lots at grade (not security lighting); transaction areas call for 0.9 fc pre-curfew / 0.2 post at 15:1, and project specifics may set different criteria.</p>
+          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MIN</strong> — the darkest cell, the design's weak point. The design target holds ≥ 0.2 fc maintained at grade for parking lots and drive aisles.</p>
+          <p style="margin-bottom:10px"><strong style="color:var(--c-ink2)">MAX:MIN</strong> — uniformity. The basic parking target allows up to 20:1; lower is more uniform. <strong style="color:var(--c-ink2)">AVG:MIN</strong> is the ratio commercial design guides judge; the shipped product reports both.</p>
+          <p>Targets are basic parking-lot requirements at grade (not security lighting); transaction areas call for 0.9 fc pre-curfew / 0.2 post at 15:1, and project specifics may set different criteria.</p>
         </div>
       </details>
 
@@ -617,14 +617,14 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
           </div>
           <div class="las-goal">
             <label for="las-uni">Uniformity target (max:min)</label>
-            <select id="las-uni" data-in="uni"><option value="20">20:1 · RP-8-22 basic</option><option value="15">15:1 · transaction areas</option><option value="10">10:1 · premium</option></select>
+            <select id="las-uni" data-in="uni"><option value="20">20:1 · parking basic</option><option value="15">15:1 · transaction areas</option><option value="10">10:1 · premium</option></select>
           </div>
           <div class="las-goal">
             <label for="las-pin">Pre-pin a pole</label>
             <span class="las-pin"><input id="las-pin" data-in="pin" type="checkbox"> Keep one pole fixed at an existing base</span>
           </div>
         </div>
-        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin:4px 0 10px">Minimum held at 0.2 fc · RP-8-22 basic (locked)</div>
+        <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin:4px 0 10px">Minimum held at 0.2 fc (locked)</div>
         <div class="las-btns" style="margin-top:6px">
           <button type="button" class="las-btn pri" data-act="generate">Generate layouts</button>
           <button type="button" class="las-btn" data-act="rerank" disabled>Re-rank my edit</button>
