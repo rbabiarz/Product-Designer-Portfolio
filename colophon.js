@@ -9,7 +9,7 @@
      as iframes inside the homepage and CTOC case study — the host page
      already carries the colophon. */
   try { if (window.top !== window.self) return; } catch (e) { return; }
-  var DATA = {"est": "Jun 22, 2026", "deploys": 96, "lastDeploy": "2026-07-16", "lastDeployFmt": "Jul 16, 2026", "version": "v1.10.99", "updated": "Jul 17, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
+  var DATA = {"est": "Jun 22, 2026", "deploys": 98, "lastDeploy": "2026-07-17", "lastDeployFmt": "Jul 17, 2026", "version": "v1.10.101", "updated": "Jul 17, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
   /* Mount inside the page's token scope. Case-study pages scope their tokens to
      .cs (light/dark via .cs.dark), so a body-level mount would miss them; pages
      with :root tokens (homepages, work, about, deep-dive) mount to body. DC
@@ -59,6 +59,7 @@
       '.rb-colo-row .k{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--c-muted,var(--fg2,#8a93a6))}' +
       '.rb-colo-row .v{font-size:13.5px;line-height:1.65;color:var(--c-body,var(--fg2,#a5adbd));max-width:920px}' +
       '.rb-colo-note{font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;line-height:1.9;color:var(--c-muted,var(--fg2,#8a93a6));opacity:.75}' +
+      '.rb-colo-rights{margin-top:12px;font-family:Inter,system-ui,sans-serif;font-size:11.5px;line-height:1.7;color:var(--c-muted,var(--fg2,#8a93a6));opacity:.75}' +
       '@media(max-width:720px){.rb-colo-in{padding:34px 20px 150px}.rb-colo-stats{gap:14px 26px}.rb-colo-row{grid-template-columns:1fr;gap:4px}}' +
       /* concrete fallback themes for pages outside both token systems */
       '.rb-colophon.rb-colo-dark{background:#0b1016;border-top-color:rgba(255,255,255,.1)}' +
@@ -91,6 +92,7 @@
           '<div class="rb-colo-row"><span class="k">AI-paired</span><span class="v">Human-led, AI-accelerated: designed and engineered in pair with Anthropic Claude Code, with Playwright browser automation verifying every change &mdash; the same receipts-over-vibes workflow the case studies argue for. ' + DATA.caseStudies + ' case studies, several of them about designing AI systems people can trust.</span></div>' +
         '</div>' +
         '<div class="rb-colo-note">Stats derived from git history &amp; the GitHub Pages deployment API, regenerated per release &middot; version = generation &middot; case studies &middot; commits</div>' +
+        '<div class="rb-colo-rights">All images in case studies from CLS are &copy; 2026 Signify &ndash; Cooper Lighting Canada Limited. All rights reserved.</div>' +
       '</div>';
     if (!host) el.classList.add(pageIsDark() ? 'rb-colo-dark' : 'rb-colo-light');
     if (host && host !== document.body) { host.appendChild(el); return; }
