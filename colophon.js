@@ -9,7 +9,7 @@
      as iframes inside the homepage and CTOC case study — the host page
      already carries the colophon. */
   try { if (window.top !== window.self) return; } catch (e) { return; }
-  var DATA = {"est": "Jun 22, 2026", "deploys": 95, "lastDeploy": "2026-07-16", "lastDeployFmt": "Jul 16, 2026", "version": "v1.10.98", "updated": "Jul 16, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
+  var DATA = {"est": "Jun 22, 2026", "deploys": 96, "lastDeploy": "2026-07-16", "lastDeployFmt": "Jul 16, 2026", "version": "v1.10.99", "updated": "Jul 17, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
   /* Mount inside the page's token scope. Case-study pages scope their tokens to
      .cs (light/dark via .cs.dark), so a body-level mount would miss them; pages
      with :root tokens (homepages, work, about, deep-dive) mount to body. DC
@@ -86,7 +86,7 @@
           '<div><dt>Updated</dt><dd>' + DATA.updated + '</dd></div>' +
         '</dl>' +
         '<div class="rb-colo-rows">' +
-          '<div class="rb-colo-row"><span class="k">Built with</span><span class="v">Anthropic Claude Code &middot; Playwright &middot; Figma + MUI kit &middot; VS Code &middot; Python 3 &middot; React 18 (CDN, no build step) &middot; Git &rarr; GitHub Pages</span></div>' +
+          '<div class="rb-colo-row"><span class="k">Built with</span><span class="v">Anthropic Claude Code &middot; Playwright &middot; Figma + MUI kit &middot; Cursor &middot; Python 3 &middot; React 18 (CDN, no build step) &middot; Git &rarr; GitHub Pages</span></div>' +
           '<div class="rb-colo-row"><span class="k">Architecture</span><span class="v">' + DATA.pages + ' self-contained pages, ~' + DATA.loc + ' hand-authored lines, zero npm dependencies, no bundler &mdash; every page is a single file that opens anywhere and deploys as pure static hosting. The interactive layer is bespoke vanilla JS: a photometric engine scored against real parking uniformity targets, an AI AutoLayout demo with ranked candidates, playable decision drills, and client-side search over a Python-generated index. WCAG 2.2 AA target with a standing audit; three-tier design tokens (primitive &rarr; semantic &rarr; component).</span></div>' +
           '<div class="rb-colo-row"><span class="k">AI-paired</span><span class="v">Human-led, AI-accelerated: designed and engineered in pair with Anthropic Claude Code, with Playwright browser automation verifying every change &mdash; the same receipts-over-vibes workflow the case studies argue for. ' + DATA.caseStudies + ' case studies, several of them about designing AI systems people can trust.</span></div>' +
         '</div>' +
