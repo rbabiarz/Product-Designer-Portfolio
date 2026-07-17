@@ -39,8 +39,8 @@
     var css = document.createElement('style');
     css.textContent =
       'html.rb-cursor-on, html.rb-cursor-on *{cursor:none !important}' +
-      '#rb-cur-dot{position:fixed;left:0;top:0;width:7px;height:7px;border-radius:50%;background:' + accent + ';z-index:2147483000;pointer-events:none;transform:translate(-50%,-50%);transition:width .15s ease,height .15s ease,opacity .2s ease}' +
-      '#rb-cur-ring{position:fixed;left:0;top:0;width:30px;height:30px;border:1.5px solid ' + accent + ';opacity:.55;border-radius:50%;z-index:2147482999;pointer-events:none;transform:translate(-50%,-50%);transition:width .18s ease,height .18s ease,opacity .2s ease,background .18s ease}' +
+      '#rb-cur-dot{position:fixed;left:0;top:0;width:7px;height:7px;border-radius:50%;background:' + accent + ';box-shadow:0 0 0 1.5px rgba(255,255,255,0.85),0 1px 4px rgba(0,0,0,0.5);z-index:2147483000;pointer-events:none;transform:translate(-50%,-50%);transition:width .15s ease,height .15s ease,opacity .2s ease}' +
+      '#rb-cur-ring{position:fixed;left:0;top:0;width:30px;height:30px;border:1.5px solid ' + accent + ';opacity:.7;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,0.35),inset 0 0 0 1px rgba(0,0,0,0.3);z-index:2147482999;pointer-events:none;transform:translate(-50%,-50%);transition:width .18s ease,height .18s ease,opacity .2s ease,background .18s ease}' +
       '#rb-cur-ring .rb-cur-a{position:absolute;font-family:"JetBrains Mono",monospace;font-size:9px;line-height:1;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.55);opacity:0;transition:opacity .15s ease;user-select:none}' +
       '#rb-cur-ring .rb-a-l{left:3px;top:50%;transform:translateY(-50%)}' +
       '#rb-cur-ring .rb-a-r{right:3px;top:50%;transform:translateY(-50%)}' +
