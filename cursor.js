@@ -23,11 +23,14 @@
       if (cs) accent = (getComputedStyle(cs).getPropertyValue('--c-accent') || '').trim();
     }
     if (!accent) {
-      // still nothing: take the first non-black text colour down the wrapper chain
-      var probe = [document.body, document.body.firstElementChild, document.querySelector('[style*="color:#6cf0a4"], .c-ho > div')];
-      for (var pi = 0; pi < probe.length; pi++) {
-        if (!probe[pi]) continue;
-        var c = getComputedStyle(probe[pi]).color;
+      // still nothing: take the first non-black text colour down the wrapper chain.
+      // NB: this array must NOT be named `probe` — that shadows the probe(x,y)
+      // function below and silently breaks every cursor state on pages without
+      // an --ac token (dossier, retro).
+      var swatches = [document.body, document.body.firstElementChild, document.querySelector('[style*="color:#6cf0a4"], .c-ho > div')];
+      for (var pi = 0; pi < swatches.length; pi++) {
+        if (!swatches[pi]) continue;
+        var c = getComputedStyle(swatches[pi]).color;
         if (c && c !== 'rgb(0, 0, 0)') { accent = c; break; }
       }
       if (!accent) accent = '#4ca88f';

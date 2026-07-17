@@ -52,3 +52,12 @@
   near-misses, no autoplay or stop button, truthful sound, session ledger + 50-spin reality
   check, each annotation citing the research (Dixon et al.; Kassinove & Schare; Clark et al.;
   Harrigan; Ladouceur & Sévigny). Engine in `parlay-slot.js`; sections renumbered 04-11 → 05-12.
+- Custom cursor now behaves identically across all three homepages (interactive is the reference).
+  Root cause: a local `var probe = […]` array in `cursor.js`'s accent-fallback path shadowed the
+  hoisted `probe(x,y)` function, so `setState` threw `probe is not a function` on every page without
+  an `--ac` token — silently killing the active/plate/move cursor states on dossier, retro,
+  core-insights, and fintech-walkthrough (interactive has the token and skipped the fallback). Renamed
+  the array to `swatches`. Also gave dossier (`--ac:#b23a2e` stamp-red) and retro (`--ac:#6cf0a4`
+  phosphor) explicit accent tokens so their cursor themes deterministically per page instead of via a
+  fragile DOM colour-probe. Verified in-browser: active-on-hover, white-over-map, and directional
+  move-over-luminaire states now fire on all three, accent themed per page, zero console errors.
