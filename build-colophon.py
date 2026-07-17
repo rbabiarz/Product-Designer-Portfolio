@@ -12,7 +12,7 @@ Every number in the site colophon is derived, never typed:
 Run before a release, alongside build-search-index.py:  python3 build-colophon.py
 """
 import json, re, subprocess, sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -37,7 +37,11 @@ try:
     out = sh("gh", "api", f"repos/{REPO}/deployments?per_page=100", "--paginate", "--jq", ".[].created_at")
     stamps = [s for s in out.splitlines() if s]
     if stamps:
-        deploys, last_deploy = len(stamps), max(stamps)[:10]
+        # the API returns UTC (…Z); convert the latest to local time so "last deploy"
+        # shares a timezone with "updated" (else an evening deploy can look like it
+        # lands on the next day — a false "future deploy" on the build record)
+        latest = datetime.fromisoformat(max(stamps).replace("Z", "+00:00")).astimezone()
+        deploys, last_deploy = len(stamps), latest.date().isoformat()
 except Exception:
     pass
 if deploys is None:  # offline: reuse the last generated values rather than guessing

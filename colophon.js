@@ -9,7 +9,7 @@
      as iframes inside the homepage and CTOC case study — the host page
      already carries the colophon. */
   try { if (window.top !== window.self) return; } catch (e) { return; }
-  var DATA = {"est": "Jun 22, 2026", "deploys": 92, "lastDeploy": "2026-07-12", "lastDeployFmt": "Jul 12, 2026", "version": "v1.10.95", "updated": "Jul 16, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
+  var DATA = {"est": "Jun 22, 2026", "deploys": 95, "lastDeploy": "2026-07-16", "lastDeployFmt": "Jul 16, 2026", "version": "v1.10.98", "updated": "Jul 16, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
   /* Mount inside the page's token scope. Case-study pages scope their tokens to
      .cs (light/dark via .cs.dark), so a body-level mount would miss them; pages
      with :root tokens (homepages, work, about, deep-dive) mount to body. DC
