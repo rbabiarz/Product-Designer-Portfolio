@@ -11,7 +11,7 @@
      as iframes inside the homepage and CTOC case study — the host page
      already carries the colophon. */
   try { if (window.top !== window.self) return; } catch (e) { return; }
-  var DATA = {"est": "Jun 22, 2026", "deploys": 99, "lastDeploy": "2026-07-17", "lastDeployFmt": "Jul 17, 2026", "version": "v1.10.102", "updated": "Jul 17, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
+  var DATA = {"est": "Jun 22, 2026", "deploys": 103, "lastDeploy": "2026-07-18", "lastDeployFmt": "Jul 18, 2026", "version": "v1.10.106", "updated": "Jul 18, 2026", "pages": 27, "loc": "74,000", "caseStudies": 10};
   /* Mount inside the page's token scope purely for DOM placement (so it lands
      in natural document flow, not free-floating outside a themed wrapper).
      Case-study pages scope layout to .cs; pages with :root tokens (homepages,
