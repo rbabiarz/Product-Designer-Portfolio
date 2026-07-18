@@ -96,6 +96,7 @@ body{margin:0}
 #dsr-menu .dm-n{font-family:'JetBrains Mono',monospace;font-size:12px;color:#6b5d42}
 #dsr-menu .dm-switch{display:flex;align-items:center;justify-content:space-between;text-decoration:none;padding:14px;border:1.5px solid #0a0a0a;background:#0a0a0a;color:#f4ead2;margin-top:14px;opacity:0;transform:translateY(18px);transition:opacity .42s ease,transform .42s ease}
 .menu-open #dsr-menu .dm-switch{opacity:1;transform:none}
+.menu-open #dsr-menu .dsr-menu-foot{opacity:1;transform:none}
 .dsr-stagger>:nth-child(1){transition-delay:.06s}
 .dsr-stagger>:nth-child(2){transition-delay:.11s}
 .dsr-stagger>:nth-child(3){transition-delay:.16s}
@@ -325,6 +326,11 @@ body{margin:0}
       <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
         <a class="dm-switch" href="{{ v.file }}" data-home-variant="{{ v.id }}" style="background:{{ v.rowBg }};color:#0a0a0a;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;color:{{ v.titleColor }};">{{ v.mark }}VIEW: {{ v.labelUpper }}</span><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
       </sc-for>
+    </div>
+    <div style="margin-top:28px;display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(18px);transition:opacity .42s ease .28s,transform .42s ease .28s;" class="dsr-menu-foot">
+      <a href="mailto:rbabiarz@gmail.com" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#b23a2e;text-decoration:underline;text-underline-offset:3px;letter-spacing:0.04em;">rbabiarz@gmail.com</a>
+      <a href="tel:+14163154761" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#b23a2e;text-decoration:none;letter-spacing:0.04em;">416-315-4761</a>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.06em;">CANADIAN CITIZEN</span>
     </div>
   </div>
 
@@ -793,6 +799,8 @@ class Component extends DCLogic {
   _raf = {}; _obs = [];
 
   componentDidMount() {
+    // case-study "back" links remember this as the hub to return to (case-back.js)
+    try { sessionStorage.setItem('rb-nav-origin', JSON.stringify({ href: 'homepage-dossier.dc.html' })); } catch (e) {}
     this._hvReady = () => this.forceUpdate();
     window.addEventListener('home-variants-ready', this._hvReady);
     setTimeout(() => this.forceUpdate(), 320);

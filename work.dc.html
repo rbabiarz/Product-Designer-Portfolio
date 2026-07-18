@@ -240,7 +240,8 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
     </div>
     <div class="im-foot" style="margin-top:26px;display:flex;flex-direction:column;gap:8px;">
       <a href="mailto:rbabiarz@gmail.com" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ac2);text-decoration:underline;text-underline-offset:3px;letter-spacing:0.04em;">rbabiarz@gmail.com</a>
-      <a href="tel:+14163154761" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ac2);text-decoration:underline;text-underline-offset:3px;letter-spacing:0.04em;">416-315-4761</a>
+      <a href="tel:+14163154761" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ac2);text-decoration:none;letter-spacing:0.04em;">416-315-4761</a>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;">CANADIAN CITIZEN</span>
     </div>
   </div>
 
@@ -469,10 +470,36 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.applyTheme();
+    const restored = this.restoreOrigin();
     setTimeout(() => {
-      this.bind(); this.layout(true);
+      this.bind();
+      if (restored && restored.mode && restored.mode !== 'flow') this.setMode(restored.mode, true);
+      else this.layout(true);
+      this.saveOrigin();
       try { this.initPoll(); } catch (e) {} // isolated: a poll failure can't break the carousel
     }, 60);
+  }
+
+  // case-study "back" links remember work.dc.html as their hub (case-back.js
+  // reads this); returning here restores the mode and focused card/tile the
+  // visitor left, so a trip into a case study and back doesn't reset the browse.
+  restoreOrigin() {
+    try {
+      const v = JSON.parse(sessionStorage.getItem('rb-nav-origin') || 'null');
+      if (!v || v.href !== 'work.dc.html' || !v.state) return null;
+      if (typeof v.state.i === 'number') {
+        this.active = Math.max(0, Math.min(this.count - 1, v.state.i));
+        this._lbFeat = this.active;
+      }
+      if (typeof v.state.mode === 'string') this.mode = v.state.mode;
+      return v.state;
+    } catch (e) { return null; }
+  }
+  saveOrigin() {
+    // lobby mode tracks its own focused tile (_lbFeat) separately from the
+    // flow/fan carousel's active index — save whichever the current mode uses
+    const i = this.mode === 'lobby' && typeof this._lbFeat === 'number' ? this._lbFeat : this.active;
+    try { sessionStorage.setItem('rb-nav-origin', JSON.stringify({ href: 'work.dc.html', state: { mode: this.mode, i: i } })); } catch (e) {}
   }
   componentWillUnmount() {
     (this._ev || []).forEach(([t, e, fn, o]) => t.removeEventListener(e, fn, o));
@@ -543,8 +570,8 @@ class Component extends DCLogic {
     if (cta && links[this.active]) cta.setAttribute('href', links[this.active]);
   }
 
-  setMode(m) {
-    if (this.mode === m) return;
+  setMode(m, force) {
+    if (this.mode === m && !force) return;
     this.mode = m;
     document.querySelectorAll('.wk-modebtn').forEach((b) => b.classList.toggle('on', b.getAttribute('data-mode') === m));
     const stage = document.getElementById('wk-stage');
@@ -558,6 +585,7 @@ class Component extends DCLogic {
     if (lb) lb.style.display = isLobby ? 'block' : 'none';
     if (isLobby) this.buildLobby();
     if (!isIndex && !isLobby) this.layout(true);
+    this.saveOrigin();
   }
 
   // ── lobby mode: consumer game-lobby presentation of the same case studies.
@@ -587,7 +615,8 @@ class Component extends DCLogic {
     this._lbItems = items;
     let recent = [];
     try { recent = JSON.parse(localStorage.getItem('rb-wk-recent') || '[]').filter((n) => items.some((x) => x.i === n)); } catch (e) {}
-    this._lbFeat = recent.length ? recent[0] : 0;
+    // a restored origin (returning from a case study) already set _lbFeat — keep it
+    if (typeof this._lbFeat !== 'number') this._lbFeat = recent.length ? recent[0] : 0;
 
     // featured hero — the focused title's art bleeds behind the banner
     const hero = document.createElement('div');
@@ -691,11 +720,14 @@ class Component extends DCLogic {
       cur.unshift(i);
       localStorage.setItem('rb-wk-recent', JSON.stringify(cur.slice(0, 6)));
     } catch (e) {}
+    this._lbFeat = i;
+    this.saveOrigin();
   }
 
   go(i) {
     this.active = Math.max(0, Math.min(this.count - 1, i));
     this.layout(false);
+    this.saveOrigin();
   }
 
   bind() {
