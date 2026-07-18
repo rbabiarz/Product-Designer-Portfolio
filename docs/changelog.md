@@ -83,3 +83,16 @@
   `initLAInteract`'s `geom()` so drag/add/remove luminaire placement stays pixel-accurate at any
   zoom level (verified: sub-pixel placement error at 0.8x, 1.0x, and 1.3x). Zoom resets to 1x with
   the existing "RESET" control; buttons disable at each bound.
+
+## 2026-07-18 (2)
+- Fixed Arctic Shield's Operation Debrief (and menu / between-wave interstitial) clipping in phone
+  LANDSCAPE: those overlays only got top-align + scroll from a `max-width:560px` media query, but
+  landscape phones are usually wider than 560px while short in height, so the tall debrief content
+  (title, score, stats grid, high-scores, callsign, XP bar, then Retry/Menu) centered and pushed
+  Retry + Menu off the bottom with no way to scroll to them. Added a `max-height:520px` query
+  applying the same fix. Shipped as a small external `arctic-landscape-fix.js` referenced by a
+  plain `<script src>` because editing the bundled page's own `<style>` block corrupts its runtime
+  templating (a JSON round-trip strips the `\/` escaping the template relies on). One fix covers
+  all three homepages, which all iframe the same `arctic-shield.html`. Verified end to end: real
+  playthrough to game-over at 844×390, scroll reveals Retry, a real click fires it. The homepage
+  on-page drills were checked and need no change (their overlay fits the 544px-min stage).
