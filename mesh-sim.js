@@ -58,7 +58,7 @@
     '.msim :focus-visible{outline:2px solid var(--m-berry);outline-offset:-2px}' +
     /* chrome */
     '.msim-top{flex:none;display:flex;align-items:center;justify-content:space-between;background:var(--m-navy);color:#fff;font-weight:700;letter-spacing:.06em;padding:4.2cqi 4.6cqi;font-size:clamp(9px,4.6cqi,14px)}' +
-    '.msim-x{color:#fff;opacity:.9;font-weight:400;font-size:clamp(12px,6cqi,19px);line-height:.6}' +
+    '.msim-x{color:#fff;opacity:.95;font-weight:300;font-size:clamp(13px,4.8cqi,16px);line-height:1;display:inline-flex;align-items:center;justify-content:center}' +
     '.msim-room{flex:none;display:flex;align-items:center;gap:3cqi;background:var(--m-berry);color:#fff;padding:2.6cqi 4.6cqi;font-size:clamp(10px,5cqi,15px);font-weight:700}' +
     '.msim-roomname{flex:1}' +
     '.msim-test{position:relative;background:#fff;color:var(--m-ink);border:none;border-radius:1.6cqi;font-weight:800;letter-spacing:.08em;font-size:clamp(9px,4.4cqi,13px);padding:2.2cqi 4.4cqi;min-height:24px}' +
