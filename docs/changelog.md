@@ -74,3 +74,12 @@
   light/dark theme. Simplified `build-colophon.py` accordingly (dropped `paintedBg`/`pageIsDark`;
   mount-location logic is now fully decoupled from coloring). Also added a "View source on GitHub"
   link in the colophon header, pointing at the repo, keyboard-focusable with a visible focus ring.
+
+## 2026-07-18
+- Fixed the interactive homepage's Light ARchitect zoom stepper: the "+"/"−" controls next to the
+  fake search field had no click handler at all — pure decorative map chrome. Converted them to
+  real, keyboard-operable `<button>`s and wired them to actually scale the photometric plate and
+  underlying site art together (0.8x-1.3x, center-anchored). The scale factor is folded into
+  `initLAInteract`'s `geom()` so drag/add/remove luminaire placement stays pixel-accurate at any
+  zoom level (verified: sub-pixel placement error at 0.8x, 1.0x, and 1.3x). Zoom resets to 1x with
+  the existing "RESET" control; buttons disable at each bound.

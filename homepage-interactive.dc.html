@@ -91,6 +91,10 @@ html{scroll-behavior:smooth}
 #la-info-btn{cursor:pointer;margin-left:auto;transition:filter .15s ease;}
 #la-info-btn:hover{filter:brightness(1.08);}
 #la-info-btn:focus-visible,#la-info-close:focus-visible{outline:2px solid var(--la-accent);outline-offset:2px;}
+.la-zoombtn{display:block;width:100%;background:transparent;border:none;font:inherit;cursor:pointer;transition:filter .15s ease,opacity .15s ease;}
+.la-zoombtn:hover:not(:disabled){filter:brightness(1.15);}
+.la-zoombtn:focus-visible{outline:2px solid var(--la-accent);outline-offset:-2px;}
+.la-zoombtn:disabled{opacity:0.35;cursor:not-allowed;}
 #la-info-close:hover{color:var(--la-text-strong);border-color:var(--la-bd);}
 .la-info-h{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--la-dim);margin:14px 0 7px;}
 .la-info-row{display:flex;gap:12px;align-items:baseline;font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.5;color:var(--la-text);margin-bottom:7px;}
@@ -747,7 +751,7 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <!-- LAYER 0 · aerial ground -->
           <div class="la-layer" data-la="0.24" id="la-ground" style="position:absolute;inset:-16%;z-index:1;">
             <div style="position:absolute;inset:0;background:var(--la-fill);"></div>
-            <div style="position:absolute;left:50%;top:50%;width:170%;height:170%;margin:-85% 0 0 -85%;transform:rotate(-25deg);">
+            <div id="la-ground-tilt" style="position:absolute;left:50%;top:50%;width:170%;height:170%;margin:-85% 0 0 -85%;transform:rotate(-25deg);">
               <!-- greenery + asphalt base -->
               <div style="position:absolute;inset:0;background:var(--la-grad);"></div>
               <!-- roads -->
@@ -827,8 +831,8 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
               <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--la-text);">PARKING LOT, MISSISSAUGA, ON</span>
             </div>
             <div style="display:flex;flex-direction:column;border:1px solid var(--la-bd);border-radius:9px;overflow:hidden;background:var(--la-glass);">
-              <span style="padding:5px 11px;color:var(--la-text);font-size:15px;line-height:1;border-bottom:1px solid var(--la-bd-soft2);">+</span>
-              <span style="padding:5px 11px;color:var(--la-text);font-size:15px;line-height:1;">−</span>
+              <button id="la-zoom-in" type="button" aria-label="Zoom in" title="Zoom in" class="la-zoombtn" style="padding:5px 11px;color:var(--la-text);font-size:15px;line-height:1;border-bottom:1px solid var(--la-bd-soft2);">+</button>
+              <button id="la-zoom-out" type="button" aria-label="Zoom out" title="Zoom out" class="la-zoombtn" style="padding:5px 11px;color:var(--la-text);font-size:15px;line-height:1;">−</button>
             </div>
           </div>
 
@@ -2408,7 +2412,14 @@ class Component extends DCLogic {
     if (!plate || !wrap || !this._laFx) return;
     const COARSE = (window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches)) || (window.innerWidth || 9999) <= 760;
     const TH = -25 * Math.PI / 180, C = Math.cos(TH), S = Math.sin(TH); // plate is rotate(-25deg)
-    const geom = () => { const r = plate.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: wrap.clientWidth || r.width, h: wrap.clientHeight || r.height }; };
+    // zoom scales the plate + ground in place via transform (never touched by the
+    // scroll-parallax translate3d loop, which only writes .la-layer[data-la]
+    // elements' transforms — #la-plate and #la-ground-tilt carry neither).
+    // geom() folds the same factor into its reported box size so drag/add/remove
+    // placement math stays correct at any zoom level.
+    if (this._laZoom == null) this._laZoom = 1;
+    const ZMIN = 0.8, ZMAX = 1.3, ZSTEP = 0.1;
+    const geom = () => { const r = plate.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: (wrap.clientWidth || r.width) * this._laZoom, h: (wrap.clientHeight || r.height) * this._laZoom }; };
     const toPlate = (px, py) => { const g = geom(); const dx = px - g.cx, dy = py - g.cy; return { x: 0.5 + (dx * C + dy * S) / g.w, y: 0.5 + (-dx * S + dy * C) / g.h }; };
     const toScreen = (x, y) => { const g = geom(); const lx = (x - 0.5) * g.w, ly = (y - 0.5) * g.h; return { sx: g.cx + (lx * C - ly * S), sy: g.cy + (lx * S + ly * C) }; };
     const clamp01 = (v) => v < 0.03 ? 0.03 : v > 0.97 ? 0.97 : v;
@@ -2458,7 +2469,26 @@ class Component extends DCLogic {
 
     const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
     const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };
-    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this.laRecompute(); };
+
+    // zoom: scales the plate + underlying ground art together, in place. Both
+    // targets already carry their own rotate(-25deg) transform outside the
+    // parallax layer list, so writing scale() here is never fought or reset
+    // by the scroll-driven translate3d loop.
+    const groundTilt = document.getElementById('la-ground-tilt');
+    const zoomInBtn = document.getElementById('la-zoom-in'), zoomOutBtn = document.getElementById('la-zoom-out');
+    const applyZoom = () => {
+      const z = this._laZoom;
+      plate.style.transform = 'rotate(-25deg) scale(' + z.toFixed(2) + ')';
+      if (groundTilt) groundTilt.style.transform = 'rotate(-25deg) scale(' + z.toFixed(2) + ')';
+      if (zoomInBtn) zoomInBtn.disabled = z >= ZMAX - 0.001;
+      if (zoomOutBtn) zoomOutBtn.disabled = z <= ZMIN + 0.001;
+    };
+    const zoomBy = (d) => { this._laZoom = Math.max(ZMIN, Math.min(ZMAX, +(this._laZoom + d).toFixed(2))); applyZoom(); };
+    if (zoomInBtn && !zoomInBtn.__laWired) { zoomInBtn.__laWired = 1; this.on(zoomInBtn, 'click', (e) => { e.preventDefault(); zoomBy(ZSTEP); }); }
+    if (zoomOutBtn && !zoomOutBtn.__laWired) { zoomOutBtn.__laWired = 1; this.on(zoomOutBtn, 'click', (e) => { e.preventDefault(); zoomBy(-ZSTEP); }); }
+    applyZoom(); // reflect any zoom level carried over from a prior init (e.g. after a heal-guardian re-render)
+
+    const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this._laZoom = 1; applyZoom(); this.laRecompute(); };
     const recalc = document.getElementById('la-recalc'); if (recalc && !recalc.__laWired) { recalc.__laWired = 1; this.on(recalc, 'click', (e) => { e.preventDefault(); reset(); }); }
     const addBtn = document.getElementById('la-add'); if (addBtn && !addBtn.__laWired) { addBtn.__laWired = 1; this.on(addBtn, 'click', (e) => { e.preventDefault(); addLight(); }); }
     const delBtn = document.getElementById('la-del'); if (delBtn && !delBtn.__laWired) { delBtn.__laWired = 1; this.on(delBtn, 'click', (e) => { e.preventDefault(); delLight(); }); }
