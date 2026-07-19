@@ -109,3 +109,14 @@
   reduced-motion-gated entrance. Verified centered + scaling at 5 sizes (incl. landscape/320px),
   light + dark, with Escape / backdrop / Close all clearing state and the custom cursor returning
   on the next mouse move.
+
+## 2026-07-18 (4)
+- Fixed a regression from the paytable centering fix above: `.psl-dlg{display:flex}` was
+  unconditional, which overrides the browser's built-in `dialog:not([open]){display:none}` default
+  (author CSS always wins over the UA stylesheet) — so the dialog rendered open from page load
+  regardless of showModal()/close(), and nothing could close it since display:flex kept showing it
+  no matter what the `open` attribute said. Moved `display:flex` (and the position/margin/animation
+  that only matter while shown) under a `.psl-dlg[open]` selector, leaving only inert visual styling
+  (border, background, sizing) on the bare selector. Verified: hidden at load, Paytable button
+  opens + centers it, Close/Escape/backdrop all close it for real, reopens cleanly, centering and
+  scaling hold across 5 sizes and both themes, reduced-motion path unaffected.
