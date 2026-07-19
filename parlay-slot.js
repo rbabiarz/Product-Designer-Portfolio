@@ -256,9 +256,24 @@
     root.addEventListener('click', onAct);
     document.addEventListener('keydown', onKey);
     overlay.addEventListener('keydown', overlayKeys);
+    // the native <dialog> can also close via Escape — keep the modal-cursor
+    // state in sync however it closes, and let a backdrop click dismiss it
+    var d = dlg();
+    if (d) {
+      d.addEventListener('close', function () { document.documentElement.classList.remove('psl-modal-open'); });
+      d.addEventListener('click', function (e) { if (e.target === d) d.close(); }); // click outside the panel (on the backdrop)
+    }
     refresh();
     return true;
   }
+  function openPaytable() {
+    var d = dlg(); if (!d) return;
+    // the dialog renders in the browser top layer, above the custom cursor's
+    // own layer — hand the pointer back to the native cursor while it's open
+    document.documentElement.classList.add('psl-modal-open');
+    d.showModal();
+  }
+  function closePaytable() { var d = dlg(); if (d) d.close(); } // 'close' event clears the modal class
 
   /* ── UI helpers ────────────────────────────────────────────────────── */
   function refresh() {
@@ -564,8 +579,8 @@
       root.querySelector('.psl-notes').hidden = !S.notes;
       try { localStorage.setItem('psl-notes', S.notes ? '1' : '0'); } catch (er) {}
     }
-    else if (act === 'paytable') { dlg().showModal(); }
-    else if (act === 'close') { dlg().close(); }
+    else if (act === 'paytable') { openPaytable(); }
+    else if (act === 'close') { closePaytable(); }
     else if (act === 'ov-continue') { S.sinceCheck = 0; hideOverlay(); } // reality check ack
     /* 'ov-ack' (big win / free-spins intro) is handled by overlay.onclick */
     else if (act === 'ov-reset') {

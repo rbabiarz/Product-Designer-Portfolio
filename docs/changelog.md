@@ -96,3 +96,16 @@
   all three homepages, which all iframe the same `arctic-shield.html`. Verified end to end: real
   playthrough to game-over at 844×390, scroll reveals Retry, a real click fires it. The homepage
   on-page drills were checked and need no change (their overlay fits the 544px-min stage).
+
+## 2026-07-18 (3)
+- Fixed the Parlay Reels paytable modal. It's a native <dialog>, but the page's global *{margin:0}
+  reset killed the UA :modal `margin:auto`, so it pinned to the top-left corner instead of
+  centering; and because a modal <dialog> renders in the browser top layer (above the custom
+  cursor's own layer) while cursor.js hides the native cursor, there was no visible pointer over
+  it. Restored `margin:auto` (re-centers), made it a flex column with viewport-relative
+  `width:min(660px,100vw-32px)` / `max-height:min(88vh,760px)` so it scales with the screen and
+  the body scrolls, and while it's open hand the pointer back to the native cursor and hide the
+  stuck custom one (via a `psl-modal-open` class). Also added backdrop-click-to-close and a gentle
+  reduced-motion-gated entrance. Verified centered + scaling at 5 sizes (incl. landscape/320px),
+  light + dark, with Escape / backdrop / Close all clearing state and the custom cursor returning
+  on the next mouse move.

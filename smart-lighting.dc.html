@@ -73,6 +73,7 @@ body{margin:0}
 .sl-ip-phone::after,.sl-scale-phone::after{content:'';position:absolute;right:-2px;top:34%;width:2px;height:20%;border-radius:0 2px 2px 0;background:linear-gradient(180deg,#5c616a,#22262c);z-index:6;pointer-events:none}
 .sl-ip-screen,.sl-scale-phone .sl-scale-screen{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:198/429;line-height:0;font-size:0}
 .sl-ip-screen--auto,.sl-ip-screen--stack{aspect-ratio:auto;line-height:normal;font-size:initial}
+.sl-ip-screen--fixed{aspect-ratio:198/429;line-height:normal;font-size:initial;display:flex;flex-direction:column}
 .sl-ip-screen::before,.sl-scale-phone .sl-scale-screen::before{display:none}
 .sl-ip-screen img,.sl-scale-phone .sl-scale-screen img{width:100%;height:calc(100% + 3px);min-height:100%;display:block;object-fit:cover;object-position:top center;vertical-align:top}
 .sl-ip-screen::after,.sl-scale-phone .sl-scale-screen::after{display:none}
@@ -113,10 +114,6 @@ body{margin:0}
 .sl-research-phases .sl-phase-cell{padding:28px 22px;border-right:1px solid rgba(255,255,255,0.08)}
 .sl-research-phases .sl-phase-cell:last-child{border-right:none}
 #s-control .sl-control-phone-wrap{display:flex;width:100%;justify-content:center}
-@media (max-width:880px){
-  #s-control .sl-control-phone-wrap{justify-content:stretch}
-  #s-control .sl-control-phone-wrap .sl-ip-phone--lg{width:100%!important;max-width:100%!important;margin:0!important}
-}
 .sl-commission-highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:46px}
 .sl-outcomes-stats{display:grid;grid-template-columns:repeat(3,1fr);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:24px}
 .sl-outcomes-stats--spaced{margin-bottom:64px}
@@ -426,13 +423,13 @@ summary::-webkit-details-marker{display:none}
         <!-- LIVE ACCORDION -->
         <div class="sl-control-phone-wrap">
           <div class="sl-ip-phone sl-ip-phone--lg">
-            <div class="sl-ip-screen sl-ip-screen--auto">
+            <div class="sl-ip-screen sl-ip-screen--fixed">
               <div style="background:#2a2d42;padding:18px 18px 12px;display:flex;align-items:center;justify-content:space-between;">
                 <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7dd3c0;">≡</span><span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0.02em;">SWITCH HOME</span><span style="color:#9aa0bf;font-size:9px;">▾</span></div>
                 <div style="border:1px solid rgba(255,255,255,0.25);border-radius:7px;padding:5px 10px;font-size:10px;font-weight:600;color:#fff;position:relative;">DEVICES<span style="position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#e2483b;"></span></div>
               </div>
               <div style="padding:4px 14px 2px;"><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;">Areas</div></div>
-              <div style="padding:8px 12px 14px;display:flex;flex-direction:column;gap:8px;max-height:430px;overflow-y:auto;" class="sl-scroll">
+              <div style="padding:8px 12px 14px;display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;overflow-y:auto;" class="sl-scroll">
                 <sc-for list="{{ areas }}" as="a" hint-placeholder-count="5">
                   <div>
                     <div style="background:{{ a.rowBg }};border:1px solid {{ a.rowBorder }};border-radius:13px;display:flex;align-items:center;justify-content:space-between;padding:11px 13px;transition:background .2s;">

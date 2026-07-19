@@ -244,11 +244,23 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .psl-note strong{display:block;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;margin-bottom:6px}
 .psl-note.hit{border-color:var(--psl-ac);box-shadow:0 0 0 1px var(--psl-ac)}
 .psl-fallback{max-width:840px;margin:0 auto;padding:36px 24px;text-align:center;border:1px dashed rgba(255,255,255,.25);border-radius:20px;color:#aeb9c5;font-size:14px}
-.psl-dlg{border:none;border-radius:18px;padding:0;max-width:660px;width:calc(100% - 40px);max-height:84vh;background:var(--c-surface);color:var(--c-ink);box-shadow:0 40px 90px -30px rgba(0,0,0,.5)}
+/* the paytable is a native modal <dialog>. The browser centres :modal via inset:0 + margin:auto,
+   but this page's global *{margin:0} reset kills that auto margin — so it pins top-left. Restore
+   margin:auto to re-centre; width/height are viewport-relative so it scales with the screen. */
+.psl-dlg{position:fixed;inset:0;margin:auto;display:flex;flex-direction:column;border:none;border-radius:18px;padding:0;width:min(660px,calc(100vw - 32px));max-height:min(88vh,760px);background:var(--c-surface);color:var(--c-ink);box-shadow:0 40px 90px -30px rgba(0,0,0,.5)}
+.psl-dlg[open]{animation:pslDlgIn .18s ease}
+@keyframes pslDlgIn{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.psl-dlg[open]{animation:none}}
 .psl-dlg::backdrop{background:rgba(7,12,20,.62)}
+/* while the dialog (top layer, above the custom-cursor layer) is open, hide the stuck custom
+   cursor and hand the pointer back to the native one — otherwise there's no visible cursor. */
+html.psl-modal-open #rb-cur-dot,html.psl-modal-open #rb-cur-ring{opacity:0 !important}
+html.rb-cursor-on.psl-modal-open *{cursor:auto !important}
+html.rb-cursor-on.psl-modal-open .psl-dlg button{cursor:pointer !important}
 .psl-dlg-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--c-b2);font-family:'Inter',sans-serif;font-weight:700;color:var(--c-ink)}
 .psl-dlg .psl-tool{color:var(--c-ink2);background:var(--c-card);border-color:var(--c-b3)}
-.psl-dlg-b{padding:6px 20px 26px;overflow-y:auto;max-height:calc(84vh - 64px)}
+.psl-dlg-h{flex:0 0 auto}
+.psl-dlg-b{flex:1 1 auto;min-height:0;padding:6px 20px 26px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .psl-dlg-b h4{font-family:'Inter',sans-serif;font-size:13.5px;margin:22px 0 10px;color:var(--c-ink)}
 .psl-dim{font-size:8.5px;color:var(--c-muted);letter-spacing:.08em;font-weight:400}
 .psl-tbl{width:100%;border-collapse:collapse;font-size:12.5px}

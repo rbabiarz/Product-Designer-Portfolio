@@ -252,19 +252,19 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <h1 style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(24px,2.8vw,36px);letter-spacing:-0.03em;line-height:1;color:var(--fg);margin:0;">Browse the case studies</h1>
     </div>
     <div class="wk-modetoggle" role="tablist" aria-label="Carousel style">
-      <button class="wk-modebtn on" data-mode="flow" role="tab" aria-label="Coverflow view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="8" y="5" width="8" height="14" rx="1.5"/><path d="M5 8v8M19 8v8" stroke-linecap="round"/></svg><span class="wk-modelbl">Coverflow</span></button>
+      <button class="wk-modebtn" data-mode="flow" role="tab" aria-label="Coverflow view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="8" y="5" width="8" height="14" rx="1.5"/><path d="M5 8v8M19 8v8" stroke-linecap="round"/></svg><span class="wk-modelbl">Coverflow</span></button>
       <button class="wk-modebtn" data-mode="fan" role="tab" aria-label="Fan view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(16 12 18)"/><rect x="8.5" y="5.5" width="7.5" height="13" rx="1.4" transform="rotate(-16 12 18)"/></svg><span class="wk-modelbl">Fan</span></button>
       <button class="wk-modebtn" data-mode="index" role="tab" aria-label="Index view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h10M4 12h16M4 18h12" stroke-linecap="round"/></svg><span class="wk-modelbl">Index</span></button>
-            <button class="wk-modebtn" data-mode="lobby" role="tab" aria-label="Lobby view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="wk-modelbl">Lobby</span></button>
+            <button class="wk-modebtn on" data-mode="lobby" role="tab" aria-label="Lobby view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="wk-modelbl">Lobby</span></button>
     </div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--fg2);letter-spacing:0.04em;text-align:right;line-height:1.7;">
+    <div id="wk-hint" style="display:none;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--fg2);letter-spacing:0.04em;text-align:right;line-height:1.7;">
       <div>Drag · scroll · arrow keys</div>
       <div style="color:var(--fg3);">Click a side card to focus it</div>
     </div>
   </div>
 
   <!-- ═══ COVERFLOW STAGE ═══ -->
-  <div class="wk-stage" id="wk-stage" style="position:relative;z-index:1;flex:0 0 auto;min-height:0;height:clamp(340px,50vh,500px);perspective:1700px;perspective-origin:50% 46%;touch-action:pan-y;cursor:grab;margin-top:8px;">
+  <div class="wk-stage" id="wk-stage" style="display:none;position:relative;z-index:1;flex:0 0 auto;min-height:0;height:clamp(340px,50vh,500px);perspective:1700px;perspective-origin:50% 46%;touch-action:pan-y;cursor:grab;margin-top:8px;">
 
     <a class="wcard" data-i="0" href="dali-2-showcase.html">
       <img src="previews/thumb-dali.png?v=2" alt="DALI-2 Lighting System"/>
@@ -320,7 +320,7 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
   </div>
 
   <!-- ═══ DETAIL + CONTROLS ═══ -->
-  <div id="wk-carousel-ui" style="position:relative;z-index:3;padding:0 44px 30px;">
+  <div id="wk-carousel-ui" style="display:none;position:relative;z-index:3;padding:0 44px 30px;">
 
     <!-- controls -->
     <div style="max-width:760px;margin:0 auto 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
@@ -419,7 +419,7 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
   </div>
 
   <!-- ═══ LOBBY (consumer game-lobby presentation; built by buildLobby()) ═══ -->
-  <div id="wk-lobby" style="display:none;position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
+  <div id="wk-lobby" style="position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
     <div style="max-width:1200px;margin:0 auto;"></div>
   </div>
 
@@ -464,18 +464,16 @@ class Component extends DCLogic {
   _ev = [];
   active = 0;
   count = 10;
-  mode = 'flow';
+  mode = 'lobby';
 
   on(t, e, fn, o) { t.addEventListener(e, fn, o); this._ev.push([t, e, fn, o]); }
 
   componentDidMount() {
     this.applyTheme();
-    const restored = this.restoreOrigin();
+    this.restoreOrigin();
     setTimeout(() => {
       this.bind();
-      if (restored && restored.mode && restored.mode !== 'flow') this.setMode(restored.mode, true);
-      else this.layout(true);
-      this.saveOrigin();
+      this.setMode(this.mode, true); // paints whichever mode restoreOrigin left us in (default: lobby)
       try { this.initPoll(); } catch (e) {} // isolated: a poll failure can't break the carousel
     }, 60);
   }
@@ -583,6 +581,8 @@ class Component extends DCLogic {
     if (ui) ui.style.display = (isIndex || isLobby) ? 'none' : '';
     if (idx) idx.style.display = isIndex ? 'block' : 'none';
     if (lb) lb.style.display = isLobby ? 'block' : 'none';
+    const hint = document.getElementById('wk-hint');
+    if (hint) hint.style.display = (isIndex || isLobby) ? 'none' : '';
     if (isLobby) this.buildLobby();
     if (!isIndex && !isLobby) this.layout(true);
     this.saveOrigin();
