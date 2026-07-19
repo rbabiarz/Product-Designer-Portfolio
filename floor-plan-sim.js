@@ -29,6 +29,13 @@
   ];
   var IDS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   var DEFAULT_WALLS = { P1: false, P2: false, P3: false, P4: false, P5: false, P6: false, P7: false };
+  var PRESETS = {
+    split: Object.assign({}, DEFAULT_WALLS),
+    six: Object.assign({}, DEFAULT_WALLS, { P1: true, P6: true }),
+    four: Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P4: true, P6: true }),
+    two: Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P3: true, P5: true, P6: true, P7: true }),
+    grand: Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P3: true, P4: true, P5: true, P6: true, P7: true })
+  };
 
   var CSS =
     '[data-floor-sim]{width:100%}' +
@@ -38,8 +45,9 @@
     '.fpsim :focus-visible{outline:2px solid #9fe9d8;outline-offset:2px}' +
     '.fpsim-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}' +
     '.fpsim-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(191,231,223,0.72)}' +
-    '.fpsim-preset{padding:8px 15px;border-radius:999px;border:1px solid rgba(255,255,255,0.14);background:rgba(8,16,28,0.55);color:#e8edf5;font-size:12.5px;font-weight:600;transition:border-color .2s,background .2s}' +
-    '.fpsim-preset:hover{border-color:rgba(159,233,216,0.45);background:rgba(8,16,28,0.75)}' +
+    '.fpsim-preset{padding:8px 15px;border-radius:999px;border:1px solid rgba(255,255,255,0.14);background:rgba(8,16,28,0.55);color:#e8edf5;font-size:12.5px;font-weight:600;transition:border-color .2s,background .2s,color .2s}' +
+    '.fpsim-preset:not(.on):hover{border-color:rgba(159,233,216,0.45);background:rgba(8,16,28,0.75)}' +
+    '.fpsim-preset.on{background:#9fe9d8;border-color:#9fe9d8;color:#0b1016}' +
     '.fpsim-badge{display:flex;align-items:center;gap:9px;padding:8px 15px;background:rgba(95,196,168,0.14);border:1px solid rgba(95,196,168,0.32);border-radius:999px;margin-left:auto}' +
     '.fpsim-badge b{font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:500;color:#9fe9d8;line-height:1}' +
     '.fpsim-badge span{font-size:12px;color:#bfe7df;line-height:1.2}' +
@@ -97,13 +105,13 @@
 
     root.innerHTML =
       '<div class="fpsim">' +
-        '<div class="fpsim-toolbar">' +
+        '<div class="fpsim-toolbar" role="group" aria-label="Wall configuration presets">' +
           '<span class="fpsim-lbl">Presets</span>' +
-          '<button type="button" class="fpsim-preset" data-preset="split">8 Separate Rooms</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="six">6 Ballrooms</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="four">4 Ballrooms</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="two">2 Events</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="grand">1 Grand Ballroom</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="split" aria-pressed="false">8 Separate Rooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="six" aria-pressed="false">6 Ballrooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="four" aria-pressed="false">4 Ballrooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="two" aria-pressed="false">2 Events</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="grand" aria-pressed="false">1 Grand Ballroom</button>' +
           '<div class="fpsim-badge"><b data-zone-count>8</b><span>active<br>lighting zones</span></div>' +
         '</div>' +
         '<div class="fpsim-grid">' +
@@ -201,26 +209,21 @@
       zonesEl.innerHTML = zonesArr.map(function (z) {
         return '<div class="fpsim-zone" style="border-left-color:' + z.color + '"><div class="fpsim-zone-lbl" style="color:' + z.color + '">' + z.label + '</div><div class="fpsim-zone-dev">' + z.devices + ' dev</div></div>';
       }).join('');
+
+      Object.keys(PRESETS).forEach(function (key) {
+        var cfg = PRESETS[key];
+        var on = Object.keys(cfg).every(function (id) { return walls[id] === cfg[id]; });
+        var btn = root.querySelector('[data-preset="' + key + '"]');
+        btn.classList.toggle('on', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
     }
 
-    root.querySelector('[data-preset="split"]').addEventListener('click', function () { walls = Object.assign({}, DEFAULT_WALLS); render(); });
-    root.querySelector('[data-preset="six"]').addEventListener('click', function () {
-      // A+B and F+G merge: 6 zones
-      walls = Object.assign({}, DEFAULT_WALLS, { P1: true, P6: true });
-      render();
-    });
-    root.querySelector('[data-preset="four"]').addEventListener('click', function () {
-      // A+B+C, D+E, F+G, H: 4 zones
-      walls = Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P4: true, P6: true });
-      render();
-    });
-    root.querySelector('[data-preset="two"]').addEventListener('click', function () {
-      walls = Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P3: true, P5: true, P6: true, P7: true });
-      render();
-    });
-    root.querySelector('[data-preset="grand"]').addEventListener('click', function () {
-      walls = Object.assign({}, DEFAULT_WALLS, { P1: true, P2: true, P3: true, P4: true, P5: true, P6: true, P7: true });
-      render();
+    Object.keys(PRESETS).forEach(function (key) {
+      root.querySelector('[data-preset="' + key + '"]').addEventListener('click', function () {
+        walls = Object.assign({}, PRESETS[key]);
+        render();
+      });
     });
 
     render();

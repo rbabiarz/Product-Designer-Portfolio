@@ -140,6 +140,9 @@
 .wk-lb-badge{position:absolute;top:10px;left:10px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.09em;color:#f2f6fb;background:rgba(4,10,18,0.72);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:4px 9px;}
 .wk-lb-badge.new{background:var(--ac);border-color:var(--ac);color:var(--bg);right:10px;left:auto;}
 @media (prefers-reduced-motion:reduce){.wk-lb-tile,.wk-lb-play{transition:none;}.wk-lb-tile:hover{transform:none;}}
+/* the colophon (build record) mounts inside whichever container scrolls —
+   give it clear separation from the lobby tiles / index rows */
+#wk-lobby .rb-colophon,#wk-index .rb-colophon{margin-top:72px;}
 @media (max-width:640px){#wk-lobby{padding:14px 16px 48px !important;} .wk-lb-hero img{filter:blur(7px) saturate(1.15) brightness(0.75);transform:scale(1.08);} .wk-lb-hero .veil{background:linear-gradient(0deg,rgba(4,10,18,0.85) 0%,rgba(4,10,18,0.25) 60%),linear-gradient(90deg,rgba(4,10,18,0.92) 0%,rgba(4,10,18,0.7) 50%,rgba(4,10,18,0.3) 100%);}}
 /* narrow screens: the four-mode toggle collapses to icon-only buttons
    (each keeps its aria-label; 24px icons stay comfortably tappable) */
@@ -585,6 +588,14 @@ class Component extends DCLogic {
     if (hint) hint.style.display = (isIndex || isLobby) ? 'none' : '';
     if (isLobby) this.buildLobby();
     if (!isIndex && !isLobby) this.layout(true);
+    // the colophon mounts once, inside whichever container scrolled at load —
+    // carry it into the active scrollable mode so it never sits hidden
+    const colo = document.querySelector('.rb-colophon');
+    if (colo) {
+      if (isLobby && lb) lb.appendChild(colo);
+      else if (isIndex && idx) idx.appendChild(colo);
+      else if (colo.parentElement !== document.body) document.body.appendChild(colo);
+    }
     this.saveOrigin();
   }
 
