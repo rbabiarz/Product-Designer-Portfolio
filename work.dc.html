@@ -319,6 +319,11 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <div class="wc-veil"></div>
       <div class="wc-num">10</div>
     </a>
+    <a class="wcard" data-i="10" href="design-system-showcase.html">
+      <img src="previews/thumb-ds.png?v=2" alt="The Design System"/>
+      <div class="wc-veil"></div>
+      <div class="wc-num">11</div>
+    </a>
 
   </div>
 
@@ -341,6 +346,7 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
           <button class="wk-dot" data-d="7" aria-label="Go to 8"></button>
           <button class="wk-dot" data-d="8" aria-label="Go to 9"></button>
           <button class="wk-dot" data-d="9" aria-label="Go to 10"></button>
+          <button class="wk-dot" data-d="10" aria-label="Go to 11"></button>
         </div>
       </div>
       <button class="wk-arrow" onClick="{{ next }}" aria-label="Next"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></button>
@@ -411,6 +417,12 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       </div>
       <div class="wdetail" data-i="9">
         <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">iGaming</span><span class="wk-chip">Games &amp; Brand</span></div>
+      <div class="wdetail" data-i="10">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;"><span class="wk-chip">Design Engineering</span><span class="wk-chip">AI-Paired</span></div>
+        <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">The Design System</h2>
+        <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">This site, documenting itself: zero-build architecture, three-tier tokens, an AI-paired process gated by verification — with live instruments proving it.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">robertbabiarz.com · 2026</div>
+      </div>
         <h2 class="wk-title" style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(30px,4vw,48px);letter-spacing:-0.03em;line-height:1.02;color:var(--fg);margin-bottom:12px;">Parlay Games iGaming</h2>
         <p style="font-size:16px;line-height:1.55;color:var(--fg2);max-width:560px;margin-bottom:7px;">Two decades of real-money game design, brand systems, player sites, promotions, and operator tooling for the world leader in online bingo.</p>
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;">iGaming · 2000–2020</div>
@@ -439,6 +451,7 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <a class="wk-idx-row" data-i="7" data-img="previews/thumb-ctoc.png?v=2" href="ctoc-showcase.html"><span class="wk-idx-num">08</span><span class="wk-idx-title">CTOC Dashboard System</span><span class="wk-idx-meta">Enterprise Cyber · 13 Dashboards</span><span class="wk-idx-arrow">↗</span></a>
       <a class="wk-idx-row" data-i="8" data-img="previews/thumb-gims.png?v=2" href="aegis-gims-showcase.html"><span class="wk-idx-num">09</span><span class="wk-idx-title">AEGIS GIMS</span><span class="wk-idx-meta">Defence C2 · Geospatial</span><span class="wk-idx-arrow">↗</span></a>
       <a class="wk-idx-row" data-i="9" data-img="previews/thumb-parlay.png?v=2" href="parlay-gaming-showcase.html"><span class="wk-idx-num">10</span><span class="wk-idx-title">Parlay Games iGaming</span><span class="wk-idx-meta">iGaming · 50+ Games</span><span class="wk-idx-arrow">↗</span></a>
+      <a class="wk-idx-row" data-i="10" data-img="previews/thumb-ds.png?v=2" href="design-system-showcase.html"><span class="wk-idx-num">11</span><span class="wk-idx-title">The Design System</span><span class="wk-idx-meta">Design Engineering · AI-Paired</span><span class="wk-idx-arrow">↗</span></a>
     </div>
     <div id="wk-idx-reveal" style="position:fixed;top:0;left:0;width:340px;height:226px;border-radius:12px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 30px 70px rgba(0,0,0,0.5);pointer-events:none;opacity:0;z-index:60;transition:opacity .3s ease;will-change:transform;background:var(--bg3);"><img alt="" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"/></div>
   </div>
@@ -466,7 +479,7 @@ class Component extends DCLogic {
   state = { dark: (typeof localStorage !== 'undefined' && localStorage.getItem('rba-int-dark') === 'true'), menuOpen: false };
   _ev = [];
   active = 0;
-  count = 10;
+  count = 11;
   mode = 'lobby';
 
   on(t, e, fn, o) { t.addEventListener(e, fn, o); this._ev.push([t, e, fn, o]); }
@@ -567,7 +580,7 @@ class Component extends DCLogic {
       d.classList.toggle('on', Number(d.getAttribute('data-d')) === this.active);
     });
     const cta = document.getElementById('wk-cta');
-    const links = ['dali-2-showcase.html','core-insights-showcase.html','partitioning-showcase.html','enterprise-ai-showcase.html','smart-lighting-showcase.html','light-architect-showcase.html','goals-driven-fintech-showcase.html','ctoc-showcase.html','aegis-gims-showcase.html','parlay-gaming-showcase.html'];
+    const links = ['dali-2-showcase.html','core-insights-showcase.html','partitioning-showcase.html','enterprise-ai-showcase.html','smart-lighting-showcase.html','light-architect-showcase.html','goals-driven-fintech-showcase.html','ctoc-showcase.html','aegis-gims-showcase.html','parlay-gaming-showcase.html','design-system-showcase.html'];
     if (cta && links[this.active]) cta.setAttribute('href', links[this.active]);
   }
 
@@ -588,14 +601,6 @@ class Component extends DCLogic {
     if (hint) hint.style.display = (isIndex || isLobby) ? 'none' : '';
     if (isLobby) this.buildLobby();
     if (!isIndex && !isLobby) this.layout(true);
-    // the colophon mounts once, inside whichever container scrolled at load —
-    // carry it into the active scrollable mode so it never sits hidden
-    const colo = document.querySelector('.rb-colophon');
-    if (colo) {
-      if (isLobby && lb) lb.appendChild(colo);
-      else if (isIndex && idx) idx.appendChild(colo);
-      else if (colo.parentElement !== document.body) document.body.appendChild(colo);
-    }
     this.saveOrigin();
   }
 
@@ -608,8 +613,8 @@ class Component extends DCLogic {
     const wrap = document.querySelector('#wk-lobby > div');
     if (!wrap || wrap.dataset.built) { this.lobbyFeature(this._lbFeat || 0); return; }
     wrap.dataset.built = '1';
-    const CATS = { 0: 'iot', 1: 'iot', 2: 'iot', 3: 'ai', 4: 'iot', 5: 'iot', 6: 'fintech', 7: 'cyber', 8: 'ai', 9: 'gaming' };
-    const CATL = { iot: 'IoT & Lighting', ai: 'AI & Defence', cyber: 'Cyber', fintech: 'Fintech', gaming: 'iGaming' };
+    const CATS = { 0: 'iot', 1: 'iot', 2: 'iot', 3: 'ai', 4: 'iot', 5: 'iot', 6: 'fintech', 7: 'cyber', 8: 'ai', 9: 'gaming', 10: 'meta' };
+    const CATL = { iot: 'IoT & Lighting', ai: 'AI & Defence', cyber: 'Cyber', fintech: 'Fintech', gaming: 'iGaming', meta: 'Design Systems' };
     const rows = [...document.querySelectorAll('.wk-idx-row')];
     const items = rows.map((r) => {
       const i = Number(r.getAttribute('data-i'));

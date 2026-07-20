@@ -174,8 +174,13 @@ JS = """/* colophon.js — the site's build record, injected above the end of ev
     }
     /* App shells (the CTOC dashboard) hide document scroll entirely and pan a
        single internal region — mount at the end of that region's content. The
-       region may be JS-populated after load, so retry once before settling. */
-    if (se.scrollHeight <= se.clientHeight + 50) {
+       region may be JS-populated after load, so retry once before settling.
+       Gated to !host: work.dc.html ALSO reports scrollHeight==clientHeight (a
+       fixed-viewport shell with independently-scrolling mode panels), but its
+       body already carries the right tokens (host is set) — nesting inside
+       one internal panel there hid the colophon in every other view mode. A
+       page only needs this search when findHost() found nothing usable. */
+    if (!host && se.scrollHeight <= se.clientHeight + 50) {
       var best = null, bestH = 0, all = document.querySelectorAll('*');
       for (var j = 0; j < all.length; j++) {
         var st = getComputedStyle(all[j]);
@@ -184,7 +189,24 @@ JS = """/* colophon.js — the site's build record, injected above the end of ev
           best = all[j]; bestH = all[j].clientHeight;
         }
       }
-      if (best) { best.appendChild(el); return; }
+      if (best) {
+        best.appendChild(el);
+        /* findHost() and this search can both run before support.js has
+           injected the page's <helmet> tokens into <head> — on work.dc.html
+           that race resolves within a few ms (host really was null when this
+           ran), landing the colophon inside whichever mode panel happened to
+           be built first, hidden the moment the visitor switches views. One
+           re-check shortly after is enough to relocate to body once the real
+           tokens are live; pages with no body tokens at all (the genuine
+           app-shell case) find nothing here and keep their nested mount. */
+        setTimeout(function () {
+          var s2 = getComputedStyle(document.body);
+          if ((s2.getPropertyValue('--c-bg') || s2.getPropertyValue('--bg')).trim() && el.parentElement !== document.body) {
+            document.body.appendChild(el);
+          }
+        }, 250);
+        return;
+      }
       if (!mount._retried) {
         mount._retried = 1;
         setTimeout(function () { mount(host); }, 1500);

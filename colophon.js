@@ -11,7 +11,7 @@
      as iframes inside the homepage and CTOC case study — the host page
      already carries the colophon. */
   try { if (window.top !== window.self) return; } catch (e) { return; }
-  var DATA = {"est": "Jun 22, 2026", "deploys": 106, "lastDeploy": "2026-07-18", "lastDeployFmt": "Jul 18, 2026", "version": "v1.10.111", "updated": "Jul 18, 2026", "pages": 27, "loc": "75,000", "caseStudies": 10};
+  var DATA = {"est": "Jun 22, 2026", "deploys": 108, "lastDeploy": "2026-07-18", "lastDeployFmt": "Jul 18, 2026", "version": "v1.11.113", "updated": "Jul 19, 2026", "pages": 29, "loc": "76,000", "caseStudies": 11};
   /* Mount inside the page's token scope purely for DOM placement (so it lands
      in natural document flow, not free-floating outside a themed wrapper).
      Case-study pages scope layout to .cs; pages with :root tokens (homepages,
@@ -93,8 +93,13 @@
     }
     /* App shells (the CTOC dashboard) hide document scroll entirely and pan a
        single internal region — mount at the end of that region's content. The
-       region may be JS-populated after load, so retry once before settling. */
-    if (se.scrollHeight <= se.clientHeight + 50) {
+       region may be JS-populated after load, so retry once before settling.
+       Gated to !host: work.dc.html ALSO reports scrollHeight==clientHeight (a
+       fixed-viewport shell with independently-scrolling mode panels), but its
+       body already carries the right tokens (host is set) — nesting inside
+       one internal panel there hid the colophon in every other view mode. A
+       page only needs this search when findHost() found nothing usable. */
+    if (!host && se.scrollHeight <= se.clientHeight + 50) {
       var best = null, bestH = 0, all = document.querySelectorAll('*');
       for (var j = 0; j < all.length; j++) {
         var st = getComputedStyle(all[j]);
@@ -103,7 +108,24 @@
           best = all[j]; bestH = all[j].clientHeight;
         }
       }
-      if (best) { best.appendChild(el); return; }
+      if (best) {
+        best.appendChild(el);
+        /* findHost() and this search can both run before support.js has
+           injected the page's <helmet> tokens into <head> — on work.dc.html
+           that race resolves within a few ms (host really was null when this
+           ran), landing the colophon inside whichever mode panel happened to
+           be built first, hidden the moment the visitor switches views. One
+           re-check shortly after is enough to relocate to body once the real
+           tokens are live; pages with no body tokens at all (the genuine
+           app-shell case) find nothing here and keep their nested mount. */
+        setTimeout(function () {
+          var s2 = getComputedStyle(document.body);
+          if ((s2.getPropertyValue('--c-bg') || s2.getPropertyValue('--bg')).trim() && el.parentElement !== document.body) {
+            document.body.appendChild(el);
+          }
+        }, 250);
+        return;
+      }
       if (!mount._retried) {
         mount._retried = 1;
         setTimeout(function () { mount(host); }, 1500);

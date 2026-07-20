@@ -57,6 +57,18 @@ body{background:#05070c;padding:24px;display:flex;flex-direction:column;gap:24px
 .ln{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;
   border:1.5px solid color-mix(in srgb,var(--ac) 42%,#39455a);background:#0a0f18}
 .ln.on{background:var(--ac);border-color:var(--ac);box-shadow:0 0 13px var(--ac),0 0 26px color-mix(in srgb,var(--ac) 42%,transparent)}
+/* ---------- TOKEN SPEC SHEET (DESIGN SYSTEM) ---------- */
+.ss{position:absolute;top:104px;right:80px;width:470px;transform:rotate(-9deg) skewX(-4deg);
+  display:flex;flex-direction:column;gap:17px;filter:drop-shadow(0 26px 54px rgba(0,0,0,.55))}
+.ss .row{display:flex;align-items:center;gap:16px;background:#0b111c;border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:13px 18px;font-family:'JetBrains Mono',monospace}
+.ss .row.focus{outline:3px solid var(--ac);outline-offset:3px}
+.ss .sw{width:30px;height:30px;border-radius:7px;flex:0 0 auto;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.ss .vn{font-size:17px;letter-spacing:.02em;color:#dfe7f2;flex:1}
+.ss .hx{font-size:15px;letter-spacing:.06em;color:#8fa0b8}
+.sstag{position:absolute;top:472px;right:128px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.12em;
+  text-transform:uppercase;color:#c8d4e4;display:flex;align-items:center;gap:10px;transform:rotate(-9deg) skewX(-4deg)}
+.sstag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac)}
 /* ---------- BINGO CARD (PARLAY) ---------- */
 .bng{position:absolute;top:88px;right:92px;width:400px;height:400px;transform:rotate(-14deg) skewX(-6deg);
   display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);gap:9px;
@@ -162,6 +174,7 @@ const TILES=[
  {i:'08',key:'ctoc',ac:'#7dd3c0',domain:'Enterprise Cyber Ops',title:'CTOC Dashboard System',org:'13 interlocking dashboards',motif:'radar'},
  {i:'09',key:'gims',ac:'#ff9d66',domain:'Defence C2 · Geospatial',title:'AEGIS GIMS',org:'Filter-first common operating picture',motif:'recon'},
  {i:'10',key:'parlay',ac:'#b78aff',domain:'iGaming · Regulated',title:'Parlay Games iGaming',org:'50+ games · brand · web · promos',motif:'bingo'},
+ {i:'11',key:'ds',ac:'#e9eef7',domain:'Design Engineering · AI-Paired',title:'The Design System',org:'This site, documenting itself',motif:'specsheet'},
 ];
 function heatplate(){ // deterministic occupancy heat
  let cells='';const hot=new Set([15,16,27,28,29,39,40,52,53,64]);
@@ -213,7 +226,10 @@ function footgrid(){ // deterministic footcandle grid: 3 luminaires, inverse-squ
  let d='';pos.forEach(([x,y])=>d+=`<div class="fx" style="left:${x}%;top:${y}%"></div>`);
  d+=`<div class="iso" style="left:${pos[1][0]}%;top:${pos[1][1]}%"></div>`;
  return `<div class="fg">${cells}${d}</div><div class="fgtag">AVG 2.1 FC · MAX:MIN 4.8:1</div>`;}
-const M={heatplate,bus,phone,gauge,radar,recon,neural,partition,bingo,footgrid};
+function specsheet(){ // the system's own tokens as a spec sheet; one row carries the focus ring
+ const T=[['#070b12','--bg','#070B12'],['#7dd3c0','--ac2','#7DD3C0',1],['#e9eef7','--fg','#E9EEF7'],['#e64d3c','--coral','#E64D3C'],['#4ca88f','--ac','#4CA88F']];
+ return `<div class="ss">${T.map(([c,n,h,f])=>`<div class="row${f?' focus':''}"><span class="sw" style="background:${c}"></span><span class="vn">${n}</span><span class="hx">${h}</span></div>`).join('')}</div><div class="sstag">2 THEMES · 0 HARDCODED VALUES</div>`;}
+const M={heatplate,bus,phone,gauge,radar,recon,neural,partition,bingo,footgrid,specsheet};
 document.getElementById('stage').innerHTML=TILES.map(t=>`
  <div>
  <div class="cap">${t.key} · previews/p-${t.key}.png · 1200×800</div>

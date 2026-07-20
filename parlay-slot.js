@@ -169,7 +169,7 @@
     root.insertAdjacentHTML('beforeend',
       '<div class="psl-cab">' +
         '<div class="psl-head">' +
-          '<div class="psl-logo">PARLAY <em>REELS</em><span class="psl-demo">DEMO · NO REAL MONEY</span></div>' +
+          '<div class="psl-logo">SLOT <em>REELS</em><span class="psl-demo">DEMO · NO REAL MONEY</span></div>' +
           '<div class="psl-chips mono"><span>RTP 96.04%</span><span>MED VOLATILITY</span><span>5 LINES</span></div>' +
           '<div class="psl-tools">' +
             '<button type="button" class="psl-tool" data-act="paytable" aria-haspopup="dialog">Paytable</button>' +

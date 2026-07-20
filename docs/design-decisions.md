@@ -112,3 +112,25 @@ Append-only record of meaningful choices. Newest at top.
 - **Consequences:** Every case list is now 10 deep; the CORE/Enterprise-AI pages keep canonical
   ownership of the "5,000 IES searchable / 20 auto-placed in CORE" framing (this case cross-links
   instead of restating); adds ~24 optimized images to assets/la/ and a lime `footgrid` tile motif.
+
+## ADR-011 — The portfolio documents itself as case study #11 (2026-07-19)
+
+**Decision.** Add "The Design System" as the final case study: the site's own token architecture,
+zero-build stack, AI-paired process, and verification culture, presented on the same two-page
+shell as every product case study — with live instruments instead of screenshots wherever the
+subject allows (a token inspector reading the page's computed properties; an in-browser
+re-derivation of the slot RTP).
+
+**Why.** Three standing problems — assertion vs proof, doc drift, AI slop — have one structural
+answer: make the portfolio a product and let it document itself. A meta case study also gives the
+process work (machine-readable brief, Playwright gating, adversarial review) a home that isn't a
+footnote in someone else's story.
+
+**Alternatives considered.** A `/colophon` standalone page (rejected: buries the argument outside
+the case-study spine); a blog-style write-up (rejected: asserts rather than runs); folding it into
+About (rejected: About is biography, not evidence).
+
+**Consequences.** Appended last, so no renumbering of 01–10; the work-index count clamp, homepage
+counters, 26 switcher menus, concierge intents, and footer chain all gained an 11th entry — the
+hand-maintained-count risk this ADR's own case study names as "what I'd push further." The
+colophon's version minor now tracks 11 case studies automatically.

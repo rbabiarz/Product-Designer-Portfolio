@@ -26,6 +26,7 @@ PAGES = {
     'ctoc-case-study.dc.html': 'CTOC case study',
     'enterprise-ai.dc.html': 'Enterprise AI case study',
     'partitioning.dc.html': 'Partitioning case study',
+    'design-system.html': 'The Design System case study',
 }
 
 STOP = set('the a an and or of to in on for with is are was were be been it its this that these those you your i we our as at by from not no yes if then than so but into over under out up down off across per each every all any some more most other same own just only also very can will would should could there here what which who when where how'.split())

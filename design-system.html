@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="page-transition.js"></script>
+<title>The Design System, This Site Documenting Itself · Robert Babiarz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,bolt,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,grid_view,info,light_mode,mail,menu,open_in_new,picture_as_pdf,play_arrow,refresh,remove,restore,search,star,view_list&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="case-shot.css">
+<style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
+img[src^="assets/ds/"]{height:auto}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0}
+.cs{
+  --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-body:#534f48;--c-muted:#6e6a60;--c-muted2:#9a9486;
+  --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;
+  --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
+  --c-navbg:rgba(255,252,245,0.84);
+}
+.cs.dark{
+  --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
+  --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;
+  --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
+  --c-navbg:rgba(11,16,22,0.82);
+  color-scheme:dark;
+}
+.cs{background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;overflow-x:clip}
+::selection{background:#0d5350;color:#fff}
+.mono{font-family:'JetBrains Mono',monospace}
+.cs a:focus-visible,.cs button:focus-visible,.cs summary:focus-visible,.cs select:focus-visible,.cs input:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:-0.02em;line-height:1.06}
+.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--c-accent)}
+@keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+[data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}.hero-float{animation:none!important}}
+
+/* sections + side toc */
+.cs section[id]{scroll-margin-top:80px}
+.toc{position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:11px;align-items:flex-end}
+.toc a{display:flex;align-items:center;gap:10px;text-decoration:none;justify-content:flex-end}
+.toc .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s,color .2s}
+.toc:hover .lbl{opacity:1;transform:none}
+.toc .dot{width:9px;height:2px;border-radius:2px;background:var(--c-b5);display:block;transition:all .25s}
+.toc a[data-on] .lbl{opacity:1;color:var(--c-accent)}
+.toc a[data-on] .dot{background:var(--c-accent);width:22px}
+@media (max-width:1180px){.toc{display:none}}
+
+.wrap{max-width:1240px;margin:0 auto}
+.pad{padding:92px 40px}
+.lead{font-size:clamp(16px,1.5vw,17.5px);color:var(--c-body);line-height:1.75}
+.sec-h{font-size:clamp(30px,4vw,50px);letter-spacing:-1.3px;color:var(--c-ink)}
+.card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
+
+/* hero */
+.hero-sec{position:relative;overflow:hidden;padding:74px 40px 86px}
+.hero-blob{position:absolute;border-radius:50%;pointer-events:none}
+.hero-blob-a{top:-140px;right:-90px;width:540px;height:540px;background:radial-gradient(circle,rgba(200,240,108,.10),transparent 68%)}
+.hero-blob-b{bottom:-80px;left:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(15,42,74,.08),transparent 70%)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;position:relative}
+.hero-title{font-size:clamp(34px,4.9vw,68px);line-height:1.02;letter-spacing:-2.2px;overflow-wrap:break-word}
+.hero-title em{display:block;margin-top:.14em;font-size:clamp(24px,4.2vw,42px);letter-spacing:-.04em;line-height:1.08}
+.hero-lead{font-size:clamp(17px,1.6vw,20px);max-width:500px;margin-top:26px}
+.hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:38px;width:100%;max-width:520px}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
+nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand:hover{color:var(--c-ink)}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
+.iconbtn:hover{background:var(--c-card)}
+.cs-switch{position:relative}
+.cs-switch summary{list-style:none;display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface)}
+.cs-switch summary::-webkit-details-marker{display:none}
+.cs-switch .cs-chev{transition:transform .2s}
+.cs-switch[open] .cs-chev{transform:rotate(180deg)}
+.cs-sheet a:hover{background:var(--c-bg2)}
+
+/* stat strip */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--c-navy);border-radius:18px;overflow:hidden}
+.stat-strip>div{padding:34px 26px;border-right:1px solid rgba(255,255,255,.08)}
+.stat-strip>div:last-child{border-right:none}
+.stat-n{font-family:'Inter',sans-serif;font-size:40px;font-weight:600;color:#5fc4b6;letter-spacing:-1px;line-height:1}
+.stat-l{font-size:13.5px;color:#cdd6e0;margin-top:9px;line-height:1.5}
+.stat-k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#7d93a8;letter-spacing:0.08em;margin-top:11px}
+.sv{margin-top:14px}
+.sv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:#7d93a8;display:flex;justify-content:space-between;gap:8px;margin:7px 0 4px}
+.sv-track{position:relative;height:8px;border-radius:4px;background:rgba(255,255,255,0.07)}
+.sv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a9ab5}
+.sv-fill.on{background:#5fc4b6}
+.sv-dots{display:flex;gap:4px;align-items:center;min-height:8px;flex-wrap:wrap}
+.sv-dot{width:8px;height:8px;border-radius:50%;background:#5fc4b6;flex:0 0 auto}
+.sv-dot.dim{background:#8a9ab5;opacity:.62}
+.sv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:#7d93a8;margin-top:8px;line-height:1.5}
+
+/* mobile menu */
+.burger{display:none;width:40px;height:40px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{width:18px;height:2px;background:var(--c-accent);border-radius:2px;transition:transform .3s,opacity .2s}
+.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .burger span:nth-child(2){opacity:0}
+.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#mob{position:fixed;inset:0;z-index:75;background:var(--c-bg);display:flex;flex-direction:column;padding:84px 26px 36px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .3s,visibility .3s;pointer-events:none}
+.menu-open #mob{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+#mob a{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--c-ink);text-decoration:none;padding:13px 2px;border-bottom:1px solid var(--c-b2)}
+#mob a .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c-muted)}
+
+@media (max-width:980px){
+  nav.top .bar{padding:0 18px}
+  .pad{padding:60px 18px}
+  .hero-sec{padding:52px 18px 44px}
+  .hero-blob-a{width:300px;height:300px;top:-70px;right:-50px}
+  .hero-blob-b{width:220px;height:220px;left:-40px}
+  .hero-grid{grid-template-columns:1fr!important;gap:40px!important}
+  .hero-meta{max-width:none}
+  .hero-lead{max-width:none}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr!important}
+  .hero-float{display:none!important}
+  .stat-strip{grid-template-columns:1fr 1fr}
+}
+@media (min-width:981px){.burger{display:none}#mob{display:none}}
+@media (max-width:980px){.burger{display:flex}}
+@media (max-width:560px){
+  .cs h1:not(.hero-title){font-size:40px!important;letter-spacing:-1.6px!important}
+  .hero-sec{padding:40px 16px 36px}
+  .hero-sec .hero-title{font-size:clamp(28px,8.5vw,38px)!important;letter-spacing:-1.35px!important;line-height:1.04!important}
+  .hero-sec .hero-title em{font-size:clamp(20px,6.2vw,28px);margin-top:.18em}
+  .hero-meta{grid-template-columns:1fr 1fr;gap:14px 16px}
+  .stat-strip{grid-template-columns:1fr}
+}
+@media (max-width:400px){
+  .hero-meta{grid-template-columns:1fr}
+}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.shot{border-radius:0;overflow:hidden;border:1px solid var(--c-b3);box-shadow:var(--cs-shot-shadow);background:#0e1622}
+.shot img{width:100%;display:block}
+.shot-cap{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c-muted);letter-spacing:.06em;margin-top:10px;text-align:center;text-transform:uppercase}
+/* AR-era phone render trio */
+.phone-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:860px;margin:0 auto}
+.phone-trio figure{margin:0}
+.phone-trio img{width:100%;display:block;border-radius:22px;border:1px solid var(--c-b3)}
+.phone-trio figcaption{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted);text-align:center;margin-top:12px}
+@media (max-width:980px){
+  .phone-trio{grid-template-columns:1fr;max-width:min(260px,68vw);gap:28px}
+}
+
+/* optic-rule table */
+.optic-table{width:100%;border-collapse:collapse;font-size:14px}
+.optic-table th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--c-b3)}
+.optic-table td{padding:13px 14px;border-bottom:1px solid var(--c-b2);color:var(--c-body);line-height:1.55;vertical-align:top}
+.optic-table td:first-child{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--c-accent);white-space:nowrap}
+.tbl-scroll{overflow-x:auto;border:1px solid var(--c-b2);border-radius:14px;background:var(--c-surface)}
+
+/* ═══ ds-live widget styles (the two live instruments) ═══ */
+.dss-card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px;padding:24px 26px}
+.dss-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.dss-title{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:var(--c-ink2);letter-spacing:-.01em}
+.dss-mode{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-accent)}
+.dss-tokens{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:860px){.dss-tokens{grid-template-columns:1fr}}
+.dss-tk{display:flex;align-items:center;gap:12px;background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:10px;padding:10px 13px;font-family:'JetBrains Mono',monospace}
+.dss-sw{width:24px;height:24px;border-radius:6px;flex:0 0 auto;box-shadow:inset 0 0 0 1px var(--c-b3)}
+.dss-tn{font-size:12px;color:var(--c-ink2);font-weight:600;flex:0 0 auto}
+.dss-tr{font-size:10px;color:var(--c-muted);letter-spacing:.04em;text-transform:uppercase;flex:1}
+.dss-tv{font-size:11px;color:var(--c-muted);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46%}
+.dss-note{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--c-muted);margin-top:14px;line-height:1.7;text-transform:uppercase}
+.dss-btn{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--c-accent);border:none;border-radius:999px;padding:13px 24px;min-height:44px;cursor:pointer;transition:transform .15s}
+.dss-btn:hover{transform:translateY(-1px)}
+.dss-btn:focus-visible{outline:2px solid var(--c-accent);outline-offset:3px}
+.cs.dark .dss-btn{color:#06201d}
+.dss-rtp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+@media (max-width:720px){.dss-rtp-grid{grid-template-columns:1fr}}
+.dss-rc{background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:12px;padding:14px 16px}
+.dss-rc.dss-bad{border-color:#b0604f}.cs.dark .dss-rc.dss-bad{border-color:#e0907e}
+.dss-rc.dss-good{border-color:var(--c-accent);box-shadow:0 0 0 1px var(--c-accent)}
+.dss-rk{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-bottom:7px}
+.dss-rv{font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:700;color:var(--c-ink2)}
+.dss-bad .dss-rv{color:#b0604f}.cs.dark .dss-bad .dss-rv{color:#e0907e}
+.dss-good .dss-rv{color:var(--c-accent)}
+.dss-rn{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.05em;color:var(--c-muted);margin-top:7px;line-height:1.5;text-transform:uppercase}
+.dss-rtp-note{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--c-muted);margin-top:14px;line-height:1.7;text-transform:uppercase}
+.dss-code{font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.75;color:var(--c-ink2);background:var(--c-bg2);border:1px solid var(--c-b2);border-radius:12px;padding:16px 18px;overflow-x:auto;white-space:pre}
+.dss-code b{color:var(--c-accent);font-weight:600}
+.spec-live{display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:var(--c-bg2);border:1px dashed var(--c-b4);border-radius:14px;padding:20px 22px}
+.spec-live .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);width:100%}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill a:hover{color:var(--c-ink)}
+.verpill a.on{background:var(--c-accent);color:#fff}
+.verpill a.vdemo{width:38px;height:38px;padding:0;display:inline-flex;align-items:center;justify-content:center;color:var(--c-accent)}
+.verpill a.vdemo:hover{background:var(--c-card);color:var(--c-accent)}
+.cs.dark .verpill a.on{color:#06201d}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+</style>
+
+  <!-- SEO·OG·JSONLD -->
+  <meta name="description" content="Deep dive: the site documenting itself. A zero-build portfolio of 29 self-contained pages on a three-tier token system, built with an AI pair against a machine-readable brief, verified with Playwright, honest about every number — with two live instruments: a token inspector reading this very page, and an in-browser re-derivation of the slot's exact RTP.">
+  <meta name="author" content="Robert Babiarz">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://robertbabiarz.com/design-system.html">
+  <meta name="theme-color" content="#070b12">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Robert Babiarz — Product Designer">
+  <meta property="og:title" content="The Design System, This Site Documenting Itself · Robert Babiarz">
+  <meta property="og:description" content="Deep dive: the site documenting itself — zero-build architecture, three-tier tokens, an AI-paired process gated by verification, and two live instruments proving it.">
+  <meta property="og:url" content="https://robertbabiarz.com/design-system.html">
+  <meta property="og:image" content="https://robertbabiarz.com/previews/p-ds.png">
+  <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Design System, This Site Documenting Itself · Robert Babiarz">
+  <meta name="twitter:description" content="Deep dive: the site documenting itself — zero-build architecture, three-tier tokens, an AI-paired process gated by verification, and two live instruments proving it.">
+  <meta name="twitter:image" content="https://robertbabiarz.com/previews/p-ds.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"The Design System, This Site Documenting Itself · Robert Babiarz","headline":"The Design System, This Site Documenting Itself · Robert Babiarz","description":"The site documenting itself: zero-build architecture, three-tier design tokens, an AI-paired build process gated by Playwright verification, and live in-page instruments.","url":"https://robertbabiarz.com/design-system.html","image":"https://robertbabiarz.com/previews/p-ds.png","author":{"@type":"Person","name":"Robert Babiarz","url":"https://robertbabiarz.com/"},"creator":{"@type":"Person","name":"Robert Babiarz"},"inLanguage":"en","keywords":"Product Design, Design Engineering, Design Systems, Design Tokens, AI-Assisted Design, Accessibility, WCAG 2.2, Zero Build, UX Process","isPartOf":{"@type":"WebSite","name":"Robert Babiarz — Product Designer Portfolio","url":"https://robertbabiarz.com/"}}</script>
+  <script src="/analytics.js" defer></script>
+  <script src="cursor.js" defer></script>
+<script src="cookie-banner.js" defer></script>
+<script src="colophon.js" defer></script>
+<script src="search-index.js" defer></script>
+<script src="concierge.js" defer></script>
+<script src="case-back.js" defer></script>
+<script src="ds-live.js" defer></script>
+</head>
+<body>
+<div class="cs" id="top">
+
+  <!-- NAV -->
+  <nav class="top">
+    <div class="bar">
+      <a class="brand" href="homepage-interactive.dc.html" data-nav="back">
+        <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>
+        Robert Babiarz
+      </a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
+        <details class="cs-switch">
+          <summary>
+            <span class="mono" style="font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase">Case study</span>
+            <span style="font-size:13px;font-weight:600;color:var(--c-accent)">The Design System</span>
+            <span class="msi cs-chev" aria-hidden="true" style="font-size:24px;color:var(--c-muted);">expand_more</span>
+          </summary>
+          <div class="cs-sheet" style="position:absolute;top:calc(100% + 8px);right:0;min-width:268px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 11px 27px -10px rgba(20,30,40,0.26);padding:7px;z-index:300">
+            <a href="dali-2-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">DALI-2 Lighting System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Commissioning at hospital scale</div></a>
+            <a href="core-insights-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Insights Dashboards</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Operational intelligence · IoT</div></a>
+            <a href="partitioning-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Dynamic Space Partitioning</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Spaces that change shape · WaveLinx</div></a>
+            <a href="enterprise-ai-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Enterprise AI</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Conversational · explainable · predictive</div></a>
+            <a href="smart-lighting-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Smart Lighting Mobile App</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Consumer IoT · enterprise depth</div></a>
+            <a href="light-architect-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;" style-hover="background:var(--c-card)"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Light ARchitect</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">AI photometric design · 3 US patents</div></a>
+            <a href="goals-driven-fintech-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Goals-Driven Fintech</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Self-directed fintech</div></a>
+            <a href="ctoc-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">CTOC Dashboard System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Enterprise cyber · 13 dashboards</div></a>
+            <a href="aegis-gims-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">AEGIS GIMS</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">Filter-first geospatial C2</div></a>
+            <a href="parlay-gaming-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;"><div style="font-size:14px;font-weight:600;color:var(--c-ink2);">Parlay Games iGaming</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">50+ games · brand · web · promos</div></a>
+            <a href="design-system-showcase.html" style="display:block;padding:10px 12px;border-radius:8px;text-decoration:none;background:var(--c-card);"><div style="font-size:14px;font-weight:600;color:var(--c-accent);">The Design System</div><div style="font-size:12px;color:var(--c-muted);margin-top:2px;">This site, documenting itself</div></a>
+            <div style="height:1px;background:var(--c-b2);margin:6px 4px"></div>
+            <a href="homepage-interactive.dc.html" data-nav="back" style="display:block;padding:9px 12px;border-radius:8px;text-decoration:none;font-size:13px;color:var(--c-muted)">← All work</a>
+          </div>
+        </details>
+        <button class="burger" id="burger" aria-label="Menu" aria-controls="mob" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mob">
+    <div class="mono" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted);margin-bottom:6px">Sections</div>
+    <a href="#overview" data-m=""><span>Overview</span><span class="n">01</span></a>
+    <a href="#problem" data-m=""><span>The Problem</span><span class="n">02</span></a>
+    <a href="#architecture" data-m=""><span>Zero-Build Architecture</span><span class="n">03</span></a>
+    <a href="#tokens" data-m=""><span>Live It &middot; Tokens</span><span class="n">04</span></a>
+    <a href="#type" data-m=""><span>Typography</span><span class="n">05</span></a>
+    <a href="#principles" data-m=""><span>Seven Principles</span><span class="n">06</span></a>
+    <a href="#components" data-m=""><span>The Shell</span><span class="n">07</span></a>
+    <a href="#process" data-m=""><span>The AI Pair</span><span class="n">08</span></a>
+    <a href="#verification" data-m=""><span>Live It &middot; Receipts</span><span class="n">09</span></a>
+    <a href="#buildrecord" data-m=""><span>The Build Record</span><span class="n">10</span></a>
+    <a href="#trends" data-m=""><span>Where It's Going</span><span class="n">11</span></a>
+    <a href="#outcomes" data-m=""><span>Outcomes</span><span class="n">12</span></a>
+  </div>
+
+  <!-- SIDE TOC -->
+  <nav class="toc" aria-label="Sections">
+    <a href="#overview" data-toc="overview"><span class="lbl">Overview</span><span class="dot"></span></a>
+    <a href="#problem" data-toc="problem"><span class="lbl">The problem</span><span class="dot"></span></a>
+    <a href="#architecture" data-toc="architecture"><span class="lbl">Architecture</span><span class="dot"></span></a>
+    <a href="#tokens" data-toc="tokens"><span class="lbl">Tokens, live</span><span class="dot"></span></a>
+    <a href="#type" data-toc="type"><span class="lbl">Typography</span><span class="dot"></span></a>
+    <a href="#principles" data-toc="principles"><span class="lbl">Principles</span><span class="dot"></span></a>
+    <a href="#components" data-toc="components"><span class="lbl">The shell</span><span class="dot"></span></a>
+    <a href="#process" data-toc="process"><span class="lbl">The AI pair</span><span class="dot"></span></a>
+    <a href="#verification" data-toc="verification"><span class="lbl">Receipts, live</span><span class="dot"></span></a>
+    <a href="#buildrecord" data-toc="buildrecord"><span class="lbl">Build record</span><span class="dot"></span></a>
+    <a href="#trends" data-toc="trends"><span class="lbl">Where it's going</span><span class="dot"></span></a>
+    <a href="#outcomes" data-toc="outcomes"><span class="lbl">Outcomes</span><span class="dot"></span></a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-sec">
+    <div class="hero-blob hero-blob-a"></div>
+    <div class="hero-blob hero-blob-b"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <h1 class="hero-title" data-reveal="">The Design System <br><em>this site, documenting itself</em></h1>
+        <p class="lead hero-lead" data-reveal="">Ten case studies argue that working software beats slideware. This eleventh one turns the argument on the site itself: the token architecture it renders from, the zero-build stack it ships on, the AI-paired process that built it, and the verification culture that gates every change. Two of its exhibits run live on this page.</p>
+        <div class="hero-meta" data-reveal="">
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Role</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Designer &amp; design engineer — solo, AI-paired</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Stack</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">Zero-build HTML · CSS · JS · React CDN ×3 pages</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Scale</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">29 pages · ~76,000 lines · 11 case studies</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Accessibility</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">WCAG 2.2 AA / AODA target · standing audit</div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">Source</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)"><a href="https://github.com/rbabiarz/Product-Designer-Portfolio" target="_blank" rel="noopener" style="color:var(--c-accent);text-decoration:none">Open on GitHub <span class="msi" aria-hidden="true" style="font-size:14px;">arrow_outward</span></a></div></div>
+          <div><div class="mono" style="font-size:10px;letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;margin-bottom:6px">In this page</div><div style="font-size:14.5px;font-weight:600;color:var(--c-ink2)">2 live instruments</div></div>
+        </div>
+      </div>
+      <div class="hero-float" data-reveal="" style="display:flex;justify-content:center">
+        <div class="hero-float" style="animation:cs-float 6s ease-in-out infinite">
+          <div class="shot" style="box-shadow:var(--cs-shot-shadow-hero)">
+            <img width="1600" height="1000" fetchpriority="high" decoding="async" src="assets/ds/work-lobby.jpg" alt="The portfolio's work index in lobby view: a dark grid of case-study tiles, each carrying its own accent color on the shared canvas" style="width:100%;max-width:620px;display:block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 OVERVIEW -->
+  <section id="overview" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">01 · Overview</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">The last case study is the one <em>you're standing in.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">This portfolio is a single product: 29 self-contained pages sharing one token discipline, one accessibility bar, one editorial voice, and one build record. There is no handoff anywhere in it — the research framing, the interaction design, the visual system, and the shipped code are the same artifact, authored by the same person directing an AI pair.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">That makes it inspectable in a way portfolios usually aren't. Every claim on this page has a source you can open: the tokens resolve live below, the slot math re-derives in your browser, the build record at the bottom of every page is generated from git. The numbers that follow are the honest ones.</p>
+      <div class="stat-strip" data-reveal="">
+        <div>
+          <div class="stat-n">0</div>
+          <div class="stat-l">npm dependencies, bundlers, servers, or backends</div>
+          <div class="sv" role="img" aria-label="Zero npm dependencies; the only runtime dependencies are the React CDN on three pages and Google Fonts">
+            <div class="sv-lbl" aria-hidden="true"><span>RUNTIME DEPS</span><span>CDN ×2</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">REACT 18 FROM A CDN ON 3 PAGES · FONTS · BOTH DEGRADE OFFLINE</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">232</div>
+          <div class="stat-l">Design-token values in the three-tier mirror</div>
+          <div class="sv" role="img" aria-label="232 token values across five JSON files: primitives, semantic aliases, and per-theme values">
+            <div class="sv-lbl" aria-hidden="true"><span>PRIMITIVE → SEMANTIC → THEME</span><span>5 FILES</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">LIVE VALUES IN CSS CUSTOM PROPERTIES · JSON MIRROR NOT CONSUMED AT RUNTIME, AND SAYS SO</div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-n">9</div>
+          <div class="stat-l">In-page simulations and playable systems</div>
+          <div class="sv" role="img" aria-label="Nine in-page simulations, all dependency-free vanilla JavaScript with keyboard paths">
+            <div class="sv-lbl" aria-hidden="true"><span>ALL VANILLA JS</span><span>ALL KEYBOARD-OPERABLE</span></div>
+            <div class="sv-track" aria-hidden="true"><div class="sv-fill on" style="width:100%"></div></div>
+            <div class="sv-note">PHOTOMETRICS · AI LAYOUT · SLOT · DRILLS · MESH · FLOOR PLAN · GIMS · 3D · CONCIERGE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 THE PROBLEM -->
+  <section id="problem" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">02 · The Problem</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Assertion is cheap. <em>Drift is silent. Slop is fast.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">Three failure modes stalk every senior portfolio. The first is assertion: "systems thinking" and "accessible craft" are claims on every resume, and static case studies can't prove them. The second is drift: a design system documented apart from its product decays quietly — the spec says one thing, the shipped pixels another. The third is new: AI makes generic output effortless, so a portfolio that reads like it was generated is now indistinguishable from one that was.</p>
+      <p class="lead" data-reveal="" style="max-width:860px">The structural answer to all three is the same: make the portfolio a product. Claims become inspectable systems; the documentation renders from the tokens it documents, so drift is impossible by construction; and AI is used openly, directed by a written brief and gated by verification — so the velocity is real and the slop never ships.</p>
+    </div>
+  </section>
+
+  <!-- 03 ARCHITECTURE -->
+  <section id="architecture" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">03 · Zero-Build Architecture</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">No build step, <em>by conviction.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">Every page is a single file with its CSS and JS inline. No npm, no bundler, no server, no backend — the repo deploys as pure static hosting, and view-source shows you everything. Three pages render through a small React runtime loaded from a CDN; everything else is hand-written vanilla. The decision record names the tradeoff plainly: "Portability and longevity beat tooling for a portfolio. Deploys anywhere static; first load needs the CDN; degrades gracefully."</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">The platform caught up to this bet. Native <span class="mono" style="font-size:15px">&lt;dialog&gt;</span>, <span class="mono" style="font-size:15px">&lt;details&gt;</span> disclosures, CSS custom properties, and IntersectionObserver do the work a framework pipeline would do elsewhere. Robustness is designed in: every module init is isolated so one failure can't cascade, overlays anchor to their stage rather than the viewport so transformed embeds can't lose them, and every localStorage touch is guarded.</p>
+      <div class="tbl-scroll" data-reveal="">
+        <table class="optic-table">
+          <thead><tr><th>Module</th><th>Lines</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>support.js</td><td>1,579</td><td>The DC runtime: renders <span class="mono" style="font-size:12px">&lt;x-dc&gt;</span> template pages with CDN React. Generated, committed — the site still needs no build.</td></tr>
+            <tr><td>la-sims.js</td><td>932</td><td>Three photometric interactives sharing one footcandle engine: sandbox, AI AutoLayout, IES filter demo.</td></tr>
+            <tr><td>aegis-gims-proto.js</td><td>763</td><td>Native, dependency-free port of the AEGIS GIMS prototype — the case study carries the prototype itself.</td></tr>
+            <tr><td>parlay-slot.js</td><td>630</td><td>The honest demo slot: published reel strips, CSPRNG stops, exact RTP, ethics annotations with citations.</td></tr>
+            <tr><td>concierge.js</td><td>625</td><td>The portfolio concierge — deterministic retrieval with a written honesty constraint: no backend, no LLM, and the copy never claims otherwise.</td></tr>
+            <tr><td>boot-loader.js</td><td>239</td><td>Holds the homepage behind a boot screen until every subsystem passes verification, re-wiring any that fail.</td></tr>
+            <tr><td>a11y.js</td><td>139</td><td>Site-wide accessibility layer: skip link, focus ring, reduced-motion kill switch, target-size enlargement.</td></tr>
+            <tr><td>colophon.js</td><td>136</td><td>The build record on every page — generated from git and the deployments API, never hand-edited.</td></tr>
+            <tr><td>case-back.js</td><td>50</td><td>Back links remember which hub you came from; returning restores the browse where you left it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dss-note" data-reveal="">SELECTED FROM 18 ROOT MODULES · LINE COUNTS FROM THE WORKING TREE · THREE PYTHON SCRIPTS GENERATE THE DERIVED LAYER: BUILD RECORD, 112-SECTION SEARCH INDEX, 42-DOCUMENT DESIGN COMPENDIUM</div>
+    </div>
+  </section>
+
+  <!-- 04 TOKENS + INTERACTIVE A -->
+  <section id="tokens" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">04 · Live It · The Token Architecture</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:960px;margin:16px 0 22px">The spec sheet <em>is the page.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">The system runs three tiers — primitives that carry raw values, semantic roles that give them meaning, and themes that swap them — mirrored to portable JSON and enforced by a written rule: reference <span class="mono" style="font-size:15px">var(--…)</span>, never hardcode a hex. Naming is semantic over literal: <span class="mono" style="font-size:15px">--ac2</span> and <span class="mono" style="font-size:15px">fg.muted</span>, never <span class="mono" style="font-size:15px">--teal-300</span>.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:28px">Two runtime systems share that discipline: the homepage family (dark by default, with a light "architect" mirror) and the case-study shell this page uses (light by default, dark on toggle). They share one saved preference, so your theme follows you across the site. The inspector below isn't a screenshot of the spec — it reads the computed custom properties of the page you're on, right now.</p>
+      <div class="dss-code" data-reveal="" style="max-width:860px;margin-bottom:28px">{palette.teal.700}  <b>#0d5350</b>          → primitive: a raw value, no meaning
+  accent.default   <b>var(--c-accent)</b>  → semantic: what it's for
+  .cs / .cs.dark   <b>#0d5350 / #5fc2a8</b> → theme: what it resolves to, per mode
+  .btn-primary     <b>background:var(--c-accent)</b> → component: where it lands</div>
+      <div class="dss-card" data-reveal="" id="dss-a">
+        <div class="dss-head">
+          <div class="dss-title">Token inspector — this page, live</div>
+          <div class="dss-mode" data-out="theme">resolving…</div>
+        </div>
+        <div class="dss-tokens" role="table" aria-label="The case-study shell's core tokens with their currently resolved values"></div>
+        <div class="dss-live sr-only" role="status" aria-live="polite"></div>
+        <div class="dss-note">READING THE COMPUTED CUSTOM PROPERTIES OF THIS DOCUMENT — PRESS THE THEME TOGGLE IN THE NAV AND EVERY VALUE RE-RESOLVES · NOTHING HERE IS TYPED OR PICTURED</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 TYPOGRAPHY -->
+  <section id="type" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">05 · Typography</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:940px;margin:16px 0 22px">Three faces of type, <em>one voice each.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">The system runs three working families with strict roles — Inter for headings, DM Sans for prose, JetBrains Mono for anything the system itself says — plus VT323, which belongs to the retro terminal alone. The rule comes from the content-voice guide: sans for prose, mono for HUD and system labels. If text speaks <span style="font-style:italic">as the interface</span>, it's mono, uppercase, and letter-spaced; if it speaks to you, it's sans.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:28px">Like everything else in this case study, the specimens below aren't pictures of the type — they're the page's own fonts and classes, rendering live.</p>
+
+      <div class="dss-card" data-reveal="" style="margin-bottom:14px">
+        <div class="dss-head"><div class="dss-title">Live specimen — the working scale</div><div class="dss-mode">SET BY THIS PAGE'S OWN CSS</div></div>
+        <div style="display:flex;flex-direction:column;gap:26px">
+          <div>
+            <div class="dss-rk" style="margin-bottom:8px">HERO · INTER 600 · CLAMP(40PX, 6.4VW, 88PX) · −3PX TRACKING · LINE 1.0</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(34px,5vw,64px);letter-spacing:-2.2px;line-height:1.0;color:var(--c-ink)">Designing clarity <em>&amp; control.</em></div>
+          </div>
+          <div>
+            <div class="dss-rk" style="margin-bottom:8px">SECTION HEADER · INTER 600 · CLAMP(32PX, 4.6VW, 58PX) · −1.6PX · LINE 1.02</div>
+            <div class="sec-h" style="font-size:clamp(26px,3.4vw,42px)">The section header, <em>with the house em.</em></div>
+          </div>
+          <div>
+            <div class="dss-rk" style="margin-bottom:8px">LEAD PROSE · DM SANS 400 · CLAMP(16PX, 1.5VW, 18PX) · LINE 1.78</div>
+            <p class="lead" style="max-width:660px">Body text is DM Sans at a relaxed 1.78 line height — built for long case-study reading, not for density. Emphasis inside prose uses the accent italic, never bold shouting.</p>
+          </div>
+          <div>
+            <div class="dss-rk" style="margin-bottom:8px">SYSTEM VOICE · JETBRAINS MONO · UPPERCASE · 0.04–0.22EM TRACKING</div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div class="eyebrow">The eyebrow · 11.5px · 0.22em · accent</div>
+              <div class="mono" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted)">The label · 10px · 0.1em · muted</div>
+              <div class="dss-note" style="margin-top:0">THE HONEST FOOTNOTE · 9PX · WHERE EVERY NUMBER NAMES ITS SOURCE</div>
+            </div>
+          </div>
+          <div>
+            <div class="dss-rk" style="margin-bottom:8px">NUMERIC READOUTS · TABULAR-NUMS · DIGITS THAT ALIGN IN COLUMNS</div>
+            <div class="mono" style="font-size:16px;color:var(--c-ink2);font-variant-numeric:tabular-nums;line-height:1.7">96.0428%<br>08.1163%<br>11,113.00</div>
+          </div>
+        </div>
+        <div class="dss-note">FAMILIES LOADED BY THIS PAGE: INTER 400–800 · DM SANS 400–700 · JETBRAINS MONO 400–700. VT323 IS NOT LOADED HERE — IT SHIPS ONLY ON THE RETRO HOMEPAGE, WHICH IS THE SYSTEM WORKING: EVERY PAGE SUBSETS THE FONTS IT USES.</div>
+      </div>
+
+      <div class="tbl-scroll" data-reveal="">
+        <table class="optic-table">
+          <thead><tr><th>Token</th><th>Size → mobile</th><th>Weight</th><th>Line</th><th>Tracking</th></tr></thead>
+          <tbody>
+            <tr><td>display-xl</td><td>72 → 36px</td><td>500</td><td>1.25</td><td>−1.44px</td></tr>
+            <tr><td>display-lg</td><td>60 → 32px</td><td>500</td><td>1.2</td><td>−1.2px</td></tr>
+            <tr><td>display-md</td><td>48 → 28px</td><td>500</td><td>1.25</td><td>−0.96px</td></tr>
+            <tr><td>display-sm</td><td>36 → 24px</td><td>500</td><td>1.22</td><td>−0.72px</td></tr>
+            <tr><td>text-md</td><td>18px</td><td>400</td><td>1.56</td><td>0</td></tr>
+            <tr><td>text-sm · body default</td><td>16px</td><td>400</td><td>1.5</td><td>0</td></tr>
+            <tr><td>text-xs / xxs</td><td>14 / 12px</td><td>400</td><td>1.43 / 1.5</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-top:28px">Two habits carry the personality. Heroes escape the static scale through <span class="mono" style="font-size:15px">clamp()</span> — fluid between a floor and a ceiling, so the headline is composed for the viewport instead of snapped to a breakpoint (the retro terminal pushes to <span class="mono" style="font-size:15px">clamp(60px, 13vw, 168px)</span> in VT323). And negative tracking tightens as type grows — headings run −0.02 to −0.04em — while the mono voice spreads out the smaller it gets. Large type gets tighter, small system text gets looser: that tension is the typographic signature of the whole site.</p>
+    </div>
+  </section>
+
+  <!-- 06 PRINCIPLES -->
+  <section id="principles" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">06 · Seven Principles</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Rules that are <em>enforced, not aspirational.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">The design principles live in the repo as working agreements — loaded into every AI session, checked in review, and auditable in the shipped pages. Each one names where it's enforced.</p>
+      <div class="appr" data-reveal="">
+        <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">Read the trace, not the number</div><p class="appr-p">Evidence before verdicts, everywhere: the AEGIS drills show source pips and dissent before you classify; stat blocks carry mono footnotes naming what each number is.</p></div></div>
+        <div class="appr-row"><div class="appr-n">02</div><div><div class="appr-h">Systems, not screens</div><p class="appr-p">Every value traces to a token; every surface designs its empty, loading, error, and longest-content states. Enforced by the never-hardcode rule and the state checklists in the design docs.</p></div></div>
+        <div class="appr-row"><div class="appr-n">03</div><div><div class="appr-h">One idea per view, one accent per screen</div><p class="appr-p">If a screen needs a legend, it's doing too much. The accent discipline is written into the design-system rules and visible on every page of this site — including this one.</p></div></div>
+        <div class="appr-row"><div class="appr-n">04</div><div><div class="appr-h">Meaning survives without color</div><p class="appr-p">No saturated red/amber/stoplight-green as status, ever; coral is the strongest risk signal, and every signal pairs hue with text or shape. The one severity scale (CTOC's) re-tints per theme and never stands alone.</p></div></div>
+        <div class="appr-row"><div class="appr-n">05</div><div><div class="appr-h">Accessible by default</div><p class="appr-p">WCAG 2.2 AA / AODA as a target with a standing audit file the rules require to be kept current — 4.5:1 contrast in both themes, visible focus everywhere, 44px targets, real keyboard paths in every game.</p></div></div>
+        <div class="appr-row"><div class="appr-n">06</div><div><div class="appr-h">Motion with intent</div><p class="appr-p">Animation explains a state change or directs attention — never decoration — and every animated component gates on reduced motion. The kill switch is layered: a global rule, per-module early returns, and per-page media queries.</p></div></div>
+        <div class="appr-row"><div class="appr-n">07</div><div><div class="appr-h">Robust by construction</div><p class="appr-p">Self-contained files, isolated inits, stage-anchored overlays, guarded storage. The site is built to survive slow networks, transformed embeds, and its own future edits.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 COMPONENTS -->
+  <section id="components" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">07 · The Shell</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Components? <em>You're looking at them.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">There is no component library — there's a convention, realized inline on all 20 case pages and documented in the design-system docs. The sticky glass nav above you, the case-study switcher inside it, the version pill floating at the bottom of this page, the numbered eyebrows, the reveal-on-scroll sections: that's the shell, doing its job right now.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:28px">Because the specimens are live, this section can demo instead of describe:</p>
+      <div class="spec-live" data-reveal="" style="margin-bottom:14px">
+        <span class="lbl">LIVE SPECIMEN · EYEBROW + PILL CTA + STAT VISUAL — RENDERED BY THE SAME CSS AS THE REST OF THIS PAGE</span>
+        <div class="eyebrow">The Eyebrow · Mono · 0.22em Tracking</div>
+        <a class="btn-primary" href="#components" style="font-size:13.5px;padding:12px 20px">The pill CTA <span class="msi" aria-hidden="true" style="font-size:18px;">arrow_forward</span></a>
+        <div style="min-width:200px">
+          <div class="sv" role="img" aria-label="A demonstration stat visual: four of five units filled">
+            <div class="sv-lbl" aria-hidden="true"><span>THE STAT VISUAL</span><span>4 OF 5</span></div>
+            <div class="sv-dots" aria-hidden="true"><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot"></span><span class="sv-dot dim"></span></div>
+            <div class="sv-note">WITH ITS HONEST MONO FOOTNOTE — ALWAYS</div>
+          </div>
+        </div>
+      </div>
+      <p class="lead" data-reveal="" style="max-width:860px">The recurring parts: the <span class="mono" style="font-size:15px">.win</span> browser frame around every screenshot (its traffic-light dots are the only place those hues appear — decorative, aria-hidden, never status); full-bleed gradient bands for chaptering; <span class="mono" style="font-size:15px">data-reveal</span> entrances staggered by an IntersectionObserver and hard-disabled under reduced motion; and stat blocks whose graphics are <span class="mono" style="font-size:15px">role="img"</span> with sentence-length labels for screen readers. New components follow the variant/state model in the docs before they earn a place in the convention.</p>
+    </div>
+  </section>
+
+  <!-- 08 PROCESS -->
+  <section id="process" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">08 · The AI Pair</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:940px;margin:16px 0 22px">A machine-readable brief, <em>a standing pair.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">The site is built with Claude Code as a standing AI pair — and the repo is structured so the pair can't go off-brief. The design intent lives as files the model loads every session: the project context, the full design reference, and four rule files covering the design system, accessibility, code style, and content voice. The design system stops being documentation humans consult and becomes an operating contract both human and model execute against.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">The loop is the same every time, and it's the section after this one made procedural:</p>
+      <div class="appr" data-reveal="">
+        <div class="appr-row"><div class="appr-n">1</div><div><div class="appr-h">Brief</div><p class="appr-p">Intent expressed in natural language against the written system — the constraint files ensure generated output lands on-token, on-voice, and accessible rather than as generic AI defaults.</p></div></div>
+        <div class="appr-row"><div class="appr-n">2</div><div><div class="appr-h">Build</div><p class="appr-p">The pair executes volume — research fan-outs, prototypes, refactors — inside the conventions. New work is researched before it's designed; the slot was built against 2025–26 casino UX conventions and the gambling-research literature it inverts.</p></div></div>
+        <div class="appr-row"><div class="appr-n">3</div><div><div class="appr-h">Drive the real page</div><p class="appr-p">Playwright opens the actual pages, clicks the actual buttons, plays the games to game-over. Changelog entries close with proof: "verified: sub-pixel placement error at 0.8×, 1.0×, and 1.3×."</p></div></div>
+        <div class="appr-row"><div class="appr-n">4</div><div><div class="appr-h">Judge</div><p class="appr-p">The human role concentrates in judgment: setting the thesis, choosing among directions, naming tradeoffs in the decision log, rejecting on taste. Adversarial review hunts what confirmation misses.</p></div></div>
+        <div class="appr-row"><div class="appr-n">5</div><div><div class="appr-h">Ship, on the record</div><p class="appr-p">Decisions land ADR-style with named alternatives; the changelog reads as narrative, not just diffs; the colophon regenerates so the build record stays true.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 VERIFICATION + INTERACTIVE B -->
+  <section id="verification" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">09 · Live It · Receipts</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:960px;margin:16px 0 22px">The review that <em>caught the math.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:14px">The best story in this site's build log is a bug. The Parlay Reels slot published its return-to-player as ~96% — verified, the page said, over ten million simulated spins. An adversarial review re-derived the math independently and found the coded engine was actually paying <b>95.916%</b>: free-spin scatter pays were missing the ×3 multiplier the interface promised on three separate surfaces. The gap was 0.127 points — small enough for a ten-million-spin Monte Carlo to hide inside its own noise, which is exactly why the review enumerated instead of sampled.</p>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:28px">One line fixed the engine; the published figure became exact: <b>96.0428%</b>, derived analytically over all 68,883,048 stop combinations. The derivation is fast enough to run right here. Press the button — your browser re-computes both engines from the same constants the slot actually spins on.</p>
+      <div class="dss-card" data-reveal="" id="dss-b">
+        <div class="dss-head">
+          <div class="dss-title">Run the receipts — re-derive the RTP</div>
+          <button type="button" class="dss-btn" data-act="derive">Derive it in your browser</button>
+        </div>
+        <div class="dss-rtp-out" aria-live="off"><div class="dss-note" style="margin-top:0">NOTHING UP THE SLEEVE: THE SIX FIGURES THAT APPEAR HERE ARE COMPUTED ON CLICK, IN THIS TAB, FROM THE REEL STRIPS AND PAYTABLE MIRRORED OUT OF PARLAY-SLOT.JS</div></div>
+        <div class="dss-live sr-only" role="status" aria-live="polite"></div>
+      </div>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-top:40px">The same culture runs site-wide. The accessibility audit reports 23 of 27 pages clean on the automated scan — and then states its own limits: "automated tooling reliably catches only ~30–50% of WCAG criteria. A pass on the axe scan is necessary, not sufficient." A cursor bug got a root-cause narrative and a comment warning future editors; a fix that regressed got caught, explained, and re-fixed the same day, on the record. Shipping gates on evidence, not vibes.</p>
+    </div>
+  </section>
+
+  <!-- 10 BUILD RECORD -->
+  <section id="buildrecord" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">10 · The Build Record</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:900px;margin:16px 0 22px">Every number derived, <em>never typed.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">The colophon at the bottom of every page — including this one — is a generated file no one is allowed to hand-edit. Its rule is the site's honesty policy in miniature: each stat is computed from a source of record at release time.</p>
+      <div class="tbl-scroll" data-reveal="">
+        <table class="optic-table">
+          <thead><tr><th>Stat</th><th>Derived from</th></tr></thead>
+          <tbody>
+            <tr><td>SITE EST</td><td>The first commit's date — <span class="mono" style="font-size:12px">git log --reverse</span></td></tr>
+            <tr><td>DEPLOYMENTS</td><td>The GitHub Pages deployments API, paginated, with the UTC timestamp converted to local time so an evening deploy can't read as tomorrow</td></tr>
+            <tr><td>VERSION</td><td>Composed as v{generation}.{case studies}.{commits} — the case-study count comes from globbing the showcase files, so publishing this very page bumps it to 11</td></tr>
+            <tr><td>LINES · PAGES</td><td>Counted from the working tree with every generated file excluded — the count doesn't flatter itself</td></tr>
+            <tr><td>OFFLINE FALLBACK</td><td>If the API is unreachable it reuses the last generated values rather than guessing — and warns</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-top:28px">Scroll to the bottom of this page and you're reading its output, live. The same pattern carries the whole site: the sims say what they simplify, the concierge's own header forbids it from claiming to be an LLM, and the analytics load only after explicit consent — or not at all.</p>
+    </div>
+  </section>
+
+  <!-- 11 TRENDS -->
+  <section id="trends" class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">11 · Where the Craft Is Going</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:960px;margin:16px 0 22px">The newest UX process, <em>practiced rather than cited.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:40px">Eight movements define how design work is made and judged in 2025–26. This site takes a position on each of them.</p>
+      <div class="appr" data-reveal="">
+        <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">Design engineering becomes a named role</div><p class="appr-p">The designer-who-ships-code is now a recognized job family, not a curiosity. This portfolio is the role's artifact: no handoff layer exists anywhere in it. <a href="https://maggieappleton.com/design-engineers" target="_blank" rel="noopener" style="color:var(--c-accent)">Appleton, "Design Engineers"</a></p></div></div>
+        <div class="appr-row"><div class="appr-n">02</div><div><div class="appr-h">AI-assisted workflows go mainstream — with a trust gap</div><p class="appr-p">Figma's 2025 AI report: 78% say AI boosts efficiency, only 32% can rely on output unchecked. This site answers the gap with process — the brief is machine-readable, the output is Playwright-verified. <a href="https://www.figma.com/blog/figma-2025-ai-report-perspectives/" target="_blank" rel="noopener" style="color:var(--c-accent)">Figma 2025 AI Report</a></p></div></div>
+        <div class="appr-row"><div class="appr-n">03</div><div><div class="appr-h">Code becomes the design canvas</div><p class="appr-p">Prompt-to-prototype tooling made working software the primary design artifact. Every case study here is the prototype; the file reviewed is the file shipped. <a href="https://www.figma.com/resource-library/vibe-coding-tools/" target="_blank" rel="noopener" style="color:var(--c-accent)">Figma, on prompt-to-code tools</a></p></div></div>
+        <div class="appr-row"><div class="appr-n">04</div><div><div class="appr-h">Design tokens reach a real standard</div><p class="appr-p">The W3C Design Tokens spec shipped its first stable version in October 2025 — token-first architecture is table stakes. This site has run three tiers with semantic naming since day one. <a href="https://www.w3.org/community/design-tokens/2025/10/28/design-tokens-specification-reaches-first-stable-version/" target="_blank" rel="noopener" style="color:var(--c-accent)">DTCG 2025.10</a></p></div></div>
+        <div class="appr-row"><div class="appr-n">05</div><div><div class="appr-h">Evals cross from ML into product work</div><p class="appr-p">Structured verification is replacing vibes as the shipping gate — agents that drive the page, screenshot it, and judge it against criteria. That's this site's loop, verbatim. <a href="https://github.com/microsoft/playwright-mcp" target="_blank" rel="noopener" style="color:var(--c-accent)">Playwright agents</a></p></div></div>
+        <div class="appr-row"><div class="appr-n">06</div><div><div class="appr-h">The buildless web returns</div><p class="appr-p">Native dialog, CSS nesting, view transitions at Baseline — zero-build sites on static hosts are a deliberate modern architecture again, and the antidote to AI's framework bias. <a href="https://thenewstack.io/web-development-in-2025-ais-react-bias-vs-native-web/" target="_blank" rel="noopener" style="color:var(--c-accent)">The New Stack, 2025</a></p></div></div>
+        <div class="appr-row"><div class="appr-n">07</div><div><div class="appr-h">Accessibility gets regulatory teeth</div><p class="appr-p">The European Accessibility Act became enforceable in June 2025; WCAG 2.2 is the recommended target. Here it's a standing audit in the definition of done, not a launch checklist. <a href="https://www.levelaccess.com/compliance-overview/european-accessibility-act-eaa/" target="_blank" rel="noopener" style="color:var(--c-accent)">EAA overview</a></p></div></div>
+        <div class="appr-row"><div class="appr-n">08</div><div><div class="appr-h">Honest-data UX becomes the trust layer</div><p class="appr-p">Citations, provenance, calibrated claims — as AI floods interfaces, trust hinges on receipts. This site's editorial spine: where a number isn't real, say what it represents. <a href="https://www.shapeof.ai/patterns/citations" target="_blank" rel="noopener" style="color:var(--c-accent)">Shape of AI, citation patterns</a></p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 OUTCOMES & REFLECTION -->
+  <section id="outcomes" class="pad" style="background:var(--c-bg)">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal="">12 · Outcomes &amp; Reflection</div>
+      <h2 class="sec-h" data-reveal="" style="max-width:960px;margin:16px 0 22px">What a portfolio <em>can prove.</em></h2>
+      <p class="lead" data-reveal="" style="max-width:900px;margin-bottom:40px">The outcome is the site itself: a solo designer shipping at team velocity — 29 pages, 9 playable systems, 100+ deployments in under a month of calendar time — without a line of unverified AI output landing on the record. The craft claims are checkable because the checking is built in.</p>
+      <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1040px;margin-bottom:50px">
+        <div data-reveal="">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:14px">WHAT WORKED</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7">Writing the design system down as executable working agreements — then letting both human and AI build against it. Verification as the shipping gate, which turned AI velocity from a risk into the whole point. And honesty as an editorial spine: the mono footnotes, the derived build record, and the self-caveating audit earn more trust than any polished claim could.</p>
+        </div>
+        <div data-reveal="">
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.04em;color:var(--c-ink);margin-bottom:14px">WHAT I'D PUSH FURTHER</div>
+          <p style="font-size:15px;color:var(--c-body);line-height:1.7">Four pages still carry automated-scan findings — the audit names them and they're next. Two token systems is a documented tradeoff, not purity; a future pass could unify them behind one semantic layer. And the hand-curated mobile switcher menus are the last place a case study can be added by hand and missed — the kind of drift this site exists to make impossible.</p>
+        </div>
+      </div>
+      <p class="lead" data-reveal="" style="max-width:900px;margin-bottom:14px">The through-line is the portfolio's thesis, applied to its own making: the model brings receipts, the designer keeps the decision. That was the argument in the defence work, the lighting work, and the gambling work — and it turned out to be the working method for building the argument itself.</p>
+      <div data-reveal="" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+        <a href="goals-driven-fintech-showcase.html" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:14px 22px;border:1px solid var(--c-b4);border-radius:999px">Next: Goals-Driven Fintech <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+        <a href="https://github.com/rbabiarz/Product-Designer-Portfolio" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:14px 22px;border:1px solid var(--c-b4);border-radius:999px">Read the source <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:42px 40px 64px;background:var(--c-bg);border-top:1px solid var(--c-b1);min-height:198px;">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+      <div>
+        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
+        <a href="goals-driven-fintech-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Goals-Driven Fintech <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+      </div>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
+      <a href="homepage-interactive.dc.html" data-nav="back" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
+    </div>
+  </footer>
+
+  <!-- VERSION TOGGLE -->
+  <div class="verpill">
+    <span class="vlbl">Version</span>
+    <a href="design-system-showcase.html">Quick tour</a>
+    <a href="design-system.html" class="on">Deep dive</a>
+    <a href="#tokens" class="vdemo" aria-label="Jump to the live token inspector" title="Live token inspector"><span class="msi" aria-hidden="true" style="font-size:20px;">play_arrow</span></a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('top');
+  // theme
+  var btn=document.getElementById('themeBtn');
+  var SUN='<span class="msi" aria-hidden="true" style="font-size:24px;">light_mode</span>';
+  var MOON='<span class="msi" aria-hidden="true" style="font-size:24px;">dark_mode</span>';
+  function applyTheme(d){ root.classList.toggle('dark',d); btn.innerHTML=d?SUN:MOON; try{localStorage.setItem('rba-int-dark',d?'true':'false');}catch(e){} }
+  var stored=null; try{stored=localStorage.getItem('rba-int-dark');}catch(e){}
+  applyTheme(stored==='true'||stored==='1');
+  btn.addEventListener('click',function(){ applyTheme(!root.classList.contains('dark')); });
+
+  // mobile menu
+  var burger=document.getElementById('burger');
+  burger.addEventListener('click',function(){ var open=root.classList.toggle('menu-open'); burger.setAttribute('aria-expanded', open?'true':'false'); });
+  document.querySelectorAll('#mob a').forEach(function(a){ a.addEventListener('click',function(){ root.classList.remove('menu-open'); }); });
+
+  // reveal
+  var revealedAny=false;
+  function reveal(el){ el.classList.add('in'); el.style.opacity='1'; el.style.transform='none'; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revealedAny=true; reveal(e.target); io.unobserve(e.target);} }); },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+
+  // fallback: if IntersectionObserver never fires, guarantee content is visible.
+  setTimeout(function(){
+    if(!revealedAny){ document.querySelectorAll('[data-reveal]').forEach(function(el){ reveal(el); }); }
+  },1000);
+
+  try{console.log('%cTHE DESIGN SYSTEM%c you are reading the case study it documents. Quick tour: design-system-showcase.html','font-family:monospace;font-weight:700;color:#0d5350;','color:inherit;');}catch(e){}
+
+  // scrollspy
+  var tocLinks=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=tocLinks.map(function(a){ return document.getElementById(a.getAttribute('data-toc')); });
+  var so=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        tocLinks.forEach(function(l){ l.removeAttribute('data-on'); });
+        var i=secs.indexOf(e.target);
+        if(i>=0) tocLinks[i].setAttribute('data-on','');
+      }
+    });
+  },{threshold:0.4,rootMargin:'-20% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) so.observe(s); });
+})();
+</script>
+
+</body></html>

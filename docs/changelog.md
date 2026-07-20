@@ -120,3 +120,30 @@
   (border, background, sizing) on the bare selector. Verified: hidden at load, Paytable button
   opens + centers it, Close/Escape/backdrop all close it for real, reopens cleanly, centering and
   scaling hold across 5 sizes and both themes, reduced-motion path unaffected.
+
+## 2026-07-19
+- The Design System added as case study #11 — the site documenting itself. Quick tour
+  (`design-system-showcase.html`) + deep dive (`design-system.html`) on the standard case-study
+  shell, with two live instruments in `ds-live.js`: a token inspector that reads the computed
+  custom properties of the page it sits on (re-resolving live on theme toggle), and an in-browser
+  analytic re-derivation of the Parlay slot's RTP that reproduces the exact enumeration figures
+  (bugged 95.9160% vs shipped 96.0428%) in milliseconds. Content grounded in a four-agent research
+  pass: full design-system inventory (232 token values, two runtime systems, one discipline),
+  tech/AI-process inventory (18 root modules, 3 build scripts, the verification culture), 2025–26
+  UX-trend research with sources (DTCG 2025.10, Figma AI report, EAA, buildless web), and a
+  surgical integration map. Registered across every surface: work index (count → 11, new lobby
+  category "Design Systems"), all three homepages (+ counters), 20 desktop + 6 mobile switcher
+  menus, concierge (new `ds` entry; `designsystems` and `process` intents rewritten), sitemap,
+  search index (123 sections), and the footer chain (Parlay → Design System → Fintech). Assets are
+  self-shot: Playwright screenshots of the site's own surfaces, re-taken after integration so the
+  visible counts stay honest. Colophon regenerated — the version's minor digit bumping to 11
+  (v1.11.113) is itself the case study's closing argument.
+
+## 2026-07-19 (2)
+- Typography section added to the design-system deep dive as section 05 (sections renumbered
+  05–11 → 06–12, backgrounds re-alternated). In the case study's house style it's a live specimen,
+  not a picture: the working scale (hero clamp, sec-h, lead, the mono system voice at its three
+  sizes, tabular-nums readouts) rendered by the page's own fonts and classes, the tokens.css
+  display/text scale as a table, and the two signature habits named — clamp()-fluid heroes and the
+  large-tighter/small-looser tracking tension. VT323's absence is disclosed honestly: it ships
+  only on the retro homepage, because pages subset the fonts they use.

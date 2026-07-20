@@ -27,7 +27,7 @@ GROUPS = [
     ]),
     ('Features', [
         'docs/features/aegis-gims.md', 'docs/features/parlay-gaming.md',
-        'docs/features/light-architect.md',
+        'docs/features/light-architect.md', 'docs/features/design-system.md',
     ]),
     ('Design system', [
         'design-system/foundations.md', 'design-system/components.md',

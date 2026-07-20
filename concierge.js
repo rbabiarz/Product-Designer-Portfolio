@@ -145,6 +145,13 @@
       kw: 'light architect archi ar autolayout auto-layout ai layout ies photometric footcandle fixture luminaire satellite site plan map maps geospatial spatial gis location patent patents saas cooper lighting design simulation interactive',
       links: [{ label: 'Quick tour', href: 'light-architect-showcase.html' }, { label: 'Deep dive', href: 'light-architect.html' }, { label: 'Try the mini planner', href: 'homepage-interactive.dc.html#la-stage' }]
     },
+    ds: {
+      title: 'The Design System', org: 'This site, documenting itself', thumb: 'previews/thumb-ds.png?v=2',
+      blurb: 'The eleventh case study is the site itself: zero-build architecture, three-tier tokens, an AI-paired build gated by Playwright verification, and two live instruments — a token inspector reading the page and an in-browser proof of the slot math.',
+      tags: ['Design Systems', 'Design Engineering', 'AI-Paired'], read: '3 min tour · 9 min deep dive',
+      kw: 'design system systems meta this site itself token tokens tier architecture zero build buildless no-build engineering ai paired claude playwright verification receipts colophon process ux trends 2026 wcag accessibility honest',
+      links: [{ label: 'Quick tour', href: 'design-system-showcase.html' }, { label: 'Deep dive', href: 'design-system.html' }, { label: 'Live token inspector', href: 'design-system.html#tokens' }]
+    },
     aegis: {
       title: 'AEGIS Decision Drills', org: 'Playable classification games', thumb: null,
       blurb: 'Four playable drills about decision-making under uncertainty — sensor tasking, classification watches, and an intercept trainer. The thesis: the model brings receipts, you keep the decision.',
@@ -191,8 +198,8 @@
       projects: ['insights', 'ctoc', 'eai'],
       pills: ['Design systems experience', 'Data visualization', 'Accessibility expertise', 'Defense industry projects'] },
     { id: 'designsystems', kw: 'design system systems tokens token component components library libraries figma documentation handoff theming multi-brand variables styleguide',
-      reply: 'The strongest design-system evidence is CTOC — 13 dashboards held together by one dark, token-driven system — and this site itself runs on a three-tier token architecture (primitive → semantic → component) you are looking at right now.',
-      projects: ['ctoc', 'insights'],
+      reply: 'The design-system evidence now has its own case study: this site, documenting itself — three-tier tokens, a live inspector, and the AI-paired process behind it. CTOC backs it up at product scale with 13 dashboards on one token-driven system.',
+      projects: ['ds', 'ctoc', 'insights'],
       pills: ['Component libraries', 'Token systems', 'Developer handoff', 'Accessibility work', 'Enterprise SaaS'] },
     { id: 'accessibility', kw: 'accessibility accessible a11y wcag aoda contrast screen reader keyboard focus inclusive',
       reply: 'Accessibility is part of done here: the whole site targets WCAG 2.2 AA / AODA — 4.5:1 text contrast, keyboard paths with visible focus, reduced-motion support, and meaning that never rides on color alone. The case studies document those decisions.',
@@ -231,8 +238,8 @@
       projects: ['eai', 'la', 'gims', 'fintech'],
       pills: ['Defense industry projects', 'Enterprise SaaS work', 'Interactive prototypes'] },
     { id: 'process', kw: 'process research discovery usability testing methods wireframes artifacts prototype prototypes prototyping interaction how you work',
-      reply: 'Every case study ships in two depths — a quick tour of outcomes and a deep dive with the process, decisions, and discarded alternatives. The deep dives are where the research and rationale live.',
-      projects: ['insights', 'ctoc', 'eai'],
+      reply: 'Every case study ships in two depths — a quick tour of outcomes and a deep dive with the process, decisions, and discarded alternatives. The newest one documents the process itself: how this site is built with an AI pair, gated by verification.',
+      projects: ['ds', 'insights', 'ctoc'],
       pills: ['Design systems experience', 'Leadership examples', 'Accessibility expertise'] },
     { id: 'patents', kw: 'patent patents invention inventions ip intellectual property',
       reply: 'Three lighting-design patent applications (filed at Signify), each linked to Google Patents from the About page.',
