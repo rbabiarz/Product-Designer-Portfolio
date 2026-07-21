@@ -202,6 +202,12 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 .nav-cm:active{opacity:0.5}
 .mail-choose summary::-webkit-details-marker{display:none}
 .mail-choose summary::marker{content:''}
+.mail-choose .mail-panel{overflow:hidden}
+.mail-choose summary .msi{transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.mail-choose[open] summary .msi{transform:rotate(90deg)}
+@media (prefers-reduced-motion:no-preference){
+  .mail-choose .mail-panel{transition:height .32s cubic-bezier(.2,.8,.2,1),opacity .22s ease}
+}
 .scp-ghost:hover{background:var(--ac) !important;color:#fff !important;border-color:var(--ac) !important}
 @media (max-width:860px){
   #int-nav > div{padding:0 18px !important;height:60px !important}
@@ -1105,12 +1111,14 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <p style="font-size:17px;color:var(--fg2);line-height:1.6;max-width:440px;">Building complex, high-stakes systems where the experience has to be right? Let's talk.</p>
         </div>
         <div style="flex-shrink:0;min-width:300px;">
-          <details class="mail-choose" onToggle="{{ mailToggle }}" style="margin-bottom:10px;position:relative;">
+          <details class="mail-choose" style="margin-bottom:10px;position:relative;">
             <summary data-cursor="hover" style="list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--ac);color:#fff;padding:18px 26px;border-radius:11px;font-size:16px;font-weight:600;cursor:pointer;transition:opacity 0.2s;" style-hover="opacity:0.88">Email me <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></summary>
-            <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;border:1px solid var(--line2);background:var(--bg2);border-radius:11px;padding:8px;">
+            <div class="mail-panel" style="margin-top:10px;display:flex;flex-direction:column;gap:8px;border:1px solid var(--line2);background:var(--bg2);border-radius:11px;padding:8px;">
               <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Gmail</a>
               <a href="https://outlook.office.com/mail/deeplink/compose?to=rbabiarz@gmail.com" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Outlook</a>
               <a href="mailto:rbabiarz@gmail.com" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Default mail app</a>
+              <div style="height:1px;background:var(--line);margin:2px 4px;"></div>
+              <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" data-cursor="hover" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:8px;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:500;transition:background 0.18s;" style-hover="background:var(--bg3)"><span class="msi" aria-hidden="true" style="font-size:24px;color:var(--ac);">download</span>Resume (PDF)</a>
             </div>
           </details>
           <div style="display:flex;gap:10px;">
@@ -1153,6 +1161,63 @@ class Component extends DCLogic {
     }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
     Object.keys(byId).forEach(id => { const el = document.getElementById(id); if (el) o.observe(el); });
     this._obs.push(o);
+  }
+
+  // "Email me" disclosure: native <details> shows/hides its panel instantly with
+  // no way to animate that via CSS alone (closed content isn't laid out at all).
+  // Intercepting the summary click and driving the `open` attribute ourselves,
+  // with an explicit 0→scrollHeight→auto height animation, is the standard,
+  // widely-supported way around that — no bleeding-edge CSS required.
+  initMailChoose() {
+    const d = document.querySelector('.mail-choose');
+    if (!d || d.dataset.mailWired) return;
+    d.dataset.mailWired = '1';
+    const summary = d.querySelector('summary');
+    const panel = d.querySelector('.mail-panel');
+    if (!summary || !panel) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let closeTimer = null;
+    const clearCloseTimer = () => { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } };
+    const armCloseTimer = () => { clearCloseTimer(); closeTimer = setTimeout(close, 10000); };
+
+    function open() {
+      if (d.open) return;
+      d.setAttribute('open', '');
+      if (reduce) { armCloseTimer(); return; }
+      panel.style.height = '0px';
+      panel.style.opacity = '0';
+      requestAnimationFrame(() => {
+        panel.style.height = panel.scrollHeight + 'px';
+        panel.style.opacity = '1';
+      });
+      const onEnd = (e) => {
+        if (e.target !== panel || e.propertyName !== 'height') return;
+        panel.style.height = 'auto'; // let it reflow naturally after this (e.g. on resize)
+        panel.removeEventListener('transitionend', onEnd);
+      };
+      panel.addEventListener('transitionend', onEnd);
+      armCloseTimer();
+    }
+    function close() {
+      if (!d.open) return;
+      clearCloseTimer();
+      if (reduce) { d.removeAttribute('open'); return; }
+      panel.style.height = panel.scrollHeight + 'px'; // lock the (possibly 'auto') height first
+      void panel.offsetHeight; // force reflow so that lock registers before animating away from it
+      requestAnimationFrame(() => {
+        panel.style.height = '0px';
+        panel.style.opacity = '0';
+      });
+      const onEnd = (e) => {
+        if (e.target !== panel || e.propertyName !== 'height') return;
+        d.removeAttribute('open');
+        panel.removeEventListener('transitionend', onEnd);
+      };
+      panel.addEventListener('transitionend', onEnd);
+    }
+    summary.addEventListener('click', (e) => { e.preventDefault(); d.open ? close() : open(); });
+    // picking an option closes the panel behind it rather than leaving it open
+    panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { clearCloseTimer(); setTimeout(close, 120); }));
   }
 
   initScrollProgress() {
@@ -1204,7 +1269,7 @@ class Component extends DCLogic {
     const INITS = [
       'initReveal', 'initHeroCanvas', 'buildHeroParallax', 'initHeroParallax',
       'initScrollReveal', 'buildLightArchitect', 'initLightArchitect', 'initLAInteract', 'initCounters',
-      'initNavScroll', 'initMarquee', 'initClock', 'initIso', 'initAegis', 'initAnimGate', 'initToc', 'scrollToHash'
+      'initNavScroll', 'initMarquee', 'initClock', 'initIso', 'initAegis', 'initAnimGate', 'initToc', 'initMailChoose', 'scrollToHash'
     ];
     // Re-runnable subset: skip one-shot page effects that would visibly repeat.
     const RE_INITS = INITS.filter(n => n !== 'scrollToHash');
@@ -3214,11 +3279,6 @@ class Component extends DCLogic {
       toggleDark: () => { const nd = !dark; try { localStorage.setItem('rba-int-dark', String(nd)); } catch (e) {} this.setState({ dark: nd }, () => this.tintHeat()); },
       toggleMenu: () => { document.querySelectorAll('.int-switch[open]').forEach(d => d.removeAttribute('open')); this.setState(s => ({ menu: !s.menu })); },
       closeMenu: () => this.setState({ menu: false }),
-      mailToggle: (e) => {
-        const d = e.currentTarget;
-        if (this._mailT) { clearTimeout(this._mailT); this._mailT = null; }
-        if (d.open) { this._mailT = setTimeout(() => { d.removeAttribute('open'); }, 10000); }
-      },
     };
   }
 }
