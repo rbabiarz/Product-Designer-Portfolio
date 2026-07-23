@@ -176,6 +176,14 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .dss-tr{font-size:10px;color:var(--c-muted);letter-spacing:.04em;text-transform:uppercase;flex:1}
 .dss-tv{font-size:11px;color:var(--c-muted);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46%}
 .dss-note{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--c-muted);margin-top:14px;line-height:1.7;text-transform:uppercase}
+.dss-tree-card{border:1px solid var(--c-b2);border-radius:14px;background:var(--c-card);overflow:hidden}
+.dss-tree-head{padding:12px 18px;border-bottom:1px solid var(--c-b1)}
+.dss-tree{margin:0;padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.75;color:var(--c-ink2);overflow:auto;max-height:560px;white-space:pre}
+.dss-tree:focus-visible{outline:2px solid var(--c-accent);outline-offset:-2px}
+.dss-tree .c{color:var(--c-muted)}
+.dss-tree .g{color:var(--c-accent);font-weight:700;letter-spacing:0.04em}
+@media (max-width:640px){.dss-tree{font-size:10px;padding:14px 12px}}
+
 .dss-btn{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#fff;background:var(--c-accent);border:none;border-radius:999px;padding:13px 24px;min-height:44px;cursor:pointer;transition:transform .15s}
 .dss-btn:hover{transform:translateY(-1px)}
 .dss-btn:focus-visible{outline:2px solid var(--c-accent);outline-offset:3px}
@@ -409,6 +417,101 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         </table>
       </div>
       <div class="dss-note" data-reveal="">SELECTED FROM 18 ROOT MODULES · LINE COUNTS FROM THE WORKING TREE · THREE PYTHON SCRIPTS GENERATE THE DERIVED LAYER: BUILD RECORD, 112-SECTION SEARCH INDEX, 42-DOCUMENT DESIGN COMPENDIUM</div>
+      <h3 data-reveal="" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--c-ink);margin:52px 0 12px">The directory structure, <em style="font-weight:300">a system on disk.</em></h3>
+      <p class="lead" data-reveal="" style="max-width:860px;margin-bottom:22px">The scaffold every project starts from. The top level is context an AI collaborator loads before its first task; the toolkit pins the agents, commands, and always-on rules; the system, the record, and the reference each get a durable home. Structure is governance: put the file where the tree says, and the process follows.</p>
+      <div class="dss-tree-card" data-reveal="">
+        <div class="dss-tree-head"><span class="mono" style="font-size:10px;letter-spacing:0.12em;color:var(--c-muted)">PROJECT SCAFFOLD · ANNOTATED</span></div>
+        <pre class="dss-tree" tabindex="0" aria-label="Annotated project directory structure"><span class="g">project-root/</span>                                <span class="c"># Root of the project repository</span>
+│
+├── <span class="g">CONTEXT CLAUDE LOADS (auto-loaded / top-level)</span>
+│   ├── CLAUDE.md                       <span class="c"># Main context Claude reads first — what the project is, how to work in it, build/test commands</span>
+│   ├── CLAUDE.local.md                 <span class="c"># Your personal Claude context/overrides; gitignored, stays on your machine</span>
+│   ├── DESIGN.md                       <span class="c"># Design direction &amp; principles — the visual &quot;feel&quot; the work should hit</span>
+│   ├── PRODUCT.md                      <span class="c"># Product overview / north star — the why, the audience, the outcome</span>
+│   ├── .mcp.json                       <span class="c"># Shared MCP server config so everyone&#x27;s Claude connects to the same tools</span>
+│   ├── README.md                       <span class="c"># Human-facing overview: what this is, how to get started, structure</span>
+│   ├── .gitignore                      <span class="c"># Tells git what to never commit (secrets, deps, build output, local files)</span>
+│   └── .env.example                    <span class="c"># Template of required env vars; copied to .env and filled in</span>
+│
+├── <span class="g">TEAM TOOLKIT</span>
+│   └── .claude/                        <span class="c"># Claude Code configuration for this repo, shared with the team</span>
+│       ├── agents/                     <span class="c"># Sub-agents — specialized helpers Claude can delegate focused work to</span>
+│       │   ├── design-critic.md        <span class="c"># Agent that reviews work against DESIGN.md and the design system</span>
+│       │   ├── implementer.md          <span class="c"># Agent that turns specs/designs into working code</span>
+│       │   └── researcher.md           <span class="c"># Agent that gathers references, competitors, and background research</span>
+│       ├── commands/                   <span class="c"># Custom slash commands — reusable prompts you invoke with /name</span>
+│       │   ├── audit-tokens.md         <span class="c"># /audit-tokens — checks the codebase for hard-coded values vs design tokens</span>
+│       │   └── new-page.md             <span class="c"># /new-page — scaffolds a new page/view following project conventions</span>
+│       ├── rules/                      <span class="c"># Always-on guidance Claude must follow on every task</span>
+│       │   ├── accessibility.md        <span class="c"># Accessibility requirements (contrast, focus, targets, reduced motion)</span>
+│       │   ├── code-style.md           <span class="c"># Formatting, naming, and code conventions</span>
+│       │   ├── content-voice.md        <span class="c"># Tone and writing style for UI copy and content</span>
+│       │   └── design-system.md        <span class="c"># How to use tokens/components; when to reuse vs create</span>
+│       ├── skills/                     <span class="c"># Project-specific skills (packaged instructions for recurring tasks)</span>
+│       │   └── .gitkeep                <span class="c"># Placeholder so the empty folder is tracked by git</span>
+│       ├── settings.json               <span class="c"># Shared, committed Claude settings (permissions, env) for the team</span>
+│       └── settings.local.json         <span class="c"># Your personal Claude settings; gitignored, overrides the shared file</span>
+│
+├── <span class="g">DESIGN SYSTEM</span>
+│   ├── design-system/                  <span class="c"># The design system — documented rules for a consistent look and feel</span>
+│   │   ├── foundations.md              <span class="c"># Rationale for color, type, spacing, and grid — the &quot;why&quot; behind tokens</span>
+│   │   ├── components.md               <span class="c"># Catalog of components: what each is, its variants, and when to use it</span>
+│   │   ├── patterns.md                 <span class="c"># Composed patterns (forms, nav, cards) built from components</span>
+│   │   ├── usage-guidelines.md         <span class="c"># Do&#x27;s and don&#x27;ts — how to apply the system correctly</span>
+│   │   └── colors_and_type.css         <span class="c"># The color and typography styles the system defines</span>
+│   ├── design-tokens.json              <span class="c"># Source-of-truth design values: colors, type, spacing, radii</span>
+│   ├── tokens.css                      <span class="c"># Those tokens compiled to CSS custom properties for use in styles</span>
+│   └── styles.css                      <span class="c"># Global base styles (resets, defaults) built on the tokens</span>
+│
+├── <span class="g">DOCUMENTATION</span>
+│   └── docs/                           <span class="c"># Project documentation — the written record of intent and decisions</span>
+│       ├── brief.md                    <span class="c"># The starting brief: goal, audience, scope, constraints</span>
+│       ├── product-requirements.md     <span class="c"># What the product must do — features, requirements, acceptance criteria</span>
+│       ├── design-decisions.md         <span class="c"># Log of key design choices and the reasoning behind them</span>
+│       ├── personas.md                 <span class="c"># Who we&#x27;re building for — user profiles, needs, and goals</span>
+│       ├── success-metrics.md          <span class="c"># How we&#x27;ll know it&#x27;s working — the measures that define success</span>
+│       ├── constraints.md              <span class="c"># Hard limits and non-negotiables (technical, legal, brand, budget)</span>
+│       ├── information-architecture.md <span class="c"># Site/app structure — pages, hierarchy, navigation</span>
+│       ├── open-questions.md           <span class="c"># Unresolved decisions and things still being figured out</span>
+│       ├── changelog.md                <span class="c"># Running history of notable changes to the project</span>
+│       └── features/                   <span class="c"># One doc per feature — detailed spec and notes for each</span>
+│           └── .gitkeep                <span class="c"># Placeholder so the empty folder is tracked by git</span>
+│
+├── <span class="g">SOURCE</span>
+│   └── src/                            <span class="c"># Application source code</span>
+│       └── components/                 <span class="c"># Reusable UI components</span>
+│           ├── primitives/             <span class="c"># Lowest-level building blocks (buttons, inputs, text)</span>
+│           │   └── .gitkeep            <span class="c"># Placeholder so the empty folder is tracked by git</span>
+│           └── patterns/               <span class="c"># Larger components composed from primitives (forms, cards, nav)</span>
+│               └── .gitkeep            <span class="c"># Placeholder so the empty folder is tracked by git</span>
+│
+├── <span class="g">STATIC / SUPPORT / SEO</span>
+│   ├── public/                         <span class="c"># Static assets served as-is (not processed by a build step)</span>
+│   │   └── images/                     <span class="c"># Image assets (logos, illustrations, photos)</span>
+│   │       └── .gitkeep                <span class="c"># Placeholder so the empty folder is tracked by git</span>
+│   ├── robots.txt                      <span class="c"># Tells search-engine crawlers which pages they may index</span>
+│   ├── sitemap.xml                     <span class="c"># Lists the site&#x27;s URLs to help search engines discover pages</span>
+│   ├── site.webmanifest                <span class="c"># Web app metadata (name, icons, theme color) for install/PWA</span>
+│   ├── .nojekyll                       <span class="c"># Disables Jekyll processing when hosting on GitHub Pages</span>
+│   ├── CNAME                           <span class="c"># Custom domain for GitHub Pages hosting (optional)</span>
+│   ├── SEO.md                          <span class="c"># SEO notes, checklist, and metadata strategy</span>
+│   ├── PERFORMANCE-AUDIT.md            <span class="c"># Record of performance findings and improvements</span>
+│   ├── ACCESSIBILITY-AUDIT.md          <span class="c"># Record of accessibility findings against WCAG/AODA</span>
+│   └── scripts/                        <span class="c"># Support and build scripts</span>
+│       ├── analytics.js                <span class="c"># Loads/configures analytics tracking</span>
+│       ├── a11y.js                     <span class="c"># Runtime accessibility helpers/enhancements</span>
+│       ├── cookie-banner.js            <span class="c"># Cookie consent banner logic</span>
+│       └── build-search-index.py       <span class="c"># Build step that generates a search index for the site</span>
+│
+└── <span class="g">REFERENCE</span>
+    └── reference/                      <span class="c"># Inspiration and research inputs — not shipped, just informs the work</span>
+        ├── screenshots/  └ .gitkeep    <span class="c"># Screenshots of your own product/states worth referencing (kept in git)</span>
+        ├── competitors/  └ .gitkeep    <span class="c"># Competitor examples gathered for comparison (kept in git)</span>
+        ├── moodboards/   └ .gitkeep    <span class="c"># Visual mood/direction boards for look and feel (kept in git)</span>
+        ├── flows/        └ .gitkeep    <span class="c"># User flow diagrams and journey maps (kept in git)</span>
+        └── research/     └ .gitkeep    <span class="c"># User research, notes, interviews, findings (kept in git)</span></pre>
+      </div>
+
     </div>
   </section>
 
