@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Robert Babiarz, Senior Product Designer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,play_arrow,refresh,remove,restore,star&display=block" rel="stylesheet">
   <style>svg[width="24"],svg[width="36"]{flex-shrink:0}
 /* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
 /* Firefox paints backdrop-filter unreliably over transformed / animated content
@@ -609,6 +609,22 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
           <h2 style="font-family:'Inter',sans-serif;font-size:clamp(30px,4.4vw,58px);font-weight:600;letter-spacing:-0.03em;line-height:1.04;color:var(--fg);">Selected Work</h2>
         </div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;max-width:240px;text-align:right;">Hover over a project to preview</div>
+      </div>
+
+      <!-- VIEW KEY — how to read the case studies -->
+      <div id="viewkey" data-reveal="true" style="margin:0 0 22px;padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);">
+        <p style="margin:0 0 12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);">Every case study opens with this control</p>
+        <div data-viewkey-ctrl aria-hidden="true" style="display:inline-flex;align-items:center;gap:9px;padding:6px 10px 6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);margin-bottom:14px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--fg3);">VIEW</span>
+          <span style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--bg);background:var(--ac);padding:5px 13px;border-radius:999px;">Quick tour</span>
+          <span style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;color:var(--fg2);">Deep dive</span>
+          <span class="msi" style="font-size:19px;color:var(--ac);">play_arrow</span>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;color:var(--fg2);">
+          <li><strong style="color:var(--fg);font-weight:600;">Quick tour</strong> — the outcomes, at a glance · ~3–5 min</li>
+          <li><strong style="color:var(--fg);font-weight:600;">Deep dive</strong> — the full story: process, decisions, and the paths I didn't take · ~8–12 min</li>
+          <li><span class="msi" aria-hidden="true" style="font-size:16px;color:var(--ac);vertical-align:-3px;">play_arrow</span> <strong style="color:var(--fg);font-weight:600;">Live demo</strong> — jumps into the working, clickable prototype</li>
+        </ul>
       </div>
 
       <div id="proj-list" style="border-top:1px solid var(--line);">
