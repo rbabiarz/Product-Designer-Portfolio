@@ -9,7 +9,7 @@
    Optionally add the same ID to Google Search Console + Bing Webmaster Tools
    and submit https://robertbabiarz.com/sitemap.xml (see SEO.md). */
 (function () {
-  var GA_ID = 'G-SLLBGG5375'; // GA4 property: robertbabiarz.com
+  var GA_ID = 'G-W823MTBRNM'; // GA4 property: robertbabiarz.com
   if (!GA_ID || GA_ID.indexOf('XXXX') !== -1) return; // disabled until configured
 
   // Consent-first (opt-in): the tracker never loads until the visitor has

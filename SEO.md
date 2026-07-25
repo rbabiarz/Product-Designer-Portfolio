@@ -51,7 +51,7 @@ designer", "defense product designer Toronto" are winnable; "product designer" a
 
 ## 3. Manual next steps (only you can do these)
 
-1. **Analytics: done** — GA4 property live (`G-SLLBGG5375` in [`analytics.js`](analytics.js)),
+1. **Analytics: done** — GA4 property live (`G-W823MTBRNM` in [`analytics.js`](analytics.js)),
    consent-gated behind the cookie banner. Next: link the property to Search Console (GA Admin → Product links).
 2. **Google Search Console** (search.google.com/search-console) — add `robertbabiarz.com`, verify
    (DNS TXT or the GA tag), **submit `https://robertbabiarz.com/sitemap.xml`**. Repeat at **Bing
