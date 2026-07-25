@@ -34,7 +34,7 @@
 <x-dc>
 <helmet>
 <title>Robert Babiarz, Product Designer · RB-OS Terminal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,refresh,remove,restore,star&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_outward,arrow_upward,auto_awesome,check,chevron_left,chevron_right,close,crop_free,dark_mode,delete,download,expand_less,expand_more,fullscreen,fullscreen_exit,info,light_mode,mail,menu,open_in_new,play_arrow,refresh,remove,restore,star&display=block" rel="stylesheet">
   <style>/* MUI kit system icons — Material Symbols (see .claude/rules/code-style.md) */.msi{font-size:24px;font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'opsz' 24;vertical-align:-0.125em;font-size:24px;}.msi-fill{font-variation-settings:'FILL' 1,'opsz' 24;}
 /* Firefox paints backdrop-filter unreliably over transformed / animated content
    (clipped cards, see-through fixed bars — the same failure class as the cookie
@@ -280,6 +280,22 @@ body{margin:0;background:#040806}
         <div style="font-size:14px;letter-spacing:0.08em;color:#cdffe2;">C:\&gt; <span style="color:#ffb454;">DIR</span> /WORK /CASE-FILES</div>
         <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">11 FILE(S) · 0 DIR(S) · SELECT TO OPEN</div>
       </div>
+      <!-- VIEW KEY — how to read the case files -->
+      <div id="viewkey" style="margin:0 0 18px;padding:14px 16px;border:1px solid rgba(108,240,164,0.28);background:rgba(108,240,164,0.04);">
+        <div style="font-size:13px;letter-spacing:0.06em;color:#cdffe2;margin-bottom:11px;">C:\&gt; <span style="color:#ffb454;">HELP</span> VIEW <span style="color:#3f9e69;">— every file opens with this control</span></div>
+        <div data-viewkey-ctrl aria-hidden="true" style="display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:0.04em;margin-bottom:13px;color:#6cf0a4;">
+          <span style="color:#3f9e69;letter-spacing:0.1em;">VIEW:</span>
+          <span style="background:#6cf0a4;color:#04130b;padding:3px 9px;font-weight:700;">QUICK TOUR</span>
+          <span style="color:#9af0c2;">DEEP DIVE</span>
+          <span style="color:#ffb454;display:inline-flex;align-items:center;">[<span class="msi" style="font-size:15px;vertical-align:-3px;">play_arrow</span>]</span>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5;color:#8fe6b4;">
+          <li><span style="color:#cdffe2;">QUICK TOUR</span> — the outcomes, at a glance · 3–5 min</li>
+          <li><span style="color:#cdffe2;">DEEP DIVE</span> — the full story: process, decisions, and the paths I didn't take · 8–12 min</li>
+          <li><span style="color:#ffb454;">[<span class="msi" aria-hidden="true" style="font-size:14px;vertical-align:-3px;">play_arrow</span>] LIVE DEMO</span> — drops you into the running prototype</li>
+        </ul>
+      </div>
+
       <div style="border-top:1px solid rgba(108,240,164,0.28);border-bottom:1px solid rgba(108,240,164,0.28);">
 
         <a class="rt-file" href="dali-2-showcase.html" data-preview="previews/thumb-dali.png?v=2" style="display:grid;grid-template-columns:44px 1fr 230px 20px;align-items:center;gap:20px;padding:15px 8px;border-bottom:1px solid rgba(108,240,164,0.14);text-decoration:none;color:#6cf0a4;">
