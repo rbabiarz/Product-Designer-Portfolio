@@ -510,15 +510,15 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div class="wrap">
       <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
         <div>
-          <div class="eyebrow" data-reveal="">Approach</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px;font-size:clamp(28px,3.6vw,46px)">From "wait for it" to <em>work through it</em></h2>
-          <p class="lead" data-reveal="" data-d="2">We stopped designing for when the scan finishes, and started designing for what users can do while it's still running. The non-blocking V2 architecture turned a protocol-imposed wait into invisible background work, contractors configure areas while device import runs in parallel.</p>
+          <div class="eyebrow" data-reveal="">Stage 2 · Commission</div>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px;font-size:clamp(28px,3.6vw,46px)">From "wait for it" to <em>"work through it"</em></h2>
+          <p class="lead" data-reveal="" data-d="2">Bringing a floor online used to mean staring at a loading screen. Adding one controller froze the entire app while it read every device — up to 27 and a half minutes, times ten controllers. The fix wasn't a faster wait. It was designing so there's no wait to sit through.</p>
         </div>
         <div class="appr" data-reveal="" data-d="1">
-          <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">Non-blocking import</div><div class="appr-p">ADD TO WAC pairs the hub and runs the bus scan in the background. The UI never blocks, with a two-banner progress model that stays visible the whole way.</div></div></div>
-          <div class="appr-row"><div class="appr-n">02</div><div><div class="appr-h">Hub-first discovery</div><div class="appr-p">Discover only DALI hubs by name, MAC, and IP, no IP hunting or DIP switches. A persistent "remaining devices in WAC" counter keeps installation-wide context in view.</div></div></div>
-          <div class="appr-row"><div class="appr-n">03</div><div><div class="appr-h">Filter before load</div><div class="appr-p">Instead of "show everything," the technician picks System → Hub → Bus first, scoping the list to a single bus's 128 devices before anything renders, exactly how DALI-2 is wired.</div></div></div>
-          <div class="appr-row"><div class="appr-n">04</div><div><div class="appr-h">A visual language for the bus</div><div class="appr-p">A custom icon set embeds the DALI 2-wire bus as a shared motif, so users read "this is a DALI device" as a category, then the type at a glance.</div></div></div>
+          <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">Add controllers, not chaos</div><div class="appr-p">Find a controller by name; its devices come with it.</div></div></div>
+          <div class="appr-row"><div class="appr-n">02</div><div><div class="appr-h">Nothing blocks</div><div class="appr-p">Leave and start setting up rooms while it imports.</div></div></div>
+          <div class="appr-row"><div class="appr-n">03</div><div><div class="appr-h">Progress stays in view</div><div class="appr-p">Two banners track the import the whole way.</div></div></div>
+          <div class="appr-row"><div class="appr-n">04</div><div><div class="appr-h">Devices number themselves</div><div class="appr-p">No manual addressing, ever.</div></div></div>
         </div>
       </div>
     </div>
@@ -534,9 +534,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <p class="lead" style="color:#c6d2dd;max-width:740px;margin:18px auto 0">Hub-first import takes a raw hub from the network to a named, addressable system, with a persistent device counter the whole way. The real screens, shipped to the field.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/shots/d-discover.jpg" alt="Discovered DALI hubs, each found automatically by name, MAC and IP"></div><div class="band-cap cap-light">Step 1 · Discover, every hub on the network</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/shots/d-editbus.jpg" alt="Inline editing of DALI hub and bus names tied to floor and location"></div><div class="band-cap cap-light">Step 2 · Name, hub and buses inline</div></div>
-        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/shots/d-success.jpg" alt="Successfully added to WAC, confirmation with remaining device count"></div><div class="band-cap cap-light">Step 3 · Added to WAC, with remaining count</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/shots/d-discover.jpg" alt="Every controller on the network, found automatically by name"></div><div class="band-cap cap-light">Step 1 · Find the controller</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/shots/d-editbus.jpg" alt="Naming a controller inline, right after it's found"></div><div class="band-cap cap-light">Step 2 · Name it, on the spot</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/dali/shots/d-success.jpg" alt="Controller added, with the remaining device count still on screen"></div><div class="band-cap cap-light">Step 3 · Added — with the count still in view</div></div>
       </div>
     </div>
   </div>
@@ -549,26 +549,26 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">One modal, the <em>whole app behind it</em></h2>
         <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px auto 0">The actual V1 screen sat on top of a frozen interface for 10 to 27.5 minutes per hub. V2 deleted this blocking state entirely.</p>
       </div>
-      <div class="tl" data-reveal="" role="img" aria-label="One controller drawn to one time scale. V1: the interface locked for ten hub scans of 27.5 minutes each, about 4 hours 35 minutes idle. V2: the technician keeps working the whole time while the same scans run in the background.">
-        <div class="tl-row"><div class="tl-k">V1 · UI LOCKED<br>10 HUBS × 27.5 MIN</div><div class="tl-track" aria-hidden="true"><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div></div></div>
-        <div class="tl-row"><div class="tl-k">V2 · TECHNICIAN</div><div class="tl-track" aria-hidden="true"><div class="tl-work">KEEPS WORKING · UI NEVER BLOCKS</div></div></div>
-        <div class="tl-row"><div class="tl-k">V2 · SCANS, BACKGROUND</div><div class="tl-track" aria-hidden="true"><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div></div></div>
+      <div class="tl" data-reveal="" role="img" aria-label="One controller drawn to one time scale. V1: the app locked for ten controllers, 27.5 minutes each — about 4 hours 35 minutes idle. V2: you keep working the whole time while the same imports run in the background.">
+        <div class="tl-row"><div class="tl-k">V1 · SCREEN LOCKED<br>10 CONTROLLERS × 27.5 MIN</div><div class="tl-track" aria-hidden="true"><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div><div class="tl-seg"></div></div></div>
+        <div class="tl-row"><div class="tl-k">V2 · YOU KEEP WORKING</div><div class="tl-track" aria-hidden="true"><div class="tl-work">KEEPS WORKING · UI NEVER BLOCKS</div></div></div>
+        <div class="tl-row"><div class="tl-k">V2 · IMPORT RUNS BEHIND IT</div><div class="tl-track" aria-hidden="true"><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div><div class="tl-seg sc"></div></div></div>
         <div class="tl-row" aria-hidden="true"><div></div><div class="tl-axis"><span>0</span><span>4 H 35 MIN</span></div></div>
-        <div class="tl-note" aria-hidden="true">ONE CONTROLLER · WORST CASE DERIVED FROM THE STATED FIGURES (10 HUBS × 27.5 MIN)<br>GRAY = LOCKED · TEAL = WORKING · PALE = SCAN RUNNING BEHIND THE UI</div>
+        <div class="tl-note" aria-hidden="true">ONE CONTROLLER, WORST CASE FROM THE REAL FIGURES<br>GRAY = LOCKED · TEAL = WORKING · PALE = IMPORT RUNNING BEHIND THE SCREEN</div>
       </div>
       <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center" class="introgrid">
         <div class="win" data-reveal="" style="background:var(--c-surface)">
-          <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">v1 · processing… adding dali hub and devices to wac</span></div>
-          <img src="assets/dali/dali_loading_block.jpg" alt="Real V1 blocking modal, Processing Adding DALI Hub and Devices to WAC, over a frozen interface">
+          <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">v1 · processing… adding the controller and its devices</span></div>
+          <img src="assets/dali/dali_loading_block.jpg" alt="The old first build: one modal, the whole app frozen behind it">
         </div>
         <div data-reveal="" data-d="1">
           <div class="card" style="padding:26px 28px;background:var(--c-card)">
             <div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">The reframe, in one line</div>
             <p style="font-family:'Inter',sans-serif;font-weight:300;font-style:italic;font-size:19px;line-height:1.5;color:var(--c-ink2)">"We stopped designing for when the scan finishes, and started designing for what users can do while it's still running."</p>
             <div style="margin-top:18px;display:flex;flex-direction:column;gap:9px">
-              <div style="display:flex;gap:11px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex-shrink:0;margin-top:7px"></span><span style="font-size:14px;color:var(--c-body);line-height:1.5">Non-blocking: keep working during import</span></div>
-              <div style="display:flex;gap:11px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex-shrink:0;margin-top:7px"></span><span style="font-size:14px;color:var(--c-body);line-height:1.5">Two-banner progress model, always visible</span></div>
-              <div style="display:flex;gap:11px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex-shrink:0;margin-top:7px"></span><span style="font-size:14px;color:var(--c-body);line-height:1.5">Hub-first model matches MQTT pairing</span></div>
+              <div style="display:flex;gap:11px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex-shrink:0;margin-top:7px"></span><span style="font-size:14px;color:var(--c-body);line-height:1.5">Add controllers, not chaos</span></div>
+              <div style="display:flex;gap:11px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex-shrink:0;margin-top:7px"></span><span style="font-size:14px;color:var(--c-body);line-height:1.5">Nothing blocks</span></div>
+              <div style="display:flex;gap:11px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex-shrink:0;margin-top:7px"></span><span style="font-size:14px;color:var(--c-body);line-height:1.5">Progress stays in view</span></div>
             </div>
           </div>
         </div>
