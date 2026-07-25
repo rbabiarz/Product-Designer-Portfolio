@@ -204,6 +204,15 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 @media(max-width:860px){.topo{grid-template-columns:1fr 1fr}.topo-facts{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.topo,.topo-facts{grid-template-columns:1fr}}
 
+.bp{max-width:1000px;margin:34px auto 0}
+.bp-grid{display:grid;grid-template-columns:150px repeat(3,1fr);gap:0;border:1px solid var(--c-b2);border-radius:16px;overflow:hidden}
+.bp-cell{padding:16px 16px;border-left:1px solid var(--c-b1);border-top:1px solid var(--c-b1);font-size:13px;line-height:1.5;color:var(--c-body)}
+.bp-side{border-left:0;background:var(--c-card);font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);display:flex;align-items:center}
+.bp-step{border-top:0;background:var(--c-card);font-family:'Inter',sans-serif;font-weight:600;color:var(--c-ink2);font-size:13.5px}
+.bp-line{grid-column:1/-1;height:0;border-top:1px dashed var(--c-line2);position:relative}
+.bp-line span{position:absolute;left:12px;top:-8px;background:var(--c-bg);padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted)}
+@media(max-width:720px){.bp-grid{grid-template-columns:1fr}.bp-side{border-top:1px solid var(--c-b1)}.bp-line{display:none}}
+
 @media (max-width:980px){
   nav.top .bar{padding:0 18px}
   .wrap,.wrap-n{padding:0 20px}
@@ -571,6 +580,34 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
               <div style="display:flex;gap:11px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex-shrink:0;margin-top:7px"></span><span style="font-size:14px;color:var(--c-body);line-height:1.5">Progress stays in view</span></div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE BLUEPRINT: FRONTSTAGE VS BACKSTAGE -->
+  <section class="pad">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">Under the hood</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">What you see vs. <em>what it's doing</em></h2>
+      <p class="lead" data-reveal="" data-d="2">The trick to a wait you don't feel: move the slow work out of sight. Above the line is what the technician sees; below is what the system quietly does for them.</p>
+    </div>
+    <div class="wrap">
+      <div class="bp">
+        <div class="bp-grid" role="img" aria-label="Service blueprint across three commissioning steps — find the controller, add it, sort into rooms. Frontstage, what the technician sees: pick it by name; tap Add and keep moving; drag devices into rooms. Backstage, what the system does: reads the wire and finds every device; gives each device an address; imports in the background and reports progress." data-reveal="" data-d="1">
+          <div class="bp-side"></div>
+          <div class="bp-cell bp-step">Find the controller</div>
+          <div class="bp-cell bp-step">Add it</div>
+          <div class="bp-cell bp-step">Sort into rooms</div>
+          <div class="bp-cell bp-side">Frontstage</div>
+          <div class="bp-cell">Pick it by name</div>
+          <div class="bp-cell">Tap Add — keep moving</div>
+          <div class="bp-cell">Drag devices into rooms</div>
+          <div class="bp-line"><span>Line of visibility</span></div>
+          <div class="bp-cell bp-side">Backstage</div>
+          <div class="bp-cell">Reads the wire, finds every device</div>
+          <div class="bp-cell">Gives each device an address</div>
+          <div class="bp-cell">Imports in the background, reports progress</div>
         </div>
       </div>
     </div>
