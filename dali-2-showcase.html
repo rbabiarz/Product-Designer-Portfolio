@@ -189,6 +189,21 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .jm-note{max-width:820px;margin:22px auto 0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--c-muted);line-height:1.7}
 @media(max-width:860px){.jm{grid-template-columns:1fr}}
 
+.topo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.topo-cell{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:14px;padding:18px 16px;text-align:center}
+.topo-cell svg{width:100%;height:74px;display:block;margin-bottom:12px}
+.topo-cell .n{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--c-ink2)}
+.topo-ok svg{color:var(--c-accent)}
+.topo-no svg{color:var(--c-risk)}
+.topo-tag{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+.topo-ok .topo-tag{color:var(--c-accent)}
+.topo-no .topo-tag{color:var(--c-risk)}
+.topo-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+.topo-facts>div{background:var(--c-card);border-radius:12px;padding:16px;font-size:13px;line-height:1.5;color:var(--c-body)}
+.topo-facts b{display:block;font-family:'Inter',sans-serif;color:var(--c-ink2);margin-bottom:4px}
+@media(max-width:860px){.topo{grid-template-columns:1fr 1fr}.topo-facts{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.topo,.topo-facts{grid-template-columns:1fr}}
+
 @media (max-width:980px){
   nav.top .bar{padding:0 18px}
   .wrap,.wrap-n{padding:0 20px}
@@ -361,35 +376,132 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- SHOWCASE: SCALE BAND -->
-  <div class="band band-teal" data-reveal="" id="scale">
-    <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
-    <div class="band-inner">
-      <div class="scale-split">
-        <div class="scale-copy">
-          <div class="eyebrow" style="color:#9fe9d8">The Scale</div>
-          <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The numbers I was <em style="color:#9fe9d8">designing for</em></h2>
-          <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px 0 0">DALI-2's physical limits define the whole problem space. Every interaction had to hold from a single bus to a full hospital floor.</p>
-        </div>
-        <div class="scale-stats">
-          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">10,000+</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Devices per<br>hospital floor</div></div>
-          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">24</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Buses<br>per floor</div></div>
-          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">6</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">DALI hubs<br>per panel</div></div>
-          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">128</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Fixtures<br>per bus</div></div>
-          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">1,000<span style="font-size:.5em;color:#9fe9d8"> ft</span></div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Max bus<br>length</div></div>
-          <div style="text-align:center;color:#fff"><div class="mono" style="font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-1px">250</div><div style="font-size:12px;color:#bfe7df;margin-top:10px;line-height:1.4">Devices per hub<br>(per scan)</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- THE PROBLEM / SITE -->
-  <section class="pad">
+  <!-- STAGE 1 · INSTALL -->
+  <section class="pad" id="install">
     <div class="wrap">
-      <div class="win" data-reveal="" style="background:var(--c-surface)">
-        <img src="assets/dali/hospital.jpg" alt="Peter Gilgan Mississauga Hospital, architectural rendering, the first DALI-2 deployment">
+      <div class="center" style="max-width:760px;margin:0 auto">
+        <div class="eyebrow" data-reveal="">Stage 1 · Install</div>
+        <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px">Two wires, almost any <em>shape</em></h2>
+        <p class="lead" data-reveal="" data-d="2">The reason this wins on a job site: the wiring barely constrains the electrician. Two control wires, no polarity to get right, a cap on the end — and the run can take almost any shape.</p>
       </div>
-      <p class="mono" data-reveal="" style="font-size:12px;color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px auto 0;text-align:center;font-style:italic">First deployment · Peter Gilgan Mississauga Hospital, the largest DALI-2 installation in North America.</p>
+
+      <div role="img" aria-label="Supported wiring layouts: daisy-chain, star, tree, and combinations. Not supported: ring and mesh." data-reveal="" data-d="1">
+        <div class="topo">
+          <div class="topo-cell topo-ok">
+            <svg viewBox="0 0 140 74" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+              <polyline points="12,37 40,37 68,37 96,37 124,37"/>
+              <circle cx="12" cy="37" r="4"/>
+              <circle cx="40" cy="37" r="4"/>
+              <circle cx="68" cy="37" r="4"/>
+              <circle cx="96" cy="37" r="4"/>
+              <circle cx="124" cy="37" r="4"/>
+            </svg>
+            <div class="n">Daisy-chain</div>
+            <div class="topo-tag"><span class="msi" aria-hidden="true">check</span> Supported</div>
+          </div>
+          <div class="topo-cell topo-ok">
+            <svg viewBox="0 0 140 74" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+              <line x1="70" y1="37" x2="70" y2="10"/>
+              <line x1="70" y1="37" x2="98" y2="29"/>
+              <line x1="70" y1="37" x2="86" y2="61"/>
+              <line x1="70" y1="37" x2="54" y2="61"/>
+              <line x1="70" y1="37" x2="42" y2="29"/>
+              <circle cx="70" cy="37" r="4"/>
+              <circle cx="70" cy="10" r="4"/>
+              <circle cx="98" cy="29" r="4"/>
+              <circle cx="86" cy="61" r="4"/>
+              <circle cx="54" cy="61" r="4"/>
+              <circle cx="42" cy="29" r="4"/>
+            </svg>
+            <div class="n">Star</div>
+            <div class="topo-tag"><span class="msi" aria-hidden="true">check</span> Supported</div>
+          </div>
+          <div class="topo-cell topo-ok">
+            <svg viewBox="0 0 140 74" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+              <line x1="70" y1="10" x2="40" y2="37"/>
+              <line x1="70" y1="10" x2="100" y2="37"/>
+              <line x1="40" y1="37" x2="20" y2="64"/>
+              <line x1="40" y1="37" x2="55" y2="64"/>
+              <line x1="100" y1="37" x2="85" y2="64"/>
+              <line x1="100" y1="37" x2="120" y2="64"/>
+              <circle cx="70" cy="10" r="4"/>
+              <circle cx="40" cy="37" r="4"/>
+              <circle cx="100" cy="37" r="4"/>
+              <circle cx="20" cy="64" r="4"/>
+              <circle cx="55" cy="64" r="4"/>
+              <circle cx="85" cy="64" r="4"/>
+              <circle cx="120" cy="64" r="4"/>
+            </svg>
+            <div class="n">Tree</div>
+            <div class="topo-tag"><span class="msi" aria-hidden="true">check</span> Supported</div>
+          </div>
+          <div class="topo-cell topo-ok">
+            <svg viewBox="0 0 140 74" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+              <polyline points="14,18 42,18 70,18 98,18"/>
+              <line x1="98" y1="18" x2="116" y2="44"/>
+              <line x1="116" y1="44" x2="104" y2="60"/>
+              <line x1="116" y1="44" x2="122" y2="64"/>
+              <line x1="116" y1="44" x2="132" y2="44"/>
+              <circle cx="14" cy="18" r="4"/>
+              <circle cx="42" cy="18" r="4"/>
+              <circle cx="70" cy="18" r="4"/>
+              <circle cx="98" cy="18" r="4"/>
+              <circle cx="116" cy="44" r="4"/>
+              <circle cx="104" cy="60" r="4"/>
+              <circle cx="122" cy="64" r="4"/>
+              <circle cx="132" cy="44" r="4"/>
+            </svg>
+            <div class="n">Combination</div>
+            <div class="topo-tag"><span class="msi" aria-hidden="true">check</span> Supported</div>
+          </div>
+          <div class="topo-cell topo-no">
+            <svg viewBox="0 0 140 74" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+              <polyline points="96,37 83,60 57,60 44,37 57,15 83,15 96,37"/>
+              <circle cx="96" cy="37" r="4"/>
+              <circle cx="83" cy="60" r="4"/>
+              <circle cx="57" cy="60" r="4"/>
+              <circle cx="44" cy="37" r="4"/>
+              <circle cx="57" cy="15" r="4"/>
+              <circle cx="83" cy="15" r="4"/>
+            </svg>
+            <div class="n">Ring</div>
+            <div class="topo-tag"><span class="msi" aria-hidden="true">close</span> Not supported</div>
+          </div>
+          <div class="topo-cell topo-no">
+            <svg viewBox="0 0 140 74" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2">
+              <line x1="70" y1="10" x2="98" y2="29"/>
+              <line x1="70" y1="10" x2="86" y2="61"/>
+              <line x1="70" y1="10" x2="54" y2="61"/>
+              <line x1="70" y1="10" x2="42" y2="29"/>
+              <line x1="98" y1="29" x2="86" y2="61"/>
+              <line x1="98" y1="29" x2="54" y2="61"/>
+              <line x1="98" y1="29" x2="42" y2="29"/>
+              <line x1="86" y1="61" x2="54" y2="61"/>
+              <line x1="86" y1="61" x2="42" y2="29"/>
+              <line x1="54" y1="61" x2="42" y2="29"/>
+              <circle cx="70" cy="10" r="4"/>
+              <circle cx="98" cy="29" r="4"/>
+              <circle cx="86" cy="61" r="4"/>
+              <circle cx="54" cy="61" r="4"/>
+              <circle cx="42" cy="29" r="4"/>
+            </svg>
+            <div class="n">Mesh</div>
+            <div class="topo-tag"><span class="msi" aria-hidden="true">close</span> Not supported</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topo-facts" data-reveal="" data-d="2">
+        <div><b>No polarity to match</b>Either wire, either way.</div>
+        <div><b>~1,000 ft per run</b>Panel to the last fixture.</div>
+        <div><b>Test before software</b>Buttons and status lights on the controller check a run on the spot.</div>
+        <div><b>Change it later</b>Add or rearrange without a redesign.</div>
+      </div>
+
+      <div class="win" data-reveal="" style="background:var(--c-surface);margin-top:44px">
+        <img src="assets/dali/hospital.jpg" alt="Peter Gilgan Mississauga Hospital, architectural rendering — the first deployment of this system">
+      </div>
+      <p class="mono" data-reveal="" style="font-size:12px;color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px auto 0;text-align:center;font-style:italic">First deployment — the largest install of its kind in North America.</p>
     </div>
   </section>
 
