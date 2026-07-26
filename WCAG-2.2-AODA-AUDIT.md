@@ -184,3 +184,14 @@ The portfolio is in good automated shape — most pages pass WCAG 2.2 AA scannin
 - **Pointer gestures (2.5.7):** dragging is path-based, but the keyboard path and AUTO SELECT provide non-drag equivalents for the same outcomes.
 - **Known limitation:** individual node hit targets are ~20–27px inside the phone frame (below 24×24 target-size guidance); the keyboard path is the documented alternative, consistent with the site's other games.
 - **Site-wide fix:** the page-transition overlay (`#rb-pt`) was hit-testable during its entrance animation, intercepting the first ~1.5s of pointer input on every page; it is now `pointer-events:none` except while deliberately covering for navigation.
+
+## 9. Addendum — case-study "View key" legend (2026-07-25)
+
+A non-interactive legend (`#viewkey`) added above the case-study list on the three homepages (Interactive, Dossier, Retro) and the work page. It explains the per-case-study View control — Quick tour, Deep dive, and the ▶ that jumps into the live prototype — before the reader clicks in.
+
+- **Non-interactive by design:** no `<a>`, no `cursor:pointer`, no hover — the key is a legend, not a control, so there is no false click affordance and nothing new to keyboard-reach.
+- **Meaning without color (1.4.1):** the reproduced View control carries `data-viewkey-ctrl aria-hidden="true"` (decorative); all meaning is carried by three text glosses (Quick tour / Deep dive / Live demo). The Dossier red (`#b23a2e`) and Retro amber (`#ffb454`) appear only on the decorative ▶ glyph — never as the sole carrier of a gloss's meaning.
+- **Icon (1.1.1):** the `play_arrow` Material Symbol is `aria-hidden`; the adjacent "Live demo" text conveys it.
+- **Contrast (1.4.3):** gloss text uses each page's audited body colors (tokens on Interactive/Work; ink `#3a3120`/`#0a0a0a` on Dossier cream; mint `#8fe6b4`/`#cdffe2` on the Retro phosphor bg) — all ≥ 4.5:1.
+- **Reduced motion (2.3.3):** no new motion authored. The Interactive key reuses the section's existing `data-reveal` (already gated); the other three are static.
+- **Reflow (1.4.10):** verified no horizontal overflow at 390px on all four pages; the reproduced control and glosses wrap within the card.

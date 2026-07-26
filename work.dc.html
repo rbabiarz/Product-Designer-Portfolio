@@ -435,7 +435,23 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
 
   <!-- ═══ LOBBY (consumer game-lobby presentation; built by buildLobby()) ═══ -->
   <div id="wk-lobby" style="position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
-    <div style="max-width:1200px;margin:0 auto;"></div>
+    <div style="max-width:1200px;margin:0 auto;">
+      <!-- View key sits under the thumbnail grid (buildLobby appends it after .wk-lb-grid) -->
+      <div id="viewkey" style="margin-top:48px;padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);">
+        <p style="margin:0 0 12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);">Every case study opens with this control</p>
+        <div data-viewkey-ctrl aria-hidden="true" style="display:inline-flex;align-items:center;gap:9px;padding:6px 10px 6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);margin-bottom:14px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--fg3);">VIEW</span>
+          <span style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--bg);background:var(--ac);padding:5px 13px;border-radius:999px;">Quick tour</span>
+          <span style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;color:var(--fg2);">Deep dive</span>
+          <span class="msi" style="font-size:19px;color:var(--ac);">play_arrow</span>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;color:var(--fg2);">
+          <li><strong style="color:var(--fg);font-weight:600;">Quick tour</strong> — the outcomes, at a glance · ~3–5 min</li>
+          <li><strong style="color:var(--fg);font-weight:600;">Deep dive</strong> — the full story: process, decisions, and the paths I didn't take · ~8–12 min</li>
+          <li><span class="msi" aria-hidden="true" style="font-size:16px;color:var(--ac);vertical-align:-3px;">play_arrow</span> <strong style="color:var(--fg);font-weight:600;">Live demo</strong> — jumps into the working, clickable prototype</li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ INDEX (editorial type wall) ═══ -->
@@ -712,6 +728,9 @@ class Component extends DCLogic {
       grid.appendChild(a);
     });
     wrap.appendChild(grid);
+    // keep the View key under the last thumbnail row (48px is on #viewkey margin-top)
+    const vk = document.getElementById('viewkey');
+    if (vk) wrap.appendChild(vk);
     document.getElementById('wk-lb-play').addEventListener('click', () => this.lobbyVisit(this._lbFeat));
     this.lobbyFeature(this._lbFeat);
   }
