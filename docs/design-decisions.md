@@ -134,3 +134,86 @@ About (rejected: About is biography, not evidence).
 counters, 26 switcher menus, concierge intents, and footer chain all gained an 11th entry — the
 hand-maintained-count risk this ADR's own case study names as "what I'd push further." The
 colophon's version minor now tracks 11 case studies automatically.
+
+## ADR-012 — CORE Insights Quick tour re-spined as an end-to-end service story (2026-07-25)
+
+**Decision.** Rework the "Quick tour" version of the CORE Insights case study
+(`core-insights-showcase.html`) from a product/analytics walk-through into a plain-language,
+end-to-end service story. New spine: *what it is* → *why it mattered* (easy physical install
+across a flexible topology is what gets buildings deployed, so data exists at all) → **journey
+map** (Install → Commission → Go live → Operate → Optimize) → **service blueprint** (front-stage
+/ line of visibility / back-stage / support, worked through one question: "why is this floor
+empty?") → approach → outcomes. The installer/electrician is introduced as the entry actor who
+hands off to the manager, analyst, and desk-seeker. Product/system nouns ("CORE Insights", "PRO",
+"device tree", "taxonomy", "40,000+ devices") stripped from body copy; kept only in structural
+chrome (title, nav switcher, SEO, canonical). The Deep-dive version is untouched.
+
+**Why.** The brief was to make it "very easy to read", de-technical, and tell the whole UX process
+end to end with service-design artifacts. The load-bearing reframe: the intelligence is worthless
+until the hardware is on the ceiling, so the story now starts at install, not at a chart. Journey
+map and blueprint are synthesis artifacts (a representation of how the service works), so they
+carry the "end-to-end thinking" honestly without empirical claims.
+
+**Alternatives considered.** Light-touch copy pass + one journey map (rejected: under-delivers the
+service-design/blueprint/research asks). Installer-led reframe with insights as the payoff
+(rejected: shifts this case study's identity toward commissioning, overlapping DALI-2 /
+partitioning).
+
+**Research/testing constraint.** Owner confirmed no research notes exist and to "leave out anything
+that cannot be verified" — explicitly extending this to pre-existing claims. So: no standalone
+research-findings section, no invented studies/participant counts/percentages, AND the previously
+published outcome metrics (93% faster reports, 87% fewer clicks, 23% energy reduction) and the
+unattributed testimonial were removed outright. The closing "By the Numbers / Measured in the field"
+section was replaced with "At a glance / The shape of it" — four tiles carrying only structural facts
+that are true by inspecting the system, not outcomes: 5 hierarchy levels (org→room), 3 ways to read a
+space (compare/locate/trend), 4 readers on one shared map, 2 time modes (real-time/historical).
+
+**Consequences.** Two net-new designed artifacts (`.jmap` journey map, `.bp` service blueprint) added
+to this page's inline CSS/markup only — journey rail hides and cards stack ≤980px; blueprint scrolls
+inside its own `overflow-x` container ≤820px with a scroll hint (no page-level overflow at 390px).
+Verified in light/dark, desktop/mobile via Playwright. Hero anchor + band id renamed
+`#operators` → `#people`; meta "Operators" row → "The people" (installer added). SEO/OG/Twitter/JSON-LD
+descriptions rewritten to the plain-language framing.
+
+## ADR-013 — Partitioning Quick tour rebuilt as a de-identified, process-first case study (2026-07-25)
+
+**Decision.** Rework the "Quick tour" of the Partitioning case study
+(`partitioning-showcase.html`) into a plain-language, recruiter-legible UX/service-design story
+with every company, product, hardware, and client-venue name removed. New spine: plain hero + a
+CSS "one room / five rooms" concept (no screenshot) → *what it is* → *the problem* → **journey
+map** (Plan → Install → Set up → Connect → Use) → **service blueprint** (a wall closes; front-stage
+/ line of visibility / back-stage / support) → approach → **research & user testing** → an
+**interactive "open a wall" demo** → honest structural outcomes. Deep-dive version untouched.
+
+**Why.** Brief: "very easy to read, very little technical, keep company/branding/software/proprietary
+out, keep it general so any recruiter can follow the UX process." The old page was the opposite:
+heavy product screenshots (logos, the "Trellix/CooperWAC" UI, a named client ballroom), WaveLinx /
+Cooper / Signify throughout, and hardware acronyms (CCI, IRTR). A baked-in screenshot can't be
+de-branded, so all product screenshots were removed and replaced with designed artifacts and the
+(de-branded) interactive floor-plan sim.
+
+**De-branding.** Stripped WaveLinx / Cooper / Signify / Trellix / LXI / CORE / DALI / CCI / IRTR /
+UAG / "Rose Ballroom" / occupancy-set / wallstation / chandelier / cove / contact-input from body,
+SEO, meta, JSON-LD, and the nav-switcher subtitle. `floor-plan-sim.js` labels de-branded (presets
+→ "8 Separate Rooms / 6 Rooms / … / 1 Big Room"; "Rose Ballroom · 48 devices" → "One divisible room
+· 8 sections"; device note and per-zone "dev" → generic "section"). The switcher's link to the
+*other* DALI-2 case study is left as-is (portfolio navigation, not this case's content).
+
+**Research/testing grounding.** Unlike the Insights case (no notes), here the Confluence UAT trail
+is real source. The "what tripped people up → what we changed" pairs are generalized, de-identified
+versions of the actual documented feedback (wall-to-sensor linking confusion; unclear sub-room
+navigation; ambiguous icon; "what do I do next" on the details page; too much scrolling / missing
+validation) and their fixes (explicit guided step; expected navigation with mobile/desktop parity;
+familiar pattern; expand-collapse with lazy load; up-front counts + validation). The linear-vs-radial
+stepper debate became a de-identified "evidence over opinion" callout.
+
+**Outcomes honesty.** Removed the unverifiable/branded metrics (industry-first, 40–60% commissioning
+time, ~90% fewer API calls, "11+ issues"). Replaced "By the Numbers" with "At a glance / The shape of
+it": four structural facts that are public and general (up to 10 rooms, up to 10 walls, 2 wall states,
+3 surfaces at parity). No em dashes in new copy, matching the site house style.
+
+**Consequences.** Journey-map / blueprint / research-pair CSS added to this page (mirrors ADR-012).
+Verified via Playwright: zero JS errors, no horizontal overflow, sim rebuilds with de-branded labels;
+blueprint, demo, and research sections visually confirmed in light. `.win` / `.tl` CSS is now unused
+but left in place (harmless). Hero and version-pill still link to the branded Deep-dive page, which
+was out of scope for this pass.

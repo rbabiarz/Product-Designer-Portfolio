@@ -1,5 +1,5 @@
-/* floor-plan-sim.js — interactive Rose Ballroom floor plan for the Partitioning
-   showcase. Tap walls to open/close them; sub-areas merge into lighting zones.
+/* floor-plan-sim.js — interactive divisible-room floor plan for the Partitioning
+   showcase. Tap walls to open/close them; sections merge into one lit room.
 
    Usage: give any element `data-floor-sim`; the module builds the UI inside it.
    Used by partitioning-showcase.html (moved from partitioning.dc.html). */
@@ -108,27 +108,27 @@
         '<div class="fpsim-toolbar" role="group" aria-label="Wall configuration presets">' +
           '<span class="fpsim-lbl">Presets</span>' +
           '<button type="button" class="fpsim-preset" data-preset="split" aria-pressed="false">8 Separate Rooms</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="six" aria-pressed="false">6 Ballrooms</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="four" aria-pressed="false">4 Ballrooms</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="two" aria-pressed="false">2 Events</button>' +
-          '<button type="button" class="fpsim-preset" data-preset="grand" aria-pressed="false">1 Grand Ballroom</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="six" aria-pressed="false">6 Rooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="four" aria-pressed="false">4 Rooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="two" aria-pressed="false">2 Rooms</button>' +
+          '<button type="button" class="fpsim-preset" data-preset="grand" aria-pressed="false">1 Big Room</button>' +
           '<div class="fpsim-badge"><b data-zone-count>8</b><span>active<br>lighting zones</span></div>' +
         '</div>' +
         '<div class="fpsim-grid">' +
           '<div class="fpsim-card">' +
-            '<div class="fpsim-map" data-map role="application" aria-label="Rose Ballroom floor plan. Tap any wall to open or close it and watch sub-areas merge into lighting zones."></div>' +
+            '<div class="fpsim-map" data-map role="application" aria-label="A divisible-room floor plan. Tap any wall to open or close it and watch sections merge into one lit room."></div>' +
             '<div class="fpsim-legend">' +
               '<div class="fpsim-keyrow">' +
                 '<div class="fpsim-key"><i></i>Wall closed · rooms split</div>' +
                 '<div class="fpsim-key"><i class="open"></i>Wall open · rooms merged</div>' +
               '</div>' +
-              '<span class="fpsim-lbl">Rose Ballroom · 48 devices</span>' +
+              '<span class="fpsim-lbl">One divisible room · 8 sections</span>' +
             '</div>' +
           '</div>' +
           '<div class="fpsim-card" style="display:flex;flex-direction:column">' +
-            '<div class="fpsim-kicker">Live Lighting Zones</div>' +
+            '<div class="fpsim-kicker">Live lighting zones</div>' +
             '<div class="fpsim-zones" data-zones></div>' +
-            '<p class="fpsim-note">Each sub-area carries 2 chandeliers, inner &amp; outer cove, a wall station and a CCI. When walls open, their devices fall under one zone\'s control, scenes, occupancy and daylight all follow.</p>' +
+            '<p class="fpsim-note">Each section has its own lights and controls. Open a wall and the joined sections light as one: a switch here now controls the whole joined space, and presence sensing and daylight follow.</p>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -202,12 +202,12 @@
       var zonesArr = Object.keys(G.members).map(function (r) {
         var grp = G.members[r].slice().sort();
         var ci = G.colorByRoot[r] % PALETTE.length;
-        return { label: grp.join(' + '), color: PALETTE[ci].s, devices: grp.length * 6, first: grp[0] };
+        return { label: grp.join(' + '), color: PALETTE[ci].s, devices: grp.length * 6, first: grp[0], units: grp.length === 1 ? 'section' : grp.length + ' sections' };
       }).sort(function (a, b) { return a.first < b.first ? -1 : 1; });
 
       countEl.textContent = zonesArr.length;
       zonesEl.innerHTML = zonesArr.map(function (z) {
-        return '<div class="fpsim-zone" style="border-left-color:' + z.color + '"><div class="fpsim-zone-lbl" style="color:' + z.color + '">' + z.label + '</div><div class="fpsim-zone-dev">' + z.devices + ' dev</div></div>';
+        return '<div class="fpsim-zone" style="border-left-color:' + z.color + '"><div class="fpsim-zone-lbl" style="color:' + z.color + '">' + z.label + '</div><div class="fpsim-zone-dev">' + z.units + '</div></div>';
       }).join('');
 
       Object.keys(PRESETS).forEach(function (key) {
