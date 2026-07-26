@@ -184,7 +184,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .jrow{padding:11px 0;border-top:1px solid var(--c-b1)}
 .jk{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-bottom:5px}
 .jv{font-size:12.5px;color:var(--c-body);line-height:1.5}
-.jrow.job{margin:8px -17px -18px;padding:13px 17px 16px;background:var(--c-accent-soft);border-radius:0 0 13px 13px;border-top:1px solid var(--c-b2)}
+.jrow.job{margin:auto -17px -18px;padding:13px 17px 16px;min-height:104px;box-sizing:border-box;background:var(--c-accent-soft);border-radius:0 0 13px 13px;border-top:1px solid var(--c-b2)}
 .jrow.job .jk{color:var(--c-accent)}
 .jrow.job .jv{color:var(--c-accent);font-weight:500}
 .bp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
@@ -351,6 +351,20 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
+  <!-- SCREENSHOTS: HOW WE FRAMED IT -->
+  <div class="band band-teal" data-reveal="">
+    <div class="glow" style="width:520px;height:520px;top:-160px;left:8%;background:rgba(159,233,216,.15)"></div>
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:40px">
+        <div class="eyebrow" style="color:#9fe9d8">How we framed it</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">From a real room <em style="color:#9fe9d8">to a simple model</em></h2>
+        <p class="lead" style="color:#bfe7df;max-width:740px;margin:18px auto 0">Before any screens, the idea had to be explained: take a room that divides, and turn it into a handful of named rooms, the walls between them, and what each wall does. This is the framing I shared with the team.</p>
+      </div>
+      <div class="win" style="max-width:1000px;margin:0 auto"><div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span></div><img src="assets/part/slides.png" alt="Concept-framing slides that map a real venue onto the model of rooms, walls, and what each wall joins"></div>
+      <div class="band-cap cap-light">The concept, mapped from a real space to a simple model</div>
+    </div>
+  </div>
+
   <!-- THE PROBLEM -->
   <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
     <div class="wrap-n center">
@@ -503,6 +517,69 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
+  <!-- THINKING IT THROUGH + SEE IT MOVE (the plan, then the same model running) -->
+  <div class="band band-teal" data-reveal="" id="demo">
+    <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
+    <div class="band-inner">
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow" style="color:#9fe9d8">Thinking it through first</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Map the real room <em style="color:#9fe9d8">before the app</em></h2>
+        <p class="lead" style="color:#bfe7df;max-width:760px;margin:18px auto 0">The setup only feels simple because the thinking happened up front: every wall, every room, and every light mapped from a real floor plan onto the model the software needs.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px" class="gthumbs">
+        <div data-reveal=""><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_thought_process_1.png" alt="A floor plan with each wall drawn around it, mapped to the rooms it joins"></div><div class="band-cap cap-light">1 · Map each wall to the rooms it joins</div></div>
+        <div data-reveal="" data-d="1"><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_thought_process_2.png" alt="The plan broken into rooms with groups of lights marked out"></div><div class="band-cap cap-light">2 · Break the space into rooms and light groups</div></div>
+        <div data-reveal="" data-d="2"><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_thought_process_3.png" alt="Lights and inputs assigned into each room's groups against the plan"></div><div class="band-cap cap-light">3 · Assign the lights and inputs into each room</div></div>
+        <div data-reveal="" data-d="3"><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_thought_process_4.png" alt="A finished room's light list checked against the plan"></div><div class="band-cap cap-light">4 · Check the finished room against the plan</div></div>
+      </div>
+      <div style="margin-top:72px;padding-top:64px;border-top:1px solid rgba(159,233,216,.22)">
+        <div class="center" style="margin-bottom:36px">
+          <div class="eyebrow" style="color:#9fe9d8">Try it</div>
+          <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Open a wall. <em style="color:#9fe9d8">The rooms merge.</em></h2>
+          <p class="lead" style="color:#bfe7df;max-width:760px;margin:18px auto 0">That same model, running. <strong style="color:#fff;font-weight:600">Tap any wall</strong> to open or close it. Sections joined by an open wall light as one room. This little interaction is the whole idea the setup exists to protect.</p>
+        </div>
+        <div data-floor-sim data-reveal="" data-d="1"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREENSHOTS: THE SHIPPED SETUP -->
+  <section class="pad">
+    <div class="wrap-n center">
+      <div class="eyebrow" data-reveal="">From the product</div>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px;font-size:clamp(28px,3.6vw,46px)">The shipped setup, <em>five guided steps</em></h2>
+      <p class="lead" data-reveal="" data-d="2">The real screens that take a room from "this one divides" to fully wall-aware. Guided once, then it runs itself.</p>
+    </div>
+    <div class="wrap" style="margin-top:44px">
+      <div class="win" style="max-width:980px;margin:0 auto" data-reveal=""><div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_007.jpg" alt="The setup summary screen: each wall listed with the rooms it joins, and a wall's sensor input assigned"></div>
+      <div class="band-cap cap-dark">Every wall matched to the rooms it joins, and pointed at its sensor</div>
+    </div>
+    <div class="wrap" style="margin-top:40px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px 18px" class="gthumbs">
+        <div data-reveal="">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_001.jpg" alt="Setup screen: creating a new space"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">01</div><div style="flex:1"><div class="appr-h">Create the space</div><div class="appr-p">Start a new space, the entry point for the whole setup.</div></div></div>
+        </div>
+        <div data-reveal="" data-d="1">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_002.jpg" alt="Setup screen: choosing the divisible type and the number of walls and rooms"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">02</div><div style="flex:1"><div class="appr-h">Describe the room</div><div class="appr-p">Set how many walls and rooms the space can divide into.</div></div></div>
+        </div>
+        <div data-reveal="" data-d="2">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_003.jpg" alt="Setup screen: naming each room"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">03</div><div style="flex:1"><div class="appr-h">Name the rooms</div><div class="appr-p">Give each room a name people recognise.</div></div></div>
+        </div>
+        <div data-reveal="">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_004.jpg" alt="Setup screen: choosing which rooms each wall joins"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">04</div><div style="flex:1"><div class="appr-h">Match walls to rooms</div><div class="appr-p">Say which rooms each wall joins, the link that drives merge and split.</div></div></div>
+        </div>
+        <div data-reveal="" data-d="1">
+          <div class="win"><div class="win-bar" style="padding:7px 10px"><span class="win-dot" style="width:7px;height:7px;background:#ed6a5e"></span><span class="win-dot" style="width:7px;height:7px;background:#f4bf4f"></span><span class="win-dot" style="width:7px;height:7px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_005.jpg" alt="Setup screen: pointing each wall at the sensor that watches it"></div>
+          <div style="display:flex;gap:14px;margin-top:16px"><div class="appr-n">05</div><div style="flex:1"><div class="appr-h">Point each wall at its sensor</div><div class="appr-p">Connect each wall to the sensor that watches it, so open or shut is known live.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- RESEARCH & TESTING -->
   <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
     <div class="wrap-n center">
@@ -546,16 +623,37 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
   </section>
 
-  <!-- SEE IT MOVE (interactive) -->
-  <div class="band band-teal" data-reveal="" id="demo">
-    <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
+  <!-- SCREENSHOTS: INSIDE A ROOM -->
+  <div class="band band-sand" data-reveal="">
     <div class="band-inner">
-      <div class="center" style="margin-bottom:36px">
-        <div class="eyebrow" style="color:#9fe9d8">Try it</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Open a wall. <em style="color:#9fe9d8">The rooms merge.</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:760px;margin:18px auto 0"><strong style="color:#fff;font-weight:600">Tap any wall</strong> to open or close it. Sections joined by an open wall light as one room. This little interaction is the whole idea the setup exists to protect.</p>
+      <div class="center" style="margin-bottom:44px">
+        <div class="eyebrow">Inside a room</div>
+        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Fill each room, <em>one at a time</em></h2>
+        <p class="lead" style="max-width:760px;margin:18px auto 0">After the guided setup, each room is filled in from a shared pool: pick a room, assign its lights and presence sensing, and confirm each fixture. The same simple pattern, repeated per room.</p>
       </div>
-      <div data-floor-sim data-reveal="" data-d="1"></div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:22px" class="gthumbs">
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_014.jpg" alt="Configuring a room: selecting several lighting zones to assign at once"></div><div class="band-cap cap-dark">Assign the room's lights in a batch</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_017.jpg" alt="Configuring a room: the pool of unassigned devices, grouped by type"></div><div class="band-cap cap-dark">The unassigned pool, grouped by type</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_019.jpg" alt="Configuring a room: devices assigned, each showing its zone"></div><div class="band-cap cap-dark">Assigned, each light carrying its zone</div></div>
+        <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Desktop_021.jpg" alt="Configuring a room: presence sets assigned to the room"></div><div class="band-cap cap-dark">Presence sensing, the same way, per room</div></div>
+      </div>
+
+      <div style="margin-top:64px">
+        <div class="center" style="margin-bottom:30px">
+          <div class="eyebrow">The whole space</div>
+          <p class="lead" style="max-width:760px;margin:14px auto 0">What it all adds up to: one space holding its rooms, with any room opened to its own lights and presence sets, and the walls one edit away.</p>
+        </div>
+        <div class="win" style="max-width:960px;margin:0 auto"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/part/Partitioning_Area.jpg" alt="The assembled space: its rooms listed, one expanded to show its zones, devices and presence sets, with edit actions for walls and rooms"></div>
+        <div class="band-cap cap-dark">The assembled space, every room in its place</div>
+      </div>
+
+      <div style="margin-top:64px">
+        <div class="center" style="margin-bottom:30px">
+          <div class="eyebrow">On a phone</div>
+          <p class="lead" style="max-width:760px;margin:14px auto 0">The same guided model on a phone, so a room can be set up standing at the panel, no laptop required.</p>
+        </div>
+        <div style="background:#fff;border:1px solid var(--c-b2);padding:22px;max-width:1000px;margin:0 auto"><img src="assets/mobile_commissioning.png" alt="The same setup shown as a sequence of phone screens, from creating the space to naming rooms, matching walls and assigning devices" style="width:100%;display:block"></div>
+      </div>
     </div>
   </div>
 

@@ -53,7 +53,7 @@
     '.fpsim-badge span{font-size:12px;color:#bfe7df;line-height:1.2}' +
     '.fpsim-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;align-items:stretch}' +
     '.fpsim-card{background:rgba(8,16,28,0.72);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px}' +
-    '.fpsim-map{position:relative;width:100%;height:min(480px,58vw);min-height:300px}' +
+    '.fpsim-map{position:relative;width:100%;height:480px}' +
     '.fpsim-cell{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-radius:8px;border:1.5px solid;transition:background .35s cubic-bezier(.22,.61,.36,1),border-color .35s cubic-bezier(.22,.61,.36,1)}' +
     '.fpsim-cell-id{font-family:"Inter",sans-serif;font-size:clamp(22px,4vw,30px);font-weight:600;line-height:1}' +
     '.fpsim-cell-zone{font-family:"JetBrains Mono",monospace;font-size:8.5px;opacity:0.85;letter-spacing:0.04em}' +

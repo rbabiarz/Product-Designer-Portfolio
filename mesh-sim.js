@@ -133,7 +133,7 @@
           '<div class="msim-lowrow"><span class="msim-key msim-key--l" aria-hidden="true">!</span><span><b class="msim-n-low"></b> <span class="msim-low-text">Devices have LOW Reliability</span></span></div>' +
           '<button type="button" class="msim-info" aria-expanded="false" aria-label="How to use this simulation">i</button>' +
         '</div>' +
-        '<div class="msim-map" tabindex="0" role="application" aria-label="Mesh map simulation. Press the arrow keys to choose a device, Enter to promote it to a repeater, T to run a signal test, R to reset.">' +
+        '<div class="msim-map" tabindex="0" role="application" aria-label="A map of the lights in a home that you can try out. Press the arrow keys to choose a light, Enter to make it a repeater, T to test the signal, R to start over.">' +
           '<svg class="msim-links" aria-hidden="true"></svg>' +
           '<div class="msim-gw">GATEWAY<small>Drag here to make Repeater</small></div>' +
           '<div class="msim-pulse" aria-hidden="true"></div>' +
@@ -143,12 +143,12 @@
           '<button type="button" class="msim-btn" data-act="auto">AUTO SELECT</button>' +
           '<button type="button" class="msim-btn" data-act="reset">RESET</button>' +
         '</div>' +
-        '<div class="msim-help" hidden><button type="button" class="msim-help-close" aria-label="Close help"><span aria-hidden="true">&#215;</span></button><b>Strengthen the mesh</b><ul>' +
-          '<li>Coral bulbs with a "!" have LOW reliability.</li>' +
-          '<li>Drag any bulb onto the GATEWAY box to make it a repeater — devices near it get stronger.</li>' +
-          '<li>Press TEST to sweep the mesh and reveal weak devices the quick view missed.</li>' +
-          '<li>Keyboard: arrows choose a device, Enter promotes, T tests, R resets.</li>' +
-        '</ul><b>AUTO SELECT is what shipped: the system places repeaters itself.</b></div>' +
+        '<div class="msim-help" hidden><button type="button" class="msim-help-close" aria-label="Close help"><span aria-hidden="true">&#215;</span></button><b>Make the signal stronger</b><ul>' +
+          '<li>Coral bulbs marked "!" have a weak signal.</li>' +
+          '<li>Drag any bulb onto the GATEWAY box to make it a repeater, and the lights near it get stronger.</li>' +
+          '<li>Press TEST to check the whole home and find weak lights the first look missed.</li>' +
+          '<li>Keyboard: arrow keys choose a light, Enter makes it a repeater, T tests, R starts over.</li>' +
+        '</ul><b>AUTO SELECT is the version that shipped: the app picks the repeaters for you.</b></div>' +
         '<div class="msim-sr" aria-live="polite"></div>' +
       '</div>';
 
@@ -222,7 +222,7 @@
         var b = el.querySelector('.msim-bang');
         if (low && !b) { b = document.createElement('span'); b.className = 'msim-bang'; b.textContent = '!'; el.appendChild(b); }
         if (!low && b) b.remove();
-        el.title = NODES[i][2] + (isRep(i) ? ' — repeater' : ', signal ' + Math.round(sig(i) * 100) + '%' + (low ? ', LOW reliability' : ''));
+        el.title = NODES[i][2] + (isRep(i) ? ', repeater' : ', signal ' + Math.round(sig(i) * 100) + '%' + (low ? ', weak signal' : ''));
       });
       lines.forEach(function (l) {
         l.el.classList.toggle('is-low', flagged.indexOf(l.a) !== -1 || flagged.indexOf(l.b) !== -1);
@@ -261,8 +261,8 @@
       render();
       if (!silent) {
         var msg = NODES[i][2] + ' is now a repeater.' +
-          (healed > 0 ? ' ' + healed + ' nearby strengthened.' : '') +
-          (flagged.length ? ' ' + flagged.length + ' still weak.' : ' Press TEST to confirm the mesh.');
+          (healed > 0 ? ' ' + healed + ' nearby lights got stronger.' : '') +
+          (flagged.length ? ' ' + flagged.length + ' still have a weak signal.' : ' Press TEST to check the whole home.');
         note(msg); say(msg);
       }
     }
@@ -278,10 +278,10 @@
         render();
         var msg;
         if (!weak.length) {
-          msg = 'Mesh healthy — all ' + NODES.length + ' devices strong with ' + reps.length + ' repeaters. Auto Select ships this exact result in one tap.';
+          msg = 'All ' + NODES.length + ' lights are strong now, with ' + reps.length + ' repeaters. Auto Select gets you the same result in one tap.';
           note(msg, true);
         } else {
-          msg = 'Test complete: ' + weak.length + ' weak ' + (weak.length === 1 ? 'device' : 'devices') +
+          msg = 'Test done: ' + weak.length + ' ' + (weak.length === 1 ? 'light has' : 'lights have') + ' a weak signal' +
             (fresh.length ? ' (' + fresh.length + ' newly found)' : '') + ', mostly ' + whereText(weak) +
             '. Drag a bulb near them onto the gateway.';
           note(msg);
@@ -309,7 +309,7 @@
         promote(best, true);
       }
       runTest(true);
-      var msg = 'Auto Select placed ' + reps.length + ' repeaters — zero decisions asked of you. This is the model that shipped as P4.';
+      var msg = 'Auto Select placed ' + reps.length + ' repeaters and asked you to decide nothing at all. This is the version that shipped.';
       note(msg, weakList().length === 0); say(msg);
     }
 
@@ -319,8 +319,8 @@
       tested = false; dirty = false; sel = null;
       flagged = NODES.map(function (_, i) { return i; }).filter(function (i) { return !isRep(i) && sig(i) < CRIT; });
       render();
-      var msg = flagged.length + ' devices report LOW reliability. Drag one onto the gateway box to make it a repeater.';
-      note(msg); say('Simulation reset. ' + msg);
+      var msg = flagged.length + ' lights have a weak signal. Drag one onto the gateway box to make it a repeater.';
+      note(msg); say('Back to the start. ' + msg);
     }
 
     // ---- pointer drag ----
@@ -352,7 +352,7 @@
       map.appendChild(ghost);
       drag = { i: best, el: el, ghost: ghost };
       el.classList.add('is-drag');
-      say('Dragging ' + NODES[best][2] + '. Drop on the gateway to promote it.');
+      say('Dragging ' + NODES[best][2] + '. Drop it on the gateway to make it a repeater.');
     });
     map.addEventListener('pointermove', function (e) {
       if (!drag) return;
@@ -383,7 +383,7 @@
         sel = order[(at + step + order.length) % order.length];
         render();
         var low = flagged.indexOf(sel) !== -1;
-        say(NODES[sel][2] + ', signal ' + Math.round(sig(sel) * 100) + '%' + (low ? ', LOW reliability' : '') + '. Press Enter to promote to repeater.');
+        say(NODES[sel][2] + ', signal ' + Math.round(sig(sel) * 100) + '%' + (low ? ', weak signal' : '') + '. Press Enter to make it a repeater.');
       } else if ((e.key === 'Enter' || e.key === ' ') && sel != null) {
         e.preventDefault(); promote(sel); sel = null; render();
       } else if (e.key === 't' || e.key === 'T') { e.preventDefault(); runTest(); }

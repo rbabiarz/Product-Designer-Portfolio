@@ -178,7 +178,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .jrow{padding:11px 0;border-top:1px solid var(--c-b1)}
 .jk{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-bottom:5px}
 .jv{font-size:12.5px;color:var(--c-body);line-height:1.5}
-.jrow.job{margin:8px -17px -18px;padding:13px 17px 16px;background:var(--c-accent-soft);border-radius:0 0 13px 13px;border-top:1px solid var(--c-b2)}
+.jrow.job{margin:auto -17px -18px;padding:13px 17px 16px;min-height:104px;box-sizing:border-box;background:var(--c-accent-soft);border-radius:0 0 13px 13px;border-top:1px solid var(--c-b2)}
 .jrow.job .jk{color:var(--c-accent)}
 .jrow.job .jv{color:var(--c-accent);font-weight:500}
 .bp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
@@ -281,8 +281,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <section style="position:relative;overflow:hidden;padding:84px 0 0">
     <div class="wrap center" style="position:relative;z-index:2">
       <div class="eyebrow" data-reveal="">Cooper Lighting · Signify · Connected buildings</div>
-      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.2vw,86px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:17ch">From the day it's wired in, the building starts to <em>explain itself</em></h1>
-      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:790px;margin-top:28px;color:var(--c-ink2)">Every light fixture doubles as a sensor. This is the design that turned that quiet stream of signals into one live picture an installer, a facilities manager, an analyst, and someone just hunting for a desk could each read at a glance. No data science required.</p>
+      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.2vw,86px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:17ch">The building that <em>explains itself</em></h1>
+      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:790px;margin-top:28px;color:var(--c-ink2)">Every light in the ceiling is secretly also a sensor. I designed the app that turns all those signals into one live map anyone can read at a glance: which rooms are busy, where there's a free desk, where energy's being wasted. No spreadsheets. No training. You look, and you know.</p>
       <div data-reveal="" data-d="3" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px">
         <a class="btn-primary" href="core-insights.dc.html">Read the full case study <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
         <a href="#people" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">Meet the people</a>
@@ -295,9 +295,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="band-inner">
         <div class="win" style="max-width:735px;margin:0 auto;animation:cs-float 8s ease-in-out infinite">
           <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">floor 5 · live occupancy</span></div>
-          <img src="assets/ci/overview.jpg" alt="Live floor dashboard: a heat map of one floor with utilization, capacity and trend rolled up onto a single screen">
+          <img src="assets/ci/overview.jpg" alt="A live map of one floor: a colour heat map showing how busy it is, how much room is left, and the trend, all on one screen">
         </div>
-        <div class="band-cap cap-light">One floor, live: how full it is, how much room is left, and where it's trending, all on one screen</div>
+        <div class="band-cap cap-light">One floor, right now: how busy it is, how much room is left, and which way it's headed, all on one screen</div>
       </div>
     </div>
   </section>
@@ -308,9 +308,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">What it is</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">A building that quietly <em>keeps track of itself</em></h2>
-          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">Every light fixture doubles as a sensor. Together they notice when a room fills up, when a floor empties out, how much energy a space is drawing. On their own, those signals sat in monthly reports: real, but impossible to act on.</p>
-          <p class="lead" data-reveal="" data-d="2">I led the design end to end, from the installer's first setup, through the live floor map, to the portfolio view a manager scans across every building. The job was to turn a raw stream of signals into one window several very different people could each read at a glance.</p>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">A building that <em>keeps an eye on itself</em></h2>
+          <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">Every light in the ceiling is also a sensor. Together they notice when a room fills up, when a floor goes quiet, how much energy a space is using. The catch: all of that used to land in a monthly report. True, but useless, like getting last week's weather forecast.</p>
+          <p class="lead" data-reveal="" data-d="2">I designed the whole thing, from the installer's first setup, to the live floor map, to the big-picture view a manager scans across every building. My job was to take that firehose of signals and turn it into one window four very different people could each just read.</p>
         </div>
         <div class="card" data-reveal="" data-d="1" style="padding:34px">
           <div class="meta-grid">
@@ -318,7 +318,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <div><div class="meta-k">Client</div><div class="meta-v stack"><span>Cooper Lighting</span><span>Signify</span></div></div>
             <div><div class="meta-k">The people</div><div class="meta-v stack"><span>Installer · Facilities manager</span><span>Analyst · Employee</span></div></div>
             <div><div class="meta-k">Timeline</div><div class="meta-v">2022, 2023</div></div>
-            <div><div class="meta-k">Domain</div><div class="meta-v">Connected lighting · space analytics</div></div>
+            <div><div class="meta-k">Domain</div><div class="meta-v">Connected lighting · how spaces get used</div></div>
             <div><div class="meta-k">Platform</div><div class="meta-v">Web · iOS · Android</div></div>
           </div>
         </div>
@@ -331,13 +331,13 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div class="wrap-n center">
       <div class="eyebrow" data-reveal="">Why it mattered</div>
       <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">It only counts <em>if it gets installed</em></h2>
-      <p class="lead" data-reveal="" data-d="2">None of the intelligence exists until the hardware is on the ceiling. So the real starting point wasn't a chart. It was making a flexible physical system genuinely easy to put in.</p>
+      <p class="lead" data-reveal="" data-d="2">There's no smart building until the hardware is actually on the ceiling. So the real starting line wasn't a chart or a dashboard. It was making the physical system genuinely easy to install.</p>
     </div>
     <div class="wrap" style="margin-top:54px">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="cgrid">
-        <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">01</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Easy in the ceiling</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">The system could be wired and connected in many different layouts. The design had to make that flexibility feel simple, so an electrician could bring a floor online fast, and get it right the first time.</div></div>
-        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Installed means data</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Fast, low-friction installs are what let whole buildings go live. No install, no signal: every insight downstream depends on getting this first mile right.</div></div>
-        <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">03</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Then: three very different readers</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">Only once the data flows does the hard part begin: one screen that has to serve an installer, a facilities manager, and someone just trying to find a free desk.</div></div>
+        <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">01</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Easy in the ceiling</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">The wiring could go in all sorts of layouts. My job was to make that flexibility feel simple, so an electrician could bring a whole floor online fast, and get it right the first time.</div></div>
+        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Installed means data</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">Easy installs are what get whole buildings switched on. No install, no data, and every clever thing that comes later depends on nailing this first step.</div></div>
+        <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">03</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Then: three very different readers</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">Only once the data's flowing does the fun part start: one design that has to work for an electrician, a facilities manager, and someone just trying to find a free desk.</div></div>
       </div>
     </div>
   </section>
@@ -349,14 +349,14 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="center" style="margin-bottom:44px">
         <div class="eyebrow" style="color:#9fe9d8">The people</div>
         <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The same signal, <em style="color:#9fe9d8">shaped to each person</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:730px;margin:18px auto 0">It starts with the installer who brings a floor online. From there the same signal becomes the manager's floor-and-room view, the analyst's building-by-building comparison, and, for anyone just looking for a seat, a simple map of what's free.</p>
+        <p class="lead" style="color:#bfe7df;max-width:730px;margin:18px auto 0">It starts with the installer who brings a floor to life. From there, the exact same signal becomes the manager's floor-and-room view, the analyst's building-by-building comparison, and, for anyone just hunting for a seat, a simple map of what's free.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/desktop-portfolio.jpg" alt="Analyst view comparing occupancy, energy and alerts across every building at once"></div><div class="band-cap cap-light">The analyst: every building, side by side</div></div>
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/conference.jpg" alt="Facilities manager floor view: a room dashboard laid over a spatial heat map"></div><div class="band-cap cap-light">The manager: one floor, one room</div></div>
         <div><div class="win"><div class="win-bar" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img src="assets/ci/hot-desking.jpg" alt="Desk-availability view: free and taken seats shown on the floor plan in real time"></div><div class="band-cap cap-light">The employee: where's a free desk?</div></div>
       </div>
-      <div class="band-cap cap-light" style="opacity:.82;margin-top:16px">The installer has no dashboard: their work happens in the field, and it's where the whole picture begins.</div>
+      <div class="band-cap cap-light" style="opacity:.82;margin-top:16px">The installer never sees a dashboard. Their work happens up a ladder, and that's exactly where the whole picture begins.</div>
     </div>
   </div>
 
@@ -364,9 +364,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <section class="pad">
     <div class="wrap">
       <div class="center" style="margin-bottom:8px">
-        <div class="eyebrow" data-reveal="">The service, end to end</div>
+        <div class="eyebrow" data-reveal="">The whole journey</div>
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">From install to <em>insight</em></h2>
-        <p class="lead" data-reveal="" data-d="2" style="max-width:720px;margin:18px auto 0">The product isn't one screen. It's a journey that hands off between very different people. Mapping it end to end is how each step earned its design.</p>
+        <p class="lead" data-reveal="" data-d="2" style="max-width:720px;margin:18px auto 0">This isn't one screen. It's a relay race that passes between very different people. Mapping the whole thing, start to finish, is how each step earned its design.</p>
       </div>
       <div class="jmap" data-reveal="" data-d="1">
         <div class="jphases">
@@ -375,14 +375,14 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <div class="jphase">
               <div class="jphase-name"><span class="jphase-n">01</span>Install</div>
               <div class="jrow"><div class="jk">Who</div><div class="jv">Electrician</div></div>
-              <div class="jrow"><div class="jk">What happens</div><div class="jv">Mount the fixtures and sensors and wire the mesh across many possible layouts.</div></div>
-              <div class="jrow job"><div class="jk">The design job</div><div class="jv">Make a flexible physical system simple to put in.</div></div>
+              <div class="jrow"><div class="jk">What happens</div><div class="jv">Put the light fixtures and sensors up, and wire them together, in whatever layout the building needs.</div></div>
+              <div class="jrow job"><div class="jk">The design job</div><div class="jv">Make a flexible physical system simple to install.</div></div>
             </div>
           </div>
           <div class="jcol">
             <div class="jphase-top"><span class="jnode"></span></div>
             <div class="jphase">
-              <div class="jphase-name"><span class="jphase-n">02</span>Commission</div>
+              <div class="jphase-name"><span class="jphase-n">02</span>Set up</div>
               <div class="jrow"><div class="jk">Who</div><div class="jv">Setup tech</div></div>
               <div class="jrow"><div class="jk">What happens</div><div class="jv">Give every area a name: this floor, that room, this department.</div></div>
               <div class="jrow job"><div class="jk">The design job</div><div class="jv">Turn a list of devices into a map of real places.</div></div>
@@ -393,14 +393,14 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <div class="jphase">
               <div class="jphase-name"><span class="jphase-n">03</span>Go live</div>
               <div class="jrow"><div class="jk">Who</div><div class="jv">The system</div></div>
-              <div class="jrow"><div class="jk">What happens</div><div class="jv">Sensors begin reporting who's where, and how much energy each space draws.</div></div>
+              <div class="jrow"><div class="jk">What happens</div><div class="jv">The sensors start reporting: who's where, and how much energy each space is using.</div></div>
               <div class="jrow job"><div class="jk">The design job</div><div class="jv">Make that first day of data feel trustworthy.</div></div>
             </div>
           </div>
           <div class="jcol">
             <div class="jphase-top"><span class="jnode"></span></div>
             <div class="jphase">
-              <div class="jphase-name"><span class="jphase-n">04</span>Operate</div>
+              <div class="jphase-name"><span class="jphase-n">04</span>Day to day</div>
               <div class="jrow"><div class="jk">Who</div><div class="jv">Manager · employee</div></div>
               <div class="jrow"><div class="jk">What happens</div><div class="jv">Read the floor at a glance; find a free desk; see which rooms actually get used.</div></div>
               <div class="jrow job"><div class="jk">The design job</div><div class="jv">Answer "how is this space used?" in one look.</div></div>
@@ -409,9 +409,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
           <div class="jcol">
             <div class="jphase-top"><span class="jnode"></span></div>
             <div class="jphase">
-              <div class="jphase-name"><span class="jphase-n">05</span>Optimize</div>
+              <div class="jphase-name"><span class="jphase-n">05</span>Improve</div>
               <div class="jrow"><div class="jk">Who</div><div class="jv">Analyst</div></div>
-              <div class="jrow"><div class="jk">What happens</div><div class="jv">Compare buildings, right-size space, trim energy where rooms sit empty.</div></div>
+              <div class="jrow"><div class="jk">What happens</div><div class="jv">Compare buildings, resize spaces that are too big or too small, and cut energy where rooms sit empty.</div></div>
               <div class="jrow job"><div class="jk">The design job</div><div class="jv">Roll everything up without losing the single room.</div></div>
             </div>
           </div>
@@ -427,7 +427,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="center" style="margin-bottom:40px">
         <div class="eyebrow" style="color:#9fe9d8">Behind the glass</div>
         <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">One question, <em style="color:#9fe9d8">top to bottom</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:730px;margin:18px auto 0">Take a manager asking the simplest thing: <span style="color:#fff;font-weight:500">why is this floor so empty?</span> A service blueprint shows every layer that answers it, from the screen down to the sensor.</p>
+        <p class="lead" style="color:#bfe7df;max-width:730px;margin:18px auto 0">Say a manager asks the simplest question in the world: <span style="color:#fff;font-weight:500">why is this floor so empty?</span> Here's every layer working to answer it, from the screen in their hand all the way down to a sensor in the ceiling.</p>
       </div>
       <div class="bp-hint" aria-hidden="true">Scroll to follow the moment →</div>
       <div class="bp-scroll" tabindex="0" role="group" aria-label="Service blueprint: how the system answers the question why is this floor empty, across four steps and four layers">
@@ -444,7 +444,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <div class="bp-cell">Opens the floor they manage</div>
             <div class="bp-cell">Scans for the space that looks cold</div>
             <div class="bp-cell">Taps that room</div>
-            <div class="bp-cell">Gets people, capacity and trend</div>
+            <div class="bp-cell">Sees who's there, how full, and the trend</div>
           </div>
           <div class="bp-lane">
             <div class="bp-lk">They see</div>
@@ -464,8 +464,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
           <div class="bp-lane back">
             <div class="bp-lk">What holds it up</div>
             <div class="bp-cell">Names given to places at setup</div>
-            <div class="bp-cell">Sensor timing tuned per space</div>
-            <div class="bp-cell">The same place model, drilled into</div>
+            <div class="bp-cell">Sensor timing set for each space</div>
+            <div class="bp-cell">The same map of places, zoomed in</div>
             <div class="bp-cell">One view: everyone sees the same truth</div>
           </div>
         </div>
@@ -480,10 +480,10 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         <div>
           <div class="eyebrow" data-reveal="">The approach</div>
           <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px;font-size:clamp(28px,3.6vw,46px)">From a map of devices to a <em>map of places</em></h2>
-          <p class="lead" data-reveal="" data-d="2">Underneath, the system knew every fixture. But nobody runs a building thinking about fixtures. They think in floors and rooms and questions about them. So the whole interface was built around places: each step shows just enough, and the chart changes to fit the question.</p>
+          <p class="lead" data-reveal="" data-d="2">Under the hood, the system knew every single light fixture. But nobody runs a building thinking about light fixtures. They think in floors, rooms, and questions about them. So I built the whole app around places instead: each screen shows just enough, and the chart changes to match the question you're asking.</p>
         </div>
         <div class="appr" data-reveal="" data-d="1">
-          <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">One level at a time</div><div class="appr-p">Organization → building → floor → room. Each step reveals a little more, so the top of the system never overwhelms.</div></div></div>
+          <div class="appr-row"><div class="appr-n">01</div><div><div class="appr-h">One level at a time</div><div class="appr-p">Organization → building → floor → room. Each step reveals a little more, so you're never staring at everything at once.</div></div></div>
           <div class="appr-row"><div class="appr-n">02</div><div><div class="appr-h">The chart fits the question</div><div class="appr-p">Bars to compare buildings, a heat map to stand in the space, a line to read one room over time.</div></div></div>
           <div class="appr-row"><div class="appr-n">03</div><div><div class="appr-h">The room, in context</div><div class="appr-p">Hover a space and its temperature and humidity surface right on the floor plan: the answer without leaving the map.</div></div></div>
           <div class="appr-row"><div class="appr-n">04</div><div><div class="appr-h">Answers up front</div><div class="appr-p">Which rooms are empty, which space is busiest: waiting as cards, not buried behind a string of clicks.</div></div></div>
@@ -498,7 +498,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="center" style="margin-bottom:44px">
         <div class="eyebrow">The floor, live</div>
         <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">A spreadsheet becomes <em>a living map</em></h2>
-        <p class="lead" style="max-width:720px;margin:18px auto 0">At floor level the bars give way to a heat map, because here standing in the space matters more than comparing numbers. Tap any room to see who's in it right now, how full it is, and where it's heading.</p>
+        <p class="lead" style="max-width:720px;margin:18px auto 0">Zoom into a floor and the bar charts give way to a heat map, because down here, getting a feel for the space beats comparing numbers. Tap any room to see who's in it right now, how full it is, and where it's headed.</p>
       </div>
       <div class="win" style="max-width:735px;margin:0 auto">
         <div class="win-bar"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">tower A · floor 5 · live</span></div>
@@ -512,8 +512,8 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <section class="pad" style="background:var(--c-bg2);border-top:1px solid var(--c-b1);border-bottom:1px solid var(--c-b1)">
     <div class="wrap-n center">
       <div class="eyebrow" data-reveal="">Outcome</div>
-      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Built for how the <em>floor works</em></h2>
-      <p class="lead" data-reveal="" data-d="2">From the employee finding a free seat, to the manager ranking rooms by how much they're used, to the analyst comparing whole buildings: every screen is the same map of places, just seen from a different height.</p>
+      <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 24px">Built for how a <em>floor actually works</em></h2>
+      <p class="lead" data-reveal="" data-d="2">From the employee grabbing a free seat, to the manager ranking rooms by how much they get used, to the analyst comparing whole buildings: it's all the same map of places, just seen from a different height.</p>
     </div>
     <div class="wrap" style="margin-top:54px">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="gthumbs">
@@ -530,7 +530,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="center" style="margin-bottom:60px">
         <div class="eyebrow" data-reveal="">At a glance</div>
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">The shape of it</h2>
-        <p class="lead" data-reveal="" data-d="2" style="max-width:640px;margin:18px auto 0">Not outcomes I can measure for you here, just how the design is built to be read.</p>
+        <p class="lead" data-reveal="" data-d="2" style="max-width:640px;margin:18px auto 0">No made-up success metrics here, just the shape of how it's built to be read.</p>
       </div>
       <div class="results" id="stats">
         <div data-reveal=""><div class="res-n"><span data-count="5">0</span></div><div class="res-l">Levels deep, from the whole organization down to a single room</div>

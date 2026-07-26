@@ -83,8 +83,8 @@
       links: [{ label: 'Quick tour', href: 'core-insights-showcase.html' }, { label: 'Deep dive', href: 'core-insights.dc.html' }]
     },
     dali: {
-      title: 'DALI-2 Lighting System', org: 'Industry first · Healthcare', thumb: 'previews/thumb-dali.png?v=2',
-      blurb: "Commissioning UX for North America's largest DALI-2 hospital install — an industry first, shipped into a regulated healthcare environment.",
+      title: 'Lighting Commissioning', org: 'Industry first · Healthcare', thumb: 'previews/thumb-dali.png?v=2',
+      blurb: "Commissioning UX for North America's largest hospital lighting install — an industry first, shipped into a regulated healthcare environment.",
       tags: ['Commissioning', 'Healthcare', 'Industry first'], read: '4 min tour · 9 min deep dive',
       kw: 'dali commissioning healthcare hospital regulated lighting controls protocol industry first hardware embedded field tools installer largest install',
       links: [{ label: 'Quick tour', href: 'dali-2-showcase.html' }, { label: 'Deep dive', href: 'dali-2.dc.html' }]
@@ -210,7 +210,7 @@
       projects: ['gims', 'la', 'insights', 'partitioning'],
       pills: ['Defense industry projects', 'Data visualization', 'Interactive prototypes'] },
     { id: 'leadership', kw: 'leadership lead led leading team teams cross-functional crossfunctional mentor stakeholders strategy strategic executive principal staff head senior seniority',
-      reply: "Leadership evidence lives on the About page — cross-functional delivery on North America's largest DALI-2 install, three patent applications, and the career arc from IoT to defense-adjacent AI.",
+      reply: "Leadership evidence lives on the About page — cross-functional delivery on North America's largest hospital lighting install, three patent applications, and the career arc from IoT to defense-adjacent AI.",
       projects: ['about', 'dali'],
       pills: ['Patents', 'Enterprise SaaS work', 'Resume'] },
     { id: 'iot', kw: 'iot connected hardware devices device sensor sensors embedded lighting luminaire smart building',

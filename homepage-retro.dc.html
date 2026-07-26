@@ -217,6 +217,7 @@ body{margin:0;background:#040806}
       <span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.1em;color:#6cf0a4;"><span style="width:7px;height:7px;border-radius:50%;background:#6cf0a4;box-shadow:0 0 8px 2px rgba(108,240,164,0.8);animation:rt-blink 1.6s steps(1) infinite;"></span>ONLINE</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+      <a class="rt-cmd rt-hide-sm" href="#top" style="font-size:12px;letter-spacing:0.1em;color:#6cf0a4;text-decoration:none;transition:color .15s;">HOME</a>
       <a class="rt-cmd rt-hide-sm" href="work.dc.html" style="font-size:12px;letter-spacing:0.1em;color:#6cf0a4;text-decoration:none;transition:color .15s;">WORK</a>
       <a class="rt-cmd rt-hide-sm" href="about.dc.html" style="font-size:12px;letter-spacing:0.1em;color:#6cf0a4;text-decoration:none;transition:color .15s;">ABOUT</a>
       <a class="rt-cmd rt-hide-sm" href="#contact" style="font-size:12px;letter-spacing:0.1em;color:#6cf0a4;text-decoration:none;transition:color .15s;">CONTACT</a>
@@ -243,7 +244,9 @@ body{margin:0;background:#040806}
       <div style="font-size:13px;letter-spacing:0.1em;color:#3f9e69;margin-bottom:14px;">C:\USERS\ROBERT&gt; <span id="rt-type" data-text="whoami --full" style="color:#6cf0a4;">whoami --full</span><span style="display:inline-block;width:9px;height:17px;background:#6cf0a4;margin-left:3px;vertical-align:-2px;animation:rt-blink 1.05s steps(1) infinite;box-shadow:0 0 8px rgba(108,240,164,0.8);"></span></div>
       <h1 style="font-family:'VT323',monospace;font-weight:400;font-size:clamp(60px,13vw,168px);line-height:0.82;letter-spacing:0.01em;color:#cdffe2;text-shadow:0 0 16px rgba(108,240,164,0.5),0 0 3px rgba(108,240,164,0.9);margin:6px 0 0;animation:rt-pwr 0.9s cubic-bezier(.2,.8,.2,1) both;transform-origin:center;">ROBERT BABIARZ</h1>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:22px;">
-        <p style="font-size:15px;line-height:1.7;color:#6cf0a4;max-width:680px;">&gt; Senior product designer, builder, and inventor shipping high-consequence UX across cyber-physical IoT, regulated real-money platforms, AR field tooling, and enterprise B2B SaaS. I work in highly collaborative, engineering-first teams where UX is the bridge, the shared language that keeps product, design, and build aligned, and where design earns a founding voice.</p>
+        <!-- Emphasis rides on weight + phosphor brightness (the variant's native emphasis channel),
+             never hue — the CRT palette is a single green family. -->
+        <p style="font-size:clamp(16px,1.15vw,17px);line-height:1.7;color:#6cf0a4;max-width:680px;">&gt; <strong style="font-weight:700;color:#cdffe2;">Senior product designer</strong>, builder, and inventor shipping <strong style="font-weight:700;color:#cdffe2;">high-consequence UX</strong> across cyber-physical IoT, regulated real-money platforms, AR field tooling, and enterprise B2B SaaS. I work in highly collaborative, <strong style="font-weight:700;color:#cdffe2;">engineering-first teams</strong> where UX is the bridge, the shared language that keeps product, design, and build aligned, and where <strong style="font-weight:700;color:#cdffe2;">design earns a founding voice</strong>.</p>
         <div style="font-size:12px;line-height:1.9;color:#3f9e69;letter-spacing:0.06em;text-align:right;white-space:nowrap;">
           <div>LOC&nbsp;&nbsp;<span style="color:#6cf0a4;">GREATER TORONTO AREA</span></div>
           <div>ROLE&nbsp;<span style="color:#6cf0a4;">SR. PRODUCT DESIGNER</span></div>
@@ -270,7 +273,7 @@ body{margin:0;background:#040806}
         <div style="padding:18px 18px;border-right:1px solid rgba(108,240,164,0.18);"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);">1,020,256</div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">MONITORED FT²</div></div>
         <div style="padding:18px 18px;"><div style="font-family:'VT323',monospace;font-size:40px;line-height:0.9;color:#ffb454;text-shadow:0 0 10px rgba(255,180,84,0.4);">40,000</div><div style="font-size:10.5px;color:#3f9e69;letter-spacing:0.05em;margin-top:6px;">OCCUPANCY SENSORS</div></div>
       </div>
-      <div style="margin-top:12px;font-size:12px;color:#3f9e69;letter-spacing:0.05em;">&gt; <span style="color:#cdffe2;">12,480</span> LUMINAIRES ONLINE · DALI-2 ADAPTIVE ZONES ACTIVE</div>
+      <div style="margin-top:12px;font-size:12px;color:#3f9e69;letter-spacing:0.05em;">&gt; <span style="color:#cdffe2;">12,480</span> LUMINAIRES ONLINE · ADAPTIVE ZONES ACTIVE</div>
     </section>
 
     <!-- ░░ FLOATING FILE PREVIEW ░░ -->
@@ -288,26 +291,20 @@ body{margin:0;background:#040806}
         <div style="font-size:11px;color:#3f9e69;letter-spacing:0.08em;">11 FILE(S) · 0 DIR(S) · SELECT TO OPEN</div>
       </div>
       <!-- VIEW KEY — how to read the case files -->
-      <div id="viewkey" style="margin:0 0 18px;padding:14px 16px;border:1px solid rgba(108,240,164,0.28);background:rgba(108,240,164,0.04);">
-        <div style="font-size:13px;letter-spacing:0.06em;color:#cdffe2;margin-bottom:11px;">C:\&gt; <span style="color:#ffb454;">HELP</span> VIEW <span style="color:#3f9e69;">— every file opens with this control</span></div>
-        <div data-viewkey-ctrl aria-hidden="true" style="display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:0.04em;margin-bottom:13px;color:#6cf0a4;">
-          <span style="color:#3f9e69;letter-spacing:0.1em;">VIEW:</span>
-          <span style="background:#6cf0a4;color:#04130b;padding:3px 9px;font-weight:700;">QUICK TOUR</span>
-          <span style="color:#9af0c2;">DEEP DIVE</span>
-          <span style="color:#ffb454;display:inline-flex;align-items:center;">[<span class="msi" style="font-size:15px;vertical-align:-3px;">play_arrow</span>]</span>
-        </div>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5;color:#8fe6b4;">
-          <li><span style="color:#cdffe2;">QUICK TOUR</span> — the outcomes, at a glance · 3–5 min</li>
-          <li><span style="color:#cdffe2;">DEEP DIVE</span> — the full story: process, decisions, and the paths I didn't take · 8–12 min</li>
-          <li><span style="color:#ffb454;">[<span class="msi" aria-hidden="true" style="font-size:14px;vertical-align:-3px;">play_arrow</span>] LIVE DEMO</span> — drops you into the running prototype</li>
-        </ul>
+      <div id="viewkey" style="margin:0 0 18px;padding:11px 16px;border:1px solid rgba(108,240,164,0.28);background:rgba(108,240,164,0.04);display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;font-size:13px;letter-spacing:0.03em;line-height:1.5;color:#8fe6b4;">
+        <span style="color:#3f9e69;letter-spacing:0.1em;">C:\&gt; <span style="color:#ffb454;">HELP</span> VIEW</span>
+        <span style="display:inline-flex;align-items:center;gap:7px;"><span style="background:#6cf0a4;color:#04130b;padding:2px 8px;font-weight:700;">QUICK TOUR</span><span>the outcomes</span></span>
+        <span aria-hidden="true" style="color:#3f9e69;">·</span>
+        <span><span style="color:#cdffe2;">DEEP DIVE</span> the process &amp; decisions</span>
+        <span aria-hidden="true" style="color:#3f9e69;">·</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:#ffb454;display:inline-flex;align-items:center;">[<span class="msi" aria-hidden="true" style="font-size:14px;vertical-align:-3px;">play_arrow</span>]</span><span style="color:#cdffe2;">LIVE DEMO</span><span>the running prototype</span></span>
       </div>
 
       <ul class="rt-dir">
         <li><a class="rt-file" href="dali-2-showcase.html" data-preview="previews/thumb-dali.png?v=2">
           <span class="rt-fnum">01</span>
-          <span class="rt-fname">DALI2_COMMISSIONING.case</span>
-          <span class="rt-fmeta rt-hide-sm">[LIVE] HEALTHCARE · DALI-2</span>
+          <span class="rt-fname">LIGHTING_COMMISSIONING.case</span>
+          <span class="rt-fmeta rt-hide-sm">[LIVE] HEALTHCARE · COMMISSIONING</span>
           <span class="rt-fopen">&gt;</span>
         </a></li>
         <li><a class="rt-file" href="core-insights-showcase.html" data-preview="previews/thumb-insights.png?v=2">

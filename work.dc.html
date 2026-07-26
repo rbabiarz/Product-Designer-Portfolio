@@ -209,11 +209,10 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
         </div>
       </a>
       <div class="wk-navlinks" style="display:flex;align-items:center;gap:34px;">
+        <a href="homepage-interactive.dc.html" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Home</a>
         <a href="work.dc.html" style="font-size:13px;font-weight:500;color:var(--fg);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;cursor:default;pointer-events:none;">Work</a>
-        <a href="homepage-interactive.dc.html#metrics" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Impact</a>
         <a href="about.dc.html" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">About</a>
         <a href="homepage-interactive.dc.html#contact" class="nav-cm" style="font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;transition:color 0.15s;" style-hover="color:var(--fg)">Contact</a>
-        <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" class="nav-cm" data-cursor="hover" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--fg2);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Resume<span class="msi" aria-hidden="true" style="font-size:24px;margin:-12px 0;">download</span></a>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <button onClick="{{ toggleDark }}" aria-label="Theme" style="width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:all 0.2s;" style-hover="border-color:var(--line2)">
@@ -231,8 +230,8 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
 
   <!-- ░░ MOBILE MENU ░░ -->
   <div id="wk-menu">
-    <a class="im-link" href="work.dc.html" onClick="{{ closeMenu }}"><span>Work</span><span class="im-num">01</span></a>
-    <a class="im-link" href="homepage-interactive.dc.html#metrics" onClick="{{ closeMenu }}"><span>Impact</span><span class="im-num">02</span></a>
+    <a class="im-link" href="homepage-interactive.dc.html" onClick="{{ closeMenu }}"><span>Home</span><span class="im-num">01</span></a>
+    <a class="im-link" href="work.dc.html" onClick="{{ closeMenu }}"><span>Work</span><span class="im-num">02</span></a>
     <a class="im-link" href="about.dc.html" onClick="{{ closeMenu }}"><span>About</span><span class="im-num">03</span></a>
     <a class="im-link" href="homepage-interactive.dc.html#contact" onClick="{{ closeMenu }}"><span>Contact</span><span class="im-num">04</span></a>
     <div style="margin-top:26px;display:flex;flex-direction:column;gap:9px;">
@@ -437,19 +436,13 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
   <div id="wk-lobby" style="position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
     <div style="max-width:1200px;margin:0 auto;">
       <!-- View key sits under the thumbnail grid (buildLobby appends it after .wk-lb-grid) -->
-      <div id="viewkey" style="margin-top:48px;padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);">
-        <p style="margin:0 0 12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);">Every case study opens with this control</p>
-        <div data-viewkey-ctrl aria-hidden="true" style="display:inline-flex;align-items:center;gap:9px;padding:6px 10px 6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);margin-bottom:14px;">
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--fg3);">VIEW</span>
-          <span style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--bg);background:var(--ac);padding:5px 13px;border-radius:999px;">Quick tour</span>
-          <span style="font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;color:var(--fg2);">Deep dive</span>
-          <span class="msi" style="font-size:19px;color:var(--ac);">play_arrow</span>
-        </div>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;color:var(--fg2);">
-          <li><strong style="color:var(--fg);font-weight:600;">Quick tour</strong> — the outcomes, at a glance · ~3–5 min</li>
-          <li><strong style="color:var(--fg);font-weight:600;">Deep dive</strong> — the full story: process, decisions, and the paths I didn't take · ~8–12 min</li>
-          <li><span class="msi" aria-hidden="true" style="font-size:16px;color:var(--ac);vertical-align:-3px;">play_arrow</span> <strong style="color:var(--fg);font-weight:600;">Live demo</strong> — jumps into the working, clickable prototype</li>
-        </ul>
+      <div id="viewkey" style="margin-top:48px;padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);display:flex;align-items:center;flex-wrap:wrap;gap:7px 15px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.45;color:var(--fg2);">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);">Every case study</span>
+        <span style="display:inline-flex;align-items:center;gap:7px;"><span style="font-size:12px;font-weight:600;color:var(--bg);background:var(--ac);padding:3px 10px;border-radius:999px;">Quick tour</span><span>the outcomes</span></span>
+        <span aria-hidden="true" style="color:var(--fg3);">·</span>
+        <span><strong style="color:var(--fg);font-weight:600;">Deep dive</strong> the process &amp; decisions</span>
+        <span aria-hidden="true" style="color:var(--fg3);">·</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;"><span class="msi" aria-hidden="true" style="font-size:16px;color:var(--ac);">play_arrow</span><strong style="color:var(--fg);font-weight:600;">Live demo</strong><span>the working prototype</span></span>
       </div>
     </div>
   </div>
