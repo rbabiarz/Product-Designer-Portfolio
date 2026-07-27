@@ -7,6 +7,9 @@
    - on internal navigation, the block grows from centre to full-bleed to
      cover, then navigates — so across pages the block reads as one
      continuous shape passing through.
+   Same-case-study version switches (quick tour ↔ deep dive ↔ play) use a
+   simple cross-fade instead — full block transition is reserved for site
+   navigation and switching to a different case study.
    A teal rim layer trails the mask edge. DC-safe (overlay is a <body>
    child), theme-aware, respects prefers-reduced-motion. */
 (function () {
@@ -65,8 +68,58 @@
   try { path = decodeURIComponent(location.pathname); } catch (e) { path = location.pathname; }
   var IS_HOME = /Homepage Interactive\.dc\.html$/.test(path);
   var introKey = 'rb_intro_v1';
+  var modeKey = 'rb_pt_mode'; // 'fade' | 'full' — set before nav, read on entrance
   var FIRST_VISIT = false;
   try { FIRST_VISIT = IS_HOME && !sessionStorage.getItem(introKey); } catch (e) {}
+
+  // case-study file groups — quick tour, deep dive, and play/demo variants share a slug
+  var CS_FILES = {
+    'core-insights': ['core-insights-showcase.html', 'core-insights.dc.html'],
+    'dali-2': ['dali-2-showcase.html', 'dali-2.dc.html'],
+    'smart-lighting': ['smart-lighting-showcase.html', 'smart-lighting.dc.html'],
+    'goals-driven-fintech': ['goals-driven-fintech-showcase.html', 'goals-driven-fintech.html', 'fintech-walkthrough.html'],
+    'aegis-gims': ['aegis-gims-showcase.html', 'aegis-gims.html'],
+    'parlay-gaming': ['parlay-gaming-showcase.html', 'parlay-gaming.html'],
+    'ctoc': ['ctoc-showcase.html', 'ctoc-case-study.dc.html'],
+    'enterprise-ai': ['enterprise-ai-showcase.html', 'enterprise-ai.dc.html'],
+    'partitioning': ['partitioning-showcase.html', 'partitioning.dc.html'],
+    'light-architect': ['light-architect-showcase.html', 'light-architect.html'],
+    'design-system': ['design-system-showcase.html', 'design-system.html']
+  };
+  var FILE_TO_CS = {};
+  Object.keys(CS_FILES).forEach(function (slug) {
+    CS_FILES[slug].forEach(function (f) { FILE_TO_CS[f.toLowerCase()] = slug; });
+  });
+
+  function pageFile(href) {
+    try {
+      var u = new URL(href, location.href);
+      var seg = u.pathname.split('/').pop() || '';
+      return decodeURIComponent(seg).toLowerCase();
+    } catch (e) { return ''; }
+  }
+
+  function caseStudySlug(href) {
+    return FILE_TO_CS[pageFile(href)] || null;
+  }
+
+  function isSameCaseStudy(fromHref, toHref) {
+    var a = caseStudySlug(fromHref);
+    var b = caseStudySlug(toHref);
+    return !!(a && b && a === b);
+  }
+
+  function readNavMode() {
+    try {
+      var m = sessionStorage.getItem(modeKey) || 'full';
+      sessionStorage.removeItem(modeKey);
+      return m;
+    } catch (e) { return 'full'; }
+  }
+
+  function setNavMode(mode) {
+    try { sessionStorage.setItem(modeKey, mode); } catch (e) {}
+  }
 
   function applyMask(el, size) {
     el.style.webkitMaskImage = MASK; el.style.maskImage = MASK;
@@ -310,8 +363,35 @@
     document.body.appendChild(p);
   }
 
+  function fadeVeil() {
+    var veil = document.getElementById('rb-pt-fade');
+    if (veil) { veil.style.background = PANEL; return veil; }
+    veil = document.createElement('div');
+    veil.id = 'rb-pt-fade';
+    veil.setAttribute('aria-hidden', 'true');
+    veil.style.cssText = 'position:fixed;inset:0;z-index:99998;background:' + PANEL + ';opacity:0;pointer-events:none;display:none;';
+    document.body.appendChild(veil);
+    return veil;
+  }
+
   function entrance() {
     sizePill();
+    var navMode = readNavMode();
+    if (navMode === 'fade') {
+      if (REDUCED) return;
+      readTheme();
+      var veil = fadeVeil();
+      veil.style.display = 'block';
+      veil.style.opacity = '1';
+      veil.style.pointerEvents = 'none';
+      var ov = document.getElementById('rb-pt');
+      if (ov) ov.style.display = 'none';
+      veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 320, easing: 'ease', fill: 'forwards' }).onfinish = function () {
+        veil.style.display = 'none';
+        veil.style.opacity = '0';
+      };
+      return;
+    }
     var ov = build();
     ov.style.display = 'block';
     if (FIRST_VISIT) {
@@ -322,11 +402,29 @@
     }
   }
 
-  // ---- exit (internal nav): block grows from centre to cover ----
+  // ---- exit (internal nav): block grows OR cross-fade for same case study ----
   var navigating = false;
+
+  function fadeThenGo(href) {
+    if (navigating) return;
+    navigating = true;
+    setNavMode('fade');
+    if (REDUCED) { location.href = href; return; }
+    readTheme();
+    var veil = fadeVeil();
+    veil.style.display = 'block';
+    veil.style.opacity = '0';
+    veil.style.pointerEvents = 'auto';
+    var went = false;
+    function go() { if (!went) { went = true; location.href = href; } }
+    veil.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, easing: 'ease', fill: 'forwards' }).onfinish = go;
+    setTimeout(go, 420);
+  }
+
   function coverThenGo(href) {
     if (navigating) return;
     navigating = true;
+    setNavMode('full');
     var ov = build();
     var BIG = bigSize();
     ov.style.display = 'block';
@@ -362,8 +460,10 @@
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a = e.target.closest && e.target.closest('a');
     if (!isInternalDoc(a)) return;
+    var href = a.getAttribute('href');
     e.preventDefault();
-    coverThenGo(a.getAttribute('href'));
+    if (isSameCaseStudy(location.href, href)) fadeThenGo(href);
+    else coverThenGo(href);
   }, true);
 
   // bfcache restore: clear overlay if user navigates back
@@ -371,7 +471,10 @@
     if (ev.persisted) {
       var ov = document.getElementById('rb-pt');
       if (ov) ov.style.display = 'none';
+      var veil = document.getElementById('rb-pt-fade');
+      if (veil) { veil.style.display = 'none'; veil.style.opacity = '0'; }
       navigating = false;
+      try { sessionStorage.removeItem(modeKey); } catch (e) {}
     }
   });
 
