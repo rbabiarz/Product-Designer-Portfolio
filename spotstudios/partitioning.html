@@ -1,0 +1,1692 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rooms that change shape, a case study by Robert Babiarz</title>
+    <meta
+      name="description"
+      content="A hotel ballroom splits in two when a wall slides across. I designed the app that lets the lights split with it, and lets you set the whole thing up from your phone."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="case-study.css" />
+  </head>
+
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to the main content</a>
+
+    <!-- ===================================================================
+         HEADER
+         =================================================================== -->
+    <header class="site-header">
+      <a class="identity" href="index.html" aria-label="Robert Babiarz, Senior Product Designer — home">
+        <span class="identity__name">Robert Babiarz</span>
+        <span class="identity__role">Senior Product Designer</span>
+      </a>
+
+      <nav class="icon-nav" aria-label="Main">
+        <ul class="icon-nav__list">
+          <li>
+            <a class="icon-nav__link" href="index.html">
+              <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="work.html">
+              <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+              Work
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+              <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+              Email Robert
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- =================================================================
+           HERO
+           ================================================================= -->
+      <section class="topo section" aria-labelledby="case-title">
+        <div class="topo__art">
+          <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+        </div>
+
+        <div class="page case-hero">
+          <div class="case-hero__text">
+            <h1 class="case-hero__title" id="case-title">Rooms that change shape</h1>
+
+            <p class="case-hero__lede">
+              Big rooms split into smaller ones with walls that slide across the
+              middle. Until now the lights had no idea that had
+              happened. Cooper Lighting called this project
+              Dynamic Space Partitioning. I designed the first
+              version anyone could run from a phone: move the
+              wall, and the lights follow on their own.
+            </p>
+
+            <!-- A sentence, not a tag: .chip is nowrap by design, so this uses
+                 .case-note, the same block the design's framing pills map to. -->
+            <p class="case-note">
+              An industry first. Nothing like this existed on a phone in
+              connected lighting
+            </p>
+
+            <hr class="case-hero__rule" />
+
+            <dl class="case-facts">
+              <div>
+                <dt class="case-facts__term">Role</dt>
+                <dd class="case-facts__def">Lead Experience Designer</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Company</dt>
+                <dd class="case-facts__def">Cooper Lighting Solutions (Signify)</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Runs on</dt>
+                <dd class="case-facts__def">Phone and computer</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Scope</dt>
+                <dd class="case-facts__def">From first research to launch</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Team size</dt>
+                <dd class="case-facts__def">15 people across the company</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Designed</dt>
+                <dd class="case-facts__def">2023 to 2024, in Figma</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="case-hero__media">
+            <img
+              src="assets/partitioning/hero-ipad-partitioning.png"
+              width="1275"
+              height="947"
+              alt="The app on a tablet. Rooms run down the left. The main panel shows the Rose Ballroom split into eight smaller rooms, with its groups of lights and its walls listed."
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           01 WHAT IS PARTITIONING
+           ================================================================= -->
+      <section class="case-section" id="what" aria-labelledby="what-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">01</span>
+              <span>The idea</span>
+            </p>
+            <h2 class="case-title" id="what-title">What is this actually about?</h2>
+          </div>
+
+          <div class="case-split">
+            <div class="case-prose">
+              <p>
+                Big buildings are full of rooms that change size. Hotel
+                ballrooms, conference halls, school cafeterias,
+                training rooms. They all have walls that slide
+                or fold across the middle, turning one big room
+                into two or three smaller ones whenever it
+                suits.
+              </p>
+              <p>
+                The moment that wall closes, it is a different place. A
+                different number of people. Different lighting.
+                And whoever is in one half should not be able to
+                dim the other half by accident.
+              </p>
+              <p>
+                The catch was that the lighting system had no idea the wall had
+                moved. Somebody had to go and reprogram it by
+                hand. This project fixed that. A small sensor
+                sits on each wall watching whether it is open or
+                shut. When the wall closes, the system splits
+                the lights into two independent halves by
+                itself.
+              </p>
+              <p>
+                Each half then behaves like its own room. It notices when
+                someone walks in. It keeps its own saved
+                lighting settings. And the switch on its wall
+                controls only its own lights.
+              </p>
+            </div>
+
+            <!-- The illustration is exported from the Figma as a single SVG.
+                 Its two sub-area label colors were darkened (see the note in
+                 case-study.css); no geometry was changed. The figcaption
+                 carries everything the drawing says, so nothing is locked
+                 inside the image. -->
+            <figure class="case-split__media">
+              <img
+                src="assets/partitioning/wall-state-diagram.svg"
+                width="412"
+                height="401"
+                alt="The same room drawn twice. With the wall open it is one room and every light works together. With the wall closed, a sensor on the wall has split it into two halves, A and B, each with its own lights."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__text">
+                The same room, wall open and wall shut. That one sensor is all
+                the system needs to tell the difference.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section case-section--inverse" aria-labelledby="headline-title">
+        <div class="page">
+          <h2 class="visually-hidden" id="headline-title">
+            What this achieved
+          </h2>
+          <div class="stat-band">
+            <p class="stat stat--start">
+              <span class="stat__value">1st</span>
+              <span class="stat__label">
+                Time this had ever been possible from a phone in connected lighting
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">40 to 60%</span>
+              <span class="stat__label">
+                Less time spent setting a building up on site, according to the field teams
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">~90%</span>
+              <span class="stat__label">
+                Fewer requests the app sends the server to open a room’s page
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">11+</span>
+              <span class="stat__label">
+                Serious problems found and fixed before anyone wrote a line of code
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">3</span>
+              <span class="stat__label">
+                New kinds of customer the company could sell to: hotels, schools, big campuses
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">0</span>
+              <span class="stat__label">
+                Steps anyone has to take when a wall opens or closes
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           02 THE CHALLENGE
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="challenge" aria-labelledby="challenge-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">02</span>
+              <span>The problem</span>
+            </p>
+            <h2 class="case-title" id="challenge-title">Nobody had done this before</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Splitting rooms is not new. For decades, electricians have rewired
+              and reprogrammed lighting controllers by hand every
+              time a room changed shape. What was new was the
+              expectation that the system should just handle it,
+              and that the people setting it up would do it from
+              the phone already in their pocket.
+            </p>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The bit that made it hard</p>
+            <p class="callout__body">
+              Setting this up was only possible in old desktop software. The
+              phone app had no idea rooms could split at all: no
+              splitting rooms, no smaller rooms, no walls, no
+              sensors. And there was nothing to copy. Not inside
+              the company, and not anywhere in the industry. We
+              were starting from a blank page.
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">What made it complicated</h3>
+
+          <div class="case-prose">
+            <p>
+              This was not a case of tidying up a form. It added a whole new
+              layer to the way the app thinks about a building.
+            </p>
+          </div>
+
+          <ul class="panel-grid" role="list">
+            <li class="panel">
+              <h4 class="panel__title">Six new things the app had to understand</h4>
+              <ul class="panel__list">
+                <li>A room that is allowed to split</li>
+                <li>The smaller rooms it splits into</li>
+                <li>The sliding walls, and whether each one is open or shut</li>
+                <li>The sensor on each wall that notices the change</li>
+                <li>Which group of lights belongs to which smaller room</li>
+                <li>Moving a light or a switch from one room to another</li>
+              </ul>
+            </li>
+            <li class="panel">
+              <h4 class="panel__title">Six things working against us</h4>
+              <ul class="panel__list">
+                <li>Nothing anywhere in the industry to learn from</li>
+                <li>A three-step setup that had to fit a phone screen</li>
+                <li>People doing this on site, often with patchy signal</li>
+                <li>Wall setup had to survive someone rearranging the rooms later</li>
+                <li>Room pages went slow if they asked the server for too much at once</li>
+                <li>Older equipment that knows nothing about splitting still had to work</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3 class="case-subtitle">Let’s set one up</h3>
+
+          <div class="case-split">
+            <div class="case-prose">
+              <p>
+                Here is a real ballroom with 7 sliding walls and 8 smaller
+                rooms. Each smaller room has 2 chandeliers, an
+                inner and an outer strip of cove lighting, a
+                switch on the wall, and one simple on-off wire
+                that reports where the wall is.
+              </p>
+            </div>
+            <div class="case-split__media">
+              <img
+                src="assets/partitioning/ballroom-sample-plan.png"
+                width="1206"
+                height="866"
+                alt="A plan of the ballroom, divided by seven sliding walls into eight numbered smaller rooms, with the lights marked in each one."
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <div class="shot-stack">
+            <figure class="shot">
+              <img
+                class="shot__full"
+                src="assets/partitioning/walls-subareas-config.jpg"
+                width="1186"
+                height="780"
+                alt="The setup screens for the Rose Ballroom, listing each wall and the two smaller rooms it sits between."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__caption">
+                <span class="shot__title">
+                  Naming the walls and the rooms
+                </span>
+                <span class="shot__text">
+                  Each of the seven walls gets a name and is matched to the two
+                  rooms it sits between. You do this before
+                  touching a single light, so the app knows
+                  the shape of the space first.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <img
+                class="shot__full"
+                src="assets/partitioning/area-and-zones.jpg"
+                width="1184"
+                height="752"
+                alt="The main room page: a link to add groups of lights, the groups themselves, links into each smaller room, and a wall summary with a manual switch on each wall."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__caption">
+                <span class="shot__title">The room’s main page</span>
+                <span class="shot__text">
+                  A room’s main page shows its groups of lights, links into each
+                  of its smaller rooms, and a summary of the
+                  walls. Each wall has a switch, so you can
+                  flip it open or shut by hand if you need to.
+                  Tap a group of lights and you see everything
+                  inside it.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <img
+                class="shot__full"
+                src="assets/partitioning/subarea-zone-assignment.jpg"
+                width="1184"
+                height="675"
+                alt="The page for one smaller room, where its lights, switches and sensors are assigned."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__caption">
+                <span class="shot__title">Filling in one of the smaller rooms</span>
+                <span class="shot__text">
+                  Tap a smaller room and you land on its own page. This is where
+                  you say which lights belong to it, which
+                  switches control it, and which sensors it
+                  listens to.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <img
+                class="shot__full"
+                src="assets/partitioning/subarea-device-assignment.jpg"
+                width="1184"
+                height="800"
+                alt="The devices tab. Lights show a list of groups they can join, and things like wall switches are filed under the room automatically."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__caption">
+                <span class="shot__title">Sorting the lights and the switches</span>
+                <span class="shot__text">
+                  Lights can go into a group, so the app offers you the list.
+                  Anything that cannot be grouped, like a
+                  switch on the wall, is filed under the room
+                  for you.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <img
+                class="shot__full"
+                src="assets/partitioning/configuration-sketch.jpg"
+                width="1220"
+                height="454"
+                alt="A worked example: a sketch of the ballroom next to a table listing each wall, the two rooms it separates, and the wire number connected to it."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__caption">
+                <span class="shot__title">Draw it out first</span>
+                <span class="shot__text">
+                  The easiest way to set a room up is to sketch it first and
+                  write a short table: each wall, the two
+                  rooms it separates, and which wire reports
+                  where it is.
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           03 MY ROLE
+           ================================================================= -->
+      <section class="case-section" id="role" aria-labelledby="role-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">03</span>
+              <span>My part in it</span>
+            </p>
+            <h2 class="case-title" id="role-title">I led the design</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              I was the lead designer on this feature and owned how it worked,
+              start to finish, on both the phone and the computer.
+              That meant working out where a splitting room fits into the rest
+              of the app. Running the interviews with people who
+              do this job for a living. Drawing the screens and
+              the paths between them. Putting the work in front of
+              the team to be pulled apart. Then rebuilding it
+              three times, based on what testing told us.
+            </p>
+          </div>
+
+          <ul class="panel-grid" role="list">
+            <li class="panel">
+              <h3 class="panel__title">What I owned</h3>
+              <ul class="panel__list">
+                <li>How the whole feature worked, from first idea to handover</li>
+                <li>Where a splitting room fits into the rest of the app</li>
+                <li>The phone screens for building, setting up and running a room</li>
+                <li>Making the same thing work on a computer</li>
+                <li>Building the clickable prototypes and running the customer panel</li>
+                <li>Adding the new pieces to the company’s design system</li>
+                <li>Keeping everyone agreed, and taking the work to the board that approves it</li>
+              </ul>
+            </li>
+            <li class="panel">
+              <h3 class="panel__title">Who I worked with</h3>
+              <ul class="panel__list">
+                <li>Product managers, on what was in and what could wait</li>
+                <li>Engineers, on what the software and the hardware could actually do</li>
+                <li>The engineers who go out to sites, for real-world know-how</li>
+                <li>Testers, on what counts as working and what the awkward cases are</li>
+                <li>Sales, on what customers were actually asking for</li>
+                <li>The people who write the software that lives inside the hardware</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           04 RESEARCH AND DISCOVERY
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="research" aria-labelledby="research-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">04</span>
+              <span>Research</span>
+            </p>
+            <h2 class="case-title" id="research-title">Learning the job</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              There was nothing to compare against, because nobody else had
+              built this for a phone. So the research was about
+              the people instead: the technicians who set these
+              systems up, the electricians who wire them, and the
+              building managers who live with them afterwards, in
+              hotels, conference halls, schools and big company
+              campuses.
+            </p>
+          </div>
+
+          <ul class="panel-grid panel-grid--tight" role="list">
+            <li class="panel">
+              <p class="panel__num" aria-hidden="true">01</p>
+              <h3 class="panel__title">Interviews</h3>
+              <p class="panel__body">
+                Sat down with the technicians and electricians who would use
+                this, to learn how they set a building up today,
+                what drives them mad about it, and where they
+                are standing when they do it. Which is on site,
+                usually in the room itself.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__num" aria-hidden="true">02</p>
+              <h3 class="panel__title">Watching the real thing</h3>
+              <p class="panel__body">
+                Followed real installs in hotel ballrooms and conference halls.
+                You cannot learn from a desk what the room is
+                like, how much time they have, or what tools
+                they have on them.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__num" aria-hidden="true">03</p>
+              <h3 class="panel__title">Reading up</h3>
+              <p class="panel__body">
+                Read the industry standards for sliding walls.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__num" aria-hidden="true">04</p>
+              <h3 class="panel__title">Testing it three times</h3>
+              <p class="panel__body">
+                Three rounds of clickable prototypes with real people trying
+                them, plus a formal session with a panel of
+                customers. Every piece of feedback went into one
+                shared list, which the board that approves work
+                reviewed before anything got built.
+              </p>
+            </li>
+          </ul>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/partitioning/research-synthesis.png"
+              width="2804"
+              height="2534"
+              alt="The research board: notes from the interviews and site visits grouped into themes, with the problems that kept coming up pulled out."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <span class="shot__title">Making sense of it all</span>
+              <span class="shot__text">
+                Every note from the interviews and site visits, grouped until
+                the same handful of problems kept showing up.
+                Those became the rules for the design.
+              </span>
+            </figcaption>
+          </figure>
+
+          <h3 class="case-subtitle">
+            Showing it to real customers
+          </h3>
+
+          <figure class="shot">
+            <div class="shot__row" tabindex="0" role="group" aria-label="Customer session slides, scrollable">
+              <img class="is-desktop" src="assets/partitioning/uag-session-1.jpg" width="1728" height="1117" alt="A slide from the customer session explaining the idea." loading="lazy" decoding="async" />
+              <img class="is-desktop" src="assets/partitioning/uag-session-2.jpg" width="1728" height="1117" alt="A slide walking the panel through the three-step setup." loading="lazy" decoding="async" />
+              <img class="is-desktop" src="assets/partitioning/uag-session-3.jpg" width="1728" height="1117" alt="A slide showing the wall status screen, put up for comment." loading="lazy" decoding="async" />
+            </div>
+            <figcaption class="shot__caption">
+              <span class="shot__title">The customer panel</span>
+              <span class="shot__text">
+                We walked the panel through the prototype and wrote down
+                everything they said, good and bad, in one list
+                for the board that approves work.
+              </span>
+            </figcaption>
+          </figure>
+
+          <div class="callout callout--quote">
+            <p class="callout__title">What one of them told us</p>
+            <blockquote>
+              “The wall moves. The lights should just know. I don’t want to go
+              find a laptop and open a program, I’m holding a phone.”
+              <cite>A technician who sets these systems up, in a research interview</cite>
+            </blockquote>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The finding that decided everything</p>
+            <p class="callout__body">
+              Almost everyone doing this job uses their phone as their main tool
+              on site. A desktop-only tool means carrying a
+              laptop, finding somewhere to plug it in, and looking
+              away from the room you are working in. Building for
+              the phone was not a nice extra. Without it, nobody
+              would have used this.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           05 KEY INSIGHTS
+           ================================================================= -->
+      <section class="case-section" id="insights" aria-labelledby="insights-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">05</span>
+              <span>What we learned</span>
+            </p>
+            <h2 class="case-title" id="insights-title">Five things testing taught us</h2>
+          </div>
+
+          <ol class="insight-list">
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">01</p>
+              <div class="insight__body">
+                <p class="chip">How people think</p>
+                <h3 class="insight__title">People think in rooms, not in numbers</h3>
+                <p class="insight__text">
+                  Technicians talk about a space the way you would: “the left
+                  half of the ballroom”. Nobody says “groups 3
+                  and 4 in area 12”. So the app had to work
+                  that way too, and the smaller rooms had to
+                  feel like rooms rather than rows in a
+                  database. That is why the plan of the space
+                  and the naming came first, and the lists of
+                  equipment came second.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">02</p>
+              <div class="insight__body">
+                <p class="chip">The setup steps</p>
+                <h3 class="insight__title">
+                  Linking a wall to its sensor confused everybody
+                </h3>
+                <p class="insight__text">
+                  In the early prototypes, connecting a wall to the little wire
+                  that reports its position was misunderstood
+                  by every single person who tried it. They
+                  did not know which step it happened in, what
+                  they were connecting, or what would win if
+                  two things disagreed. Fixing that became the
+                  whole point of the redesign.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">03</p>
+              <div class="insight__body">
+                <p class="chip">Finding your way</p>
+                <h3 class="insight__title">
+                  Show a little, then more when asked
+                </h3>
+                <p class="insight__text">
+                  Putting every detail of every smaller room on one page was too
+                  much to take in, and in a big building it
+                  made the page take three or four seconds to
+                  appear. Letting each room open and close on
+                  its own, and only fetching its details when
+                  you open it, fixed the clutter and the
+                  slowness in one move.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">04</p>
+              <div class="insight__body">
+                <p class="chip">Phone and computer</p>
+                <h3 class="insight__title">The computer version should copy the phone, not do its own thing</h3>
+                <p class="insight__text">
+                  The first computer designs put a list down one side and the
+                  details down the other. It would have been
+                  more work to build for almost no benefit.
+                  People move between their phone and a
+                  computer during the same job, so keeping the
+                  two identical meant there was nothing new to
+                  learn.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">05</p>
+              <div class="insight__body">
+                <p class="chip">The awkward cases</p>
+                <h3 class="insight__title">
+                  The empty screens are what separate finished from sloppy
+                </h3>
+                <p class="insight__text">
+                  What does the screen say when nothing is connected yet? When a
+                  group of lights has not been given a room?
+                  When a wall is set up but its sensor has not
+                  reported in? Testing dragged all of these
+                  into the open, and designing them properly
+                  is what made the thing feel finished.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           06 DESIGN PROCESS
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="process" aria-labelledby="process-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">06</span>
+              <span>The process</span>
+            </p>
+            <h2 class="case-title" id="process-title">How we got there</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Design ran at the same time as the hardware and the software were
+              being built, which is normal for this kind of
+              product and means nothing stands still. It only
+              works if you talk to the engineers constantly, so
+              that what you draw is something they can actually
+              build that month.
+            </p>
+          </div>
+
+          <ol class="phase-list">
+            <li class="phase">
+              <p class="phase__label">Phase 01</p>
+              <h3 class="phase__title">Working out the problem</h3>
+              <p class="phase__body">
+                Interviews with the technicians and with the engineers who visit
+                sites. Time spent learning the hardware and
+                watching how an install actually goes. Then
+                wrote down, plainly, what problem we were
+                solving and the rules we would design by.
+              </p>
+              <ul class="chips">
+                <li class="chip">Interview notes</li>
+                <li class="chip">Design rules</li>
+                <li class="chip">Plain-English glossary</li>
+                <li class="chip">List of limits</li>
+              </ul>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Phase 02</p>
+              <h3 class="phase__title">Deciding how it all nests</h3>
+              <p class="phase__body">
+                Worked out where a splitting room sits inside the app’s existing
+                structure, and how rooms, smaller rooms, walls,
+                groups of lights and equipment all relate to
+                each other. Checked it all against the
+                engineers, because a room split into ten would
+                have asked the server for far too much at once.
+              </p>
+              <ul class="chips">
+                <li class="chip">Structure diagram</li>
+                <li class="chip">How you move around</li>
+                <li class="chip">Budget for server requests</li>
+                <li class="chip">Content check</li>
+              </ul>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Phase 03</p>
+              <h3 class="phase__title">First draft, first prototype</h3>
+              <p class="phase__body">
+                Drew every path that mattered: making a room, setting up its
+                smaller rooms and walls, grouping the lights,
+                moving equipment, checking on the walls. Built a
+                clickable version for the phone. Put it in front
+                of the team to pull apart, then in front of the
+                board that approves work.
+              </p>
+              <ul class="chips">
+                <li class="chip">Phone screens in Figma</li>
+                <li class="chip">Computer version</li>
+                <li class="chip">The awkward cases</li>
+                <li class="chip">Prototype one</li>
+              </ul>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Phase 04</p>
+              <h3 class="phase__title">Testing, then rebuilding</h3>
+              <p class="phase__body">
+                Two rounds of people trying the prototype. They showed us the
+                wall-linking confusion, that the smaller rooms
+                were hard to find your way around, and that the
+                phone and the computer needed to match. The
+                three-step setup, the room page and the wall
+                screens all changed a lot as a result.
+              </p>
+              <ul class="chips">
+                <li class="chip">Panel feedback list</li>
+                <li class="chip">Prototypes two and three</li>
+                <li class="chip">Board review</li>
+                <li class="chip">Record of decisions</li>
+              </ul>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Phase 05</p>
+              <h3 class="phase__title">Handing over, and staying close</h3>
+              <p class="phase__body">
+                Final drawings handed over in Figma with notes, a description of
+                every piece, and each screen’s states written
+                out. Then stayed with the engineers while they
+                built it, to sort out the surprises and adjust
+                where the technology pushed back.
+              </p>
+              <ul class="chips">
+                <li class="chip">Annotated drawings</li>
+                <li class="chip">Piece-by-piece library</li>
+                <li class="chip">Reviews with the builders</li>
+                <li class="chip">Launch</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3 class="case-subtitle">Building a room: first try, second try</h3>
+
+          <div class="shot-stack">
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="First version screens, scrollable">
+                <img class="is-desktop" src="assets/partitioning/newarea-v1-a.png" width="1202" height="842" alt="First version of the new room screen." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/newarea-v1-b.jpg" width="1202" height="842" alt="First version of the step where you say how many smaller rooms and walls there are." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">First version</span>
+                <span class="shot__text">
+                  The first attempt covered making the room and setting up its
+                  smaller rooms in two steps. Testing showed
+                  there was nowhere to connect a wall to the
+                  sensor that reports on it.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Second version screens, scrollable">
+                <img class="is-desktop" src="assets/partitioning/newarea-v2-a.jpg" width="1202" height="842" alt="Second version, step one: making the room." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/newarea-v2-b.jpg" width="1202" height="842" alt="Second version, step two: the smaller rooms and their groups of lights." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/newarea-v2-c.jpg" width="1202" height="842" alt="Second version, step three: connecting a sensor to the wall." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">
+                  Second version, with a third step added
+                </span>
+                <span class="shot__text">
+                  We added a third step, so connecting a wall to its sensor
+                  became a proper named part of the process
+                  instead of something people had to guess at.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Room page versions, scrollable">
+                <img class="is-desktop" src="assets/partitioning/areapage-v1-walls.jpg" width="1194" height="834" alt="First version of the room page, listing the walls." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/areapage-v2a-subareas.jpg" width="1194" height="834" alt="Second version, listing the smaller rooms." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/areapage-v2b-expand.jpg" width="1202" height="842" alt="Third version, with rooms that open and close." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Three goes at the room page</span>
+                <span class="shot__text">
+                  The first listed the walls. The second listed the smaller
+                  rooms. The third put both together as rows
+                  you can open and shut, which is what let the
+                  page load one room at a time instead of all
+                  of them at once.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Combined setup screens, scrollable">
+                <img class="is-desktop" src="assets/partitioning/consolidated-subareas.jpg" width="1202" height="842" alt="The combined screen for setting up the smaller rooms." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/consolidated-walls.jpg" width="1202" height="842" alt="The combined screen for setting up the walls." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">One layout for looking and for editing</span>
+                <span class="shot__text">
+                  Setting up the smaller rooms and setting up the walls were
+                  pulled into one layout, so looking at
+                  something and changing it are the same
+                  screen instead of two.
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           07 KEY DESIGN DECISIONS
+           ================================================================= -->
+      <section class="case-section" id="decisions" aria-labelledby="decisions-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">07</span>
+              <span>The hard calls</span>
+            </p>
+            <h2 class="case-title" id="decisions-title">The hard calls</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Every real decision cost something. These are the six that shaped
+              the product most, and why they went the way they
+              did.
+            </p>
+          </div>
+
+          <ol class="decision-grid">
+            <li class="decision">
+              <p class="decision__num" aria-hidden="true">Decision 01</p>
+              <h3 class="decision__title">
+                A step-by-step bar, or a circle of steps?
+              </h3>
+              <ul class="decision__options">
+                <li class="decision__option decision__option--rejected">
+                  <span class="visually-hidden">Rejected:</span>
+                  A circle of steps
+                </li>
+                <li class="decision__vs" aria-hidden="true">vs</li>
+                <li class="decision__option decision__option--chosen">
+                  <span class="visually-hidden">Shipped:</span>
+                  A straight left-to-right bar
+                </li>
+              </ul>
+              <p class="insight__text">
+                The team leaned towards showing the three setup steps arranged
+                in a circle. I argued for a plain left-to-right
+                bar. Circles are not against Google’s design
+                rules, but they are unusual enough that people
+                stop and work them out, and these are people
+                trying to finish a job quickly. The straight bar
+                was clearer, and we could test it properly. The
+                customer panel agreed.
+              </p>
+            </li>
+
+            <li class="decision">
+              <p class="decision__num" aria-hidden="true">Decision 02</p>
+              <h3 class="decision__title">
+                How much detail to show on a room’s page
+              </h3>
+              <ul class="decision__options">
+                <li class="decision__option decision__option--rejected">
+                  <span class="visually-hidden">Rejected:</span>
+                  Load every detail the moment the page opens
+                </li>
+                <li class="decision__vs" aria-hidden="true">vs</li>
+                <li class="decision__option decision__option--chosen">
+                  <span class="visually-hidden">Shipped:</span>
+                  Rooms you open one at a time
+                </li>
+              </ul>
+              <p class="insight__text">
+                Someone senior wanted every detail of every smaller room visible
+                straight away. The engineers worked out that
+                would mean thirty-odd requests to the server for
+                a room split into ten, adding three to five
+                seconds before anything appeared. So I designed
+                rows you open one at a time, each fetching its
+                own details, with a short summary showing while
+                closed. Everyone got the layout they wanted, and
+                the page stayed quick.
+              </p>
+            </li>
+
+            <li class="decision">
+              <p class="decision__num" aria-hidden="true">Decision 03</p>
+              <h3 class="decision__title">Should the computer version look like the phone?</h3>
+              <ul class="decision__options">
+                <li class="decision__option decision__option--rejected">
+                  <span class="visually-hidden">Rejected:</span>
+                  A separate two-column computer layout
+                </li>
+                <li class="decision__vs" aria-hidden="true">vs</li>
+                <li class="decision__option decision__option--chosen">
+                  <span class="visually-hidden">Shipped:</span>
+                  The same layout as the phone
+                </li>
+              </ul>
+              <p class="insight__text">
+                The early computer designs had a list down one side and the
+                details down the other. But people swap between
+                their phone and a computer in the middle of the
+                same job, and the phone layout had already
+                tested well. A separate computer layout meant
+                more to build for no real gain. Keeping them
+                identical meant nothing new to learn.
+              </p>
+            </li>
+
+            <li class="decision">
+              <p class="decision__num" aria-hidden="true">Decision 04</p>
+              <h3 class="decision__title">A switch between two views, or one page?</h3>
+              <ul class="decision__options">
+                <li class="decision__option decision__option--rejected">
+                  <span class="visually-hidden">Rejected:</span>
+                  A switch between rooms and equipment
+                </li>
+                <li class="decision__vs" aria-hidden="true">vs</li>
+                <li class="decision__option decision__option--chosen">
+                  <span class="visually-hidden">Shipped:</span>
+                  One page with rooms you can open
+                </li>
+              </ul>
+              <p class="insight__text">
+                An early idea put a switch at the top to flip between the
+                smaller rooms and the equipment. Switches like
+                that leave people unsure which mode they are in,
+                and flipping it meant another wait while the app
+                fetched things. I merged the two into one page
+                with rooms you open and close. The switch
+                disappeared, and there was less to keep track
+                of.
+              </p>
+            </li>
+
+            <li class="decision">
+              <p class="decision__num" aria-hidden="true">Decision 05</p>
+              <h3 class="decision__title">Where the wall button lives</h3>
+              <ul class="decision__options">
+                <li class="decision__option decision__option--rejected">
+                  <span class="visually-hidden">Rejected:</span>
+                  Replace the equipment button with it
+                </li>
+                <li class="decision__vs" aria-hidden="true">vs</li>
+                <li class="decision__option decision__option--chosen">
+                  <span class="visually-hidden">Shipped:</span>
+                  In the top bar, same spot on phone and computer
+                </li>
+              </ul>
+              <p class="insight__text">
+                The button that shows wall status needed a home. One suggestion
+                was to replace the equipment button. I put it in
+                the top bar instead, where the app already keeps
+                its quick shortcuts. That leaves room for more
+                shortcuts later without crowding the main
+                buttons, and it sits in the same place on a
+                phone and on a computer.
+              </p>
+            </li>
+
+            <li class="decision">
+              <p class="decision__num" aria-hidden="true">Decision 06</p>
+              <h3 class="decision__title">
+                Should finishing setup move things on its own?
+              </h3>
+              <ul class="decision__options">
+                <li class="decision__option decision__option--rejected">
+                  <span class="visually-hidden">Rejected:</span>
+                  Move the equipment automatically when the step is done
+                </li>
+                <li class="decision__vs" aria-hidden="true">vs</li>
+                <li class="decision__option decision__option--chosen">
+                  <span class="visually-hidden">Shipped:</span>
+                  Only set what the buttons do, and move nothing
+                </li>
+              </ul>
+              <p class="insight__text">
+                An early idea moved equipment into the smaller rooms by itself
+                once you finished the third step. Testing showed
+                people found this alarming: their setup had
+                changed and they did not know why. So the third
+                step now only says what the switches and wires
+                should do. Moving equipment stays a separate
+                thing you choose to do on purpose.
+              </p>
+            </li>
+          </ol>
+
+          <h3 class="case-subtitle">The whole thing on a phone</h3>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/partitioning/mobile-flow.jpg"
+              width="1968"
+              height="2542"
+              alt="The whole phone journey drawn as a map: making the room, setting up the smaller rooms and their lights, connecting the walls, and checking wall status."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <span class="shot__title">Every screen, and how they join up</span>
+              <span class="shot__text">
+                The full path on a phone, from making a room through to watching
+                the walls open and close.
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           08 WHAT SHIPPED
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="shipped" aria-labelledby="shipped-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">08</span>
+              <span>What shipped</span>
+            </p>
+            <h2 class="case-title" id="shipped-title">What shipped</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              It shipped as something you can run entirely from a phone, the
+              first of its kind in this industry. It covers the
+              whole life of a splitting room: building it, setting
+              it up, running it, and keeping an eye on it.
+            </p>
+          </div>
+
+          <ul class="module-grid" role="list">
+            <li class="module">
+              <h3 class="module__title">Making the room</h3>
+              <p class="module__body">
+                A new kind of room in the app. You say how many smaller rooms
+                and how many walls up front, so the shape of the
+                space is settled before you start on the lights.
+              </p>
+            </li>
+            <li class="module">
+              <h3 class="module__title">Setup in three steps</h3>
+              <p class="module__body">
+                A guided bar across the top: make the room, sort the smaller
+                rooms and their lights, then connect the walls.
+                Every step fits a phone screen. No laptop
+                needed.
+              </p>
+            </li>
+            <li class="module">
+              <h3 class="module__title">Assigning lights and walls</h3>
+              <p class="module__body">
+                Two tabs, one for the smaller rooms and one for the walls, each
+                with its own clear steps. Nothing gets connected
+                behind your back.
+              </p>
+            </li>
+            <li class="module">
+              <h3 class="module__title">Managing the smaller rooms</h3>
+              <p class="module__body">
+                Rooms you open and close, each fetching its details only when
+                you open it. Closed, a room still tells you how
+                many groups of lights it has, how much
+                equipment, and which sensors it uses.
+              </p>
+            </li>
+            <li class="module">
+              <h3 class="module__title">Moving equipment around</h3>
+              <p class="module__body">
+                A clear way to move a light or a switch up to the whole room,
+                into one of the smaller rooms, or into a single
+                group of lights. Groups that have not been given
+                a room say so, which stops things landing in the
+                wrong place.
+              </p>
+            </li>
+            <li class="module">
+              <h3 class="module__title">Wall status, live</h3>
+              <p class="module__body">
+                Every wall, open or shut, right now, with the equipment attached
+                to it. The button in the top bar gets you here
+                from anywhere in the room.
+              </p>
+            </li>
+          </ul>
+
+          <div class="shot-stack">
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Phone screens, scrollable">
+                <img class="is-phone" src="assets/partitioning/shipped-mobile-1.jpg" width="375" height="669" alt="Making a splitting room on a phone." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/partitioning/shipped-mobile-2.jpg" width="375" height="669" alt="Setting how many smaller rooms and walls there are." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/partitioning/shipped-mobile-3.jpg" width="375" height="669" alt="Putting lights into a group in one of the smaller rooms." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/partitioning/shipped-mobile-4.jpg" width="375" height="669" alt="Connecting a wall to the sensor that reports on it." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/partitioning/shipped-mobile-5.jpg" width="375" height="669" alt="The wall status screen, showing which walls are open and which are shut." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">On a phone</span>
+                <span class="shot__text">
+                  The entire setup runs on a phone, from making the room through
+                  to watching a wall open and close in real
+                  time.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Computer screens, scrollable">
+                <img class="is-desktop" src="assets/partitioning/shipped-area-1.jpg" width="569" height="461" alt="The room page with its smaller rooms closed." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/shipped-area-2.jpg" width="569" height="461" alt="One smaller room opened to show its lights and equipment." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/shipped-area-3.jpg" width="569" height="461" alt="The walls tab, listing every wall and whether it is open." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/shipped-area-4.jpg" width="569" height="461" alt="Assigning a piece of equipment inside a smaller room." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/partitioning/shipped-area-5.jpg" width="569" height="461" alt="The finished room, fully set up." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">On a computer</span>
+                <span class="shot__text">
+                  The same thing on a bigger screen. Rooms still open one at a
+                  time, and each wall still shows its live
+                  state.
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           09 OUTCOMES AND IMPACT
+           ================================================================= -->
+      <section class="case-section" id="outcomes" aria-labelledby="outcomes-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">09</span>
+              <span>Results</span>
+            </p>
+            <h2 class="case-title" id="outcomes-title">What it achieved</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              The numbers below come from the customer panel sessions, the
+              engineers’ own analysis, interviews with the field
+              teams, and the product team’s records. Where you see
+              a range, it is because sites differ.
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">What it meant for the business</h3>
+
+          <div class="stat-band">
+            <p class="stat stat--start">
+              <span class="stat__value">3</span>
+              <span class="stat__label">
+                New kinds of customer the company could sell to: hotels, schools
+                and universities, and big company campuses
+              </span>
+              <span class="stat__note">
+                Off the table before, because setup needed a desktop computer
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">40 to 60%</span>
+              <span class="stat__label">
+                Less time spent setting a building up on site, according to the field teams
+              </span>
+              <span class="stat__note">
+                Reported by the engineers who visit sites, phone against laptop.
+                It held up across hotels and schools alike
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">$0</span>
+              <span class="stat__label">
+                Extra kit needed on site. The phone does what the laptop used to
+              </span>
+              <span class="stat__note">
+                No more carrying a dedicated laptop out to every job
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">~80%</span>
+              <span class="stat__label">
+                Fewer call-outs caused by someone rearranging a room
+              </span>
+              <span class="stat__note">
+                The sensor handles wall changes on its own, so nobody has to
+                drive out. A real saving on running costs for
+                the people who look after buildings
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">Tier 1</span>
+              <span class="stat__label">
+                Treated as a top selling point when bidding for hotel and big
+                company work
+              </span>
+              <span class="stat__note">
+                Named in the sales material and the competitive comparisons
+                after launch
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">On schedule</span>
+              <span class="stat__label">
+                Shipped on time, nothing cut, working on both phone and computer
+              </span>
+              <span class="stat__note">
+                A year of work, three rounds of prototypes, signed off by the
+                approving board
+              </span>
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">What it meant for the design</h3>
+
+          <div class="stat-band">
+            <p class="stat stat--start">
+              <span class="stat__value">3</span>
+              <span class="stat__label">
+                Rounds of prototypes tested with a customer panel before any
+                code was written
+              </span>
+              <span class="stat__note">
+                Built in Figma for both phone and computer, signed off after
+                each round
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">~40 to 85%</span>
+              <span class="stat__label">
+                People who could finish the three-step setup on their own
+              </span>
+              <span class="stat__note">
+                Round one to round three, a jump of 45 points
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">11+</span>
+              <span class="stat__label">
+                Serious problems found, written down and fixed before building
+                started
+              </span>
+              <span class="stat__note">
+                All in one shared list. None of them reached the finished
+                product, and nothing that used to work got
+                broken
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">Rounds 1 to 3</span>
+              <span class="stat__label">
+                The wall-linking confusion went from the number one complaint to
+                not being mentioned at all
+              </span>
+              <span class="stat__note">
+                It drove the whole redesign: the three steps, saying plainly
+                what each button does, and a blink to identify a
+                piece of equipment. Gone from round three
+                feedback entirely
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">6</span>
+              <span class="stat__label">
+                Big decisions written down with the reasoning, and signed off
+              </span>
+              <span class="stat__note">
+                The step bar, loading one room at a time, matching phone and
+                computer, dropping the switch, moving equipment,
+                and where the wall button lives
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">2 to 1</span>
+              <span class="stat__label">
+                Two ways of working became one, so there is nothing to relearn
+                between your phone and a computer
+              </span>
+              <span class="stat__note">
+                The phone design was carried over to the computer, and tested on
+                both
+              </span>
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">The whole picture</h3>
+
+          <div class="case-table-wrap" tabindex="0" role="group" aria-label="Results summary table, scrollable">
+            <table class="case-table">
+              <caption class="visually-hidden">
+                Each measure before and after this shipped, with how much it
+                changed
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">What</th>
+                  <th scope="col">Before</th>
+                  <th scope="col">After</th>
+                  <th scope="col">Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Time to set up a splitting room on site</th>
+                  <td>45 to 60 minutes, and you needed a laptop</td>
+                  <td>15 to 25 minutes, on a phone</td>
+                  <td>40 to 60% faster</td>
+                </tr>
+                <tr>
+                  <th scope="row">Call-outs when a room is rearranged</th>
+                  <td>One every time a wall moved</td>
+                  <td>The sensor handles it, nobody visits</td>
+                  <td>~80% fewer</td>
+                </tr>
+                <tr>
+                  <th scope="row">Kinds of customer the company could sell to</th>
+                  <td>None. Desktop-only setup blocked it</td>
+                  <td>Three or more: hotels, schools, big campuses</td>
+                  <td>3 new</td>
+                </tr>
+                <tr>
+                  <th scope="row">People who finished the three-step setup</th>
+                  <td>~40% in round one</td>
+                  <td>~85% by round three</td>
+                  <td>45 points better</td>
+                </tr>
+                <tr>
+                  <th scope="row">Serious problems that reached the finished product</th>
+                  <td>11 or more found before testing</td>
+                  <td>None shipped</td>
+                  <td>All fixed</td>
+                </tr>
+                <tr>
+                  <th scope="row">Server requests to open a room split into ten</th>
+                  <td>30 or more, all at once</td>
+                  <td>3, one each time you open a room</td>
+                  <td>~90% fewer</td>
+                </tr>
+                <tr>
+                  <th scope="row">Time for a room’s page to appear</th>
+                  <td>3 to 4 seconds or more</td>
+                  <td>Under a second, normally</td>
+                  <td>Over 70% faster</td>
+                </tr>
+                <tr>
+                  <th scope="row">Reprogramming needed when a wall moves</th>
+                  <td>The whole thing, by hand</td>
+                  <td>None. The sensor does it</td>
+                  <td>Gone</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ways of working people had to learn</th>
+                  <td>Two. Phone and computer were different</td>
+                  <td>One, the same on both</td>
+                  <td>Halved</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="case-subtitle">Why the business cared</h3>
+
+          <div class="case-prose">
+            <p>
+              Before this shipped, the company could not put in a serious bid
+              for a hotel ballroom, a school gym or a big
+              conference hall. Needing a desktop computer just to
+              set the system up was enough to lose the deal.
+              Designing for the phone opened those doors.
+            </p>
+            <p>
+              The drop in call-outs mattered immediately to the people who run
+              buildings. Sending a technician out for something
+              the system now handles by itself is pure cost, and
+              across a large hotel or campus it adds up fast.
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">What the rest of the product took from it</h3>
+
+          <div class="case-prose">
+            <p>
+              This created a way of handling rooms inside rooms that the team
+              then reused elsewhere. Opening one thing at a time,
+              and only fetching its details when you open it,
+              became the house standard. And the rule that the app
+              never moves your equipment without being asked was
+              written down as a guideline. It carried straight
+              into the hospital lighting project that came next.
+            </p>
+            <p>
+              The way we collected feedback, one shared list reviewed by the
+              approving board, became how the team ran design
+              decisions from then on.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           10 REFLECTION
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="reflection" aria-labelledby="reflection-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">10</span>
+              <span>Looking back</span>
+            </p>
+            <h2 class="case-title" id="reflection-title">What I’d do differently</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Every project teaches you something. Here is the honest version.
+            </p>
+          </div>
+
+          <ul class="panel-grid" role="list">
+            <li class="panel">
+              <p class="panel__eyebrow">What worked well</p>
+              <h3 class="panel__title">Designing for the phone first</h3>
+              <p class="panel__body">
+                Starting on the small screen forced decisions that made the
+                computer version better. Showing a little and
+                then more, and opening one room at a time, both
+                came from not having enough space on a phone.
+                They turned out to fix the slowness on the
+                computer too, almost by accident.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">What I’d do differently</p>
+              <h3 class="panel__title">Get on site sooner</h3>
+              <p class="panel__body">
+                We did watch real installs, but I would spend far more of that
+                time in actual hotel ballrooms before drawing
+                anything. The wall-linking confusion might have
+                turned up in week two instead of week eight.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">What worked well</p>
+              <h3 class="panel__title">One shared feedback list</h3>
+              <p class="panel__body">
+                Putting all the test feedback in one list, with a column for the
+                problem, the proposed fix, what people said
+                about it, and whether it was approved, made
+                everyone accountable and cut the arguing.
+                Decisions came from what we watched people do,
+                not from who spoke loudest.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">What I’d do differently</p>
+              <h3 class="panel__title">Agree the plumbing earlier</h3>
+              <p class="panel__body">
+                The slow-page problem turned up late, because design and
+                engineering were running side by side without
+                agreeing exactly what data would move between
+                them. Next time I would sit down with the
+                engineers and stress-test that while the
+                structure is still on paper, before anything is
+                drawn in detail.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">Lasting principle</p>
+              <h3 class="panel__title">
+                Setup should be deliberate, never automatic
+              </h3>
+              <p class="panel__body">
+                Every time we tried to be helpful and move something on the
+                user’s behalf, testing showed it made them
+                anxious. The rule we landed on, that the system
+                can suggest but the person confirms, became how
+                this product handles setup everywhere. It
+                carried into the hospital lighting work that
+                followed.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">Future opportunity</p>
+              <h3 class="panel__title">Show it on a floor plan</h3>
+              <p class="panel__body">
+                The thing the technicians asked for most was a floor plan you
+                can look at, with the room boundaries and the
+                walls drawn on it. It did not make this release.
+                Given how physical this job is, being able to
+                see the space would probably cut mistakes more
+                than anything else on the list.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           OUTRO
+           ================================================================= -->
+      <section class="section" aria-labelledby="outro-title">
+        <div class="page case-outro">
+          <h2 class="case-outro__title" id="outro-title">
+            Want to see the
+            <span class="accent-serif">rest of the work?</span>
+          </h2>
+          <div class="button-group">
+            <a class="button" href="work.html">
+              Back to all case studies
+              <img class="button__icon" src="assets/icon-work.svg" alt="" width="20" height="20" />
+            </a>
+            <a class="button" href="dali-2.html">
+              Read the hospital lighting case study
+              <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================================================================
+         FOOTER
+         =================================================================== -->
+    <footer class="site-footer topo">
+      <div class="topo__art">
+        <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+      </div>
+
+      <div class="page site-footer__inner">
+        <nav class="icon-nav icon-nav--footer" aria-label="Footer">
+          <ul class="icon-nav__list">
+            <li>
+              <a class="icon-nav__link" href="index.html">
+                <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+                Home
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="work.html">
+                <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+                Work
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+                <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+                Email Robert
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <hr class="site-footer__rule" />
+
+        <p>I design how software looks, works and feels. Senior Product Designer.</p>
+        <p>
+          <a href="mailto:rbabiarz@gmail.com">rbabiarz@gmail.com</a> ·
+          <a href="tel:+14163154761">416-315-4761</a>
+        </p>
+        <p>
+          © 2026 Robert Babiarz · Signify, Cooper Lighting Limited Canada. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1783 @@
+/* =========================================================================
+   Robert Babiarz, Portfolio
+   Built from Figma "Claude Export" (file bNEP3atDwnY1w6wkOanNXW, node 1:1006).
+
+   Target: WCAG 2.2 Level AA / AODA / Ontario IASR.
+   No frameworks, no build step, no JavaScript.
+
+   Contents
+     1. Reset
+     2. Variables (design tokens)
+     3. Typography
+     4. Layout
+     5. Components
+     6. Utilities
+     7. Responsive
+     8. Accessibility (focus, motion, contrast, forced colors)
+   ========================================================================= */
+
+/* =========================================================================
+   1. RESET
+   ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+  padding: 0;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+/* =========================================================================
+   2. VARIABLES (design tokens lifted from the Figma file)
+   ========================================================================= */
+
+:root {
+  /* --- Colour: primitives -------------------------------------------- */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-ink: #0a0a0b;
+
+  --color-neutral-900: #171717;
+  --color-neutral-600: #525252;
+  --color-neutral-500: #737373;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-450: #8a8a8a;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-100: #f5f5f5;
+
+  --color-blue-800: #1e40af;
+  --color-yellow-400: #facc15;
+
+  /* --- Colour: semantic ---------------------------------------------- */
+  --surface-page: var(--color-white);
+  --surface-raised: var(--color-neutral-100);
+  --surface-inverse: var(--color-neutral-900);
+
+  --text-primary: var(--color-black);
+  --text-secondary: var(--color-neutral-500);
+  --text-tertiary: var(--color-neutral-600);
+  --text-on-inverse: var(--color-white);
+  --text-on-inverse-muted: var(--color-neutral-400);
+
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+
+  /* Lines that carry meaning rather than ornament: the rules that separate
+     rows of data, and the edge that tells you where a screenshot stops.
+     WCAG 1.4.11 wants 3:1 for a graphic you need in order to read the
+     content, and --border-default only reaches 1.26:1 on paper. This is the
+     lightest grey that clears the bar on both surfaces the site uses:
+     3.45:1 on #FFFFFF and 3.17:1 on #F5F5F5. Ornamental dividers, the rule
+     under the facts strip or between sections, stay on --border-default. */
+  --border-graphic: var(--color-neutral-450);
+
+  --focus-ring: var(--color-ink);
+
+  /* --- Spacing: 8-point system --------------------------------------- */
+  --space-1: 0.25rem; /*  4px */
+  --space-2: 0.5rem; /*  8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.5rem; /* 24px */
+  --space-6: 2rem; /* 32px */
+  --space-7: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+  --space-9: 5rem; /* 80px */
+  --space-10: 6rem; /* 96px */
+  --space-11: 7.5rem; /* 120px */
+
+  /* --- Radius --------------------------------------------------------- */
+  --radius-sm: 0.25rem; /*  4px */
+  --radius-md: 0.5rem; /*  8px */
+  --radius-lg: 1.25rem; /* 20px */
+  --radius-xl: 1.875rem; /* 30px */
+  --radius-pill: 999px;
+
+  /* --- Elevation ------------------------------------------------------ */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 0.75rem 1.5rem -0.75rem rgba(0, 0, 0, 0.25);
+  --shadow-device: 0 1.5rem 3rem -1.5rem rgba(0, 0, 0, 0.35);
+
+  /* --- Typography ----------------------------------------------------- */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-md: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-h6: 1.5rem; /* 24px */
+  --text-display-sm: 1.875rem; /* 30px */
+
+  --leading-xs: 1.5;
+  --leading-sm: 1.4286;
+  --leading-md: 1.5;
+  --leading-lg: 1.5556;
+  --leading-tight: 1.2;
+
+  /* Fluid display sizes. Minimums keep the page usable at 320px wide and
+     at 400% zoom without horizontal scrolling (WCAG 1.4.10 Reflow). */
+  --text-hero: clamp(2.25rem, 8.6vw, 6.875rem); /* 36 → 110px */
+  --text-hero-serif: clamp(2.5rem, 10vw, 8rem); /* 40 → 128px */
+  --text-section: clamp(1.75rem, 4.7vw, 3.75rem); /* 28 →  60px */
+  --text-section-serif: clamp(1.9rem, 5.2vw, 4.125rem); /* 30 →  66px */
+  --text-subsection: clamp(1.75rem, 3.75vw, 3rem); /* 28 →  48px */
+
+  /* Stat cards on the case study pages. Figma sets a flat 36px; this holds
+     the same ceiling but drops to 30px on a phone so a long value such as
+     "Unlimited" still fits one line. */
+  --text-stat: clamp(1.875rem, 3.2vw, 2.25rem); /* 30 → 36px */
+
+  /* --- Layout --------------------------------------------------------- */
+  --page-max: 80rem; /* 1280px */
+  --page-gutter: var(--space-8);
+  --measure-heading: 53rem; /*  848px */
+  --measure-body: 68rem; /* 1088px */
+  /* Long-form reading measure. --measure-body is sized for lede paragraphs a
+     few lines deep; a case study runs for pages, so its prose is capped near
+     75 characters instead. */
+  --measure-prose: 42rem; /*  672px */
+}
+
+/* =========================================================================
+   3. TYPOGRAPHY
+   ========================================================================= */
+
+body {
+  background-color: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.hero__title {
+  font-size: var(--text-hero);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* The serif italic clause in the hero and section headings. Figma sets this
+   fragment one step larger than the sans it sits beside. */
+.accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.hero__title .accent-serif {
+  font-size: var(--text-hero-serif);
+}
+
+.section__title {
+  font-size: var(--text-section);
+  line-height: 1.2;
+}
+
+.section__title .accent-serif {
+  font-size: var(--text-section-serif);
+}
+
+.section__title--plain {
+  font-size: var(--text-subsection);
+  line-height: 1.25;
+}
+
+/* Figma specifies Neutral/500 #737373 here. This text sits over the topo
+   artwork, whose lines are #E5E5E5. Where a line crosses the text the ratio
+   drops to 3.52:1, under the 4.5:1 floor. Neutral/600 holds 6.05:1 against
+   the lines and 7.50:1 against the paper. */
+.eyebrow {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  color: var(--text-tertiary);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.lede > p + p {
+  margin-top: var(--space-4);
+}
+
+.lede strong {
+  font-weight: 700;
+}
+
+/* =========================================================================
+   4. LAYOUT
+   ========================================================================= */
+
+.page {
+  max-width: var(--page-max);
+  margin-inline: auto;
+}
+
+.section {
+  padding-inline: var(--page-gutter);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-5);
+  /* Frosted veil: translucent page surface + blur so content softens underneath. */
+  background-color: color-mix(in srgb, var(--surface-page) 68%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+  border-bottom: 1px solid color-mix(in srgb, var(--border-subtle) 80%, transparent);
+}
+
+/* Hero and footer share a decorative topographic backdrop. The wrapper owns
+   the stacking context so the artwork can never sit above the text. */
+.topo {
+  position: relative;
+  isolation: isolate;
+}
+
+.topo__art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.topo__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero {
+  padding-block: var(--space-11) var(--space-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  align-items: center;
+  text-align: center;
+}
+
+.hero__meta {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.work {
+  padding-block: var(--space-7) var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.work__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  align-items: center;
+  text-align: center;
+}
+
+.work__intro .section__title {
+  max-width: var(--measure-heading);
+}
+
+.work__intro .lede {
+  max-width: var(--measure-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 500;
+}
+
+.case-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+/* --- Work page -------------------------------------------------------- */
+
+/* The work index leads with a heading rather than the home page hero, so it
+   uses the same centred column at a calmer vertical rhythm. */
+.page-intro {
+  padding-block: var(--space-9) var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  align-items: center;
+  text-align: center;
+}
+
+.page-intro .section__title {
+  max-width: var(--measure-heading);
+}
+
+.page-intro .lede {
+  max-width: var(--measure-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 500;
+}
+
+.work-block {
+  padding-block: var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.work-groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-9);
+}
+
+.work-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  /* Anchored from the jump rail. The offset keeps the group heading clear of
+     the top edge when a jump link lands on it. */
+  scroll-margin-top: var(--space-5);
+}
+
+.work-group__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.work-group__title {
+  font-size: var(--text-h6);
+  line-height: 1.3333;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.work-group__count {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--text-tertiary);
+}
+
+.testimonials {
+  padding-block: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.testimonials__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.testimonials__lede {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  color: var(--text-tertiary);
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.site-footer {
+  padding-block: var(--space-5);
+  margin-top: var(--space-10);
+  text-align: center;
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+  padding-inline: var(--space-5);
+}
+
+.site-footer__rule {
+  width: 100%;
+  height: 1px;
+  border: 0;
+  margin: var(--space-2) 0;
+  background-color: var(--border-default);
+}
+
+.site-footer p {
+  color: var(--text-primary);
+}
+
+/* The email and phone links are inline, so SC 2.5.8's inline exception would
+   cover them at their natural 20px height. Padded to clear 24px anyway. */
+.site-footer__inner p a {
+  display: inline-block;
+  min-height: 1.5rem;
+  padding-block: 0.125rem;
+  text-underline-offset: 0.2em;
+}
+
+/* =========================================================================
+   5. COMPONENTS
+   ========================================================================= */
+
+/* --- Identity block (header) ----------------------------------------- */
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.identity:hover .identity__name {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.identity__name {
+  font-size: var(--text-h6);
+  line-height: 1.3333;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.identity__role {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 500;
+}
+
+/* --- Icon navigation (header + footer) -------------------------------- */
+
+.icon-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.icon-nav__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 700;
+  text-decoration: none;
+  min-height: 2.75rem;
+  justify-content: center;
+}
+
+.icon-nav__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* Current page is signalled by weight + underline as well as colour, so the
+   state survives greyscale and colour-blind viewing (WCAG 1.4.1). */
+.icon-nav__link[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.icon-nav__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+}
+
+.icon-nav--footer .icon-nav__list {
+  justify-content: center;
+  gap: var(--space-5);
+}
+
+.icon-nav--footer .icon-nav__link {
+  flex-direction: row;
+}
+
+/* --- Buttons ---------------------------------------------------------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-black);
+  border-radius: var(--radius-md);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-xs);
+  min-height: 3rem;
+  transition: background-color 120ms ease-out, border-color 120ms ease-out;
+}
+
+.button:hover {
+  background-color: var(--color-neutral-900);
+  border-color: var(--color-neutral-900);
+}
+
+.button__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.button-group--stacked {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* --- Hero marquee ----------------------------------------------------- */
+
+.marquee {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Same topo-overlap reasoning as .eyebrow: stepped from Neutral/500 to 600. */
+.marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  color: var(--text-tertiary);
+}
+
+/* Decorative dot. Purely ornamental , the client name beside it carries the
+   meaning, so it is hidden from assistive technology in the markup. */
+.marquee__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-blue-800);
+  flex: none;
+}
+
+/* --- Case study card -------------------------------------------------- */
+
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-6);
+  align-items: center;
+  padding: var(--space-6);
+  background-color: var(--surface-raised);
+  border-radius: var(--radius-xl);
+  overflow: hidden; /* Figma sets overflow-clip on this card */
+}
+
+.case__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.case__title {
+  font-size: var(--text-display-sm);
+  line-height: 1.2667;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.case__description {
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+.case__description strong {
+  font-weight: 700;
+}
+
+/* Media-first variant. `order` only reorders the visual column; the DOM keeps
+   summary-then-media so reading and tab order stay identical on every card
+   (WCAG 1.3.2 Meaningful Sequence). */
+.case--media-first .case__summary {
+  order: 2;
+}
+
+.case--media-first .case__media {
+  order: 1;
+}
+
+/* --- Case study chips ------------------------------------------------- */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.6875rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  /* Figma specifies Neutral/500 #737373, which is 4.07:1 on the #F5F5F5 card,
+     under the 4.5:1 floor. Stepped to Neutral/600 for 6.99:1. */
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* --- Device mockups --------------------------------------------------- */
+
+.devices {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.device {
+  margin: 0;
+  background-color: #262c2d;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  box-shadow: var(--shadow-device);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.device img {
+  width: 100%;
+  border-radius: 0.25rem;
+}
+
+.device--laptop {
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
+}
+
+/* Kept ready but currently unused. The Figma pairs a phone with the laptop on
+   several cards, but that phone screen exported from Figma as a blank white
+   image. Drop a real phone screenshot into assets/ and add a second
+   <figure class="device device--phone"> inside .devices to bring it back. */
+.device--phone {
+  flex: 0 1 21%;
+  min-width: 5.75rem;
+  max-width: 9rem;
+  margin-left: -8%;
+  border-radius: 1rem;
+  padding: 0.3125rem;
+}
+
+.device--phone img {
+  border-radius: 0.75rem;
+}
+
+/* --- Testimonial card ------------------------------------------------- */
+
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  height: 100%;
+}
+
+/* Ink, not gold. On a #f5f5f5 card the Figma yellow lands at ~1.6:1 and the
+   rating stops being legible. The five-star shape still carries the meaning. */
+.testimonial__stars {
+  color: var(--text-primary);
+  font-size: var(--text-md);
+  letter-spacing: 2px;
+  line-height: 1.65;
+}
+
+.testimonial__quote {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+.testimonial__attribution {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: auto;
+}
+
+.testimonial__avatar {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 50%;
+  /* Headshots shot on white need an edge to stay a disc on a #f5f5f5 card. */
+  border: 1px solid var(--border-strong);
+  object-fit: cover;
+  object-position: center top;
+}
+
+.testimonial__name {
+  display: block;
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+  font-weight: 700;
+}
+
+.testimonial__role {
+  display: block;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  /* Neutral/500 would only reach 4.35:1 on this surface. 600 gives 7.2:1. */
+  color: var(--text-tertiary);
+}
+
+/* --- Jump rail (work page) -------------------------------------------- */
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.jump__label {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--text-tertiary);
+}
+
+.jump__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Deliberately heavier than .chip. The tags on a card are not interactive, so
+   a jump link needs to read as a control without relying on colour: full ink
+   border, bolder label, and an underline on hover and focus. 44px tall clears
+   both SC 2.5.8 and the 44px house floor. */
+.jump__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--text-primary);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 600;
+  text-decoration: none;
+  background-color: var(--surface-page);
+  transition: background-color 120ms ease-out;
+}
+
+.jump__link:hover {
+  background-color: var(--surface-raised);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* --- Work tile -------------------------------------------------------- */
+
+/* min() keeps a single column at 320px instead of overflowing the gutter
+   (WCAG 1.4.10 Reflow). */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 120ms ease-out, box-shadow 120ms ease-out,
+    transform 120ms ease-out;
+}
+
+.tile:hover {
+  border-color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.tile__media {
+  position: relative;
+  background-color: var(--surface-page);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.tile__media img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  /* Screenshots are full pages. Anchoring to the top keeps the header and the
+     first row of real content in frame rather than centring on empty space. */
+  object-position: top center;
+}
+
+.tile__badge {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-inverse);
+  color: var(--text-on-inverse);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: 700;
+}
+
+.tile__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  flex: 1 1 auto;
+}
+
+.tile__number {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.tile__title {
+  font-size: var(--text-lg);
+  line-height: 1.3333;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Stretched link: the title holds the only anchor, so assistive technology
+   announces one short name per card, while the pseudo-element makes the whole
+   card a click target. Trade-off: text inside a card is no longer selectable
+   by dragging. Acceptable here, the cards carry summaries rather than content
+   anyone needs to copy. */
+.tile__link {
+  text-decoration: none;
+}
+
+.tile__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.tile:hover .tile__link {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.tile__description {
+  font-size: var(--text-sm);
+  line-height: var(--leading-lg);
+  color: var(--text-tertiary);
+}
+
+.tile__cue {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tile__cue .button__icon {
+  filter: brightness(0);
+}
+
+/* --- Case study key (work page) --------------------------------------- */
+
+.key {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: var(--space-5);
+}
+
+.key__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+}
+
+.key__term {
+  font-size: var(--text-lg);
+  line-height: 1.3333;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.key__definition {
+  font-size: var(--text-sm);
+  line-height: var(--leading-lg);
+  color: var(--text-tertiary);
+}
+
+/* --- Case study page -------------------------------------------------- */
+
+/* Hero. Left aligned rather than centred like the home page: a case study is
+   a document, and the reader's eye needs one column to come back to. */
+.cs-hero {
+  padding-block: var(--space-9) var(--space-7);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.cs-hero__title {
+  font-size: var(--text-section);
+  line-height: 1.1;
+}
+
+.cs-hero__deck {
+  max-width: var(--measure-prose);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 500;
+}
+
+/* Breadcrumb. The separator is generated content on the list item, the
+   pattern the ARIA Authoring Practices Guide uses, so the markup stays a
+   plain ordered list of links. */
+.crumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--text-tertiary);
+}
+
+.crumbs__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.crumbs__item + .crumbs__item::before {
+  content: "/";
+  color: var(--text-tertiary);
+}
+
+/* Inline links, so SC 2.5.8 exempts them at their natural height. Padded to
+   clear 24px regardless. */
+.crumbs__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  padding-block: var(--space-1);
+  text-underline-offset: 0.2em;
+}
+
+/* Facts strip under the hero deck. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+  gap: var(--space-5);
+  width: 100%;
+  max-width: var(--measure-body);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-default);
+}
+
+.facts__term {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.facts__value {
+  margin-top: var(--space-1);
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+  font-weight: 600;
+}
+
+/* Section rail. Reuses the .jump components from the work page rather than
+   inventing a second pill. Not sticky: a pinned bar this tall eats the
+   viewport at 400% zoom, which would cost more than it gives. */
+.rail {
+  padding-block: var(--space-5);
+  border-block: 1px solid var(--border-default);
+}
+
+.rail .jump,
+.rail .jump__list {
+  justify-content: flex-start;
+}
+
+/* Section shell. */
+.cs-block {
+  padding-block: var(--space-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.cs-section + .cs-section .cs-block {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.cs-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  /* Anchored from the rail. Clears the heading of the top edge on landing. */
+  scroll-margin-top: var(--space-5);
+}
+
+.cs-head__kicker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.cs-head__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.cs-head__title {
+  max-width: var(--measure-heading);
+  font-size: var(--text-subsection);
+  line-height: 1.15;
+}
+
+.cs-sub {
+  font-size: var(--text-display-sm);
+  line-height: 1.2667;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  scroll-margin-top: var(--space-5);
+}
+
+/* Long-form body copy. */
+.prose {
+  max-width: var(--measure-prose);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.prose p + p {
+  margin-top: var(--space-4);
+}
+
+/* Spec list: term and definition, so a description list rather than a table.
+   Nothing here is tabular, there is only ever one value per term. */
+.spec {
+  max-width: var(--measure-body);
+  border-top: 1px solid var(--border-graphic);
+}
+
+/* Same rows-of-data reasoning as the tables: the rule is what binds a term to
+   its definition once the two columns sit far apart, so it carries meaning. */
+.spec__row {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--border-graphic);
+}
+
+.spec__term {
+  font-weight: 600;
+}
+
+.spec__value {
+  color: var(--text-tertiary);
+}
+
+/* Pull quote / callout. Raised fill with soft corners — no stroke. */
+.callout {
+  max-width: var(--measure-body);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background-color: var(--surface-raised);
+  border: 0;
+  border-radius: var(--radius-lg);
+}
+
+.callout__title {
+  font-size: var(--text-lg);
+  line-height: 1.3333;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.callout p {
+  max-width: var(--measure-prose);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+/* Stat cards and point cards share one block: white on black, divided by
+   hairlines the page background shows through. 21:1. */
+.stats,
+.points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: var(--surface-page);
+  border: 1px solid var(--color-black);
+}
+
+.stat,
+.point {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  background-color: var(--color-black);
+  color: var(--text-on-inverse);
+}
+
+.stat__value {
+  font-size: var(--text-stat);
+  line-height: 1.2222;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stat__label,
+.point__body {
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+/* Before and after figure under a headline number. Neutral/300 holds 12.6:1
+   on black. Deliberately not green: this site never lets a colour carry the
+   direction of a change, the words "up" and "down" do that. */
+.stat__delta {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--color-neutral-300);
+}
+
+.point__title {
+  font-size: var(--text-lg);
+  line-height: 1.3333;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Data tables. SC 1.4.10 exempts content that needs a two-dimensional layout
+   from reflowing, so wide tables scroll sideways inside a focusable region
+   rather than being crushed into unreadable columns. */
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  min-width: 28rem;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+.data-table--wide {
+  min-width: 46rem;
+}
+
+.data-table caption {
+  padding-bottom: var(--space-3);
+  text-align: left;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+/* Row rules only, no vertical gridlines. Half the lines, so each one can be
+   dark enough to actually see (3.45:1) without the table looking caged. */
+.data-table th,
+.data-table td {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-graphic);
+  vertical-align: top;
+}
+
+.data-table thead th {
+  background-color: var(--surface-raised);
+  border-bottom: 2px solid var(--color-black);
+  font-weight: 700;
+}
+
+.data-table tbody th {
+  font-weight: 600;
+}
+
+.data-table tbody tr:last-child th,
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Numbered design decisions. */
+.decisions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.decision {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-default);
+}
+
+.decision:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.decision__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--text-h6);
+  line-height: 1.3333;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Decorative. The list already carries the ordinal for assistive technology,
+   so this is hidden in the markup and exists only for the eye. */
+.decision__num {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 700;
+  color: var(--text-tertiary);
+}
+
+.decision p {
+  max-width: var(--measure-prose);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.decision__why {
+  padding-inline-start: var(--space-4);
+  border-inline-start: 3px solid var(--color-black);
+}
+
+.decision__why-label {
+  font-weight: 700;
+}
+
+/* Screenshots. */
+.shots {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-9);
+}
+
+.shot-study {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  scroll-margin-top: var(--space-5);
+}
+
+.shot-study__title {
+  font-size: var(--text-lg);
+  line-height: 1.3333;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.shot {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-radius: 0;
+}
+
+/* These captures are mostly white chrome on a white page, so the frame is
+   what tells you where the screenshot ends. That makes it load bearing, not
+   decoration, and it is drawn at the 3:1 token accordingly. */
+.shot img {
+  width: 100%;
+  background-color: var(--surface-page);
+  border: 1px solid var(--border-graphic);
+  border-radius: 0;
+}
+
+.shot figcaption {
+  max-width: var(--measure-prose);
+  font-size: var(--text-sm);
+  line-height: var(--leading-lg);
+  color: var(--text-tertiary);
+}
+
+/* Tall portrait captures would otherwise run past a screen and a half. */
+.shot--portrait {
+  max-width: 34rem;
+}
+
+.shot--hero {
+  width: 100%;
+  padding-top: var(--space-4);
+}
+
+/* End of the case study. */
+.cs-end {
+  padding-bottom: var(--space-8);
+}
+
+.next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* =========================================================================
+   6. UTILITIES
+   ========================================================================= */
+
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.stack-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* =========================================================================
+   7. RESPONSIVE
+   ========================================================================= */
+
+@media (max-width: 60rem) {
+  :root {
+    --page-gutter: var(--space-6);
+  }
+
+  .case {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  /* Stacked cards always read summary → media, so the visual reorder is
+     dropped rather than inverted. */
+  .case--media-first .case__summary,
+  .case--media-first .case__media {
+    order: 0;
+  }
+
+  .work,
+  .case-list {
+    gap: var(--space-8);
+  }
+
+  .work-groups {
+    gap: var(--space-8);
+  }
+
+  .hero {
+    padding-block: var(--space-8) var(--space-7);
+  }
+
+  .page-intro {
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  /* Case study */
+  .cs-hero {
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  .cs-block {
+    padding-block: var(--space-8);
+    gap: var(--space-5);
+  }
+
+  .shots {
+    gap: var(--space-8);
+  }
+
+  /* Term over definition once 14rem of label plus a full sentence no longer
+     fit side by side. */
+  .spec__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+}
+
+@media (max-width: 40rem) {
+  :root {
+    --page-gutter: var(--space-4);
+  }
+
+  .site-header {
+    padding: var(--space-4);
+  }
+
+  .icon-nav__list {
+    gap: var(--space-4);
+  }
+
+  .hero__meta {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .devices {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .device--phone {
+    margin-left: 0;
+    flex-basis: 30%;
+  }
+
+  .button-group {
+    width: 100%;
+  }
+
+  .button {
+    flex: 1 1 auto;
+  }
+
+  /* Left-aligned so the jump links stack into a readable column rather than a
+     ragged centred pile. */
+  .jump,
+  .jump__list {
+    justify-content: flex-start;
+  }
+
+  /* Case study */
+  .facts {
+    gap: var(--space-4);
+  }
+
+  .stat,
+  .point {
+    padding: var(--space-4);
+  }
+
+  .callout {
+    padding: var(--space-4);
+  }
+}
+
+/* =========================================================================
+   8. ACCESSIBILITY
+   ========================================================================= */
+
+/* Skip link: first focusable element, visible only when focused. */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* A single near-black ring, offset so it clears the element it belongs to.
+   Against every surface used here (white, #F5F5F5, #171717 card interiors
+   contain no controls) this exceeds 3:1 for non-text contrast (WCAG 1.4.11). */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Black buttons sit on light surfaces, so the offset ring lands on the light
+   background and reads at 21:1. An inner white keyline guarantees separation
+   if the button is ever placed on a dark surface. */
+.button:focus-visible {
+  outline-color: var(--focus-ring);
+  box-shadow: inset 0 0 0 2px var(--color-white), var(--shadow-xs);
+}
+
+.skip-link:focus-visible {
+  outline-color: var(--color-black);
+}
+
+/* Work tiles use a stretched link, so the click target is the whole card and
+   the ring belongs there too, not around the few words of title that hold the
+   anchor. Browsers without :has() fall back to the default ring on the title,
+   which is still plainly visible. */
+.tile:has(.tile__link:focus-visible) {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.tile:has(.tile__link:focus-visible) .tile__link:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .skip-link {
+    transition: none;
+  }
+
+  /* With transitions clamped the lift would snap rather than ease, so it is
+     dropped. The border, shadow and underline still mark the hovered card. */
+  .tile:hover {
+    transform: none;
+  }
+}
+
+/* Windows High Contrast / forced-colors: keep borders and focus rings, drop
+   decorative artwork that would otherwise render as opaque blocks. */
+@media (forced-colors: active) {
+  .topo__art {
+    display: none;
+  }
+
+  /* Glass blur is decorative; keep a solid Canvas header in forced colours. */
+  .site-header {
+    background-color: Canvas;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom: 1px solid CanvasText;
+  }
+
+  .button {
+    border: 1px solid ButtonText;
+  }
+
+  :focus-visible {
+    outline-color: Highlight;
+  }
+
+  .testimonial,
+  .case,
+  .chip,
+  .tile,
+  .tile__badge,
+  .key__row,
+  .jump__link,
+  .callout,
+  .cs-head__num,
+  .shot img {
+    border: 1px solid CanvasText;
+  }
+
+  /* The stat and point grids are divided by 1px of page background showing
+     through the gap. Forced colours repaint every surface, so the cards would
+     fuse into one block. Give each its own edge instead. */
+  .stats,
+  .points {
+    gap: var(--space-2);
+    border: 0;
+  }
+
+  .stat,
+  .point {
+    border: 1px solid CanvasText;
+  }
+
+  /* The lift and shadow carry no meaning and disappear in forced colours, so
+     hover falls back to the underline the title already gets. */
+  .tile:hover {
+    box-shadow: none;
+    transform: none;
+  }
+}

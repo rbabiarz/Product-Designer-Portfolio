@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CORE Insights, a case study by Robert Babiarz</title>
+    <meta
+      name="description"
+      content="Every ceiling light in a big office has a sensor in it that notices when someone walks in. Here is how I turned years of quiet counting into a picture of how the building really gets used — the research, the six decisions, and what changed."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to the main content</a>
+
+    <!-- ===================================================================
+         HEADER
+         Same nav as the home and work pages. Neither Home nor Work is the
+         current page here, so no link carries aria-current.
+         =================================================================== -->
+    <header class="site-header">
+      <a class="identity" href="index.html" aria-label="Robert Babiarz, Senior Product Designer — home">
+        <span class="identity__name">Robert Babiarz</span>
+        <span class="identity__role">Senior Product Designer</span>
+      </a>
+
+      <nav class="icon-nav" aria-label="Main">
+        <ul class="icon-nav__list">
+          <li>
+            <a class="icon-nav__link" href="index.html">
+              <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="work.html">
+              <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+              Work
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+              <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+              Email Robert
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article class="case-study">
+        <!-- =============================================================
+             HERO
+             ============================================================= -->
+        <section class="topo section" aria-labelledby="case-title">
+          <div class="topo__art">
+            <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+          </div>
+
+          <div class="page cs-hero">
+            <nav class="crumbs" aria-label="Breadcrumb">
+              <ol class="crumbs__list">
+                <li class="crumbs__item"><a class="crumbs__link" href="index.html">Home</a></li>
+                <li class="crumbs__item"><a class="crumbs__link" href="work.html">Work</a></li>
+                <li class="crumbs__item"><span aria-current="page">CORE Insights</span></li>
+              </ol>
+            </nav>
+
+            <p class="eyebrow">
+              Case 02 <span aria-hidden="true">·</span> CORE Insights
+              <span aria-hidden="true">·</span> Cooper Lighting
+            </p>
+
+            <h1 class="cs-hero__title" id="case-title">
+              CORE&nbsp;Insights
+            </h1>
+
+            <p class="cs-hero__deck">
+              Every ceiling light in a big office has a small sensor in it that
+              notices when someone walks into the room. Those sensors had been
+              quietly counting people for years and nobody was looking. I built
+              the screen that finally showed what they had seen. No new
+              equipment, no new wiring, nothing to install.
+            </p>
+
+            <dl class="facts">
+              <div class="facts__row">
+                <dt class="facts__term">Role</dt>
+                <dd class="facts__value">Lead designer</dd>
+              </div>
+              <div class="facts__row">
+                <dt class="facts__term">Scope</dt>
+                <dd class="facts__value">First interview through to shipping</dd>
+              </div>
+              <div class="facts__row">
+                <dt class="facts__term">Team</dt>
+                <dd class="facts__value">15 people, all doing different jobs</dd>
+              </div>
+              <div class="facts__row">
+                <dt class="facts__term">Released</dt>
+                <dd class="facts__value">12 rounds of updates, 2020 to 2021</dd>
+              </div>
+              <div class="facts__row">
+                <dt class="facts__term">Drawn in</dt>
+                <dd class="facts__value">Adobe XD</dd>
+              </div>
+            </dl>
+
+            <figure class="shot shot--hero">
+              <img
+                src="assets/core-insights/hero-trio.png"
+                width="1284"
+                height="699"
+                alt="Three screens from the app side by side. The first shows one meeting room as a grid of the week, with darker squares where it was busiest. The second shows a whole site: a floor plan colored in by how busy each area is, above a bar chart comparing kinds of room. The third shows one meeting room right now, with the number of people in it, how many it holds, the temperature and the humidity."
+              />
+            </figure>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             SECTION RAIL
+             Plain in-page anchors. No script, so it works with JavaScript
+             off and every target is a real heading.
+             ============================================================= -->
+        <nav class="section rail" aria-label="Sections of this case study">
+          <div class="page jump">
+            <p class="jump__label" id="rail-label">Jump to:</p>
+            <ol class="jump__list" aria-labelledby="rail-label">
+              <li><a class="jump__link" href="#overview">01. What it is</a></li>
+              <li><a class="jump__link" href="#business">02. Why it was worth building</a></li>
+              <li><a class="jump__link" href="#problem">03. The problem</a></li>
+              <li><a class="jump__link" href="#research">04. What people told me</a></li>
+              <li><a class="jump__link" href="#architecture">05. How it is organized</a></li>
+              <li><a class="jump__link" href="#decisions">06. Six decisions</a></li>
+              <li><a class="jump__link" href="#results">07. What changed</a></li>
+            </ol>
+          </div>
+        </nav>
+
+        <!-- =============================================================
+             01. WHAT IT IS
+             ============================================================= -->
+        <section class="section cs-section" id="overview" aria-labelledby="overview-title">
+          <div class="page cs-block">
+            <header class="cs-head">
+              <p class="cs-head__kicker">
+                <span class="cs-head__num">01</span> What it is
+              </p>
+              <h2 class="cs-head__title" id="overview-title">
+                Turning what the lights saw into a picture of the building
+              </h2>
+            </header>
+
+            <div class="prose">
+              <p>
+                CORE Insights is an app that shows how the rooms in a building
+                actually get used. It sits on top of the system that already
+                runs the lights, and it reads the little sensors built into the
+                ceiling fittings. Those sensors have one job: notice whether
+                anyone is in the room, so the lights know whether to stay on.
+              </p>
+              <p>
+                I led the design. I owned it from the first sketch through
+                twelve rounds of releases: the main screen, the reports, the
+                floor plan, and the move from a computer in the basement to
+                something that runs over the internet. This case study is about
+                one problem in particular. All the information was already
+                there. The people who needed it could not get at it.
+              </p>
+            </div>
+
+            <!-- role="list" reads as redundant to a linter, and per spec it
+                 is. It is here because Safari drops list semantics from any
+                 list styled with list-style: none, which is every list on this
+                 site. Same reason .tile-grid carries it on the work page.
+                 Do not strip it. -->
+            <ul class="stats" role="list">
+              <li class="stat">
+                <p class="stat__value">5</p>
+                <p class="stat__label">
+                  Steps you had to click down through, from the whole company to
+                  a single room
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">21+</p>
+                <p class="stat__label">Sensors watching a typical floor</p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">Unlimited</p>
+                <p class="stat__label">Rooms covered by one purchase</p>
+              </li>
+            </ul>
+
+            <h3 class="cs-sub" id="glance-title">The short version</h3>
+            <dl class="spec">
+              <div class="spec__row">
+                <dt class="spec__term">What it runs on</dt>
+                <dd class="spec__value">
+                  WaveLinx CORE, the system that controls a building's lights.
+                  There is also a version that runs over the internet, called
+                  WaveLinx Cloud
+                </dd>
+              </div>
+              <div class="spec__row">
+                <dt class="spec__term">What I designed</dt>
+                <dd class="spec__value">
+                  CORE Insights: the screen that shows how rooms get used, and
+                  the reports it prints
+                </dd>
+              </div>
+              <div class="spec__row">
+                <dt class="spec__term">Who uses it</dt>
+                <dd class="spec__value">
+                  The people who look after buildings, the people who decide how
+                  much office to rent, the teams who keep it all running, and
+                  the bosses they answer to
+                </dd>
+              </div>
+              <div class="spec__row">
+                <dt class="spec__term">Where you use it</dt>
+                <dd class="spec__value">On a computer and on a phone</dd>
+              </div>
+              <div class="spec__row">
+                <dt class="spec__term">Where it lives</dt>
+                <dd class="spec__value">
+                  On a small box in the building itself, or out on the internet
+                </dd>
+              </div>
+              <div class="spec__row">
+                <dt class="spec__term">Where the numbers come from</dt>
+                <dd class="spec__value">
+                  Sensors tucked inside the ceiling lights and in the ceiling
+                  itself. Small controllers dotted around the building collect
+                  what they see
+                </dd>
+              </div>
+              <div class="spec__row">
+                <dt class="spec__term">What it costs</dt>
+                <dd class="spec__value">
+                  Bought once. Every room included, however many there are
+                </dd>
+              </div>
+              <div class="spec__row">
+                <dt class="spec__term">What I did on it</dt>
+                <dd class="spec__value">
+                  Interviews, working out how it should be organized, how it
+                  should behave, how the charts should be drawn, and testing all
+                  of it with real people
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             02. WHY IT WAS WORTH BUILDING
+             ============================================================= -->
+        <section class="section cs-section" id="business" aria-labelledby="business-title">
+          <div class="page cs-block">
+            <header class="cs-head">
+              <p class="cs-head__kicker">
+                <span class="cs-head__num">02</span> Why it was worth building
+              </p>
+              <h2 class="cs-head__title" id="business-title">
+                Sensors already in the ceiling, doing nothing useful
+              </h2>
+            </header>
+
+            <div class="prose">
+              <p>
+                Then offices changed. People started coming in some days and
+                staying home on others, and suddenly nobody could say how much
+                space a company actually needed. Finance began asking the
+                facilities teams to prove it. The facilities teams had nothing
+                to prove it with.
+              </p>
+              <p>
+                Cooper Lighting had something none of the start-ups did:
+                millions of sensors already screwed into ceilings around the
+                world. They had gone up years earlier for a boring reason. The
+                rules say lights have to switch themselves off in an empty room,
+                so something has to notice the room is empty. They had been
+                counting people the whole time. Nobody was showing the count to
+                anyone who could act on it.
+              </p>
+              <p>
+                CORE Insights was the answer to that. Point the lighting system
+                at a new question and it tells you how the building is really
+                being used. Every office that already had these lights became a
+                customer, with nothing new to buy and nothing new to fit.
+              </p>
+            </div>
+
+            <aside class="callout" aria-labelledby="edge-title">
+              <h3 class="callout__title" id="edge-title">Why we could win</h3>
+              <p>
+                Companies like VergeSense, Density and SpaceIQ were taking this
+                market by shipping boxes of their own sensors and sending crews
+                out to stick them to ceilings. Ours were already up there. So
+                the job was never the hardware. The job was making software good
+                enough that a facilities manager would open it on a Monday
+                morning because they wanted to, not because someone told them
+                to.
+              </p>
+            </aside>
+
+            <ul class="stats" role="list">
+              <li class="stat">
+                <p class="stat__value">$0</p>
+                <p class="stat__label">Extra equipment for the customer to buy</p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">4+</p>
+                <p class="stat__label">Buildings you can watch from one screen</p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">310K</p>
+                <p class="stat__label">
+                  Square feet of floor in the building we tested on
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">2</p>
+                <p class="stat__label">
+                  Ways to run it: in the building, or over the internet
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             03. THE PROBLEM
+             ============================================================= -->
+        <section class="section cs-section" id="problem" aria-labelledby="problem-title">
+          <div class="page cs-block">
+            <header class="cs-head">
+              <p class="cs-head__kicker">
+                <span class="cs-head__num">03</span> The problem
+              </p>
+              <h2 class="cs-head__title" id="problem-title">
+                The numbers were all there. People could not reach them.
+              </h2>
+            </header>
+
+            <aside class="callout" aria-labelledby="statement-title">
+              <h3 class="callout__title" id="statement-title">
+                The problem, in one sentence
+              </h3>
+              <p>
+                Someone looking after several floors, or several buildings,
+                cannot find the one number they came for. It is buried five
+                steps down — company, then building, then floor, then area, then
+                room — and climbing back out again costs more effort than the
+                question was worth. So most people never went looking.
+              </p>
+            </aside>
+
+            <ul class="stats" role="list">
+              <li class="stat">
+                <p class="stat__value">~80%</p>
+                <p class="stat__label">
+                  Of people never clicked past the first screen
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">~65%</p>
+                <p class="stat__label">
+                  Of visits ended with someone giving up and starting over
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">5</p>
+                <p class="stat__label">Steps between the front door and one room</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             04. WHAT PEOPLE TOLD ME
+             ============================================================= -->
+        <section class="section cs-section" id="research" aria-labelledby="research-title">
+          <div class="page cs-block">
+            <header class="cs-head">
+              <p class="cs-head__kicker">
+                <span class="cs-head__num">04</span> What people told me
+              </p>
+              <h2 class="cs-head__title" id="research-title">
+                It was built like a filing cabinet. People do not think in
+                filing cabinets.
+              </h2>
+            </header>
+
+            <h3 class="cs-sub">Talking to the people who use it</h3>
+            <div class="prose">
+              <p>
+                I sat down with five different groups to find out what each of
+                them wanted from the same pile of numbers. The answers barely
+                overlapped.
+              </p>
+            </div>
+
+            <section class="table-scroll" aria-labelledby="groups-caption" tabindex="0">
+              <table class="data-table">
+                <caption id="groups-caption">
+                  What each group wants from the same numbers
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Group</th>
+                    <th scope="col">What I learned</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">The people who run the building</th>
+                    <td>
+                      Turn up with one practical question, like which meeting
+                      rooms on the third floor are sitting empty. They want the
+                      answer, not a tour. They rarely look deeper than a floor.
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">The people who rent the space</th>
+                    <td>
+                      Think in years and buildings, not rooms. They are working
+                      out how much office to keep, so they pull everything out
+                      at once as a spreadsheet or a report.
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Operations and IT</th>
+                    <td>
+                      Care first about whether the sensors are alive and
+                      working. If they cannot trust the numbers, nothing else on
+                      the screen matters.
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Executives</th>
+                    <td>
+                      Want one headline figure and a cost they can defend in a
+                      meeting. They will never open the tool. They read the PDF
+                      somebody hands them.
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">The electricians who fit the lights</th>
+                    <td>
+                      Are up a ladder, checking each sensor can see what it is
+                      meant to see. For them this is a tool for one week of
+                      checking, not a daily habit.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <h3 class="cs-sub">Counting the clicks</h3>
+            <div class="prose">
+              <p>
+                Then I took the five things people did most often and counted
+                what each one cost them: how many clicks it took, and how often
+                they had to give up and start again.
+              </p>
+            </div>
+
+            <section class="table-scroll" aria-labelledby="tasks-caption" tabindex="0">
+              <table class="data-table">
+                <caption id="tasks-caption">
+                  The five most common jobs, before the redesign
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">The job</th>
+                    <th scope="col">Clicks</th>
+                    <th scope="col">How it felt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Check how busy one floor is on average</th>
+                    <td>4 to 6</td>
+                    <td>Some effort</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Compare two floors against each other</th>
+                    <td>10 to 14</td>
+                    <td>Hard going</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Find meeting rooms nobody is using</th>
+                    <td>7 to 9</td>
+                    <td>Hard going</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Make a PDF report for one building</th>
+                    <td>5 to 7</td>
+                    <td>Some effort</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Look at one team spread over several floors</th>
+                    <td>8 to 12</td>
+                    <td>Hard going</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <aside class="callout" aria-labelledby="finding-title">
+              <h3 class="callout__title" id="finding-title">The thing that changed everything</h3>
+              <p>
+                People do not ask where. They ask what. Nobody thinks "show me
+                floor three". They think "show me what is empty". The software
+                could only answer the first kind of question, so most people
+                stopped at the front screen and guessed.
+              </p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             05. HOW IT IS ORGANIZED
+             ============================================================= -->
+        <section class="section cs-section" id="architecture" aria-labelledby="architecture-title">
+          <div class="page cs-block">
+            <header class="cs-head">
+              <p class="cs-head__kicker">
+                <span class="cs-head__num">05</span> How it is organized
+              </p>
+              <h2 class="cs-head__title" id="architecture-title">
+                Five levels, each with its own job
+              </h2>
+            </header>
+
+            <div class="prose">
+              <p>
+                The easy thing would have been to show the same screen at every
+                level, just with smaller numbers on it. I did the opposite. Each
+                level answers a different question, so each level is drawn
+                differently. High up you are comparing things, so you get bars.
+                On a floor you are getting your bearings, so you get a map of
+                the floor. Inside one room you are watching something change
+                through the day, so you get a line.
+              </p>
+            </div>
+
+            <section class="table-scroll" aria-labelledby="levels-caption" tabindex="0">
+              <table class="data-table data-table--wide">
+                <caption id="levels-caption">
+                  What each level shows, how it is drawn, and what it prints
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Level</th>
+                    <th scope="col">What it shows</th>
+                    <th scope="col">How it is drawn</th>
+                    <th scope="col">What it prints</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">The whole company</th>
+                    <td>
+                      How busy on average, how many rooms sit empty, how many
+                      buildings, floors and sensors there are
+                    </td>
+                    <td>A bar chart, one bar per building</td>
+                    <td>How busy each space is, now and over time</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">One building</th>
+                    <td>
+                      How busy on average, how many rooms sit empty, how many
+                      floors and sensors there are
+                    </td>
+                    <td>A bar chart, one bar per floor</td>
+                    <td>How busy each space is, plus a room-by-room summary</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">One floor</th>
+                    <td>
+                      How busy on average, how many rooms sit empty, the busiest
+                      room, how many sensors
+                    </td>
+                    <td>A floor plan, with a chart underneath it</td>
+                    <td>
+                      How busy each space is, a summary, and the most and least
+                      used rooms
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">One kind of room</th>
+                    <td>How busy on average, how many sensors</td>
+                    <td>The floor plan with everything else faded back</td>
+                    <td>How busy that one kind of room is</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">One room</th>
+                    <td>How busy on average, how many sensors</td>
+                    <td>The floor plan zoomed in, with a line over time</td>
+                    <td>Everything known about that one room</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             06. SIX DECISIONS
+             ============================================================= -->
+        <section class="section cs-section" id="decisions" aria-labelledby="decisions-title">
+          <div class="page cs-block">
+            <header class="cs-head">
+              <p class="cs-head__kicker">
+                <span class="cs-head__num">06</span> Six decisions
+              </p>
+              <h2 class="cs-head__title" id="decisions-title">
+                Six decisions that changed how it felt to use
+              </h2>
+            </header>
+
+            <ol class="decisions" role="list">
+              <li class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__num" aria-hidden="true">01</span>
+                  A trail of breadcrumbs, so you always know where you are
+                </h3>
+                <p>
+                  Across the top I put a line showing exactly where you are
+                  standing: Cooper Lighting, then McLaughlin Rd, then Floor 1,
+                  then Conference Rooms. Every word in that line is a link, so
+                  you can hop back up without losing the choices you made on the
+                  way down. Just under it, a thin strip keeps showing the
+                  headline numbers for the level above.
+                </p>
+                <p class="decision__why">
+                  <span class="decision__why-label">Why.</span> It cured the
+                  feeling of falling down a hole. People will happily dig deeper
+                  once they are sure one click brings them back, and the strip
+                  means they no longer have to climb all the way up just to
+                  check a single number.
+                </p>
+              </li>
+
+              <li class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__num" aria-hidden="true">02</span>
+                  Numbers you can click
+                </h3>
+                <p>
+                  The four big numbers along the top — how busy on average, how
+                  many rooms are empty, the busiest room, how many sensors —
+                  stopped being just numbers and became doors. Tap "Empty
+                  spaces: 30" and the screen filters itself down to exactly
+                  those thirty rooms.
+                </p>
+                <p class="decision__why">
+                  <span class="decision__why-label">Why.</span> This is that
+                  finding about questions, made real. You start with what you
+                  want to know instead of with a place on a map, and the
+                  questions people asked most are now one tap away.
+                </p>
+              </li>
+
+              <li class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__num" aria-hidden="true">03</span>
+                  A floor plan colored in by how busy each room is
+                </h3>
+                <p>
+                  The plan uses three bands: under 30 percent, 31 to 70 percent,
+                  and over 70 percent. Those cut-off points are not decoration.
+                  Under 30 percent, a room is a candidate for being merged or
+                  given up. Over 70 percent, it needs more of something. Every
+                  room also prints its own figure on the plan and appears in a
+                  labelled key underneath, so nobody has to tell two shades of
+                  the same color apart to read it. Click a room and you are
+                  inside it.
+                </p>
+                <p class="decision__why">
+                  <span class="decision__why-label">Why.</span> The people who
+                  run a building picture it as a floor plan, not as a list of
+                  room names. Show them the plan and they spot the pattern
+                  instantly, and tapping a room skips three levels of clicking.
+                </p>
+              </li>
+
+              <li class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__num" aria-hidden="true">04</span>
+                  Filters by team, not just by floor
+                </h3>
+                <p>
+                  The team filter came out of a buried menu and became a row of
+                  buttons that stays on screen. Teams do not sit tidily on one
+                  floor: engineering might be spread across three floors in two
+                  buildings. So the filter now works at every level, and it
+                  stays switched on as you move around.
+                </p>
+                <p class="decision__why">
+                  <span class="decision__why-label">Why.</span> Companies make
+                  decisions team by team, not floor by floor. The filter had to
+                  match the way the decision actually gets made.
+                </p>
+              </li>
+
+              <li class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__num" aria-hidden="true">05</span>
+                  One switch between "right now" and "over time"
+                </h3>
+                <p>
+                  The main chart flips between two views. One is a set of bars
+                  showing how busy each kind of room is at the moment. The other
+                  is a line showing the same thing week after week. Both carry a
+                  dashed line for the average, so you can see what sits above it
+                  and what sits below, and tick boxes for choosing which kinds
+                  of room to include. There is a plain table version too, which
+                  sorts by how busy a room is, or by how far it strays from
+                  normal.
+                </p>
+                <p class="decision__why">
+                  <span class="decision__why-label">Why.</span> There are really
+                  only two questions here: what is happening now, and is it
+                  getting better or worse. One switch, with your filters carried
+                  across, lets someone move between them without losing their
+                  place.
+                </p>
+              </li>
+
+              <li class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__num" aria-hidden="true">06</span>
+                  A PDF that knows where you were standing
+                </h3>
+                <p>
+                  Hit export and the report takes its shape from wherever you
+                  are. Whatever you were looking at becomes the report: the
+                  headline numbers, the floor plans, the charts, the tables, the
+                  room-by-room summary, and the rankings of most and least used.
+                  Every page is branded, stamped with the date and time, and
+                  headed with the path you took to get there.
+                </p>
+                <p class="decision__why">
+                  <span class="decision__why-label">Why.</span> The PDF is what
+                  an executive actually sees. If it could not stand up on its
+                  own, away from the screen it came from, it would fail in the
+                  one room where it mattered most. Building the scope in
+                  automatically also meant no more cropping screenshots and
+                  typing captions by hand.
+                </p>
+              </li>
+            </ol>
+
+            <!-- --- The screens ------------------------------------------ -->
+            <h3 class="cs-sub" id="screens-title">What that looks like</h3>
+
+            <!-- A plain grouping wrapper. It carries no name of its own: each
+                 screen below is already a titled section, and naming a generic
+                 div is prohibited by ARIA. -->
+            <div class="shots">
+              <section class="shot-study" aria-labelledby="shot-org-title">
+                <h4 class="shot-study__title" id="shot-org-title">
+                  The whole company, and one floor
+                </h4>
+                <figure class="shot shot--portrait">
+                  <img
+                    src="assets/core-insights/org-site-level.png"
+                    width="1000"
+                    height="1920"
+                    loading="lazy"
+                    decoding="async"
+                    alt="The top level of the app. Four cards across the top read: busiest floor, 88 percent on Floor 5; most popular room, the Whiteboard Room at 79 percent; empty spaces, 100 out of 300; and 1000 sensors counting people. Below them a floor plan is colored in by how busy each area is, with a pop-up over one meeting room reading 60 percent in use, 74 degrees Fahrenheit and 55 percent humidity. Under the plan, a bar chart compares kinds of room against a dashed average line, and three dials show how much of the space gets used, how full it gets, and the total hours in use."
+                  />
+                  <figcaption>
+                    The top level. The list down the left side is the building
+                    broken into its parts, the four cards are the shortcuts, and
+                    the pop-up puts temperature and humidity right on the plan
+                    instead of hiding them in a table.
+                  </figcaption>
+                </figure>
+                <div class="prose">
+                  <p>
+                    What the numbers say here is that this office is far too
+                    big. About 42 percent of the seats are in use and roughly a
+                    third of the rooms are sitting empty. That is a very
+                    ordinary finding in office property. Companies pay for a lot
+                    more room than it turns out they need.
+                  </p>
+                  <p>
+                    The more interesting gap is between the busiest moment and
+                    the average. A room can hit 74 percent at its peak and still
+                    average 25 percent across the week. That is not a shortage
+                    of space. That is space in the wrong shape, and it calls for
+                    a different fix: different rooms, not more of them.
+                  </p>
+                  <p>
+                    Notice that on a floor, the map takes over as the main
+                    picture and the bar chart moves down. That is on purpose.
+                    High up you are comparing, so bars win. On a floor you are
+                    getting your bearings, so the plan wins.
+                  </p>
+                </div>
+              </section>
+
+              <section class="shot-study" aria-labelledby="shot-room-title">
+                <h4 class="shot-study__title" id="shot-room-title">One room</h4>
+                <figure class="shot shot--portrait">
+                  <img
+                    src="assets/core-insights/room-level.png"
+                    width="1000"
+                    height="1739"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Whiteboard Room 1 picked out of the list on the left. Four cards read 85 percent in use on average, 23 degrees Celsius average temperature, 53 percent average humidity, and 6 sensors, each with last week's figure underneath. Below that, a grid of the week with hours down the side and days across the top, darkest at 11am and 3pm. Under it, a bar chart of daily use with temperature and humidity drawn over the top, then a bar reading 41.5 percent full this week against 49.6 percent last week."
+                  />
+                  <figcaption>
+                    One room. Temperature and humidity get promoted to headline
+                    numbers here, because inside a single room how comfortable
+                    it is matters as much as how full it is.
+                  </figcaption>
+                </figure>
+                <div class="prose">
+                  <p>
+                    That grid of the week is the part people actually use. Days
+                    run across, hours run down, and the darker a square the
+                    busier the room was. It answers "when is this room really
+                    busy" faster than any chart could, because the shape of the
+                    week is right there in front of you. And down at the level
+                    of one room, a plain bar says "this full" far more clearly
+                    than a ring or a pie ever does.
+                  </p>
+                </div>
+              </section>
+
+              <section class="shot-study" aria-labelledby="shot-mobile-title">
+                <h4 class="shot-study__title" id="shot-mobile-title">On a phone</h4>
+                <figure class="shot">
+                  <img
+                    src="assets/core-insights/mobile-hierarchy.png"
+                    width="2368"
+                    height="1011"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Four phone screens in a row, showing the same list opening one step at a time: Client 1, then City Hall and Service Building, then the five floors of the Service Building, then Floor 5 opened up to Collaboration Rooms and Whiteboard Room 1. A trail across the top of every screen reads Building, Floor 5, Collaboration Rooms."
+                  />
+                  <figcaption>
+                    The same steps on a phone. The trail stays pinned to the top
+                    through all four of them, so the way back is never more than
+                    one tap.
+                  </figcaption>
+                </figure>
+              </section>
+
+              <section class="shot-study" aria-labelledby="shot-rt-floor-title">
+                <h4 class="shot-study__title" id="shot-rt-floor-title">
+                  A floor, right now
+                </h4>
+                <figure class="shot shot--portrait">
+                  <img
+                    src="assets/core-insights/realtime-floor.png"
+                    width="1000"
+                    height="1382"
+                    loading="lazy"
+                    decoding="async"
+                    alt="The same floor plan switched to live. Rooms are marked either free or in use, each showing how many people are in it against how many it holds, for example 10 of 20. A key below the plan spells out free, in use, and no reading. Under the plan, a table lists meeting rooms, collaboration rooms, desks, offices and theatres with columns for free, in use, total capacity and total people."
+                  />
+                  <figcaption>
+                    Live. The shading drops to two states, and every room still
+                    prints its own count, so the answer never rests on color
+                    alone.
+                  </figcaption>
+                </figure>
+                <div class="prose">
+                  <p>
+                    Looking back over the last month, the detail matters. You
+                    want to know how much a room got used. Looking at right now,
+                    the question shrinks to something much simpler. Is it free?
+                    So the picture gets simpler too.
+                  </p>
+                  <p>
+                    Temperature and humidity are far more useful here than in a
+                    history view. "This room is too warm right now" is something
+                    a manager can get up and do something about.
+                  </p>
+                </div>
+              </section>
+
+              <section class="shot-study" aria-labelledby="shot-rt-room-title">
+                <h4 class="shot-study__title" id="shot-rt-room-title">
+                  A room, right now
+                </h4>
+                <figure class="shot shot--portrait">
+                  <img
+                    src="assets/core-insights/realtime-room.png"
+                    width="1000"
+                    height="1561"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Whiteboard Room 1, live. The floor plan at the top highlights the one room in use, 10 people of 20. Below it the clock reads 13:00 and four cards each carry an icon: 10 people, room for 20, 74 degrees Fahrenheit, 55 percent humidity. A filled chart underneath plots how many people were in the room through the day, updating every five minutes, and a bar reads 41.5 percent full against 49.6 percent last week."
+                  />
+                  <figcaption>
+                    Four equal cards, each with its own icon and its own words,
+                    so a single glance is enough to tell them apart.
+                  </figcaption>
+                </figure>
+                <div class="prose">
+                  <p>
+                    The chart underneath earns its place by answering something
+                    none of the higher levels can: how has this room been used
+                    today? Genuinely handy if you are trying to guess whether it
+                    will be free in twenty minutes.
+                  </p>
+                  <p>
+                    Comparing this week against last week makes more sense here
+                    than anywhere else in the product. At the level of one named
+                    room, managers really do keep score.
+                  </p>
+                </div>
+              </section>
+
+              <section class="shot-study" aria-labelledby="shot-hot-title">
+                <h4 class="shot-study__title" id="shot-hot-title">Shared desks</h4>
+                <figure class="shot shot--portrait">
+                  <img
+                    src="assets/core-insights/hot-desking.png"
+                    width="1000"
+                    height="1561"
+                    loading="lazy"
+                    decoding="async"
+                    alt="The shared desks screen. A floor plan drawn desk by desk shows individual workstations, with taken desks marked in orange and free ones left plain, above a key reading free, in use, and no reading. Below it, a table lists each area with its total desks, how many are free and how many are taken. At the bottom, a busiest time grid sets hours against days of the week, darkest through the middle of Wednesday."
+                  />
+                  <figcaption>
+                    Desk by desk, because down here the question is about one
+                    seat rather than one room.
+                  </figcaption>
+                </figure>
+                <div class="prose">
+                  <p>
+                    Shared desks, or hot desking, means nobody owns a seat. You
+                    take whatever is free when you arrive. That makes this one
+                    screen do two jobs at once: help somebody find a desk in the
+                    next five minutes, and help the person running the floor
+                    work out whether it is laid out right.
+                  </p>
+                  <p>
+                    Drawing every desk is what makes it work for the first
+                    person. "There are free desks over in the top right corner"
+                    is a thought you can only have if you can see the desks. The
+                    grid of busiest times is what makes it work for the second,
+                    and for anyone deciding which day is worth coming in.
+                  </p>
+                </div>
+              </section>
+
+              <section class="shot-study" aria-labelledby="shot-conf-title">
+                <h4 class="shot-study__title" id="shot-conf-title">
+                  Meeting rooms
+                </h4>
+                <figure class="shot">
+                  <img
+                    src="assets/core-insights/conference-rooms.png"
+                    width="2368"
+                    height="1516"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Three views of the meeting room screen side by side, at building, floor and room level. Each shows a floor plan with one room highlighted and a pop-up of its readings. The first adds a chart of people over time, a table of board rooms, war rooms, classrooms, training rooms and theatres, and a ranking of the five most used meeting rooms from 99 percent down to 67 percent against a full mark of 100 percent. The last shows a single room with cards for people, capacity, temperature and humidity above its own chart."
+                  />
+                  <figcaption>
+                    The same three levels again, this time for meeting rooms
+                    only, ending on a ranking of which rooms get booked solid
+                    and which get ignored.
+                  </figcaption>
+                </figure>
+                <div class="prose">
+                  <p>
+                    Managers can watch the meeting rooms live, and look back
+                    over what has happened so far to work out how rooms should
+                    be booked in future.
+                  </p>
+                </div>
+              </section>
+            </div>
+
+            <!-- --- Why it matters --------------------------------------- -->
+            <h3 class="cs-sub" id="matters-title">
+              What a company actually does with this
+            </h3>
+            <ul class="points" role="list" aria-labelledby="matters-title">
+              <li class="point">
+                <h4 class="point__title">Stop paying for empty floor</h4>
+                <p class="point__body">
+                  If only 40 percent of your space is ever in use, you are
+                  paying rent on a lot of nothing.
+                </p>
+              </li>
+              <li class="point">
+                <h4 class="point__title">Make the case for shared desks</h4>
+                <p class="point__body">
+                  This is the evidence that justifies giving up assigned seats,
+                  which is why the shared desks view exists at all.
+                </p>
+              </li>
+              <li class="point">
+                <h4 class="point__title">Sign a smaller lease</h4>
+                <p class="point__body">
+                  When the lease comes up for renewal, this is what backs up
+                  taking less space, or folding two offices into one.
+                </p>
+              </li>
+              <li class="point">
+                <h4 class="point__title">Build more of what works</h4>
+                <p class="point__body">
+                  Knowing the whiteboard room is the most popular space in the
+                  building, at 79 percent, tells you what to build more of.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             07. WHAT CHANGED
+             ============================================================= -->
+        <section class="section cs-section" id="results" aria-labelledby="results-title">
+          <div class="page cs-block">
+            <header class="cs-head">
+              <p class="cs-head__kicker">
+                <span class="cs-head__num">07</span> What changed
+              </p>
+              <h2 class="cs-head__title" id="results-title">
+                What happened once it shipped
+              </h2>
+            </header>
+
+            <div class="prose">
+              <p>
+                These numbers come from the project's own testing with real
+                users and from the usage data the product collects. They were
+                measured once before the redesign, and again after it shipped.
+              </p>
+            </div>
+
+            <section class="table-scroll" aria-labelledby="ba-caption" tabindex="0">
+              <table class="data-table data-table--wide">
+                <caption id="ba-caption">Before and after the redesign</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">What we measured</th>
+                    <th scope="col">Before</th>
+                    <th scope="col">After</th>
+                    <th scope="col">Change</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      Clicks to answer "which rooms are empty?"
+                    </th>
+                    <td>7 to 9 clicks</td>
+                    <td>1 click, on the number itself</td>
+                    <td>Down 87%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">People who looked past the first screen</th>
+                    <td>About 20%</td>
+                    <td>About 55%</td>
+                    <td>Up 175%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Time to make a report for an executive</th>
+                    <td>5 to 7 minutes, by hand</td>
+                    <td>Under 30 seconds, one click</td>
+                    <td>Down 93%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Visits that ended in giving up and starting over</th>
+                    <td>About 65%</td>
+                    <td>About 25%</td>
+                    <td>Down 62%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Getting from the floor plan into one room</th>
+                    <td>4 to 6 clicks, one level at a time</td>
+                    <td>1 click, tap the room</td>
+                    <td>Down 80%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <h3 class="cs-sub">What shipped</h3>
+            <ul class="stats" role="list">
+              <li class="stat">
+                <p class="stat__value">5</p>
+                <p class="stat__label">
+                  Kinds of report it prints: overview, over time, summary, most
+                  popular, and the full PDF
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">3</p>
+                <p class="stat__label">
+                  Ways to draw the same data: bars, a line, or a table
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">2</p>
+                <p class="stat__label">
+                  Places it can run: in the building, or over the internet
+                </p>
+              </li>
+            </ul>
+
+            <h3 class="cs-sub">How people used it afterwards</h3>
+            <ul class="stats" role="list">
+              <li class="stat">
+                <p class="stat__value">Up 175%</p>
+                <p class="stat__label">
+                  More people digging past the first screen
+                  <span class="stat__delta">20% to 55%</span>
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">Down 62%</p>
+                <p class="stat__label">
+                  Fewer visits ending in giving up
+                  <span class="stat__delta">65% to 25%</span>
+                </p>
+              </li>
+              <li class="stat">
+                <p class="stat__value">Down 93%</p>
+                <p class="stat__label">
+                  Less time spent making a report
+                  <span class="stat__delta">5 minutes to 30 seconds</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- =============================================================
+             END OF CASE STUDY
+             ============================================================= -->
+        <footer class="section cs-end">
+          <div class="page cs-block">
+            <h2 class="cs-sub" id="next-title">Keep reading</h2>
+            <ul class="next" role="list" aria-labelledby="next-title">
+              <li>
+                <a class="button" href="work.html">
+                  Back to all eleven case studies
+                  <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+                </a>
+              </li>
+              <li>
+                <a class="jump__link" href="#top">Back to the top of this page</a>
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <!-- ===================================================================
+         FOOTER
+         =================================================================== -->
+    <footer class="site-footer topo">
+      <div class="topo__art">
+        <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+      </div>
+
+      <div class="page site-footer__inner">
+        <nav class="icon-nav icon-nav--footer" aria-label="Footer">
+          <ul class="icon-nav__list">
+            <li>
+              <a class="icon-nav__link" href="index.html">
+                <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+                Home
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="work.html">
+                <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+                Work
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+                <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+                Email Robert
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <hr class="site-footer__rule" />
+
+        <p>I design how software looks, works and feels. Senior Product Designer.</p>
+        <p>
+          <a href="mailto:rbabiarz@gmail.com">rbabiarz@gmail.com</a> ·
+          <a href="tel:+14163154761">416-315-4761</a>
+        </p>
+        <p>
+          © 2026 Robert Babiarz · Signify, Cooper Lighting Limited Canada. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1186 @@
+/* =========================================================================
+   Robert Babiarz, Portfolio, case study layer
+   Built from Figma "Claude Export" (file bNEP3atDwnY1w6wkOanNXW, node 6:953).
+
+   Loaded AFTER styles.css and depends on its tokens. Nothing here redefines a
+   token; this file only adds the components a long-form case study needs.
+
+   Target: WCAG 2.2 Level AA / AODA / Ontario IASR.
+   No frameworks, no build step, no JavaScript.
+
+   Two deliberate departures from the Figma source, both required by this
+   project's design rules (see .claude/rules/design-system.md):
+
+   1. The Figma tints callouts four ways (teal #E6F4F8, cream #FEF5E4,
+      grey #F6F7FB, green #ECFDF5) with matching left rules to signal callout
+      TYPE. Status may not ride on hue here, so every callout is one monochrome
+      treatment. The visible label ("Key Outcome", "Key Constraint") was
+      already carrying the meaning; the tint was decoration.
+   2. The Figma pills use amber #C07A0A on #FEF5E4 (3.5:1) and green #37A400
+      on #E5FEE4 (2.9:1). Both fail the 4.5:1 floor and both are stoplight
+      colours. They become .chip / .chip--status, distinguished by fill weight
+      and by their own text.
+
+   Contents
+     1. Page frame
+     2. Section headers
+     3. Hero
+     4. Callouts
+     5. Stat bands and metrics
+     6. Screenshots
+     7. Comparison, table, lists
+     8. Icon grid
+     9. Footer navigation
+    10. Responsive
+    11. Accessibility
+   ========================================================================= */
+
+/* =========================================================================
+   1. PAGE FRAME
+   ========================================================================= */
+
+/* Case study sections alternate white and #F5F5F5 in the Figma. The band is
+   the full-bleed element; .page re-centres the measure inside it. */
+.case-section {
+  padding-block: var(--space-8);
+  padding-inline: var(--page-gutter);
+}
+
+.case-section--raised {
+  background-color: var(--surface-raised);
+}
+
+.case-section--inverse {
+  background-color: var(--color-black);
+  color: var(--text-on-inverse);
+}
+
+.case-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.case-body > p,
+.case-prose > p {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  max-width: var(--measure-body);
+}
+
+.case-prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.case-prose strong {
+  font-weight: 700;
+}
+
+/* =========================================================================
+   2. SECTION HEADERS
+   ========================================================================= */
+
+.case-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.case-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* The step number is a badge, not decoration: it tells the reader where they
+   are in an eleven-part sequence, so it stays in the text flow. */
+.case-eyebrow__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.case-title {
+  font-size: clamp(1.5rem, 3.4vw, 2.25rem); /* 24 → 36px */
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.case-subtitle {
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem); /* 20 → 28px */
+  line-height: 1.28;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Replaces the Figma's amber "💡 …" pill. Same job (a one-line framing
+   statement for the section) without the emoji or the failing contrast. */
+.case-note {
+  display: block;
+  padding-inline-start: var(--space-4);
+  border-inline-start: 3px solid var(--color-black);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   3. HERO
+   ========================================================================= */
+
+.case-hero {
+  padding-block: var(--space-9) var(--space-7);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.case-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.case-hero__title {
+  font-size: clamp(2.25rem, 6vw, 4.5rem); /* 36 → 72px */
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.case-hero__lede {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  max-width: var(--measure-body);
+}
+
+.case-hero__rule {
+  width: 100%;
+  height: 1px;
+  border: 0;
+  margin-block: var(--space-2);
+  background-color: var(--border-default);
+}
+
+/* ROLE / COMPANY / PLATFORM / SCOPE / TEAM SIZE / DESIGNED. A description
+   list, so the label-to-value pairing survives without the visual grouping. */
+.case-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: var(--space-5) var(--space-6);
+  width: 100%;
+  margin: 0;
+}
+
+.case-facts__term {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* Figma sets Neutral/500 #737373. It reaches only 4.60:1 on paper and drops
+     below the floor where a topo line crosses it, so it steps to Neutral/600
+     for the same reason .eyebrow does in styles.css. */
+  color: var(--text-tertiary);
+}
+
+.case-facts__def {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: 500;
+}
+
+.case-hero__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case-hero__media img {
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
+}
+
+/* Status chip. Filled rather than outlined so it separates from the topic
+   chips beside it by weight, never by hue alone. */
+.chip--status {
+  background-color: var(--surface-inverse);
+  border-color: var(--surface-inverse);
+  color: var(--text-on-inverse);
+  font-weight: 600;
+}
+
+/* =========================================================================
+   4. CALLOUTS
+   ========================================================================= */
+
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background-color: var(--surface-raised);
+  border: 0;
+  border-radius: var(--radius-lg);
+}
+
+/* On an already-#F5F5F5 band the raised fill would vanish, so the callout
+   inverts to paper to stay a distinct object. */
+.case-section--raised .callout {
+  background-color: var(--surface-page);
+}
+
+.callout__title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.callout__body {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.callout--quote blockquote {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.callout--quote cite {
+  display: block;
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-style: normal;
+  color: var(--text-tertiary);
+}
+
+.callout-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* =========================================================================
+   5. STAT BANDS AND METRICS
+   ========================================================================= */
+
+/* Three-up black band. White hairlines between cells, rounded at the ends. */
+.stat-band {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  gap: 1px;
+  background-color: var(--color-white);
+  border: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-5) var(--space-4);
+  background-color: var(--color-black);
+  color: var(--text-on-inverse);
+  text-align: center;
+}
+
+.stat__value {
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem); /* 28 → 36px */
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stat__label {
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+/* The seven-up capacity grid. Outlined rather than filled so it reads as a
+   reference table, not a second headline band. */
+.metric-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  border: 0;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.metric__value {
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem);
+  line-height: 1.22;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.metric__label {
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+}
+
+/* The five research-source cards. */
+.source-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: source;
+}
+
+.source {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background-color: var(--color-black);
+  color: var(--text-on-inverse);
+  border: 0;
+  border-radius: var(--radius-lg);
+}
+
+.source__title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.source__body {
+  font-size: var(--text-md);
+  line-height: var(--leading-lg);
+}
+
+/* =========================================================================
+   6. SCREENSHOTS
+   ========================================================================= */
+
+/* A step in a flow: a row of screens, then a titled caption. The row scrolls
+   sideways inside its own box so the page itself never scrolls (WCAG 1.4.10). */
+.shot {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--surface-raised);
+  overflow: visible;
+}
+
+.case-section--raised .shot {
+  background-color: var(--surface-page);
+}
+
+.shot__row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: stretch;
+  padding: var(--space-2);
+  overflow-x: auto;
+}
+
+.shot__row > img {
+  height: auto;
+  flex: 0 0 auto;
+  max-width: none;
+  border: 1px solid var(--border-strong);
+  background-color: var(--surface-page);
+  border-radius: 0;
+}
+
+/* Desktop captures run at 1440x1024 and phone captures at 375x812. Fixing the
+   height rather than the width keeps a mixed row optically level. */
+.shot__row > img.is-desktop {
+  height: 19.5rem;
+  width: auto;
+}
+
+.shot__row > img.is-phone {
+  height: 19.5rem;
+  width: auto;
+}
+
+.shot--tall .shot__row > img.is-desktop,
+.shot--tall .shot__row > img.is-phone {
+  height: 32rem;
+}
+
+/* Full-width single captures (the dropdown bar, the hub label). */
+.shot__full {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+  border-bottom: 1px solid var(--border-default);
+  border-radius: 0;
+}
+
+.shot__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--border-default);
+  background-color: var(--surface-raised);
+}
+
+.case-section--raised .shot__caption {
+  background-color: var(--surface-raised);
+}
+
+.shot__title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.shot__text {
+  font-size: var(--text-md);
+  line-height: var(--leading-lg);
+}
+
+.shot-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Every screenshot surface stays square — figure shell, full capture, scroll row. */
+figure.shot,
+.shot img,
+.shot__full,
+.shot__row > img {
+  border-radius: 0;
+}
+
+/* Product photography row (wall station, sensors, panel). */
+.product-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: var(--space-5);
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product-row img {
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================================================
+   7. COMPARISON, TABLE, LISTS
+   ========================================================================= */
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: 1px;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background-color: var(--border-default);
+  overflow: hidden;
+}
+
+.compare__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background-color: var(--surface-page);
+}
+
+/* The shipped side is the answer, so it gets the ink fill. The headings say
+   "abandoned" and "shipped" outright, so the fill is emphasis, not the signal. */
+.compare__side--shipped {
+  background-color: var(--surface-inverse);
+  color: var(--text-on-inverse);
+}
+
+.compare__title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.compare__body {
+  font-size: var(--text-md);
+  line-height: var(--leading-lg);
+}
+
+/* Phase / challenge / design response. A real table so the row and column
+   relationships survive in a screen reader. */
+.case-table-wrap {
+  overflow-x: auto;
+  border: 0;
+  border-radius: var(--radius-lg);
+}
+
+.case-table {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.case-table th,
+.case-table td {
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--text-md);
+  line-height: var(--leading-lg);
+  vertical-align: top;
+}
+
+.case-table thead th {
+  background-color: var(--color-black);
+  color: var(--text-on-inverse);
+  font-weight: 600;
+}
+
+.case-table tbody tr + tr {
+  border-top: 1px solid var(--border-default);
+}
+
+.case-table tbody tr:nth-child(even) {
+  background-color: var(--surface-raised);
+}
+
+.case-table tbody th {
+  font-weight: 600;
+  width: 22%;
+}
+
+/* The Figma marks these with a "→" glyph. A real list with a marker keeps the
+   count and the semantics; the arrow stays as the marker string. */
+.arrow-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arrow-list > li {
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+  gap: var(--space-3);
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.arrow-list > li::before {
+  content: "\2192"; /* → */
+  font-weight: 700;
+  line-height: inherit;
+}
+
+/* =========================================================================
+   8. ICON GRID
+   ========================================================================= */
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(11rem, 100%), 1fr));
+  gap: var(--space-6) var(--space-4);
+  margin: 0;
+  padding: var(--space-5);
+  list-style: none;
+}
+
+.icon-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  text-align: center;
+}
+
+/* Fixed square: beat the global `.shot img { width: 100% }` rule from
+   styles.css so glyphs stay 48×48 with even inset, no frame stroke. */
+.icon-grid__glyph,
+.shot .icon-grid__glyph {
+  width: 3rem;
+  height: 3rem;
+  max-width: 3rem;
+  flex: none;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.icon-grid__label {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+/* =========================================================================
+   8b. PANELS, INSIGHTS, PHASES, DECISIONS, MODULES
+
+   Long-form case studies keep reaching for the same handful of blocks: a
+   bordered card holding a list, a numbered finding, a step in a process, a
+   rejected-versus-chosen call, a grid of shipped capabilities. They live here
+   rather than in one page so the next case study can use them as they are.
+   ========================================================================= */
+
+/* --- Panel: a bordered card carrying a title and a list or a paragraph -- */
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: start;
+}
+
+.panel-grid--tight {
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+  padding: var(--space-5);
+  background-color: var(--surface-page);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+
+.panel__eyebrow {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* A big grey ordinal. It is decorative sequencing beside a real heading, so
+   it stays out of the accessibility tree in the markup. */
+.panel__num {
+  font-size: var(--text-stat);
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+}
+
+.panel__title {
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem); /* 20 → 24px */
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.panel__body {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+/* styles.css strips list styling from any ul carrying a class, so the marker
+   and indent are restored explicitly here. */
+.panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding-inline-start: var(--space-5);
+  list-style: disc;
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+/* --- Insight: a numbered research finding with a category tag ---------- */
+
+.insight-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.insight {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.insight__num {
+  font-size: var(--text-stat);
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+}
+
+.insight__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.insight__title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.insight__text {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+/* --- Phase: one step of the process, with its deliverables ------------- */
+
+.phase-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.phase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-inline-start: var(--space-5);
+  border-inline-start: 2px solid var(--border-strong);
+}
+
+.phase__label {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.phase__title {
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.phase__body {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+/* --- Decision: the option rejected against the option shipped ---------- */
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: start;
+}
+
+.decision {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+  padding: var(--space-5);
+  background-color: var(--surface-page);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+
+.decision__num {
+  font-size: var(--text-stat);
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-tertiary);
+}
+
+.decision__title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.decision__options {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decision__option {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+/* The strike-through and the border weight are both reinforcement only. Each
+   option carries a visually hidden "Rejected:" / "Shipped:" label in the
+   markup, so the outcome never depends on seeing the styling (WCAG 1.4.1). */
+.decision__option--rejected {
+  color: var(--text-tertiary);
+  text-decoration: line-through;
+}
+
+.decision__option--chosen {
+  border-color: var(--text-primary);
+  font-weight: 600;
+}
+
+.decision__vs {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--text-tertiary);
+}
+
+/* --- Module: one shipped capability in a hairline grid ----------------- */
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: var(--border-default);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.module {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background-color: var(--surface-page);
+}
+
+.module__title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.module__body {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  color: var(--text-tertiary);
+}
+
+/* --- Two-column split for a block of prose beside an illustration ------ */
+
+.case-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.case-split__media {
+  padding: var(--space-5);
+  background-color: var(--surface-page);
+  border: 1px solid var(--border-default);
+  border-radius: 0;
+}
+
+.case-split__media img {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+}
+
+/* --- Swatch: one colour from a product's palette, named in text -------- */
+
+.swatch-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* The block is the sample itself and carries no text; the name and the hex
+   sit underneath it. Keeping the label outside the sample is what makes this
+   safe, nothing has to meet contrast against a colour whose whole job is to
+   vary. The hairline stops the palest samples vanishing into the page. */
+.swatch__block {
+  height: 3.5rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.swatch__name {
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+  font-weight: 600;
+}
+
+.swatch__hex {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+}
+
+/* The smart lighting app's own palette, reproduced as specimens. These are
+   that product's colours, not this site's, so they stay literal values here
+   rather than becoming tokens the site could pick up by accident. */
+.swatch__block--ink { background-color: #1c1b1f; }
+.swatch__block--cta { background-color: #1c819d; }
+.swatch__block--control { background-color: #3d415e; }
+.swatch__block--header { background-color: #b03060; }
+.swatch__block--settings { background-color: #e8e8e8; }
+.swatch__block--active { background-color: #f0b040; }
+.swatch__block--found { background-color: #48f877; }
+.swatch__block--alarm { background-color: #cb0000; }
+
+/* A supporting third line under a stat value, on the ink bands. */
+.stat__note {
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--color-neutral-300);
+}
+
+/* Left-aligned stat variant, used where the band carries three lines. */
+.stat--start {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* A four-item grid on the auto-fit default lands three across with one card
+   alone on the second row, which reads as a mistake rather than a choice. This
+   modifier pairs them two-by-two instead. It is opt-in, so the auto-fit default
+   and every page already using it are untouched. Below 60rem the auto-fit rule
+   takes back over and four items land two-by-two there as well. */
+.panel-grid--pairs,
+.module-grid--pairs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 60rem) {
+  .panel-grid--pairs,
+  .module-grid--pairs {
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  }
+
+  .case-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .decision__options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .decision__vs {
+    justify-content: flex-start;
+  }
+}
+
+/* =========================================================================
+   9. FOOTER NAVIGATION
+   ========================================================================= */
+
+.case-outro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  align-items: flex-start;
+  padding-block: var(--space-8);
+}
+
+.case-outro__title {
+  font-size: var(--text-subsection);
+  line-height: 1.25;
+}
+
+/* =========================================================================
+   10. RESPONSIVE
+   ========================================================================= */
+
+@media (max-width: 60rem) {
+  .case-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  /* Stacked, the hero reads title then screenshot, matching the rule .case
+     follows in styles.css at this breakpoint. */
+  .case-hero__media {
+    order: 0;
+  }
+
+  .case-section {
+    padding-block: var(--space-7);
+  }
+
+  .shot__row > img.is-desktop,
+  .shot__row > img.is-phone {
+    height: 15rem;
+  }
+
+  .shot--tall .shot__row > img.is-desktop,
+  .shot--tall .shot__row > img.is-phone {
+    height: 22rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .case-eyebrow {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .shot__caption {
+    padding: var(--space-4);
+  }
+
+  .shot__row > img.is-desktop,
+  .shot__row > img.is-phone {
+    height: 12rem;
+  }
+
+  .shot--tall .shot__row > img.is-desktop,
+  .shot--tall .shot__row > img.is-phone {
+    height: 17rem;
+  }
+}
+
+/* Two full-screen captures set side by side to be compared. The default row
+   fixes the image height, which is right for a mixed row of desktop and phone
+   shots but leaves a pair of 1440-wide captures floating in dead space on the
+   right of a wide row. This splits the row evenly instead, so both screens are
+   visible at once and neither has to be scrolled into view. It sits after the
+   max-width blocks on purpose: below 60rem the fixed-height scrolling default
+   takes back over, because half of a narrow row is too small to read.
+   Opt-in, so every row already shipping is untouched. */
+@media (min-width: 60rem) {
+  .shot__row--pair > img.is-desktop {
+    height: auto;
+    width: auto;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+/* =========================================================================
+   11. ACCESSIBILITY
+   ========================================================================= */
+
+/* Any box that scrolls sideways must be reachable and operable by keyboard,
+   so it takes focus and shows the standard ring (WCAG 2.1.1). */
+.shot__row:focus-visible,
+.case-table-wrap:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+/* On ink surfaces the near-black ring would disappear, so it flips to paper. */
+.case-section--inverse :focus-visible,
+.compare__side--shipped :focus-visible,
+.source :focus-visible {
+  outline-color: var(--color-white);
+}
+
+@media (forced-colors: active) {
+  .callout,
+  .shot,
+  .compare,
+  .case-table-wrap,
+  .metric,
+  .source,
+  .stat,
+  .panel,
+  .decision,
+  .decision__option,
+  .module-grid,
+  .case-split__media,
+  .swatch__block {
+    border: 1px solid CanvasText;
+  }
+
+  /* Icon glyphs are black-on-transparent SVG; without this they vanish into a
+     dark forced-colors canvas. */
+  .icon-grid__glyph {
+    forced-color-adjust: none;
+    background-color: Canvas;
+  }
+}

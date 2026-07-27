@@ -1,0 +1,1649 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI inside a building platform, a case study by Robert Babiarz</title>
+    <meta
+      name="description"
+      content="One person looks after four hundred devices in a building, and opens the software each morning to three hundred alerts in no order. I led the design that added AI to two Cooper Lighting products. The software sorts the pile and says what it would do. The person still decides."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="case-study.css" />
+  </head>
+
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to the main content</a>
+
+    <!-- ===================================================================
+         HEADER
+         =================================================================== -->
+    <header class="site-header">
+      <a class="identity" href="index.html" aria-label="Robert Babiarz, Senior Product Designer — home">
+        <span class="identity__name">Robert Babiarz</span>
+        <span class="identity__role">Senior Product Designer</span>
+      </a>
+
+      <nav class="icon-nav" aria-label="Main">
+        <ul class="icon-nav__list">
+          <li>
+            <a class="icon-nav__link" href="index.html">
+              <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="work.html">
+              <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+              Work
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+              <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+              Email Robert
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- =================================================================
+           HERO
+           ================================================================= -->
+      <section class="topo section" aria-labelledby="case-title">
+        <div class="topo__art">
+          <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+        </div>
+
+        <div class="page case-hero">
+          <div class="case-hero__text">
+            <h1 class="case-hero__title" id="case-title">AI inside a building platform</h1>
+
+            <p class="case-hero__lede">
+              One person looks after every light, sensor and switch in an office
+              building. Four hundred of them is normal. They
+              open the software each morning and find three
+              hundred alerts, in no order, written in code. I
+              led the design that put AI into two Cooper
+              Lighting products. Now the software sorts that
+              pile first, then says what it would do about it.
+              The person still decides.
+            </p>
+
+            <!-- A sentence, not a tag: .chip is nowrap by design, so the
+                 framing line uses .case-note, as on the other case studies. -->
+            <p class="case-note">
+              The software works it out and suggests. A person still decides
+            </p>
+
+            <hr class="case-hero__rule" />
+
+            <dl class="case-facts">
+              <div>
+                <dt class="case-facts__term">Role</dt>
+                <dd class="case-facts__def">Lead Experience Designer</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Company</dt>
+                <dd class="case-facts__def">Cooper Lighting Solutions (Signify)</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">What it is</dt>
+                <dd class="case-facts__def">Software companies run their buildings with</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Runs on</dt>
+                <dd class="case-facts__def">Phone and computer</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Scope</dt>
+                <dd class="case-facts__def">First interviews to handing it to the engineers</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Team size</dt>
+                <dd class="case-facts__def">15 people across the company</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Designed</dt>
+                <dd class="case-facts__def">2025 to 2026, in Figma</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="case-hero__media">
+            <img
+              src="assets/enterprise-ai/hero-lightar-layout.png"
+              width="854"
+              height="854"
+              alt="A parking lot seen from above, with a grid of brightness readings printed across it and a panel on the right listing each light and its settings."
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           01 WHAT THIS IS ABOUT
+           ================================================================= -->
+      <section class="case-section" id="what" aria-labelledby="what-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">01</span>
+              <span>The idea</span>
+            </p>
+            <h2 class="case-title" id="what-title">What this is actually about</h2>
+          </div>
+
+          <div class="case-split">
+            <div class="case-body">
+              <div class="case-prose">
+                <p>
+                  In 2024 everybody was bolting a chat box onto their product and
+                  calling it AI. Most of it helped nobody.
+                  People tried it once, then trusted the
+                  software a little less than before.
+                </p>
+                <p>
+                  So I started from the other end. Not
+                  <strong>how do we add AI</strong>, but
+                  <strong>where is a person doing work a computer
+                  should be doing for them</strong>. We went
+                  looking for the moments where somebody is
+                  holding too much in their head. Everything
+                  else we left alone.
+                </p>
+                <p>
+                  It began as a hackathon: two days where the company drops its
+                  normal work and small teams build
+                  something. Ours turned into the plan the
+                  product teams then built from. Two
+                  products. Five features. One rule that
+                  covers all of them.
+                </p>
+              </div>
+
+              <!-- The two sentences we heard most in research. They open the
+                   case because everything after them is an answer to one or
+                   the other. -->
+              <div class="callout-stack">
+                <div class="callout">
+                  <p class="callout__title">Setting a building up</p>
+                  <p class="callout__body">
+                    “This is going to be a long week.”
+                  </p>
+                </div>
+                <div class="callout">
+                  <p class="callout__title">Alerts</p>
+                  <p class="callout__body">
+                    “I need to find the actual problem, now.”
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <figure class="case-split__media">
+              <img
+                src="assets/enterprise-ai/photo-commissioning-tech.jpg"
+                width="1497"
+                height="1497"
+                alt="A technician in a hard hat and high-visibility vest, standing in front of a row of electrical panels and holding a tablet."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__text">
+                Setting a building up, on site. This is the person the software
+                is either helping or getting in the way of.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- The headline numbers, up front. The full version, with where each
+           one comes from, is section 11. -->
+      <section class="case-section case-section--inverse" aria-labelledby="headline-title">
+        <div class="page">
+          <h2 class="visually-hidden" id="headline-title">
+            What this work added up to
+          </h2>
+          <div class="stat-band">
+            <p class="stat stat--start">
+              <span class="stat__value">5 features</span>
+              <span class="stat__label">
+                Designed across two products, all following one rule
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">90% less</span>
+              <span class="stat__label">
+                Time to pick the right light file. The team’s own estimate from
+                the prototype
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">75% less</span>
+              <span class="stat__label">
+                Time sorting alerts each morning, worked out the same way
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">Every time</span>
+              <span class="stat__label">
+                A person confirms before anything changes. Nothing happens on
+                its own
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           02 THE CHALLENGE
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="challenge" aria-labelledby="challenge-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">02</span>
+              <span>The challenge</span>
+            </p>
+            <h2 class="case-title" id="challenge-title">
+              The easy version, and the trap next to it
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Adding AI to work software is easy. Adding AI people actually lean
+              on is hard. The difference is trust. Get it
+              visibly wrong once and they stop reading
+              anything the software tells them.
+            </p>
+            <p>
+              My job was to write down where we would use AI and where we would
+              not. Then hold that line when the pressure was
+              to put it everywhere.
+            </p>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The rule we worked to</p>
+            <p class="callout__body">
+              AI should carry the thinking, not add to it. If a feature makes
+              somebody learn one more thing before they can
+              do their job, it is not helping. It does not
+              ship.
+            </p>
+          </div>
+
+          <ul class="panel-grid" role="list">
+            <li class="panel">
+              <h3 class="panel__title">Where it earns its place</h3>
+              <p class="panel__body">
+                Where there is far too much to hold in your head. Hundreds of
+                devices. Thousands of readings. A catalog
+                nobody has read all of. A person cannot keep
+                that straight. A computer can.
+              </p>
+            </li>
+            <li class="panel">
+              <h3 class="panel__title">Where it gets in the way</h3>
+              <p class="panel__body">
+                When somebody knows exactly what they are doing and it
+                interrupts anyway. Or when it recommends
+                something and cannot show you why. Then you
+                have no way to check it.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           03 WHO IT IS FOR
+           ================================================================= -->
+      <section class="case-section" id="users" aria-labelledby="users-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">03</span>
+              <span>Who it is for</span>
+            </p>
+            <h2 class="case-title" id="users-title">Two very different jobs</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Two groups use these products, and they want opposite things. We
+              interviewed both, watched both work, and wrote
+              down what each one actually does all day.
+            </p>
+          </div>
+
+          <ul class="panel-grid" role="list">
+            <li class="panel">
+              <p class="panel__eyebrow">Group one</p>
+              <h3 class="panel__title">Building managers</h3>
+              <p class="panel__body">
+                They look after a building they cannot see all of. Hundreds,
+                sometimes thousands, of light fittings and
+                sensors, on several floors, day and night.
+                Nobody is being careless. It is simply not
+                possible to track that much at once. So small
+                problems pile up quietly, until something
+                breaks in front of a tenant.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">Group two</p>
+              <h3 class="panel__title">Sales and design agents</h3>
+              <p class="panel__body">
+                They plan the lighting for a parking lot, a street or a whole
+                site, then say exactly which products to buy.
+                The catalog runs to thousands of items.
+                Nobody knows all of it. Pick the wrong one
+                and the job runs late and the profit goes
+                with it.
+              </p>
+            </li>
+          </ul>
+
+          <h3 class="case-subtitle">What they are up against</h3>
+
+          <div class="stat-band">
+            <p class="stat stat--start">
+              <span class="stat__value">400+</span>
+              <span class="stat__label">
+                Connected devices in an ordinary building, each reporting for
+                itself
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">5,000</span>
+              <span class="stat__label">
+                Light files in a single family of light fittings
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">300</span>
+              <span class="stat__label">
+                Alerts open at once, in a building we studied
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">6+</span>
+              <span class="stat__label">
+                Families of light fitting that look alike and read alike on
+                paper
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           04 THE PROCESS
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="process" aria-labelledby="process-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">04</span>
+              <span>How it happened</span>
+            </p>
+            <h2 class="case-title" id="process-title">
+              From a two-day sprint to a real product plan
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              This was not on anyone’s plan for the year. It started as a sprint
+              and earned its place afterwards.
+            </p>
+          </div>
+
+          <ol class="phase-list">
+            <li class="phase">
+              <p class="phase__label">Step one · Finding the spots</p>
+              <h3 class="phase__title">Reading every screen for wasted effort</h3>
+              <p class="phase__body">
+                I walked through every job a person does in both products. I
+                marked each place where they hold too much in
+                their head, repeat the same decision, or need
+                knowledge they have no way of having. Then I
+                ranked that list by how much it would really
+                help. That knocked most of it out.
+              </p>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Step two · The sprint</p>
+              <h3 class="phase__title">Two days, three working prototypes</h3>
+              <p class="phase__body">
+                I led the design side of the company AI sprint. We built
+                clickable versions of three ideas: the new
+                dashboard with its automatic shortcuts, the
+                feature that spots a device about to fail,
+                and the panel that recommends a light. All
+                three were demonstrated inside two days, to
+                the people who decide what gets built.
+              </p>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Step three · The hard part</p>
+              <h3 class="phase__title">Working out how much to let it say</h3>
+              <p class="phase__body">
+                This was the real design problem. A suggestion has to feel worth
+                reading without feeling like an order. We
+                went round several times on how it shows how
+                sure it is, how it explains itself, and who
+                has the last word. We landed on one rule and
+                never broke it. Every suggestion ends at a
+                person. The software recommends. The person
+                acts.
+              </p>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Step four · Making it reusable</p>
+              <h3 class="phase__title">Adding the parts to the company kit</h3>
+              <p class="phase__body">
+                Rather than leave five one-off designs behind, I built the pieces
+                into the company design system: the shared
+                kit of screen parts every product is made
+                from. The search bar. The recommendation
+                card. The automatic shortcut. The warning
+                badge. Any product that adds AI later starts
+                from these, and the engineers had one place
+                to build from.
+              </p>
+            </li>
+            <li class="phase">
+              <p class="phase__label">Step five · Handing it over</p>
+              <h3 class="phase__title">Marked-up screens, and everything that goes wrong</h3>
+              <p class="phase__body">
+                I presented to the product and engineering teams. Then I wrote
+                the order to build things in, ranked by how
+                hard each one is against how much it is
+                worth. The handover covered marked-up
+                screens, the paths through them, and the
+                cases that go wrong: no data yet, not enough
+                history to learn from, a suggestion the
+                person turns down.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           05 THE DIAGNOSTIC DASHBOARD, THE PROBLEM
+           ================================================================= -->
+      <section class="case-section" id="alerts" aria-labelledby="alerts-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">05</span>
+              <span>Feature one · CORE</span>
+            </p>
+            <h2 class="case-title" id="alerts-title">
+              Three hundred alerts and no order to them
+            </h2>
+          </div>
+
+          <div class="case-split">
+            <div class="case-prose">
+              <h3 class="case-subtitle">The problem</h3>
+              <p>
+                In a building with four hundred devices, the old screen handed
+                one person the whole job of working out what
+                matters. Three hundred alerts in a list is
+                not a dashboard. It is an inbox with no
+                rules. Every morning, the same sorting, by
+                hand, from nothing.
+              </p>
+              <p>
+                What happens next is easy to guess. The one alert that mattered
+                sits buried among the ones that did not. The
+                same fault comes back all week and nobody
+                spots that it is the same fault. Devices drop
+                offline and stay there quietly, until a room
+                stops working.
+              </p>
+              <p>
+                The software was reporting everything and understanding none of
+                it.
+              </p>
+            </div>
+
+            <div class="callout callout--quote">
+              <blockquote>
+                “I spend my morning going through alerts I don’t understand,
+                trying to work out which ones actually
+                matter. By the time I’ve done that, half the
+                day is gone.”
+              </blockquote>
+              <cite>Building manager, research interview</cite>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- =================================================================
+           06 THE DASHBOARD ITSELF
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="dashboard" aria-labelledby="dashboard-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">06</span>
+              <span>The design</span>
+            </p>
+            <h2 class="case-title" id="dashboard-title">The dashboard we built instead</h2>
+          </div>
+
+          <!-- The comparison sits on the raised band, the way dali-2.html uses
+               it: on paper the "before" side would be white on white and stop
+               reading as a box. Both sides are labelled outright, so the ink
+               fill on the right is emphasis, not the signal. -->
+          <div class="compare">
+            <div class="compare__side">
+              <p class="compare__title">Before</p>
+              <ul class="panel__list">
+                <li>One flat list of alerts, in no order</li>
+                <li>
+                  You work out for yourself what “4 years 10 months old” means
+                </li>
+                <li>Checking the state of things means four or five screens</li>
+                <li>A fault on its ninth visit looks like a brand new one</li>
+                <li>No warning. You find out when it breaks</li>
+              </ul>
+            </div>
+            <div class="compare__side compare__side--shipped">
+              <p class="compare__title">After</p>
+              <ul class="panel__list">
+                <li>
+                  Shortcuts appear on their own: today’s alerts, the urgent
+                  ones, the repeats
+                </li>
+                <li>
+                  The age becomes “about two months left”, with a suggestion
+                  attached
+                </li>
+                <li>
+                  Alerts, control boxes, devices and the software’s own health,
+                  on one screen
+                </li>
+                <li>
+                  A repeats view, so you chase the cause instead of the symptom
+                </li>
+                <li>A badge that warns you before the thing fails</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Six decisions do most of the work on the screen itself. Each one
+              answers a specific complaint from the
+              research.
+            </p>
+          </div>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/enterprise-ai/dash-overview.png"
+              width="1440"
+              height="1024"
+              alt="The dashboard. A greeting and a search bar across the top, a row of shortcut buttons under it, then panels showing alert totals, the state of the control boxes and devices, and the health of the software itself."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <p class="shot__title">One screen, no navigating</p>
+              <p class="shot__text">
+                Everything a building manager checks first thing, in one place.
+                The six notes below point at the parts doing
+                the work.
+              </p>
+            </figcaption>
+          </figure>
+
+          <ol class="insight-list">
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">01</p>
+              <div class="insight__body">
+                <h3 class="insight__title">It greets you, and it knows the time</h3>
+                <p class="insight__text">
+                  “Good afternoon” looks like decoration. It is not. It is the
+                  first hint that this thing is awake and
+                  watching, rather than a page of numbers
+                  from whenever it last loaded.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">02</p>
+              <div class="insight__body">
+                <h3 class="insight__title">A search bar that answers, not just filters</h3>
+                <p class="insight__text">
+                  Ask it a question in ordinary words. How do I fix this. What
+                  does this piece of hardware do. What is
+                  the rule for setting a building up. The
+                  answer arrives on the screen you are
+                  already on. Nobody goes hunting for the
+                  manual.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">03</p>
+              <div class="insight__body">
+                <h3 class="insight__title">Shortcuts you did not have to make</h3>
+                <p class="insight__text">
+                  Today’s alerts. The urgent ones. The repeats. Devices in a bad
+                  way. Whatever has been offline longest.
+                  The software picks these from what is
+                  urgent and what keeps happening. Tap one
+                  and the whole screen rebuilds around it.
+                  You do not go anywhere.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">04</p>
+              <div class="insight__body">
+                <h3 class="insight__title">The same facts, three ways to look</h3>
+                <p class="insight__text">
+                  A chart, a floor plan, or a plain table, with no wait in
+                  between. People really do differ. Some
+                  think in space and want the plan. Some want
+                  the numbers. Some just want the shape of
+                  the week.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">05</p>
+              <div class="insight__body">
+                <h3 class="insight__title">The whole picture without clicking</h3>
+                <p class="insight__text">
+                  How many alerts. Which have been dealt with and which have
+                  not. Whether the control boxes are still
+                  talking. What state the devices are in. All
+                  at once. That is the difference between a
+                  status page and something you can run a
+                  building from.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">06</p>
+              <div class="insight__body">
+                <h3 class="insight__title">Is the software itself all right?</h3>
+                <p class="insight__text">
+                  Temperature, storage and memory for CORE itself, always on
+                  screen. When something looks wrong, you can
+                  tell straight away whether the trouble is
+                  out in the building or in here.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <h3 class="case-subtitle">Explaining an alert, then saying what to do</h3>
+
+          <div class="case-prose">
+            <p>
+              The alert list used to speak in codes. This part removes the
+              translation step.
+            </p>
+            <p>
+              Tap a low-battery alert and you do not get a definition. You get
+              four steps. Which device it is. Which battery
+              it takes. How to check it worked. Who to call
+              if it did not.
+            </p>
+            <p>
+              The floor plan does the same job for place. Alerts are drawn on
+              the layout of the building, so whoever is
+              going to fix it knows which room to walk to
+              before leaving their desk. Both are there to
+              close one gap: between
+              <strong>something is wrong</strong> and
+              <strong>here is what to do about it</strong>.
+            </p>
+          </div>
+
+          <div class="shot-stack">
+            <figure class="shot">
+              <img
+                class="shot__full"
+                src="assets/enterprise-ai/dash-ai-pills.png"
+                width="1440"
+                height="1024"
+                alt="The dashboard with a shortcut selected. The panels below have changed to show only the alerts in that group, with a chart of how often each one has happened."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__caption">
+                <p class="shot__title">Tapping a shortcut rebuilds the screen</p>
+                <p class="shot__text">
+                  You stay in one place. The screen narrows to the thing you
+                  asked about.
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <img
+                class="shot__full"
+                src="assets/enterprise-ai/dash-explain-alarms.jpg"
+                width="1440"
+                height="642"
+                alt="A panel headed Explain alarms. A low battery alert is written out in plain words, followed by four numbered steps to fix it."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__caption">
+                <p class="shot__title">A code turned into four steps</p>
+                <p class="shot__text">
+                  Find the device, get the right battery, check it worked, call
+                  for help if it did not.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           07 PREDICTIVE MAINTENANCE
+           ================================================================= -->
+      <section class="case-section" id="predictive" aria-labelledby="predictive-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">07</span>
+              <span>Feature two · CORE</span>
+            </p>
+            <h2 class="case-title" id="predictive-title">
+              Finding out before it breaks, not after
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              This part watches how every device is holding up and tells you
+              which ones are near the end. Not a list of
+              dates. A short list of things worth doing, each
+              with a suggestion on it.
+            </p>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The whole design in one sentence</p>
+            <p class="callout__body">
+              Without AI, this screen is a list of devices and their ages, and
+              you work out what that means. With it, the
+              software does that part. The suggestion is not
+              a link to a manual. It is a decision, already
+              thought through, ready to take or turn down.
+            </p>
+          </div>
+
+          <div class="stat-band">
+            <p class="stat stat--start">
+              <span class="stat__value">About 5 years</span>
+              <span class="stat__label">
+                How long the battery in a wireless sensor usually lasts
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">2 months</span>
+              <span class="stat__label">
+                What is left before it turns urgent, in the example shown
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">4 signals</span>
+              <span class="stat__label">
+                Its age, its software version, whether it keeps dropping out,
+                and what has failed before
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">Detective to decision-maker</span>
+              <span class="stat__label">
+                How the job changes. The software digs. The person calls it
+              </span>
+            </p>
+          </div>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/enterprise-ai/dash-predictive-maintenance.png"
+              width="1440"
+              height="527"
+              alt="A list of devices close to the end of their life. Each row shows how long it has left and carries a button reading Recommendation."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <p class="shot__title">A short list, with a deadline on each row</p>
+              <p class="shot__text">
+                Devices nearing the end of their life, how long each one has
+                left, and a suggestion you can open.
+              </p>
+            </figcaption>
+          </figure>
+
+          <h3 class="case-subtitle">How this screen is meant to feel</h3>
+
+          <div class="case-prose">
+            <p>
+              We designed for one feeling, and wrote it down so we could test
+              against it:
+              <strong>“I’m ahead of it.”</strong>
+            </p>
+          </div>
+
+          <ul class="arrow-list">
+            <li>Not anxious. Not swamped. Ahead of it.</li>
+            <li>
+              Somebody is watching the building. Problems get caught before they
+              become emergencies.
+            </li>
+            <li>
+              The software sorts. The person decides. Who is in charge never
+              moves.
+            </li>
+            <li>
+              The list is short enough to actually work through, and every line
+              says how long you have.
+            </li>
+          </ul>
+
+          <h3 class="case-subtitle">The other views</h3>
+
+          <figure class="shot shot--tall">
+            <div class="shot__row" tabindex="0" role="group" aria-label="Four dashboard views, scrollable">
+              <img
+                class="is-desktop"
+                src="assets/enterprise-ai/dash-graph-view.jpg"
+                width="1440"
+                height="1024"
+                alt="The chart view, showing how many alerts came in over time."
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="is-desktop"
+                src="assets/enterprise-ai/dash-longest-offline.jpg"
+                width="1440"
+                height="1024"
+                alt="The longest offline view. A ranked bar chart of devices, with the one missing longest at the top."
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="is-desktop"
+                src="assets/enterprise-ai/dash-floor-plan.jpg"
+                width="1440"
+                height="1024"
+                alt="The floor plan view, with alert markers placed on the rooms they belong to."
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="is-desktop"
+                src="assets/enterprise-ai/dash-explain-detail.jpg"
+                width="1440"
+                height="1024"
+                alt="One alert opened up, explained in plain words, with the steps to fix it listed underneath."
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption class="shot__caption">
+              <p class="shot__title">Same facts, four ways in</p>
+              <p class="shot__text">
+                The chart, the ranked list of what has been offline longest, the
+                floor plan, and a single alert explained.
+                Nobody has to think the way the screen
+                thinks.
+              </p>
+            </figcaption>
+          </figure>
+
+          <h3 class="case-subtitle">What changes for the person doing the job</h3>
+
+          <div class="case-table-wrap" tabindex="0" role="group" aria-label="How each situation changes, table, scrollable">
+            <table class="case-table">
+              <caption class="visually-hidden">
+                Five everyday situations, how they worked before this was added,
+                and how they work now
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Situation</th>
+                  <th scope="col">Before</th>
+                  <th scope="col">After</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">A device getting old</th>
+                  <td>You have to know what “4 years 10 months” means for risk</td>
+                  <td>
+                    The software says “about two months left” and suggests what
+                    to do
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">A fault that keeps coming back</th>
+                  <td>Looks the same as a first-time alert. Nothing spots the pattern</td>
+                  <td>
+                    A repeats view separates the noise from the thing that is
+                    really wrong
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Devices that have dropped offline</th>
+                  <td>They pile up unnoticed until somebody goes looking</td>
+                  <td>
+                    A ranked chart of what has been missing longest makes it
+                    obvious at a glance
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Planning repairs</th>
+                  <td>You react, after a failure or after somebody walks the site</td>
+                  <td>Replacements are flagged weeks or months ahead</td>
+                </tr>
+                <tr>
+                  <th scope="row">Understanding a code</th>
+                  <td>Look it up yourself, or call support</td>
+                  <td>It is explained in plain words, with the steps to fix it</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           08 OPTIMIZE SYSTEM
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="optimize" aria-labelledby="optimize-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">08</span>
+              <span>Feature three · CORE</span>
+            </p>
+            <h2 class="case-title" id="optimize-title">
+              A building that retunes itself
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              The feature I am proudest of is the one you would never notice. It
+              watches how a space is really used, then
+              quietly moves the settings to match.
+            </p>
+          </div>
+
+          <div class="case-split">
+            <div class="case-prose">
+              <h3 class="case-subtitle">The problem</h3>
+              <p>
+                Most lighting systems are set up once, the week the building
+                opens, then left alone. Those settings were
+                chosen for an imagined version of the space,
+                not the people who ended up in it. Staff
+                change. Hours change. Habits change. The
+                lighting drifts further from what anyone
+                wants.
+              </p>
+              <p>
+                Fixing it means a technician visit, a written request, and
+                somebody who knows the system. So most
+                buildings never bother. They run for years on
+                settings that stopped fitting long ago.
+              </p>
+            </div>
+
+            <div class="callout">
+              <p class="callout__title">What we designed</p>
+              <p class="callout__body">
+                One screen, one decision:
+                <strong>save energy</strong> or
+                <strong>keep people comfortable</strong>.
+                That single choice sets the priority for the
+                whole site. Switch the feature on and it can
+                adjust the general settings, how the space
+                responds to people coming and going, what
+                the wall switches do, and the schedules. You
+                say what you want. It works out how.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">How the learning works, with a real example</p>
+            <p class="callout__body">
+              On day one the lights come up to 50% when somebody walks in. Over
+              the next two weeks, a person keeps pushing
+              them to 80% at the wall switch. If the site is
+              set to keep people comfortable, CORE reads that
+              as a pattern rather than a one-off, and makes
+              80% the new normal for that space. No request
+              form. No technician. Nobody resets anything.
+            </p>
+          </div>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/enterprise-ai/dash-optimize-system.png"
+              width="1440"
+              height="536"
+              alt="The optimize screen. Two choices at the top, save energy or keep people comfortable, then switches for the general settings, how the space responds to people, the wall switches, and the schedules."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <p class="shot__title">One choice at the top, the rest follows</p>
+              <p class="shot__text">
+                The building manager sets the goal. The four groups underneath
+                are what the software is then allowed to
+                adjust on its own.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           09 LIGHT ARCHITECT, FIXTURE RECOMMENDATION
+           ================================================================= -->
+      <section class="case-section" id="fixtures" aria-labelledby="fixtures-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">09</span>
+              <span>Feature four · Light ARchitect</span>
+            </p>
+            <h2 class="case-title" id="fixtures-title">
+              Describe the job, get the right light
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <h3 class="case-subtitle">The problem</h3>
+            <p>
+              The catalog covers six families of light fitting. Each family
+              holds dozens of versions: different
+              brightnesses, different ways of mounting them,
+              different rebate programs they qualify for.
+            </p>
+            <p>
+              Inside one family the options barely look different. Somebody
+              without deep product knowledge has no reliable
+              way to tell which one will actually light their
+              parking lot properly. Scrolling will not answer
+              it, because the answer depends on the site.
+            </p>
+          </div>
+
+          <ul class="source-list" role="list">
+            <li class="source">
+              <h3 class="source__title">A deep catalog, a shallow week</h3>
+              <p class="source__body">
+                Agents are expected to know families they have never used. That
+                depth is a gift to an expert and a wall to
+                everyone else.
+              </p>
+            </li>
+            <li class="source">
+              <h3 class="source__title">Hours for one recommendation</h3>
+              <p class="source__body">
+                Choosing a light for one kind of project could mean hours of
+                reading data sheets, brightness figures and
+                rebate rules, and checking each against the
+                others.
+              </p>
+            </li>
+            <li class="source">
+              <h3 class="source__title">The same answer is wrong for two people</h3>
+              <p class="source__body">
+                Different kinds of agent get different products, different
+                prices and different rebates. One
+                recommendation cannot serve both.
+              </p>
+            </li>
+          </ul>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/enterprise-ai/lightar-fixture-recommendation.jpg"
+              width="2158"
+              height="1535"
+              alt="The recommendation panel open beside the light catalog. A short conversation runs down the panel and ends with two suggested light fittings shown as buttons."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <p class="shot__title">A conversation instead of a catalog</p>
+              <p class="shot__text">
+                The panel asks who you are, listens to the job in your own
+                words, and finishes with two named lights
+                you can act on.
+              </p>
+            </figcaption>
+          </figure>
+
+          <ol class="insight-list">
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">01</p>
+              <div class="insight__body">
+                <h3 class="insight__title">It asks who you are first</h3>
+                <p class="insight__text">
+                  Before anything else, the panel works out which kind of agent
+                  you are. That is what lets it suggest
+                  products you can actually sell, at prices
+                  that apply to you, with rebates you
+                  qualify for. The right light for the right
+                  person, not just the right job.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">02</p>
+              <div class="insight__body">
+                <h3 class="insight__title">You describe it in your own words</h3>
+                <p class="insight__text">
+                  No filter panels. You say what the situation is, the way you
+                  would say it to a colleague. That is the
+                  whole point. You no longer need product
+                  expertise to get an accurate answer.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">03</p>
+              <div class="insight__body">
+                <h3 class="insight__title">Change your mind and it keeps up</h3>
+                <p class="insight__text">
+                  When the priority moves from getting it exactly right to
+                  getting it cheaper, the suggestion changes
+                  on the spot. Nothing to restart. No
+                  filters to set again.
+                </p>
+              </div>
+            </li>
+            <li class="insight">
+              <p class="insight__num" aria-hidden="true">04</p>
+              <div class="insight__body">
+                <h3 class="insight__title">The answer is the next step</h3>
+                <p class="insight__text">
+                  The conversation ends with two lights shown as buttons, not as
+                  a paragraph. Tap one and you are into the
+                  next part of the job. You never go back to
+                  the grid to find what you were just told.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           10 LIGHT ARCHITECT, IES GENERATION
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="ies" aria-labelledby="ies-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">10</span>
+              <span>Feature five · Light ARchitect</span>
+            </p>
+            <h2 class="case-title" id="ies-title">
+              Five thousand files, one button
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Every light fitting comes with a light file. It tells the software
+              exactly how much light that fitting throws,
+              and in which directions. Get the wrong one and
+              the whole plan is wrong. Choosing it used to be
+              the worst job in the tool.
+            </p>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The size of the problem</p>
+            <p class="callout__body">
+              One family of fittings has five thousand of these files. Each is a
+              different mix of color temperature, how bright
+              it is, and how much electricity it uses. Even
+              after filtering on all three, you are still
+              making a technical call that needs expertise
+              most agents do not have. Scrolling is not an
+              option.
+            </p>
+          </div>
+
+          <div class="case-split">
+            <div class="case-prose">
+              <h3 class="case-subtitle">What we designed</h3>
+              <p>
+                You work on a real map. You draw the edge of each area: main
+                parking, the entrance, the side bays. Then
+                you place the lights at the height they will
+                really be mounted at.
+              </p>
+              <p>
+                The clever part is a panel where you describe
+                <strong>the result you want</strong>, not the
+                product you want. How good it needs to be.
+                What color the light should be. The minimum
+                brightness you have to hit. How even it must
+                look. Whether you need to keep light off the
+                neighbors.
+              </p>
+              <p>
+                Then you press <strong>Generate</strong>. Light ARchitect
+                matches every one of those to the exact file
+                in the library, and applies it to each light
+                on the plan.
+              </p>
+            </div>
+
+            <figure class="case-split__media">
+              <img
+                src="assets/enterprise-ai/lightar-boundaries-requirements.jpg"
+                width="1440"
+                height="1024"
+                alt="A parking lot on a satellite map with three areas outlined and named, and a panel on the right for setting the requirements."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="shot__text">
+                Areas drawn on the real site, with the requirements panel on the
+                right.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">Where the five thousand files went</p>
+            <p class="callout__body">
+              Nowhere. The library is still there, doing all the work
+              underneath. It just stopped being something a
+              person has to read.
+            </p>
+          </div>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/enterprise-ai/lightar-ies-generate.jpg"
+              width="1440"
+              height="1024"
+              alt="The file panel after generating. Each light on the plan now has its light file filled in, with the settings that produced it listed alongside."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <p class="shot__title">One press, every light filled in</p>
+              <p class="shot__text">
+                The files picked and applied to each position on the layout,
+                with the requirements that produced them
+                still on screen so you can check the working.
+              </p>
+            </figcaption>
+          </figure>
+
+          <div class="callout">
+            <p class="callout__title">Why this one matters to the business</p>
+            <p class="callout__body">
+              An agent may be running several projects at once, on different
+              kinds of site. This takes out the most
+              technical and slowest step in the whole job.
+              Thousands of small decisions become one press
+              that already knows the context.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           11 WHAT IT DELIVERED
+           ================================================================= -->
+      <section class="case-section" id="outcomes" aria-labelledby="outcomes-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">11</span>
+              <span>Results</span>
+            </p>
+            <h2 class="case-title" id="outcomes-title">What it delivered</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              First, where these numbers come from. Straight after the sprint,
+              the features were shown to the engineers and
+              to the people who decide what gets built. The
+              design work set the plan, the way AI should
+              behave, and the reusable parts. The time
+              savings below are the team’s own estimates,
+              measured against the working prototypes rather
+              than a year of customer data. Where you see a
+              range, it is because sites differ.
+            </p>
+          </div>
+
+          <div class="stat-band">
+            <p class="stat stat--start">
+              <span class="stat__value">90% less</span>
+              <span class="stat__label">
+                Time spent choosing a light file
+              </span>
+              <span class="stat__note">
+                Against the old way of filtering by hand
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">75% less</span>
+              <span class="stat__label">
+                Time a building manager spends sorting alerts each day
+              </span>
+              <span class="stat__note">
+                Against sorting a flat list of three hundred by hand
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">3 features</span>
+              <span class="stat__label">
+                Carried through to the build plan, across two products
+              </span>
+              <span class="stat__note">
+                Out of five designed. The other two are queued behind them
+              </span>
+            </p>
+            <p class="stat stat--start">
+              <span class="stat__value">0</span>
+              <span class="stat__label">
+                Manual resets needed once the system is learning how a space is
+                used
+              </span>
+              <span class="stat__note">
+                Every change used to mean a written request and a technician
+                visit
+              </span>
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">Time to a finished plan</h3>
+
+          <!-- The Figma shows this as two bar charts in red and green. Those
+               are stoplight colors and both fail the contrast floor (see the
+               note at the top of case-study.css), and a bar length is not
+               readable without sight. The same comparison as a real table
+               keeps the numbers and loses nothing. -->
+          <div class="case-table-wrap" tabindex="0" role="group" aria-label="Time to a finished plan, table, scrollable">
+            <table class="case-table">
+              <caption class="visually-hidden">
+                Three steps in planning a lighting project, how long each took
+                before this work and how long it takes now
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Step</th>
+                  <th scope="col">Before</th>
+                  <th scope="col">After</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Working out which light to use</th>
+                  <td>2 to 4 hours</td>
+                  <td>About 5 minutes</td>
+                </tr>
+                <tr>
+                  <th scope="row">Choosing the light file</th>
+                  <td>45 to 90 minutes</td>
+                  <td>One press</td>
+                </tr>
+                <tr>
+                  <th scope="row">Getting to a quote</th>
+                  <td>Hours, sometimes days</td>
+                  <td>Minutes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="case-subtitle">What the design work left behind</h3>
+
+          <ul class="module-grid" role="list">
+            <li class="module">
+              <h4 class="module__title">A different story for the product</h4>
+              <p class="module__body">
+                It moved the pitch from chasing alerts to getting ahead of them.
+                And it did that with something working
+                that people could click.
+              </p>
+            </li>
+            <li class="module">
+              <h4 class="module__title">Parts anyone can reuse</h4>
+              <p class="module__body">
+                Recommendation cards, automatic shortcuts, the AI search bar and
+                the warning badge all went into the
+                company’s shared kit of screen parts.
+              </p>
+            </li>
+            <li class="module">
+              <h4 class="module__title">The expertise wall came down</h4>
+              <p class="module__body">
+                An agent can now get an accurate suggestion suited to their own
+                role, without specialist product
+                knowledge.
+              </p>
+            </li>
+            <li class="module">
+              <h4 class="module__title">A system that keeps tuning itself</h4>
+              <p class="module__body">
+                The learning layer removes the manual reset that used to follow
+                every change in how a space is used. That
+                was a first for this platform.
+              </p>
+            </li>
+            <li class="module">
+              <h4 class="module__title">A handover engineering could build from</h4>
+              <p class="module__body">
+                Marked-up screens, the paths through them, and the awkward cases
+                written out, for three features across two
+                products.
+              </p>
+            </li>
+            <li class="module">
+              <h4 class="module__title">One rule, everywhere</h4>
+              <p class="module__body">
+                Every suggestion in every feature ends at a person. That is now
+                how AI behaves across the whole range.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           12 REFLECTION
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="reflection" aria-labelledby="reflection-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">12</span>
+              <span>Looking back</span>
+            </p>
+            <h2 class="case-title" id="reflection-title">
+              What I learned, and what I would push further
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Leading this across two very different products, on a short clock,
+              forced a few things into the open that a
+              longer project would have let me leave vague.
+            </p>
+          </div>
+
+          <ul class="panel-grid" role="list">
+            <li class="panel">
+              <p class="panel__eyebrow">What held up</p>
+              <h3 class="panel__title">Every suggestion has to end at a person</h3>
+              <p class="panel__body">
+                Nothing here decides on its own. The software puts it in front
+                of you. You act. That was not a compromise
+                to get the thing approved. It is the reason
+                people took to it instead of bracing against
+                it. In a building somebody is legally
+                responsible for, “the AI decided” is not a
+                sentence anyone can use. “The AI suggested,
+                I confirmed” is.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">Hardest problem</p>
+              <h3 class="panel__title">Saying how sure it is, without causing alarm</h3>
+              <p class="panel__body">
+                “Replace this device” has to sound worth acting on without
+                sounding final. Too confident and people
+                follow it off a cliff. Too careful and they
+                ignore it. We got it somewhere workable. The
+                next version should show its reasoning, so
+                you can argue with the reasoning rather than
+                the answer.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">What I would push further</p>
+              <h3 class="panel__title">Answers that change with who is asking</h3>
+              <p class="panel__body">
+                Asking the agent’s role first, in Light ARchitect, was worth
+                more than anything else in that feature.
+                The same idea belongs in CORE. A building
+                manager, a contractor and the person who
+                owns the building want completely different
+                things from the same screen. Right now they
+                all get the same one.
+              </p>
+            </li>
+            <li class="panel">
+              <p class="panel__eyebrow">The wider lesson</p>
+              <h3 class="panel__title">The best part is the part you cannot see</h3>
+              <p class="panel__body">
+                The self-tuning feature is the one I am proudest of, precisely
+                because it never announces itself. The
+                building just works a little better each
+                month. The manager does not see AI. They see
+                a system that seems to understand them. That
+                is the bar.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           OUTRO
+           ================================================================= -->
+      <section class="section" aria-labelledby="outro-title">
+        <div class="page case-outro">
+          <h2 class="case-outro__title" id="outro-title">
+            Want to see the
+            <span class="accent-serif">rest of the work?</span>
+          </h2>
+          <div class="button-group">
+            <a class="button" href="work.html">
+              Back to all case studies
+              <img class="button__icon" src="assets/icon-work.svg" alt="" width="20" height="20" />
+            </a>
+            <a class="button" href="core-insights.html">
+              Read the building dashboards case study
+              <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================================================================
+         FOOTER
+         =================================================================== -->
+    <footer class="site-footer topo">
+      <div class="topo__art">
+        <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+      </div>
+
+      <div class="page site-footer__inner">
+        <nav class="icon-nav icon-nav--footer" aria-label="Footer">
+          <ul class="icon-nav__list">
+            <li>
+              <a class="icon-nav__link" href="index.html">
+                <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+                Home
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="work.html">
+                <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+                Work
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+                <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+                Email Robert
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <hr class="site-footer__rule" />
+
+        <p>I design how software looks, works and feels. Senior Product Designer.</p>
+        <p>
+          <a href="mailto:rbabiarz@gmail.com">rbabiarz@gmail.com</a> ·
+          <a href="tel:+14163154761">416-315-4761</a>
+        </p>
+        <p>
+          © 2026 Robert Babiarz · Signify, Cooper Lighting Limited Canada. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

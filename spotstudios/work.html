@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selected work, Robert Babiarz</title>
+    <meta
+      name="description"
+      content="Six case studies by Robert Babiarz: hospital lighting, building dashboards, the staff website behind the lights, and AI inside a building platform."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to the main content</a>
+
+    <!-- ===================================================================
+         HEADER
+         Same nav as the home page. "Work" is the current page, so it carries
+         aria-current and the underline that goes with it.
+         =================================================================== -->
+    <header class="site-header">
+      <a class="identity" href="index.html" aria-label="Robert Babiarz, Senior Product Designer — home">
+        <span class="identity__name">Robert Babiarz</span>
+        <span class="identity__role">Senior Product Designer</span>
+      </a>
+
+      <nav class="icon-nav" aria-label="Main">
+        <ul class="icon-nav__list">
+          <li>
+            <a class="icon-nav__link" href="index.html">
+              <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="work.html" aria-current="page">
+              <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+              Work
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+              <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+              Email Robert
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- =================================================================
+           INTRO
+           ================================================================= -->
+      <section class="topo section" aria-labelledby="work-intro-title">
+        <div class="topo__art">
+          <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+        </div>
+
+        <div class="page page-intro">
+          <p class="eyebrow">
+            Six case studies · Buildings · Enterprise AI
+          </p>
+
+          <h1 class="section__title" id="work-intro-title">
+            Every project,
+            <span class="accent-serif">in one place.</span>
+          </h1>
+
+          <div class="lede">
+            <p>
+              Each card opens a full case study. They are grouped by the kind of
+              problem I was solving, not by the year or the client, so you can
+              go straight to the work that looks closest to yours.
+            </p>
+          </div>
+
+          <nav class="jump" aria-label="Jump to a kind of work">
+            <p class="jump__label" id="jump-label">Jump to:</p>
+            <ul class="jump__list" aria-labelledby="jump-label">
+              <li><a class="jump__link" href="#buildings">Buildings and lighting (5)</a></li>
+              <li><a class="jump__link" href="#ai">Enterprise AI (1)</a></li>
+            </ul>
+          </nav>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           ALL WORK, GROUPED
+
+           Each group is a section with its own heading, and each card is a
+           list item whose title holds the only link. The link is stretched
+           over the whole card in CSS, so the card is clickable but screen
+           readers still announce one short, meaningful name.
+           ================================================================= -->
+      <section class="section" aria-labelledby="all-work-title">
+        <div class="page work-block">
+          <h2 class="section__title section__title--plain" id="all-work-title">
+            All the work
+          </h2>
+
+          <div class="work-groups">
+            <!-- ---------------------------------------------------------
+                 Buildings and lighting
+                 --------------------------------------------------------- -->
+            <section class="work-group" id="buildings" aria-labelledby="buildings-title">
+              <div class="work-group__head">
+                <h3 class="work-group__title" id="buildings-title">Buildings and lighting</h3>
+                <p class="work-group__count">5 case studies</p>
+              </div>
+
+              <ul class="tile-grid" role="list">
+                <li class="tile">
+                  <div class="tile__media">
+                    <img src="../previews/thumb-dali.png" alt="" width="1200" height="800" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="tile__body">
+                    <p class="tile__number">Case 01 <span aria-hidden="true">·</span> DALI-2 Lighting System</p>
+                    <h4 class="tile__title">
+                      <a class="tile__link" href="dali-2.html">Hospital lighting control system</a>
+                    </h4>
+                    <p class="tile__description">
+                      The largest system of its kind in North America. Days of
+                      setup work turned into hours, for a hospital where the
+                      lights cannot go out.
+                    </p>
+                    <p class="tile__cue" aria-hidden="true">
+                      Read the case study
+                      <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+                    </p>
+                  </div>
+                </li>
+
+                <li class="tile">
+                  <div class="tile__media">
+                    <img src="../previews/thumb-insights.png" alt="" width="1200" height="800" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="tile__body">
+                    <p class="tile__number">Case 02 <span aria-hidden="true">·</span> Insights Dashboards</p>
+                    <h4 class="tile__title">
+                      <a class="tile__link" href="core-insights.html">Dashboards for a whole building</a>
+                    </h4>
+                    <p class="tile__description">
+                      Sensors in a big building produce a flood of numbers.
+                      These screens turn that into a short list of things worth
+                      doing today.
+                    </p>
+                    <p class="tile__cue" aria-hidden="true">
+                      Read the case study
+                      <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+                    </p>
+                  </div>
+                </li>
+
+                <li class="tile">
+                  <div class="tile__media">
+                    <img src="../previews/thumb-partitioning.png" alt="" width="1200" height="800" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="tile__body">
+                    <p class="tile__number">Case 03 <span aria-hidden="true">·</span> Dynamic Space Partitioning</p>
+                    <h4 class="tile__title">
+                      <a class="tile__link" href="partitioning.html">Rooms that change shape</a>
+                    </h4>
+                    <p class="tile__description">
+                      Hotel ballrooms split and join with moving walls. Staff
+                      redraw the rooms from a phone, and the lights and sensors
+                      keep up.
+                    </p>
+                    <p class="tile__cue" aria-hidden="true">
+                      Read the case study
+                      <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+                    </p>
+                  </div>
+                </li>
+
+                <li class="tile">
+                  <div class="tile__media">
+                    <img src="../previews/thumb-smart.png" alt="" width="1200" height="800" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="tile__body">
+                    <p class="tile__number">Case 05 <span aria-hidden="true">·</span> Smart Lighting Mobile App</p>
+                    <h4 class="tile__title">
+                      <a class="tile__link" href="smart-lighting.html">Home lighting app</a>
+                    </h4>
+                    <p class="tile__description">
+                      A phone app for the lights in your house. Set a mood, dim
+                      a room, and the house answers straight away.
+                    </p>
+                    <p class="tile__cue" aria-hidden="true">
+                      Read the case study
+                      <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+                    </p>
+                  </div>
+                </li>
+
+                <li class="tile">
+                  <div class="tile__media">
+                    <img src="../previews/thumb-cloud.png" alt="" width="1200" height="800" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="tile__body">
+                    <p class="tile__number">Case 07 <span aria-hidden="true">·</span> Support and Services</p>
+                    <h4 class="tile__title">
+                      <a class="tile__link" href="cloud.html">The back room behind the lights</a>
+                    </h4>
+                    <p class="tile__description">
+                      The staff website that hands out equipment software,
+                      keeps track of 414 customers, and unlocks a control box
+                      nobody can reach.
+                    </p>
+                    <p class="tile__cue" aria-hidden="true">
+                      Read the case study
+                      <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <!-- ---------------------------------------------------------
+                 Enterprise AI
+                 --------------------------------------------------------- -->
+            <section class="work-group" id="ai" aria-labelledby="ai-title">
+              <div class="work-group__head">
+                <h3 class="work-group__title" id="ai-title">Enterprise AI</h3>
+                <p class="work-group__count">1 case study</p>
+              </div>
+
+              <ul class="tile-grid" role="list">
+                <li class="tile">
+                  <div class="tile__media">
+                    <img src="../previews/thumb-ai.png" alt="" width="1200" height="800" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="tile__body">
+                    <p class="tile__number">Case 04 <span aria-hidden="true">·</span> Enterprise AI</p>
+                    <h4 class="tile__title">
+                      <a class="tile__link" href="enterprise-ai.html">AI inside a building platform</a>
+                    </h4>
+                    <p class="tile__description">
+                      Ask a question in ordinary words and get an answer with
+                      its reasons attached. The software suggests. A person
+                      still decides.
+                    </p>
+                    <p class="tile__cue" aria-hidden="true">
+                      Read the case study
+                      <img class="button__icon" src="assets/icon-arrow-up-right.svg" alt="" width="20" height="20" />
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================================================================
+         FOOTER
+         =================================================================== -->
+    <footer class="site-footer topo">
+      <div class="topo__art">
+        <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+      </div>
+
+      <div class="page site-footer__inner">
+        <nav class="icon-nav icon-nav--footer" aria-label="Footer">
+          <ul class="icon-nav__list">
+            <li>
+              <a class="icon-nav__link" href="index.html">
+                <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+                Home
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="work.html" aria-current="page">
+                <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+                Work
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+                <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+                Email Robert
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <hr class="site-footer__rule" />
+
+        <p>I design how software looks, works and feels. Senior Product Designer.</p>
+        <p>
+          <a href="mailto:rbabiarz@gmail.com">rbabiarz@gmail.com</a> ·
+          <a href="tel:+14163154761">416-315-4761</a>
+        </p>
+        <p>
+          © 2026 Robert Babiarz · Signify, Cooper Lighting Limited Canada. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

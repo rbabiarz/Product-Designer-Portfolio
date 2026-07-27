@@ -1,0 +1,1547 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WaveLinx DALI-2, a case study by Robert Babiarz</title>
+    <meta
+      name="description"
+      content="How I designed the set-up experience for a hospital lighting system with more than 10,000 lights, sensors and switches, when the technology underneath was slow and nobody could make it faster."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="case-study.css" />
+  </head>
+
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to the main content</a>
+
+    <!-- ===================================================================
+         HEADER
+         "Work" is the parent section rather than this page, so it carries no
+         aria-current. The way back to the index is the Work link and the
+         outro at the foot of the page.
+         =================================================================== -->
+    <header class="site-header">
+      <a class="identity" href="index.html" aria-label="Robert Babiarz, Senior Product Designer — home">
+        <span class="identity__name">Robert Babiarz</span>
+        <span class="identity__role">Senior Product Designer</span>
+      </a>
+
+      <nav class="icon-nav" aria-label="Main">
+        <ul class="icon-nav__list">
+          <li>
+            <a class="icon-nav__link" href="index.html">
+              <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="work.html">
+              <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+              Work
+            </a>
+          </li>
+          <li>
+            <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+              <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+              Email Robert
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- =================================================================
+           HERO
+           ================================================================= -->
+      <section class="topo section" aria-labelledby="case-title">
+        <div class="topo__art">
+          <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+        </div>
+
+        <div class="page case-hero">
+          <div class="case-hero__text">
+            <p class="eyebrow">
+              Peter Gilgan Mississauga Hospital · The first lighting system of
+              this size in North America
+            </p>
+
+            <h1 class="case-hero__title" id="case-title">WaveLinx DALI-2</h1>
+
+            <p class="case-hero__lede">
+              A new hospital needed more than ten thousand lights, sensors and
+              switches set up by hand, one cable run at a time. The technology
+              underneath was slow, and nobody could make it faster. So I
+              designed around the wait instead.
+            </p>
+
+            <ul class="chips">
+              <li class="chip">Connected buildings</li>
+              <li class="chip">Hospitals</li>
+              <li class="chip">First of its kind</li>
+              <li class="chip chip--status">First release shipped</li>
+            </ul>
+
+            <hr class="case-hero__rule" />
+
+            <dl class="case-facts">
+              <div>
+                <dt class="case-facts__term">Role</dt>
+                <dd class="case-facts__def">Lead product designer</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Company</dt>
+                <dd class="case-facts__def">Cooper Lighting Solutions (Signify)</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Runs on</dt>
+                <dd class="case-facts__def">Phone and computer</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Scope</dt>
+                <dd class="case-facts__def">First research through to shipping</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Team size</dt>
+                <dd class="case-facts__def">15 people across disciplines</dd>
+              </div>
+              <div>
+                <dt class="case-facts__term">Drawn in</dt>
+                <dd class="case-facts__def">Figma, 2024 to 2026</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="case-hero__media">
+            <img
+              src="assets/dali-2/hero-imac-wavelinx.png"
+              width="621"
+              height="559"
+              alt="The set-up screen on a desktop computer. Buildings and floors run down the left. The main panel shows one collaboration room, the lighting zones inside it, and the devices still waiting to be put into a zone."
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           CAPACITY MODEL
+           ================================================================= -->
+      <section class="case-section case-section--inverse" aria-labelledby="capacity-title">
+        <div class="page">
+          <h2 class="visually-hidden" id="capacity-title">
+            The size of the system I had to design for
+          </h2>
+          <ul class="metric-grid" role="list">
+            <li class="metric">
+              <span class="metric__value">10,000+</span>
+              <span class="metric__label">Lights, sensors and switches</span>
+            </li>
+            <li class="metric">
+              <span class="metric__value">24</span>
+              <span class="metric__label">Cable runs on one floor</span>
+            </li>
+            <li class="metric">
+              <span class="metric__value">6</span>
+              <span class="metric__label">Hubs inside one panel</span>
+            </li>
+            <li class="metric">
+              <span class="metric__value">3,072</span>
+              <span class="metric__label">Devices behind one panel</span>
+            </li>
+            <li class="metric">
+              <span class="metric__value">128</span>
+              <span class="metric__label">Devices on a single cable run</span>
+            </li>
+            <li class="metric">
+              <span class="metric__value">1,000 ft</span>
+              <span class="metric__label">Longest a cable run can be</span>
+            </li>
+            <li class="metric">
+              <span class="metric__value">4,000 to 10,000</span>
+              <span class="metric__label">Devices on one hospital floor</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           01 THE PROBLEM
+           ================================================================= -->
+      <section class="case-section" id="problem" aria-labelledby="problem-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">01</span>
+              <span>The problem</span>
+            </p>
+            <h2 class="case-title" id="problem-title">What am I working with?</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Cooper Lighting Solutions had built its office and hospital
+              business on two older systems, Fifth Light and iLight. Both were
+              being retired. WaveLinx DALI was the replacement: a new,
+              internet-connected lighting platform for large buildings. Its
+              first job was the Peter Gilgan Mississauga Hospital, the biggest
+              installation of its kind in North America.
+            </p>
+            <p>
+              There was nothing to improve on, because there was no product yet.
+              And the technology underneath came with rules I could not touch.
+              DALI-2 is an international standard for how lights, sensors and
+              switches talk to each other over a shared pair of wires. It
+              decides what has to happen, in what order, and how long each step
+              takes. You cannot negotiate with it. The design had to live inside
+              it.
+            </p>
+          </div>
+
+          <img
+            src="assets/dali-2/hospital-rendering.jpg"
+            width="1280"
+            height="720"
+            alt="An architectural drawing of the Peter Gilgan Mississauga Hospital, a long multi-storey building behind a parking lot."
+            loading="lazy"
+            decoding="async"
+          />
+
+          <div class="stat-band">
+            <p class="stat">
+              <span class="stat__value">4,000+</span>
+              <span class="stat__label">
+                The smallest number of devices on a typical hospital job. At
+                full size it passes 10,000
+              </span>
+            </p>
+            <p class="stat">
+              <span class="stat__value">40 runs</span>
+              <span class="stat__label">
+                One controller can carry up to 20 hubs, and each hub feeds four
+                cable runs
+              </span>
+            </p>
+            <p class="stat">
+              <span class="stat__value">128 max</span>
+              <span class="stat__label">
+                The most one cable run can hold: 64 lights, plus 64 sensors and
+                switches
+              </span>
+            </p>
+          </div>
+
+          <ul class="product-row" role="list">
+            <li>
+              <img
+                src="assets/dali-2/device-wallstation.png"
+                width="960"
+                height="720"
+                alt="The wall switch, a flat white plate with six buttons."
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/dali-2/device-occupancy-sensor.png"
+                width="960"
+                height="720"
+                alt="The ceiling sensor that notices when someone is in the room, a small round unit."
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/dali-2/device-ls-pd-sensor.jpg"
+                width="680"
+                height="680"
+                alt="A combined sensor that measures both daylight and movement."
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/dali-2/device-panel.png"
+                width="960"
+                height="720"
+                alt="The panel, a wall-mounted metal box that houses the hubs."
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          </ul>
+
+          <h3 class="case-subtitle">The real problem was time</h3>
+
+          <div class="case-prose">
+            <p>
+              The wires are slow by design, and no amount of effort was going to
+              change that. The first version of our software made it worse.
+              Adding a single hub froze the entire app behind a message reading
+              <strong>
+                “Processing! This may take a while... Adding DALI Hub and Devices
+                to WAC”
+              </strong>
+              and it stayed there until every last device had been found. That
+              wait started at ten minutes. Engineering later stretched it to 27
+              and a half minutes so it could cope with 250 devices. Now multiply
+              that by ten hubs on one controller. The person doing the work is
+              standing in a hospital corridor, doing nothing.
+            </p>
+          </div>
+
+          <img
+            src="assets/dali-2/v1-blocking-loader.jpg"
+            width="1440"
+            height="1024"
+            alt="The first version’s blocking screen: a message reading “Processing! This may take a while” covering everything, with the rest of the app out of reach behind it."
+            loading="lazy"
+            decoding="async"
+          />
+
+          <div class="compare">
+            <div class="compare__side">
+              <p class="compare__title">What went wrong in version one</p>
+              <p class="compare__body">
+                The moment you added a hub, the software went off and searched
+                all four cable runs at once, and locked the screen while it did
+                it. No moving around, no naming rooms, no getting ahead. On a
+                hospital job that meant electricians standing still for ten
+                minutes or more per hub, with no sense of how far along it was,
+                no way to stop it, and nothing useful to do in the meantime.
+              </p>
+            </div>
+            <div class="compare__side">
+              <p class="compare__title">What was riding on it</p>
+              <p class="compare__body">
+                This was the system replacing Fifth Light and iLight. The
+                contractors, integrators and hospital facilities teams who would
+                live with it every day were watching to see whether it could
+                really take that work over. How it felt to set up was the thing
+                that would win or lose the deal. A frozen screen at hospital
+                size was not something anyone was going to accept.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           02 MY ROLE AND SCOPE
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="role" aria-labelledby="role-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">02</span>
+              <span>My role</span>
+            </p>
+            <h2 class="case-title" id="role-title">Taking the lead</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              I owned the design for the whole set-up experience, which was the
+              main design story on the project. I led it from the first research
+              session through to the final handoff, working shoulder to shoulder
+              with engineering, architecture, product management, firmware and
+              development. Every milestone was presented to rooms of 25 or more
+              people, to gather feedback and keep everyone pointed the same way.
+            </p>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">What I owned</p>
+            <p class="callout__body">
+              The whole set-up journey: finding hubs, the Lobby, managing a hub,
+              putting devices into rooms, and the floor plan view · The version
+              one and version two flows · A custom icon set, drawn in Adobe
+              Illustrator and packaged as a font · The printed label that goes
+              on the hub itself, ready for the press · Design reviews across
+              every team · New pieces for the Cooper Lighting design system in
+              Figma · Follow-up after launch
+            </p>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              The people I worked with day to day: two engineering managers, two
+              product owners, two product managers, one architect and five
+              developers. I sat with the firmware engineer who wrote the code
+              that scans the wires, and turned what the hardware could and could
+              not do into something that made sense on a screen.
+            </p>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The constraint I could not move</p>
+            <p class="callout__body">
+              Scanning is slow because the standard says so. Giving 128 devices
+              their own number and asking each one what it is takes real time.
+              This was never a problem engineering could solve; the ceiling is
+              physical. The design had to absorb the wait rather than pretend it
+              wasn’t there.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           03 SCOPING
+           ================================================================= -->
+      <section class="case-section" id="scoping" aria-labelledby="scoping-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">03</span>
+              <span>Getting started</span>
+            </p>
+            <h2 class="case-title" id="scoping-title">
+              Learning the ground before drawing anything
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Research and design happened at the same time, because the
+              hardware was still being built and the firmware was still being
+              written. So I used the engineering team as my main source while
+              the physical system took shape, and filled in the rest with
+              stories from the field and a close look at how the competition
+              does it.
+            </p>
+          </div>
+
+          <ul class="arrow-list">
+            <li>
+              Long sessions with the firmware engineer, learning exactly what
+              happens when the system finds and numbers devices, in what order,
+              and why each step takes as long as it does
+            </li>
+            <li>
+              Reading every document on the project and mapping how the pieces
+              fit together: the kinds of device, and how much one controller can
+              actually hold
+            </li>
+            <li>
+              Pulling apart the old systems, Fifth Light and iLight, to find the
+              habits installers would expect to bring with them
+            </li>
+            <li>
+              Looking at three competing systems already running in hospitals
+              and offices
+            </li>
+            <li>
+              Early workshops to find the bottlenecks before a single screen was
+              drawn, stress-testing the whole application rather than only the
+              new part
+            </li>
+          </ul>
+
+          <h3 class="case-subtitle">How the research worked</h3>
+
+          <div class="case-prose">
+            <p>
+              <strong>Getting everyone in the room first.</strong>
+              On a project this technical, design research means closing the gap
+              between what a designer knows and what the people building the
+              hardware know. So the work started with structured conversations
+              across five groups, before anything was drawn.
+            </p>
+          </div>
+
+          <ol class="source-list">
+            <li class="source">
+              <p class="source__title">1. Engineering and firmware</p>
+              <p class="source__body">
+                Told me how much traffic the wires can carry, how long it takes
+                to find a hub, and how often the app could check in without
+                slowing down the job going on around it.
+              </p>
+            </li>
+            <li class="source">
+              <p class="source__title">2. Developers</p>
+              <p class="source__body">
+                Warned me that dropping 3,000 devices into the existing list
+                would time the app out and take the rest of it down with it.
+              </p>
+            </li>
+            <li class="source">
+              <p class="source__title">3. Architecture and product management</p>
+              <p class="source__body">
+                Explained how a hospital job actually runs, in what order, and
+                the rules that apply in places where wireless is not allowed.
+              </p>
+            </li>
+            <li class="source">
+              <p class="source__title">4. The people who do the set-up</p>
+              <p class="source__body">
+                Described the job on the floor: a paper plan in one hand, a list
+                of hardware IDs in the other, working one cable run at a time,
+                and needing to know which light is which straight away.
+              </p>
+            </li>
+            <li class="source">
+              <p class="source__title">5. Hospital facilities teams</p>
+              <p class="source__body">
+                Told me what happens after we leave: new devices added as wings
+                get built, hubs that need restarting without taking a live floor
+                down, and faults that have to be found fast.
+              </p>
+            </li>
+          </ol>
+
+          <div class="callout callout--quote">
+            <p class="callout__title">What one of them told me</p>
+            <blockquote>
+              “I’ve been doing DALI for 12 years. I know what order things need
+              to happen. But your app doesn’t, so I have to fight it.”
+              <cite>Master electrician, research participant</cite>
+            </blockquote>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The finding that changed everything</p>
+            <p class="callout__body">
+              The most important thing to come out of research was that the
+              existing WaveLinx software had been built for 30 to 50 devices per
+              controller. Every list, every room screen, every map quietly
+              assumed that. DALI-2 was not a feature you bolt on. It forced us
+              to look again at how the entire application copes with volume.
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">A custom set of icons</h3>
+
+          <div class="case-prose">
+            <p>
+              Every one of these devices shares a single physical trait: a
+              two-wire connection. I made that the backbone of the icon set. The
+              same two-wire mark sits inside every icon, so you can spot this
+              family of devices instantly and still tell the types apart. I drew
+              them all in Adobe Illustrator, tuned them to stay readable at
+              small sizes, exported them as SVG, and checked them in Fontello so
+              they render the same way everywhere.
+            </p>
+          </div>
+
+          <figure class="shot">
+            <ul class="icon-grid" role="list">
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-light-dim.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Dimmable light</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-light-dt8.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Color tuning light (DT8)</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-light-dt6-single.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Single channel light (DT6)</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-light-dt6-dual.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Dual channel light (DT6)</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-light-cct.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Warm to cool white light</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-hub.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Hub</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-hub-bus.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Cable run from a hub</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-dual-tech-sensor.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Dual tech sensor, heat and sound</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-pir-sensor.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Motion sensor</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-wall-station.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Wall switch</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-cci.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Contact closure, a simple on and off input</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-rsp-dac-cct.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">RSP DAC, warm to cool white</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-rsp-dac-dimmable.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">RSP DAC, dimmable</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-relay.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Relay, on and off only</span>
+              </li>
+              <li class="icon-grid__item">
+                <img class="icon-grid__glyph" src="assets/dali-2/icon-find-device.svg" width="48" height="48" alt="" loading="lazy" />
+                <span class="icon-grid__label">Find devices</span>
+              </li>
+            </ul>
+            <figcaption class="shot__caption">
+              <span class="shot__title">
+                The icon set, drawn from scratch in Adobe Illustrator
+              </span>
+              <span class="shot__text">
+                The two-wire mark runs through every icon, tying the thing on
+                the ceiling to the thing on the screen. Exported as SVG and
+                checked in Fontello so they stay crisp at every size.
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img
+              class="shot__full"
+              src="assets/dali-2/dali2-hub-label.png"
+              width="3568"
+              height="932"
+              alt="The print-ready label for the hub: a wide sticker carrying the product name, the specifications, the wiring terminals, the set-up steps, a QR code, and markers showing where the status lights and the button sit."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="shot__caption">
+              <span class="shot__title">The label on the hub</span>
+              <span class="shot__text">
+                A sticker that goes on the hardware itself. It carries the
+                specifications, explains how to wire and set the unit up, and
+                points to help if something goes wrong. Drawn in Adobe
+                Illustrator and handed over as a print-ready PDF with cut marks.
+                The gray blocks show where the status lights and the button sit.
+              </span>
+            </figcaption>
+          </figure>
+
+          <h3 class="case-subtitle">Four things that shaped the design</h3>
+
+          <div class="callout-stack">
+            <div class="callout">
+              <p class="callout__title">
+                One: the wait was a design problem before it was a technical one
+              </p>
+              <p class="callout__body">
+                The scan was never going to get faster in time for launch. But
+                version one made it hurt far more than it had to by freezing
+                everything behind it. The opening was not to speed the scan up.
+                It was to stop making people watch it. The set-up work and the
+                scanning had to come apart.
+              </p>
+            </div>
+            <div class="callout">
+              <p class="callout__title">
+                Two: start with the hub, not the devices
+              </p>
+              <p class="callout__body">
+                Early sketches let you add devices while the hub was still being
+                found. Talking it through with engineering showed that was
+                backwards. You add a hub; the devices come with it. Leading with
+                the hub made the whole thing easier to picture, cut the number
+                of decisions at the most uncertain moment, and matched what the
+                hardware was really doing underneath.
+              </p>
+            </div>
+            <div class="callout">
+              <p class="callout__title">
+                Three: one light on the ceiling, two things on the screen
+              </p>
+              <p class="callout__body">
+                Some lights can shift the color of their white, from warm to
+                cool. Physically that is one unit on the ceiling, but the
+                software has to treat it as two: one part for brightness, one
+                for warmth. People see one fitting and find two entries in the
+                app. That gap had to be smoothed over in the design, or people
+                would set them up wrong.
+              </p>
+            </div>
+            <div class="callout">
+              <p class="callout__title">
+                Four: the sheer number of devices would break what we already
+                had
+              </p>
+              <p class="callout__body">
+                The existing room screen was built for a sensible number of
+                wireless devices. A hospital floor running six or more hubs
+                could throw thousands of lights, sensors and switches at it at
+                once, filling the screen and grinding it to a halt. The way
+                people move around the app had to be rethought from the ground
+                up.
+              </p>
+            </div>
+          </div>
+
+          <h3 class="case-subtitle">How we worked, week by week</h3>
+
+          <div class="case-prose">
+            <p>
+              Weekly reviews across every team were the engine of this project.
+              Each round followed the same shape.
+            </p>
+          </div>
+
+          <div class="stat-band">
+            <p class="stat">
+              <span class="stat__value">Weeks 1 to 2</span>
+              <span class="stat__label">
+                Draw the flow for one problem, then take it to engineering to
+                check it can actually be built
+              </span>
+            </p>
+            <p class="stat">
+              <span class="stat__value">Weeks 3 to 4</span>
+              <span class="stat__label">
+                Put prototypes in front of product management and architecture,
+                to make sure the order of the work is right
+              </span>
+            </p>
+            <p class="stat">
+              <span class="stat__value">Week 5 onward</span>
+              <span class="stat__label">
+                Review with the whole group, firmware and development leads
+                included, every single week
+              </span>
+            </p>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              That rhythm shortened the loop dramatically and kept the design
+              moving in step with engineering. It mattered most when the timings
+              changed, because what the screen could honestly promise depended
+              entirely on how long the hardware really took.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           04 PIVOT
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="pivot" aria-labelledby="pivot-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">04</span>
+              <span>The turning point</span>
+            </p>
+            <h2 class="case-title" id="pivot-title">
+              Throwing out version one
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Halfway through, it was clear version one could not be patched.
+              The wait was baked into its shape. Moving to version two was not a
+              new coat of paint. It changed the order of the entire job.
+            </p>
+          </div>
+
+          <div class="compare">
+            <div class="compare__side">
+              <p class="compare__title">Version one, dropped</p>
+              <p class="compare__body">
+                Look for hubs and devices at the same time. Adding a hub locks
+                the screen. Nothing else is possible. You wait out ten minutes
+                or more, per hub, and then start working.
+              </p>
+            </div>
+            <div class="compare__side compare__side--shipped">
+              <p class="compare__title">Version two, shipped</p>
+              <p class="compare__body">
+                Look for hubs only. One button pairs the hub and starts the
+                search for devices quietly in the background. The screen never
+                freezes. You start naming rooms and grouping lights straight
+                away, while the devices arrive behind you.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">The whole change in one sentence</p>
+            <p class="callout__body">
+              We stopped designing for the moment the search finishes, and
+              started designing for everything you can get done while it is
+              still running.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           05 DESIGN, DISCOVERY AND COMMISSIONING FLOW
+           ================================================================= -->
+      <section class="case-section" id="commissioning" aria-labelledby="commissioning-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">05</span>
+              <span>Design</span>
+            </p>
+            <h2 class="case-title" id="commissioning-title">
+              Finding the hubs and setting them up
+            </h2>
+            <p class="case-note">
+              Fast, and clear about what it has found
+            </p>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Setting up a hospital means working through hundreds of hubs and
+              thousands of devices, with a paper floor plan you keep checking
+              against hardware IDs on the screen. The flow had to be quick, hard
+              to get wrong, and honest at every step about what the system had
+              found so far.
+            </p>
+          </div>
+
+          <div class="shot-stack">
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Step 1 screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/flow1-scan-desktop.jpg" width="1440" height="1024" alt="The device screen with a message confirming the system is searching the network." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/flow1-scan-results.jpg" width="1440" height="1024" alt="The finished search, listing each hub it found with its name, hardware ID and network address." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/flow1-scan-phone.jpg" width="383" height="820" alt="The network search running on a phone." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/flow1-scan-phone2.jpg" width="375" height="812" alt="The list of hubs it found, on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Step 1: search the network</span>
+                <span class="shot__text">
+                  From the device screen, you start a search. A message
+                  confirms the system is looking across the network. When it
+                  finishes, every hub it found is listed with its name, its
+                  hardware ID and its network address, ready to be brought into
+                  the controller.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Step 2 screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/flow2-select-desktop.jpg" width="1440" height="1024" alt="A selected hub opened out into a two-step panel." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/flow2-select-buses.jpg" width="1440" height="1024" alt="All four cable runs listed with live counts of lights and of sensors and switches, plus a running total of devices still to add." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/flow2-select-phone.jpg" width="375" height="812" alt="The hub set-up panel on a phone." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/flow2-select-phone2.jpg" width="386" height="812" alt="Device counts for each cable run, on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Step 2: pick a hub and add it</span>
+                <span class="shot__text">
+                  Choosing a hub opens a two-step panel. All four cable runs are
+                  shown with live counts, lights on one side, sensors and
+                  switches on the other. A running total of devices still to be
+                  added stays on screen the whole time.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Step 3 screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/flow3-name-desktop.jpg" width="1440" height="1024" alt="The second step of the panel: renaming the hub and each cable run, with edit and delete controls inside the row." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/flow2-select-buses.jpg" width="1440" height="1024" alt="The list of cable runs beside it, showing the naming convention in use." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/flow3-name-phone.jpg" width="375" height="812" alt="Renaming a hub on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Step 3: name the hub and its runs</span>
+                <span class="shot__text">
+                  The second step asks you to rename things using a convention
+                  tied to the floor and the location, so the names still make
+                  sense to whoever opens this in five years. Editing and
+                  deleting happen right in the row, so the screen stays calm.
+                  Finish takes you back to the list.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Success state screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/flow4-success-desktop.jpg" width="1440" height="1024" alt="The confirmation, showing the hub name, a tick beside it in the list, and the number of devices still to add." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/flow4-success-phone.jpg" width="375" height="812" alt="The same confirmation on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Done, and you know it</span>
+                <span class="shot__text">
+                  The confirmation names the hub, ticks it off in the list, and
+                  tells you how many devices are left. That is enough to move on
+                  to the next hub without second-guessing yourself.
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           06 DESIGN, HUB MANAGEMENT
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="hub-management" aria-labelledby="hub-management-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">06</span>
+              <span>Design</span>
+            </p>
+            <h2 class="case-title" id="hub-management-title">Looking after the hubs</h2>
+            <p class="case-note">The years after the building opens</p>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Setting up is only the first day. Hospitals grow, floors get
+              rearranged, and new devices get added to cables that are already
+              live. The Manage Hub screen covers the rest of that life: checking
+              a hub is healthy, adding what is new, and putting things right
+              without disturbing a working floor.
+            </p>
+          </div>
+
+          <div class="shot-stack">
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Manage Hub screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/hub1-manage-desktop.jpg" width="1441" height="1024" alt="The Manage Hub screen: every cable run under the hub listed on the left with live device counts." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/hub1-manage-detail.jpg" width="1440" height="1024" alt="One cable run opened up and broken into categories: light drivers, wall switches, sensors and simple on and off inputs." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/hub1-manage-phone.jpg" width="375" height="812" alt="The list of cable runs on a phone." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/hub1-manage-phone2.jpg" width="375" height="812" alt="What sits on one cable run, on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Manage a hub</span>
+                <span class="shot__text">
+                  The left panel lists every cable run under the hub with live
+                  counts. Pick one and it breaks down by category: 64 light
+                  drivers, 23 wall switches, 13 sensors, 2 simple inputs. A
+                  running count of devices still to be added keeps the rest of
+                  the job in view.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Find Devices screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/hub2-find-desktop.jpg" width="1440" height="1024" alt="The confirmation before searching again, warning that it briefly interrupts the hub." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/hub2-find-detail.jpg" width="1440" height="1024" alt="The results, with any cable run carrying new devices marked, and a count of new against existing." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/hub2-find-phone.jpg" width="375" height="812" alt="The confirmation on a phone." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/hub2-find-phone2.jpg" width="375" height="812" alt="Marked cable runs on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Find what is new</span>
+                <span class="shot__text">
+                  When someone adds devices to the building after set-up, which
+                  happens constantly as hospital floors expand, you press Find
+                  Devices in the top bar. Because searching briefly interrupts
+                  the hub, we ask you to confirm first: this is a live building.
+                  Once you say yes, all the cable runs are searched at once. Any
+                  run with something new on it gets a marker and a count of new
+                  against existing, so you can see where to go without opening
+                  each one by hand. The panel keeps new devices apart from the
+                  ones already there, sorted by type, so you know exactly what
+                  you are about to accept before you accept it.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Add Devices screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/hub3-add-desktop.jpg" width="1440" height="1024" alt="New devices kept separate from the existing ones, grouped by type." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/hub3-add-detail.jpg" width="1440" height="1024" alt="The message setting a five to eight minute expectation while the new devices come in." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/hub3-add-phone.jpg" width="375" height="812" alt="The list of new devices on a phone." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/hub3-add-phone2.jpg" width="375" height="812" alt="The confirmation note on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Add them in</span>
+                <span class="shot__text">
+                  Runs with something new on them are marked with a count. The
+                  panel keeps new devices apart from the ones already in place,
+                  grouped by type. One button brings them all in. A message sets
+                  the expectation honestly: five to eight minutes. Then a short
+                  note confirms it: “18 NEW Devices added to Bus 1.”
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">Why it works this way</p>
+            <p class="callout__body">
+              Keeping new devices separate from existing ones, before anything
+              is committed, was a deliberate safety catch. In a building this
+              size, accepting an unexpected pile of devices creates problems
+              that take days to unpick. The markers let you triage at a glance
+              and decide which run to deal with first. The five to eight minute
+              estimate went in because the people doing the work asked for it:
+              they need to know how long a live hub will be busy so they can
+              plan around it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           07 DESIGN, AREA COMMISSIONING
+           ================================================================= -->
+      <section class="case-section" id="area" aria-labelledby="area-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">07</span>
+              <span>Design</span>
+            </p>
+            <h2 class="case-title" id="area-title">Putting devices into rooms</h2>
+            <p class="case-note">Coping with the sheer number of them</p>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              The existing room screen was built around a modest number of
+              wireless devices. DALI-2 broke that assumption completely. A
+              hospital floor running six or more hubs could drop thousands of
+              lights, sensors and switches into the unassigned list at once,
+              filling the screen, stalling the app, and making it nearly
+              impossible to find the one device you actually wanted.
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">The fix: choose first, load second</h3>
+
+          <div class="case-prose">
+            <p>
+              I put a filter above the unassigned list: which system, which hub,
+              which cable run. Instead of loading everything and hoping, you say
+              where you are working, and the list narrows to a single run and
+              its 128 devices before anything is drawn at all. An empty state
+              reading “Select Filter to Start” makes that deliberate, and
+              quietly prevents the accidental load-everything that would have
+              taken the app down.
+            </p>
+          </div>
+
+          <div class="shot-stack">
+            <figure class="shot shot--tall">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Filter-before-load screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/area1-filter-desktop.jpg" width="1440" height="1024" alt="The empty unassigned devices list, asking you to choose which kind of system you are working on before anything loads." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/area1-filter-phone.jpg" width="375" height="812" alt="The same empty state on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Choose first, load second</span>
+                <span class="shot__text">
+                  The “Select to Start” empty state, with a button for each kind
+                  of system, makes you say where you are. Once you pick one, the
+                  hub and cable run menus fill in behind it. What you get is a
+                  short, fast list of the 128 devices in front of you, not
+                  thousands you will never touch.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot shot--tall">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Scoped device list screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/area2-scoped-desktop.jpg" width="2159" height="1535" alt="A device list narrowed to one hub and one cable run, grouped into light drivers, sensors, wall switches and simple on and off inputs." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/area2-scoped-phone.jpg" width="375" height="812" alt="The hub menu open on a phone." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/area2-scoped-phone2.jpg" width="375" height="812" alt="The narrowed device list on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">The list, once you have chosen</span>
+                <span class="shot__text">
+                  Pick a hub and a cable run and the devices appear, grouped by
+                  type: light drivers, sensors, wall switches, simple inputs.
+                  The hub menu lists everything the system found; the cable run
+                  menu follows on from it. You always know exactly which stretch
+                  of the building you are standing in.
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">Why it works this way</p>
+            <p class="callout__body">
+              Choose first, load second was the central decision here, a
+              deliberate move away from show-everything. It is not only faster.
+              It changes how the job feels. It nudges people to work one cable
+              run at a time, which is exactly how the building is wired and how
+              the work gets handed out on site. One run at a time means fewer
+              mistakes, a screen you can read, and an app that matches the
+              paperwork in your hand.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           08 DESIGN, FLOOR PLAN VIEW
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="floorplan" aria-labelledby="floorplan-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">08</span>
+              <span>Design</span>
+            </p>
+            <h2 class="case-title" id="floorplan-title">The floor plan</h2>
+            <p class="case-note">Rebuilding how you get around, for thousands of devices</p>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              The floor plan was built for a world where one floor had 30 to 50
+              devices. DALI-2 made it 3,000. The old panel down the left side
+              would have meant endless scrolling, painful load times, and no
+              realistic way to find one specific light on a live hospital floor
+              while somebody waits. The whole way you move around it had to be
+              rethought.
+            </p>
+          </div>
+
+          <h3 class="case-subtitle">
+            Out with the tree, in with menus
+          </h3>
+
+          <div class="case-prose">
+            <p>
+              I replaced the fixed panel with a row of menus across the top:
+              building, floor, area, zone, device. Nothing loads the whole tree
+              up front. You pick your way across, each choice narrowing the
+              next, and only what you need gets fetched. You can also jump
+              straight from a building to one room without walking through every
+              level in between.
+            </p>
+          </div>
+
+          <div class="shot-stack">
+            <figure class="shot shot--tall">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Dropdown navigation screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/fp-dropdown-bar.jpg" width="1440" height="1024" alt="The row of menus across the top of the floor plan: building, floor, area, zone and device." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/fp-breadcrumb.jpg" width="1440" height="1024" alt="The trail beneath the menus showing where you currently are." loading="lazy" decoding="async" />
+                <img class="is-desktop" src="assets/dali-2/fp-legend-desktop.jpg" width="1440" height="1024" alt="The floor plan with its key explaining each type of device." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/fp-legend-phone.jpg" width="375" height="667" alt="The floor plan and its key on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">
+                  Menus, a trail, and a key
+                </span>
+                <span class="shot__text">
+                  Building, floor, area, zone, device. Each menu shows the first
+                  five matches straight away, with search for longer lists. A
+                  trail underneath always tells you where you are. You can jump
+                  to any level without stepping through the rest.
+                </span>
+              </figcaption>
+            </figure>
+
+            <div class="case-prose">
+              <h3 class="case-subtitle">Grouping the dots so the map stays readable</h3>
+              <p>
+                Put hundreds of devices on one floor plan and the markers pile
+                on top of each other into an unreadable smudge. So nearby
+                devices bunch together into a single dot with a number on it.
+                Zoom in and the bunches split back into individual devices; zoom
+                out and they gather again. The map stays readable, and fast, at
+                every level.
+              </p>
+            </div>
+
+            <figure class="shot shot--tall">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Device clustering screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/fp-cluster-desktop.jpg" width="1440" height="1024" alt="The floor plan with devices bunched into single dots, each marked with the number of devices inside it." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/fp-cluster-phone.jpg" width="375" height="667" alt="The bunched view on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Grouped dots</span>
+                <span class="shot__text">
+                  The grouped view at floor level, where each number tells you
+                  how many devices are inside it. It gives you a feel for where
+                  the density is before you go in.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="shot shot--tall">
+              <div class="shot__row" tabindex="0" role="group" aria-label="Device-level view screens, scrollable">
+                <img class="is-desktop" src="assets/dali-2/fp-dropdown-bar.jpg" width="1440" height="1024" alt="The floor plan zoomed in, with the groups broken apart into individual device markers." loading="lazy" decoding="async" />
+                <img class="is-phone" src="assets/dali-2/fp-device-phone.jpg" width="375" height="667" alt="The device level floor plan on a phone." loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="shot__caption">
+                <span class="shot__title">Down at device level</span>
+                <span class="shot__text">
+                  Zoom in and the groups break into single markers, each showing
+                  what kind of device it is. The same behavior carries a
+                  50-device office and a 3,000-device hospital floor without
+                  changing anything.
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">Why it works this way</p>
+            <p class="callout__body">
+              Swapping the tree for menus was the biggest structural change in
+              the whole project. It turns the screen from a list you browse into
+              a map you use: the floor plan becomes the main thing, and the
+              menus become a way of narrowing down rather than a ladder to
+              climb. With grouping and type filters on top, the same map serves
+              a small office and a hospital floor without behaving any
+              differently.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           09 CLEAR REFLECTION
+           ================================================================= -->
+      <section class="case-section" id="iteration" aria-labelledby="iteration-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">09</span>
+              <span>Looking back</span>
+            </p>
+            <h2 class="case-title" id="iteration-title">Designing while the ground moved</h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              Nothing on this project stood still. Hardware prototypes turned up
+              a few at a time. Whether the third-party devices would even be
+              available was an open question all the way through. So I worked in
+              quick prototypes to pressure-test ideas fast, and reviewed them
+              weekly with the whole group so the design never drifted away from
+              what engineering had just decided.
+            </p>
+          </div>
+
+          <div class="case-table-wrap" tabindex="0" role="group" aria-label="Project stages table, scrollable">
+            <table class="case-table">
+              <caption class="visually-hidden">
+                Each stage of the project, what it threw at us, and what I did
+                about it
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Stage</th>
+                  <th scope="col">What happened</th>
+                  <th scope="col">What I did</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Dropping version one</th>
+                  <td>
+                    Engineering said the frozen screen would not survive at this
+                    size. A design review with the development team laid the
+                    wait problem bare. The version one spec had a ten-minute
+                    freeze built into it.
+                  </td>
+                  <td>
+                    Started version two. Changed the order of the job from
+                    “search, then set up” to “add the hub and set up while the
+                    search runs behind you.” The search ended up taking 27 and a
+                    half minutes, and now nobody has to watch it.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Managing a hub, in three steps</th>
+                  <td>
+                    The first version of the Manage Hub screen was one long,
+                    undifferentiated list. The field services and engineering
+                    teams said it was unclear how to search again or how to add
+                    what was new.
+                  </td>
+                  <td>
+                    Broke it into three steps: search and see what is new, look
+                    at what was found and check which device is which, then add
+                    them. Every step got a confirmation and a way out.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Too many devices for the floor plan</th>
+                  <td>
+                    The old floor plan structure would have crawled at this
+                    size. It also became clear the problem was bigger than the
+                    new feature; the whole app needed testing under load.
+                  </td>
+                  <td>
+                    Ran a stress test across the entire application. Brought in
+                    the menu navigation, the grouped dots, and choose-first
+                    load-second to handle 3,000 devices and more.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Color tuning lights that count as two</th>
+                  <td>
+                    Where a room has only one white-tuning zone, these should
+                    pick it automatically. Where there are several, people need
+                    a way to choose for each of the two parts. Engineering had
+                    to confirm what was possible before I could specify it.
+                  </td>
+                  <td>
+                    Wrote the rule for the automatic case and designed the
+                    pattern for the rest, matching how the existing two-channel
+                    product already behaves.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Names and icons</th>
+                  <td>
+                    Five different kinds of device sitting in the same lists
+                    needed consistent names and icons before the testing team
+                    could write anything they could actually test against.
+                  </td>
+                  <td>
+                    Built the custom icon set around the two-wire mark, and set
+                    the naming for every type of device. Confirmed that the
+                    older and newer versions of the same fitting look identical
+                    on screen, because to the person using it, they are.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           10 OUTCOMES
+           ================================================================= -->
+      <section class="case-section case-section--raised" id="outcomes" aria-labelledby="outcomes-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">10</span>
+              <span>The result</span>
+            </p>
+            <h2 class="case-title" id="outcomes-title">What shipped</h2>
+          </div>
+
+          <div class="stat-band">
+            <p class="stat">
+              <span class="stat__value">All pass</span>
+              <span class="stat__label">
+                Every test scenario, in both the functional and the interface
+                testing
+              </span>
+            </p>
+            <p class="stat">
+              <span class="stat__value">200+ devices</span>
+              <span class="stat__label">
+                Every type of device checked on the test rig, across four cable
+                runs
+              </span>
+            </p>
+            <p class="stat">
+              <span class="stat__value">0 to 1</span>
+              <span class="stat__label">
+                A product category that did not exist before, now running the
+                biggest installation of its kind in North America
+              </span>
+            </p>
+          </div>
+
+          <ul class="arrow-list">
+            <li>Set-up that never freezes the screen, on the phone as well as the computer</li>
+            <li>
+              A custom icon set with the two-wire mark running through every
+              type of device, exported as SVG and checked in Fontello
+            </li>
+            <li>
+              Support for color tuning lights that are one fitting and two
+              channels, numbered automatically
+            </li>
+            <li>
+              A way to make a hub, a cable run or a single device announce
+              itself, so you can match what is on the screen to what is on the
+              ceiling while you install it
+            </li>
+            <li>
+              Choose-first load-second room set-up, scoped to one cable run and
+              its 128 devices, so it stays fast and readable at hospital size
+            </li>
+            <li>
+              Menu navigation and grouped dots, so the floor plan works the same
+              way at 50 devices and at 3,000
+            </li>
+            <li>
+              Rooms that mix wired and wireless devices in the same zone,
+              whichever system they came from
+            </li>
+          </ul>
+
+          <h3 class="case-subtitle">What testing found</h3>
+
+          <div class="stat-band">
+            <p class="stat">
+              <span class="stat__value">12 out of 12</span>
+              <span class="stat__label">
+                Test scenarios passed on the test bench
+              </span>
+            </p>
+            <p class="stat">
+              <span class="stat__value">2 to 2.5s</span>
+              <span class="stat__label">
+                The target we had to hit: a light going from off to full
+                brightness, on every type of device
+              </span>
+            </p>
+          </div>
+
+          <div class="callout">
+            <p class="callout__title">It outlived the project</p>
+            <p class="callout__body">
+              The patterns from this work, the search that never blocks, the
+              two-banner progress model, choose-first load-second, menu
+              navigation, and how a device and its endpoint get shown, are now
+              the reference for every future system that gets plugged into
+              WaveLinx. They live in the Cooper Lighting design system, so
+              nobody has to solve them twice.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           11 MY IMPACT
+           ================================================================= -->
+      <section class="case-section" id="impact" aria-labelledby="impact-title">
+        <div class="page case-body">
+          <div class="case-head">
+            <p class="case-eyebrow">
+              <span class="case-eyebrow__num">11</span>
+              <span>My impact</span>
+            </p>
+            <h2 class="case-title" id="impact-title">
+              Why this one needed me
+            </h2>
+          </div>
+
+          <div class="case-prose">
+            <p>
+              This is not a case study about making a hard screen easier to
+              read. It is about designing a product that did not exist yet, on
+              top of a standard nobody could change, while the hardware, the
+              firmware and the design were all being built at the same time, and
+              where getting the shape wrong would have shipped inside a
+              certified, hospital-grade system at the largest installation of
+              its kind in North America.
+            </p>
+            <p>
+              Dropping version one meant recognizing that a ten-minute freeze
+              was not a loading-screen problem to be prettied up. It was a
+              mismatch between the way people expect the job to go and how long
+              the technology actually takes. Engineering’s answer was to make
+              the timeout longer, out to 27 and a half minutes.
+              <strong>
+                The design answer was to make the entire wait disappear by
+                building around it.
+              </strong>
+              Getting there took enough understanding of the technology to know
+              exactly what could and could not be changed.
+            </p>
+            <p>
+              The limits of the wiring, the naming, the one-light-two-channels
+              problem, replacing the floor plan structure: none of these were
+              design calls made on their own. Each one meant holding engineering
+              constraints, product promises, testing dependencies and hardware
+              availability in view at the same time. Years spent in connected
+              lighting, in enterprise software, and around hardware gave me the
+              standing and the vocabulary to lead those calls rather than wait
+              to be told.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           OUTRO
+           ================================================================= -->
+      <section class="section" aria-labelledby="outro-title">
+        <div class="page case-outro">
+          <h2 class="case-outro__title" id="outro-title">
+            Want to see the
+            <span class="accent-serif">rest of the work?</span>
+          </h2>
+          <div class="button-group">
+            <a class="button" href="work.html">
+              Back to all case studies
+              <img class="button__icon" src="assets/icon-work.svg" alt="" width="20" height="20" />
+            </a>
+            <a
+              class="button"
+              href="https://www.cooperlighting.com/global/brands/wavelinx/dali"
+              target="_blank"
+              rel="noopener"
+            >
+              Visit the Cooper Lighting product site
+              <img class="button__icon" src="assets/icon-globe.svg" alt="" width="20" height="20" />
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================================================================
+         FOOTER
+         =================================================================== -->
+    <footer class="site-footer topo">
+      <div class="topo__art">
+        <img src="assets/topo-layers.svg" alt="" aria-hidden="true" />
+      </div>
+
+      <div class="page site-footer__inner">
+        <nav class="icon-nav icon-nav--footer" aria-label="Footer">
+          <ul class="icon-nav__list">
+            <li>
+              <a class="icon-nav__link" href="index.html">
+                <img class="icon-nav__icon" src="assets/icon-home.svg" alt="" width="24" height="24" />
+                Home
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="work.html">
+                <img class="icon-nav__icon" src="assets/icon-work.svg" alt="" width="24" height="24" />
+                Work
+              </a>
+            </li>
+            <li>
+              <a class="icon-nav__link" href="mailto:rbabiarz@gmail.com">
+                <img class="icon-nav__icon" src="assets/icon-at-sign.svg" alt="" width="24" height="24" />
+                Email Robert
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <hr class="site-footer__rule" />
+
+        <p>I design how software looks, works and feels. Senior Product Designer.</p>
+        <p>
+          <a href="mailto:rbabiarz@gmail.com">rbabiarz@gmail.com</a> ·
+          <a href="tel:+14163154761">416-315-4761</a>
+        </p>
+        <p>
+          © 2026 Robert Babiarz · Signify, Cooper Lighting Limited Canada. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
