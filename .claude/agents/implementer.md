@@ -18,7 +18,7 @@ step, no server. Follow `.claude/rules/code-style.md` and
 |---|---|---|
 | Hub / deep dive | `:root` / `.light` | nearest `.dc.html` |
 | Quick tour | `.cs` / `.cs.dark` | nearest `*-showcase.html` |
-| Spot Studios | spotstudios tokens | `spotstudios/dali-2.html` |
+| Minimalist | minimalist tokens | `minimalist/dali-2.html` |
 
 Copy the shell — don't invent a new token vocabulary.
 

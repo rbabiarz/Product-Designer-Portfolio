@@ -76,10 +76,10 @@ project-root/
 Shared runtime modules (`support.js`, `page-transition.js`, `text-motion.js`,
 `home-variants.js`, `colophon.js`, `concierge.js`) remain at repo root — loaded directly by pages.
 
-## Spot Studios (sibling surface)
+## Minimalist (sibling surface)
 
 ```
-spotstudios/
+minimalist/
 ├── styles.css, case-study.css
 ├── index.html, work.html, dali-2.html, …
 └── assets/

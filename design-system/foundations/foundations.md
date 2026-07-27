@@ -13,7 +13,7 @@ The visual primitives of the Product Designer Portfolio. The system runs **three
 > Reference CSS custom properties (`var(--bg)`, `var(--ac2)`, `var(--spacing-lg)`); never
 > hardcode a raw hex/px in component code.
 
-A fourth isolated system lives under [`spotstudios/`](../../spotstudios/) (Figma-export tokens) —
+A fourth isolated system lives under [`minimalist/`](../../minimalist/) (Figma-export tokens) —
 documented separately; do not mix with root tokens.
 
 ---
@@ -151,5 +151,5 @@ Full inventory and `prefers-reduced-motion` contract: [`../motion/README.md`](..
 Each page loads a subsetted Google Fonts link + `.msi` class in `<head>`. Never hand-author SVG
 paths. Icon-only controls need `aria-label` on the button/link, not on the glyph span.
 
-Case-study SVG assets (DALI device icons, spotstudios exports) are **illustrations**, not the UI
+Case-study SVG assets (DALI device icons, minimalist exports) are **illustrations**, not the UI
 icon system.

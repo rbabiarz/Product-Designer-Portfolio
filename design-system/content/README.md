@@ -39,9 +39,9 @@ Quick tour vs deep dive: quick tour = outcomes at a glance; deep dive = process 
 Never write "critical error" in stoplight red. Use coral for risk; pair with shape/text.
 CTOC severity labels are the exception (domain-appropriate, always with square + word).
 
-## Spot Studios voice
+## Minimalist voice
 
-Separate surface — plainer, warmer, hospital/installer audience. See [`../../spotstudios/`](../../spotstudios/)
+Separate surface — plainer, warmer, hospital/installer audience. See [`../../minimalist/`](../../minimalist/)
 copy for reference; still no jargon without gloss.
 
 ## Review checklist

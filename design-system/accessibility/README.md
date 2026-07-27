@@ -15,7 +15,7 @@ Update after each case-study ship or quarterly review. Log dated findings in [`.
 | [`scripts/a11y.js`](../../scripts/a11y.js) | Skip link, focus-visible baseline, PRM global kill switch |
 | [`.claude/rules/accessibility.md`](../../.claude/rules/accessibility.md) | Always-on AI rules |
 
-Loaded on every public page (Interactive, case studies, spotstudios).
+Loaded on every public page (Interactive, case studies, minimalist).
 
 ## Requirements (summary)
 
@@ -38,7 +38,7 @@ Before shipping: [`../checklists/component-ready.md`](../checklists/component-re
 ## Verification
 
 - Manual: keyboard-only pass, 400% zoom, both themes
-- Automated: axe-core on case-study pages (see spotstudios cloud.html audit in changelog)
+- Automated: axe-core on case-study pages (see minimalist cloud.html audit in changelog)
 - Screen reader: spot-check modals, skip link, live regions (AEGIS `#ag-live`)
 
 ## Case-study patterns

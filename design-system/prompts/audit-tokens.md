@@ -22,7 +22,7 @@ add a missing token at the right tier.
 - Token definition blocks (`:root`, `.light`, `.cs`, `.cs.dark` property declarations)
 - `tokens.css`, `design-tokens.json`, `tokens/**`
 - `design-system/foundations/colors_and_type.css`
-- Illustration SVGs and exported assets under `assets/`, `spotstudios/assets/`
+- Illustration SVGs and exported assets under `assets/`, `minimalist/assets/`
 
 ## Search patterns
 

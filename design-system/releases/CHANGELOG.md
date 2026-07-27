@@ -5,8 +5,8 @@ Notable changes to the system itself — separate from [`docs/changelog.md`](../
 ## 2026-07-27 — Full documentation sync
 
 - **Icons:** All docs updated from Lucide → Material Symbols (`.msi`) to match shipped pages.
-- **Foundations:** Added case-study shell (`--c-*`), Spot Studios note, token hierarchy; fixed broken links.
-- **Components:** Expanded catalog — case-study shell, concierge, colophon, view key, spotstudios; Material Symbols.
+- **Foundations:** Added case-study shell (`--c-*`), Minimalist note, token hierarchy; fixed broken links.
+- **Components:** Expanded catalog — case-study shell, concierge, colophon, view key, minimalist; Material Symbols.
 - **Patterns:** Added icon pattern, `data-reveal`, case-study theming; fixed `scripts/a11y.js` path.
 - **Governance:** Expanded usage guidelines + contribution rules (dual-doc sync, token canonical source).
 - **Topic docs:** Rewrote tokens, branding, accessibility, motion, content, analytics, ai, audits, implementation READMEs.

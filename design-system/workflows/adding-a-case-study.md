@@ -29,7 +29,7 @@ Drop screenshots into [`reference/screenshots/`](../../reference/screenshots/) a
 
 ## 4. Register
 
-- Work index (`work.dc.html` / `spotstudios/work.html` if applicable)
+- Work index (`work.dc.html` / `minimalist/work.html` if applicable)
 - Homepage carousels and concierge (`concierge.js`)
 - `sitemap.xml`, preview tile under `previews/`
 - Run `python3 scripts/build-search-index.py`

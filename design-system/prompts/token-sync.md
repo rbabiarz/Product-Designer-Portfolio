@@ -52,4 +52,4 @@ Run audit-tokens scan on affected pages. Report any pages still using old values
 
 - Edit `colors_and_type.css` first (it's a mirror, not canonical)
 - Add tokens to JSON without updating live CSS
-- Mix Spot Studios tokens into root `tokens.css`
+- Mix Minimalist tokens into root `tokens.css`

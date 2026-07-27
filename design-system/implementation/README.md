@@ -23,7 +23,7 @@ Repo root
 ├── tokens.css, styles.css      ← foundational CSS
 ├── scripts/                    ← a11y, analytics, cookie-banner, build helpers
 ├── design-system/              ← this documentation tree
-└── spotstudios/                ← sibling surface (separate tokens)
+└── minimalist/                ← sibling surface (separate tokens)
 ```
 
 ## Adding a page

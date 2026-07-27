@@ -11,7 +11,7 @@ No standalone template files yet — **copy an existing shell** as the starting 
 | `*-showcase.html` with `.cs` wrapper | New quick-tour case study |
 | `*.dc.html` hub pages | New deep-dive / multi-section doc page |
 | `homepage-interactive.dc.html` | Homepage variant (rare) |
-| `spotstudios/dali-2.html` | Spot Studios long-form case study |
+| `minimalist/dali-2.html` | Minimalist long-form case study |
 
 ## Extraction checklist (when promoting a template)
 

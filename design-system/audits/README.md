@@ -29,12 +29,12 @@ audits/
 - Icon system documented as Lucide; shipped Material Symbols (`.msi`) — corrected across foundations, components, patterns, governance
 - `ACCESSIBILITY-AUDIT.md` links broken; canonical file is `WCAG-2.2-AODA-AUDIT.md`
 - `colors_and_type.css` drifted from `tokens.css` on 2 values — synced
-- Missing case-study shell (`--c-*`) and Spot Studios surface documentation — added
+- Missing case-study shell (`--c-*`) and Minimalist surface documentation — added
 - Stub READMEs expanded (tokens, branding, accessibility, motion, content, analytics, ai)
 
 **Remaining gaps:**
 - `deep-dive.html` still references Lucide (generated page — rebuild via `build-deep-dive.py`)
-- Spot Studios tokens intentionally isolated — no merge with root `tokens.css` yet
+- Minimalist tokens intentionally isolated — no merge with root `tokens.css` yet
 - `src/components/` folders empty — components remain inline per page by design
 
 ## Audit cadence

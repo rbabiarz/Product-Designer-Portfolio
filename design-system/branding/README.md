@@ -38,8 +38,8 @@ Calm, evidence-led, no hype. Full rules: [`../../.claude/rules/content-voice.md`
 Detailed brand research: [`../../reference/brand/guidelines.md`](../../reference/brand/guidelines.md),
 [`../../reference/brand/logo/`](../../reference/brand/logo/), [`../../reference/moodboards/`](../../reference/moodboards/).
 
-## Spot Studios variant
+## Minimalist variant
 
-The [`spotstudios/`](../../spotstudios/) surface uses a separate Figma-export token set
+The [`minimalist/`](../../minimalist/) surface uses a separate Figma-export token set
 (Instrument Serif accent, `--surface-*` naming). Treat as a sibling brand expression — not a
 override of root tokens.

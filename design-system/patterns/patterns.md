@@ -41,8 +41,8 @@ Dossier (cream + classified red) and Retro (phosphor + VT323) do not share the I
 ### CTOC
 `data-theme="dark"` on `.app`; severity colors re-tint via rgba overlays.
 
-### Spot Studios
-Isolated Figma-export tokens in `spotstudios/styles.css` — do not inherit root `:root`.
+### Minimalist
+Isolated Figma-export tokens in `minimalist/styles.css` — do not inherit root `:root`.
 
 ---
 
@@ -70,7 +70,7 @@ Three interchangeable portfolio reads (`home-variants.js`):
 ```
 
 `.msi` class sets size/alignment. MUI Figma kit is source of truth for glyph names. Never Lucide,
-never hand-authored SVG paths for UI chrome. Illustration SVGs (device icons, spotstudios assets)
+never hand-authored SVG paths for UI chrome. Illustration SVGs (device icons, minimalist assets)
 are exempt.
 
 ---

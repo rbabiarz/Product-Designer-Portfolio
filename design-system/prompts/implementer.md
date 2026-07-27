@@ -14,7 +14,7 @@ Implement <DESCRIPTION> in this portfolio.
 Stack:
 - Single-file .html or .dc.html — inline CSS/JS, no build step
 - Copy shell from: <nearest showcase or .dc.html>
-- Surface tokens: <Interactive :root/.light | case-study .cs/.cs.dark | spotstudios>
+- Surface tokens: <Interactive :root/.light | case-study .cs/.cs.dark | minimalist>
 
 Rules:
 - var(--…) tokens in component code; define new values only in :root/.cs block

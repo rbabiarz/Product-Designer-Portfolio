@@ -4,10 +4,10 @@ Append-only record of meaningful choices. Newest at top.
 
 ## ADR-014 — Cloud Support & Services case study written for a non-technical reader (2026-07-26)
 
-**Decision.** Add `spotstudios/cloud.html` as case 07, a plain-language case study of the CLS Cloud
+**Decision.** Add `minimalist/cloud.html` as case 07, a plain-language case study of the CLS Cloud
 Support and Services portal (Figma *Cloud v7.1*), covering all five areas of the product: equipment
 software distribution, customer organizations, people and access, system messages, and the security
-code generator. Registered on `spotstudios/work.html` (Buildings and lighting, now 6 of 8) with a new
+code generator. Registered on `minimalist/work.html` (Buildings and lighting, now 6 of 8) with a new
 `previews/thumb-cloud.png`.
 
 **Why this spine.** The product is three unrelated jobs behind one navigation rail, so the case is

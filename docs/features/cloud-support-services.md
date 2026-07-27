@@ -21,7 +21,7 @@ shape of the arrangement, with the design work almost entirely about reading cha
 being misheard.
 
 **Source:** Figma *Cloud v7.1* (`xlEjdZxkJsr1q2viJqHraW`), Desktop section, 46 visible 1440×1024
-screens across four feature areas. Eleven exported into `spotstudios/assets/cloud/`.
+screens across four feature areas. Eleven exported into `minimalist/assets/cloud/`.
 
 ## Scope
 

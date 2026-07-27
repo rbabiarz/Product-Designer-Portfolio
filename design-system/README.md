@@ -11,7 +11,7 @@ Documented rules for a consistent look and feel across the portfolio.
 | Inline `:root` / `.light` | Interactive homepage + hub pages |
 | Inline `.cs` / `.cs.dark` | Case-study showcase shell (`--c-*`) |
 | [`case-shot.css`](../case-shot.css) | Shared screenshot frame shadows |
-| [`spotstudios/styles.css`](../spotstudios/styles.css) | Isolated Spot Studios surface |
+| [`minimalist/styles.css`](../minimalist/styles.css) | Isolated Minimalist surface |
 
 Portable mirror (not runtime): [`design-tokens.json`](../design-tokens.json), [`tokens/`](../tokens/).
 
@@ -61,7 +61,7 @@ design-system/
 | Case-study shell | `--c-*` | `dali-2-showcase.html`, `design-system.html` |
 | CTOC | `--color-*`, `--sev-*` | `ctoc-dashboard.html` + `styles.css` |
 | Dossier / Retro | hardcoded | `homepage-dossier.dc.html`, `homepage-retro.dc.html` |
-| Spot Studios | `--color-*`, `--space-*` | `spotstudios/*.html` |
+| Minimalist | `--color-*`, `--space-*` | `minimalist/*.html` |
 
 ## Maintenance
 

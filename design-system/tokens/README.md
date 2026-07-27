@@ -21,7 +21,7 @@ and mirror to JSON manually if needed:
 | Interactive | `--bg`, `--fg`, `--ac`, `--line` | `:root` / `.light` in each `.dc.html` |
 | Case-study shell | `--c-bg`, `--c-accent`, `--c-ink`, … | `.cs` / `.cs.dark` in each `*-showcase.html` |
 | Dossier / Retro | hardcoded hex | respective homepage files |
-| Spot Studios | `--color-*`, `--space-*` | `spotstudios/styles.css` |
+| Minimalist | `--color-*`, `--space-*` | `minimalist/styles.css` |
 
 ## Naming convention
 

@@ -5,7 +5,7 @@ Inventory of reusable UI **actually shipped** across the portfolio. Implementati
 Cross-cutting layout, theming, and motion: [`../patterns/patterns.md`](../patterns/patterns.md).
 
 **Surfaces:** Interactive (`.dc.html` hub + homepage) · Case-study shell (`.cs` on `*-showcase.html`)
-· CTOC (`styles.css`) · Dossier/Retro variants · Spot Studios (`spotstudios/styles.css`, separate tokens).
+· CTOC (`styles.css`) · Dossier/Retro variants · Minimalist (`minimalist/styles.css`, separate tokens).
 
 States: ● implemented · ○ n/a. Every interactive control exposes `:focus-visible`
 (`outline: 2–3px solid` accent, `outline-offset: 2–3px`).
@@ -66,7 +66,7 @@ error flash coral. Keys J/K/L; `#ag-live` `aria-live="polite"`.
 ### Dashboard buttons (CTOC `.btn`)
 Mono 11px uppercase, r3. Variants: `--primary`, `--danger`, `--ghost`, `--xs`, `--active`.
 
-### Icon nav (Spot Studios)
+### Icon nav (Minimalist)
 `.icon-nav__link` with SVG assets from `assets/icon-*.svg`; text label beside icon in footer variant.
 
 ---
@@ -82,7 +82,7 @@ Work coverflow: `<a>` aspect 3/2, r14, `--line2`, scale on focus. Case-study til
 
 ### Stat / metric block
 `.stat-strip` / `.results`: dark cells, mono `clamp(32–60px)` value, 10px uppercase label,
-`tabular-nums`. Spot Studios: `.stat-band`, `.metric`.
+`tabular-nums`. Minimalist: `.stat-band`, `.metric`.
 
 ### Callout / pull quote
 `.callout` on raised `--c-surface` or `--surface-raised`; r18; no stroke (fill-only separation).
@@ -149,8 +149,8 @@ pill, `.tag`, `.tbl`, `.kc` kill-chain, `.mitre`, `.map`, `.timeline`, `.drawer`
 
 - **Dossier:** CONFIDENTIAL header, redacted text bars, VERIFIED stamp, case-file rows.
 - **Retro:** CRT overlays (flicker/scan removed under reduced motion), VT323 prompt, DIR listing.
-- **Spot Studios:** Instrument Serif accent, `.case` featured card, `.work-group` grid — see
-  [`../../spotstudios/styles.css`](../../spotstudios/styles.css).
+- **Minimalist:** Instrument Serif accent, `.case` featured card, `.work-group` grid — see
+  [`../../minimalist/styles.css`](../../minimalist/styles.css).
 
 > Reduced motion: retro CRT animation removed; AEGIS transitions gated; `scripts/a11y.js` zeroes
 > global animation duration. See [`../patterns/patterns.md`](../patterns/patterns.md).

@@ -35,7 +35,7 @@ ACCESSIBILITY (WCAG 2.2 AA target)
 - [ ] Alt text on meaningful images
 
 REGISTRATION
-- [ ] work.dc.html (+ spotstudios/work.html if listed)
+- [ ] work.dc.html (+ minimalist/work.html if listed)
 - [ ] concierge.js + search-index regenerated
 - [ ] sitemap.xml + preview tile
 - [ ] docs/changelog.md + docs/features/<slug>.md current

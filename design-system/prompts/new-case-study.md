@@ -60,7 +60,7 @@ Add unresolved items to [`docs/open-questions.md`](../../docs/open-questions.md)
 |---|---|
 | Quick tour | nearest `*-showcase.html` (`.cs` wrapper) |
 | Deep dive | nearest `.dc.html` hub |
-| Spot Studios variant | `spotstudios/dali-2.html` |
+| Minimalist variant | `minimalist/dali-2.html` |
 
 ### Non-negotiables
 
@@ -73,7 +73,7 @@ Add unresolved items to [`docs/open-questions.md`](../../docs/open-questions.md)
 
 ## Phase 4 — Register
 
-- [ ] `work.dc.html` + `spotstudios/work.html` (if applicable)
+- [ ] `work.dc.html` + `minimalist/work.html` (if applicable)
 - [ ] Homepage carousels (all three variants if featured)
 - [ ] `concierge.js` entry
 - [ ] `sitemap.xml`

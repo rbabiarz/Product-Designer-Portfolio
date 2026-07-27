@@ -149,7 +149,7 @@
   only on the retro homepage, because pages subset the fonts they use.
 
 ## 2026-07-26
-- Cloud Support & Services case study added to `spotstudios/` as case 07 (`cloud.html`, 1,541 lines),
+- Cloud Support & Services case study added to `minimalist/` as case 07 (`cloud.html`, 1,541 lines),
   built from Figma *Cloud v7.1* and written for a reader with no technical background. Thirteen
   sections framing the portal's three unrelated jobs as a shop counter, a filing cabinet and a
   locksmith: the two-question software filter and its approval gate, the file fingerprint, the
@@ -163,8 +163,8 @@
   Product labels survive only inside image alt text, where naming the words actually on screen is the
   point. Notifications are scoped honestly: the rail item and snackbar exist in the file, the screens
   behind them do not, and the page says so instead of inventing them. No invented metrics — every
-  number is observable in the design. Eleven screens exported to `spotstudios/assets/cloud/` plus a
-  near-square hero crop and `previews/thumb-cloud.png`; registered on `spotstudios/work.html`
+  number is observable in the design. Eleven screens exported to `minimalist/assets/cloud/` plus a
+  near-square hero crop and `previews/thumb-cloud.png`; registered on `minimalist/work.html`
   (Buildings and lighting 5 → 6, total 7 → 8). Two opt-in CSS modifiers added to `case-study.css`
   (`.panel-grid--pairs` / `.module-grid--pairs` to pair four-item grids instead of wrapping 3 + 1;
   `.shot__row--pair` to split a row evenly between two full-screen captures instead of leaving ~380px
@@ -184,7 +184,7 @@
 
 ## 2026-07-27 (b)
 - Full design-system documentation sync: all `design-system/` files rewritten to match shipped
-  implementation — Material Symbols (not Lucide), case-study `--c-*` shell, Spot Studios surface,
+  implementation — Material Symbols (not Lucide), case-study `--c-*` shell, Minimalist surface,
   concierge/colophon/view-key components, expanded topic READMEs (tokens, branding, a11y, motion,
   content, analytics, ai, audits, implementation, templates, migrations, references).
   Fixed audit links to `WCAG-2.2-AODA-AUDIT.md`. Synced `colors_and_type.css` with `tokens.css`.

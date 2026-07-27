@@ -9,7 +9,7 @@ critique — each finding tied to a principle, rule, or doc section, with a toke
 2. [`design-system/governance/usage-guidelines.md`](../../design-system/governance/usage-guidelines.md)
 3. [`.claude/rules/design-system.md`](../rules/design-system.md)
 4. [`.claude/rules/accessibility.md`](../rules/accessibility.md)
-5. Target page's surface tokens (`:root`/`.light` Interactive, `.cs`/`.cs.dark` case-study, or Spot Studios)
+5. Target page's surface tokens (`:root`/`.light` Interactive, `.cs`/`.cs.dark` case-study, or Minimalist)
 
 ## Review dimensions
 
