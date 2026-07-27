@@ -1,7 +1,7 @@
 /*
- * Robert Babiarz Design System
- * Enhanced with Untitled UI comprehensive tokens
- * WCAG 2.1 AA Compliant
+ * Robert Babiarz Design System — reference copy of the foundational scale.
+ * CANONICAL SOURCE: ../../tokens.css — edit there first, then sync this file.
+ * WCAG 2.2 AA target (see ../../WCAG-2.2-AODA-AUDIT.md)
  */
 
 :root {
@@ -53,7 +53,7 @@
   --color-body-strong: #1a1a1a;
   --color-body: #2a2a2a;
   --color-muted: #595959;
-  --color-muted-soft: #737373;
+  --color-muted-soft: #636363;
   --color-on-primary: #ffffff;
   --color-on-dark: #ffffff;
   
@@ -69,7 +69,7 @@
      COLORS - Semantic
      ======================================== */
   
-  --color-success: #16a34a;
+  --color-success: #15803d;
   --color-success-bg: #d1fae5;
   --color-success-text: #065f46;
   

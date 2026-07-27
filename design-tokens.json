@@ -2,8 +2,8 @@
   "_comment": "Portable mirror of the LIVE design tokens. Source of truth is tokens.css (foundational scale, light-first, Untitled-UI-derived) plus the per-surface palettes declared inline in each prototype's :root/.light. This file documents both layers; it is not consumed at runtime.",
   "_meta": {
     "palette": "multi-surface (dark-first portfolio + light architect mirror + classified + CRT + SOC severity)",
-    "live_sources": ["tokens.css", "styles.css", "design-system/colors_and_type.css", "per-page inline :root/.light"],
-    "updated": "2026-06-28"
+    "live_sources": ["tokens.css", "styles.css", "design-system/foundations/colors_and_type.css", "per-page inline :root/.light"],
+    "updated": "2026-07-27"
   },
 
   "foundation": {

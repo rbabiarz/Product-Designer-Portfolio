@@ -269,7 +269,7 @@
     }
     return n;
   }
-  // full-text section search over window.RB_SEARCH_INDEX (see build-search-index.py):
+  // full-text section search over window.RB_SEARCH_INDEX (see scripts/build-search-index.py):
   // lets answers deep-link to a specific page *and* section, beyond the case-study cards.
   function searchSections(q) {
     var idx = window.RB_SEARCH_INDEX;

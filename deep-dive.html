@@ -171,7 +171,7 @@ Design system &amp; project context (docs only — not loaded at runtime)
 <li><strong>Per-surface color palettes</strong> layered on top — Interactive (dark-first with a <code>.light</code></li>
 <p>&quot;architect&quot; mirror), Dossier (cream/classified-red), Retro (CRT phosphor), and CTOC (severity scale) — declared inline in each prototype&#x27;s <code>:root</code> / <code>.light</code>.</p>
 </ol>
-<p><a href="design-tokens.json"><code>design-tokens.json</code></a> and <a href="tokens/"><code>tokens/</code></a> are a portable mirror of both layers (not consumed at runtime). House rules: reference <code>var(--…)</code> tokens (never hardcode), one accent per screen, meaning never rides on hue alone, WCAG 2.2 AA / AODA, and every animation gates on <code>prefers-reduced-motion</code>. Details in <a href="design-system/usage-guidelines.md"><code>design-system/usage-guidelines.md</code></a>.</p>
+<p><a href="design-tokens.json"><code>design-tokens.json</code></a> and <a href="tokens/"><code>tokens/</code></a> are a portable mirror of both layers (not consumed at runtime). House rules: reference <code>var(--…)</code> tokens (never hardcode), one accent per screen, meaning never rides on hue alone, WCAG 2.2 AA / AODA, and every animation gates on <code>prefers-reduced-motion</code>. Details in <a href="design-system/governance/usage-guidelines.md"><code>design-system/governance/usage-guidelines.md</code></a>.</p>
 <hr>
 <h3>Deploying to GitHub Pages</h3>
 <ol>
@@ -221,7 +221,7 @@ git push -u origin main
 <li><strong>Design tokens</strong> are the source of truth for visual values. The live CSS variables</li>
 <p>ship in <code>tokens.css</code> / <code>styles.css</code>; the portable mirror is <a href="./design-tokens.json"><code>design-tokens.json</code></a> and the three-tier split in <a href="./tokens/"><code>tokens/</code></a>. Never hardcode a hex/px/radius in prototype code — reference a CSS custom property (<code>var(--bg)</code>, <code>var(--ac2)</code>).</p>
 <li><strong>Design-system docs</strong> describe foundations, components, and patterns in</li>
-<p><a href="./design-system/"><code>design-system/</code></a> (the live CSS reference is <code>design-system/colors_and_type.css</code>).</p>
+<p><a href="./design-system/"><code>design-system/</code></a> (the live CSS reference is <code>design-system/foundations/colors_and_type.css</code>).</p>
 <li><strong>Product context</strong> (brief, PRD, decisions, personas, IA) lives in <a href="./docs/"><code>docs/</code></a>.</li>
 <li><strong>Inspiration &amp; research</strong> live in <a href="./reference/"><code>reference/</code></a>.</li>
 </ul>
@@ -794,7 +794,7 @@ git push -u origin main
 <p><strong>User:</strong> a design leader or technical hiring manager deciding whether &quot;design engineering, AI-paired, verification-gated&quot; is a practiced discipline here or a slogan; the case is the portfolio&#x27;s capstone — the argument the other ten case studies make, applied to their own making.</p>
 <p><strong>Thesis:</strong> portfolios assert; this one runs. 29 self-contained pages on a three-tier token system (232 values, semantic naming, a written never-hardcode rule), zero build steps, built with Claude Code as a standing pair against a machine-readable brief and gated by Playwright verification — with the numbers derived, never typed.</p>
 <p><strong>What the pages prove:</strong> the quick tour shows the system&#x27;s three homepage faces, the token discipline, the playable evidence layer, and the AI-paired loop. The deep dive adds two live instruments (<code>ds-live.js</code>): a token inspector reading the computed custom properties of the page it sits on, and a &quot;run the receipts&quot; panel that re-derives the Parlay slot&#x27;s exact RTP in the visitor&#x27;s browser — reproducing both the bugged engine the adversarial review caught (95.9160%) and the shipped fix (96.0428%) from the same constants the slot spins on. Trends section cites primary sources (DTCG 2025.10, Figma&#x27;s 2025 AI report, EAA enforcement, the buildless-web movement). Honest limits stated: four pages carry open audit findings, two token systems is a tradeoff, the mobile switcher menus are still hand-curated.</p></section>
-<section class="doc" id="design-system-foundations-md" data-group="Design system"><div class="doc-head"><h2>foundations.md</h2><span class="doc-meta">design-system/foundations.md · 761 words</span></div><h2>Foundations</h2>
+<section class="doc" id="design-system-foundations-md" data-group="Design system"><div class="doc-head"><h2>foundations.md</h2><span class="doc-meta">design-system/foundations/foundations.md · 761 words</span></div><h2>Foundations</h2>
 <p>The visual primitives of the Product Designer Portfolio. Two layers:</p>
 <ol>
 <li><strong>A shared foundational scale</strong> — type, spacing, radius, shadow, transitions, and the brand</li>
@@ -862,7 +862,7 @@ git push -u origin main
 <hr>
 <h3>Iconography</h3>
 <p>Lucide only — <code>&lt;i data-lucide=&quot;name&quot;&gt;&lt;/i&gt;</code>. Never hand-author SVG paths. Icon-only controls carry an <code>aria-label</code>.</p></section>
-<section class="doc" id="design-system-components-md" data-group="Design system"><div class="doc-head"><h2>components.md</h2><span class="doc-meta">design-system/components.md · 1,031 words</span></div><h2>Components</h2>
+<section class="doc" id="design-system-components-md" data-group="Design system"><div class="doc-head"><h2>components.md</h2><span class="doc-meta">design-system/components/components.md · 1,031 words</span></div><h2>Components</h2>
 <p>Inventory of the reusable UI actually shipped across the prototypes, with variants, states, and the tokens each uses. Components are realized <strong>inline</strong> in the page that uses them (no build, no component library); this file documents their contract. Cross-cutting motion and layout live in <a href="./patterns.md"><code>patterns.md</code></a>.</p>
 <p>States legend: ● implemented · ○ n/a. Every interactive element exposes a visible <code>:focus-visible</code> ring (<code>outline: 2–3px solid</code> accent, <code>outline-offset: 2–3px</code>).</p>
 <hr>
@@ -932,7 +932,7 @@ git push -u origin main
 <p>Reduced-motion note: the retro CRT flicker and scan-beam are <strong>removed</strong> (<code>display:none</code>) under</p>
 <p><code>prefers-reduced-motion</code>; the boot/power-on jumps to its final state. See <a href="./patterns.md"><code>patterns.md</code></a>.</p>
 </blockquote></section>
-<section class="doc" id="design-system-patterns-md" data-group="Design system"><div class="doc-head"><h2>patterns.md</h2><span class="doc-meta">design-system/patterns.md · 736 words</span></div><h2>Patterns</h2>
+<section class="doc" id="design-system-patterns-md" data-group="Design system"><div class="doc-head"><h2>patterns.md</h2><span class="doc-meta">design-system/patterns/patterns.md · 736 words</span></div><h2>Patterns</h2>
 <p>Composed, cross-cutting solutions: layout, theming, the homepage variant system, motion (and the reduced-motion contract), states, and robustness. Grounded in the shipped prototypes and the shared JS modules (<code>support.js</code>, <code>text-motion.js</code>, <code>page-transition.js</code>, <code>a11y.js</code>, <code>home-variants.js</code>).</p>
 <hr>
 <h3>Layout</h3>
@@ -1008,7 +1008,7 @@ git push -u origin main
 <p>rings (3px accent) on all controls; the scoring modal moves focus to its close button on open.</p>
 <li><strong>Persistence guards:</strong> all <code>localStorage</code> access is wrapped; failure is non-fatal.</li>
 </ul></section>
-<section class="doc" id="design-system-usage-guidelines-md" data-group="Design system"><div class="doc-head"><h2>usage-guidelines.md</h2><span class="doc-meta">design-system/usage-guidelines.md · 345 words</span></div><h2>Usage guidelines</h2>
+<section class="doc" id="design-system-usage-guidelines-md" data-group="Design system"><div class="doc-head"><h2>usage-guidelines.md</h2><span class="doc-meta">design-system/governance/usage-guidelines.md · 345 words</span></div><h2>Usage guidelines</h2>
 <p>Do / don&#x27;t for applying the system. Grounded in the shipped prototypes and <a href="../.claude/rules/"><code>../.claude/rules/</code></a>.</p>
 <h3>Tokens</h3>
 <ul>
@@ -1285,7 +1285,7 @@ git push -u origin main
 <section class="doc" id="claude-rules-design-system-md" data-group="Rules &amp; governance"><div class="doc-head"><h2>design-system.md</h2><span class="doc-meta">.claude/rules/design-system.md · 143 words</span></div><h2>Rule: Design system</h2>
 <ul>
 <li><strong>Never hardcode visual values in prototype code.</strong> Reference a CSS custom property</li>
-<p>(<code>var(--bg)</code>, <code>var(--fg2)</code>, <code>var(--ac2)</code>, the spacing/radius vars). The portable mirror is <code>design-tokens.json</code> / <code>tokens/semantic.json</code>; the live source is <code>tokens.css</code> / <code>styles.css</code> / <code>design-system/colors_and_type.css</code>.</p>
+<p>(<code>var(--bg)</code>, <code>var(--fg2)</code>, <code>var(--ac2)</code>, the spacing/radius vars). The portable mirror is <code>design-tokens.json</code> / <code>tokens/semantic.json</code>; the live source is <code>tokens.css</code> / <code>styles.css</code> / <code>design-system/foundations/colors_and_type.css</code>.</p>
 <li>If a needed token doesn&#x27;t exist, add it at the right tier (primitive → semantic) rather</li>
 <p>than inlining a raw hex/px.</p>
 <li><strong>One color block per viewport. One accent per screen.</strong> Accent is <code>--ac</code> / <code>--ac2</code></li>
@@ -1293,7 +1293,7 @@ git push -u origin main
 <li><strong>Status never rides on hue alone</strong>, and never uses saturated red / amber / stoplight-green.</li>
 <p>Coral <code>#e64d3c</code> is the strongest risk signal; pair every signal with text or shape.</p>
 <li>Reuse existing patterns before inventing new ones; new components follow the variant/state</li>
-<p>model in <code>design-system/components.md</code>.</p>
+<p>model in <code>design-system/components/components.md</code>.</p>
 <li>Naming: semantic over literal (<code>--ac2</code>/<code>fg.muted</code>, not <code>--teal-300</code>).</li>
 </ul></section>
 <section class="doc" id="claude-rules-accessibility-md" data-group="Rules &amp; governance"><div class="doc-head"><h2>accessibility.md</h2><span class="doc-meta">.claude/rules/accessibility.md · 122 words</span></div><h2>Rule: Accessibility</h2>
@@ -1691,7 +1691,7 @@ git push -u origin main
 <p><strong>Deep dive (light-architect.html):</strong> 11 TOC-driven sections; the three interactives are the spine — 06 photometric sandbox (drag/keyboard poles vs the basic parking target), 07 IES filter-before-load demo, 08 AI AutoLayout two-stage loop (boundary → goals → staged progress → ranked candidates → refine → re-rank). Every simulation carries an honesty label; the shipped product&#x27;s screenshots sit beside each demo as the receipt. Exit: next-case footer (→ Enterprise AI), switcher, work index.</p>
 <p><strong>Failure/edge states:</strong> widgets init isolated (one failure can&#x27;t kill the page); keyboard paths on all three interactives (roving tabindex, arrow-key movement, Delete); reduced-motion renders progress/counters instantly with no autonomous animation; images lazy-load with factual alt text; no external embeds — fully offline-capable.</p></section>
 <section class="doc" id="src-components-readme-md" data-group="Runtime components"><div class="doc-head"><h2>README.md</h2><span class="doc-meta">src/components/README.md · 143 words</span></div><h2>Components &amp; shared modules</h2>
-<p>This portfolio is built as <strong>single-file <code>.html</code> / <code>.dc.html</code> prototypes</strong> — most &quot;components&quot; live inline in the page that uses them, and their contracts are documented in <a href="../../design-system/components.md"><code>../../design-system/components.md</code></a>.</p>
+<p>This portfolio is built as <strong>single-file <code>.html</code> / <code>.dc.html</code> prototypes</strong> — most &quot;components&quot; live inline in the page that uses them, and their contracts are documented in <a href="../../design-system/components/components.md"><code>../../design-system/components/components.md</code></a>.</p>
 <p>Shared, reused runtime modules live at the <strong>repo root</strong> and are the closest thing to a component library here:</p>
 <ul>
 <li><code>support.js</code> — the DesignCode (DC) runtime: parses <code>&lt;x-dc&gt;</code> markup and renders with React.</li>
@@ -1706,7 +1706,7 @@ git push -u origin main
 <section class="doc" id="claude-agents-design-critic-md" data-group="Tooling"><div class="doc-head"><h2>design-critic.md</h2><span class="doc-meta">.claude/agents/design-critic.md · 35 words</span></div><h2>Agent: Design critic</h2>
 <p>Reviews UI against <code>DESIGN.md</code> principles and <code>.claude/rules/</code>. Returns concrete, prioritized critique (hierarchy, spacing, contrast, one-accent-per-screen, meaning-without-color, consistency, copy), each tied to a principle or rule, with a suggested fix referencing tokens.</p></section>
 <section class="doc" id="claude-agents-implementer-md" data-group="Tooling"><div class="doc-head"><h2>implementer.md</h2><span class="doc-meta">.claude/agents/implementer.md · 33 words</span></div><h2>Agent: Implementer</h2>
-<p>Turns approved designs into single-file <code>.html</code> / <code>.dc.html</code> prototypes — inline CSS/JS, <code>var(--…)</code> tokens, Lucide icons, no build step — following <code>.claude/rules/code-style.md</code> and <code>design-system/components.md</code>. Keeps everything working with no server.</p></section>
+<p>Turns approved designs into single-file <code>.html</code> / <code>.dc.html</code> prototypes — inline CSS/JS, <code>var(--…)</code> tokens, Lucide icons, no build step — following <code>.claude/rules/code-style.md</code> and <code>design-system/components/components.md</code>. Keeps everything working with no server.</p></section>
 <section class="doc" id="claude-commands-new-case-study-md" data-group="Tooling"><div class="doc-head"><h2>new-case-study.md</h2><span class="doc-meta">.claude/commands/new-case-study.md · 81 words</span></div><h2>/new-case-study</h2>
 <p>Kick off a new portfolio case study / interactive prototype.</p>
 <p>Steps:</p>
@@ -1716,7 +1716,7 @@ git push -u origin main
 <p>the thesis, what the interaction proves, scope, and all required states.</p>
 <li>Add an entry to <code>docs/open-questions.md</code> and a row to <code>docs/changelog.md</code>.</li>
 <li>Stub a flow in <code>reference/flows/&lt;slug&gt;/</code>.</li>
-<li>Propose on-system patterns from <code>design-system/components.md</code>, using <code>var(--…)</code> tokens,</li>
+<li>Propose on-system patterns from <code>design-system/components/components.md</code>, using <code>var(--…)</code> tokens,</li>
 <p>Lucide icons, and a single accent per screen.</p>
 </ol></section>
 <section class="doc" id="claude-commands-audit-tokens-md" data-group="Tooling"><div class="doc-head"><h2>audit-tokens.md</h2><span class="doc-meta">.claude/commands/audit-tokens.md · 53 words</span></div><h2>/audit-tokens</h2>

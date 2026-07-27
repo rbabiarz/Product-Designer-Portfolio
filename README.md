@@ -37,15 +37,16 @@ work.dc.html                      project index
 *-showcase.html / *.dc.html       case studies (AEGIS, CTOC, CORE Insights, DALI-2, …)
 
 Shared runtime & styling
-  support.js  page-transition.js  a11y.js  text-motion.js
-  tokens.css  styles.css  colors_and_type.css
+  support.js  page-transition.js  text-motion.js  home-variants.js  colophon.js
+  tokens.css  styles.css
+  scripts/                        analytics, a11y, cookie-banner, build helpers
 
 Design system & project context (docs only — not loaded at runtime)
   DESIGN.md                       design philosophy, palette, principles
-  design-system/                  foundations · components · patterns · usage-guidelines
+  design-system/                  foundations · components · patterns · governance · workflows
   design-tokens.json  tokens/      portable mirror of the live CSS tokens
-  docs/                           brief, PRD, decisions, personas, IA, metrics
-  reference/                      research, brand, moodboards, flows
+  docs/                           brief, PRD, decisions, personas, IA, metrics, changelog
+  reference/                      research, brand, moodboards, flows, competitors
   .claude/                        rules, agents, commands for AI-assisted work
 ```
 
@@ -74,7 +75,7 @@ The visual system has two layers, documented in [`DESIGN.md`](DESIGN.md) and
 layers (not consumed at runtime). House rules: reference `var(--…)` tokens (never hardcode), one
 accent per screen, meaning never rides on hue alone, WCAG 2.2 AA / AODA, and every animation gates
 on `prefers-reduced-motion`. Details in
-[`design-system/usage-guidelines.md`](design-system/usage-guidelines.md).
+[`design-system/governance/usage-guidelines.md`](design-system/governance/usage-guidelines.md).
 
 ---
 

@@ -150,6 +150,22 @@ body{background:#05070c;padding:24px;display:flex;flex-direction:column;gap:24px
 .fgtag{position:absolute;top:452px;right:120px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.12em;
   text-transform:uppercase;color:color-mix(in srgb,var(--ac) 86%,#fff);display:flex;align-items:center;gap:10px}
 .fgtag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac)}
+/* ---------- RELEASE FAN-OUT (CLOUD SUPPORT AND SERVICES) ----------
+   One signed release at the top, handed down through three regional hubs to
+   twelve customer sites. Two sites are still on the old version: dashed and
+   unfilled, never colour alone. */
+.dist{position:absolute;top:104px;right:78px;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--ac) 24%,transparent))}
+.dist .on{stroke:var(--ac);stroke-width:2;opacity:.82}
+.dist .dim{stroke:rgba(133,150,178,.30);stroke-width:1.5;stroke-dasharray:5 6}
+.dist .hub{fill:#0c1220;stroke:color-mix(in srgb,var(--ac) 58%,#3a4658);stroke-width:2}
+.dist .site{fill:var(--ac);stroke:var(--ac);stroke-width:1.5}
+.dist .site.pend{fill:#0a0f18;stroke:rgba(146,164,190,.70);stroke-width:1.5;stroke-dasharray:3.5 3.5}
+.dist .pkg{fill:var(--ac)}
+.dist .halo{fill:var(--ac);opacity:.17}
+.dist .seam{stroke:#08111a;stroke-width:2.2;opacity:.5}
+.disttag{position:absolute;top:462px;right:120px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.12em;
+  text-transform:uppercase;color:color-mix(in srgb,var(--ac) 86%,#fff);display:flex;align-items:center;gap:10px}
+.disttag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac)}
 /* ---------- OG / SOCIAL 1200x630 ---------- */
 .og{height:630px}
 .og .motif{transform:scale(.78);transform-origin:top right}
@@ -175,6 +191,7 @@ const TILES=[
  {i:'09',key:'gims',ac:'#ff9d66',domain:'Defence C2 · Geospatial',title:'AEGIS GIMS',org:'Filter-first common operating picture',motif:'recon'},
  {i:'10',key:'parlay',ac:'#b78aff',domain:'iGaming · Regulated',title:'Parlay Games iGaming',org:'50+ games · brand · web · promos',motif:'bingo'},
  {i:'11',key:'ds',ac:'#e9eef7',domain:'Design Engineering · AI-Paired',title:'The Design System',org:'This site, documenting itself',motif:'specsheet'},
+ {i:'12',key:'cloud',ac:'#6cc9e8',domain:'Cloud Platform · Support Ops',title:'Cloud Support and Services',org:'Firmware delivery · 414 accounts',motif:'dist'},
 ];
 function heatplate(){ // deterministic occupancy heat
  let cells='';const hot=new Set([15,16,27,28,29,39,40,52,53,64]);
@@ -229,7 +246,23 @@ function footgrid(){ // deterministic footcandle grid: 3 luminaires, inverse-squ
 function specsheet(){ // the system's own tokens as a spec sheet; one row carries the focus ring
  const T=[['#070b12','--bg','#070B12'],['#7dd3c0','--ac2','#7DD3C0',1],['#e9eef7','--fg','#E9EEF7'],['#e64d3c','--coral','#E64D3C'],['#4ca88f','--ac','#4CA88F']];
  return `<div class="ss">${T.map(([c,n,h,f])=>`<div class="row${f?' focus':''}"><span class="sw" style="background:${c}"></span><span class="vn">${n}</span><span class="hx">${h}</span></div>`).join('')}</div><div class="sstag">2 THEMES · 0 HARDCODED VALUES</div>`;}
-const M={heatplate,bus,phone,gauge,radar,recon,neural,partition,bingo,footgrid,specsheet};
+function dist(){ // one release, fanned through 3 hubs to 12 sites; 2 not yet updated
+ const HUBS=[92,230,368],HUBY=152,SY=274,RX=230,RY=42;
+ const SX=[];for(let i=0;i<12;i++)SX.push(+(28+i*36.7).toFixed(1));
+ const pending=new Set([3,9]);
+ let e='';
+ HUBS.forEach(hx=>{e+=`<line x1="${RX}" y1="${RY+22}" x2="${hx}" y2="${HUBY}" class="on"/>`;});
+ SX.forEach((sx,i)=>{const hx=HUBS[Math.floor(i/4)];
+   e+=`<line x1="${hx}" y1="${HUBY}" x2="${sx}" y2="${SY}" class="${pending.has(i)?'dim':'on'}"/>`;});
+ let n='';
+ HUBS.forEach(hx=>n+=`<circle cx="${hx}" cy="${HUBY}" r="11" class="hub"/>`);
+ SX.forEach((sx,i)=>n+=`<rect x="${sx-9}" y="${SY-9}" width="18" height="18" rx="3.5" class="site${pending.has(i)?' pend':''}"/>`);
+ const pkg=`<rect x="${RX-31}" y="${RY-27}" width="62" height="54" rx="10" class="halo"/>`+
+   `<rect x="${RX-24}" y="${RY-20}" width="48" height="40" rx="7" class="pkg"/>`+
+   `<line x1="${RX-24}" y1="${RY-6}" x2="${RX+24}" y2="${RY-6}" class="seam"/>`;
+ return `<svg class="dist" viewBox="0 0 460 320" width="476" height="331">${e}${n}${pkg}</svg>`+
+   `<div class="disttag">v15.1.19 · 414 accounts</div>`;}
+const M={heatplate,bus,phone,gauge,radar,recon,neural,partition,bingo,footgrid,specsheet,dist};
 document.getElementById('stage').innerHTML=TILES.map(t=>`
  <div>
  <div class="cap">${t.key} · previews/p-${t.key}.png · 1200×800</div>

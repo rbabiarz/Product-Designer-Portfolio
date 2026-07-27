@@ -30,8 +30,8 @@ GROUPS = [
         'docs/features/light-architect.md', 'docs/features/design-system.md',
     ]),
     ('Design system', [
-        'design-system/foundations.md', 'design-system/components.md',
-        'design-system/patterns.md', 'design-system/usage-guidelines.md',
+        'design-system/foundations/foundations.md', 'design-system/components/components.md',
+        'design-system/patterns/patterns.md', 'design-system/governance/usage-guidelines.md',
     ]),
     ('Design tokens', [
         'design-tokens.json', 'tokens/primitives.json', 'tokens/semantic.json',

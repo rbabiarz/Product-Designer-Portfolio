@@ -2,18 +2,23 @@
 
 This portfolio is built as **single-file `.html` / `.dc.html` prototypes** — most "components"
 live inline in the page that uses them, and their contracts are documented in
-[`../../design-system/components.md`](../../design-system/components.md).
+[`../../design-system/components/components.md`](../../design-system/components/components.md).
 
-Shared, reused runtime modules live at the **repo root** and are the closest thing to a component
-library here:
+Shared, reused runtime modules:
 
-- `support.js` — the DesignCode (DC) runtime: parses `<x-dc>` markup and renders with React.
-- `home-variants.js` — the homepage VIEW switcher (remembers the choice).
-- `page-transition.js` · `text-motion.js` · `a11y.js` — transitions, type motion, a11y helpers.
-- `colophon.js` — the site-wide build record injected at the bottom of every page. GENERATED
-  by `build-colophon.py` (git history + GitHub Pages API); never edit by hand — regenerate
-  before a release.
+**Repo root:**
+- `support.js` — DC runtime: parses `<x-dc>` markup, renders with React
+- `home-variants.js` — homepage VIEW switcher
+- `page-transition.js` · `text-motion.js` — transitions and scroll type motion
+- `concierge.js` · `cursor.js` · `case-back.js` — chat, cursor, back-link memory
+- `colophon.js` — build record footer (**generated** by `scripts/build-colophon.py`)
+- `search-index.js` — full-text index (**generated** by `scripts/build-search-index.py`)
 
-Use `primitives/` and `patterns/` here only for genuinely extracted, shared component code.
-Conventions: inline-first, `var(--…)` tokens, Lucide icons, no build — see
-[`../../.claude/rules/code-style.md`](../../.claude/rules/code-style.md).
+**`scripts/`:**
+- `a11y.js` — skip link, focus baseline, reduced-motion kill switch
+- `analytics.js` · `cookie-banner.js` — GA4 (consent-gated)
+
+Use `primitives/` and `patterns/` here only for genuinely extracted shared UI code (currently empty).
+Conventions: inline-first, `var(--…)` tokens, Material Symbols (`.msi`), no build — see
+[`../../.claude/rules/code-style.md`](../../.claude/rules/code-style.md) and
+[`../../design-system/implementation/README.md`](../../design-system/implementation/README.md).

@@ -25,17 +25,21 @@ the React CDN + Google Fonts; both degrade gracefully offline.
   CSS custom property (`var(--bg)`, `var(--ac2)`).
 - **Design-system docs** describe foundations, components, and patterns in
   [`design-system/`](./design-system/) (the live CSS reference is
-  `design-system/colors_and_type.css`).
+  `design-system/foundations/colors_and_type.css`). After structural changes, run
+  `/sync-scaffold` and follow
+  [`design-system/workflows/scaffold-maintenance.md`](./design-system/workflows/scaffold-maintenance.md).
 - **Product context** (brief, PRD, decisions, personas, IA) lives in [`docs/`](./docs/).
 - **Inspiration & research** live in [`reference/`](./reference/).
 
 ## Conventions
 - Prototypes are single-file `.html` / `.dc.html` (markup + inline CSS/JS). Shared runtime
-  modules (`support.js`, `a11y.js`, `text-motion.js`, `page-transition.js`,
+  modules (`support.js`, `scripts/a11y.js`, `text-motion.js`, `page-transition.js`,
   `home-variants.js`, `colophon.js`) live at the repo root; documented in [`src/components/`](./src/components/).
 - Icons: Material Symbols via `<span class="msi" aria-hidden="true">icon_name</span>` (MUI for Figma kit is the source of truth) — never hand-author SVG paths.
 - Status/meaning never rides on hue alone; never use saturated red/amber/stoplight-green
   as status (see [`DESIGN.md`](./DESIGN.md)).
+- **Prompts** for AI workflows live in [`design-system/prompts/`](./design-system/prompts/) —
+  mirrored by [`.claude/commands/`](./.claude/commands/) and [`.claude/agents/`](./.claude/agents/).
 - Decisions get logged in [`docs/design-decisions.md`](./docs/design-decisions.md) (ADR style);
   open threads in [`docs/open-questions.md`](./docs/open-questions.md).
 

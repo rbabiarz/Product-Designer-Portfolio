@@ -147,3 +147,52 @@
   display/text scale as a table, and the two signature habits named — clamp()-fluid heroes and the
   large-tighter/small-looser tracking tension. VT323's absence is disclosed honestly: it ships
   only on the retro homepage, because pages subset the fonts they use.
+
+## 2026-07-26
+- Cloud Support & Services case study added to `spotstudios/` as case 07 (`cloud.html`, 1,541 lines),
+  built from Figma *Cloud v7.1* and written for a reader with no technical background. Thirteen
+  sections framing the portal's three unrelated jobs as a shop counter, a filing cabinet and a
+  locksmith: the two-question software filter and its approval gate, the file fingerprint, the
+  publishing form, the 414-account list and its deliberately empty right-hand two-thirds, the
+  customer → building → room tree and its five tabs, the building-transfer flow with its uneditable
+  log, roles spelled out per row, the message layer, and the challenge/response reset as the
+  centerpiece. All prose avoids the product's own vocabulary (firmware → "the software inside the
+  equipment", checksum → "a fingerprint for the file", challenge/response → "a riddle only head
+  office knows the answer to"); a whole-word scan over 60+ technical terms returns zero hits in body
+  copy, and reading level lands at grade 7.9 / ease 71.0 — third-most readable page in the portfolio.
+  Product labels survive only inside image alt text, where naming the words actually on screen is the
+  point. Notifications are scoped honestly: the rail item and snackbar exist in the file, the screens
+  behind them do not, and the page says so instead of inventing them. No invented metrics — every
+  number is observable in the design. Eleven screens exported to `spotstudios/assets/cloud/` plus a
+  near-square hero crop and `previews/thumb-cloud.png`; registered on `spotstudios/work.html`
+  (Buildings and lighting 5 → 6, total 7 → 8). Two opt-in CSS modifiers added to `case-study.css`
+  (`.panel-grid--pairs` / `.module-grid--pairs` to pair four-item grids instead of wrapping 3 + 1;
+  `.shot__row--pair` to split a row evenly between two full-screen captures instead of leaving ~380px
+  of dead space) — both gated so shared defaults are untouched, verified by re-auditing all five
+  sibling case studies. cloud.html is axe-core clean (0 violations, 49–50 passes) at 1440/1024/768/375/320
+  and 400% zoom, with visible focus on all 9 stops, keyboard-reachable scroll containers, and zero
+  animation under `prefers-reduced-motion`. See ADR-014.
+
+## 2026-07-27
+- Design-system scaffold reorganized: flat docs moved into subfolders (`foundations/`,
+  `components/`, `patterns/`, `governance/`); 20+ new folders stubbed with READMEs or
+  `.gitkeep`. Support scripts relocated to `scripts/` (`analytics.js`, `a11y.js`,
+  `cookie-banner.js`, `build-search-index.py`, `build-colophon.py`); all page references
+  updated. Added scaffold maintenance workflow (`design-system/workflows/scaffold-maintenance.md`),
+  release/component checklists, architecture directory map, `/sync-scaffold` and `/new-page`
+  commands, and `design-system/releases/CHANGELOG.md` for ongoing system updates.
+
+## 2026-07-27 (b)
+- Full design-system documentation sync: all `design-system/` files rewritten to match shipped
+  implementation — Material Symbols (not Lucide), case-study `--c-*` shell, Spot Studios surface,
+  concierge/colophon/view-key components, expanded topic READMEs (tokens, branding, a11y, motion,
+  content, analytics, ai, audits, implementation, templates, migrations, references).
+  Fixed audit links to `WCAG-2.2-AODA-AUDIT.md`. Synced `colors_and_type.css` with `tokens.css`.
+  Updated `DESIGN.md` icon and script paths.
+
+## 2026-07-27 (c)
+- AI prompts expanded and centralized: 10 full prompt files in `design-system/prompts/` (commands,
+  agents, and workflow prompts — audit-tokens, new-case-study, new-page, sync-scaffold,
+  design-critic, implementer, researcher, case-study-review, token-sync, release). Matching
+  `.claude/commands/` and `.claude/agents/` entries updated with cross-links. Mirror rule: edit
+  both locations together. See `design-system/prompts/README.md`.

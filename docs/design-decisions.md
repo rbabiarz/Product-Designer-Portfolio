@@ -2,6 +2,52 @@
 
 Append-only record of meaningful choices. Newest at top.
 
+## ADR-014 — Cloud Support & Services case study written for a non-technical reader (2026-07-26)
+
+**Decision.** Add `spotstudios/cloud.html` as case 07, a plain-language case study of the CLS Cloud
+Support and Services portal (Figma *Cloud v7.1*), covering all five areas of the product: equipment
+software distribution, customer organizations, people and access, system messages, and the security
+code generator. Registered on `spotstudios/work.html` (Buildings and lighting, now 6 of 8) with a new
+`previews/thumb-cloud.png`.
+
+**Why this spine.** The product is three unrelated jobs behind one navigation rail, so the case is
+framed as three metaphors a non-technical reader already owns — a shop counter, a filing cabinet, a
+locksmith — before any screen appears. The lead is the consequence, not the feature set: send the
+wrong file to a hospital and the lights go out. The star section is the challenge/response reset,
+because it is the one interaction whose security lives in the shape of the arrangement rather than
+in code, and it survives translation into plain English intact.
+
+**Plain-language rewrite.** All prose avoids the product's own vocabulary: firmware → "the software
+inside the equipment", MD5 checksum → "a fingerprint for the file", Wireless Area Controller → "the
+control box on the pole", challenge/response → "a riddle only head office knows the answer to",
+organization → "customer", pagination → "pages". A whole-word scan over 60+ technical terms returns
+zero hits in body copy. Reading level lands at grade 7.9 / ease 71.0, the third-most readable page
+in the portfolio and in the same band as `smart-lighting.html` (7.7). Product labels are kept **only
+inside image alt text** ("a form headed Edit Firmware"), because alt text describing a UI has to name
+the words actually on screen; the surrounding prose translates each one.
+
+**Notifications scoped honestly.** The Figma file contains the Notifications rail item and a snackbar
+component but no notification screens. Rather than invent them, section 10 states plainly what was
+designed (the message layer: snackbar, the approval notice, the maintenance page, the connection
+failure page) and what was not. Numbers cited are only those observable in the design — 414 customer
+accounts, 14 a page, 3 reset attempts, 5 rail areas, 5 tabs — with no invented business outcomes and
+no team headcount.
+
+**Two opt-in CSS modifiers, no shared defaults touched.** `.panel-grid--pairs` / `.module-grid--pairs`
+pair four-item grids two-by-two, because the shared `auto-fit` default lands them 3 + 1 and the lone
+trailing card reads as a mistake. `.shot__row--pair` splits a row evenly between two full-screen
+captures, because the default fixed-height row leaves a 1440-wide pair floating in ~380px of dead
+space. Both are additive and gated so the auto-fit and fixed-height defaults still apply everywhere
+else; all five sibling case studies were re-audited afterwards and are unchanged.
+
+**Consequences.** cloud.html: axe-core clean (0 violations, 49–50 passes) at 1440 / 1024 / 768 / 375 /
+320 and at 400% zoom, no horizontal overflow, 9 focus stops all with a visible ring and all ≥ 24×24,
+both scroll containers keyboard-reachable, 0 animations under `prefers-reduced-motion`, one `h1`, no
+skipped heading levels, 21 images all with alt text, no color-only status. Pre-existing and untouched:
+`core-insights.html` reports one `landmark-complementary-is-top-level` best-practice finding (nested
+`<aside>`), unrelated to this work. A 3-item grid still wraps 2 + 1 at ~1025px, which is inherent to
+three items in two columns and is shared with the sibling pages.
+
 ## ADR-006 — No homepage reader poll; cross-visitor state stays keyless
 - **Date:** 2026-07-03
 - **Status:** Accepted

@@ -1,12 +1,23 @@
 # Rule: Accessibility
 
-Target **WCAG 2.2 AA / AODA**. A standing audit lives in `WCAG-2.2-AODA-AUDIT.md` — keep it current.
+Target **WCAG 2.2 AA / AODA**. Standing audit: [`WCAG-2.2-AODA-AUDIT.md`](../../WCAG-2.2-AODA-AUDIT.md) — keep current.
 
-- Text contrast ≥ 4.5:1 (≥ 3:1 for large text and UI/graphical elements). The dark theme
-  (`#e9eef7` on `#070b12`) and light theme are both AA — don't regress them.
-- Every interactive element is keyboard reachable with a **visible focus state**
-  (`:focus-visible`); games/canvases expose a real control path (keys + on-screen buttons).
-- Hit targets ≥ 44×44px (the AEGIS verb rail, nav, switchers).
-- Respect `prefers-reduced-motion` — the marquee, reveal, parallax, and game motion all gate on it.
-- **Meaning survives without color.** Pair color with text/icon/shape; no color-only status.
-- Label all controls; `aria-live` for score/state announcements; images carry meaningful alt text.
+Full guidance: [`design-system/accessibility/README.md`](../../design-system/accessibility/README.md)
+
+## Requirements
+
+- Text contrast ≥ 4.5:1 (≥ 3:1 large text / UI). Both Interactive dark (`#e9eef7` on `#070b12`)
+  and light themes are AA — don't regress.
+- Every interactive element keyboard reachable with **visible `:focus-visible`**
+  (2–3px accent ring, offset 2–3px).
+- Hit targets ≥ 44×44px (nav, AEGIS verb rail, switchers).
+- **`prefers-reduced-motion`** — marquee, reveal, parallax, game motion, retro CRT all gate on it.
+  `scripts/a11y.js` injects global duration ≈0 under PRM.
+- **Meaning survives without color** — pair hue with text/icon/shape; no color-only status.
+- Label all controls; `aria-live="polite"` for dynamic score/state; meaningful `alt` on images.
+- Horizontal scroll containers: `tabindex="0"`, `role="group"`, descriptive `aria-label`.
+
+## Review prompts
+
+- [`design-system/prompts/design-critic.md`](../../design-system/prompts/design-critic.md)
+- [`design-system/prompts/case-study-review.md`](../../design-system/prompts/case-study-review.md)

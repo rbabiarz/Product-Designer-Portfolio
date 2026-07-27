@@ -5,11 +5,15 @@ Parses the static HTML of every indexable page, extracts each `<section id=…>`
 (heading + visible text), and writes a compact full-text index that concierge.js
 searches so chat answers can deep-link to a specific page *and* section.
 
-Run from the repo root after editing page content:  python3 build-search-index.py
+Run from the repo root after editing page content:  python3 scripts/build-search-index.py
 No dependencies beyond the Python standard library.
 """
-import re, json, html
+import re, json, html, os
 from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+os.chdir(ROOT)
 
 # page file -> human page title shown in chat results
 PAGES = {

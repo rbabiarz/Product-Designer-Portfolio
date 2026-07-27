@@ -9,7 +9,8 @@ Insights).
 > [`styles.css`](./styles.css) (SOC/CTOC skin), and the per-surface `:root` / `.light` blocks inline
 > in each prototype. [`design-tokens.json`](./design-tokens.json) + [`tokens/`](./tokens/) are a
 > portable mirror. The split-by-concern version of this doc lives in
-> [`design-system/`](./design-system/). **Reference `var(--…)` tokens — never hardcode a hex/px.**
+> [`design-system/`](./design-system/) (start at [`design-system/README.md`](./design-system/README.md)).
+> **Reference `var(--…)` tokens — never hardcode a hex/px.**
 
 ## Contents
 1. [North star & principles](#1--north-star--principles)
@@ -169,7 +170,8 @@ raised layer per context.
 **Transitions:** `--transition-fast 150ms` · `--transition-base 250ms` · `--transition-slow 350ms`
 (all `ease`). Micro-interactions 0.12–0.22s; entrances 0.34–0.9s.
 
-**Icons:** Lucide only — `<i data-lucide="name"></i>`. Never hand-author SVG paths.
+**Icons:** Material Symbols (MUI kit) — `<span class="msi" aria-hidden="true">icon_name</span>`.
+Subsetted Google Fonts link + `.msi` class per page. Never hand-author SVG paths for UI chrome.
 
 ---
 
@@ -197,7 +199,7 @@ counter (~1650ms).
 
 ### `prefers-reduced-motion` contract (required)
 - `text-motion.js` / `page-transition.js` early-return or jump to final state.
-- `a11y.js` injects a global rule forcing animation/transition ≈0ms and `scroll-behavior:auto`.
+- `scripts/a11y.js` injects a global rule forcing animation/transition ≈0ms and `scroll-behavior:auto`.
 - Per-file media queries kill AEGIS button transitions and **remove the retro CRT flicker/scan**
   (`display:none`), snapping boot/power-on to final state.
 - **Add `@media (prefers-reduced-motion: reduce)` to every new animated component.**
@@ -217,7 +219,7 @@ visible `:focus-visible` ring (`outline 2–3px solid` accent, offset 2–3px).
   morph (0.32s); **real `<a>` links** with staggered fade-up; `aria-expanded` toggled.
 - **VIEW switcher** — native `<details>/<summary>` sheet (min-width 252, `--bg2`, border `--line2`)
   listing Interactive/Dossier/Retro; each row `data-home-variant` → `localStorage['rb-home-variant']`.
-- **Theme toggle** — 40×40, border `--line`, radius 8; sun/moon Lucide; writes
+- **Theme toggle** — 40×40, border `--line`, radius 8; sun/moon Material Symbol; writes
   `localStorage['rba-int-dark']`; `aria-label` present.
 - **Section TOC rail** (≥1181px) — fixed right dots (10×2px `--fg3`); active widens to 22px, turns
   `--ac`; labels fade in on hover; `scroll-margin-top 92px`.
@@ -304,7 +306,7 @@ host can't push them off-screen (ADR-004); skip link first; guarded `localStorag
 Target **WCAG 2.2 AA / AODA** (audit: `WCAG-2.2-AODA-AUDIT.md`).
 - Text contrast ≥ 4.5:1 (≥ 3:1 large/UI). Dark `#e9eef7` on `#070b12` and the light mirror are both AA.
 - Every control keyboard-reachable with a visible `:focus-visible` ring (3px accent). Games expose
-  keys **and** on-screen buttons; a skip link (`a11y.js`) is the first focusable element.
+  keys **and** on-screen buttons; a skip link (`scripts/a11y.js`) is the first focusable element.
 - Hit targets ≥ 44×44px.
 - `prefers-reduced-motion` respected everywhere (see §5).
 - Meaning survives without color; label all controls; `aria-live` for score/state; meaningful alt text.
@@ -315,7 +317,7 @@ Target **WCAG 2.2 AA / AODA** (audit: `WCAG-2.2-AODA-AUDIT.md`).
 
 Self-contained `.html` / `.dc.html` — inline CSS/JS, only declared CDN deps (React, fonts), no build,
 no server. `.dc.html` markup lives in `<x-dc>` and renders via `support.js`. Shared modules:
-`support.js`, `home-variants.js`, `page-transition.js`, `text-motion.js`, `a11y.js`.
+`support.js`, `home-variants.js`, `page-transition.js`, `text-motion.js`, `scripts/a11y.js`.
 
 **Token sources:** [`tokens.css`](./tokens.css) (foundational scale) · [`styles.css`](./styles.css)
 (CTOC skin) · per-page `:root`/`.light`. **Mirror:** [`design-tokens.json`](./design-tokens.json) +
