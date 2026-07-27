@@ -272,9 +272,8 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 #int-menu .im-foot{margin-top:34px;opacity:0;transform:translateY(20px);transition:opacity .45s ease .32s,transform .45s ease .32s;display:flex;flex-direction:column;gap:6px}
 .menu-open #int-menu .im-foot{opacity:1;transform:none}
 @media (max-width:860px){ .int-burger{display:flex} }
-/* Hero scroll cue: it's a decorative desktop affordance pinned to the bottom; hide it where the
-   centered hero content reaches the bottom and would collide with the clearance ribbon — i.e. on
-   narrow (mobile) or short viewports. Keeps "Canadian Citizen · clock" clean on the responsive view. */
+/* Hero scroll cue sits in the clearance ribbon between citizen and clock; hide it on
+   narrow or short viewports so the ribbon stays citizen · clock only. */
 @media (max-width:860px), (max-height:760px){ #hp-scroll{display:none !important} }
 @media (min-width:861px){ #int-menu{display:none !important} }
 
@@ -471,15 +470,20 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
       </div>
     </div>
 
-    <!-- security clearance ribbon -->
+    <!-- status ribbon: citizen · scroll cue · clock -->
     <div data-hero-anim="1" style="max-width:1480px;margin:64px auto 0;width:100%;position:relative;z-index:2;animation:fade-up 0.8s ease 0.65s both;">
-      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);">
-        <div style="display:flex;align-items:center;gap:9px;">
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:nowrap;padding-top:26px;border-top:1px solid var(--line);">
+        <div style="display:flex;align-items:center;gap:9px;flex:0 0 auto;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac);letter-spacing:0.08em;">Canadian Citizen</span>
         </div>
-        <div style="flex:1;min-width:40px;"></div>
-        <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;">
+        <div style="flex:1 1 auto;min-width:0;display:flex;justify-content:center;">
+          <div id="hp-scroll" data-hero-anim="1" style="display:flex;flex-direction:column;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.14em;pointer-events:none;animation:fade-up 0.8s ease 0.8s both;">
+            <span>SCROLL TO EXPLORE</span>
+            <span style="display:inline-block;width:14px;height:22px;border:1px solid var(--fg3);border-radius:8px;position:relative;"><span style="position:absolute;left:50%;top:5px;width:2px;height:4px;background:var(--ac);border-radius:2px;transform:translateX(-50%);animation:scrolldot 1.6s infinite;"></span></span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.06em;">
           <span id="hero-clock">--:--:--</span><span>EST</span>
         </div>
       </div>
@@ -487,12 +491,6 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
 
     <!-- ░ FOREGROUND (near, out-of-focus light orbs, race past) ░ -->
     <div id="hp-fg" style="position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;will-change:transform;"></div>
-
-    <!-- bottom-center scroll cue -->
-    <div id="hp-scroll" data-hero-anim="1" style="position:absolute;left:0;right:0;bottom:26px;z-index:4;display:flex;flex-direction:column;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:0.14em;pointer-events:none;animation:fade-up 0.8s ease 0.8s both;">
-      <span>SCROLL TO EXPLORE</span>
-      <span style="display:inline-block;width:14px;height:22px;border:1px solid var(--fg3);border-radius:8px;position:relative;"><span style="position:absolute;left:50%;top:5px;width:2px;height:4px;background:var(--ac);border-radius:2px;transform:translateX(-50%);animation:scrolldot 1.6s infinite;"></span></span>
-    </div>
   </section>
 
   <!-- ═══ MARQUEE ═══ -->
