@@ -1,6 +1,6 @@
 # AEGIS GIMS — Filter-First Geospatial C2
 
-**User:** program lead / design leader evaluating defence-C2 product-design depth; secondary, the
+**User:** program lead / design leader evaluating geospatial-C2 product-design depth; secondary, the
 in-vehicle operator and HQ watch officer the concept serves.
 
 **Thesis:** the operator defines the ground they own, draw it or type its coordinates, and entry

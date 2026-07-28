@@ -1,10 +1,10 @@
 # Product requirements — Product Designer Portfolio
 
 ## Overview
-Robert Babiarz's senior product-design portfolio — the connected-lighting (IoT security) → defense-AI narrative, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
+Robert Babiarz's senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
 
 ## Goals & non-goals
-- **Goals:** prove the connected-lighting → defense-AI thesis through interactive prototypes;
+- **Goals:** prove the connected-lighting → high-consequence systems thesis through interactive prototypes;
   hold WCAG 2.2 AA / AODA; load and deploy anywhere static with no build.
 - **Non-goals:** a CMS/backend; build tooling; fabricated data; color-only signaling.
 

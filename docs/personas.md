@@ -1,7 +1,7 @@
 # Personas
 
-## Primary — Defense / dual-use program lead (hiring)
-- **Role / context:** evaluating a senior product designer for security / defense surfaces.
+## Primary — Program lead / hiring manager
+- **Role / context:** evaluating a senior product designer for high-consequence surfaces.
 - **Goals:** see judgment under uncertainty, systems thinking, and shippable craft.
 - **Frustrations:** portfolios of pretty screens with no flow, no states, no rationale.
 - **Success feels like:** "this person could own our operator-facing product."

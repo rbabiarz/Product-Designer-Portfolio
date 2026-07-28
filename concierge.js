@@ -104,10 +104,10 @@
       links: [{ label: 'Quick tour', href: 'goals-driven-fintech-showcase.html' }, { label: 'Product walkthrough', href: 'fintech-walkthrough.html' }]
     },
     gims: {
-      title: 'AEGIS GIMS', org: 'Defence C2 · Geospatial', thumb: 'previews/thumb-gims.png?v=2',
+      title: 'AEGIS GIMS', org: 'Geospatial C2', thumb: 'previews/thumb-gims.png?v=2',
       blurb: 'A filter-first geospatial command interface: the operator defines the ground they own, draw it or type its coordinates, and entry into that ground becomes the alert. Born as a design problem, built as a live interactive common operating picture.',
-      tags: ['Defence C2', 'Geospatial', 'Live prototype'], read: '4 min tour · 10 min deep dive',
-      kw: 'geospatial c2 command control map zone filter nai geofence gis cop common operating picture defence defense military tactical track alert boundary coordinate grid edge offline air-gapped gims aegis',
+      tags: ['Geospatial C2', 'Mapping', 'Live prototype'], read: '4 min tour · 10 min deep dive',
+      kw: 'geospatial c2 command control map zone filter nai geofence gis cop common operating picture track alert boundary coordinate grid edge offline air-gapped gims aegis',
       links: [{ label: 'Quick tour', href: 'aegis-gims-showcase.html' }, { label: 'Deep dive', href: 'aegis-gims.html' }]
     },
     parlay: {
@@ -121,14 +121,14 @@
       title: 'CTOC Dashboard System', org: 'Enterprise cyber · 13 dashboards', thumb: 'previews/thumb-ctoc.png?v=2',
       blurb: 'A cyber threat-operations center: 13 coordinated dashboards on one dark, token-driven design system — SOC workflows, threat feeds, and dense data visualization.',
       tags: ['Cyber operations', 'Design system', 'Data viz'], read: '5 min tour · 12 min deep dive',
-      kw: 'cyber security soc threat operations dashboard dashboards dark theme design system tokens components enterprise data visualization monitoring incident defense defence secure tactical',
+      kw: 'cyber security soc threat operations dashboard dashboards dark theme design system tokens components enterprise data visualization monitoring incident operations secure',
       links: [{ label: 'Quick tour', href: 'ctoc-showcase.html' }, { label: 'Deep dive', href: 'ctoc-case-study.dc.html' }]
     },
     eai: {
       title: 'Application of AI', org: 'Enterprise AI', thumb: 'previews/thumb-ai.png?v=2',
       blurb: 'Designing AI into enterprise product surfaces — where automation earns trust, where humans keep the decision, and how agentic workflows get evidence-first UX.',
       tags: ['Enterprise AI', 'Agentic UX'], read: '4 min tour · 10 min deep dive',
-      kw: 'ai artificial intelligence ml agentic llm copilot automation human in the loop trust evidence defense defence enterprise machine learning',
+      kw: 'ai artificial intelligence ml agentic llm copilot automation human in the loop trust evidence enterprise machine learning',
       links: [{ label: 'Quick tour', href: 'enterprise-ai-showcase.html' }, { label: 'Deep dive', href: 'enterprise-ai.dc.html' }]
     },
     partitioning: {
@@ -155,13 +155,13 @@
     aegis: {
       title: 'AEGIS Decision Drills', org: 'Playable classification games', thumb: null,
       blurb: 'Four playable drills about decision-making under uncertainty — sensor tasking, classification watches, and an intercept trainer. The thesis: the model brings receipts, you keep the decision.',
-      tags: ['Defense AI', 'Interactive', 'Games'], read: '3 min, hands-on',
-      kw: 'defense defence aegis game drill intercept classification sensor tactical mission arctic radar decision uncertainty playable',
+      tags: ['Decision drills', 'Interactive', 'Games'], read: '3 min, hands-on',
+      kw: 'aegis game drill intercept classification sensor tactical mission arctic radar decision uncertainty playable',
       links: [{ label: 'Take the watch', href: 'homepage-interactive.dc.html#ag-stage' }]
     },
     about: {
       title: 'About · Leadership & Patents', org: '3 patent applications · Signify', thumb: null,
-      blurb: 'Career story from connected-lighting IoT to defense-adjacent AI, leading cross-functional delivery — plus three lighting-design patent applications with Google Patents links.',
+      blurb: 'Career story from connected-lighting IoT to AI for complex systems, leading cross-functional delivery — plus three lighting-design patent applications with Google Patents links.',
       tags: ['Leadership', 'Patents', 'Career'], read: '3 min',
       kw: 'about leadership lead led team cross functional mentor stakeholder strategy patent patents invention career story bio experience principal senior head signify',
       links: [{ label: 'About page', href: 'about.dc.html' }]
@@ -184,19 +184,19 @@
 
   /* ================= INTENTS ================= */
   var INTENTS = [
-    { id: 'defense', kw: 'defense defence sector industry military tactical mission dominion aegis intercept secure clearance government battlespace c2 command games drills',
-      reply: 'Defense-adjacent work runs through this portfolio: playable decision drills on the homepage (AEGIS / Fusion Watch), the CTOC cyber-operations dashboard system, and enterprise AI with human-in-the-loop patterns — the thesis that the model brings receipts and you keep the decision.',
+    { id: 'c2', kw: 'command control c2 cop common operating picture situational awareness geospatial mapping map sensor fusion operations dominion aegis intercept games drills',
+      reply: 'Command-and-control and situational-awareness work runs through this portfolio: playable decision drills on the homepage (AEGIS / Fusion Watch), the CTOC cyber-operations dashboard system, and enterprise AI with human-in-the-loop patterns — the thesis that the model brings receipts and you keep the decision.',
       projects: ['gims', 'aegis', 'ctoc', 'eai'],
       pills: ['Geospatial maps', 'Cyber operations dashboards', 'Systems thinking', 'Data visualization', 'Leadership examples'],
-      tour: { name: 'Defense product designer tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
+      tour: { name: 'Command and control tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
     { id: 'gaming', kw: 'igaming gaming casino bingo slots keno gambling betting wager sportsbook parlay game games art skins promotions player retention',
       reply: 'Two decades of regulated iGaming at Parlay Games sit under the newer work: 50+ real-money games, the brands and websites they lived on, promotions at production volume, and the HouseEdge operator console. It is where the high-consequence design habits on this site started.',
       projects: ['parlay', 'smart', 'fintech'],
-      pills: ['Game and brand work', 'Web design work', 'Mobile apps', 'Defense sector work'] },
+      pills: ['Game and brand work', 'Web design work', 'Mobile apps', 'Command and control work'] },
     { id: 'enterprise', kw: 'enterprise saas b2b business admin console platform complex workflows internal tools',
       reply: 'The enterprise SaaS work centers on dense, operational surfaces — analytics platforms, a 13-dashboard cyber suite, and AI woven into enterprise workflows.',
       projects: ['insights', 'ctoc', 'eai'],
-      pills: ['Design systems experience', 'Data visualization', 'Accessibility expertise', 'Defense industry projects'] },
+      pills: ['Design systems experience', 'Data visualization', 'Accessibility expertise', 'Command and control work'] },
     { id: 'designsystems', kw: 'design system systems tokens token component components library libraries figma documentation handoff theming multi-brand variables styleguide',
       reply: 'The design-system evidence now has its own case study: this site, documenting itself — three-tier tokens, a live inspector, and the AI-paired process behind it. CTOC backs it up at product scale with 13 dashboards on one token-driven system.',
       projects: ['ds', 'ctoc', 'insights'],
@@ -208,9 +208,9 @@
     { id: 'geo', kw: 'map maps mapping geospatial gis satellite spatial location floor plan plans site geo',
       reply: 'Geospatial runs deep here: Light ARchitect, an AI photometric planner over satellite imagery with its own full case study, plus a live mini planner on the homepage, AEGIS GIMS filter-first C2 mapping, the occupancy floor maps in CORE Insights, and the Partitioning floor simulator.',
       projects: ['gims', 'la', 'insights', 'partitioning'],
-      pills: ['Defense industry projects', 'Data visualization', 'Interactive prototypes'] },
+      pills: ['Command and control work', 'Data visualization', 'Interactive prototypes'] },
     { id: 'leadership', kw: 'leadership lead led leading team teams cross-functional crossfunctional mentor stakeholders strategy strategic executive principal staff head senior seniority',
-      reply: "Leadership evidence lives on the About page — cross-functional delivery on North America's largest hospital lighting install, three patent applications, and the career arc from IoT to defense-adjacent AI.",
+      reply: "Leadership evidence lives on the About page — cross-functional delivery on North America's largest hospital lighting install, three patent applications, and the career arc from IoT to AI for complex systems.",
       projects: ['about', 'dali'],
       pills: ['Patents', 'Enterprise SaaS work', 'Resume'] },
     { id: 'iot', kw: 'iot connected hardware devices device sensor sensors embedded lighting luminaire smart building',
@@ -228,7 +228,7 @@
     { id: 'cyber', kw: 'cyber cybersecurity soc security threat threats incident monitoring operations center',
       reply: 'CTOC is the cyber flagship: a threat-operations center of 13 coordinated dashboards on one dark design system.',
       projects: ['ctoc', 'eai'],
-      pills: ['Design systems experience', 'Defense industry projects', 'Data visualization'] },
+      pills: ['Design systems experience', 'Command and control work', 'Data visualization'] },
     { id: 'dataviz', kw: 'data visualization visualisation viz charts chart graphs dashboards analytics metrics reporting dense',
       reply: 'Dense data surfaces are a through-line — occupancy heat maps and trend reporting in CORE Insights, and 13 dashboards of threat telemetry in CTOC.',
       projects: ['insights', 'ctoc'],
@@ -236,7 +236,7 @@
     { id: 'ai', kw: 'ai artificial intelligence ml machine learning llm agent agentic copilot automation genai',
       reply: 'AI work in two registers: the Application of AI case study on trust and human-in-the-loop enterprise UX, and the AI-assisted build behind Goals-Driven Finance. This concierge is part of that story too — a working retrieval assistant designed and shipped into the portfolio itself.',
       projects: ['eai', 'la', 'gims', 'fintech'],
-      pills: ['Defense industry projects', 'Enterprise SaaS work', 'Interactive prototypes'] },
+      pills: ['Command and control work', 'Enterprise SaaS work', 'Interactive prototypes'] },
     { id: 'process', kw: 'process research discovery usability testing methods wireframes artifacts prototype prototypes prototyping interaction how you work',
       reply: 'Every case study ships in two depths — a quick tour of outcomes and a deep dive with the process, decisions, and discarded alternatives. The newest one documents the process itself: how this site is built with an AI pair, gated by verification.',
       projects: ['ds', 'insights', 'ctoc'],
@@ -248,14 +248,14 @@
     { id: 'hire', kw: 'hire hiring interview role position opening job candidate fit recruit recruiter available availability contract freelance',
       reply: "Robert is available for full-time and contract work. Tell me the role's domain and I'll line up the most relevant evidence — or jump straight to the resume and contact below.",
       projects: ['resume', 'contact', 'about'],
-      pills: ['Defense industry projects', 'Enterprise SaaS work', 'Design systems experience', 'Leadership examples'] },
+      pills: ['Command and control work', 'Enterprise SaaS work', 'Design systems experience', 'Leadership examples'] },
     { id: 'resume', kw: 'resume cv curriculum vitae download pdf',
       reply: 'Here is the resume, plus the fastest routes to evidence behind it.',
       projects: ['resume', 'about', 'contact'],
-      pills: ['Leadership examples', 'Enterprise SaaS work', 'Defense industry projects'] }
+      pills: ['Leadership examples', 'Enterprise SaaS work', 'Command and control work'] }
   ];
 
-  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Defense sector work', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work', 'Dashboards', 'IoT lighting', 'Mobile apps'];
+  var DEFAULT_PILLS = ['Show me enterprise SaaS work', 'Design systems experience', 'Command and control work', 'Accessibility expertise', 'Leadership examples', 'Geospatial and mapping work', 'Dashboards', 'IoT lighting', 'Mobile apps'];
   var WELCOME = "Hi — I'm the portfolio concierge. Tell me what you're hiring for or looking for, and I'll route you to the most relevant projects, skills, and case studies on this site.";
 
   /* ================= RETRIEVAL ================= */
@@ -318,7 +318,7 @@
     if (secHits.length) {
       return { text: 'Here is where that comes up on this site — jump straight to the section:', sections: secHits, pills: DEFAULT_PILLS.slice(0, 4), intent: 'search' };
     }
-    return { text: "I couldn't match that to anything indexed on this site. Try a domain (defense, fintech, IoT), a craft (design systems, accessibility, data viz), or ask for leadership, patents, or the resume.", projects: ['insights', 'ctoc'], pills: DEFAULT_PILLS.slice(0, 4), intent: 'none' };
+    return { text: "I couldn't match that to anything indexed on this site. Try a domain (geospatial, fintech, IoT), a craft (design systems, accessibility, data viz), or ask for leadership, patents, or the resume.", projects: ['insights', 'ctoc'], pills: DEFAULT_PILLS.slice(0, 4), intent: 'none' };
   }
 
   /* ================= STATE ================= */

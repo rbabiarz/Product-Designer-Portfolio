@@ -5,7 +5,7 @@ Identity guidance for Robert Babiarz's product-design portfolio.
 ## Core identity
 
 - **Name:** Robert Babiarz — Senior Product Designer
-- **Narrative:** Connected-lighting / IoT → defense-adjacent AI; systems where error isn't an option
+- **Narrative:** Connected-lighting / IoT → AI for complex systems; systems where error isn't an option
 - **Live site:** https://robertbabiarz.com/
 
 ## Visual identity

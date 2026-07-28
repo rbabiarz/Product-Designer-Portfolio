@@ -110,7 +110,7 @@ html, body {
   text-rendering: optimizeLegibility;
   min-height: 100vh;
 }
-/* Defence ops monitors run wide; lock a min canvas so the layout never crushes */
+/* Operations monitors run wide; lock a min canvas so the layout never crushes */
 .app-shell {
   min-width: 1280px;
   min-height: 800px;

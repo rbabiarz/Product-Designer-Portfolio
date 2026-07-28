@@ -20,7 +20,7 @@
 <script src="./support.js"></script>
 
   <!-- SEO·OG·JSONLD (injected) -->
-  <meta name="description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Dossier view.)">
+  <meta name="description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Dossier view.)">
   <meta name="author" content="Robert Babiarz">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://robertbabiarz.com/">
@@ -30,16 +30,16 @@
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Robert Babiarz — Product Designer">
   <meta property="og:title" content="Robert Babiarz, Product Designer · Dossier">
-  <meta property="og:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Dossier view.)">
+  <meta property="og:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Dossier view.)">
   <meta property="og:url" content="https://robertbabiarz.com/">
   <meta property="og:image" content="https://robertbabiarz.com/previews/og-brand.png">
   <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
   <meta property="og:locale" content="en_CA">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Robert Babiarz, Product Designer · Dossier">
-  <meta name="twitter:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Dossier view.)">
+  <meta name="twitter:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Dossier view.)">
   <meta name="twitter:image" content="https://robertbabiarz.com/previews/og-brand.png">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Robert Babiarz","jobTitle":"Senior Product Designer","url":"https://robertbabiarz.com/","image":"https://robertbabiarz.com/assets/rob-babiarz-photo.png","email":"mailto:rbabiarz@gmail.com","description":"Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS \u2014 design systems, data visualization, and WCAG 2.2-accessible interfaces.","address":{"@type":"PostalAddress","addressLocality":"Greater Toronto Area","addressRegion":"Ontario","addressCountry":"CA"},"sameAs":["https://linkedin.com/in/robert-babiarz"],"knowsAbout":["Product Design","UX Design","UI Design","Design Systems","Data Visualization","Dashboard Design","Information Architecture","Interaction Design","User Research","Usability Testing","Prototyping","Figma","Accessibility","WCAG 2.2","Cybersecurity UX","SOC dashboards","Threat operations UX","Defense technology UX","Connected lighting","IoT","Fintech UX","Enterprise SaaS","B2B product design","AR field tooling","Design tokens","Operator interfaces"],"knowsLanguage":"en","seeks":{"@type":"Demand","name":"Full-time and freelance / contract product-design engagements"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Robert Babiarz","jobTitle":"Senior Product Designer","url":"https://robertbabiarz.com/","image":"https://robertbabiarz.com/assets/rob-babiarz-photo.png","email":"mailto:rbabiarz@gmail.com","description":"Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS \u2014 design systems, data visualization, and WCAG 2.2-accessible interfaces.","address":{"@type":"PostalAddress","addressLocality":"Greater Toronto Area","addressRegion":"Ontario","addressCountry":"CA"},"sameAs":["https://linkedin.com/in/robert-babiarz"],"knowsAbout":["Product Design","UX Design","UI Design","Design Systems","Data Visualization","Dashboard Design","Information Architecture","Interaction Design","User Research","Usability Testing","Prototyping","Figma","Accessibility","WCAG 2.2","Cybersecurity UX","SOC dashboards","Threat operations UX","Defense AI","Defense technology UX","Connected lighting","IoT","Fintech UX","Enterprise SaaS","B2B product design","AR field tooling","Design tokens","Operator interfaces"],"knowsLanguage":"en","seeks":{"@type":"Demand","name":"Full-time and freelance / contract product-design engagements"}}</script>
   <script src="/analytics.js" defer></script>
 </head>
 <body>
@@ -258,6 +258,32 @@ body{margin:0}
 #aegis .ag-info-row{display:flex;gap:12px;align-items:baseline;font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.45;color:#aab6b1;margin-bottom:7px;}
 #aegis .ag-info-k{flex:none;width:104px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.02em;}
 @media (max-width:760px){ #aegis .ag-info-k{width:84px;} }
+/* Design pill + its note. The pill copies the Resume anchor beside it value for value so
+   the contact row reads as one set; it lives in CSS because a <button> can't reuse the
+   anchor's style-hover attribute. The dialog wears the case-file treatment: cream stock,
+   hard rule, offset shadow. */
+#hero-info-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid #0a0a0a;background:transparent;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;transition:background 0.2s;}
+#hero-info-btn:hover{background:#e7d9b8;}
+#hero-info-btn .msi{font-size:24px;margin-left:8px;}
+#hero-info-btn:focus-visible,#hero-info-close:focus-visible{outline:2px solid #b23a2e;outline-offset:2px;}
+#hero-info-close{position:relative;width:28px;height:28px;flex:none;border:1.5px solid #0a0a0a;background:transparent;color:#0a0a0a;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+#hero-info-close:hover{background:#e7d9b8;}
+#hero-info-close .msi{font-size:18px;}
+/* small control, so pad the tappable area out to the 44x44 minimum at no layout cost */
+#hero-info-close::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;min-width:44px;min-height:44px;}
+#hero-info{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,8,4,0.62);}
+html.hero-info-open #hero-info{display:flex;}
+#hero-info .hi-card{width:100%;max-width:560px;max-height:82vh;overflow-y:auto;background:#f4ead2;border:1.5px solid #0a0a0a;box-shadow:8px 8px 0 rgba(10,8,4,0.28);padding:20px 22px 22px;}
+#hero-info .hi-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:11px;}
+#hero-info .hi-kicker{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:#b23a2e;}
+#hero-info .hi-title{font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:#0a0a0a;letter-spacing:-0.015em;margin-bottom:9px;}
+#hero-info .hi-lead{font-size:13.5px;line-height:1.6;color:#3a3120;margin-bottom:17px;}
+#hero-info .hi-row{display:flex;gap:13px;align-items:baseline;margin-bottom:11px;}
+#hero-info .hi-k{flex:none;width:124px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6b5d42;padding-top:2px;line-height:1.45;}
+#hero-info .hi-v{font-size:13px;line-height:1.58;color:#3a3120;}
+#hero-info .hi-note{margin-top:15px;border-top:1px solid rgba(10,8,4,0.18);padding-top:13px;font-size:12px;line-height:1.55;color:#6b5d42;}
+#hero-info .hi-note strong{font-weight:600;color:#3a3120;}
+@media (max-width:900px){#hero-info .hi-row{flex-direction:column;gap:3px}#hero-info .hi-k{width:auto}}
 </style>
 <script src="page-transition.js"></script>
 <script src="scripts/a11y.js"></script>
@@ -787,6 +813,10 @@ body{margin:0}
           <div style="display:flex;gap:10px;">
             <a href="https://linkedin.com/in/robert-babiarz" style="flex:1;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;transition:background 0.2s;" style-hover="background:#e7d9b8">LinkedIn<span class="msi" aria-hidden="true" style="font-size:24px;margin-left:8px;">arrow_outward</span></a>
             <a href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="flex:1;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid #0a0a0a;color:#0a0a0a;padding:13px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-decoration:none;transition:background 0.2s;" style-hover="background:#e7d9b8">Resume<span class="msi" aria-hidden="true" style="font-size:24px;margin-left:8px;">download</span></a>
+            <!-- aria-expanded is set from JS, never in this template: a template-owned
+                 attribute is re-applied on every re-render and would report "closed"
+                 while the dialog is open. -->
+            <button id="hero-info-btn" type="button" aria-haspopup="dialog" aria-controls="hero-info">Design<span class="msi" aria-hidden="true">info</span></button>
           </div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.05em;margin-top:14px;text-align:center;"><a href="tel:+14163154761" style="color:inherit;text-decoration:none;">416-315-4761</a> · <a href="mailto:rbabiarz@gmail.com" style="color:#b23a2e;text-decoration:underline;text-underline-offset:2px;">rbabiarz@gmail.com</a></div>
         </div>
@@ -801,6 +831,28 @@ body{margin:0}
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b5d42;letter-spacing:0.04em;">GREATER TORONTO AREA · SR. PRODUCT DESIGNER</span>
     </div>
   </footer>
+
+  <!-- ░░ DESIGN-DECISION NOTE ░░
+       Kept outside every section so no parallax transform or overflow clip can catch the
+       fixed overlay. Open state lives as a class on <html>, outside the React tree, so a
+       re-render can't re-apply the template's style and slam it shut. -->
+  <div id="hero-info" role="dialog" aria-modal="true" aria-labelledby="hero-info-title">
+    <div class="hi-card">
+      <div class="hi-head">
+        <span class="hi-kicker">EXHIBIT · DESIGN DECISION</span>
+        <button id="hero-info-close" type="button" aria-label="Close design decision"><span class="msi" aria-hidden="true">close</span></button>
+      </div>
+      <h2 id="hero-info-title" class="hi-title">Why this page looks like a paper file</h2>
+      <p class="hi-lead">A case file is a format people already know how to read: a stamp, a photo, a list of facts you can check. So the work is laid out the way an investigator would hand it to you, and the building in the middle is the evidence.</p>
+
+      <div class="hi-row"><div class="hi-k">The paper</div><div class="hi-v">The cream stock, the hard black rules, the drop shadows and the crooked VERIFIED stamp are all borrowed from a physical folder. Nothing here is a scan or a photograph of paper. It is built from the same plain web page parts as any other site.</div></div>
+      <div class="hi-row"><div class="hi-k">The building</div><div class="hi-v">Not a 3D model. It is a few hundred ordinary boxes stacked and tilted, closer to a pop up book than to a game. Each tiny square is a window, in cool blues and warm ambers. About one in seven starts lit, and a few of those flicker. The pattern comes from a fixed recipe, so the building looks the same on every visit.</div></div>
+      <div class="hi-row"><div class="hi-k">The floors</div><div class="hi-v">Point at any window and the whole floor it belongs to lights up, and the small readouts fill in with what is happening there: the ward, the scene the lights are running, how busy it is, how many devices are on it. Each floor always reports the same thing, so you can look away and check it again.</div></div>
+      <div class="hi-row"><div class="hi-k">The handle</div><div class="hi-v">Grab the building and drag to spin it. Arrow keys turn it too, and Home puts it back where it started, so it is not a mouse only toy. Let go and it leans gently toward your pointer.</div></div>
+
+      <p class="hi-note">If your device is set to <strong>reduce motion</strong>, the building is drawn once and left alone: no leaning, no drifting, and no turning it, since the spin is the motion you asked not to see. Otherwise it stops working when you switch tabs or scroll past it, so it is not running away in the background.</p>
+    </div>
+  </div>
 
 </div>
 </x-dc>
@@ -817,7 +869,7 @@ class Component extends DCLogic {
     setTimeout(() => this.forceUpdate(), 320);
     // Run each init in isolation — one failure must not abort the rest.
     const runInit = (name) => { try { this[name](); } catch (e) { try { console.error('[homepage] ' + name + ' failed:', e); } catch (_) {} } };
-    const INITS = ['initReveal', 'initToc', 'initCounters', 'buildIso', 'initIso', 'buildLightArchitect', 'initLightArchitect', 'initLAInteract', 'initAegis', 'initAnimGate'];
+    const INITS = ['initReveal', 'initToc', 'initCounters', 'buildIso', 'initIso', 'buildLightArchitect', 'initLightArchitect', 'initLAInteract', 'initAegis', 'initAnimGate', 'initHeroInfo'];
     const mark = () => {
       this._bootMarks = {
         preview: document.getElementById('dsr-preview'),
@@ -1512,6 +1564,65 @@ class Component extends DCLogic {
     const agKick = () => { if (this._agRaf == null && !agAsleep()) { last = 0; this._agRaf = requestAnimationFrame(loop); } };
     this.on(window, 'scroll', agKick, { passive: true });
     this.on(document, 'visibilitychange', agKick);
+  }
+
+  // Design-decision note. Everything is delegated from `document` and keyed off a class on
+  // <html>, because the trigger and dialog both live in the DC template: a re-render can
+  // re-apply their attributes or swap the nodes, which would strand a listener bound
+  // straight to them. The instance flag (not a DOM attribute) stops the re-init pass from
+  // double-binding Escape.
+  initHeroInfo() {
+    if (this._heroInfoWired) return;
+    if (!document.getElementById('hero-info-btn') || !document.getElementById('hero-info')) return;
+    this._heroInfoWired = true;
+
+    const btn = () => document.getElementById('hero-info-btn');
+    const shutBtn = () => document.getElementById('hero-info-close');
+    const box = () => document.getElementById('hero-info');
+    const root = document.documentElement;
+    const isOpen = () => root.classList.contains('hero-info-open');
+    const focusIn = (el) => { try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); } };
+    const setExpanded = (v) => { const b = btn(); if (b) b.setAttribute('aria-expanded', v ? 'true' : 'false'); };
+    setExpanded(false);
+
+    const open = () => {
+      // Lock the page behind the scrim, padding for the scrollbar the lock removes so the
+      // layout doesn't shift right on platforms with classic scrollbars.
+      const gutter = window.innerWidth - root.clientWidth;
+      root.style.overflow = 'hidden';
+      if (gutter > 0) document.body.style.paddingRight = gutter + 'px';
+      root.classList.add('hero-info-open');
+      setExpanded(true);
+      const s = shutBtn(); if (s) focusIn(s);
+    };
+    const shut = () => {
+      root.classList.remove('hero-info-open');
+      root.style.overflow = '';
+      document.body.style.paddingRight = '';
+      setExpanded(false);
+      const b = btn(); if (b) focusIn(b);
+    };
+
+    this.on(document, 'click', (e) => {
+      const t = e.target;
+      if (!t || !t.closest) return;
+      if (t.closest('#hero-info-close')) { e.preventDefault(); shut(); return; }
+      if (t.closest('#hero-info-btn')) { e.preventDefault(); isOpen() ? shut() : open(); }
+    });
+    // scrim only: a click on the card itself must not dismiss
+    this.on(document, 'mousedown', (e) => { if (isOpen() && e.target === box()) shut(); });
+    this.on(document, 'keydown', (e) => {
+      if (!isOpen()) return;
+      if (e.key === 'Escape') { e.preventDefault(); shut(); return; }
+      if (e.key !== 'Tab') return;
+      // Keep focus inside the dialog so it can't land on the page behind the scrim.
+      const bx = box(); if (!bx) return;
+      const items = bx.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); focusIn(last); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); focusIn(first); }
+    });
   }
 
   componentDidUpdate() {
@@ -2211,7 +2322,7 @@ class Component extends DCLogic {
       { num: '06', title: 'Light ARchitect', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'AI Photometric Design · SaaS', cat: 'Cooper Lighting · Signify', highlight: '3 US patents, co-inventor', href: 'light-architect-showcase.html', preview: 'previews/thumb-la.png?v=2' },
       { num: '07', title: 'Goals-Driven Fintech', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Regulated · Open Banking', cat: 'Fintech · AI', highlight: 'PRD · Claude · Cursor · GitHub', href: 'goals-driven-fintech-showcase.html', preview: 'previews/thumb-fintech.png?v=2' },
       { num: '08', title: 'CTOC Dashboard System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Enterprise Cyber · 13 Dashboards', cat: 'Cyber Operations', highlight: 'Hi-fi prototype', href: 'ctoc-showcase.html', preview: 'previews/thumb-ctoc.png?v=2' },
-      { num: '09', title: 'AEGIS GIMS', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Defence C2 · Geospatial', cat: 'Geospatial Intelligence', highlight: 'Live interactive build', href: 'aegis-gims-showcase.html', preview: 'previews/thumb-gims.png?v=2' },
+      { num: '09', title: 'AEGIS GIMS', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Geospatial C2', cat: 'Geospatial Intelligence', highlight: 'Live interactive build', href: 'aegis-gims-showcase.html', preview: 'previews/thumb-gims.png?v=2' },
       { num: '10', title: 'Parlay Games iGaming', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'iGaming · 50+ Games', cat: 'Regulated Gaming', highlight: 'Two decades in production', href: 'parlay-gaming-showcase.html', preview: 'previews/thumb-parlay.png?v=2' },
       { num: '11', title: 'The Design System', tag: 'LIVE FILE', tagBg: '#1c6b39', tagFg: '#f4ead2', status: 'Design Engineering · AI-Paired', cat: 'This Site, Documenting Itself', highlight: 'Live token inspector + RTP proof', href: 'design-system-showcase.html', preview: 'previews/thumb-ds.png?v=2' },
     ];

@@ -11,7 +11,7 @@ run in product register: they simulate real tools and are judged as tools.)
 
 ## Users & purpose
 
-Hiring managers, design leaders, and program leads in defense, enterprise SaaS, and IoT,
+Hiring managers, design leaders, and program leads in enterprise SaaS and IoT,
 deciding in minutes whether Robert Babiarz is worth an interview. They arrive skeptical of
 portfolio theater; the site must let them *operate* the work — live prototypes, playable
 drills, real interaction — not read claims about it.
@@ -21,7 +21,7 @@ not pictures of systems," then reaches the resume/contact with intent.
 
 ## Brand personality
 
-Clear, calm, evidence-led. Defense-literate without cosplay. Confident, never hype.
+Clear, calm, evidence-led. Domain-literate without cosplay. Confident, never hype.
 Thesis line: **"the model brings receipts, you keep the decision."**
 
 - Lead with outcomes; verbs first ("Take the watch", "Read the trace").
@@ -31,7 +31,7 @@ Thesis line: **"the model brings receipts, you keep the decision."**
 ## Anti-references
 
 - Portfolio-template minimalism (hero platitude + card grid + logo wall).
-- Defense cosplay: stolen-valor aesthetics, fake classification theater without the
+- Sector cosplay: stolen-valor aesthetics, fake classification theater without the
   UNCLASSIFIED//PORTFOLIO honesty tag, invented metrics.
 - Stoplight status colors; meaning riding on hue alone.
 - Hype copy ("revolutionary", "cutting-edge"), lorem ipsum, single-perfect-row tables.

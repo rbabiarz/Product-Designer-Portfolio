@@ -8,7 +8,7 @@
 <script src="./support.js"></script>
 
   <!-- SEO·OG·JSONLD (injected) -->
-  <meta name="description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
+  <meta name="description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
   <meta name="author" content="Robert Babiarz">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://robertbabiarz.com/">
@@ -18,16 +18,16 @@
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Robert Babiarz — Product Designer">
   <meta property="og:title" content="Robert Babiarz, Product Designer · RB-OS Terminal">
-  <meta property="og:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
+  <meta property="og:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
   <meta property="og:url" content="https://robertbabiarz.com/">
   <meta property="og:image" content="https://robertbabiarz.com/previews/og-brand.png">
   <meta property="og:image:alt" content="Robert Babiarz — Senior Product Designer">
   <meta property="og:locale" content="en_CA">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Robert Babiarz, Product Designer · RB-OS Terminal">
-  <meta name="twitter:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
+  <meta name="twitter:description" content="Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS — design systems, data visualization, and WCAG 2.2-accessible interfaces. (Retro RB-OS terminal view.)">
   <meta name="twitter:image" content="https://robertbabiarz.com/previews/og-brand.png">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Robert Babiarz","jobTitle":"Senior Product Designer","url":"https://robertbabiarz.com/","image":"https://robertbabiarz.com/assets/rob-babiarz-photo.png","email":"mailto:rbabiarz@gmail.com","description":"Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across defense AI, cybersecurity / SOC dashboards, connected-lighting IoT, fintech, and enterprise SaaS \u2014 design systems, data visualization, and WCAG 2.2-accessible interfaces.","address":{"@type":"PostalAddress","addressLocality":"Greater Toronto Area","addressRegion":"Ontario","addressCountry":"CA"},"sameAs":["https://linkedin.com/in/robert-babiarz"],"knowsAbout":["Product Design","UX Design","UI Design","Design Systems","Data Visualization","Dashboard Design","Information Architecture","Interaction Design","User Research","Usability Testing","Prototyping","Figma","Accessibility","WCAG 2.2","Cybersecurity UX","SOC dashboards","Threat operations UX","Defense technology UX","Connected lighting","IoT","Fintech UX","Enterprise SaaS","B2B product design","AR field tooling","Design tokens","Operator interfaces"],"knowsLanguage":"en","seeks":{"@type":"Demand","name":"Full-time and freelance / contract product-design engagements"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Robert Babiarz","jobTitle":"Senior Product Designer","url":"https://robertbabiarz.com/","image":"https://robertbabiarz.com/assets/rob-babiarz-photo.png","email":"mailto:rbabiarz@gmail.com","description":"Senior product designer in the Greater Toronto Area, available for full-time and freelance/contract work. High-consequence UX across connected-lighting IoT, fintech, and enterprise SaaS \u2014 design systems, data visualization, and WCAG 2.2-accessible interfaces.","address":{"@type":"PostalAddress","addressLocality":"Greater Toronto Area","addressRegion":"Ontario","addressCountry":"CA"},"sameAs":["https://linkedin.com/in/robert-babiarz"],"knowsAbout":["Product Design","UX Design","UI Design","Design Systems","Data Visualization","Dashboard Design","Information Architecture","Interaction Design","User Research","Usability Testing","Prototyping","Figma","Accessibility","WCAG 2.2","Cybersecurity UX","SOC dashboards","Threat operations UX","Defense AI","Defense technology UX","Connected lighting","IoT","Fintech UX","Enterprise SaaS","B2B product design","AR field tooling","Design tokens","Operator interfaces"],"knowsLanguage":"en","seeks":{"@type":"Demand","name":"Full-time and freelance / contract product-design engagements"}}</script>
   <script src="/analytics.js" defer></script>
 </head>
 <body>
@@ -188,6 +188,31 @@ body{margin:0;background:#040806}
 #aegis .ag-info-row{display:flex;gap:12px;align-items:baseline;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.45;color:#6cf0a4;margin-bottom:7px;}
 #aegis .ag-info-k{flex:none;width:104px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.02em;}
 @media (max-width:760px){ #aegis .ag-info-k{width:84px;} }
+/* Design pill + its note. The pill copies the Resume anchor beside it value for value so
+   the contact row reads as one set; it lives in CSS because a <button> can't inherit the
+   anchor's inline style. The dialog sits above the CRT chrome (z 9000-9002) so the
+   scanlines and vignette don't lie over the reading copy. */
+#hero-info-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(108,240,164,0.4);background:transparent;color:#6cf0a4;padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;cursor:pointer;}
+#hero-info-btn .msi{font-size:24px;}
+#hero-info-btn:focus-visible,#hero-info-close:focus-visible{outline:2px solid #6cf0a4;outline-offset:2px;}
+#hero-info-close{position:relative;width:28px;height:28px;flex:none;border:1px solid rgba(108,240,164,0.4);background:transparent;color:#6cf0a4;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .15s,border-color .15s;}
+#hero-info-close:hover{color:#cdffe2;border-color:#6cf0a4;}
+#hero-info-close .msi{font-size:18px;}
+/* small control, so pad the tappable area out to the 44x44 minimum at no layout cost */
+#hero-info-close::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;min-width:44px;min-height:44px;}
+#hero-info{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,5,4,0.82);}
+html.hero-info-open #hero-info{display:flex;}
+#hero-info .hi-card{width:100%;max-width:560px;max-height:82vh;overflow-y:auto;background:#040806;border:1px solid rgba(108,240,164,0.45);box-shadow:0 0 40px rgba(108,240,164,0.12);padding:20px 22px 22px;font-family:'JetBrains Mono',monospace;}
+#hero-info .hi-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:11px;}
+#hero-info .hi-kicker{font-size:10px;letter-spacing:0.16em;color:#ffb454;}
+#hero-info .hi-title{font-family:'VT323',monospace;font-size:30px;font-weight:400;line-height:1.05;color:#cdffe2;text-shadow:0 0 10px rgba(108,240,164,0.45);margin-bottom:10px;}
+#hero-info .hi-lead{font-size:12.5px;line-height:1.65;color:#6cf0a4;margin-bottom:17px;}
+#hero-info .hi-row{display:flex;gap:13px;align-items:baseline;margin-bottom:12px;}
+#hero-info .hi-k{flex:none;width:124px;font-size:9.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#3f9e69;padding-top:3px;line-height:1.45;}
+#hero-info .hi-v{font-size:12.5px;line-height:1.62;color:#6cf0a4;}
+#hero-info .hi-note{margin-top:15px;border-top:1px solid rgba(108,240,164,0.28);padding-top:13px;font-size:11.5px;line-height:1.6;color:#3f9e69;}
+#hero-info .hi-note strong{font-weight:700;color:#cdffe2;}
+@media (max-width:900px){#hero-info .hi-row{flex-direction:column;gap:3px}#hero-info .hi-k{width:auto}}
 </style>
 <script src="page-transition.js"></script>
 <script src="scripts/a11y.js"></script>
@@ -584,6 +609,10 @@ body{margin:0;background:#040806}
           <div style="display:flex;gap:10px;">
             <a class="rt-link" href="https://linkedin.com/in/robert-babiarz" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(108,240,164,0.4);color:#6cf0a4;padding:12px;font-size:12px;letter-spacing:0.06em;text-decoration:none;">LINKEDIN<span class="msi" aria-hidden="true" style="font-size:24px;">arrow_outward</span></a>
             <a class="rt-link" href="robert-babiarz-resume.pdf" target="_blank" rel="noopener" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(108,240,164,0.4);color:#6cf0a4;padding:12px;font-size:12px;letter-spacing:0.06em;text-decoration:none;">RESUME<span class="msi" aria-hidden="true" style="font-size:24px;">download</span></a>
+            <!-- aria-expanded is set from JS, never in this template: a template-owned
+                 attribute is re-applied on every re-render and would report "closed"
+                 while the dialog is open. -->
+            <button id="hero-info-btn" class="rt-link" type="button" aria-haspopup="dialog" aria-controls="hero-info">DESIGN<span class="msi" aria-hidden="true">info</span></button>
           </div>
           <div style="font-size:11px;color:#3f9e69;letter-spacing:0.06em;text-align:center;margin-top:4px;"><a href="tel:+14163154761" style="color:inherit;text-decoration:none;">416-315-4761</a> · <a href="mailto:rbabiarz@gmail.com" style="color:#6cf0a4;text-decoration:underline;text-underline-offset:2px;">rbabiarz@gmail.com</a></div>
         </div>
@@ -596,6 +625,29 @@ body{margin:0;background:#040806}
       <span>EOF<span style="display:inline-block;width:8px;height:13px;background:#3f9e69;margin-left:5px;vertical-align:-1px;animation:rt-blink 1.05s steps(1) infinite;"></span></span>
     </div>
 
+  </div>
+
+  <!-- ░░ DESIGN-DECISION NOTE ░░
+       Kept outside the page wrapper so no transform or overflow clip can catch the fixed
+       overlay, and above the CRT chrome (z 9000-9002) so the scanlines don't sit on top of
+       the reading copy. Open state lives as a class on <html>, outside the React tree, so a
+       re-render can't re-apply the template's style and slam it shut. -->
+  <div id="hero-info" role="dialog" aria-modal="true" aria-labelledby="hero-info-title">
+    <div class="hi-card">
+      <div class="hi-head">
+        <span class="hi-kicker">&gt; DESIGN.TXT</span>
+        <button id="hero-info-close" type="button" aria-label="Close design decision"><span class="msi" aria-hidden="true">close</span></button>
+      </div>
+      <h2 id="hero-info-title" class="hi-title">Why this page pretends to be a 1981 terminal</h2>
+      <p class="hi-lead">An old green screen could only do one colour and no pictures, so everything had to be said with words, brightness and position. Those are hard constraints, and designing inside them is good practice. This page is me keeping in practice.</p>
+
+      <div class="hi-row"><div class="hi-k">The screen</div><div class="hi-v">Four thin sheets sit over the whole page: fine dark stripes, a dark rim around the corners, a faint flicker, and a bright band that slides down every seven seconds. Together they imitate the glow of a cathode ray tube. Clicks pass straight through them, so they never get in your way.</div></div>
+      <div class="hi-row"><div class="hi-k">One colour</div><div class="hi-v">Everything is one family of green, because that is all the machine could manage. So nothing here is singled out by colour. When something matters more it is brighter or heavier instead. That is a rule I keep on real products too, because if the only difference is colour, anyone who cannot see that colour misses the message.</div></div>
+      <div class="hi-row"><div class="hi-k">The start-up</div><div class="hi-v">The lines at the top and the typing prompt make the page feel like it is booting rather than loading. The numbers in them are real ones: eleven case files, three patents granted and one still pending.</div></div>
+      <div class="hi-row"><div class="hi-k">The building</div><div class="hi-v">Drawn as bare outlines, the way computers drew before they could fill shapes in. It turns slowly on its own, and you can grab it and spin it yourself.</div></div>
+
+      <p class="hi-note">If your device is set to <strong>reduce motion</strong>, the flicker and the sliding band are removed outright, the blinking holds steady, the typing appears at once, and the building is drawn once and left still. You can still drag it.</p>
+    </div>
   </div>
 </div>
 </x-dc>
@@ -621,6 +673,7 @@ class Component extends DCLogic {
     };
     this._t.push(setTimeout(() => this.typewriter(), 950));
     this._t.push(setTimeout(() => runInit('initBldg'), 140));
+    this._t.push(setTimeout(() => runInit('initHeroInfo'), 150));
     this._t.push(setTimeout(() => { runInit('buildLightArchitect'); runInit('initLAInteract'); }, 160));
     this._t.push(setTimeout(() => { runInit('initAegis'); }, 200));
     this._t.push(setTimeout(() => { runInit('initFilePreview'); mark(); }, 420));
@@ -641,7 +694,7 @@ class Component extends DCLogic {
       reinit: () => {
         this._fpInit = false;
         if (this._bootMarks && this._bootMarks.ag && !this._bootMarks.ag.isConnected) this._agInit = false;
-        ['initBldg', 'buildLightArchitect', 'initLAInteract', 'initAegis', 'initFilePreview'].forEach(runInit);
+        ['initBldg', 'buildLightArchitect', 'initLAInteract', 'initAegis', 'initFilePreview', 'initHeroInfo'].forEach(runInit);
         mark();
       }
     };
@@ -1306,6 +1359,65 @@ class Component extends DCLogic {
     const agKick = () => { if (this._agRaf == null && !agAsleep()) { last = 0; this._agRaf = requestAnimationFrame(loop); } };
     this.on(window, 'scroll', agKick, { passive: true });
     this.on(document, 'visibilitychange', agKick);
+  }
+
+  // Design-decision note. Everything is delegated from `document` and keyed off a class on
+  // <html>, because the trigger and dialog both live in the DC template: a re-render can
+  // re-apply their attributes or swap the nodes, which would strand a listener bound
+  // straight to them. The instance flag (not a DOM attribute) stops the re-init pass from
+  // double-binding Escape.
+  initHeroInfo() {
+    if (this._heroInfoWired) return;
+    if (!document.getElementById('hero-info-btn') || !document.getElementById('hero-info')) return;
+    this._heroInfoWired = true;
+
+    const btn = () => document.getElementById('hero-info-btn');
+    const shutBtn = () => document.getElementById('hero-info-close');
+    const box = () => document.getElementById('hero-info');
+    const root = document.documentElement;
+    const isOpen = () => root.classList.contains('hero-info-open');
+    const focusIn = (el) => { try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); } };
+    const setExpanded = (v) => { const b = btn(); if (b) b.setAttribute('aria-expanded', v ? 'true' : 'false'); };
+    setExpanded(false);
+
+    const open = () => {
+      // Lock the page behind the scrim, padding for the scrollbar the lock removes so the
+      // layout doesn't shift right on platforms with classic scrollbars.
+      const gutter = window.innerWidth - root.clientWidth;
+      root.style.overflow = 'hidden';
+      if (gutter > 0) document.body.style.paddingRight = gutter + 'px';
+      root.classList.add('hero-info-open');
+      setExpanded(true);
+      const s = shutBtn(); if (s) focusIn(s);
+    };
+    const shut = () => {
+      root.classList.remove('hero-info-open');
+      root.style.overflow = '';
+      document.body.style.paddingRight = '';
+      setExpanded(false);
+      const b = btn(); if (b) focusIn(b);
+    };
+
+    this.on(document, 'click', (e) => {
+      const t = e.target;
+      if (!t || !t.closest) return;
+      if (t.closest('#hero-info-close')) { e.preventDefault(); shut(); return; }
+      if (t.closest('#hero-info-btn')) { e.preventDefault(); isOpen() ? shut() : open(); }
+    });
+    // scrim only: a click on the card itself must not dismiss
+    this.on(document, 'mousedown', (e) => { if (isOpen() && e.target === box()) shut(); });
+    this.on(document, 'keydown', (e) => {
+      if (!isOpen()) return;
+      if (e.key === 'Escape') { e.preventDefault(); shut(); return; }
+      if (e.key !== 'Tab') return;
+      // Keep focus inside the dialog so it can't land on the page behind the scrim.
+      const bx = box(); if (!bx) return;
+      const items = bx.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); focusIn(last); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); focusIn(first); }
+    });
   }
 
   componentDidUpdate() {

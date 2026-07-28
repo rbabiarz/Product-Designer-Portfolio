@@ -104,10 +104,10 @@ three items in two columns and is shared with the sibling pages.
 - **Decision:** Single-file pages; `.dc.html` rendered by `support.js` (React via CDN). No server.
 - **Consequences:** Deploys anywhere static; first load needs the CDN; degrades gracefully.
 
-## ADR-001 — Dark-first defense aesthetic, monochrome + one accent
+## ADR-001 — Dark-first aesthetic, monochrome + one accent
 - **Date:** 2026-06-28
 - **Status:** Accepted
-- **Context:** The work is SOC / defense; meaning must not ride on hue.
+- **Context:** The work is operational and high-consequence; meaning must not ride on hue.
 - **Decision:** `#070b12` canvas, teal accent (`#4ca88f`/`#7dd3c0`), one color block per viewport,
   a light architect mirror. No stoplight colors as status.
 - **Consequences:** Strong, coherent read; requires discipline on accent usage and contrast.

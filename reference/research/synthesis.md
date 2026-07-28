@@ -1,7 +1,7 @@
 # Research synthesis
 
 ## Method
-What was reviewed (defense / dual-use product surfaces, SOC dashboards, sensor-fusion UIs) and when.
+What was reviewed (high-consequence product surfaces, operations dashboards, sensor-fusion UIs) and when.
 
 ## Themes
 1. **Operators distrust verdicts without provenance** — evidence and dissent beat a lone confidence number.

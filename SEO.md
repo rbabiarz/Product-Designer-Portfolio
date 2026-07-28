@@ -40,12 +40,13 @@ Targets woven into titles, descriptions, `knowsAbout`, and copy:
   visualization**, **dashboard design**, information architecture, interaction design, user
   research, usability testing, **prototyping, Figma**, **accessibility / WCAG 2.2**, design tokens.
 - **Domain (your differentiation, low-competition long-tail):** cybersecurity / **SOC dashboard**
-  UX, threat-operations UX, defense-technology UX, **connected lighting / IoT** UX, fintech UX,
+  UX, threat-operations UX, **defense AI / defense-technology** UX,
+  **connected lighting / IoT** UX, fintech UX,
   enterprise SaaS, B2B product design, AR field tooling, operator interfaces.
 - **Location:** Greater Toronto Area, Mississauga, Ontario, Canada (local + "remote" intent).
 
 Long-tail is the lever for a personal site: "SOC dashboard designer", "connected-lighting UX
-designer", "defense product designer Toronto" are winnable; "product designer" alone is not.
+designer", "defense AI product designer" are winnable; "product designer" alone is not.
 
 ---
 

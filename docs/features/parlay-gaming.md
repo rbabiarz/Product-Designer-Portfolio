@@ -1,8 +1,8 @@
 # Parlay Games — iGaming at Production Volume
 
 **User:** hiring manager / design leader gauging range and production discipline; the case proves
-the "one designer across a whole platform surface" claim behind the connected-lighting → defense
-narrative (the career chapter *before* IoT).
+the "one designer across a whole platform surface" claim behind the connected-lighting →
+high-consequence systems narrative (the career chapter *before* IoT).
 
 **Thesis:** breadth under real constraints. One designer shipping game art, brand systems, player
 sites, promotions, and operator tooling for a live real-money platform — where every asset had to

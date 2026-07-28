@@ -1,5 +1,5 @@
 # WCAG 2.2 AA & AODA Accessibility Audit
-**Site:** Robert Babiarz — Defence / Product-Design Portfolio
+**Site:** Robert Babiarz — Product-Design Portfolio
 **Date:** 2026-06-27
 **Pages audited:** 27 (12 `.dc.html` + 15 `.html`)
 **Tooling:** axe-core 4.10.2 (headless Chrome, cache-disabled, same-origin iframes traversed) · static source analysis · manual review

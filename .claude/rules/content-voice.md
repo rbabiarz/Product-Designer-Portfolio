@@ -6,7 +6,7 @@ Full guidance: [`design-system/content/README.md`](../../design-system/content/R
 
 ## Tone
 
-- Clear, calm, evidence-led. Defense-literate without cosplay. Confident, never hype.
+- Clear, calm, evidence-led. Domain-literate without cosplay. Confident, never hype.
 - **Thesis line:** "the model brings receipts, you keep the decision." Lead with outcomes, not features.
 - **Person:** address the reader as "you"; name work plainly (AEGIS, CTOC, Light ARchitect, hospital lighting).
 - Plain language — gloss jargon on first use (e.g. "lighting system" before "DALI-2" on public pages).
