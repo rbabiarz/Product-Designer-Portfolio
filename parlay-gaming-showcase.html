@@ -17,15 +17,20 @@
 body{margin:0}
 .cs{
   --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
-  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#0a0a0a;
   --c-body:#534f48;--c-muted:#6e6a60;--c-muted2:#9a9486;
   --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;--c-teal:#0d5350;--c-sand:#efe6d4;
   --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
   --c-navbg:rgba(255,252,245,0.84);
+  /* type scale: exactly three sizes, one role each */
+  --t-lg:clamp(30px,3.5vw,46px);   /* display: h1, every h2, result numbers */
+  --t-md:17px;                     /* body: all prose, all card + table text */
+  --t-sm:11px;                     /* micro: mono labels, eyebrows, captions, axes */
+  --stack:14px;                    /* gap from label down to its heading */
 }
 .cs.dark{
   --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
-  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#f3f1ea;
   --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
   --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;--c-teal:#0c3d3a;--c-sand:#1a2230;
   --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
@@ -36,9 +41,11 @@ body{margin:0}
 ::selection{background:#0d5350;color:#fff}
 .mono{font-family:'JetBrains Mono',monospace}
 .cs a:focus-visible,.cs button:focus-visible,.cs summary:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
-.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:-0.025em;line-height:1.04}
-.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--c-accent)}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-size:var(--t-lg);font-weight:600;letter-spacing:-0.02em;line-height:1.08;color:var(--c-ink);text-wrap:balance}
+.cs em{font-style:normal;font-weight:inherit;color:inherit}
+.eyebrow{display:block;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);text-align:left;line-height:1.5;margin:0 0 var(--stack)}
+.eyebrow > span + span::before{content:' · ';color:var(--c-muted)}
+.wrap.center > h1{letter-spacing:-0.02em;line-height:1.1;margin:0;max-width:28ch;text-wrap:balance}
 @keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 [data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
 [data-reveal].in{opacity:1;transform:none}
@@ -46,12 +53,12 @@ body{margin:0}
 @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}[class*="float"]{animation:none!important}.win{animation:none!important}}
 
 .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
-.wrap-n{max-width:880px;margin:0 auto;padding:0 40px}
+.wrap-n{max-width:1180px;margin:0 auto;padding:0 40px}
 .pad{padding:120px 0}
-.lead{font-size:clamp(16px,1.5vw,18px);color:var(--c-body);line-height:1.78}
-.sec-h{font-size:clamp(32px,4.6vw,58px);letter-spacing:-1.6px;color:var(--c-ink);line-height:1.02}
-.center{text-align:center}
-.center .lead{margin-left:auto;margin-right:auto}
+.lead{font-size:var(--t-md);color:var(--c-body);line-height:1.7;max-width:64ch}
+.sec-h{font-size:var(--t-lg);letter-spacing:-1.6px;color:var(--c-ink);line-height:1.02}
+.center{text-align:left}
+.center .lead{font-size:var(--t-md);color:var(--c-body);line-height:1.7;max-width:64ch}
 
 /* browser-window framed screen */
 .win{border-radius:0;overflow:hidden;background:#0e1622}
@@ -69,28 +76,28 @@ body{margin:0}
 .band-teal{background:linear-gradient(165deg,#0f5f5b 0%,#0d5350 55%,#0a423f 100%)}
 .band-sand{background:linear-gradient(165deg,#efe7d6 0%,#e7dcc4 100%)}
 .cs.dark .band-sand{background:linear-gradient(165deg,#1c2430 0%,#141b25 100%)}
-.band-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-top:22px}
-.cap-light{color:rgba(255,255,255,.62)}
+.band-cap{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;margin-top:22px}
+.cap-light{color:rgba(255,255,255,.72)}
 .cap-dark{color:var(--c-muted)}
 .band-sand .cap-dark{color:var(--c-body)}
-.band-teal .cap-light{color:rgba(255,255,255,.78)}
+.band-teal .cap-light{color:rgba(255,255,255,.72)}
 
 .meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 26px}
-.meta-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);margin-bottom:11px}
-.meta-v{font-size:15px;color:var(--c-ink2);line-height:1.7}
+.meta-k{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);margin-bottom:11px}
+.meta-v{font-size:var(--t-md);color:var(--c-ink2);line-height:1.7}
 .meta-v.stack > span{display:block}
 
-.btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:#fff;background:var(--c-accent);text-decoration:none;padding:15px 26px;border-radius:999px;transition:transform .2s,box-shadow .2s;box-shadow:0 12px 26px -10px rgba(13,83,80,.6)}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:600;color:#fff;background:var(--c-accent);text-decoration:none;padding:15px 26px;border-radius:999px;transition:transform .2s,box-shadow .2s;box-shadow:0 12px 26px -10px rgba(13,83,80,.6)}
 .btn-primary:hover{transform:translateY(-2px)}
 .cs.dark .btn-primary{color:#06201d}
 
 .card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
 
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.res-n{font-family:'Inter',sans-serif;font-size:clamp(44px,5.6vw,74px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
-.res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
+.res-n{font-family:'Inter',sans-serif;font-size:var(--t-lg);font-weight:600;color:var(--c-muted);letter-spacing:-2.5px;line-height:.92}
+.res-l{font-size:var(--t-md);color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
 .mv{margin-top:16px;max-width:230px}
-.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
 .mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
 .mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
 .mv-fill.on{background:var(--c-accent)}
@@ -100,14 +107,14 @@ body{margin:0}
 .mv-dot.dim{opacity:.4}
 .mv-dot.on{background:var(--c-accent)}
 .cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
-.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px;line-height:1.5}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);margin-top:8px;line-height:1.5}
 .mv-dots .mv-dot{transition:opacity .25s cubic-bezier(0.25,1,0.5,1),box-shadow .25s cubic-bezier(0.25,1,0.5,1)}
 .mv-dots:hover .mv-dot:not(.on){opacity:.35}
 .mv-dots:hover .mv-dot.on{box-shadow:0 0 0 3px color-mix(in srgb,var(--c-accent) 28%,transparent)}
 
 .parlay-chip{position:absolute;top:-16px;right:-14px;background:#0b1016;border:1px solid rgba(183,138,255,0.4);border-radius:11px;padding:11px 15px;box-shadow:0 9px 20px -8px rgba(11,16,22,0.5);z-index:3;animation:cs-float 8s ease-in-out infinite}
 @media (max-width:1060px){.parlay-chip{right:8px}}
-@media (max-width:560px){.parlay-chip{top:-10px;padding:9px 12px}.parlay-chip .mono:nth-child(2){font-size:18px}}
+@media (max-width:560px){.parlay-chip{top:-10px;padding:9px 12px}.parlay-chip .mono:nth-child(2){font-size:var(--t-md)}}
 @keyframes parlay-blink{0%,100%{opacity:1}50%{opacity:0.25}}
 .parlay-blink{animation:parlay-blink 1.6s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.parlay-blink{animation:none}.parlay-chip{animation:none}}
@@ -115,9 +122,9 @@ body{margin:0}
 .appr{display:flex;flex-direction:column;gap:0}
 .appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
 .appr-row:last-child{border-bottom:1px solid var(--c-b2)}
-.appr-n{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-accent);min-width:34px;padding-top:3px}
-.appr-h{font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;letter-spacing:-.01em}
-.appr-p{font-size:14.5px;color:var(--c-body);line-height:1.65}
+.appr-n{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);color:var(--c-muted);min-width:34px;padding-top:3px}
+.appr-h{font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:600;color:var(--c-ink2);margin-bottom:6px;letter-spacing:-.01em}
+.appr-p{font-size:var(--t-md);color:var(--c-body);line-height:1.65}
 
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 /* natural-ratio gallery (no crop; siblings share source ratios) */
@@ -140,42 +147,42 @@ body{margin:0}
 nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
 nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;min-width:0;gap:12px}
 .nav-actions{display:flex;align-items:center;gap:12px;min-width:0;flex-shrink:1;justify-content:flex-end}
-.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:var(--t-md);font-weight:500;transition:color .15s}
 .brand:hover{color:var(--c-ink)}
 .iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
 .iconbtn:hover{background:var(--c-card)}
 .cs-switch{position:relative}
 .cs-switch>summary{display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);list-style:none;user-select:none}
 .cs-switch>summary::-webkit-details-marker{display:none}
-.cs-switch .cs-sw-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase}
-.cs-switch .cs-sw-cur{font-size:13px;font-weight:600;color:var(--c-accent)}
+.cs-switch .cs-sw-lbl{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);color:var(--c-muted);letter-spacing:0.02em;}
+.cs-switch .cs-sw-cur{font-size:var(--t-sm);font-weight:600;color:var(--c-accent)}
 .cs-switch .cs-chev{color:var(--c-muted);transition:transform .2s}
 .cs-switch[open] .cs-chev{transform:rotate(180deg)}
 .cs-sheet{position:absolute;top:calc(100% + 8px);right:0;min-width:272px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 22px 54px -20px rgba(20,30,40,.4);padding:7px;z-index:300}
 .cs-sheet a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;transition:background .15s}
 .cs-sheet a:hover{background:var(--c-bg2)}
 .cs-sheet a.cur{background:var(--c-card)}
-.cs-sheet a .t{display:block;font-size:14px;font-weight:600;color:var(--c-ink2)}
+.cs-sheet a .t{display:block;font-size:var(--t-md);font-weight:600;color:var(--c-ink2)}
 .cs-sheet a.cur .t{color:var(--c-accent)}
-.cs-sheet a .s{display:block;font-size:12px;color:var(--c-muted);margin-top:2px}
+.cs-sheet a .s{display:block;font-size:var(--t-sm);color:var(--c-muted);margin-top:2px}
 .cs-sheet .cs-div{height:1px;background:var(--c-b2);margin:6px 4px}
-.cs-sheet a.cs-allwork{font-size:13px;color:var(--c-muted)}
+.cs-sheet a.cs-allwork{font-size:var(--t-sm);color:var(--c-muted)}
 .cs-sheet a.cs-allwork:hover{color:var(--c-ink2)}
 @media (max-width:560px){.cs-switch .cs-sw-lbl{display:none}}
 
 .verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
-.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
-.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:var(--t-sm);font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
 .verpill a:hover{color:var(--c-ink)}
 .verpill a.on{background:var(--c-accent);color:#fff}
 .verpill a.vdemo{width:38px;height:38px;padding:0;display:inline-flex;align-items:center;justify-content:center;color:var(--c-accent)}
 .verpill a.vdemo:hover{background:var(--c-card);color:var(--c-accent)}
 .cs.dark .verpill a.on{color:#06201d}
-@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:var(--t-sm)}}
 
 @media (max-width:980px){
   nav.top .bar{padding:0 18px}
-  .wrap,.wrap-n{padding:0 20px}
+  .wrap,.wrap-n{max-width:1180px;margin:0 auto;padding:0 40px}
   .pad{padding:80px 0}
   .band-inner{padding:64px 20px}
   .results{grid-template-columns:1fr 1fr;gap:34px 20px}
@@ -250,7 +257,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
         Robert Babiarz
       </a>
       <div class="nav-actions">
-        <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="display:inline-flex;align-items:center;font-size:10.5px;letter-spacing:.08em;color:var(--c-accent);font-weight:700;text-decoration:none">CONTACT</a>
+        <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="display:inline-flex;align-items:center;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-accent);font-weight:700;text-decoration:none">Contact</a>
         <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
         <details class="cs-switch">
           <summary aria-label="Switch case study: Parlay Games iGaming">
@@ -282,11 +289,11 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
   <section style="position:relative;overflow:hidden;padding:84px 0 0">
     <div class="wrap center" style="position:relative;z-index:2">
       <div class="eyebrow" data-reveal="">iGaming · Parlay Games · 2000–2020</div>
-      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.4vw,88px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:16ch">50+ games. 9 markets. <em>One design seat.</em></h1>
-      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:780px;margin-top:28px;color:var(--c-ink2)">Two decades of UI, game art, brand, web, and operator tooling for Parlay Games, the patent holder and world leader in online bingo. As the runtime moved from Java to Flash to HTML to mobile, the work moved with it, and every screen still had to earn its keep on a real-money floor.</p>
+      <h1 data-reveal="" data-d="1">50+ games. 9 markets. <em>One design seat.</em></h1>
+      <p class="lead" data-reveal="" data-d="2" style="font-size:var(--t-md);max-width:780px;margin-top:28px;color:var(--c-ink2)">Two decades of UI, game art, brand, web, and operator tooling for Parlay Games, the patent holder and world leader in online bingo. As the runtime moved from Java to Flash to HTML to mobile, the work moved with it, and every screen still had to earn its keep on a real-money floor.</p>
       <div data-reveal="" data-d="3" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px">
         <a class="btn-primary" href="parlay-gaming.html">Read the full case study <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
-        <a href="#games" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See the games</a>
+        <a href="#games" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See the games</a>
       </div>
     </div>
 
@@ -294,15 +301,15 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div class="glow" style="width:560px;height:560px;top:-160px;right:8%;background:rgba(183,138,255,.14)"></div>
       <div class="glow" style="width:420px;height:420px;bottom:-160px;left:4%;background:rgba(125,211,192,.13)"></div>
       <div class="band-inner">
-        <div style="position:relative;max-width:min(100%,1600px);width:fit-content;margin:0 auto">
-          <div class="win win-1x" style="animation:cs-float 8s ease-in-out infinite;max-width:min(100%,1600px)">
-            <div class="win-bar" aria-hidden="true"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:10px;color:rgba(255,255,255,.55)">this is your bingo · 90-ball desktop client · live floor</span></div>
+        <div style="position:relative;max-width:75%;width:fit-content;margin:0">
+          <div class="win win-1x" style="animation:cs-float 8s ease-in-out infinite;max-width:100%">
+            <div class="win-bar" aria-hidden="true"><span class="win-dot" style="background:#ed6a5e"></span><span class="win-dot" style="background:#f4bf4f"></span><span class="win-dot" style="background:#61c454"></span><span class="mono" style="margin-left:12px;font-size:var(--t-sm);color:rgba(255,255,255,.72)">this is your bingo · 90-ball desktop client · live floor</span></div>
             <img width="1600" height="1184" fetchpriority="high" decoding="async" src="assets/parlay/bingo-desktop.jpg" alt="The 90-ball bingo desktop client: ball caller, called-number board, Million Dollar Bingo ticket rail, live chat, and purchasable strip tickets">
           </div>
           <div class="parlay-chip" aria-hidden="true">
-            <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span class="parlay-blink" style="width:6px;height:6px;border-radius:50%;background:#b78aff;flex:none"></span><span class="mono" style="font-size:9px;color:#b78aff;letter-spacing:0.1em">PARLAY NETWORK · LIVE FLOOR</span></div>
-            <div class="mono" style="font-size:22px;font-weight:500;color:#e8edf5;line-height:1">$2B / yr</div>
-            <div style="font-size:10px;color:#8a9ab5;margin-top:3px;font-family:'DM Sans',sans-serif">wagered across the network, company figure</div>
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span class="parlay-blink" style="width:6px;height:6px;border-radius:50%;background:#b78aff;flex:none"></span><span class="mono" style="font-size:var(--t-sm);color:#b78aff;letter-spacing:0.02em">Parlay network · live floor</span></div>
+            <div class="mono" style="font-size:var(--t-md);font-weight:500;color:rgba(255,255,255,.72);line-height:1">$2B / yr</div>
+            <div style="font-size:var(--t-sm);color:#8a9ab5;margin-top:3px;font-family:'DM Sans',sans-serif">wagered across the network, company figure</div>
           </div>
         </div>
         <div class="band-cap cap-light">The 90-ball desktop client: caller, board, ticket rail, chat. Every element skinnable per operator brand</div>
@@ -316,7 +323,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">The Platform</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">A B2B network where <em>every pixel was billable</em></h2>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:var(--t-lg)">A B2B network where <em>every pixel was billable</em></h2>
           <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">Parlay Games didn't run one bingo site. It ran the platform behind 70+ operator brands in nine regulated markets, and every one of them needed games, a brand, a website, promotions, and an operator console. That whole surface was the design job.</p>
           <p class="lead" data-reveal="" data-d="2">One rule governed all of it: the games had to perform on minimum-spec machines, over real-world connections, with real money on the table. Craft that doesn't survive those conditions doesn't ship.</p>
         </div>
@@ -344,30 +351,30 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div class="results" id="stats">
         <div data-reveal=""><div class="res-n">$2B</div><div class="res-l">USD wagered per year across the network</div>
           <div class="mv" role="img" aria-label="Two billion US dollars wagered per year across the Parlay network, a company figure">
-            <div class="mv-lbl" aria-hidden="true"><span>WAGERED / YR</span><span>NETWORK-WIDE</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>Wagered / yr</span><span>Network-wide</span></div>
             <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
-            <div class="mv-note" style="color:var(--c-muted)">PARLAY-ERA COMPANY FIGURE</div>
+            <div class="mv-note" style="color:var(--c-muted)">Parlay-era company figure</div>
           </div></div>
         <div data-reveal="" data-d="1"><div class="res-n">2.8M</div><div class="res-l">Players online, served through 70+ operator clients</div>
           <div class="mv" role="img" aria-label="2.8 million players online across more than seventy business-to-business operator clients">
-            <div class="mv-lbl" aria-hidden="true"><span>PLAYERS ONLINE</span><span>70+ B2B CLIENTS</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>Players online</span><span>70+ B2B clients</span></div>
             <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
-            <div class="mv-note" style="color:var(--c-muted)">PARLAY-ERA COMPANY FIGURE</div>
+            <div class="mv-note" style="color:var(--c-muted)">Parlay-era company figure</div>
           </div></div>
         <div data-reveal="" data-d="2"><div class="res-n">50+</div><div class="res-l">Games designed and shipped: bingo, slots, keno, casino, word games</div>
           <div class="mv" role="img" aria-label="More than fifty games designed and shipped">
-            <div class="mv-lbl" aria-hidden="true"><span>GAMES SHIPPED</span><span>ALL RUNTIMES</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>Games shipped</span><span>All runtimes</span></div>
             <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
             <div class="mv-note" style="color:var(--c-muted)">JAVA · FLASH · HTML · IOS &amp; ANDROID</div>
           </div></div>
         <div data-reveal="" data-d="3"><div class="res-n">9</div><div class="res-l">Regulated markets: UK, Spain, Italy, Kenya, Denmark, US, Brazil, Bahamas, Canada</div>
           <div class="mv" role="img" aria-label="Nine regulated markets, drawn one dot per market">
-            <div class="mv-lbl" aria-hidden="true"><span>MARKETS</span><span>9 · DRAWN 1:1</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>Markets</span><span>9 · drawn 1:1</span></div>
             <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span><span class="mv-dot on"></span></div>
-            <div class="mv-note" style="color:var(--c-muted)">EACH UNDER ITS OWN REGULATOR, KYC/AML AND RESPONSIBLE-GAMING RULES</div>
+            <div class="mv-note" style="color:var(--c-muted)">Each under its own regulator, kyc/aml and responsible-gaming rules</div>
           </div></div>
       </div>
-      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted);letter-spacing:.06em;margin-top:34px;text-align:center">PLATFORM FIGURES FROM THE PARLAY ERA · THE FLOOR THE DESIGN WORK SHIPPED INTO, NOT METRICS CLAIMED FOR ONE SCREEN</div>
+      <div class="mono" data-reveal="" style="font-size:var(--t-sm);color:var(--c-muted);letter-spacing:0.02em;margin-top:34px;">Platform figures from the parlay era · the floor the design work shipped into, not metrics claimed for one screen</div>
     </div>
   </section>
 
@@ -377,7 +384,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">The Games</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">Bingo is <em>a system,</em> not a card</h2>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:var(--t-lg)">Bingo is <em>a system,</em> not a card</h2>
           <p class="lead" data-reveal="" data-d="2">75, 80, and 90-ball variants, buy and auto-buy flows, jackpot rails, chat, win states, all of it tuned so a player glancing between three cards never loses the thread. The same game logic shipped to desktop, iPad, and mobile web without losing its shape.</p>
         </div>
         <div class="appr">
@@ -394,9 +401,9 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
     <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
     <div class="band-inner">
       <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow" style="color:#9fe9d8">Slots &amp; Casino</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Full titles, <em style="color:#9fe9d8">art to paytable</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">Hollywood Reels, 7s Ablaze, BonBon Blast, Bushwacks, Keno. Theme, symbols, reels, bonus rounds, and pay tables, designed as one coherent piece per title.</p>
+        <div class="eyebrow" style="color:rgba(255,255,255,.72)">Slots &amp; Casino</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:var(--t-lg)">Full titles, <em style="color:rgba(255,255,255,.72)">art to paytable</em></h2>
+        <p class="lead" style="color:rgba(255,255,255,.72);max-width:720px;margin:18px 0 0">Hollywood Reels, 7s Ablaze, BonBon Blast, Bushwacks, Keno. Theme, symbols, reels, bonus rounds, and pay tables, designed as one coherent piece per title.</p>
       </div>
       <div class="pgrid">
         <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="800" height="531" loading="lazy" decoding="async" src="assets/parlay/slots-hollywood.jpg" alt="Hollywood Reels main slot screen with movie-themed symbols framed by film strips"></div><div class="band-cap cap-light">Hollywood Reels · five reels, movie-set staging</div></div>
@@ -412,7 +419,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div class="center" style="margin-bottom:54px">
         <div class="eyebrow" data-reveal="">Brand &amp; Identity</div>
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Logos that arrive <em>with a system</em></h2>
-        <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px auto 0">Marks for games, operators, and standalone brand commissions, each shipped as a kit: color and mono lockups, palettes, type specimens, mascots with pose sheets. The brand had to survive a game client, a website header, a promo banner, and print.</p>
+        <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px 0 0">Marks for games, operators, and standalone brand commissions, each shipped as a kit: color and mono lockups, palettes, type specimens, mascots with pose sheets. The brand had to survive a game client, a website header, a promo banner, and print.</p>
       </div>
       <div class="logo-wall" data-reveal="">
         <div class="logo-cell"><img width="596" height="335" loading="lazy" decoding="async" src="assets/parlay/logo-powwow-mascot.jpg" alt="Pow Wow Bingo logo lockup with the eagle mascot rising behind the wordmark, drum, and bingo balls"></div>
@@ -455,7 +462,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
           <div class="avchip"><div class="avface" style="background-position:83.333% 100%"></div></div>
           <div class="avchip"><div class="avface" style="background-position:100% 100%"></div></div>
         </div>
-        <div class="band-cap cap-dark" style="text-align:center">Player identity · 28 recovered from the roughly 40-avatar caricature set, drawn one at a time</div>
+        <div class="band-cap cap-dark" style="">Player identity · 28 recovered from the roughly 40-avatar caricature set, drawn one at a time</div>
       </div>
     </div>
   </section>
@@ -466,7 +473,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div class="center" style="margin-bottom:54px">
         <div class="eyebrow" data-reveal="">Player-Facing Web</div>
         <h2 class="sec-h" data-reveal="" data-d="1" style="margin-top:16px">Where the player <em>actually lives</em></h2>
-        <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px auto 0">Casino landing pages, a social bingo platform with profiles, friends and achievements, and the unglamorous part that pays for everything: deposit flows that work in every market's currency, language, and payment rail.</p>
+        <p class="lead" data-reveal="" data-d="2" style="max-width:760px;margin:18px 0 0">Casino landing pages, a social bingo platform with profiles, friends and achievements, and the unglamorous part that pays for everything: deposit flows that work in every market's currency, language, and payment rail.</p>
       </div>
       <div class="pgrid2" data-reveal="">
         <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="1200" height="985" loading="lazy" decoding="async" src="assets/parlay/web-victory.jpg" alt="Victory Gamez casino landing page: Canada's Online Casino headline beside a two-thousand-dollar deposit-bonus signup form"></div><div class="band-cap cap-dark">Victory Gamez · the landing page is the pitch</div></div>
@@ -485,10 +492,10 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
     <div class="band-inner">
       <div class="center" style="margin-bottom:44px">
         <div class="eyebrow" style="color:#b78aff">Promotions</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">A year-round calendar, <em style="color:#b78aff">in three sizes</em></h2>
-        <p class="lead" style="color:#c9d3e2;max-width:760px;margin:18px auto 0">Three fixed production sizes, every season, every market. Swedish national day, Brazilian payment holidays, Valentine's, Halloween. Concept, illustration, and copy, shipped to a year-round marketing calendar.</p>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:var(--t-lg)">A year-round calendar, <em style="color:#b78aff">in three sizes</em></h2>
+        <p class="lead" style="color:rgba(255,255,255,.72);max-width:760px;margin:18px 0 0">Three fixed production sizes, every season, every market. Swedish national day, Brazilian payment holidays, Valentine's, Halloween. Concept, illustration, and copy, shipped to a year-round marketing calendar.</p>
       </div>
-      <div style="max-width:800px;margin:0 auto 14px"><img width="800" height="311" loading="lazy" decoding="async" src="assets/parlay/promo-festival.jpg" alt="Festival Bingo hero banner: celebrating players and confetti with a Play Now button"></div>
+      <div style="max-width:800px;margin:0 0 14px"><img width="800" height="311" loading="lazy" decoding="async" src="assets/parlay/promo-festival.jpg" alt="Festival Bingo hero banner: celebrating players and confetti with a Play Now button"></div>
       <div class="promo-wall">
         <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-summer.jpg" alt="Summer deposit bonus promo in a dense colorful doodle-illustration style">
         <img width="490" height="295" loading="lazy" decoding="async" src="assets/parlay/promo-sweden.jpg" alt="Swedish national day promo with hot-air balloons in Swedish flag colors, copy in Swedish">
@@ -512,7 +519,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">The Back Office</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">The tools <em>operators ran on</em></h2>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:var(--t-lg)">The tools <em>operators ran on</em></h2>
           <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">HouseEdge, the operator console behind every brand on the network: player management, fraud and deposit limits, game plug-in installs, analytics, foreign exchange. Enterprise tooling, a career before I designed it for lighting networks and security operations.</p>
           <p class="lead" data-reveal="" data-d="2">This is the same product shape as a SOC console: dense tables, limits and thresholds, exports, roles. The domain changed later. The discipline didn't.</p>
         </div>
@@ -535,8 +542,8 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
     <div class="band-inner">
       <div class="center" style="margin-bottom:44px">
         <div class="eyebrow">3D Imagery</div>
-        <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,3.6vw,46px)">The casino floor, <em>modelled from scratch</em></h2>
-        <p class="lead" style="max-width:720px;margin:18px auto 0">Slot banks, table pits, and in-game cabinet backgrounds, modelled and rendered in Lightwave 3D with textures built in Illustrator and Photoshop. Stock imagery, except we were the stock.</p>
+        <h2 class="sec-h" style="margin-top:16px;font-size:var(--t-lg)">The casino floor, <em>modelled from scratch</em></h2>
+        <p class="lead" style="max-width:720px;margin:18px 0 0">Slot banks, table pits, and in-game cabinet backgrounds, modelled and rendered in Lightwave 3D with textures built in Illustrator and Photoshop. Stock imagery, except we were the stock.</p>
       </div>
       <div class="pgrid">
         <div><div class="win"><div class="win-bar" aria-hidden="true" style="padding:8px 12px"><span class="win-dot" style="width:8px;height:8px;background:#ed6a5e"></span><span class="win-dot" style="width:8px;height:8px;background:#f4bf4f"></span><span class="win-dot" style="width:8px;height:8px;background:#61c454"></span></div><img width="962" height="772" loading="lazy" decoding="async" src="assets/parlay/3d-slotbank.jpg" alt="3D-rendered row of slot machines with red upholstered stools"></div><div class="band-cap cap-dark">Slot bank · rendered cabinet by cabinet</div></div>
@@ -560,13 +567,13 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
 
   <!-- FOOTER -->
   <footer style="padding:42px 40px 64px;background:var(--c-bg);border-top:1px solid var(--c-b1);min-height:198px;">
-    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+    <div style="max-width:1180px;margin:0 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
       <div>
-        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
-        <a href="design-system-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Goals-Driven Finance <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+        <div class="mono" style="font-size:var(--t-sm);color:var(--c-muted);letter-spacing:0.02em;margin-bottom:7px">Next case study</div>
+        <a href="design-system-showcase.html" style="font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Goals-Driven Finance <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
       </div>
-      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
-      <a href="homepage-interactive.dc.html" data-nav="back" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:var(--t-md);color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
+      <a href="homepage-interactive.dc.html" data-nav="back" style="display:flex;align-items:center;gap:8px;font-size:var(--t-md);color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
     </div>
   </footer>
 
@@ -575,7 +582,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
     <span class="vlbl">Version</span>
     <a href="parlay-gaming-showcase.html" class="on">Quick tour</a>
     <a href="parlay-gaming.html">Deep dive</a>
-    <a href="parlay-gaming.html#slot" class="vdemo" aria-label="Jump into the interactive demo" title="Interactive demo"><span class="msi" aria-hidden="true" style="font-size:20px;">play_arrow</span></a>
+    <a href="parlay-gaming.html#slot" class="vdemo" aria-label="Jump into the interactive demo" title="Interactive demo"><span class="msi" aria-hidden="true" style="font-size:var(--t-md);">play_arrow</span></a>
   </div>
 
 </div>

@@ -16,15 +16,20 @@ html{scroll-behavior:smooth}
 body{margin:0}
 .cs{
   --c-bg:#fffcf5;--c-bg2:#faf6ec;--c-card:#f4efe3;--c-surface:#ffffff;
-  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#1c2730;
+  --c-line:#ece7db;--c-line2:#d6d0c2;--c-ink:#0a0a0a;--c-ink2:#0a0a0a;
   --c-body:#534f48;--c-muted:#6e6a60;--c-muted2:#9a9486;
   --c-accent:#0d5350;--c-accent-soft:#e7f1f0;--c-navy:#0F2A4A;--c-teal:#0d5350;--c-sand:#efe6d4;
   --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
   --c-navbg:rgba(255,252,245,0.84);
+  /* type scale: exactly three sizes, one role each */
+  --t-lg:clamp(30px,3.5vw,46px);   /* display: h1, every h2, result numbers */
+  --t-md:17px;                     /* body: all prose, all card + table text */
+  --t-sm:11px;                     /* micro: mono labels, eyebrows, captions, axes */
+  --stack:14px;                    /* gap from label down to its heading */
 }
 .cs.dark{
   --c-bg:#0b1016;--c-bg2:#0e141b;--c-card:#151d26;--c-surface:#121a23;
-  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#e7e3da;
+  --c-line:#222c36;--c-line2:#303b46;--c-ink:#f3f1ea;--c-ink2:#f3f1ea;
   --c-body:#bcb6aa;--c-muted:#928c81;--c-muted2:#6f695e;
   --c-accent:#5fc2a8;--c-accent-soft:#10231f;--c-navy:#0a1c30;--c-teal:#0c3d3a;--c-sand:#1a2230;
   --c-b1:rgba(255,255,255,0.05);--c-b2:rgba(255,255,255,0.08);--c-b3:rgba(255,255,255,0.11);--c-b4:rgba(255,255,255,0.15);--c-b5:rgba(255,255,255,0.28);
@@ -34,9 +39,11 @@ body{margin:0}
 .cs{background:var(--c-bg);color:var(--c-ink);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;overflow-x:clip}
 ::selection{background:#0d5350;color:#fff}
 .mono{font-family:'JetBrains Mono',monospace}
-.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:-0.025em;line-height:1.04}
-.cs em{font-style:italic;font-weight:300;color:var(--c-accent)}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--c-accent)}
+.cs h1,.cs h2,.cs h3{font-family:'Inter',sans-serif;font-size:var(--t-lg);font-weight:600;letter-spacing:-0.02em;line-height:1.08;color:var(--c-ink);text-wrap:balance}
+.cs em{font-style:normal;font-weight:inherit;color:inherit}
+.eyebrow{display:block;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);text-align:left;line-height:1.5;margin:0 0 var(--stack)}
+.eyebrow > span + span::before{content:' · ';color:var(--c-muted)}
+.wrap.center > h1{letter-spacing:-0.02em;line-height:1.1;margin:0;max-width:28ch;text-wrap:balance}
 @keyframes cs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes cs-float2{0%,100%{transform:translateY(-6px)}50%{transform:translateY(-20px)}}
 [data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
@@ -45,12 +52,12 @@ body{margin:0}
 @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}[class*="float"]{animation:none!important}}
 
 .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
-.wrap-n{max-width:880px;margin:0 auto;padding:0 40px}
+.wrap-n{max-width:1180px;margin:0 auto;padding:0 40px}
 .pad{padding:120px 0}
-.lead{font-size:clamp(16px,1.5vw,18px);color:var(--c-body);line-height:1.78}
-.sec-h{font-size:clamp(32px,4.6vw,58px);letter-spacing:-1.6px;color:var(--c-ink);line-height:1.02}
-.center{text-align:center}
-.center .lead{margin-left:auto;margin-right:auto}
+.lead{font-size:var(--t-md);color:var(--c-body);line-height:1.7;max-width:64ch}
+.sec-h{font-size:var(--t-lg);letter-spacing:-1.6px;color:var(--c-ink);line-height:1.02}
+.center{text-align:left}
+.center .lead{font-size:var(--t-md);color:var(--c-body);line-height:1.7;max-width:64ch}
 
 /* phone mockup - metallic iPhone frame, matched to the Standard view (smart-lighting.dc.html .sl-ip-phone) */
 .slph{display:inline-block;position:relative;border-radius:16px;padding:4.5px;background:linear-gradient(180deg,rgba(255,255,255,0.16) 0%,transparent 24%),linear-gradient(155deg,#636870 0%,#3d424a 14%,#1a1d22 38%,#434851 62%,#121418 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.2),inset 0 0 0 2px rgba(0,0,0,0.62),0 12px 24px -11px rgba(12,16,24,0.38), 0 3px 7px -3px rgba(12,16,24,0.14)}
@@ -59,8 +66,8 @@ body{margin:0}
 .slph > span{display:block;position:relative;border-radius:12px;overflow:hidden;background:#000;width:232px;aspect-ratio:285/618;line-height:0;font-size:0}
 .slph img{position:absolute;top:0;left:0;width:100%;height:calc(100% + 3px);display:block;object-fit:cover;object-position:top center}
 .slph--lg > span{width:min(320px,82vw)}
-#network .mesh-tab{border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.85)}
-#network .mesh-tab:hover{border-color:rgba(255,255,255,.65)}
+#network .mesh-tab{border-color:rgba(255,255,255,.72);color:rgba(255,255,255,.72)}
+#network .mesh-tab:hover{border-color:rgba(255,255,255,.72)}
 /* fixed-height text column: per-proposal copy varies, the tab row must not move */
 #network .mesh-grid > div:nth-child(2){min-height:400px}
 @media (max-width:980px){#network .mesh-grid > div:nth-child(2){min-height:0}}
@@ -68,13 +75,13 @@ body{margin:0}
 .sl-swap.sl-on{opacity:1}
 .mesh-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:44px;align-items:center;margin-top:36px}
 .mesh-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
-.mesh-tab{padding:9px 15px;border-radius:9px;border:1px solid var(--c-b3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;background:transparent;color:var(--c-body);transition:all .2s}
+.mesh-tab{padding:9px 15px;border-radius:9px;border:1px solid var(--c-b3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:var(--t-sm);font-weight:600;background:transparent;color:var(--c-body);transition:all .2s}
 .mesh-tab.is-on[data-tier="drop"]{background:#c0392b;border-color:#c0392b;color:#fff}
 .mesh-tab.is-on[data-tier="ship"]{background:#2e7d4f;border-color:#2e7d4f;color:#fff}
-.mesh-result{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 11px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.06em;line-height:1}
-.mesh-result .msi{font-size:14px;font-variation-settings:'opsz' 20;vertical-align:0}
+.mesh-result{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 11px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);font-weight:600;letter-spacing:0.02em;line-height:1}
+.mesh-result .msi{font-size:var(--t-md);font-variation-settings:'opsz' 20;vertical-align:0}
 .mesh-table-wrap{margin-top:56px;overflow-x:auto;border-radius:14px;border:1px solid var(--c-b3)}
-.mesh-table{width:100%;border-collapse:collapse;min-width:680px;font-size:14px}
+.mesh-table{width:100%;border-collapse:collapse;min-width:680px;font-size:var(--t-md)}
 @media (max-width:980px){.mesh-grid{grid-template-columns:1fr;gap:32px}}
 
 .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
@@ -86,26 +93,26 @@ body{margin:0}
 .cs.dark .band-sand{background:linear-gradient(165deg,#1c2430 0%,#141b25 100%)}
 .showrow{display:flex;gap:34px;justify-content:center;align-items:flex-end;flex-wrap:wrap}
 .showrow .lift{transform:translateY(-26px)}
-.band-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-top:18px}
-.cap-light{color:rgba(255,255,255,.62)}
+.band-cap{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;margin-top:18px}
+.cap-light{color:rgba(255,255,255,.72)}
 .cap-dark{color:var(--c-muted)}
 
 .meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 26px}
-.meta-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);margin-bottom:11px}
-.meta-v{font-size:15px;color:var(--c-ink2);line-height:1.7}
+.meta-k{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);margin-bottom:11px}
+.meta-v{font-size:var(--t-md);color:var(--c-ink2);line-height:1.7}
 .meta-v.stack > span{display:block}
 
-.btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:#fff;background:var(--c-accent);text-decoration:none;padding:15px 26px;border-radius:999px;transition:transform .2s,box-shadow .2s;box-shadow:0 12px 26px -10px rgba(13,83,80,.6)}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:600;color:#fff;background:var(--c-accent);text-decoration:none;padding:15px 26px;border-radius:999px;transition:transform .2s,box-shadow .2s;box-shadow:0 12px 26px -10px rgba(13,83,80,.6)}
 .btn-primary:hover{transform:translateY(-2px)}
 .cs.dark .btn-primary{color:#06201d}
 
 .card{background:var(--c-surface);border:1px solid var(--c-b2);border-radius:18px}
 
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.res-n{font-family:'Inter',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:600;color:var(--c-accent);letter-spacing:-2.5px;line-height:.92}
-.res-l{font-size:14.5px;color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
+.res-n{font-family:'Inter',sans-serif;font-size:var(--t-lg);font-weight:600;color:var(--c-muted);letter-spacing:-2.5px;line-height:.92}
+.res-l{font-size:var(--t-md);color:var(--c-body);line-height:1.55;margin-top:14px;max-width:230px}
 .mv{margin-top:16px;max-width:230px}
-.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
+.mv-lbl{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px}
 .mv-track{position:relative;height:8px;border-radius:4px;background:var(--c-b1)}
 .mv-fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#8a8578}
 .mv-fill.on{background:var(--c-accent)}
@@ -115,35 +122,35 @@ body{margin:0}
 .mv-dot.dim{opacity:.4}
 .mv-dot.on{background:var(--c-accent)}
 .cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
-.mv-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--c-muted);margin-top:8px;line-height:1.5}
+.mv-note{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);margin-top:8px;line-height:1.5}
 .mv-steps{display:flex;gap:3px}
 .mv-step{flex:1;height:20px;border-radius:4px}
 .mv-step:nth-child(1){background:#5c988e}.mv-step:nth-child(2){background:#3d7d72}.mv-step:nth-child(3){background:#24685e}
 .cs.dark .mv-step:nth-child(1){background:#3f8776}.cs.dark .mv-step:nth-child(2){background:#4fa38c}.cs.dark .mv-step:nth-child(3){background:#5fc2a8}
 .mv-steplbl{display:flex;gap:3px;margin-top:5px}
-.mv-steplbl span{flex:1;font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.03em;color:var(--c-muted);text-align:center}
+.mv-steplbl span{flex:1;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:.03em;color:var(--c-muted);}
 .mv-seg24{display:flex;gap:2px}
 .mv-seg24 span{flex:1;height:8px;border-radius:2px;background:var(--c-accent)}
 /* device-distribution strip on the navy band (band is fixed-dark in both themes) */
 .dbx{max-width:860px;margin:0 auto 40px}
 .dbx-bar{display:flex;gap:2px;height:16px}
-.dbx-seg{border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;color:#0b1016}
+.dbx-seg{border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;white-space:nowrap;overflow:hidden;color:#0b1016}
 .dbx-seg.rep{background:#7dd3c0}
 .dbx-seg.std{background:#8a9ab5}
-.dbx-lbl{display:flex;justify-content:space-between;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.07em;color:rgba(255,255,255,.62);margin:14px 0 6px}
+.dbx-lbl{display:flex;justify-content:space-between;gap:8px;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:rgba(255,255,255,.72);margin:14px 0 6px}
 .dbx-dots{display:flex;gap:4px;align-items:center;flex-wrap:wrap;min-height:8px}
 .dbx-dot{width:8px;height:8px;border-radius:50%;background:#7dd3c0;flex:0 0 auto}
-.dbx-legend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;color:rgba(255,255,255,.62)}
+.dbx-legend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:rgba(255,255,255,.72)}
 .dbx-legend b{color:#fff;font-weight:600}
 .dbx-sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-.dbx-note{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:rgba(255,255,255,.5);margin-top:10px;text-align:center;line-height:1.6}
+.dbx-note{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:rgba(255,255,255,.72);margin-top:10px;line-height:1.6}
 
 .appr{display:flex;flex-direction:column;gap:0}
 .appr-row{display:flex;gap:22px;padding:24px 0;border-top:1px solid var(--c-b2)}
 .appr-row:last-child{border-bottom:1px solid var(--c-b2)}
-.appr-n{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--c-accent);min-width:34px;padding-top:3px}
-.appr-h{font-family:'Inter',sans-serif;font-size:19px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;letter-spacing:-.01em}
-.appr-p{font-size:14.5px;color:var(--c-body);line-height:1.65}
+.appr-n{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);color:var(--c-muted);min-width:34px;padding-top:3px}
+.appr-h{font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:600;color:var(--c-ink2);margin-bottom:6px;letter-spacing:-.01em}
+.appr-p{font-size:var(--t-md);color:var(--c-body);line-height:1.65}
 
 .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .case-card{display:block;text-decoration:none;border-radius:18px;overflow:hidden;border:1px solid var(--c-b2);background:var(--c-surface);transition:transform .25s,box-shadow .25s}
@@ -153,42 +160,42 @@ body{margin:0}
 
 nav.top{position:sticky;top:0;z-index:80;background:var(--c-navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-b1)}
 nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto}
-.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:14px;font-weight:500;transition:color .15s}
+.brand{text-decoration:none;display:flex;align-items:center;gap:9px;color:var(--c-muted);font-size:var(--t-md);font-weight:500;transition:color .15s}
 .brand:hover{color:var(--c-ink)}
 .iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--c-b4);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-ink);transition:background .2s}
 .iconbtn:hover{background:var(--c-card)}
 .cs-switch{position:relative}
 .cs-switch>summary{display:flex;align-items:center;gap:9px;cursor:pointer;padding:7px 13px;border:1px solid var(--c-b4);border-radius:9px;background:var(--c-surface);list-style:none;user-select:none}
 .cs-switch>summary::-webkit-details-marker{display:none}
-.cs-switch .cs-sw-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase}
-.cs-switch .cs-sw-cur{font-size:13px;font-weight:600;color:var(--c-accent)}
+.cs-switch .cs-sw-lbl{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);color:var(--c-muted);letter-spacing:0.02em;}
+.cs-switch .cs-sw-cur{font-size:var(--t-sm);font-weight:600;color:var(--c-accent)}
 .cs-switch .cs-chev{color:var(--c-muted);transition:transform .2s}
 .cs-switch[open] .cs-chev{transform:rotate(180deg)}
 .cs-sheet{position:absolute;top:calc(100% + 8px);right:0;min-width:272px;background:var(--c-surface);border:1px solid var(--c-b3);border-radius:12px;box-shadow:0 11px 27px -10px rgba(20,30,40,0.26);padding:7px;z-index:300}
 .cs-sheet a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;transition:background .15s}
 .cs-sheet a:hover{background:var(--c-bg2)}
 .cs-sheet a.cur{background:var(--c-card)}
-.cs-sheet a .t{display:block;font-size:14px;font-weight:600;color:var(--c-ink2)}
+.cs-sheet a .t{display:block;font-size:var(--t-md);font-weight:600;color:var(--c-ink2)}
 .cs-sheet a.cur .t{color:var(--c-accent)}
-.cs-sheet a .s{display:block;font-size:12px;color:var(--c-muted);margin-top:2px}
+.cs-sheet a .s{display:block;font-size:var(--t-sm);color:var(--c-muted);margin-top:2px}
 .cs-sheet .cs-div{height:1px;background:var(--c-b2);margin:6px 4px}
-.cs-sheet a.cs-allwork{font-size:13px;color:var(--c-muted)}
+.cs-sheet a.cs-allwork{font-size:var(--t-sm);color:var(--c-muted)}
 .cs-sheet a.cs-allwork:hover{color:var(--c-ink2)}
 @media (max-width:560px){.cs-switch .cs-sw-lbl{display:none}}
 
 .verpill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:var(--c-navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--c-b3);box-shadow:0 18px 44px -16px rgba(10,20,30,.5)}
-.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-muted);padding:0 10px 0 12px}
-.verpill a{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.verpill .vlbl{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);padding:0 10px 0 12px}
+.verpill a{font-family:'Inter',sans-serif;font-size:var(--t-sm);font-weight:600;letter-spacing:-.01em;color:var(--c-body);text-decoration:none;padding:9px 17px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
 .verpill a:hover{color:var(--c-ink)}
 .verpill a.on{background:var(--c-accent);color:#fff}
 .verpill a.vdemo{width:38px;height:38px;padding:0;display:inline-flex;align-items:center;justify-content:center;color:var(--c-accent)}
 .verpill a.vdemo:hover{background:var(--c-card);color:var(--c-accent)}
 .cs.dark .verpill a.on{color:#06201d}
-@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:12.5px}}
+@media (max-width:560px){.verpill .vlbl{display:none}.verpill a{padding:9px 14px;font-size:var(--t-sm)}}
 
 @media (max-width:980px){
   nav.top .bar{padding:0 18px}
-  .wrap,.wrap-n{padding:0 20px}
+  .wrap,.wrap-n{max-width:1180px;margin:0 auto;padding:0 40px}
   .pad{padding:80px 0}
   .band-inner{padding:64px 20px}
   .results{grid-template-columns:1fr 1fr;gap:34px 20px}
@@ -242,7 +249,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
         Robert Babiarz
       </a>
       <div style="display:flex;align-items:center;gap:12px">
-        <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="display:inline-flex;align-items:center;font-size:10.5px;letter-spacing:.08em;color:var(--c-accent);font-weight:700;text-decoration:none">CONTACT</a>
+        <a href="mailto:rbabiarz@gmail.com" class="mono navq" style="display:inline-flex;align-items:center;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-accent);font-weight:700;text-decoration:none">Contact</a>
         <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"></button>
         <details class="cs-switch">
           <summary>
@@ -274,11 +281,11 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   <section style="position:relative;overflow:hidden;padding:84px 0 0">
     <div class="wrap center" style="position:relative;z-index:2">
       <div class="eyebrow" data-reveal="">Smart home lighting</div>
-      <h1 data-reveal="" data-d="1" style="font-size:clamp(40px,6.4vw,88px);letter-spacing:-3px;line-height:1.0;margin:22px auto 0;max-width:15ch">Hundreds of lights, <em>one simple app</em></h1>
-      <p class="lead" data-reveal="" data-d="2" style="font-size:clamp(18px,2vw,22px);max-width:740px;margin-top:28px;color:var(--c-ink2)">This is the lighting tech built for office towers, rebuilt for a house. Underneath, hundreds of bulbs are talking to each other and adjusting all day. On screen, it is one tap. I designed the app that keeps it that way.</p>
+      <h1 data-reveal="" data-d="1">Hundreds of lights, <em>one simple app</em></h1>
+      <p class="lead" data-reveal="" data-d="2" style="font-size:var(--t-md);max-width:740px;margin-top:28px;color:var(--c-ink2)">This is the lighting tech built for office towers, rebuilt for a house. Underneath, hundreds of bulbs are talking to each other and adjusting all day. On screen, it is one tap. I designed the app that keeps it that way.</p>
       <div data-reveal="" data-d="3" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px">
         <a class="btn-primary" href="smart-lighting-showcase.html">Read the full case study <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
-        <a href="#network" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See how the lights find each other</a>
+        <a href="#network" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See how the lights find each other</a>
       </div>
     </div>
 
@@ -302,7 +309,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">The idea</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:clamp(28px,3.4vw,42px)">Office building brains, <em>home app simple</em></h2>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:16px 0 24px;font-size:var(--t-lg)">Office building brains, <em>home app simple</em></h2>
           <p class="lead" data-reveal="" data-d="2" style="margin-bottom:18px">The company already made lighting for offices and hospitals: bulbs that pass signals to one another, light that shifts warm and cool as the day goes on, one place to run a whole building of them. The idea was to put all of that in a house, and make it feel like a light switch.</p>
           <p class="lead" data-reveal="" data-d="2">The catch: at work, people put up with a clunky tool because it is their job. At home, nobody does. Fumble once and the app gets buried on the last screen, and the lights go back to being ordinary lights. So every screen had to hide the complicated part without throwing it away.</p>
         </div>
@@ -329,9 +336,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     </div>
     <div class="wrap" style="margin-top:54px">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="cgrid">
-        <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">01</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">People quit when it is fiddly</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">The things you do every day, on, off, brighter, warmer, have to be one tap away. Everything else waits quietly out of sight until you go looking for it.</div></div>
-        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:10px;color:var(--c-accent);letter-spacing:.08em;margin-bottom:11px">02</div><div style="font-size:17px;font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Nobody wants a network diagram</div><div style="font-size:13.5px;color:var(--c-body);line-height:1.62">You should not have to know how the lights talk to each other. You just need to trust that they do, whether there are 30 of them or 300.</div></div>
-        <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:10px;color:#a9ddd0;letter-spacing:.08em;margin-bottom:11px">03</div><div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Setup is the worst part</div><div style="font-size:13.5px;color:#c6d2dd;line-height:1.62">So you set the lights up before they ever reach the ceiling. Scan one while it is still in the box, tell the app which room it belongs to, done.</div></div>
+        <div class="card" data-reveal="" style="padding:28px"><div class="mono" style="font-size:var(--t-sm);color:var(--c-accent);letter-spacing:0.02em;margin-bottom:11px">01</div><div style="font-size:var(--t-md);font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">People quit when it is fiddly</div><div style="font-size:var(--t-sm);color:var(--c-body);line-height:1.62">The things you do every day, on, off, brighter, warmer, have to be one tap away. Everything else waits quietly out of sight until you go looking for it.</div></div>
+        <div class="card" data-reveal="" data-d="1" style="padding:28px"><div class="mono" style="font-size:var(--t-sm);color:var(--c-accent);letter-spacing:0.02em;margin-bottom:11px">02</div><div style="font-size:var(--t-md);font-weight:700;color:var(--c-ink2);margin-bottom:8px;font-family:'Inter',sans-serif">Nobody wants a network diagram</div><div style="font-size:var(--t-sm);color:var(--c-body);line-height:1.62">You should not have to know how the lights talk to each other. You just need to trust that they do, whether there are 30 of them or 300.</div></div>
+        <div class="card" data-reveal="" data-d="2" style="padding:28px;background:var(--c-navy);border-color:transparent"><div class="mono" style="font-size:var(--t-sm);color:rgba(255,255,255,.72);letter-spacing:0.02em;margin-bottom:11px">03</div><div style="font-size:var(--t-md);font-weight:700;color:#fff;margin-bottom:8px;font-family:'Inter',sans-serif">Setup is the worst part</div><div style="font-size:var(--t-sm);color:rgba(255,255,255,.72);line-height:1.62">So you set the lights up before they ever reach the ceiling. Scan one while it is still in the box, tell the app which room it belongs to, done.</div></div>
       </div>
     </div>
   </section>
@@ -341,9 +348,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div class="glow" style="width:520px;height:520px;top:-180px;left:10%;background:rgba(159,233,216,.15)"></div>
     <div class="band-inner">
       <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow" style="color:#9fe9d8">The screen you actually use</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">Everything you use, <em style="color:#9fe9d8">one tap away</em></h2>
-        <p class="lead" style="color:#bfe7df;max-width:720px;margin:18px auto 0">Any colour, soft white, warm through to cool, or a saved look like Movie Night. One picker that changes shape to match however you happen to be thinking about light right now, with no settings maze to dig through.</p>
+        <div class="eyebrow" style="color:rgba(255,255,255,.72)">The screen you actually use</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:var(--t-lg)">Everything you use, <em style="color:rgba(255,255,255,.72)">one tap away</em></h2>
+        <p class="lead" style="color:rgba(255,255,255,.72);max-width:720px;margin:18px 0 0">Any colour, soft white, warm through to cool, or a saved look like Movie Night. One picker that changes shape to match however you happen to be thinking about light right now, with no settings maze to dig through.</p>
       </div>
       <div class="showrow">
         <div><span class="slph" style="display:inline-block;animation:cs-float 7s ease-in-out infinite"><span><img src="assets/sl/picker-color.jpg" alt="The colour picker, a full colour wheel for one room"></span></span><div class="band-cap cap-light">Any colour</div></div>
@@ -359,7 +366,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start" class="introgrid">
         <div>
           <div class="eyebrow" data-reveal="">Approach</div>
-          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px;font-size:clamp(28px,3.6vw,46px)">Hide the wiring, <em>keep the power</em></h2>
+          <h2 class="sec-h" data-reveal="" data-d="1" style="margin:18px 0 22px;font-size:var(--t-lg)">Hide the wiring, <em>keep the power</em></h2>
           <p class="lead" data-reveal="" data-d="2">Everything a tinkerer could want is still in there. Someone who just wants the lights on never has to meet it. The app earns trust by staying calm, and goes deep only when you ask it to.</p>
         </div>
         <div class="appr" data-reveal="" data-d="1">
@@ -379,9 +386,9 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="glow" style="width:440px;height:440px;bottom:-180px;left:3%;background:rgba(125,211,192,.12)"></div>
       <div class="band-inner">
       <div class="center" style="margin-bottom:44px">
-        <div class="eyebrow" style="color:#9fe9d8">The hardest screen to design</div>
-        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:clamp(28px,3.6vw,46px)">How do you set up a network for someone who <em style="color:#9fe9d8">never wants to know it exists?</em></h2>
-        <p class="lead" style="color:#c7d5e8;max-width:760px;margin:18px auto 0"><strong style="color:#fff">Nobody has to understand the technology if they can read a picture of it.</strong> Every dot is a light. A filled dot is doing extra work, passing the signal along to the ones further away, which the screen calls a repeater. A coral dot marked with an exclamation mark is struggling. We put forward four versions, <strong style="color:#fff">click through them</strong>. The first one is rebuilt and working right there in the phone.</p>
+        <div class="eyebrow" style="color:rgba(255,255,255,.72)">The hardest screen to design</div>
+        <h2 class="sec-h" style="color:#fff;margin-top:16px;font-size:var(--t-lg)">How do you set up a network for someone who <em style="color:rgba(255,255,255,.72)">never wants to know it exists?</em></h2>
+        <p class="lead" style="color:rgba(255,255,255,.72);max-width:760px;margin:18px 0 0"><strong style="color:#fff">Nobody has to understand the technology if they can read a picture of it.</strong> Every dot is a light. A filled dot is doing extra work, passing the signal along to the ones further away, which the screen calls a repeater. A coral dot marked with an exclamation mark is struggling. We put forward four versions, <strong style="color:#fff">click through them</strong>. The first one is rebuilt and working right there in the phone.</p>
       </div>
       <div class="mesh-grid">
         <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
@@ -401,32 +408,32 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <button type="button" class="mesh-tab" data-mesh="3" data-tier="ship" role="tab" aria-selected="false">4 · Let the app pick</button>
           </div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-            <span class="mono" id="meshLabel" style="font-size:11px;color:rgba(255,255,255,.58);letter-spacing:0.06em">IDEA 1 · BULB MAP</span>
-            <span class="mesh-result" id="meshResult" style="background:rgba(192,57,43,0.35);color:#f2a99e">DROPPED</span>
+            <span class="mono" id="meshLabel" style="font-size:var(--t-sm);color:rgba(255,255,255,.72);letter-spacing:0.02em">Idea 1 · bulb map</span>
+            <span class="mesh-result" id="meshResult" style="background:rgba(192,57,43,0.35);color:#f2a99e">Dropped</span>
           </div>
           <div id="meshTitle" style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-0.5px;margin-bottom:10px">Drag a light to make it a relay</div>
-          <p id="meshBody" class="lead" style="font-size:15px;line-height:1.66;max-width:480px;margin-bottom:16px;color:#c7d5e8">A real map of every light in the house. Drag any one of them onto the gateway box and it starts relaying the signal to the lights around it. A coral dot marked with an exclamation mark is one that is struggling. Powerful, but it asked a homeowner to think like a network engineer. This phone is a working rebuild: drag a flagged light onto the gateway, then press TEST.</p>
+          <p id="meshBody" class="lead" style="font-size:var(--t-md);line-height:1.66;max-width:480px;margin-bottom:16px;color:rgba(255,255,255,.72)">A real map of every light in the house. Drag any one of them onto the gateway box and it starts relaying the signal to the lights around it. A coral dot marked with an exclamation mark is one that is struggling. Powerful, but it asked a homeowner to think like a network engineer. This phone is a working rebuild: drag a flagged light onto the gateway, then press TEST.</p>
           <div>
-            <div class="mono" style="font-size:10px;color:rgba(255,255,255,.58);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px">How much you have to work out</div>
-            <div id="meshLoad" style="font-size:14px;font-weight:600;color:#fff">A lot. You pick every relay yourself.</div>
+            <div class="mono" style="font-size:var(--t-sm);color:rgba(255,255,255,.72);letter-spacing:0.02em;margin-bottom:3px">How much you have to work out</div>
+            <div id="meshLoad" style="font-size:var(--t-md);font-weight:600;color:#fff">A lot. You pick every relay yourself.</div>
           </div>
         </div>
       </div>
 
       <div style="margin-top:64px" data-reveal="">
         <div class="center" style="margin-bottom:26px">
-          <div class="eyebrow" style="color:#9fe9d8">Same idea, a lot more lights</div>
-          <p class="lead" style="color:#c7d5e8;max-width:720px;margin:14px auto 0">The same map works for a 32 light condo and a 247 light house. The app does the sorting: which lights belong together, and which ones relay the signal onward. In the big example: <strong style="color:#fff">247 lights, 66 of them relaying, sorted into 22 groups, all worked out by the app.</strong></p>
+          <div class="eyebrow" style="color:rgba(255,255,255,.72)">Same idea, a lot more lights</div>
+          <p class="lead" style="color:rgba(255,255,255,.72);max-width:720px;margin:14px 0 0">The same map works for a 32 light condo and a 247 light house. The app does the sorting: which lights belong together, and which ones relay the signal onward. In the big example: <strong style="color:#fff">247 lights, 66 of them relaying, sorted into 22 groups, all worked out by the app.</strong></p>
         </div>
         <div class="dbx" role="img" aria-label="The 247 light example drawn as one bar: 66 lights the app picked to relay the signal, and 181 ordinary ones, the 181 being the rest of the 247; below, one dot per group marks the 22 groups the app made by itself">
           <div class="dbx-bar" aria-hidden="true">
             <div class="dbx-seg rep" style="flex:66"></div>
-            <div class="dbx-seg std" style="flex:181">ORDINARY · 181</div>
+            <div class="dbx-seg std" style="flex:181">Ordinary · 181</div>
           </div>
-          <div class="dbx-lbl" aria-hidden="true"><span>GROUPS THE APP MADE</span><span>22</span></div>
+          <div class="dbx-lbl" aria-hidden="true"><span>Groups the app made</span><span>22</span></div>
           <div class="dbx-dots" aria-hidden="true"><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span><span class="dbx-dot"></span></div>
-          <div class="dbx-legend" aria-hidden="true"><span><span class="dbx-sw" style="background:#7dd3c0"></span>RELAYING <b>66</b></span><span><span class="dbx-sw" style="background:#8a9ab5"></span>ORDINARY <b>181</b></span><span><span class="dbx-sw" style="background:#7dd3c0;border-radius:50%"></span>GROUPS <b>22</b></span></div>
-          <div class="dbx-note">BIG HOUSE EXAMPLE · 247 LIGHTS = 66 RELAYING + 181 ORDINARY (THE 181 IS SIMPLY THE REST OF THE 247) · ONE DOT PER GROUP</div>
+          <div class="dbx-legend" aria-hidden="true"><span><span class="dbx-sw" style="background:#7dd3c0"></span>Relaying <b>66</b></span><span><span class="dbx-sw" style="background:#8a9ab5"></span>Ordinary <b>181</b></span><span><span class="dbx-sw" style="background:#7dd3c0;border-radius:50%"></span>Groups <b>22</b></span></div>
+          <div class="dbx-note">Big house example · 247 lights = 66 relaying + 181 ordinary (the 181 is simply the rest of the 247) · one dot per group</div>
         </div>
         <div style="border-radius:14px;overflow:hidden;box-shadow:var(--cs-shot-shadow);background:#fff;padding:18px">
           <img src="assets/sl/floorplans.jpg" alt="Floor plans of a whole home, every light placed and sorted into groups" style="width:100%;display:block">
@@ -463,30 +470,30 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="results" id="stats">
         <div data-reveal=""><div class="res-n"><span data-count="247">0</span></div><div class="res-l">Lights in the biggest home, all on one map</div>
           <div class="mv" role="img" aria-label="Drawn to one scale: a 32 light condo and a 247 light house, both on the same map">
-            <div class="mv-lbl" aria-hidden="true"><span>CONDO</span><span>32</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>Condo</span><span>32</span></div>
             <div class="mv-track" aria-hidden="true"><div class="mv-fill" style="width:13%"></div></div>
-            <div class="mv-lbl" aria-hidden="true"><span>BIG HOUSE</span><span>247</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>Big house</span><span>247</span></div>
             <div class="mv-track" aria-hidden="true"><div class="mv-fill on" style="width:100%"></div></div>
-            <div class="mv-note">DRAWN TO SCALE · THE SAME MAP AT BOTH SIZES</div>
+            <div class="mv-note">Drawn to scale · the same map at both sizes</div>
           </div></div>
         <div data-reveal="" data-d="1"><div class="res-n"><span data-count="1">0</span>-tap</div><div class="res-l">To reach anything you use every day</div>
           <div class="mv" role="img" aria-label="One tap reaches everything you use every day">
-            <div class="mv-lbl" aria-hidden="true"><span>THE EVERYDAY STUFF</span><span>1 TAP</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>The everyday stuff</span><span>1 tap</span></div>
             <div class="mv-dots" aria-hidden="true"><span class="mv-dot on"></span></div>
           </div></div>
         <div data-reveal="" data-d="2"><div class="res-n"><span data-count="3">0</span></div><div class="res-l">Kinds of people it had to suit: you, the tinkerer, the manager</div>
           <div class="mv" role="img" aria-label="Three kinds of people: someone who lives there, a tinkerer, and a building manager">
             <div class="mv-steps" aria-hidden="true"><span class="mv-step"></span><span class="mv-step"></span><span class="mv-step"></span></div>
-            <div class="mv-steplbl" aria-hidden="true"><span>LIVES THERE</span><span>TINKERER</span><span>MANAGER</span></div>
+            <div class="mv-steplbl" aria-hidden="true"><span>Lives there</span><span>Tinkerer</span><span>Manager</span></div>
           </div></div>
         <div data-reveal="" data-d="3"><div class="res-n"><span data-count="24">0</span>h</div><div class="res-l">Hours a day the light shifts by itself</div>
           <div class="mv" role="img" aria-label="The light shifts on its own through all 24 hours of the day, one block per hour">
-            <div class="mv-lbl" aria-hidden="true"><span>AUTOMATIC</span><span>24 OF 24 H</span></div>
+            <div class="mv-lbl" aria-hidden="true"><span>Automatic</span><span>24 OF 24 H</span></div>
             <div class="mv-seg24" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
             <div class="mv-lbl" aria-hidden="true" style="margin-top:4px"><span>0H</span><span>24H</span></div>
           </div></div>
       </div>
-      <div class="mono" data-reveal="" style="font-size:10px;color:var(--c-muted2);letter-spacing:.06em;margin-top:34px;text-align:center">A CONCEPT I TOOK ON MYSELF. THESE NUMBERS DESCRIBE THE DESIGN, NOT MEASURED RESULTS.</div>
+      <div class="mono" data-reveal="" style="font-size:var(--t-sm);color:var(--c-muted);letter-spacing:0.02em;margin-top:34px;">A concept I took on myself. these numbers describe the design, not measured results.</div>
     </div>
   </section>
 
@@ -495,7 +502,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <div class="wrap-n center">
       <div data-reveal="">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--c-accent)" style="opacity:.55;margin-bottom:18px"><path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5A1.67 1.67 0 0 1 7.17 9.5V6zm9 0A5.17 5.17 0 0 0 11 11.17V18h6.83v-6.83H14.5a1.67 1.67 0 0 1 1.67-1.67V6z"/></svg>
-        <p style="font-family:'Inter',sans-serif;font-weight:300;font-style:italic;font-size:clamp(22px,3vw,34px);line-height:1.4;color:var(--c-ink2);letter-spacing:-.5px">Nobody needs to understand how the lights talk to each other. They just need to trust that they do. Making the complicated part disappear is the whole job.</p>
+        <p style="font-family:'Inter',sans-serif;font-weight:300;font-style:italic;font-size:var(--t-lg);line-height:1.4;color:var(--c-ink2);letter-spacing:-.5px">Nobody needs to understand how the lights talk to each other. They just need to trust that they do. Making the complicated part disappear is the whole job.</p>
       </div>
     </div>
   </section>
@@ -503,13 +510,13 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 
   <!-- FOOTER -->
   <footer style="padding:42px 40px 64px;background:var(--c-bg);border-top:1px solid var(--c-b1);min-height:198px;">
-    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
+    <div style="max-width:1180px;margin:0 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px">
       <div>
-        <div class="mono" style="font-size:10px;color:var(--c-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Next case study</div>
-        <a href="light-architect-showcase.html" style="font-family:'Inter',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Light ARchitect <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
+        <div class="mono" style="font-size:var(--t-sm);color:var(--c-muted);letter-spacing:0.02em;margin-bottom:7px">Next case study</div>
+        <a href="light-architect-showcase.html" style="font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:500;letter-spacing:-0.5px;color:var(--c-ink2);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color 0.2s" onmouseover="this.style.color='var(--c-accent)'" onmouseout="this.style.color='var(--c-ink2)'">Light ARchitect <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
       </div>
-      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
-      <a href="homepage-interactive.dc.html" data-nav="back" style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
+      <a href="mailto:rbabiarz@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:var(--t-md);color:var(--c-accent);text-decoration:underline;text-underline-offset:3px;">rbabiarz@gmail.com</a>
+      <a href="homepage-interactive.dc.html" data-nav="back" style="display:flex;align-items:center;gap:8px;font-size:var(--t-md);color:var(--c-muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--c-ink)'" onmouseout="this.style.color='var(--c-muted)'"><span class="msi" aria-hidden="true" style="font-size:24px;">arrow_back</span>Back to portfolio</a>
     </div>
   </footer>
 
@@ -518,7 +525,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
     <span class="vlbl">Version</span>
     <a href="smart-lighting-showcase.html" class="on">Quick tour</a>
     <a href="smart-lighting.dc.html">Deep dive</a>
-    <a href="#network" class="vdemo" aria-label="Jump to the part you can play with" title="Interactive demo"><span class="msi" aria-hidden="true" style="font-size:20px;">play_arrow</span></a>
+    <a href="#network" class="vdemo" aria-label="Jump to the part you can play with" title="Interactive demo"><span class="msi" aria-hidden="true" style="font-size:var(--t-md);">play_arrow</span></a>
   </div>
 
 </div>
