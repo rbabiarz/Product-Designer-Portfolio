@@ -84,10 +84,9 @@ html{scroll-behavior:smooth}
 .rb-box{color:var(--fg);transition:transform .6s cubic-bezier(.65,0,.35,1),background .4s ease,border-color .4s ease,color .4s ease;}
 a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(--fg);color:#000}
 .light a:hover .rb-box{color:#fff}
-.ab-portrait-light{display:none}
-.ab-portrait-dark{display:block}
-.light .ab-portrait-light{display:block}
-.light .ab-portrait-dark{display:none}
+/* Dark is the default theme here, so the portrait carries the grade until .light clears it. */
+.ab-portrait{filter:url(#portrait-dark)}
+.light .ab-portrait{filter:none}
 #ab-portrait > div:first-child{width:75%;margin-inline:auto}
 .mail-choose summary::-webkit-details-marker{display:none}
 .mail-choose summary::marker{content:''}
@@ -185,8 +184,27 @@ a:hover .rb-box{transform:rotateY(360deg);background:var(--fg);border-color:var(
     <!-- portrait -->
     <div id="ab-portrait" data-reveal style="position:sticky;top:120px;">
       <div style="position:relative;background:transparent;">
-        <img src="assets/rob-babiarz-photo.png" alt="Robert Babiarz" class="ab-portrait-light" style="position:relative;width:100%;height:auto;object-fit:contain;"/>
-        <img src="assets/rob-babiarz-photo-dark.png" alt="Robert Babiarz" class="ab-portrait-dark" style="position:relative;width:100%;height:auto;object-fit:contain;"/>
+        <!-- One portrait for both themes. The dark read is a filter, not a second file, so
+             there is no pair of assets to keep in sync. The curve lives in the SVG below. -->
+        <img src="assets/rob-babiarz-photo.png" alt="Robert Babiarz" class="ab-portrait" style="position:relative;width:100%;height:auto;object-fit:contain;"/>
+        <!-- Dark-mode grade for the portrait. CSS brightness/contrast can't do this: it has
+             no gamma, so matching this darkness with those two alone crushes 17% of the
+             portrait to pure black and caps the highlights ~70 levels low. A sampled
+             transfer curve lands the darkest tones just above the page luma (10.6) so the
+             hair and shirt keep an edge, and leaves the face as the brightest thing.
+             color-interpolation-filters="sRGB" is required: the SVG default is linearRGB,
+             which would grade completely different values. -->
+        <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none;">
+          <defs>
+            <filter id="portrait-dark" color-interpolation-filters="sRGB">
+              <feComponentTransfer>
+                <feFuncR type="table" tableValues="0.0627 0.0627 0.0627 0.0627 0.0648 0.0795 0.1080 0.1505 0.2069 0.2772 0.3615 0.4597 0.5718 0.6978 0.7647 0.7647 0.7647"/>
+                <feFuncG type="table" tableValues="0.0627 0.0627 0.0627 0.0627 0.0648 0.0795 0.1080 0.1505 0.2069 0.2772 0.3615 0.4597 0.5718 0.6978 0.7647 0.7647 0.7647"/>
+                <feFuncB type="table" tableValues="0.0627 0.0627 0.0627 0.0627 0.0648 0.0795 0.1080 0.1505 0.2069 0.2772 0.3615 0.4597 0.5718 0.6978 0.7647 0.7647 0.7647"/>
+              </feComponentTransfer>
+            </filter>
+          </defs>
+        </svg>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;">
         <div style="border:1px solid var(--line);border-radius:12px;padding:14px 12px;background:var(--bg2);text-align:center;">

@@ -184,7 +184,6 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 
 @media (max-width:980px){
   nav.top .bar{padding:0 18px}
-  .wrap,.wrap-n{max-width:1180px;margin:0 auto;padding:0 40px}
   .pad{padding:80px 0}
   .band-inner{padding:64px 20px}
   .results{grid-template-columns:1fr 1fr;gap:34px 20px}
@@ -193,8 +192,19 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
   .pgrid{grid-template-columns:1fr!important;gap:28px!important}
   .pgrid2{grid-template-columns:1fr!important;gap:28px!important}
   .phone-trio{grid-template-columns:1fr;max-width:340px}
+  /* These two set their columns inline, so the override has to outrank that. The prose
+     pair stacks outright; the three cards hold at two across while there is room. */
+  .grid2{grid-template-columns:1fr!important;gap:40px!important}
+  .grid-3{grid-template-columns:repeat(2,1fr)!important}
 }
-@media (max-width:620px){.results{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){
+  .results{grid-template-columns:1fr 1fr}
+  .grid-3{grid-template-columns:1fr!important}
+  /* 40px of gutter each side costs a fifth of a 390px screen */
+  .wrap,.wrap-n{padding:0 22px}
+  .pad{padding:64px 0}
+  section.pad[style]{padding-top:64px!important;padding-bottom:64px!important}
+}
 .navq:hover{color:var(--c-ink)}
 @media (max-width:680px){.navq{display:none}}
 @media (max-width:760px){
@@ -291,7 +301,7 @@ body.cs-sheet-open #rb-ai-fab,body.cs-sheet-open .verpill{visibility:hidden;poin
       <div class="eyebrow" data-reveal="">Design Engineering · robertbabiarz.com · 2026</div>
       <h1 data-reveal="" data-d="1">This site is <em>the case study.</em></h1>
       <p class="lead" data-reveal="" data-d="2" style="font-size:var(--t-md);max-width:780px;margin-top:28px;color:var(--c-ink2)">Ten case studies argue that working software beats slideware. The eleventh is the argument itself: 29 self-contained pages on one token system, designed and engineered with an AI pair, zero build steps, and receipts for every number on the page.</p>
-      <div data-reveal="" data-d="3" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px">
+      <div data-reveal="" data-d="3" style="display:flex;gap:12px;justify-content:flex-start;flex-wrap:wrap;margin-top:34px">
         <a class="btn-primary" href="design-system.html">Read the full case study <span class="msi" aria-hidden="true" style="font-size:24px;">arrow_forward</span></a>
         <a href="#system" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:var(--t-md);font-weight:600;color:var(--c-ink2);text-decoration:none;padding:15px 24px;border:1px solid var(--c-b4);border-radius:999px">See the system</a>
       </div>
