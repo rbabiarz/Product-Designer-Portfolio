@@ -446,6 +446,22 @@
 
     shell.addEventListener('keydown', function (e) { if (e.key === 'Escape') minimize(); });
 
+    // A selection that loads a new page should hand the page back to the reader. Mark the
+    // chat minimized before we leave, so the next document restores to the FAB instead of
+    // reopening over the work the visitor just asked to see. Delegated, so it covers project
+    // cards, tour steps and search results without each having to remember to do it.
+    shell.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href]');
+      if (!a || !shell.contains(a)) return;
+      if (a.target === '_blank') return;              // opens elsewhere; this page stays put
+      var url;
+      try { url = new URL(a.getAttribute('href'), location.href); } catch (err) { return; }
+      if (url.origin !== location.origin) return;     // leaving the site; no restore to worry about
+      // Same document + only the hash differs: no load happens, so leave the panel as it is.
+      if (url.pathname === location.pathname && url.search === location.search) return;
+      state.mode = 'fab'; persist();
+    });
+
     // restore an open conversation after page navigation
     if (state.mode === 'panel' && state.msgs.length) { open('panel', true); }
     else if (state.msgs.length) { /* keep minimized; FAB label already says continue */ }
