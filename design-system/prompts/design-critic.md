@@ -16,7 +16,7 @@ design-system/governance/usage-guidelines.md
 .claude/rules/content-voice.md
 design-system/components/components.md (if reviewing new UI)
 Target: <file path or URL>
-Surface: Interactive | case-study (.cs) | CTOC | Minimalist
+Surface: Interactive | case-study (.cs) | SOC dashboard | Minimalist
 ```
 
 ## Review prompt (copy-paste)
@@ -24,7 +24,7 @@ Surface: Interactive | case-study (.cs) | CTOC | Minimalist
 ```
 Review <FILE> as a senior design-system critic.
 
-Surface: <Interactive | case-study | CTOC | minimalist>
+Surface: <Interactive | case-study | SOC dashboard | minimalist>
 Scope: <full page | section #id | diff since last commit>
 
 Against:

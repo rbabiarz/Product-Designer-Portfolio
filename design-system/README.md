@@ -7,7 +7,7 @@ Documented rules for a consistent look and feel across the portfolio.
 | Artifact | Role |
 |---|---|
 | [`tokens.css`](../tokens.css) | **Canonical** foundational scale |
-| [`styles.css`](../styles.css) | CTOC/SOC dashboard skin |
+| [`styles.css`](../styles.css) | SOC dashboard skin |
 | Inline `:root` / `.light` | Interactive homepage + hub pages |
 | Inline `.cs` / `.cs.dark` | Case-study showcase shell (`--c-*`) |
 | [`case-shot.css`](../case-shot.css) | Shared screenshot frame shadows |
@@ -59,7 +59,7 @@ design-system/
 |---|---|---|
 | Interactive | `--bg`, `--fg`, `--ac` | `homepage-interactive.dc.html`, `about.dc.html` |
 | Case-study shell | `--c-*` | `dali-2-showcase.html`, `design-system.html` |
-| CTOC | `--color-*`, `--sev-*` | `ctoc-dashboard.html` + `styles.css` |
+| SOC dashboard | `--color-*`, `--sev-*` | `ctoc-dashboard.html` + `styles.css` |
 | Dossier / Retro | hardcoded | `homepage-dossier.dc.html`, `homepage-retro.dc.html` |
 | Minimalist | `--color-*`, `--space-*` | `minimalist/*.html` |
 

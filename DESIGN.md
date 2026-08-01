@@ -2,11 +2,11 @@
 
 The complete design-system reference for Robert Babiarz's senior product-design portfolio: the
 north star, principles, and **every token, style, component, and motion** actually shipped across
-the self-contained `.html` / `.dc.html` prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE
+the self-contained `.html` / `.dc.html` prototypes (AEGIS, Light ARchitect, DALI-2, CORE
 Insights).
 
 > **Source of truth.** Live values come from [`tokens.css`](./tokens.css) (foundational scale),
-> [`styles.css`](./styles.css) (SOC/CTOC skin), and the per-surface `:root` / `.light` blocks inline
+> [`styles.css`](./styles.css) (SOC dashboard skin), and the per-surface `:root` / `.light` blocks inline
 > in each prototype. [`design-tokens.json`](./design-tokens.json) + [`tokens/`](./tokens/) are a
 > portable mirror. The split-by-concern version of this doc lives in
 > [`design-system/`](./design-system/) (start at [`design-system/README.md`](./design-system/README.md)).
@@ -99,7 +99,7 @@ muted-soft `#636363` · on-primary/on-dark `#ffffff`.
 
 `tokens.css` defines Untitled-UI semantic colors (success `#15803d`, warning `#d97706`,
 error `#dc2626`, info `#3b82f6`, each with `-bg`/`-text`). **Portfolio surfaces avoid these as
-status** (no stoplight signaling). The **CTOC/SOC dashboard** is the one domain-appropriate place
+status** (no stoplight signaling). The **SOC dashboard** is the one domain-appropriate place
 that uses a severity scale — always paired with a square/label, re-tinted for dark:
 
 | Severity | Color | Source token |
@@ -112,7 +112,7 @@ that uses a severity scale — always paired with a square/label, re-tinted for 
 | info | `#595959` | muted |
 
 > **Rule:** coral `#e64d3c` is the strongest risk signal on portfolio surfaces. Pair every signal
-> with text/shape/icon. The CTOC dark theme (`--data-theme="dark"`, canvas `#0b0f14`, ink `#f3f1ea`)
+> with text/shape/icon. The SOC dashboard dark theme (`--data-theme="dark"`, canvas `#0b0f14`, ink `#f3f1ea`)
 > re-declares every severity background.
 
 ---
@@ -187,7 +187,7 @@ Motion explains a state change or directs attention — never decoration.
 | Isometric / Light ARchitect | `cityFloat`, `cityWin`, `cityBeacon`, `laPulse`, `laBeam`, `laScan` |
 | Dossier | `dossier-up` (section entrance), `dossier-blink` (status dot) |
 | Retro | `rt-pwr` (VT323 power-on), `rt-in` (boot stagger), `rt-flicker` (phosphor), `rt-scan` (drifting beam), `rt-blink` (cursor) |
-| CTOC | `pulse` / `pulse-red` (live & critical dots), `highlight` (new feed item), `fade`, `slidein` (drawer) |
+| SOC dashboard | `pulse` / `pulse-red` (live & critical dots), `highlight` (new feed item), `fade`, `slidein` (drawer) |
 
 **Scroll engine (`text-motion.js`):** reveals headings on entry (rise ~38px), velocity-aware drift
 (±22px) and skew (±2.4°), marquee counter-drift; settles to `transform:none`; `MutationObserver`
@@ -233,7 +233,7 @@ visible `:focus-visible` ring (`outline 2–3px solid` accent, offset 2–3px).
 - **Verb buttons** (AEGIS CLEAR/HOLD/TAG) — equal-flex, min-height 54px (60 mobile), radius 10,
   fill `rgba(12,18,28,.82)`, color-coded top border (blue/amber/red); success/error flash (teal/coral);
   keys J/K/L; outcomes via `#ag-live` (`aria-live="polite"`); `-webkit-tap-highlight-color:transparent`.
-- **Dashboard `.btn`** (CTOC) — mono 11px uppercase, radius 3; `--primary`/`--danger`/`--ghost`/`--xs`/`--active`.
+- **Dashboard `.btn`** (SOC dashboard) — mono 11px uppercase, radius 3; `--primary`/`--danger`/`--ghost`/`--xs`/`--active`.
 
 ### Content blocks
 - **Project card** (Work coverflow) — `<a>`, aspect 3/2, radius 14, border `--line2`, bg `--bg3`;
@@ -261,7 +261,7 @@ focus ring); pill hint popup (`#la-hint` glass+blur, accent dot); isometric grou
 (`rotateX(74deg)` + radial mask); floating telemetry HUD (`cityFloat`, `pointer-events:none`);
 recalc button. Themed via `--la-*` (light default, dark under `#int-root:not(.light)`).
 
-### CTOC / SOC dashboard (`styles.css`)
+### SOC dashboard (`styles.css`)
 Utilitarian skin on the foundational tokens: `.panel`, `.kpis` strip, `.sev` severity pill, `.tag`,
 `.tbl` tables (sticky mono headers, hover rows, tabular nums), `.kc` kill-chain, `.mitre` tactics
 grid, `.map` asset graph (nodes/edges/pulse), `.timeline`, `.drawer` (slide-in detail), `.heat`
@@ -320,6 +320,6 @@ no server. `.dc.html` markup lives in `<x-dc>` and renders via `support.js`. Sha
 `support.js`, `home-variants.js`, `page-transition.js`, `text-motion.js`, `scripts/a11y.js`.
 
 **Token sources:** [`tokens.css`](./tokens.css) (foundational scale) · [`styles.css`](./styles.css)
-(CTOC skin) · per-page `:root`/`.light`. **Mirror:** [`design-tokens.json`](./design-tokens.json) +
+(SOC dashboard skin) · per-page `:root`/`.light`. **Mirror:** [`design-tokens.json`](./design-tokens.json) +
 [`tokens/`](./tokens/) (`primitives` → `semantic` → `themes/{dark,light}`). Modular docs:
 [`design-system/`](./design-system/). Decisions: [`docs/design-decisions.md`](./docs/design-decisions.md).

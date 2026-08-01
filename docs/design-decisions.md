@@ -116,9 +116,9 @@ three items in two columns and is shared with the sibling pages.
 - **Status:** Accepted
 - **Context:** The interview-design-solution repo carries a complete, on-brand case study
   (same palette/type as this site) plus two live builds (v1 take-home, v2 AEGIS-GIMS).
-- **Decision:** Re-author into the site's two-page convention (showcase shell from CTOC, deep-dive
+- **Decision:** Re-author into the site's two-page convention (showcase shell from the SOC dashboard, deep-dive
   shell from Goals-Driven Fintech); embed the v2 build as the live prototype and link the v1
-  take-home; number it 08 everywhere; splice the footer chain CTOC → GIMS → Fintech.
+  take-home; number it 08 everywhere; splice the footer chain GIMS → Fintech.
 - **Consequences:** One more registry entry to maintain in switchers/homepages/work/concierge;
   the prototype iframe is the site's only external-origin embed (rbabiarz.github.io), labeled
   honestly as the one thing that needs a connection.

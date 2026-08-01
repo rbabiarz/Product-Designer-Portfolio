@@ -2,7 +2,7 @@
 
 ## Canonical source hierarchy
 
-1. **[`tokens.css`](../../tokens.css)** — edit here first. Foundational scale loaded by CTOC dashboard.
+1. **[`tokens.css`](../../tokens.css)** — edit here first. Foundational scale loaded by the SOC dashboard.
 2. **[`design-tokens.json`](../../design-tokens.json)** — portable mirror with `_meta` and `live_sources`.
 3. **[`tokens/`](../../tokens/)** — three-tier JSON split:
    - `primitives.json` — raw hex, space, radius, font names

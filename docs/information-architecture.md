@@ -6,7 +6,7 @@
   - Interactive (primary) · Dossier · Retro
 - **Work** (`Work.dc.html`) — project index
 - **About** (`About.dc.html`) — bio + experience
-- **Case studies / showcases:** AEGIS (DI / GIMS), CTOC, CORE Insights, DALI-2,
+- **Case studies / showcases:** AEGIS (DI / GIMS), CORE Insights, DALI-2,
   Enterprise AI, Goals-driven fintech, Partitioning, Smart Lighting
 
 ## Key objects & relationships

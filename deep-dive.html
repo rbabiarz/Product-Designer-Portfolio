@@ -146,7 +146,7 @@ home-variants.js                  the VIEW switcher; remembers the chosen homepa
 
 about.dc.html                     bio + experience
 work.dc.html                      project index
-*-showcase.html / *.dc.html       case studies (AEGIS, CTOC, CORE Insights, DALI-2, …)
+*-showcase.html / *.dc.html       case studies (AEGIS, CORE Insights, DALI-2, …)
 
 Shared runtime &amp; styling
   support.js  page-transition.js  a11y.js  text-motion.js
@@ -167,9 +167,9 @@ Design system &amp; project context (docs only — not loaded at runtime)
 <p>The visual system has two layers, documented in <a href="DESIGN.md"><code>DESIGN.md</code></a> and <a href="design-system/"><code>design-system/</code></a>:</p>
 <ol>
 <li><strong>A shared foundational scale</strong> — type, spacing, radius, shadow, transitions, and brand color</li>
-<p>cards — in <a href="tokens.css"><code>tokens.css</code></a> (the SOC/CTOC dashboard skin in <code>styles.css</code> builds on it).</p>
+<p>cards — in <a href="tokens.css"><code>tokens.css</code></a> (the SOC dashboard skin in <code>styles.css</code> builds on it).</p>
 <li><strong>Per-surface color palettes</strong> layered on top — Interactive (dark-first with a <code>.light</code></li>
-<p>&quot;architect&quot; mirror), Dossier (cream/classified-red), Retro (CRT phosphor), and CTOC (severity scale) — declared inline in each prototype&#x27;s <code>:root</code> / <code>.light</code>.</p>
+<p>&quot;architect&quot; mirror), Dossier (cream/classified-red), Retro (CRT phosphor), and the SOC dashboard (severity scale) — declared inline in each prototype&#x27;s <code>:root</code> / <code>.light</code>.</p>
 </ol>
 <p><a href="design-tokens.json"><code>design-tokens.json</code></a> and <a href="tokens/"><code>tokens/</code></a> are a portable mirror of both layers (not consumed at runtime). House rules: reference <code>var(--…)</code> tokens (never hardcode), one accent per screen, meaning never rides on hue alone, WCAG 2.2 AA / AODA, and every animation gates on <code>prefers-reduced-motion</code>. Details in <a href="design-system/governance/usage-guidelines.md"><code>design-system/governance/usage-guidelines.md</code></a>.</p>
 <hr>
@@ -205,11 +205,11 @@ git push -u origin main
 </ul></section>
 <section class="doc" id="claude-md" data-group="Overview"><div class="doc-head"><h2>CLAUDE.md</h2><span class="doc-meta">CLAUDE.md · 382 words</span></div><h2>Product Designer Portfolio</h2>
 <blockquote>
-<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).</p>
 </blockquote>
 <p>This file is the entry point for context. Read it first, then follow the links.</p>
 <h3>What this project is</h3>
-<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).</p>
 <p>Owner / lead designer: Robert Babiarz · Live: https://robertbabiarz.com/</p>
 <h3>How it runs (the load-bearing fact)</h3>
 <p>Self-contained HTML — single-file pages with inline CSS/JS, no build step and no server. <code>.dc.html</code> pages embed markup in an <code>&lt;x-dc&gt;</code> template that <code>support.js</code> renders with React (loaded from the unpkg CDN). Icons via Material Symbols from the MUI kit (<code>&lt;span class=&quot;msi&quot; aria-hidden=&quot;true&quot;&gt;icon_name&lt;/span&gt;</code>; subsetted Google Fonts link + <code>.msi</code> class in each page&#x27;s head). No build, no server, no backend — every page opens directly in a browser and deploys to any static host (GitHub Pages). The only runtime dependency is the React CDN + Google Fonts; both degrade gracefully offline.</p>
@@ -238,10 +238,10 @@ git push -u origin main
 <h3>Personal / machine-local context</h3>
 <p>See <a href="./CLAUDE.local.md"><code>CLAUDE.local.md</code></a> — gitignored, for machine-specific notes.</p></section>
 <section class="doc" id="design-md" data-group="Overview"><div class="doc-head"><h2>DESIGN.md</h2><span class="doc-meta">DESIGN.md · 2,302 words</span></div><h2>Design — Product Designer Portfolio</h2>
-<p>The complete design-system reference for Robert Babiarz&#x27;s senior product-design portfolio: the north star, principles, and <strong>every token, style, component, and motion</strong> actually shipped across the self-contained <code>.html</code> / <code>.dc.html</code> prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<p>The complete design-system reference for Robert Babiarz&#x27;s senior product-design portfolio: the north star, principles, and <strong>every token, style, component, and motion</strong> actually shipped across the self-contained <code>.html</code> / <code>.dc.html</code> prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).</p>
 <blockquote>
 <p><strong>Source of truth.</strong> Live values come from <a href="./tokens.css"><code>tokens.css</code></a> (foundational scale),</p>
-<p><a href="./styles.css"><code>styles.css</code></a> (SOC/CTOC skin), and the per-surface <code>:root</code> / <code>.light</code> blocks inline</p>
+<p><a href="./styles.css"><code>styles.css</code></a> (SOC skin), and the per-surface <code>:root</code> / <code>.light</code> blocks inline</p>
 <p>in each prototype. <a href="./design-tokens.json"><code>design-tokens.json</code></a> + <a href="./tokens/"><code>tokens/</code></a> are a</p>
 <p>portable mirror. The split-by-concern version of this doc lives in</p>
 <p><a href="./design-system/"><code>design-system/</code></a>. <strong>Reference <code>var(--…)</code> tokens — never hardcode a hex/px.</strong></p>
@@ -312,7 +312,7 @@ git push -u origin main
 <tr><td>coral</td><td><code>#e64d3c</code></td><td><code>#ffffff</code></td></tr>
 </tbody></table></div>
 <h4>2.4 Status &amp; severity</h4>
-<p><code>tokens.css</code> defines Untitled-UI semantic colors (success <code>#15803d</code>, warning <code>#d97706</code>, error <code>#dc2626</code>, info <code>#3b82f6</code>, each with <code>-bg</code>/<code>-text</code>). <strong>Portfolio surfaces avoid these as status</strong> (no stoplight signaling). The <strong>CTOC/SOC dashboard</strong> is the one domain-appropriate place that uses a severity scale — always paired with a square/label, re-tinted for dark:</p>
+<p><code>tokens.css</code> defines Untitled-UI semantic colors (success <code>#15803d</code>, warning <code>#d97706</code>, error <code>#dc2626</code>, info <code>#3b82f6</code>, each with <code>-bg</code>/<code>-text</code>). <strong>Portfolio surfaces avoid these as status</strong> (no stoplight signaling). The <strong>SOC dashboard</strong> is the one domain-appropriate place that uses a severity scale — always paired with a square/label, re-tinted for dark:</p>
 <div class="tbl"><table><thead><tr><th>Severity</th><th>Color</th><th>Source token</th></tr></thead><tbody>
 <tr><td>critical</td><td><code>#b91c1c</code></td><td><code>--sev-critical</code></td></tr>
 <tr><td>high</td><td><code>#e64d3c</code></td><td>brand-coral</td></tr>
@@ -323,7 +323,7 @@ git push -u origin main
 </tbody></table></div>
 <blockquote>
 <p><strong>Rule:</strong> coral <code>#e64d3c</code> is the strongest risk signal on portfolio surfaces. Pair every signal</p>
-<p>with text/shape/icon. The CTOC dark theme (<code>--data-theme=&quot;dark&quot;</code>, canvas <code>#0b0f14</code>, ink <code>#f3f1ea</code>)</p>
+<p>with text/shape/icon. The SOC dashboard dark theme (<code>--data-theme=&quot;dark&quot;</code>, canvas <code>#0b0f14</code>, ink <code>#f3f1ea</code>)</p>
 <p>re-declares every severity background.</p>
 </blockquote>
 <hr>
@@ -366,7 +366,7 @@ git push -u origin main
 <tr><td>Isometric / Light ARchitect</td><td><code>cityFloat</code>, <code>cityWin</code>, <code>cityBeacon</code>, <code>laPulse</code>, <code>laBeam</code>, <code>laScan</code></td></tr>
 <tr><td>Dossier</td><td><code>dossier-up</code> (section entrance), <code>dossier-blink</code> (status dot)</td></tr>
 <tr><td>Retro</td><td><code>rt-pwr</code> (VT323 power-on), <code>rt-in</code> (boot stagger), <code>rt-flicker</code> (phosphor), <code>rt-scan</code> (drifting beam), <code>rt-blink</code> (cursor)</td></tr>
-<tr><td>CTOC</td><td><code>pulse</code> / <code>pulse-red</code> (live &amp; critical dots), <code>highlight</code> (new feed item), <code>fade</code>, <code>slidein</code> (drawer)</td></tr>
+<tr><td>SOC dashboard</td><td><code>pulse</code> / <code>pulse-red</code> (live &amp; critical dots), <code>highlight</code> (new feed item), <code>fade</code>, <code>slidein</code> (drawer)</td></tr>
 </tbody></table></div>
 <p><strong>Scroll engine (<code>text-motion.js</code>):</strong> reveals headings on entry (rise ~38px), velocity-aware drift (±22px) and skew (±2.4°), marquee counter-drift; settles to <code>transform:none</code>; <code>MutationObserver</code> re-registers new DOM.</p>
 <p><strong>Page transitions (<code>page-transition.js</code>):</strong> isometric-block CSS mask grows/shrinks across navigations (<code>cubic-bezier(.76,0,.24,1)</code>; entrance ~980ms, exit ~660ms); one-time first-visit intro counter (~1650ms).</p>
@@ -402,7 +402,7 @@ git push -u origin main
 <p>pad ~13–15×24–28; hover <code>translateY(-2px)</code> + accent shadow; active <code>translateY(1px)</code>; focus-visible accent ring. Secondary/ghost: 1.5px border, transparent, tinted hover.</p>
 <li><strong>Verb buttons</strong> (AEGIS CLEAR/HOLD/TAG) — equal-flex, min-height 54px (60 mobile), radius 10,</li>
 <p>fill <code>rgba(12,18,28,.82)</code>, color-coded top border (blue/amber/red); success/error flash (teal/coral); keys J/K/L; outcomes via <code>#ag-live</code> (<code>aria-live=&quot;polite&quot;</code>); <code>-webkit-tap-highlight-color:transparent</code>.</p>
-<li><strong>Dashboard <code>.btn</code></strong> (CTOC) — mono 11px uppercase, radius 3; <code>--primary</code>/<code>--danger</code>/<code>--ghost</code>/<code>--xs</code>/<code>--active</code>.</li>
+<li><strong>Dashboard <code>.btn</code></strong> (SOC dashboard) — mono 11px uppercase, radius 3; <code>--primary</code>/<code>--danger</code>/<code>--ghost</code>/<code>--xs</code>/<code>--active</code>.</li>
 </ul>
 <h4>Content blocks</h4>
 <ul>
@@ -426,7 +426,7 @@ git push -u origin main
 </ul>
 <h4>Light ARchitect (interactive photometric scene)</h4>
 <p>Draggable fixture markers (<code>.la-fx</code> 18×7, lime border, glow on <code>.on</code>/hover, 44×44 touch target, focus ring); pill hint popup (<code>#la-hint</code> glass+blur, accent dot); isometric ground plane (<code>rotateX(74deg)</code> + radial mask); floating telemetry HUD (<code>cityFloat</code>, <code>pointer-events:none</code>); recalc button. Themed via <code>--la-*</code> (light default, dark under <code>#int-root:not(.light)</code>).</p>
-<h4>CTOC / SOC dashboard (<code>styles.css</code>)</h4>
+<h4>SOC dashboard (<code>styles.css</code>)</h4>
 <p>Utilitarian skin on the foundational tokens: <code>.panel</code>, <code>.kpis</code> strip, <code>.sev</code> severity pill, <code>.tag</code>, <code>.tbl</code> tables (sticky mono headers, hover rows, tabular nums), <code>.kc</code> kill-chain, <code>.mitre</code> tactics grid, <code>.map</code> asset graph (nodes/edges/pulse), <code>.timeline</code>, <code>.drawer</code> (slide-in detail), <code>.heat</code> heatmap, <code>.bar-row</code>, <code>.feed</code> (new-item highlight), and a <code>data-theme=&quot;dark&quot;</code> variant re-tinting all severity. Color always paired with shape/label.</p>
 <h4>Surface-specific</h4>
 <ul>
@@ -457,7 +457,7 @@ git push -u origin main
 <hr>
 <h3>9 · Build &amp; tokens</h3>
 <p>Self-contained <code>.html</code> / <code>.dc.html</code> — inline CSS/JS, only declared CDN deps (React, fonts), no build, no server. <code>.dc.html</code> markup lives in <code>&lt;x-dc&gt;</code> and renders via <code>support.js</code>. Shared modules: <code>support.js</code>, <code>home-variants.js</code>, <code>page-transition.js</code>, <code>text-motion.js</code>, <code>a11y.js</code>.</p>
-<p><strong>Token sources:</strong> <a href="./tokens.css"><code>tokens.css</code></a> (foundational scale) · <a href="./styles.css"><code>styles.css</code></a> (CTOC skin) · per-page <code>:root</code>/<code>.light</code>. <strong>Mirror:</strong> <a href="./design-tokens.json"><code>design-tokens.json</code></a> + <a href="./tokens/"><code>tokens/</code></a> (<code>primitives</code> → <code>semantic</code> → <code>themes/{dark,light}</code>). Modular docs: <a href="./design-system/"><code>design-system/</code></a>. Decisions: <a href="./docs/design-decisions.md"><code>docs/design-decisions.md</code></a>.</p></section>
+<p><strong>Token sources:</strong> <a href="./tokens.css"><code>tokens.css</code></a> (foundational scale) · <a href="./styles.css"><code>styles.css</code></a> (SOC dashboard skin) · per-page <code>:root</code>/<code>.light</code>. <strong>Mirror:</strong> <a href="./design-tokens.json"><code>design-tokens.json</code></a> + <a href="./tokens/"><code>tokens/</code></a> (<code>primitives</code> → <code>semantic</code> → <code>themes/{dark,light}</code>). Modular docs: <a href="./design-system/"><code>design-system/</code></a>. Decisions: <a href="./docs/design-decisions.md"><code>docs/design-decisions.md</code></a>.</p></section>
 <section class="doc" id="product-md" data-group="Overview"><div class="doc-head"><h2>PRODUCT.md</h2><span class="doc-meta">PRODUCT.md · 373 words</span></div><h2>PRODUCT.md — Product Designer Portfolio</h2>
 <blockquote>
 <p>Synthesized from the repo&#x27;s own context (CLAUDE.md, DESIGN.md, <code>.claude/rules/*</code>,</p>
@@ -493,7 +493,7 @@ git push -u origin main
 <h3>Problem</h3>
 <p>A senior product designer with deep connected-lighting / IoT-security experience needs to be read, fast, as a credible systems product designer. A list of past jobs doesn&#x27;t do it; the work has to <em>prove</em> the thesis through interaction.</p>
 <h3>Product in one line</h3>
-<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).</p>
 <h3>Why now</h3>
 <p>Teams building high-consequence systems hire for judgment under uncertainty and systems thinking. The connected-lighting → high-consequence systems bridge is real (sensor fusion, provisioning, operations surfaces) but only convincing when shown working.</p>
 <h3>Target users</h3>
@@ -508,7 +508,7 @@ git push -u origin main
 </ul></section>
 <section class="doc" id="docs-product-requirements-md" data-group="Product docs"><div class="doc-head"><h2>product-requirements.md</h2><span class="doc-meta">docs/product-requirements.md · 234 words</span></div><h2>Product requirements — Product Designer Portfolio</h2>
 <h3>Overview</h3>
-<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).</p>
+<p>Robert Babiarz&#x27;s senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).</p>
 <h3>Goals &amp; non-goals</h3>
 <ul>
 <li><strong>Goals:</strong> prove the connected-lighting → high-consequence systems thesis through interactive prototypes;</li>
@@ -525,7 +525,7 @@ git push -u origin main
 <h3>Functional requirements</h3>
 <div class="tbl"><table><thead><tr><th>#</th><th>Requirement</th><th>Priority</th></tr></thead><tbody>
 <tr><td>1</td><td>Three switchable homepage variants (Interactive / Dossier / Retro) behind a VIEW switcher</td><td>P0</td></tr>
-<tr><td>2</td><td>Interactive proofs: AEGIS Fusion Watch, Light ARchitect, CTOC, CORE Insights</td><td>P0</td></tr>
+<tr><td>2</td><td>Interactive proofs: AEGIS Fusion Watch, Light ARchitect, CORE Insights</td><td>P0</td></tr>
 <tr><td>3</td><td>Keyboard + screen-reader paths for every interaction (incl. games)</td><td>P0</td></tr>
 <tr><td>4</td><td>Dark-first theme with a light architect mirror; one accent per screen</td><td>P0</td></tr>
 <tr><td>5</td><td>Works offline-after-load; deploys to GitHub Pages</td><td>P1</td></tr>
@@ -555,7 +555,7 @@ git push -u origin main
 <li>Interactive (primary) · Dossier · Retro</li>
 <li><strong>Work</strong> (<code>Work.dc.html</code>) — project index</li>
 <li><strong>About</strong> (<code>About.dc.html</code>) — bio + experience</li>
-<li><strong>Case studies / showcases:</strong> AEGIS (DI / GIMS), CTOC, CORE Insights, DALI-2,</li>
+<li><strong>Case studies / showcases:</strong> AEGIS (DI / GIMS), CORE Insights, DALI-2,</li>
 <p>Enterprise AI, Goals-driven fintech, Partitioning, Smart Lighting</p>
 </ul>
 <h3>Key objects &amp; relationships</h3>
@@ -653,8 +653,8 @@ git push -u origin main
 <li><strong>Status:</strong> Accepted</li>
 <li><strong>Context:</strong> The interview-design-solution repo carries a complete, on-brand case study</li>
 <p>(same palette/type as this site) plus two live builds (v1 take-home, v2 AEGIS-GIMS).</p>
-<li><strong>Decision:</strong> Re-author into the site&#x27;s two-page convention (showcase shell from CTOC, deep-dive</li>
-<p>shell from Goals-Driven Fintech); embed the v2 build as the live prototype and link the v1 take-home; number it 08 everywhere; splice the footer chain CTOC → GIMS → Fintech.</p>
+<li><strong>Decision:</strong> Re-author into the site&#x27;s two-page convention (showcase shell from the SOC dashboard, deep-dive</li>
+<p>shell from Goals-Driven Fintech); embed the v2 build as the live prototype and link the v1 take-home; number it 08 everywhere; splice the footer chain GIMS → Fintech.</p>
 <li><strong>Consequences:</strong> One more registry entry to maintain in switchers/homepages/work/concierge;</li>
 <p>the prototype iframe is the site&#x27;s only external-origin embed (rbabiarz.github.io), labeled honestly as the one thing that needs a connection.</p>
 </ul>
@@ -798,7 +798,7 @@ git push -u origin main
 <p>The visual primitives of the Product Designer Portfolio. Two layers:</p>
 <ol>
 <li><strong>A shared foundational scale</strong> — type, spacing, radius, shadow, transitions, and the brand</li>
-<p>color cards — defined in <a href="../tokens.css"><code>tokens.css</code></a> (Untitled-UI-derived, light-first). The SOC/CTOC dashboard skin in <a href="../styles.css"><code>styles.css</code></a> builds on it.</p>
+<p>color cards — defined in <a href="../tokens.css"><code>tokens.css</code></a> (Untitled-UI-derived, light-first). The SOC dashboard skin in <a href="../styles.css"><code>styles.css</code></a> builds on it.</p>
 <li><strong>Per-surface color palettes</strong> layered on top, one per page family — declared inline in each</li>
 <p>prototype&#x27;s <code>:root</code> / <code>.light</code>. The portable mirror of both layers is <a href="../design-tokens.json"><code>design-tokens.json</code></a> / <a href="../tokens/"><code>tokens/</code></a>.</p>
 </ol>
@@ -821,12 +821,12 @@ git push -u origin main
 <tr><td><strong>Interactive — light</strong> (<code>.light</code>)</td><td><code>#fffcf5</code> → <code>#ebe6d6</code></td><td><code>#0a0a0a</code> / <code>#595959</code> / <code>#5e5e5e</code></td><td><code>#0d5350</code> / <code>#4ca88f</code></td><td>Light &quot;architect&quot; mirror</td></tr>
 <tr><td><strong>Dossier</strong></td><td><code>#f4ead2</code> (cream)</td><td><code>#0a0a0a</code></td><td><code>#b23a2e</code> (classified red) · <code>#1c6b39</code> status</td><td>&quot;Classified case-file&quot; homepage variant</td></tr>
 <tr><td><strong>Retro</strong></td><td><code>#040806</code></td><td><code>#6cf0a4</code> / bright <code>#cdffe2</code> / dim <code>#3f9e69</code></td><td><code>#6cf0a4</code> phosphor · <code>#ffb454</code> amber</td><td>&quot;CRT terminal&quot; homepage variant</td></tr>
-<tr><td><strong>CTOC (SOC)</strong></td><td><code>#fffefa</code> / dark <code>#0b0f14</code></td><td><code>--color-ink</code></td><td>severity scale (below)</td><td>SOC/threat-ops dashboard</td></tr>
+<tr><td><strong>SOC dashboard</strong></td><td><code>#fffefa</code> / dark <code>#0b0f14</code></td><td><code>--color-ink</code></td><td>severity scale (below)</td><td>SOC/threat-ops dashboard</td></tr>
 </tbody></table></div>
 <p>Hairlines: <code>--line rgba(255,255,255,.08)</code> / <code>--line2 …,.15)</code> on dark; <code>rgba(0,0,0,.09 / .16)</code> on light.</p>
 <h4>Brand color cards (<code>tokens.css</code>) — used sparingly</h4>
 <p><code>pink #d63b75</code> · <code>teal #0d5350</code> · <code>lavender #8b6fd9</code> · <code>peach #ff9d66</code> · <code>ochre #d4a036</code> · <code>mint #4ca88f</code> · <code>coral #e64d3c</code>. Each ships a paired <code>--color-on-*</code> text color for AA contrast (peach/ochre take ink <code>#0a0a0a</code>; the rest take white).</p>
-<h4>Severity (CTOC only) — never hue alone</h4>
+<h4>Severity (SOC dashboard only) — never hue alone</h4>
 <p><code>critical #b91c1c</code> · <code>high #e64d3c</code> · <code>medium #d4a036</code> · <code>low #1570ef</code> · <code>resolved #15803d</code>. Always paired with a square/label/icon and re-tinted for the dark dashboard theme.</p>
 <blockquote>
 <p><strong>Rule:</strong> meaning never rides on hue alone, and the portfolio surfaces never use a saturated</p>
@@ -887,7 +887,7 @@ git push -u origin main
 <p>All CTAs are <strong>pill-shaped (999px)</strong>. Primary: filled accent (<code>--ac</code> / surface accent), mono 12–15/700, tracking 0.08em, padding ~13–15×24–28. Hover lifts (<code>translateY(-2px)</code> + soft accent shadow); active <code>translateY(1px)</code>; focus-visible <code>outline 2px</code> accent, offset 3. Secondary/ghost: 1.5px border, transparent fill, tinted hover. States: default ● hover ● active ● focus-visible ● · disabled ○ (rare).</p>
 <h4>Verb buttons (AEGIS rail — CLEAR / HOLD / TAG)</h4>
 <p>Equal-flex, min-height 54px (60 mobile), radius 10. Fill <code>rgba(12,18,28,.82)</code>, border <code>rgba(255,255,255,.12)</code>. Color-coded top border (clear=blue, hold=amber, tag=red). Hover brightens; active <code>translateY(1px)</code>; success flash <code>.ag-flash-ok</code> (teal), error flash <code>.ag-flash-bad</code> (coral); focus-visible teal ring. <code>-webkit-tap-highlight-color: transparent</code>. Keys J/K/L; descriptive <code>aria-label</code>s; outcomes announced via <code>#ag-live</code> (<code>aria-live=&quot;polite&quot;</code>).</p>
-<h4>Dashboard buttons (CTOC, <code>styles.css</code>)</h4>
+<h4>Dashboard buttons (SOC, <code>styles.css</code>)</h4>
 <p><code>.btn</code> mono 11px uppercase, radius 3, with <code>--primary</code> (ink fill), <code>--danger</code> (critical fill), <code>--ghost</code>, <code>--xs</code>, <code>--active</code> variants. Hover/focus contrast verified AA (see comments in <code>styles.css</code>).</p>
 <hr>
 <h3>Content blocks</h3>
@@ -900,7 +900,7 @@ git push -u origin main
 <h4>Spec / stakeholder table (case studies)</h4>
 <p>2-col grid (<code>0.34fr 0.66fr</code> or <code>0.3fr 0.7fr</code>), radius 14, hairline row separators, mono uppercase header. Stacks to 1 column ≤880px.</p>
 <h4>Badges / eyebrows / chips</h4>
-<p>Section eyebrow: mono 11px uppercase, tracking 0.14em, accent color (e.g. <code>01 · Project Overview</code>). Pulse-dot eyebrow (CTOC) adds a <code>ct-pulse</code> ring. Tag chip: pill, mono 10.5px, border <code>--line</code>. Inline highlight (<code>.ci-hl</code>): hand-drawn marker sweep behind <code>&lt;em&gt;</code> (<code>ci-marker</code>, scaleX 0→1).</p>
+<p>Section eyebrow: mono 11px uppercase, tracking 0.14em, accent color (e.g. <code>01 · Project Overview</code>). Pulse-dot eyebrow (SOC dashboard) adds a <code>ct-pulse</code> ring. Tag chip: pill, mono 10.5px, border <code>--line</code>. Inline highlight (<code>.ci-hl</code>): hand-drawn marker sweep behind <code>&lt;em&gt;</code> (<code>ci-marker</code>, scaleX 0→1).</p>
 <hr>
 <h3>AEGIS Fusion Watch (interactive classification game)</h3>
 <p>Embedded on all three homepages. Stage: <code>position:relative</code>, <code>height: min(70vh,620px)</code> (78vh mobile), radius 16, radial-gradient field, <code>role=&quot;application&quot; tabindex=&quot;0&quot;</code> with a full <code>aria-label</code>. Stacking: hud z4 · receipt z4–5 · rail z5 · state overlay z6 · info modal z200.</p>
@@ -918,7 +918,7 @@ git push -u origin main
 <h3>Light ARchitect (interactive photometric scene)</h3>
 <p>Draggable fixture markers (<code>.la-fx</code>, 18×7, lime border, glow on <code>.on</code>/hover; 44×44 touch target; focus-visible ring). Pill hint popup (<code>#la-hint</code>, glass + blur, mono, accent dot), isometric ground plane (<code>rotateX(74deg)</code> + radial mask), floating telemetry HUD labels (<code>cityFloat</code>, <code>pointer-events:none</code>), recalc button. Themed via <code>--la-*</code> vars (light default; dark override under <code>#int-root:not(.light)</code>).</p>
 <hr>
-<h3>CTOC / SOC dashboard (styles.css)</h3>
+<h3>SOC dashboard (styles.css)</h3>
 <p>A utilitarian skin on the foundational tokens, with its own component set: <code>.panel</code> (head/body), <code>.kpis</code> strip, <code>.sev</code> severity pill, <code>.tag</code>, <code>.tbl</code> data tables (sticky mono headers, hover rows, tabular nums), <code>.kc</code> kill-chain stages, <code>.mitre</code> tactics grid, <code>.map</code> asset graph (nodes/edges/pulse), <code>.timeline</code>, <code>.drawer</code> (slide-in detail), <code>.heat</code> heatmap, <code>.bar-row</code>, <code>.feed</code> (new-item highlight), and a <code>data-theme=&quot;dark&quot;</code> variant that re-tints every severity background. All severity is paired with a square/label — never hue alone.</p>
 <hr>
 <h3>Surface-specific components</h3>
@@ -972,7 +972,7 @@ git push -u origin main
 <li><strong>Dossier:</strong> <code>dossier-up</code> (section entrance), <code>dossier-blink</code> (status dot).</li>
 <li><strong>Retro:</strong> <code>rt-pwr</code> (VT323 power-on), <code>rt-in</code> (boot-log stagger), <code>rt-flicker</code> (phosphor),</li>
 <p><code>rt-scan</code> (drifting beam), <code>rt-blink</code> (cursor).</p>
-<li><strong>CTOC:</strong> <code>pulse</code> / <code>pulse-red</code> (live &amp; critical dots), <code>highlight</code> (new feed item),</li>
+<li><strong>SOC dashboard:</strong> <code>pulse</code> / <code>pulse-red</code> (live &amp; critical dots), <code>highlight</code> (new feed item),</li>
 <p><code>fade</code>/<code>slidein</code> (drawer).</p>
 </ul>
 <p><strong>Scroll behaviour (<code>text-motion.js</code>):</strong> an IntersectionObserver-style engine reveals headings on entry (rise ~38px), adds velocity-aware drift (±22px) and skew (±2.4°), and counter-drifts the marquee. Settles to <code>transform:none</code>. A <code>MutationObserver</code> re-registers new DOM.</p>
@@ -1022,7 +1022,7 @@ git push -u origin main
 <li><strong>Do</strong> keep <strong>one accent per screen</strong> and <strong>one color block per viewport</strong>.</li>
 <li><strong>Do</strong> make meaning survive without color — pair every signal with text, shape, or icon.</li>
 <li><strong>Don&#x27;t</strong> use saturated red / amber / stoplight-green <em>as status</em> on portfolio surfaces. Coral</li>
-<p><code>#e64d3c</code> is the strongest risk signal. The CTOC severity scale is the one domain exception, and even there color is paired with a square/label.</p>
+<p><code>#e64d3c</code> is the strongest risk signal. The SOC severity scale is the one domain exception, and even there color is paired with a square/label.</p>
 </ul>
 <h3>Type &amp; layout</h3>
 <ul>
@@ -1236,7 +1236,7 @@ git push -u origin main
 <tr><td class="tk">font.body</td><td><code>DM Sans</code></td></tr>
 <tr><td class="tk">font.mono</td><td><code>JetBrains Mono</code></td></tr>
 <tr><td class="tk">font.retro</td><td><code>VT323</code></td></tr></tbody></table></div></section>
-<section class="doc" id="tokens-semantic-json" data-group="Design tokens"><div class="doc-head"><h2>semantic.json</h2><span class="doc-meta">tokens/semantic.json · 106 words</span></div><p class="note">Role-based aliases for the PRIMARY (interactive) surface, matching the live --bg/--fg/--ac CSS custom properties. UI references the CSS vars; this maps them to primitives. Other surfaces (dossier/retro/ctoc) declare their own roles inline — see design-tokens.json &gt; surfaces.</p><div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td class="tk">color.bg.default.role</td><td><code>--bg</code></td></tr>
+<section class="doc" id="tokens-semantic-json" data-group="Design tokens"><div class="doc-head"><h2>semantic.json</h2><span class="doc-meta">tokens/semantic.json · 106 words</span></div><p class="note">Role-based aliases for the PRIMARY (interactive) surface, matching the live --bg/--fg/--ac CSS custom properties. UI references the CSS vars; this maps them to primitives. Other surfaces (dossier/retro/soc) declare their own roles inline — see design-tokens.json &gt; surfaces.</p><div class="tbl"><table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody><tr><td class="tk">color.bg.default.role</td><td><code>--bg</code></td></tr>
 <tr><td class="tk">color.bg.default.ref</td><td><code>{palette.ink.900}</code></td></tr>
 <tr><td class="tk">color.bg.raised.role</td><td><code>--bg2</code></td></tr>
 <tr><td class="tk">color.bg.raised.ref</td><td><code>{palette.ink.800}</code></td></tr>
@@ -1328,7 +1328,7 @@ git push -u origin main
 <li><strong>Tone:</strong> clear, calm, evidence-led. Domain-literate without cosplay. Confident, never hype.</li>
 <li><strong>Thesis line:</strong> &quot;the model brings receipts, you keep the decision.&quot; Lead with outcomes,</li>
 <p>not features.</p>
-<li><strong>Person:</strong> address the reader as &quot;you&quot;; name the work plainly (AEGIS, CTOC, Light ARchitect).</li>
+<li><strong>Person:</strong> address the reader as &quot;you&quot;; name the work plainly (AEGIS, Light ARchitect).</li>
 <li><strong>Microcopy:</strong> lead with the verb (&quot;Take the watch&quot;, &quot;Read the trace&quot;). Mono for system/HUD</li>
 <p>labels, sans for prose.</p>
 <li><strong>Claims need backing.</strong> Tie outcomes to evidence; don&#x27;t invent metrics. Where a number</li>
@@ -1622,7 +1622,7 @@ git push -u origin main
 <tr><td><strong>JSON-LD structured data</strong></td><td><code>Person</code> (name, jobTitle, knowsAbout, sameAs→LinkedIn, address, <code>seeks</code>=availability) on key pages; <code>WebSite</code> on the homepage; <code>ProfilePage</code> on About; <code>CreativeWork</code> on each case study with you as <code>author</code>. Validated as parseable JSON.</td></tr>
 <tr><td><strong>robots.txt</strong></td><td>Allows all, points to the sitemap.</td></tr>
 <tr><td><strong>sitemap.xml</strong></td><td>12 canonical URLs (homepage, About, Work, the case studies), priorities + lastmod.</td></tr>
-<tr><td><strong><code>robots</code> meta</strong></td><td><code>index, follow, max-image-preview:large</code> on real pages; <code>noindex, follow</code> on embedded prototypes (<code><em>-prototype</code>, <code></em>-gims*</code>, <code>ctoc-dashboard</code>, <code>fintech-walkthrough</code>) so thin/duplicate demos don&#x27;t dilute the site.</td></tr>
+<tr><td><strong><code>robots</code> meta</strong></td><td><code>index, follow, max-image-preview:large</code> on real pages; <code>noindex, follow</code> on embedded prototypes (<code><em>-prototype</code>, <code></em>-gims*</code>, <code>fintech-walkthrough</code>) so thin/duplicate demos don&#x27;t dilute the site.</td></tr>
 <tr><td><strong>Analytics (GA4)</strong></td><td><code>analytics.js</code> — privacy-conscious loader (<code>anonymize_ip</code>, honors Do-Not-Track). <strong>Self-disabled until you add your Measurement ID</strong>, so nothing ships broken.</td></tr>
 <tr><td><strong>PWA / icons</strong></td><td><code>site.webmanifest</code>, <code>theme-color</code>, icon link.</td></tr>
 </tbody></table></div>

@@ -34,7 +34,7 @@ home-variants.js                  the VIEW switcher; remembers the chosen homepa
 
 about.dc.html                     bio + experience
 work.dc.html                      project index
-*-showcase.html / *.dc.html       case studies (AEGIS, CTOC, CORE Insights, DALI-2, …)
+*-showcase.html / *.dc.html       case studies (AEGIS, CORE Insights, DALI-2, …)
 
 Shared runtime & styling
   support.js  page-transition.js  text-motion.js  home-variants.js  colophon.js
@@ -66,9 +66,9 @@ The visual system has two layers, documented in [`DESIGN.md`](DESIGN.md) and
 [`design-system/`](design-system/):
 
 1. **A shared foundational scale** — type, spacing, radius, shadow, transitions, and brand color
-   cards — in [`tokens.css`](tokens.css) (the SOC/CTOC dashboard skin in `styles.css` builds on it).
+   cards — in [`tokens.css`](tokens.css) (the SOC dashboard skin in `styles.css` builds on it).
 2. **Per-surface color palettes** layered on top — Interactive (dark-first with a `.light`
-   "architect" mirror), Dossier (cream/classified-red), Retro (CRT phosphor), and CTOC (severity
+   "architect" mirror), Dossier (cream/classified-red), Retro (CRT phosphor), and the SOC dashboard (severity
    scale) — declared inline in each prototype's `:root` / `.light`.
 
 [`design-tokens.json`](design-tokens.json) and [`tokens/`](tokens/) are a portable mirror of both

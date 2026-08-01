@@ -1,5 +1,5 @@
 {
-  "_comment": "Role-based aliases for the PRIMARY (interactive) surface, matching the live --bg/--fg/--ac CSS custom properties. UI references the CSS vars; this maps them to primitives. Other surfaces (dossier/retro/ctoc) declare their own roles inline — see design-tokens.json > surfaces.",
+  "_comment": "Role-based aliases for the PRIMARY (interactive) surface, matching the live --bg/--fg/--ac CSS custom properties. UI references the CSS vars; this maps them to primitives. Other surfaces (dossier/retro/soc) declare their own roles inline — see design-tokens.json > surfaces.",
   "color": {
     "bg.default":   {"role": "--bg",   "ref": "{palette.ink.900}"},
     "bg.raised":    {"role": "--bg2",  "ref": "{palette.ink.800}"},

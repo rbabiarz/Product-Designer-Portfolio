@@ -6,7 +6,7 @@ read, fast, as a credible **systems** product designer. A list of past jobs does
 the work has to *prove* the thesis through interaction.
 
 ## Product in one line
-Robert Babiarz's senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
+Robert Babiarz's senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).
 
 ## Why now
 Teams building high-consequence systems hire for judgment under uncertainty and systems thinking. The

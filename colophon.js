@@ -21,7 +21,7 @@
   try { __file = decodeURIComponent(location.pathname).split('/').pop(); }
   catch (e) { __file = (location.pathname || '').split('/').pop(); }
   if ((__file || '').toLowerCase().indexOf('homepage') !== 0) return;
-  var DATA = {"est": "Jun 22, 2026", "deploys": 116, "lastDeploy": "2026-07-26", "lastDeployFmt": "Jul 26, 2026", "version": "v1.11.159", "updated": "Jul 27, 2026", "pages": 29, "loc": "90,000", "caseStudies": 11};
+  var DATA = {"est": "Jun 22, 2026", "deploys": 130, "lastDeploy": "2026-08-01", "lastDeployFmt": "Aug 1, 2026", "version": "v1.11.173", "updated": "Aug 1, 2026", "pages": 29, "loc": "90,000", "caseStudies": 11};
   /* Mount inside the page's token scope purely for DOM placement (so it lands
      in natural document flow, not free-floating outside a themed wrapper).
      Case-study pages scope layout to .cs; pages with :root tokens (homepages,

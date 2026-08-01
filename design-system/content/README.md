@@ -37,7 +37,7 @@ Quick tour vs deep dive: quick tour = outcomes at a glance; deep dive = process 
 ## Status & urgency copy
 
 Never write "critical error" in stoplight red. Use coral for risk; pair with shape/text.
-CTOC severity labels are the exception (domain-appropriate, always with square + word).
+SOC severity labels are the exception (domain-appropriate, always with square + word).
 
 ## Minimalist voice
 

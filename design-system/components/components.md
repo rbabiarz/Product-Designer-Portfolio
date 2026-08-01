@@ -5,7 +5,7 @@ Inventory of reusable UI **actually shipped** across the portfolio. Implementati
 Cross-cutting layout, theming, and motion: [`../patterns/patterns.md`](../patterns/patterns.md).
 
 **Surfaces:** Interactive (`.dc.html` hub + homepage) · Case-study shell (`.cs` on `*-showcase.html`)
-· CTOC (`styles.css`) · Dossier/Retro variants · Minimalist (`minimalist/styles.css`, separate tokens).
+· SOC dashboard (`styles.css`) · Dossier/Retro variants · Minimalist (`minimalist/styles.css`, separate tokens).
 
 States: ● implemented · ○ n/a. Every interactive control exposes `:focus-visible`
 (`outline: 2–3px solid` accent, `outline-offset: 2–3px`).
@@ -63,7 +63,7 @@ transparent fill. Case-study: `.btn-primary`, `.btn-ghost`.
 Equal-flex, min-height 54px, r10. Color-coded top border (clear/hold/tag). Success flash teal;
 error flash coral. Keys J/K/L; `#ag-live` `aria-live="polite"`.
 
-### Dashboard buttons (CTOC `.btn`)
+### Dashboard buttons (SOC `.btn`)
 Mono 11px uppercase, r3. Variants: `--primary`, `--danger`, `--ghost`, `--xs`, `--active`.
 
 ### Icon nav (Minimalist)
@@ -93,7 +93,7 @@ Work coverflow: `<a>` aspect 3/2, r14, `--line2`, scale on focus. Case-study til
 shadows. Heights fixed for mixed desktop/phone rows (`is-desktop` / `is-phone`).
 
 ### Spec / stakeholder table
-2-col grid, r14, mono uppercase header, stacks ≤880px. CTOC: `.tbl` with sticky headers.
+2-col grid, r14, mono uppercase header, stacks ≤880px. SOC dashboard: `.tbl` with sticky headers.
 
 ### Badges / eyebrows / chips
 `.eyebrow`: mono 11px uppercase accent. `.chip`: pill border tag. `.ci-hl`: marker highlight on `<em>`.
@@ -137,7 +137,7 @@ Scroll velocity drift + marquee counter-motion; early-return under reduced motio
 
 ---
 
-## CTOC / SOC dashboard (`styles.css`)
+## SOC dashboard (`styles.css`)
 
 Utilitarian skin on foundational tokens: `.topbar`, `.sidebar`, `.panel`, `.kpis`, `.sev` severity
 pill, `.tag`, `.tbl`, `.kc` kill-chain, `.mitre`, `.map`, `.timeline`, `.drawer`, `.heat`, `.feed`.

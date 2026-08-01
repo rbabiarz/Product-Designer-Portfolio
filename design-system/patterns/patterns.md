@@ -38,7 +38,7 @@ Toggle on `nav.top` icon button. Cursor reads `--c-accent`.
 ### Single-theme variants
 Dossier (cream + classified red) and Retro (phosphor + VT323) do not share the Interactive toggle.
 
-### CTOC
+### SOC dashboard
 `data-theme="dark"` on `.app`; severity colors re-tint via rgba overlays.
 
 ### Minimalist
@@ -94,7 +94,7 @@ Motion explains state change or directs attention — never decoration.
 - **Light ARchitect:** `cityFloat`, `cityWin`, `laPulse`, `laBeam`, `laScan`
 - **Dossier:** `dossier-up`, `dossier-blink`
 - **Retro:** `rt-pwr`, `rt-in`, `rt-flicker`, `rt-scan`, `rt-blink` (flicker/scan killed under PRM)
-- **CTOC:** `pulse`, `pulse-red`, `highlight`, `fade`, `slidein`
+- **SOC dashboard:** `pulse`, `pulse-red`, `highlight`, `fade`, `slidein`
 
 **Modules:**
 - `text-motion.js` — velocity drift, marquee counter-motion; early-return under PRM

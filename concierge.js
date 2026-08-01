@@ -117,13 +117,6 @@
       kw: 'igaming gaming casino bingo slots keno gambling betting wager parlay games game art skins sprites logo logos brand identity promotions marketing banners localization multilingual word dragon back office houseedge operator regulated real-money lightwave 3d flash java html5',
       links: [{ label: 'Quick tour', href: 'parlay-gaming-showcase.html' }, { label: 'Deep dive', href: 'parlay-gaming.html' }]
     },
-    ctoc: {
-      title: 'CTOC Dashboard System', org: 'Enterprise cyber · 13 dashboards', thumb: 'previews/thumb-ctoc.png?v=2',
-      blurb: 'A cyber threat-operations center: 13 coordinated dashboards on one dark, token-driven design system — SOC workflows, threat feeds, and dense data visualization.',
-      tags: ['Cyber operations', 'Design system', 'Data viz'], read: '5 min tour · 12 min deep dive',
-      kw: 'cyber security soc threat operations dashboard dashboards dark theme design system tokens components enterprise data visualization monitoring incident operations secure',
-      links: [{ label: 'Quick tour', href: 'ctoc-showcase.html' }, { label: 'Deep dive', href: 'ctoc-case-study.dc.html' }]
-    },
     eai: {
       title: 'Application of AI', org: 'Enterprise AI', thumb: 'previews/thumb-ai.png?v=2',
       blurb: 'Designing AI into enterprise product surfaces — where automation earns trust, where humans keep the decision, and how agentic workflows get evidence-first UX.',
@@ -185,25 +178,25 @@
   /* ================= INTENTS ================= */
   var INTENTS = [
     { id: 'c2', kw: 'command control c2 cop common operating picture situational awareness geospatial mapping map sensor fusion operations dominion aegis intercept games drills',
-      reply: 'Command-and-control and situational-awareness work runs through this portfolio: playable decision drills on the homepage (AEGIS / Fusion Watch), the CTOC cyber-operations dashboard system, and enterprise AI with human-in-the-loop patterns — the thesis that the model brings receipts and you keep the decision.',
-      projects: ['gims', 'aegis', 'ctoc', 'eai'],
-      pills: ['Geospatial maps', 'Cyber operations dashboards', 'Systems thinking', 'Data visualization', 'Leadership examples'],
-      tour: { name: 'Command and control tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['CTOC dashboard system', 'ctoc-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
+      reply: 'Command-and-control and situational-awareness work runs through this portfolio: playable decision drills on the homepage (AEGIS / Fusion Watch), and enterprise AI with human-in-the-loop patterns — the thesis that the model brings receipts and you keep the decision.',
+      projects: ['gims', 'aegis', 'eai'],
+      pills: ['Geospatial maps', 'Systems thinking', 'Data visualization', 'Leadership examples'],
+      tour: { name: 'Command and control tour', steps: [['Start at the homepage', 'homepage-interactive.dc.html'], ['Application of AI', 'enterprise-ai-showcase.html'], ['AEGIS decision drills', 'homepage-interactive.dc.html#ag-stage'], ['Resume (PDF)', 'robert-babiarz-resume.pdf'], ['Contact', 'homepage-interactive.dc.html#contact']] } },
     { id: 'gaming', kw: 'igaming gaming casino bingo slots keno gambling betting wager sportsbook parlay game games art skins promotions player retention',
       reply: 'Two decades of regulated iGaming at Parlay Games sit under the newer work: 50+ real-money games, the brands and websites they lived on, promotions at production volume, and the HouseEdge operator console. It is where the high-consequence design habits on this site started.',
       projects: ['parlay', 'smart', 'fintech'],
       pills: ['Game and brand work', 'Web design work', 'Mobile apps', 'Command and control work'] },
     { id: 'enterprise', kw: 'enterprise saas b2b business admin console platform complex workflows internal tools',
-      reply: 'The enterprise SaaS work centers on dense, operational surfaces — analytics platforms, a 13-dashboard cyber suite, and AI woven into enterprise workflows.',
-      projects: ['insights', 'ctoc', 'eai'],
+      reply: 'The enterprise SaaS work centers on dense, operational surfaces — analytics platforms and AI woven into enterprise workflows.',
+      projects: ['insights', 'eai'],
       pills: ['Design systems experience', 'Data visualization', 'Accessibility expertise', 'Command and control work'] },
     { id: 'designsystems', kw: 'design system systems tokens token component components library libraries figma documentation handoff theming multi-brand variables styleguide',
-      reply: 'The design-system evidence now has its own case study: this site, documenting itself — three-tier tokens, a live inspector, and the AI-paired process behind it. CTOC backs it up at product scale with 13 dashboards on one token-driven system.',
-      projects: ['ds', 'ctoc', 'insights'],
+      reply: 'The design-system evidence now has its own case study: this site, documenting itself — three-tier tokens, a live inspector, and the AI-paired process behind it.',
+      projects: ['ds', 'insights'],
       pills: ['Component libraries', 'Token systems', 'Developer handoff', 'Accessibility work', 'Enterprise SaaS'] },
     { id: 'accessibility', kw: 'accessibility accessible a11y wcag aoda contrast screen reader keyboard focus inclusive',
       reply: 'Accessibility is part of done here: the whole site targets WCAG 2.2 AA / AODA — 4.5:1 text contrast, keyboard paths with visible focus, reduced-motion support, and meaning that never rides on color alone. The case studies document those decisions.',
-      projects: ['insights', 'ctoc', 'smart'],
+      projects: ['insights', 'smart'],
       pills: ['Design systems experience', 'Enterprise SaaS work', 'Consumer mobile work'] },
     { id: 'geo', kw: 'map maps mapping geospatial gis satellite spatial location floor plan plans site geo',
       reply: 'Geospatial runs deep here: Light ARchitect, an AI photometric planner over satellite imagery with its own full case study, plus a live mini planner on the homepage, AEGIS GIMS filter-first C2 mapping, the occupancy floor maps in CORE Insights, and the Partitioning floor simulator.',
@@ -225,13 +218,9 @@
       reply: 'Goals-Driven Finance is the fintech piece — a regulated open-banking product taken from PRD to a clickable build with an AI-assisted workflow.',
       projects: ['fintech'],
       pills: ['AI-assisted workflows', 'Enterprise SaaS work', 'Product walkthrough'] },
-    { id: 'cyber', kw: 'cyber cybersecurity soc security threat threats incident monitoring operations center',
-      reply: 'CTOC is the cyber flagship: a threat-operations center of 13 coordinated dashboards on one dark design system.',
-      projects: ['ctoc', 'eai'],
-      pills: ['Design systems experience', 'Command and control work', 'Data visualization'] },
     { id: 'dataviz', kw: 'data visualization visualisation viz charts chart graphs dashboards analytics metrics reporting dense',
-      reply: 'Dense data surfaces are a through-line — occupancy heat maps and trend reporting in CORE Insights, and 13 dashboards of threat telemetry in CTOC.',
-      projects: ['insights', 'ctoc'],
+      reply: 'Dense data surfaces are a through-line — occupancy heat maps and trend reporting in CORE Insights.',
+      projects: ['insights'],
       pills: ['Enterprise SaaS work', 'Cyber operations', 'Geospatial and mapping work'] },
     { id: 'ai', kw: 'ai artificial intelligence ml machine learning llm agent agentic copilot automation genai',
       reply: 'AI work in two registers: the Application of AI case study on trust and human-in-the-loop enterprise UX, and the AI-assisted build behind Goals-Driven Finance. This concierge is part of that story too — a working retrieval assistant designed and shipped into the portfolio itself.',
@@ -239,7 +228,7 @@
       pills: ['Command and control work', 'Enterprise SaaS work', 'Interactive prototypes'] },
     { id: 'process', kw: 'process research discovery usability testing methods wireframes artifacts prototype prototypes prototyping interaction how you work',
       reply: 'Every case study ships in two depths — a quick tour of outcomes and a deep dive with the process, decisions, and discarded alternatives. The newest one documents the process itself: how this site is built with an AI pair, gated by verification.',
-      projects: ['ds', 'insights', 'ctoc'],
+      projects: ['ds', 'insights'],
       pills: ['Design systems experience', 'Leadership examples', 'Accessibility expertise'] },
     { id: 'patents', kw: 'patent patents invention inventions ip intellectual property',
       reply: 'Three lighting-design patent applications (filed at Signify), each linked to Google Patents from the About page.',
@@ -318,7 +307,7 @@
     if (secHits.length) {
       return { text: 'Here is where that comes up on this site — jump straight to the section:', sections: secHits, pills: DEFAULT_PILLS.slice(0, 4), intent: 'search' };
     }
-    return { text: "I couldn't match that to anything indexed on this site. Try a domain (geospatial, fintech, IoT), a craft (design systems, accessibility, data viz), or ask for leadership, patents, or the resume.", projects: ['insights', 'ctoc'], pills: DEFAULT_PILLS.slice(0, 4), intent: 'none' };
+    return { text: "I couldn't match that to anything indexed on this site. Try a domain (geospatial, fintech, IoT), a craft (design systems, accessibility, data viz), or ask for leadership, patents, or the resume.", projects: ['insights'], pills: DEFAULT_PILLS.slice(0, 4), intent: 'none' };
   }
 
   /* ================= STATE ================= */

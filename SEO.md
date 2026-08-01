@@ -19,7 +19,7 @@ Applied to **all 27 HTML pages** via a standard, idempotent `<head>` block:
 | **JSON-LD structured data** | `Person` (name, jobTitle, knowsAbout, sameAs→LinkedIn, address, `seeks`=availability) on key pages; `WebSite` on the homepage; `ProfilePage` on About; `CreativeWork` on each case study with you as `author`. Validated as parseable JSON. |
 | **robots.txt** | Allows all, points to the sitemap. |
 | **sitemap.xml** | 12 canonical URLs (homepage, About, Work, the case studies), priorities + lastmod. |
-| **`robots` meta** | `index, follow, max-image-preview:large` on real pages; `noindex, follow` on embedded prototypes (`*-prototype`, `*-gims*`, `ctoc-dashboard`, `fintech-walkthrough`) so thin/duplicate demos don't dilute the site. |
+| **`robots` meta** | `index, follow, max-image-preview:large` on real pages; `noindex, follow` on embedded prototypes (`*-prototype`, `*-gims*`, `fintech-walkthrough`) so thin/duplicate demos don't dilute the site. |
 | **Analytics (GA4)** | `analytics.js` — privacy-conscious loader (`anonymize_ip`, honors Do-Not-Track). **Self-disabled until you add your Measurement ID**, so nothing ships broken. |
 | **PWA / icons** | `site.webmanifest`, `theme-color`, icon link. |
 

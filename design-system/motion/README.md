@@ -28,7 +28,7 @@ Common practice: micro-interactions 0.12–0.22s; hero entrances 0.34–0.9s.
 ### Retro (gated under PRM)
 `rt-pwr`, `rt-in`, `rt-flicker`, `rt-scan`, `rt-blink` — flicker/scan **removed** under reduced motion
 
-### CTOC
+### SOC dashboard
 `pulse`, `pulse-red`, `highlight`, `fade`, `slidein`
 
 ### Scroll reveal

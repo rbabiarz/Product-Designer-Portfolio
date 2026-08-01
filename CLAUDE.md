@@ -1,11 +1,11 @@
 # Product Designer Portfolio
 
-> Robert Babiarz's senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
+> Robert Babiarz's senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).
 
 This file is the entry point for context. Read it first, then follow the links.
 
 ## What this project is
-Robert Babiarz's senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, CTOC, Light ARchitect, DALI-2, CORE Insights).
+Robert Babiarz's senior product-design portfolio, told through interactive, code-level prototypes (AEGIS, Light ARchitect, DALI-2, CORE Insights).
 
 Owner / lead designer: Robert Babiarz · Live: https://robertbabiarz.com/
 

@@ -16,7 +16,7 @@ Do / don't for applying the system. Grounded in shipped prototypes and
 - **Do** keep **one accent per screen** and **one color block per viewport**.
 - **Do** make meaning survive without color — pair every signal with text, shape, or icon.
 - **Don't** use saturated red / amber / stoplight-green *as status* on portfolio surfaces. Coral
-  `#e64d3c` is the strongest risk signal. CTOC severity is the domain exception — always paired
+  `#e64d3c` is the strongest risk signal. SOC severity is the domain exception — always paired
   with square/label.
 
 ## Type & layout

@@ -3,7 +3,7 @@
 The visual primitives of the Product Designer Portfolio. The system runs **three runtime layers**:
 
 1. **Foundational scale** — type, spacing, radius, shadow, transitions, brand cards — in
-   [`tokens.css`](../../tokens.css). The SOC/CTOC dashboard skin in [`styles.css`](../../styles.css)
+   [`tokens.css`](../../tokens.css). The SOC dashboard skin in [`styles.css`](../../styles.css)
    builds on it.
 2. **Per-surface palettes** — declared inline in each page family (`:root` / `.light`, `.cs` /
    `.cs.dark`, or hardcoded Dossier/Retro values). Not imported from JSON at runtime.
@@ -27,7 +27,7 @@ documented separately; do not mix with root tokens.
 - **`--spacing-*` / `--rounded-*` / `--shadow-*` / `--transition-*`** — layout and elevation scale.
 - **`--font-display` / `--font-body` / `--font-mono`** — Inter, DM Sans, SF Mono stack.
 
-Used directly by CTOC (`styles.css`) and referenced in docs. Case-study showcase pages use a
+Used directly by the SOC dashboard (`styles.css`) and referenced in docs. Case-study showcase pages use a
 parallel `--c-*` vocabulary (below) rather than importing `tokens.css`.
 
 ### Interactive surface (`:root` / `.light` on `#int-root`)
@@ -68,7 +68,7 @@ Optional per-page tokens (e.g. `--c-risk: #e64d3c` on DALI-2). Screenshot frames
 | **Dossier** | `#f4ead2` cream | `#0a0a0a` | `#b23a2e` classified red · `#1c6b39` status |
 | **Retro** | `#040806` | phosphor `#6cf0a4` / bright `#cdffe2` | `#6cf0a4` · amber `#ffb454` |
 
-### CTOC / SOC (`styles.css` on `tokens.css`)
+### SOC dashboard / SOC (`styles.css` on `tokens.css`)
 
 Light canvas `#fffefa`; dark via `.app[data-theme="dark"]` → `#0b0f14`. Severity scale
 (domain exception — always paired with label/shape):
@@ -120,7 +120,7 @@ Section padding: ~44px desktop → 16–20px mobile. Grids: `1fr 1fr`, `repeat(3
 
 `--rounded-*`: 2 · 4 · 6 · 8 · 12 · 16 · 20 · 24 · 28px · `pill 9999px` · `full 50%`.
 
-In practice: **pill for all CTAs**; case-study cards **18px**; game stages **10–16px**; CTOC chips **3px**.
+In practice: **pill for all CTAs**; case-study cards **18px**; game stages **10–16px**; SOC chips **3px**.
 
 ---
 

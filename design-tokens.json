@@ -97,7 +97,7 @@
       "phosphor_dim": "#3f9e69", "amber": "#ffb454"
     },
     "ctoc": {
-      "_note": "SOC / CTOC dashboard severity scale (styles.css). Always paired with shape/label, never hue alone.",
+      "_note": "SOC dashboard severity scale (styles.css). Always paired with shape/label, never hue alone.",
       "critical": "#b91c1c", "high": "#e64d3c", "medium": "#d4a036",
       "low": "#1570ef", "resolved": "#15803d", "info": "#595959",
       "dark_canvas": "#0b0f14", "dark_ink": "#f3f1ea"
