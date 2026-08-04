@@ -850,7 +850,7 @@ html.hero-info-open #hero-info{display:flex;}
       <div class="hi-row"><div class="hi-k">The floors</div><div class="hi-v">Point at any window and the whole floor it belongs to lights up, and the small readouts fill in with what is happening there: the ward, the scene the lights are running, how busy it is, how many devices are on it. Each floor always reports the same thing, so you can look away and check it again.</div></div>
       <div class="hi-row"><div class="hi-k">The handle</div><div class="hi-v">Grab the building and drag to spin it. Arrow keys turn it too, and Home puts it back where it started, so it is not a mouse only toy. Let go and it leans gently toward your pointer.</div></div>
 
-      <p class="hi-note">If your device is set to <strong>reduce motion</strong>, the building is drawn once and left alone: no leaning, no drifting, and no turning it, since the spin is the motion you asked not to see. Otherwise it stops working when you switch tabs or scroll past it, so it is not running away in the background.</p>
+      <p class="hi-note">If your device is set to <strong>reduce motion</strong>, the building stops drifting and stops leaning toward your pointer, and it snaps between positions rather than gliding. You can still turn it and still read the floors: that setting asks for less movement, not less to do. It also stops working when you switch tabs or scroll past it, so it is not running away in the background.</p>
     </div>
   </div>
 
@@ -1923,10 +1923,23 @@ class Component extends DCLogic {
     const clamp01 = (v) => v < 0.03 ? 0.03 : v > 0.97 ? 0.97 : v;
     const nearest = (px, py) => { let bi = -1, bd = 1e9; for (let i = 0; i < this._laFx.length; i++) { const s = toScreen(this._laFx[i].x, this._laFx[i].y); const d = Math.hypot(s.sx - px, s.sy - py); if (d < bd) { bd = d; bi = i; } } return { i: bi, d: bd }; };
     let pend = null;
+    // A drag ends on a pointerup the browser also counts as a click, so nudging a
+    // fixture twice in quick succession arrives at the dblclick handler below with the
+    // fixture still under the cursor. Deleting there would destroy the light the user was
+    // positioning, so remember whether the gesture actually moved anything.
+    let downX = 0, downY = 0, dragMoved = false;
+    const nowMs = () => (window.performance && performance.now) ? performance.now() : Date.now();
+    // A timestamp rather than a flag: whether endDrag even runs depends on which handler
+    // claimed the press (the fixture handler stops propagation), so a sticky flag goes
+    // stale and blocks real deletes. This only ever reflects the last gesture that moved.
+    const justDragged = () => this._laMoveEndT != null && (nowMs() - this._laMoveEndT) < 400;
     const flush = () => { this._laDragRaf = null; if (pend && this._laDrag >= 0 && this._laFx[this._laDrag]) { const p = toPlate(pend.x, pend.y); this._laFx[this._laDrag] = { x: clamp01(p.x), y: clamp01(p.y) }; this.laRecompute(); } };
     const schedule = (x, y) => { pend = { x, y }; if (!this._laDragRaf) this._laDragRaf = requestAnimationFrame(flush); };
-    const endDrag = () => { if (this._laDrag >= 0) { this._laDrag = -1; plate.style.cursor = COARSE ? '' : 'crosshair'; this.laRecompute(); } };
-    this.on(window, 'pointermove', (e) => { if (this._laDrag >= 0) schedule(e.clientX, e.clientY); });
+    const endDrag = () => { if (dragMoved) this._laMoveEndT = nowMs();
+      if (this._laDrag >= 0) { this._laDrag = -1; plate.style.cursor = COARSE ? '' : 'crosshair'; this.laRecompute(); } };
+    this.on(window, 'pointermove', (e) => { if (this._laDrag < 0) return;
+      if (!dragMoved && Math.hypot(e.clientX - downX, e.clientY - downY) > 4) dragMoved = true;
+      schedule(e.clientX, e.clientY); });
     this.on(window, 'pointerup', endDrag);
     this.on(window, 'pointercancel', endDrag);
     const fl = document.getElementById('la-fixtures');
@@ -1936,8 +1949,12 @@ class Component extends DCLogic {
       const idx = parseInt(m.getAttribute('data-i'), 10);
       if (isNaN(idx)) return;
       e.preventDefault(); e.stopPropagation();
+      downX = e.clientX; downY = e.clientY; dragMoved = false;
       const now = (window.performance && performance.now) ? performance.now() : 0;
-      if (this._laTapI === idx && now - (this._laTapT || 0) < 320) {
+      // ...but only when the previous gesture was a genuine tap. Starting a second drag on
+      // the same fixture lands here inside the double-tap window, and treating that as a
+      // delete destroys the light being positioned.
+      if (this._laTapI === idx && !justDragged() && now - (this._laTapT || 0) < 320) {
         this._laTapI = -1; this._laDrag = -1; this._laSel = -1;
         if (this._laFx.length > 1) { this._laFx.splice(idx, 1); this.laRecompute(); }
         return;
@@ -1952,11 +1969,12 @@ class Component extends DCLogic {
     this.on(grabHost, 'pointerdown', (e) => {
       if (COARSE || onChrome(e)) return;
       const px = e.clientX, py = e.clientY, n = nearest(px, py);
+      downX = px; downY = py; dragMoved = false;
       if (n.i >= 0 && n.d < 22) { this._laDrag = n.i; this._laSel = n.i; }
       else { const p = toPlate(px, py); if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) return; this._laFx.push({ x: clamp01(p.x), y: clamp01(p.y) }); this._laDrag = this._laFx.length - 1; this._laSel = this._laDrag; }
       plate.style.cursor = 'grabbing'; this.laRecompute(); e.preventDefault();
     });
-    this.on(grabHost, 'dblclick', (e) => { if (COARSE || onChrome(e)) return; const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
+    this.on(grabHost, 'dblclick', (e) => { if (COARSE || onChrome(e)) return; if (justDragged()) { e.preventDefault(); return; } const n = nearest(e.clientX, e.clientY); if (n.i >= 0 && n.d < 26 && this._laFx.length > 1) { this._laFx.splice(n.i, 1); this._laSel = -1; this.laRecompute(); } e.preventDefault(); });
     const addLight = () => { const n = this._laFx.length, a = n * 1.35, rad = 0.1 + (n % 4) * 0.055; this._laFx.push({ x: clamp01(0.5 + Math.cos(a) * rad * 1.5), y: clamp01(0.5 + Math.sin(a) * rad) }); this._laSel = this._laFx.length - 1; this.laRecompute(); };
     const delLight = () => { if (this._laSel != null && this._laSel >= 0 && this._laFx[this._laSel] && this._laFx.length > 1) { this._laFx.splice(this._laSel, 1); this._laSel = -1; this._laDrag = -1; this.laRecompute(); } };
     const reset = () => { this._laFx = this._laDefault.map(p => ({ x: p.x, y: p.y })); this._laDrag = -1; this._laSel = -1; this.laRecompute(); };
@@ -2175,7 +2193,12 @@ class Component extends DCLogic {
     const tiltX = 10, tiltY = 15;
     let mx = -99999, my = -99999, inside = false;
     let dragging = false, sx = 0, sy = 0, sYaw = 0, sPitch = 0, moved = false;
-    if (reduce) { apply(pitch, yaw); return; }
+    // Reduced motion removes the *animation*, not the *function*. Returning here used to
+    // strip drag, floor hover, the readout, and the keyboard affordances with it, which
+    // left the building inert while the template's grab cursor still advertised it as
+    // draggable, and stranded exactly the visitors who need the keyboard path most.
+    // Everything below stays wired; the ambient tilt and the easing are what get gated.
+    apply(pitch, yaw);
     stage.style.cursor = 'grab';
     this.on(stage, 'mousemove', (e) => { mx = e.clientX; my = e.clientY; inside = true; });
     this.on(stage, 'mouseleave', () => { if (!dragging) { inside = false; mx = -99999; my = -99999; } });
@@ -2251,8 +2274,8 @@ class Component extends DCLogic {
       const ny = inside ? ((my - r.top) / r.height - 0.5) * 2 : 0;
       const scrollDeg = 0; // no scroll-driven parallax on the dossier
       let tYaw, tPitch, k;
-      if (dragging) { tYaw = yaw + scrollDeg; tPitch = pitch; k = 0.4; }
-      else { tYaw = yaw + scrollDeg + nx * tiltY; tPitch = pitch - ny * tiltX; k = 0.09; }
+      if (dragging) { tYaw = yaw + scrollDeg; tPitch = pitch; k = reduce ? 1 : 0.4; }
+      else { tYaw = yaw + scrollDeg + (reduce ? 0 : nx * tiltY); tPitch = pitch - (reduce ? 0 : ny * tiltX); k = reduce ? 1 : 0.09; }
       curYaw += (tYaw - curYaw) * k; curPitch += (tPitch - curPitch) * k;
       apply(curPitch, curYaw);
       pllx.forEach(({ el, f }) => { el.style.transform = 'translate3d(' + (-nx * f * 55).toFixed(1) + 'px,' + (-ny * f * 38).toFixed(1) + 'px,0)'; });
@@ -2273,7 +2296,7 @@ class Component extends DCLogic {
           const hit = hotFloor !== null && c.floor === hotFloor;
           const target = hit ? 1 : c.base;
           if (Math.abs(target - c.cur) > 0.002) busy = true;
-          c.cur += (target - c.cur) * (hit ? 0.5 : 0.12);
+          c.cur += (target - c.cur) * (reduce ? 1 : (hit ? 0.5 : 0.12));
           c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
           const sh = c.cur > 0.18 ? '0 0 ' + (1 + c.cur * 9).toFixed(1) + 'px ' + c.color : 'none';
           if (sh !== c.shadow) { c.el.style.boxShadow = sh; c.shadow = sh; }
@@ -2283,7 +2306,7 @@ class Component extends DCLogic {
         lastFloor = null;
         for (const c of cells) {
           if (Math.abs(c.base - c.cur) > 0.002) busy = true;
-          c.cur += (c.base - c.cur) * 0.07;
+          c.cur += (c.base - c.cur) * (reduce ? 1 : 0.07);
           c.el.style.opacity = (0.1 + c.cur * 0.9).toFixed(3);
           if (c.cur <= 0.18 && c.shadow !== 'none') { c.el.style.boxShadow = 'none'; c.shadow = 'none'; }
         }
