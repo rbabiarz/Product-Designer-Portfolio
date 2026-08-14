@@ -419,15 +419,6 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
   <!-- ═══ LOBBY (consumer game-lobby presentation; built by buildLobby()) ═══ -->
   <div id="wk-lobby" style="position:relative;z-index:2;flex:1 1 auto;min-height:0;overflow-y:auto;padding:20px 44px 60px;">
     <div style="max-width:1200px;margin:0 auto;">
-      <!-- View key sits under the thumbnail grid (buildLobby appends it after .wk-lb-grid) -->
-      <div id="viewkey" style="margin-top:48px;padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);display:flex;align-items:center;flex-wrap:wrap;gap:7px 15px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.45;color:var(--fg2);">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);">Every case study</span>
-        <span style="display:inline-flex;align-items:center;gap:7px;"><span style="font-size:12px;font-weight:600;color:var(--bg);background:var(--ac);padding:3px 10px;border-radius:999px;">Quick tour</span><span>the outcomes</span></span>
-        <span aria-hidden="true" style="color:var(--fg3);">·</span>
-        <span><strong style="color:var(--fg);font-weight:600;">Deep dive</strong> the process &amp; decisions</span>
-        <span aria-hidden="true" style="color:var(--fg3);">·</span>
-        <span style="display:inline-flex;align-items:center;gap:6px;"><span class="msi" aria-hidden="true" style="font-size:16px;color:var(--ac);">play_arrow</span><strong style="color:var(--fg);font-weight:600;">Live demo</strong><span>the working prototype</span></span>
-      </div>
     </div>
   </div>
 
@@ -704,9 +695,6 @@ class Component extends DCLogic {
       grid.appendChild(a);
     });
     wrap.appendChild(grid);
-    // keep the View key under the last thumbnail row (48px is on #viewkey margin-top)
-    const vk = document.getElementById('viewkey');
-    if (vk) wrap.appendChild(vk);
     document.getElementById('wk-lb-play').addEventListener('click', () => this.lobbyVisit(this._lbFeat));
     this.lobbyFeature(this._lbFeat);
   }
