@@ -312,11 +312,6 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       <div class="wc-veil"></div>
       <div class="wc-num">09</div>
     </a>
-    <a class="wcard" data-i="9" href="design-system-showcase.html">
-      <img src="previews/thumb-ds.png?v=2" alt="The Design System"/>
-      <div class="wc-veil"></div>
-      <div class="wc-num">10</div>
-    </a>
 
   </div>
 
@@ -449,7 +444,6 @@ button.wk-poll-row:disabled{opacity:0.55;cursor:default;}
       
       <a class="wk-idx-row" data-i="7" data-img="previews/thumb-gims.png?v=2" href="aegis-gims-showcase.html"><span class="wk-idx-num">08</span><span class="wk-idx-title">AEGIS GIMS</span><span class="wk-idx-meta">Geospatial C2</span><span class="wk-idx-arrow">↗</span></a>
       <a class="wk-idx-row" data-i="8" data-img="previews/thumb-parlay.png?v=2" href="parlay-gaming-showcase.html"><span class="wk-idx-num">09</span><span class="wk-idx-title">Parlay Games iGaming</span><span class="wk-idx-meta">iGaming · 50+ Games</span><span class="wk-idx-arrow">↗</span></a>
-      <a class="wk-idx-row" data-i="9" data-img="previews/thumb-ds.png?v=2" href="design-system-showcase.html"><span class="wk-idx-num">10</span><span class="wk-idx-title">The Design System</span><span class="wk-idx-meta">Design Engineering · AI-Paired</span><span class="wk-idx-arrow">↗</span></a>
     </div>
     <div id="wk-idx-reveal" style="position:fixed;top:0;left:0;width:340px;height:226px;border-radius:12px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 30px 70px rgba(0,0,0,0.5);pointer-events:none;opacity:0;z-index:60;transition:opacity .3s ease;will-change:transform;background:var(--bg3);"><img alt="" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"/></div>
   </div>
@@ -578,7 +572,7 @@ class Component extends DCLogic {
       d.classList.toggle('on', Number(d.getAttribute('data-d')) === this.active);
     });
     const cta = document.getElementById('wk-cta');
-    const links = ['dali-2-showcase.html','core-insights-showcase.html','partitioning-showcase.html','enterprise-ai-showcase.html','smart-lighting-showcase.html','light-architect-showcase.html','goals-driven-fintech-showcase.html','aegis-gims-showcase.html','parlay-gaming-showcase.html','design-system-showcase.html'];
+    const links = ['dali-2-showcase.html','core-insights-showcase.html','partitioning-showcase.html','enterprise-ai-showcase.html','smart-lighting-showcase.html','light-architect-showcase.html','goals-driven-fintech-showcase.html','aegis-gims-showcase.html','parlay-gaming-showcase.html'];
     if (cta && links[this.active]) cta.setAttribute('href', links[this.active]);
   }
 

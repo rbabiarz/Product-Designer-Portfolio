@@ -22,10 +22,13 @@ body{margin:0}
   --c-b1:rgba(10,8,4,0.06);--c-b2:rgba(10,8,4,0.09);--c-b3:rgba(10,8,4,0.12);--c-b4:rgba(10,8,4,0.16);--c-b5:rgba(10,8,4,0.28);
   --c-navbg:rgba(255,252,245,0.84);
   --c-risk:#e64d3c;--c-risk-soft:#f7e2df;
-  /* type scale: exactly three sizes, one role each */
+  /* Type scale. Four sizes, one role each: the old three made --t-sm carry both the
+     mono chrome labels and the caption prose, so sentences ended up at 11px in a
+     monospace face. Captions get their own step in the body face instead. */
   --t-lg:clamp(30px,3.5vw,46px);   /* display: h1, every h2, result numbers */
-  --t-md:17px;                     /* body: all prose, all card + table text */
-  --t-sm:11px;                     /* micro: mono labels, eyebrows, captions, axes */
+  --t-md:18px;                     /* body: all prose, all card + table text */
+  --t-cap:14px;                    /* caption prose: band captions, notes */
+  --t-sm:12px;                     /* micro: mono labels, eyebrows, axes, legends */
   --stack:14px;                    /* gap from label down to its heading */
 }
 .cs.dark{
@@ -76,7 +79,7 @@ body{margin:0}
 .band-navy,.band-teal{color:rgba(255,255,255,.72)}
 .band-navy h1,.band-navy h2,.band-teal h1,.band-teal h2{color:#fff}
 .band-navy .eyebrow,.band-teal .eyebrow,.band-navy .lead,.band-teal .lead{color:rgba(255,255,255,.72)}
-.band-cap{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;text-align:left;margin-top:22px}
+.band-cap{font-family:'DM Sans',-apple-system,sans-serif;font-size:var(--t-cap);letter-spacing:normal;line-height:1.6;text-align:left;margin-top:22px}
 .cap-light{color:rgba(255,255,255,.72)}
 .cap-dark{color:var(--c-muted)}
 
@@ -104,7 +107,7 @@ body{margin:0}
 .mv-dot{width:8px;height:8px;border-radius:50%;background:#8a8578;flex:0 0 auto}
 .mv-dot.on{background:var(--c-accent)}
 .cs.dark .mv-dot{background:#8a9ab5}.cs.dark .mv-dot.on{background:var(--c-accent)}
-.mv-note{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);margin-top:8px;line-height:1.5}
+.mv-note{font-family:'DM Sans',-apple-system,sans-serif;font-size:var(--t-cap);letter-spacing:normal;color:var(--c-muted);margin-top:8px;line-height:1.6}
 .tl{max-width:860px;margin:40px auto 6px}
 .tl-row{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:center;margin-top:10px}
 .tl-k{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);text-align:right;line-height:1.4}
@@ -116,7 +119,7 @@ body{margin:0}
 .tl-work{flex:1;background:var(--c-accent);border-radius:4px;display:flex;align-items:center;padding:0 12px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;white-space:nowrap;overflow:hidden}
 .cs.dark .tl-work{color:#0b1016}
 .tl-axis{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);color:var(--c-muted);margin-top:6px}
-.tl-note{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);margin-top:14px;text-align:left;line-height:1.7}
+.tl-note{font-family:'DM Sans',-apple-system,sans-serif;font-size:var(--t-cap);letter-spacing:normal;color:var(--c-muted);margin-top:14px;text-align:left;line-height:1.7}
 @media (max-width:620px){.tl-row{grid-template-columns:1fr;gap:5px}.tl-k{text-align:left}}
 .bc{max-width:860px;margin:28px auto 0}
 .bc-bar{display:flex;gap:2px;height:26px}
@@ -186,7 +189,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
 .jm-k{font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);margin-bottom:5px}
 .jm-v{font-size:var(--t-md);line-height:1.55;color:var(--c-body)}
 .jm-row.hurt .jm-k{color:var(--c-muted)}
-.jm-note{max-width:64ch;margin:22px 0 0;text-align:left;font-family:'JetBrains Mono',monospace;font-size:var(--t-sm);letter-spacing:0.02em;color:var(--c-muted);line-height:1.7}
+.jm-note{max-width:64ch;margin:22px 0 0;text-align:left;font-family:'DM Sans',-apple-system,sans-serif;font-size:var(--t-cap);letter-spacing:normal;color:var(--c-muted);line-height:1.7}
 @media(max-width:860px){.jm{grid-template-columns:1fr}}
 
 .topo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
@@ -287,7 +290,6 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
             <a href="goals-driven-fintech-showcase.html"><span class="t">Goals-Driven Fintech</span><span class="s">Self-directed fintech</span></a>
             <a href="aegis-gims-showcase.html"><span class="t">AEGIS GIMS</span><span class="s">Filter-first geospatial C2</span></a>
             <a href="parlay-gaming-showcase.html"><span class="t">Parlay Games iGaming</span><span class="s">50+ games · brand · web · promos</span></a>
-            <a href="design-system-showcase.html"><span class="t">The Design System</span><span class="s">This site, documenting itself</span></a>
             <div class="cs-div"></div>
             <a href="homepage-interactive.dc.html" data-nav="back" class="cs-allwork">← All work</a>
           </div>
@@ -504,7 +506,7 @@ nav.top .bar{padding:0 40px;height:62px;display:flex;align-items:center;justify-
       <div class="win" data-reveal="" style="background:var(--c-surface);margin-top:44px">
         <img src="assets/dali/hospital.jpg" alt="Peter Gilgan Mississauga Hospital, a drawing of the building. This was the first place the system was used.">
       </div>
-      <p class="mono" data-reveal="" style="color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px 0 0;text-align:left;font-style:italic">The first building to use it, and the biggest install of its kind in North America.</p>
+      <p class="band-cap" data-reveal="" style="color:var(--c-muted);line-height:1.65;max-width:840px;margin:16px 0 0;text-align:left;font-style:italic">The first building to use it, and the biggest install of its kind in North America.</p>
     </div>
   </section>
 
