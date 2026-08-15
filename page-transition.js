@@ -11,7 +11,11 @@
    simple cross-fade instead — full block transition is reserved for site
    navigation and switching to a different case study.
    A teal rim layer trails the mask edge. DC-safe (overlay is a <body>
-   child), theme-aware, respects prefers-reduced-motion. */
+   child), theme-aware, respects prefers-reduced-motion.
+
+   BEHAVIOR: the transition plays ONCE — on the first homepage load of a
+   session (the counter intro). After that, every page load and every
+   internal navigation is plain: no entrance reveal, no exit cover/fade. */
 (function () {
   if (window.__rbPT) return;
   window.__rbPT = true;
@@ -66,7 +70,7 @@
   // is this the interactive homepage (gets the counter intro once per session)?
   var path = '';
   try { path = decodeURIComponent(location.pathname); } catch (e) { path = location.pathname; }
-  var IS_HOME = /Homepage Interactive\.dc\.html$/.test(path);
+  var IS_HOME = /homepage-(interactive|retro|dossier)\.dc\.html$/i.test(path);
   var introKey = 'rb_intro_v1';
   var modeKey = 'rb_pt_mode'; // 'fade' | 'full' — set before nav, read on entrance
   var FIRST_VISIT = false;
@@ -376,30 +380,22 @@
 
   function entrance() {
     sizePill();
-    var navMode = readNavMode();
-    if (navMode === 'fade') {
-      if (REDUCED) return;
-      readTheme();
-      var veil = fadeVeil();
-      veil.style.display = 'block';
-      veil.style.opacity = '1';
-      veil.style.pointerEvents = 'none';
-      var ov = document.getElementById('rb-pt');
-      if (ov) ov.style.display = 'none';
-      veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 320, easing: 'ease', fill: 'forwards' }).onfinish = function () {
-        veil.style.display = 'none';
-        veil.style.opacity = '0';
-      };
+    // Page transitions run ONLY on the first homepage load of the session.
+    // After that, every page load and every internal navigation is plain:
+    // no overlay, no cover, no fade.
+    if (!FIRST_VISIT) {
+      var ex = document.getElementById('rb-pt');
+      if (ex) ex.style.display = 'none';
+      var vf = document.getElementById('rb-pt-fade');
+      if (vf) { vf.style.display = 'none'; vf.style.opacity = '0'; }
       return;
     }
+    // mark the one-time intro as used up front, so an interrupted or reloaded
+    // first load never replays it
+    try { sessionStorage.setItem(introKey, '1'); } catch (e) {}
     var ov = build();
     ov.style.display = 'block';
-    if (FIRST_VISIT) {
-      runIntro(ov);
-    } else {
-      showLock(ov);
-      setTimeout(function () { lift(ov); }, REDUCED ? 0 : 300);
-    }
+    runIntro(ov);
   }
 
   // ---- exit (internal nav): block grows OR cross-fade for same case study ----
@@ -456,15 +452,10 @@
     return /\.html(\?|#|$)/i.test(href);
   }
 
-  document.addEventListener('click', function (e) {
-    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    var a = e.target.closest && e.target.closest('a');
-    if (!isInternalDoc(a)) return;
-    var href = a.getAttribute('href');
-    e.preventDefault();
-    if (isSameCaseStudy(location.href, href)) fadeThenGo(href);
-    else coverThenGo(href);
-  }, true);
+  // Internal-navigation transitions are intentionally disabled: after the
+  // first homepage load, links navigate normally with no cover/fade.
+  // (coverThenGo / fadeThenGo / readNavMode remain defined but unused so the
+  // full transition can be re-enabled later without rebuilding it.)
 
   // bfcache restore: clear overlay if user navigates back
   window.addEventListener('pageshow', function (ev) {
