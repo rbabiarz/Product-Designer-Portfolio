@@ -52,4 +52,4 @@ List docs to update if new patterns shipped.
 
 ## After review
 
-Log formal reviews in [`../reviews/YYYY-MM-DD-<subject>.md`](../reviews/README.md).
+Log formal reviews in [`../reviews/YYYY-MM-DD-<subject>.md`](../reviews/reviews.md).

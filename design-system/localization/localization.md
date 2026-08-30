@@ -18,5 +18,5 @@ Document here:
 
 ## Related
 
-- Content voice: [`../content/README.md`](../content/README.md)
+- Content voice: [`../content/content.md`](../content/content.md)
 - Typography scales: [`../foundations/foundations.md`](../foundations/foundations.md)

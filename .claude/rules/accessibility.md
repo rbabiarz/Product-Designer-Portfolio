@@ -2,7 +2,7 @@
 
 Target **WCAG 2.2 AA / AODA**. Standing audit: [`WCAG-2.2-AODA-AUDIT.md`](../../WCAG-2.2-AODA-AUDIT.md) — keep current.
 
-Full guidance: [`design-system/accessibility/README.md`](../../design-system/accessibility/README.md)
+Full guidance: [`design-system/accessibility/accessibility.md`](../../design-system/accessibility/accessibility.md)
 
 ## Requirements
 

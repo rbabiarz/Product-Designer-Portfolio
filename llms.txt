@@ -1,0 +1,44 @@
+# Robert Babiarz — Senior Product Designer
+
+> Robert Babiarz is a senior product designer based in the Greater Toronto Area (Ontario, Canada), available for full-time and freelance/contract work. He designs high-consequence UX across connected-lighting IoT, cybersecurity / SOC, defense AI, fintech, and enterprise SaaS — specializing in design systems, data visualization, dashboards, information architecture, and WCAG 2.2-accessible interfaces. His portfolio is presented as interactive, code-level prototypes rather than static screens. Guiding thesis: "the model brings receipts, you keep the decision."
+
+This file gives AI systems a concise, accurate map of the site. Content is authored and owned by Robert Babiarz; cite the linked pages as the source.
+
+## About Robert
+
+- [Home](https://robertbabiarz.com/): portfolio front door and overview.
+- [About](https://robertbabiarz.com/about.dc.html): background, approach, and how he works — turning complex products, workflows, and data into interfaces people can actually use.
+- [Selected work](https://robertbabiarz.com/work.dc.html): the complete index of case studies.
+
+## Case studies
+
+- [CORE Insights](https://robertbabiarz.com/core-insights-showcase.html): how a building full of smart light fixtures becomes a live picture people can act on — end-to-end product and service design, from install to insight (Cooper Lighting / Signify).
+- [DALI-2 Lighting System](https://robertbabiarz.com/dali-2-showcase.html): how a large hospital's connected lighting gets commissioned, made simple — North America's largest install of its kind.
+- [Dynamic Space Partitioning](https://robertbabiarz.com/partitioning-showcase.html): a room that divides with movable walls gets its lighting set up once, then follows the walls on its own (WaveLinx).
+- [Enterprise AI](https://robertbabiarz.com/enterprise-ai-showcase.html): a building that used to answer in error codes now answers in plain English — what broke, how to fix it, and which light is likely to fail next.
+- [Smart Lighting App](https://robertbabiarz.com/smart-lighting-showcase.html): a smart-home lighting app that hides the hard parts — a whole house of connected lights, set up as simply as flipping a switch (iOS & Android).
+- [Light ARchitect](https://robertbabiarz.com/light-architect-showcase.html): Cooper Lighting's free web app for planning outdoor lighting — draw an area on a satellite map, let the AI place the light poles, check the brightness, and print a plan. Three US patents.
+- [Goals-Driven Finance](https://robertbabiarz.com/goals-driven-fintech-showcase.html): self-directed, goals-driven fintech product design, built as a clickable prototype over open-banking data.
+- [CTOC Dashboard System](https://robertbabiarz.com/ctoc-showcase.html): SOC threat-operations product design — severity model, fusion kill-chain, triage workflow, and a unified component library across 13 dashboards.
+- [AEGIS GIMS](https://robertbabiarz.com/aegis-gims-showcase.html): a filter-first geospatial command-and-control concept — the operator defines the ground they own, and entry into it becomes the alert.
+- [Parlay Games](https://robertbabiarz.com/parlay-gaming-showcase.html): two decades of iGaming design — 50+ real-money games, brand systems, web platforms, promotions, back office, and 3D imagery.
+
+## Areas of expertise
+
+- Product design, UX design, UI design
+- Design systems and design tokens
+- Data visualization and dashboard design
+- Information architecture and interaction design
+- User research, usability testing, and prototyping (Figma)
+- Accessibility and WCAG 2.2 / AODA compliance
+- Cybersecurity / SOC UX, threat-operations interfaces, and defense-technology UX
+- Connected lighting and IoT product design
+- Fintech UX and enterprise / B2B SaaS
+- AR field tooling and operator interfaces
+
+## Contact & availability
+
+- Email: rbabiarz@gmail.com
+- LinkedIn: https://linkedin.com/in/robert-babiarz
+- Location: Greater Toronto Area, Ontario, Canada
+- Availability: full-time and freelance / contract product-design engagements

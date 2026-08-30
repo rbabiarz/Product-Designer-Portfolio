@@ -21,4 +21,4 @@ Shared, reused runtime modules:
 Use `primitives/` and `patterns/` here only for genuinely extracted shared UI code (currently empty).
 Conventions: inline-first, `var(--…)` tokens, Material Symbols (`.msi`), no build — see
 [`../../.claude/rules/code-style.md`](../../.claude/rules/code-style.md) and
-[`../../design-system/implementation/README.md`](../../design-system/implementation/README.md).
+[`../../design-system/implementation/implementation.md`](../../design-system/implementation/implementation.md).

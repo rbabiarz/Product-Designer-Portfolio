@@ -2,7 +2,7 @@
 
 Voice for the Product Designer Portfolio.
 
-Full guidance: [`design-system/content/README.md`](../../design-system/content/README.md)
+Full guidance: [`design-system/content/content.md`](../../design-system/content/content.md)
 
 ## Tone
 

@@ -1,5 +1,58 @@
 # robots.txt — robertbabiarz.com
+# Portfolio of Robert Babiarz, Senior Product Designer (Greater Toronto Area).
+# AI answer engines are explicitly welcome to crawl, index, and cite this site.
+# AI context file: https://robertbabiarz.com/llms.txt
+
 User-agent: *
+Allow: /
+
+# --- AI answer-engine, search, and assistant crawlers (explicitly allowed) ---
+# Naming each group documents intent; every group is allowed full access so the
+# site remains fully citable in AI-generated answers.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: cohere-ai
 Allow: /
 
 Sitemap: https://robertbabiarz.com/sitemap.xml

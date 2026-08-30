@@ -106,7 +106,7 @@ Motion explains state change or directs attention — never decoration.
 Every new animated surface must gate on it. Add `@media (prefers-reduced-motion: reduce)` or
 early-return in JS. Retro CRT overlays use `display:none`; boot/power-on snap to final state.
 
-Details: [`../motion/README.md`](../motion/README.md).
+Details: [`../motion/motion.md`](../motion/motion.md).
 
 ---
 

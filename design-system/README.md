@@ -23,7 +23,7 @@ Portable mirror (not runtime): [`design-tokens.json`](../design-tokens.json), [`
 | Component contracts | [`components/components.md`](./components/components.md) |
 | Layout, theming, motion | [`patterns/patterns.md`](./patterns/patterns.md) |
 | Do / don't | [`governance/usage-guidelines.md`](./governance/usage-guidelines.md) |
-| Token source hierarchy | [`tokens/README.md`](./tokens/README.md) |
+| Token source hierarchy | [`tokens/tokens.md`](./tokens/tokens.md) |
 | Folder map | [`architecture/directory-structure.md`](./architecture/directory-structure.md) |
 | Keep docs current | [`workflows/scaffold-maintenance.md`](./workflows/scaffold-maintenance.md) |
 | AI prompts | [`prompts/README.md`](./prompts/README.md) |

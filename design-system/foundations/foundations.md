@@ -135,7 +135,7 @@ Light: `--shadow-xs…3xl` (`rgba(16,24,40,…)`). Dark cards/stages: long soft 
 
 `--transition-fast 150ms` · `--transition-base 250ms` · `--transition-slow 350ms` (all `ease`).
 
-Full inventory and `prefers-reduced-motion` contract: [`../motion/README.md`](../motion/README.md),
+Full inventory and `prefers-reduced-motion` contract: [`../motion/motion.md`](../motion/motion.md),
 [`../patterns/patterns.md`](../patterns/patterns.md).
 
 ---
